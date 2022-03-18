@@ -1,0 +1,79 @@
+.el-table tbody .el-table__row--striped td {
+  background: #eeeeee !important;
+}
+
+.el-table tbody {
+  .current-row td {
+    // .cell {
+    //   color: #fff !important;
+    // }
+
+    background-color: rgba(223, 223, 223) !important;
+  }
+
+  .hover-row td {
+    // .cell {
+    //   color: #fff !important;
+    // }
+    background-color: rgba(223, 223, 223) !important;
+    // background-color: rgba(59, 130, 246, .2) !important;
+  }
+
+  .el-table__row {
+    .cell {
+      font-size: 14px;
+      color: black;
+    }
+
+    td {
+      // padding: 2px 0;
+    }
+  }
+}
+
+.el-table td,
+.el-table th.is-leaf,
+.el-table--border,
+.el-table--group {
+  border-color: #f2f4fac0;
+}
+
+.el-table--border::after,
+.el-table--group::after,
+.el-table::before {
+  background-color: #fafafa;
+}
+
+.el-table__fixed::before,
+.el-table__fixed-right::before {
+  background-color: #fafafa;
+}
+
+.el-table .el-table__row .cell {
+  .el-button {
+    padding: 5px !important;
+  }
+
+  .el-table__expand-icon {
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 17px;
+  }
+}
+
+// el-table__expand-icon
+
+.el-table thead tr th {
+  // background-color: #fafafa;
+  background-color: #ededed;
+  color: #4f4f4f;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: "Verdana", "Courier New";
+  // border-bottom: #4f4f4f;
+}
+
+.el-table thead tr {
+  border-bottom: #000 !important;
+}

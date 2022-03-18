@@ -1,0 +1,46 @@
+@import "./mixin.scss";
+@import "./color.scss";
+
+// 打印表格
+.table-demo {
+  table {
+    border-collapse: collapse;
+    // width: 100%;
+  }
+
+  th {
+    text-align: center;
+  }
+
+  tbody {
+    text-align: center;
+    border: 1px solid $table-border;
+  }
+
+  th {
+    border: 1px solid $table-border;
+  }
+
+  td {
+    border: 1px solid $table-border;
+  }
+
+  .table-style {
+    // margin-bottom: 30px;
+    padding: 5px 30px;
+  }
+
+  .table-title {
+    width: 100%;
+    font-size: 22px;
+    // padding: 30px;
+    @include flexBox;
+    margin-bottom: 15px;
+  }
+
+  .sum-tfoot {
+    height: 25px;
+    font-size: 16px;
+    font-weight: normal;
+  }
+}

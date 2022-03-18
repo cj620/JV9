@@ -1,0 +1,88 @@
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+/**
+ * @description: 开启flex定位 默认水平垂直居中
+ * @param {*} $jc justify-content 主轴排列方式
+ * @param {*} $ai align-items 副轴排列方式
+ * @param {*} $ff flex-flow 主轴方向
+ */
+@mixin flexBox($jc: center, $ai: center, $ff: row, $fw: wrap) {
+  display: flex;
+  justify-content: $jc;
+  align-items: $ai;
+  flex-flow: $ff;
+  flex-wrap: wrap;
+}
+
+/**
+ * @description: 文本超出 显示省略号 
+ * @param {*} $line 控制溢出的行数
+ *在flex作用于下 会失效 所以使用时 请确保不被flex布局影响 或者 在元素外套一层dom结构
+ */
+
+@mixin ellipsis($line: null) {
+  @if ($line) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+  } @else {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  overflow: hidden;
+}
+
+/**
+ * @description: 白色毛玻璃
+ * @param {*} $line 控制溢出的行数
+ *在flex作用于下 会失效 所以使用时 请确保不被flex布局影响 或者 在元素外套一层dom结构
+ */
+@mixin frosted-glass($blur: 2em) {
+  background: white;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.7),
+    rgba(255, 255, 255, 0.3)
+  );
+  z-index: 2;
+  backdrop-filter: blur($blur);
+}
+/**
+ * @description: 按钮混入
+ * @param {$color} 按钮颜色
+ * @return {*}
+ */
+@mixin colorBtn($color) {
+  background: $color;
+
+  &:hover {
+    color: $color;
+
+    &:before,
+    &:after {
+      background: $color;
+    }
+  }
+}
+// 通用阴影
+@mixin shadow {
+  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  border-radius: 10px;
+}
+
+// 通用卡片悬浮特效
+@mixin cardHover {
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 3px 6px -4px rgb(0 0 0 / 48%), 0 6px 16px 0 rgb(0 0 0 / 32%),
+      0 9px 28px 8px rgb(0 0 0 / 20%);
+  }
+}

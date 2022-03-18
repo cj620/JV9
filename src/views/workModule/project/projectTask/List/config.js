@@ -1,0 +1,205 @@
+/*
+ * @Author: C.
+ * @Date: 2021-07-20 10:50:11
+ * @LastEditTime: 2022-03-09 11:29:35
+ * @Description: file content
+ */
+// 引入表格表格类和表格API类
+import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
+import { taskTypeEnum, enumToList } from "@/enum/workModule";
+// 单据接口
+import { API } from "@/api/workApi/project/projectTask";
+let { api_list, api_delete } = API;
+class api extends TableAPI {
+  // 获取列表
+  getData = api_list;
+  // 删除单据
+  del = api_delete;
+}
+
+//  表格配置
+export const tableConfig = [
+  /*图片*/
+  {
+    prop: "PhotoUrl",
+    label: i18n.t("Generality.Ge_PhotoUrl"),
+    cpn: "Image",
+    width: "100px",
+    cpnProps: {
+      //Image的props与element的el-image一直 按需配置
+      // fit:'scale-down'
+      // 宽高默认 38px
+    },
+  },
+  {
+    prop: "BillId",
+    label: i18n.t("project.Pro_TaskSheetNo"),
+    align: "center",
+    cpn: "Link",
+    cpnProps: {
+      // 路由名称
+      routeName: "Pm_ProjectTask_Detail",
+      // 路由路径（名称和路径二选一）
+      // routePath:'/dashboard',
+      // 路由传参方式 默认query
+      methods: "query",
+      // 传参的键名，值为当前数据
+      parameterKey: "BillId",
+    },
+  },
+
+  /*项目*/
+  {
+    prop: "Project",
+    label: i18n.t("menu.Pm_Project"),
+    width: "120px",
+    innerSearch: {
+      prop: "Project",
+      cpn: "FormInput",
+      label: i18n.t("menu.Pm_Project"),
+    },
+  },
+  /*模具编号*/
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    innerSearch: {
+      prop: "ToolingNo",
+      cpn: "FormInput",
+      label: i18n.t("Generality.Ge_ToolingNo"),
+    },
+  },
+  /*任务类别*/
+  {
+    prop: "TaskType",
+    label: i18n.t("Generality.Ge_TaskType"),
+    custom: true,
+    innerSearch: {
+      prop: "TaskType",
+      cpn: "FormSelect",
+      label: i18n.t("Generality.Ge_TaskType"),
+      options: {
+        list: enumToList(taskTypeEnum),
+      },
+    },
+  },
+
+  /*状态*/
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    custom: true,
+    width: "115px",
+  },
+
+  /*计划交期*/
+  {
+    prop: "PlanEnd",
+    label: i18n.t("Generality.Ge_DeliveryDate"),
+    filter: "date",
+    width: "120px",
+  },
+  /*制单人*/
+  {
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+    width: "95px",
+  },
+  /*制单日期*/
+  {
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
+    width: "150px",
+  },
+    /*备注*/
+    {
+      prop: "Remarks",
+      label: i18n.t("Generality.Ge_Remarks"),
+    },
+];
+// taskTypeEnum
+// 表单配置
+// enumToList taskTypeEnum
+export const formSchema = [
+  //单号搜索
+  {
+    prop: "Project",
+    label: i18n.t("menu.Pm_Project"),
+    cpn: "FormInput",
+  },
+  //单号搜索
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    cpn: "FormInput",
+  },
+  //客户搜索
+  {
+    prop: "TaskType",
+    label: i18n.t("Generality.Ge_TaskType"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(taskTypeEnum),
+    },
+  },
+  {
+    prop: "SortType",
+    label: i18n.t("Generality.Ge_SortType"),
+    cpn: "FormRadio",
+    default: "DeliveryDateOrder",
+    options: {
+      list: [
+        {
+          value: "DeliveryDateOrder",
+          label: i18n.t("Generality.Ge_SortByDeliveryDate"),
+        },
+        {
+          value: "CreationDateOrder",
+          label: i18n.t("Generality.Ge_SortByCreationDate"),
+        },
+      ],
+    },
+  },
+  {
+    prop: "IncludingCompleted",
+    label: i18n.t("Generality.Ge_IncludingCompleted"),
+    cpn: "FormRadio",
+    default: 'False',
+    options: {
+      list: [
+        {
+          value: "True",
+          label: i18n.t("Generality.Ge_Yes"),
+        },
+        {
+          value: "False",
+          label: i18n.t("Generality.Ge_No"),
+        },
+      ],
+    },
+  },
+];
+
+export const tableInstance = {
+  // 表格配置
+  tableSchema: tableConfig,
+  // 表单配置
+  formSchema,
+  // 行标识
+  rowId: "BillId",
+  // 表格标题
+  title: i18n.t("menu.Pm_ProjectTask"),
+  // 接口类
+  api,
+  // 操作列宽度
+  operationWidth: 110,
+  // 打印模块标识
+  printMod: "Pm_ProjectTask",
+  operationCol: false,
+};
+export class Table extends BaseTable {
+  constructor() {
+    super(tableInstance);
+  }
+}

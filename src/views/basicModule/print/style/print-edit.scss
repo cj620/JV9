@@ -1,0 +1,177 @@
+@import "./mixin.scss";
+@import "./color.scss";
+
+@mixin editor-input {
+  .el-input input {
+    height: 25px;
+  }
+}
+
+@mixin editor-btn-group {
+  width: 100%;
+  @include flexBox($jc: flex-start);
+
+  .btn {
+    padding: 3px 40px;
+    background-color: #fff;
+    border: 1.5px dashed #ccc;
+    border-radius: 7px;
+    margin: 5px 0 0 10px;
+    &:hover {
+      border-color: #409eff;
+    }
+  }
+}
+
+.print-qr {
+  width: 100%;
+  height: 100%;
+  background-color: $focus-color;
+  font-size: 16px;
+  font-weight: normal;
+  @include flexBox;
+}
+
+.drag-img {
+  width: 100%;
+  height: 100%;
+  background-color: $focus-color;
+  font-size: 16px;
+  font-weight: normal;
+  @include flexBox;
+}
+
+.font-set {
+  .btn-group {
+    @include editor-btn-group;
+  }
+
+  .el-input-number {
+    width: 90px;
+
+    .el-input-number__decrease,
+    .el-input-number__increase {
+      width: 30px;
+    }
+  }
+
+  .field-detail {
+    @include editor-input;
+
+    .el-textarea textarea {
+      width: 80%;
+    }
+  }
+}
+
+.header-set {
+  .btn-group {
+    @include editor-btn-group;
+  }
+
+  .el-checkbox {
+    background-color: #fff;
+    margin: 10px !important;
+  }
+
+  .add-field-style {
+    .el-input {
+      width: 75%;
+    }
+  }
+}
+
+.table-set {
+  background-color: $editor-bgc;
+
+  .el-checkbox {
+    background-color: #fff;
+    margin: 10px 10px 0 10px !important;
+    padding: 9px 40px 9px 10px;
+    // height: 30px;
+  }
+
+  .btn-group {
+    @include editor-btn-group;
+  }
+}
+
+.table-obj {
+  margin-top: 30px;
+  border-top: 1px dashed #ccc;
+
+  .btn-group {
+    @include editor-btn-group;
+
+    .hidd-title {
+      color: #fff;
+      background-color: #409eff !important;
+    }
+  }
+
+  .table-title {
+    // margin-top: 10px;
+    margin: 10px 0 10px 0;
+    font-size: 16px;
+
+    .el-checkbox {
+      margin: 0;
+      padding: 0;
+      background-color: $editor-bgc;
+    }
+  }
+}
+
+.drag-active-class {
+  background-color: $focus-color;
+}
+
+.content-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  @include flexBox();
+  flex-wrap: wrap;
+
+  @include editor-input;
+}
+
+.print-label {
+  width: 100%;
+  // z-index: 9999;
+  @include flexBox;
+
+  @include editor-input;
+}
+
+.item-wrapper {
+  width: 100%;
+  height: 100%;
+  @include flexBox;
+}
+
+.insert-qr,
+.insert-iamge {
+  position: absolute;
+}
+
+.print-setting-view {
+  padding-top: 150px;
+  @include editor-input;
+
+  .newTmp {
+    .el-input input {
+      width: 75%;
+    }
+  }
+
+  .el-select {
+    width: 60%;
+  }
+
+  .add-new-tmp {
+    color: blue;
+    text-decoration: underline;
+    padding-left: 10px;
+  }
+}

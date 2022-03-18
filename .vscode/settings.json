@@ -1,0 +1,10 @@
+{
+<<<<<<< HEAD
+  "i18n-ally.localesPaths": [
+    "src/i18n",
+    "src/i18n/lang"
+  ]
+=======
+  "i18n-ally.localesPaths": ["src/i18n", "src/i18n/lang"]
+>>>>>>> caa7627f9474a8480ae5d590db1a30bbab7c16e1
+}

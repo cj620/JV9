@@ -1,0 +1,71 @@
+/*
+ * @Author: H.
+ * @Date: 2021-12-01 16:39:19
+ * @LastEditTime: 2022-01-04 17:06:36
+ * @Description:
+ */
+
+/*
+ * @Author: C.
+ * @Date: 2021-07-20 10:50:11
+ * @LastEditTime: 2021-11-02 15:50:53
+ * @Description: file content
+ */
+import { EditTable as BaseTable } from "@/jv_doc/class/table";
+
+export class EditTable extends BaseTable {
+  constructor() {
+    super({
+      tableSchema: tableConfig,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: true,
+      height: 890,
+      operationWidth: 80,
+    });
+  }
+}
+
+export const tableConfig = [
+  /*工序*/
+  {
+    prop: "Process",
+    label: i18n.t("Generality.Ge_Process"),
+    width: "150px",
+    editConfig: {
+      disabled: true,
+    },
+  },
+  /*预计工时*/
+  {
+    prop: "PlanTime",
+    label: i18n.t("Generality.Ge_PlanTime"),
+    formCpn: "FormInput",
+    type: "number",
+    width: "140px",
+  },
+  /*加工内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_TaskContent"),
+    custom: true,
+    formCpn: "customFormSelect",
+    options: {},
+  },
+  /*计划资源*/
+  {
+    prop: "Resource",
+    label: i18n.t("Generality.Ge_Resource"),
+    width: "140px",
+    editConfig: {
+      disabled: true,
+    },
+  },
+  /*工序图片*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+    formCpn: "FormInput",
+  },
+];

@@ -1,0 +1,18 @@
+// 滚动条样式
+@import "../jv_doc/style/common/scrollBar.scss";
+.jv-edit-table-cell {
+  background-color: #f5faff;
+  position: relative;
+  // box-shadow: inset 0 0 0 2px #409eff;
+  // &:before {
+  //   content: "";
+  //   position: absolute;
+  //   top: -4px;
+  //   left: -4px;
+  //   border-width: 5px;
+  //   border-style: solid;
+  //   border-color: transparent #f56c6c transparent transparent;
+  //   -webkit-transform: rotate(45deg);
+  //   transform: rotate(45deg);
+  // }
+}
