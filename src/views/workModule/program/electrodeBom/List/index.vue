@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-03-21 18:43:04
+ * @LastEditTime: 2022-03-21 19:07:08
  * @Description: 模具BOM
 -->
 
@@ -128,6 +128,10 @@
       <template #PartLevel="{ record }">
         {{ partLevelMap[record] && partLevelMap[record].name }}
       </template>
+                  <template #MaterialRequirementState="{ record }">
+              
+        {{ demandStatusEnum[record] &&demandStatusEnum[record].name }}
+      </template>
       <template #operation="{ row, row_index }">
         <TableAction
           :actions="[
@@ -178,7 +182,7 @@
      <!-- 导入数据 -->
 
        <jv-dialog
-      title="导入"
+      :title="$t('Generality.Ge_Import')"
       width="60%"
       :close-on-click-modal="true"
       :modal-append-to-body="false"
@@ -217,6 +221,8 @@ import {
   getPoleBomById,
   savePoleBom,
 } from "@/api/workApi/program/electrodeBom";
+import {  demandStatusEnum } from "@/enum/workModule";
+
 import { uploadImage } from "@/api/workApi/materials/fileUpload";
 import Popover from "@/jv_doc/cpn/JvTable/cpn/Popover.vue";
 import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
@@ -237,6 +243,7 @@ export default {
   },
   data() {
     return {
+      demandStatusEnum,
       partLevelMap: {
         0: {
           name: this.$t("Generality.Ge_Hide"),

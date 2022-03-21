@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-03-21 16:42:59
+ * @LastEditTime: 2022-03-21 19:09:47
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
@@ -150,8 +150,9 @@ export const tableConfig = [
   /*物料需求状态*/
   {
     prop: "MaterialRequirementState",
-    label: '物料需求状态',
+    label: i18n.t("Generality.Ge_MaterialRequirementState"),
     width: 140,
+    custom: true,
     editConfig: {
       disabled: true,
     },

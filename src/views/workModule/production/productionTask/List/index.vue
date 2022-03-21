@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 10:24:11
- * @LastEditTime: 2022-02-16 14:02:19
+ * @LastEditTime: 2022-03-21 19:13:46
  * @LastEditTime: 2022-01-20 17:17:19
  * @Description: 生产任务
 -->
@@ -186,7 +186,7 @@
                 }"
                 class="productionTask-card-content-craft-content"
               >
-                {{ TItem.Process }}
+        {{ TItem.Process }}({{ TItem.PlanTime}}H)
               </div>
             </div>
           </div>

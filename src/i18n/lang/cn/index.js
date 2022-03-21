@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:34:11
- * @LastEditTime: 2022-03-21 18:31:25
+ * @LastEditTime: 2022-03-21 19:09:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\i18n\lang\cn\index.js
@@ -684,6 +684,7 @@ const cn = {
     Ge_BelongTo: "所属项目",
     Ge_ShowInProdSchedule: "在生产调度页面是否显示",
     Ge_Terms: "账期",
+    Ge_MaterialRequirementState: "物料需求状态",
   },
   //生产
   production: {
