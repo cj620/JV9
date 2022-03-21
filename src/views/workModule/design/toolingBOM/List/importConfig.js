@@ -1,12 +1,12 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-03-21 16:42:59
+ * @LastEditTime: 2022-03-21 14:27:35
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
-export class EditTable extends BaseTable {
+export class importEditTable extends BaseTable {
   constructor() {
     super({
       tableSchema: tableConfig,
@@ -15,6 +15,8 @@ export class EditTable extends BaseTable {
       chooseCol: true,
       operationWidth: 180,
       importBar: false,
+      tableHeaderShow:false,
+
       sortCol: false,
       // sortCol:false
     });
@@ -22,16 +24,7 @@ export class EditTable extends BaseTable {
 }
 
 export const tableConfig = [
-  /*图片*/
-  {
-    prop: "PhotoUrl",
-    label: i18n.t("Generality.Ge_PhotoUrl"),
-    width: 120,
-    editConfig: {
-      disabled: true,
-    },
-    custom: true,
-  },
+ 
   /*编号*/
   {
     prop: "PartNo",
@@ -44,14 +37,7 @@ export const tableConfig = [
       },
     },
   },
-  /*物料编号*/
-  {
-    prop: "ItemId",
-    label: i18n.t("Generality.Ge_ItemId"),
-    editConfig: {
-      disabled: true,
-    },
-  },
+
   /*名称*/
   {
     prop: "PartName",
@@ -117,45 +103,7 @@ export const tableConfig = [
     formCpn: "FormInput",
     width: 80,
   },
-  /*级别*/
-  {
-    prop: "PartLevel",
-    label: i18n.t("Generality.Ge_Level"),
-    custom: true,
-    width: 70,
-    editConfig: {
-      disabled: true,
-    },
-  },
-  /*制单人*/
-  {
-    prop: "Creator",
-    label: i18n.t("Generality.Ge_Creator"),
-    formCpn: "FormInput",
-    width: 80,
-    editConfig: {
-      disabled: true,
-    },
-  },
-  /*制单日期*/
-  {
-    prop: "CreationDate",
-    label: i18n.t("Generality.Ge_CreationDate"),
-    filter: "time",
-    width: 140,
-    editConfig: {
-      disabled: true,
-    },
-  },
-  /*物料需求状态*/
-  {
-    prop: "MaterialRequirementState",
-    label: '物料需求状态',
-    width: 140,
-    editConfig: {
-      disabled: true,
-    },
-  },
-
+  
+  
   
 ];

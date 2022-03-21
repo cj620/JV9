@@ -135,5 +135,10 @@ export const detailConfig=[
     // 相关编号
     prop:'RelationId',
     label: i18n.t("sale.Sa_RelationId"),
-  }
+  },
+  {
+    // 相关编号
+    prop: "Terms",
+    label: i18n.t("Generality.Ge_Terms"),
+  },
 ]

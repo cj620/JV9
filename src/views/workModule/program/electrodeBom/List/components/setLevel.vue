@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2022-01-10 09:48:28
- * @LastEditTime: 2022-01-14 10:51:40
+ * @LastEditTime: 2022-03-21 09:19:37
  * @Description:
 -->
 <template>
@@ -43,7 +43,7 @@ export default {
   name: "setLevel",
   data() {
     return {
-      PartLevel: 0,
+      PartLevel: 1,
     };
   },
   created() {

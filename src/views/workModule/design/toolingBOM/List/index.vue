@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-01-25 10:29:27
+ * @LastEditTime: 2022-03-21 18:43:30
  * @Description: 模具BOM
 -->
 
@@ -180,6 +180,29 @@
       :setLevelData="setLevelData"
       @confirmSetLevel="confirmSetLevel"
     ></setLevel>
+
+    <!-- 导入数据 -->
+
+       <jv-dialog
+      title="导入"
+      width="60%"
+      :close-on-click-modal="true"
+      :modal-append-to-body="false"
+      :append-to-body="false"
+     :visible.sync="importDialogFormVisible"
+      v-if="importDialogFormVisible"
+      @confirm="confirmImportData"
+      :autoFocus="true"
+    >
+        <JvEditTable
+      :tableObj="importTableObj"
+      highlight-current-row
+      
+    >
+    
+          
+        </JvEditTable>
+       </jv-dialog>
   </PageWrapper>
 </template>
 
@@ -188,6 +211,7 @@ import searchItem from "./components/searchItem";
 import selectTask from "./components/selectTask";
 import setLevel from "./components/setLevel";
 import { EditTable } from "./config";
+import { importEditTable } from "./importConfig";
 // 获取列表接口
 import {
   getPartBomById,
@@ -227,6 +251,7 @@ export default {
         },
       },
       eTableObj: {},
+      importTableObj:{},
       toolId: "",
       ToolingNo: "",
       currentRow: {},
@@ -235,6 +260,7 @@ export default {
       searchItemDialogFormVisible: false,
       selectTaskDialogFormVisible: false,
       setLevelDialogFormVisible: false,
+      importDialogFormVisible:false,
       GetData: [],
       taskData: [],
       setLevelData: [],
@@ -246,7 +272,7 @@ export default {
         ItemId: "",
         Description: "",
         Quantity: 0,
-        PartLevel: 0,
+        PartLevel: 1,
         BOMType: "Part",
         PhotoUrl: "",
         Unit: "",
@@ -295,6 +321,7 @@ export default {
   },
   created() {
     this.eTableObj = new EditTable();
+    this.importTableObj = new importEditTable
     this.defaultConfig();
   },
   computed: {
@@ -531,7 +558,11 @@ export default {
 
     //导入数据
     importComplete(e) {
-      var arr = [];
+     
+      this.importShow = false;
+      this.importDialogFormVisible = true
+
+       var arr = [];
       e.forEach((Titem) => {
         var str = {};
         this.exportTemplate.forEach((item) => {
@@ -541,8 +572,7 @@ export default {
         });
         arr.push(str);
       });
-      this.eTableObj.push(temMerge(this.saveData, arr));
-      this.importShow = false;
+      this.importTableObj.push(temMerge(this.saveData, arr));
     },
 
     //上传图片
@@ -570,6 +600,32 @@ export default {
         return item;
       });
     },
+    //确定导入的数据
+    confirmImportData(){
+
+      console.log(format2source(this.importTableObj.selectData.datas),this.eTableObj.getTableData());
+      
+      if(this.importTableObj.selectData.datas.length>0){
+       var arr = format2source(this.importTableObj.selectData.datas).concat(this.eTableObj.getTableData())
+     console.log(arr)
+ var saveData = temMerge(
+        this.saveData,
+        this.mixinToolId(arr)
+      );
+     console.log(saveData)
+            savePartBom(saveData).then((res) => {
+              this.getData();
+              this.importDialogFormVisible = false
+            });
+        
+
+      }else{
+        this.$message.success(this.$t("Generality.Ge_PleaseAddData"));
+
+      }
+
+
+    }
   },
 };
 </script>

@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-03-09 11:29:35
+ * @LastEditTime: 2022-03-21 17:50:25
  * @Description: file content
  */
 // 引入表格表格类和表格API类
@@ -133,6 +133,53 @@ export const formSchema = [
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
     cpn: "FormInput",
+  },
+  {
+    prop: "StartDate",
+    label: "完成开始时间",
+    cpn: "SingleTime"
+  },
+  {
+    prop: "EndDate",
+    label: "完成结束时间",
+    cpn: "SingleTime"
+  },
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    cpn: "FormSelect",
+    options: {
+      list: [
+        {
+          value: "Unsubmitted",
+          label: i18n.t("Generality.Ge_Unsubmitted"),
+        },
+        {
+          value: "Submitted",
+          label: i18n.t("Generality.Ge_Submitted"),
+        },
+        {
+          value: "Approving",
+          label: i18n.t("Generality.Ge_Approving"),
+        },
+        {
+          value: "Approved",
+          label: i18n.t("Generality.Ge_Approved"),
+        },
+        {
+          value: "Rejected",
+          label: i18n.t("Generality.Ge_Rejected"),
+        },
+        {
+          value: "Completed",
+          label: i18n.t("Generality.Ge_Completed"),
+        },
+        {
+          value: "Discarded",
+          label: i18n.t("Generality.Ge_Discarded"),
+        },
+      ],
+    },
   },
   //客户搜索
   {

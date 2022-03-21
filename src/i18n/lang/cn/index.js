@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:34:11
- * @LastEditTime: 2022-03-02 14:53:37
+ * @LastEditTime: 2022-03-21 18:31:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\i18n\lang\cn\index.js
@@ -683,6 +683,7 @@ const cn = {
     Ge_ItemLabel: "标签",
     Ge_BelongTo: "所属项目",
     Ge_ShowInProdSchedule: "在生产调度页面是否显示",
+    Ge_Terms: "账期",
   },
   //生产
   production: {
@@ -991,6 +992,8 @@ const cn = {
     Auto_create_pr_on_SM_name: "是否可以自动创建标准物料的采购申请",
     Auto_create_pr_on_SM_desc: "是否可以自动创建标准物料的采购申请",
     Bom_default_unit_name: "导入BOM的默认单位",
+    Default_display_level_of_BOM: "默认展示级别",
+    Auto_Create_Trial_Tooling_Task : "自动创建试模任务",
     Bom_default_unit_desc: "导入BOM时的默认单位",
     Can_skip_station_name: "是否可以跳站",
     Can_skip_station_desc: "报工时是否可以跳站",

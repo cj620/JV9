@@ -1,15 +1,15 @@
 /*
  * @Author: your name
  * @Date: 2021-09-10 09:12:58
- * @LastEditTime: 2022-03-02 09:16:17
+ * @LastEditTime: 2022-03-21 08:54:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-element-admin-master\public\config.js
  */
 window.global_config = {
-  Base_Url: "http://192.168.1.22:9002/api",
-  ImgBase_Url: "http://192.168.1.22:9002", // 上传图片的地址
-  Share_Url: "http://192.168.1.22:9002",
+  Base_Url: "http://www.jverp.com:8101/api",
+  ImgBase_Url: "http://www.jverp.com:8101/", // 上传图片的地址
+  Share_Url: "http://www.jverp.com:8101",
   // 税率计算模式  true未国外模式  false为国内模式
   ETaxMode: true,
   DashboardRefreshTime: 60000, // 看板刷新时间

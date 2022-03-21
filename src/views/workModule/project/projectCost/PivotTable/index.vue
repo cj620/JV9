@@ -1,6 +1,7 @@
 <!--透视表-->
 <template>
-  <PageWrapper :footer="false"  style="background-color: #ffffff">
+<div>1</div>
+  <!-- <PageWrapper :footer="false"  style="background-color: #ffffff">
     <DxChart ref="chart">
       <DxTooltip
         :enabled="true"
@@ -40,32 +41,32 @@
       />
       <DxExport :enabled="true"/>
     </DxPivotGrid>
-  </PageWrapper>
+  </PageWrapper> -->
 </template>
 <script>
 
-import {
-  DxChart,
-  DxAdaptiveLayout,
-  DxCommonSeriesSettings,
-  DxSize,
-  DxTooltip,
-} from 'devextreme-vue/chart';
+// import {
+//   DxChart,
+//   DxAdaptiveLayout,
+//   DxCommonSeriesSettings,
+//   DxSize,
+//   DxTooltip,
+// } from 'devextreme-vue/chart';
 
-import {
-  DxPivotGrid,
-  DxFieldChooser,
-  DxExport,
-  DxFieldPanel
-} from 'devextreme-vue/pivot-grid';
-import { Workbook } from 'exceljs';
-import { saveAs } from 'file-saver-es';
-import { project_cost_details_list } from '@/api/workApi/project/dataReport';
-import { exportPivotGrid } from 'devextreme/excel_exporter';
-import PivotGridDataSource from 'devextreme/ui/pivot_grid/data_source'
-import { config } from './config.js';
-import zhMessages from 'devextreme/localization/messages/zh.json'
-import { locale, loadMessages } from 'devextreme/localization'
+// import {
+//   DxPivotGrid,
+//   DxFieldChooser,
+//   DxExport,
+//   DxFieldPanel
+// } from 'devextreme-vue/pivot-grid';
+// import { Workbook } from 'exceljs';
+// import { saveAs } from 'file-saver-es';
+// import { project_cost_details_list } from '@/api/workApi/project/dataReport';
+// import { exportPivotGrid } from 'devextreme/excel_exporter';
+// import PivotGridDataSource from 'devextreme/ui/pivot_grid/data_source'
+// import { config } from './config.js';
+// import zhMessages from 'devextreme/localization/messages/zh.json'
+// import { locale, loadMessages } from 'devextreme/localization'
 
 /*const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -73,83 +74,83 @@ import { locale, loadMessages } from 'devextreme/localization'
   minimumFractionDigits: 0,
 });*/
 
-export default {
-  components: {
-    DxChart,
-    DxAdaptiveLayout,
-    DxCommonSeriesSettings,
-    DxSize,
-    DxTooltip,
-    DxPivotGrid,
-    DxFieldChooser,
-    DxFieldPanel,
-    DxExport,
-  },
-  data() {
-    return {
-      dataSource:null,
+// export default {
+//   components: {
+//     DxChart,
+//     DxAdaptiveLayout,
+//     DxCommonSeriesSettings,
+//     DxSize,
+//     DxTooltip,
+//     DxPivotGrid,
+//     DxFieldChooser,
+//     DxFieldPanel,
+//     DxExport,
+//   },
+//   data() {
+//     return {
+//       dataSource:null,
 
-      customizeTooltip(args) {
-        const valueText = currencyFormatter.format(args.originalValue);
-        return {
-          html: `${args.seriesName} | Total<div class='currency'>${valueText}</div>`,
-        };
-      },
-    };
-  },
-  async created(){
-    await  this.GetData()
-    if (localStorage.lang !== 'en') {
-      loadMessages(zhMessages)
-      locale(navigator.language)
-    }
+//       customizeTooltip(args) {
+//         const valueText = currencyFormatter.format(args.originalValue);
+//         return {
+//           html: `${args.seriesName} | Total<div class='currency'>${valueText}</div>`,
+//         };
+//       },
+//     };
+//   },
+//   async created(){
+//     await  this.GetData()
+//     if (localStorage.lang !== 'en') {
+//       loadMessages(zhMessages)
+//       locale(navigator.language)
+//     }
 
-  },
-  mounted() {
-    const pivotGrid = this.$refs.grid.instance;
-    const chart = this.$refs.chart.instance;
-    pivotGrid.bindChart(chart, {
-      dataFieldsDisplayMode: 'splitPanes',
-      alternateDataFields: false,
-    });
-    const dataSource = pivotGrid.getDataSource();
-    setTimeout(() => {
-      dataSource.expandHeaderItem('row', ['North America']);
-      dataSource.expandHeaderItem('column', [2013]);
-    }, 0);
+//   },
+//   mounted() {
+//     const pivotGrid = this.$refs.grid.instance;
+//     const chart = this.$refs.chart.instance;
+//     pivotGrid.bindChart(chart, {
+//       dataFieldsDisplayMode: 'splitPanes',
+//       alternateDataFields: false,
+//     });
+//     const dataSource = pivotGrid.getDataSource();
+//     setTimeout(() => {
+//       dataSource.expandHeaderItem('row', ['North America']);
+//       dataSource.expandHeaderItem('column', [2013]);
+//     }, 0);
 
 
-  },
-  methods: {
-    GetData(){
-      project_cost_details_list({
-        Project:this.$route.query.ProjectId,
-        ToolingNo:'',
-      }).then(res=>{
-        console.log(res.Items)
-        this.dataSource = new PivotGridDataSource( {
-          fields: config,
-          store: res.Items
-        }),
-          console.log(this.dataSource.store)
-      })
-    },
-    onExporting(e) {
-      const workbook = new Workbook();
-      const worksheet = workbook.addWorksheet('Sales');
+//   },
+//   methods: {
+//     GetData(){
+//       project_cost_details_list({
+//         Project:this.$route.query.ProjectId,
+//         ToolingNo:'',
+//       }).then(res=>{
+//         console.log(res.Items)
+//         this.dataSource = new PivotGridDataSource( {
+//           fields: config,
+//           store: res.Items
+//         }),
+//           console.log(this.dataSource.store)
+//       })
+//     },
+//     onExporting(e) {
+//       const workbook = new Workbook();
+//       const worksheet = workbook.addWorksheet('Sales');
 
-      exportPivotGrid({
-        component: e.component,
-        worksheet,
-      }).then(() => {
-        workbook.xlsx.writeBuffer().then((buffer) => {
-          saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Sales.xlsx');
-        });
-      });
-      e.cancel = true;
-    },
-  },
-};
+//       exportPivotGrid({
+//         component: e.component,
+//         worksheet,
+//       }).then(() => {
+//         workbook.xlsx.writeBuffer().then((buffer) => {
+//           saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Sales.xlsx');
+//         });
+//       });
+//       e.cancel = true;
+//     },
+//   },
+// };
 </script>
 <style>
   #pivotgrid {

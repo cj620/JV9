@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-11-10 15:07:42
- * @LastEditTime: 2022-02-21 14:28:58
+ * @LastEditTime: 2022-03-21 18:33:29
  * @Description: file content
  */
 import { getAll } from "@/api/basicApi/systemSettings/currency";
@@ -77,5 +77,11 @@ export const formSchema = [
     prop: "RelationId",
     cpn: "FormInput",
     label: i18n.t("sale.Sa_RelationId"),
+  },
+  {
+    // 相关编号
+    prop: "Terms",
+    cpn: "FormInput",
+    label: i18n.t("Generality.Ge_Terms"),
   },
 ];

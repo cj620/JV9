@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2021-11-19 14:59:40
+ * @LastEditTime: 2022-03-21 08:57:53
  * @Description: file content
  */
 // 引入表格表格类和表格API类
@@ -126,6 +126,12 @@ export const tableConfig = [
     prop: "CreationDate",
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
+    width:'150px',
+  },
+   /*备注*/
+   {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
     width:'150px',
   },
 ]

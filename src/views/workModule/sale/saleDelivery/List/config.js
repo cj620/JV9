@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2021-11-09 09:28:46
+ * @LastEditTime: 2022-03-21 08:58:27
  * @Description: file content
  */
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
@@ -116,6 +116,12 @@ export const tableConfig = [
     filter: "time",
     width:'150px',
   },
+     /*备注*/
+     {
+      prop: "Remarks",
+      label: i18n.t("Generality.Ge_Remarks"),
+      width:'150px',
+    },
 ]
 export const formSchema = [
   //单号搜索

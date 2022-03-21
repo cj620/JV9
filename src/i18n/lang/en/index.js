@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-12 10:35:07
- * @LastEditTime: 2022-03-02 17:08:58
+ * @LastEditTime: 2022-03-21 18:33:01
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \JvMmsV9Front\src\i18n\lang\en\index.js
@@ -693,6 +693,8 @@ const en = {
     Ge_ItemLabel: "Item label",
     Ge_BelongTo: "Belong to",
     Ge_ShowInProdSchedule: "Show In prod schedule",
+    Ge_Terms: "Terms",
+
   },
   //生产
   production: {
