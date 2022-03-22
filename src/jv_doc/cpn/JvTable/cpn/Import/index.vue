@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-09-23 09:37:31
- * @LastEditTime: 2022-01-20 14:55:37
+ * @LastEditTime: 2022-03-22 13:21:35
  * @Description: file content
 -->
 <template>
@@ -75,6 +75,8 @@ export default {
       this.$refs["excel-upload-input"].click();
     },
     handleClick(e) {
+
+      console.log(55);
       this.loading = true;
       const files = e.target.files;
       const rawFile = files[0]; // only use files[0]

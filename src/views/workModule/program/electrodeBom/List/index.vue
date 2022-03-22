@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-03-22 12:53:54
+ * @LastEditTime: 2022-03-22 14:06:32
  * @Description: 模具BOM
 -->
 
@@ -197,7 +197,17 @@
       highlight-current-row
       
     >
-    
+     <template #operation="{ row, row_index }">
+        <TableAction
+          :actions="[
+            
+            {
+              label: $t('Generality.Ge_Delete'),
+              confirm: i_delete.bind(null, row_index),
+            },
+          ]"
+        />
+      </template>
           
         </JvEditTable>
        </jv-dialog>
@@ -408,6 +418,9 @@ export default {
     l_delete(row, index) {
       this.eTableObj.delItem(index);
     },
+        i_delete(row, index) {
+      this.importTableObj.delItem(index);
+    },
     l_save() {
       var saveData = temMerge(
         this.saveData,
@@ -572,7 +585,7 @@ export default {
         arr.push(str);
       });
 
-           this.importTableObj.push(temMerge(this.saveData, arr));
+           this.importTableObj.setData(temMerge(this.saveData, arr));
     },
 
     //上传图片
