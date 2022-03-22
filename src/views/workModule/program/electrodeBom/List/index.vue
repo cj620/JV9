@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-03-22 14:06:32
+ * @LastEditTime: 2022-03-22 14:09:03
  * @Description: 模具BOM
 -->
 
@@ -621,7 +621,6 @@ export default {
        //确定导入的数据
     confirmImportData(){
 
-      console.log(format2source(this.importTableObj.selectData.datas),this.eTableObj.getTableData());
       
       if(this.importTableObj.selectData.datas.length>0){
        var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
@@ -638,7 +637,7 @@ export default {
         
 
       }else{
-        this.$message.success(this.$t("Generality.Ge_PleaseAddData"));
+        this.$message.error(this.$t("Generality.Ge_PleaseAddData"));
 
       }
 
