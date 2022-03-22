@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-03-21 19:07:08
+ * @LastEditTime: 2022-03-22 12:53:54
  * @Description: 模具BOM
 -->
 
@@ -280,6 +280,8 @@ export default {
         ToolingNo: "",
         Creator: "",
         CreationDate: "",
+                MaterialRequirementState:'',
+
         Remarks: "",
       },
       exportTemplate: [
@@ -609,7 +611,7 @@ export default {
       console.log(format2source(this.importTableObj.selectData.datas),this.eTableObj.getTableData());
       
       if(this.importTableObj.selectData.datas.length>0){
-       var arr = format2source(this.importTableObj.selectData.datas).concat(this.eTableObj.getTableData())
+       var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
      console.log(arr)
  var saveData = temMerge(
         this.saveData,
