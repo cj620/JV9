@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 10:24:11
- * @LastEditTime: 2022-03-21 19:13:46
+ * @LastEditTime: 2022-03-23 19:41:43
  * @LastEditTime: 2022-01-20 17:17:19
  * @Description: 生产任务
 -->
@@ -520,6 +520,7 @@ export default {
     },
     //零件委外确认保存
     confirmOutsourcingPartData(e) {
+      console.log(22);
       let arr = [];
       e.forEach((item) => {
         let str = {};

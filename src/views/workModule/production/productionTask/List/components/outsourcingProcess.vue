@@ -91,6 +91,7 @@ export default {
           str.KeyId = item.Id;
           str.Remarks = "";
           str.Quantity = this.stateData.Quantity;
+                    item.Quantity = this.stateData.Quantity;
           arr.push(str);
         });
         checkPurchaseOutsourcingrRequirement({
@@ -108,7 +109,8 @@ export default {
                 type: "warning",
               }
             ).then(() => {
-              this.$emit("confirmOutsourcingPartData", this.multipleSelection);
+              console.log(54321);
+            this.$emit("confirmOutsourcingProcessData", this.multipleSelection);
             });
           } else {
             this.$emit("confirmOutsourcingProcessData", this.multipleSelection);
