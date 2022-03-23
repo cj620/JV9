@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-27 14:55:20
- * @LastEditTime: 2022-02-19 16:05:55
+ * @LastEditTime: 2022-03-22 17:32:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \V9_Dev\src\jv_doc\cpn\JvEditTable\index.vue
@@ -70,6 +70,9 @@
                   :row_index="scope.$index"
                   :row="scope.row"
                   v-if="item.custom"
+                  :cdata="item"
+                   :formBlur="formBlur"
+                  :scope="scope"
                 ></slot>
                 <span v-else>
                   <FormItem
@@ -233,7 +236,7 @@ export default {
       // this.dom_obj.editBlur();
       // 当前节点聚焦
       this.dom_obj.tableId = this.tableObj.id;
-      // console.log(this.dom_obj.col, this.dom_obj.row);
+       console.log(this.dom_obj.col, this.dom_obj.row,this.dom_obj);
       this.dom_obj.editFocus();
       this.changeEditState(true);
     },

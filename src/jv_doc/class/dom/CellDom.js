@@ -85,6 +85,8 @@ class CellDom{
     this.tableData[this.row][propName].edit=true
     this.isFocus=true
         setTimeout(() => {
+
+          console.log(55);
       document.getElementById('edit-form-item')?.focus()
        document.getElementById('edit-form-item')?.select()
       this.o_col=this.col

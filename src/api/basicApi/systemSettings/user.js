@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-09 18:53:00
- * @LastEditTime: 2022-01-20 16:07:29
+ * @LastEditTime: 2022-03-22 17:57:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-element-admin-master\src\api\user.js
@@ -175,5 +175,16 @@ export function recoverUser(data) {
     url: "/user_data/update_is_delete",
     method: "post",
     data,
+  });
+}
+
+
+
+// 根据部门获取用户
+export function get_by_department(query) {
+  return request({
+    url: "/user_data/get_by_department",
+    method: "get",
+    params: query,
   });
 }

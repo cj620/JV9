@@ -1,10 +1,10 @@
 /*
  * @Author: H.
  * @Date: 2021-11-24 13:57:10
- * @LastEditTime: 2022-01-24 17:27:47
+ * @LastEditTime: 2022-03-22 15:00:48
  * @Description:
  */
-
+import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
 import { getAll } from "@/api/basicApi/systemSettings/currency";
 export const formSchema = [
   {
@@ -46,6 +46,20 @@ export const formSchema = [
     prop: "EndScale",
     label: i18n.t("production.Pr_EndScale"),
     cpn: "FormInput",
+  },
+  {
+    prop: "BelongingDepartment",
+    label: i18n.t("menu.Se_Department"),
+    cpn: "SyncSelect",
+    api: getDepartmentList,
+    apiOptions: {
+      tree: true,
+      treeProps: {
+        children: "Children",
+        keyName: "Department",
+        valueName: "Department",
+      },
+    },
   },
   {
     prop: "ProcessType",

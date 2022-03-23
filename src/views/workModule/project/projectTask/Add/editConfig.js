@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-01-14 10:47:59
+ * @LastEditTime: 2022-03-22 15:14:49
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
@@ -48,11 +48,7 @@ export const m_tableConfig = [
     formCpn: "SyncSelect",
     width: "120px",
     label: i18n.t("project.Pro_Worker"),
-    api: getAllUserData,
-    apiOptions: {
-      keyName: "UserName",
-      valueName: "UserName",
-    },
+    custom: true,
     editConfig: {
       rules: {
         required: true,

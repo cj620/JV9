@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-18 15:08:18
- * @LastEditTime: 2022-01-06 13:33:38
+ * @LastEditTime: 2022-03-22 15:01:52
  * @Description:
  */
 
@@ -53,6 +53,11 @@ export const tableConfig = [
     prop: "EndScale",
     label: i18n.t("production.Pr_EndScale"),
     align: "right",
+  },
+  /*部门*/
+  {
+    prop: "BelongingDepartment",
+    label: i18n.t("menu.Se_Department"),
   },
   /*工序类别*/
   {

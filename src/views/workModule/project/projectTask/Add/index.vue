@@ -41,6 +41,36 @@
         </Action>
       </div>
       <JvEditTable :tableObj="M_TableObj">
+ <template #Worker="{ formBlur,row , cdata }">
+   <span v-if="row[cdata.prop].edit">
+
+ <el-select
+            v-model="row.Worker.value"
+            style="width: 100%"
+            filterable
+            allow-create
+            size='mini'
+            :id="getPrefixId"
+            default-first-option
+            @visible-change="changeValue($event, row,formBlur)"
+            
+          >
+            <el-option
+              v-for="item in WorkerList"
+              :key="item.UserName"
+              :label="item.UserName"
+              :value="item.UserName "
+            >
+            </el-option>
+             </el-select>
+   </span>
+  
+     <span v-else style="line-height: 28px">{{row[cdata.prop].value}}</span>
+           
+         
+        </template>
+
+
         <template #operation="{ row_index }">
           <TableAction
             :actions="[
@@ -98,6 +128,8 @@ import { M_EditTable } from "./editConfig";
 import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
+import CellDom from "@/jv_doc/class/dom/CellDom";
+
 import { mapState } from "vuex";
 import {
   amountFormat,
@@ -107,6 +139,7 @@ import {
 // 引入模块API接口
 import { API as ProjectTask } from "@/api/workApi/project/projectTask";
 import { getAllProjectProcess } from "@/api/workApi/project/baseData";
+import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import closeTag from "@/utils/closeTag";
 import {
   pushDoubleCol,
@@ -132,11 +165,14 @@ export default {
   data() {
     return {
       cur_Id: this.$route.query.BillId,
+       dom_obj: new CellDom(),
       formObj: {},
       // 材料费用
       M_TableObj: {},
+      prefix:'',
       detailRouteName: "Pm_ProjectTask_Detail",
       fileBillId: "",
+      WorkerList:[],
       ruleForm: {
         TaskType: 0,
         ToolingNo: "",
@@ -187,6 +223,10 @@ export default {
     BillIdShow() {
       return this.cur_Id ? `:  ${this.cur_Id}` : "";
     },
+
+     getPrefixId() {
+      return 'edit-form-item';
+    },
   },
   async created() {
     this.formObj = new Form({
@@ -204,6 +244,11 @@ export default {
     Object.assign(this.formObj.form, this.$route.params);
   },
   methods: {
+    test(e){
+
+
+      console.log(e);
+    },
     // 新增编辑行
     addEditRow() {
       this.formObj.validate((valid) => {
@@ -242,6 +287,31 @@ export default {
     //删除物料
     delItem(index, target) {
       target.delItem(index);
+    },
+
+  dataFilter() {
+      return (type = "default", data) => {
+        return filterMaps[type].func(data);
+      };
+    },
+//根据部门查找部门人员
+    changeValue(e,row,cb ){
+      console.log(e,row,row.BelongingDepartment.value);
+      if(e){
+
+get_by_department({Department:row.BelongingDepartment.value}).then(res=>{
+  console.log(res.Items);
+  this.WorkerList= res.Items
+})
+
+      }else{
+
+cb()
+this.prefix = ''
+
+      }
+
+      console.log(e,row );
     },
     addItem(index, target) {
       let empty_row = target.getEmptyRow();
