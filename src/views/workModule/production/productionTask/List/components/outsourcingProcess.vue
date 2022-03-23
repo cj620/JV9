@@ -37,6 +37,7 @@ export default {
       tableObj: {},
       formObj: {},
       ruleForm: {},
+      stateData:{},
       CustomerData: [],
       multipleSelection: [],
       BillTypeEnum: {
@@ -67,6 +68,7 @@ export default {
       getProductionTask({ BillId: this.transferData }).then((res) => {
 
         let arr = [];
+        this.stateData=res
         res.Process.forEach((item) => {
           if (item.State === "ToBeReceived") {
             item.ToolingNo = res.ToolingNo;
@@ -81,12 +83,14 @@ export default {
     //确定明细
     confirmItem() {
       if (this.multipleSelection.length > 0) {
+
+        console.log(this.multipleSelection,567);
         let arr = [];
         this.multipleSelection.forEach((item) => {
           let str = {};
           str.KeyId = item.Id;
           str.Remarks = "";
-          str.Quantity = 1;
+          str.Quantity = this.stateData.Quantity;
           arr.push(str);
         });
         checkPurchaseOutsourcingrRequirement({

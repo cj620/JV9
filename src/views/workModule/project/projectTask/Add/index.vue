@@ -65,9 +65,10 @@
              </el-select>
    </span>
   
-     <span v-else style="line-height: 28px">{{row[cdata.prop].value}}</span>
+     <span v-else style="line-height: 28px">
+       {{row[cdata.prop].value}}
+       </span>
            
-         
         </template>
 
 

@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-06-10 19:40:23
- * @LastEditTime: 2022-01-25 16:07:02
+ * @LastEditTime: 2022-03-23 17:49:51
  * @Description: file content
 -->
 <template>
@@ -20,7 +20,7 @@
         <slot />
       </div>
       <div style="height: 30px" />
-      <span class="absolute-footer">
+      <span class="absolute-footer" v-if="IsShowFooterBtn">
         <slot name="btn" />
         <el-button
           type="primary"
@@ -60,6 +60,10 @@ export default {
     autoFocus: {
       type: Boolean,
       default: false,
+    },
+    IsShowFooterBtn: {
+      type: Boolean,
+      default: true,
     },
     appendToBody: {
       type: Boolean,

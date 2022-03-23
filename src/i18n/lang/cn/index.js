@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:34:11
- * @LastEditTime: 2022-03-21 19:09:12
+ * @LastEditTime: 2022-03-23 17:56:38
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\i18n\lang\cn\index.js
@@ -439,6 +439,8 @@ const cn = {
     Ge_CloseOthers: "关闭其他",
     Ge_CloseAll: "关闭全部",
     Ge_TaskType: "任务类别",
+    Ge_CostType: "成本类别",
+
     Ge_Pending: "待处理",
     Ge_Processed: "已处理",
     Ge_InProcurement: "采购中",

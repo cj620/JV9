@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-05 10:19:55
- * @LastEditTime: 2022-01-17 11:25:36
+ * @LastEditTime: 2022-03-23 17:51:56
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\enum\workModule\Generality\stateEnum.js
@@ -30,15 +30,15 @@ export const projectTypeEnum = {
 // 工序类别枚举
 export const processTypeEnum = {
   Design: {
-    name: "设计",
+    name: i18n.t("systemSetupData.Design"),
     value: "Design",
   },
   Program: {
-    name: "编程",
+    name: i18n.t("menu.Pa_Program"),
     value: "Program",
   },
   Production: {
-    name: "生产",
+    name: i18n.t("systemSetupData.Production"),
     value: "Production",
   },
   Other: {
