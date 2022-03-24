@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 12:56:14
- * @LastEditTime: 2022-01-24 17:28:12
+ * @LastEditTime: 2022-03-24 11:03:57
  * @Description: 项目任务工序
 -->
 
@@ -91,7 +91,11 @@ export default {
       this.processDialogVisible = true;
       this.isEdit = true;
       this.dialogTitle = this.$t("Generality.Ge_Edit");
+      this.$nextTick(()=>{
       this.formObj.form = JSON.parse(JSON.stringify(row));
+
+      })
+     
     },
     add() {
       this.dialogTitle = this.$t("Generality.Ge_New");
@@ -102,10 +106,13 @@ export default {
         Process: "",
         ProcessType: "",
         SortOrder: "",
+        BelongingDepartment:'',
         StartScale: "",
         Id: 0,
       };
       this.processDialogVisible = true;
+     
+      
     },
     confirm() {
       this.formObj.validate((valid) => {
@@ -146,6 +153,7 @@ export default {
       labelWidth: "80px",
       labelPosition: "top",
     });
+    
   },
   mounted() {},
   computed: {},

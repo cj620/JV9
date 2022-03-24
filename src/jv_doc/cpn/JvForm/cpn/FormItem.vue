@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-09-17 09:11:19
- * @LastEditTime: 2022-03-22 17:32:23
+ * @LastEditTime: 2022-03-24 10:04:43
  * @Description: file content
 -->
 <template>
@@ -431,6 +431,7 @@ export default {
         //树形下拉兼容 用于直接使用对象修改form属性
         if (this.cdata.cpn == "SyncSelect" && this.cdata.apiOptions.tree) {
           this.vSelect = this.form[this.cdata.prop];
+          console.log(this.vSelect);
         }
       },
       deep: true,

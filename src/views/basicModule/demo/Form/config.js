@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-09-13 16:59:03
- * @LastEditTime: 2022-01-21 17:15:21
+ * @LastEditTime: 2022-03-24 10:43:51
  * @Description: file content
  */
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
@@ -69,16 +69,16 @@ export const formSchema = [
     ],
   },
   {
-    prop: "Keyword1",
+    prop: "Keyword111",
     label: "异步树形下拉框",
     cpn: "SyncSelect",
     api: getDepartmentList,
     apiOptions: {
       tree: true,
       treeProps: {
-        children: "children",
-        keyName: "departmentName",
-        valueName: "id",
+        children: "Children",
+        keyName: "Department",
+        valueName: "Department",
       },
     },
     rules: [

@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-08 16:24:01
- * @LastEditTime: 2022-02-15 17:28:00
+ * @LastEditTime: 2022-03-24 11:02:35
  * @Description:
 -->
 <template>
@@ -161,10 +161,16 @@ export default {
     });
     if (this.type === "edit") {
       this.getUser();
+         
+
     }
+    
+   
+
   },
   mounted() {
     // this.$refs.JvForm.$el.children[0][0].focus();
+  
   },
   methods: {
     imgUrlPlugin,
@@ -207,6 +213,7 @@ export default {
           DepartmentName,
           Activate,
         };
+
         this.formObj1.form = {
           Birthday,
           FamilyAddress,

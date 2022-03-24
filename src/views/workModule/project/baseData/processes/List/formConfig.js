@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-24 13:57:10
- * @LastEditTime: 2022-03-22 15:00:48
+ * @LastEditTime: 2022-03-24 09:56:03
  * @Description:
  */
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";

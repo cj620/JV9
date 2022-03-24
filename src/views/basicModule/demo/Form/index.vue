@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-09-13 16:59:03
- * @LastEditTime: 2022-01-20 15:29:42
+ * @LastEditTime: 2022-03-24 10:43:58
  * @Description: file content
 -->
 <template>
@@ -199,6 +199,10 @@ export default {
       gutter: 40,
       labelPosition: "top",
     });
+    
+    console.log(this.formObj.form);
+    this.formObj.form.Date44545=1
+    this.formObj.form.Keyword111=2
     // formSchema2
     // console.log(this.formObj3, 777777);
   },

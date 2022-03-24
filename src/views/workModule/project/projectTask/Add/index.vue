@@ -192,6 +192,7 @@ export default {
         Worker: "",
         PlanTime: 1,
         PlanStart: "",
+        BelongingDepartment:'',
         PlanEnd: "",
         Remarks: "",
         Progress: 0,
@@ -297,7 +298,7 @@ export default {
     },
 //根据部门查找部门人员
     changeValue(e,row,cb ){
-      console.log(e,row,row.BelongingDepartment.value);
+      console.log(e,row,row.BelongingDepartment);
       if(e){
 
 get_by_department({Department:row.BelongingDepartment.value}).then(res=>{
