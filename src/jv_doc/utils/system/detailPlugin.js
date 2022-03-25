@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-25 13:40:20
- * @LastEditTime: 2022-01-17 17:13:12
+ * @LastEditTime: 2022-03-25 13:25:19
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\jv_doc\utils\system\detailPlugin.js
@@ -50,14 +50,14 @@ export function detailPageModel($el, optionsState, API, callBack) {
     // 编辑
     {
       label: i18n.t("Generality.Ge_Edit"),
-      disabled: !(stateMap && stateMap.operation.edit),
+      disabled: !btnMap.edit,
       confirm: doEdit({ BillId }, $el),
     },
     // 删除
     {
       label: i18n.t("Generality.Ge_Delete"),
-      disabled: !(stateMap && stateMap.operation.del),
-      popConfirm: {
+      disabled: !btnMap.delete,
+            popConfirm: {
         title: i18n.t("Generality.Ge_DeleteConfirm"),
         // doDelete
         confirm: doDelete(API.api_delete, { BillIds: [BillId] }, $el),

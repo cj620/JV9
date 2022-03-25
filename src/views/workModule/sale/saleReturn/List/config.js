@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2021-11-12 15:36:57
+ * @LastEditTime: 2022-03-25 13:20:37
  * @Description: file content
  */
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
@@ -135,5 +135,42 @@ export const formSchema = [
       keyName: "ShortName",
       valueName: "ShortName"
     }
+  },
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    cpn: "FormSelect",
+    options: {
+      list: [
+        {
+          value: "Unsubmitted",
+          label: i18n.t("Generality.Ge_Unsubmitted"),
+        },
+        {
+          value: "Submitted",
+          label: i18n.t("Generality.Ge_Submitted"),
+        },
+        {
+          value: "Approving",
+          label: i18n.t("Generality.Ge_Approving"),
+        },
+        {
+          value: "Approved",
+          label: i18n.t("Generality.Ge_Approved"),
+        },
+        {
+          value: "Rejected",
+          label: i18n.t("Generality.Ge_Rejected"),
+        },
+        {
+          value: "Completed",
+          label: i18n.t("Generality.Ge_Completed"),
+        },
+        {
+          value: "Discarded",
+          label: i18n.t("Generality.Ge_Discarded"),
+        },
+      ],
+    },
   },
 ]

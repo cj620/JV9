@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-10 09:01:19
- * @LastEditTime: 2021-12-29 16:04:19
+ * @LastEditTime: 2022-03-25 13:27:30
  * @Description:
  */
 
@@ -103,5 +103,42 @@ export const formSchema = [
     prop: "BillId",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_BillId"),
+  },
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    cpn: "FormSelect",
+    options: {
+      list: [
+        {
+          value: "Unsubmitted",
+          label: i18n.t("Generality.Ge_Unsubmitted"),
+        },
+        {
+          value: "Submitted",
+          label: i18n.t("Generality.Ge_Submitted"),
+        },
+        {
+          value: "Approving",
+          label: i18n.t("Generality.Ge_Approving"),
+        },
+        {
+          value: "Approved",
+          label: i18n.t("Generality.Ge_Approved"),
+        },
+        {
+          value: "Rejected",
+          label: i18n.t("Generality.Ge_Rejected"),
+        },
+        {
+          value: "Completed",
+          label: i18n.t("Generality.Ge_Completed"),
+        },
+        {
+          value: "Discarded",
+          label: i18n.t("Generality.Ge_Discarded"),
+        },
+      ],
+    },
   },
 ];

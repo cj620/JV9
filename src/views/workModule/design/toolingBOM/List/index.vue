@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-03-22 14:08:46
+ * @LastEditTime: 2022-03-25 13:08:22
  * @Description: 模具BOM
 -->
 
@@ -204,7 +204,7 @@
       
     >
     
- <template #operation="{ row, row_index }">
+ <template #operation="{  row_index }">
         <TableAction
           :actions="[
             
@@ -429,11 +429,14 @@ export default {
       this.importTableObj.delItem(index);
     },
     l_save() {
-      var saveData = temMerge(
+      var Boms = temMerge(
         this.saveData,
         this.mixinToolId(this.eTableObj.getTableData())
       );
-
+var saveData ={
+  ToolingNo:this.toolId,
+  Boms
+}
         this.eTableObj.validate((valid) => {
           if (valid) {
             savePartBom(saveData).then((res) => {

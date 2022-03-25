@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-11-15 15:09:28
- * @LastEditTime: 2022-01-17 17:13:04
+ * @LastEditTime: 2022-03-25 13:18:27
  * @Description: file content
  */
 
@@ -41,13 +41,12 @@ export function detailBtnModel($el, options) {
     },
     {
       label: i18n.t("Generality.Ge_Edit"),
-      disabled: !(stateMap && stateMap.operation.edit),
+      disabled:!btnMap.edit,
       confirm: d_edit.bind($el, BillId),
     },
-
     {
       label: i18n.t("Generality.Ge_Delete"),
-      disabled: !(stateMap && stateMap.operation.del),
+      disabled: !btnMap.delete,
       popConfirm: {
         title: i18n.t("Generality.Ge_DeleteConfirm"),
         confirm: $el.d_delete.bind(null, BillId),

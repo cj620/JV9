@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-12 15:34:15
- * @LastEditTime: 2021-11-12 15:48:52
+ * @LastEditTime: 2022-03-25 13:45:18
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \JvMmsV9Front\src\views\workModule\stockroom\otherIn\List\config.js
@@ -106,6 +106,43 @@ export const formSchema = [
     prop: "BillId",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_BillId")
-  }
+  },
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    cpn: "FormSelect",
+    options: {
+      list: [
+        {
+          value: "Unsubmitted",
+          label: i18n.t("Generality.Ge_Unsubmitted"),
+        },
+        {
+          value: "Submitted",
+          label: i18n.t("Generality.Ge_Submitted"),
+        },
+        {
+          value: "Approving",
+          label: i18n.t("Generality.Ge_Approving"),
+        },
+        {
+          value: "Approved",
+          label: i18n.t("Generality.Ge_Approved"),
+        },
+        {
+          value: "Rejected",
+          label: i18n.t("Generality.Ge_Rejected"),
+        },
+        {
+          value: "Completed",
+          label: i18n.t("Generality.Ge_Completed"),
+        },
+        {
+          value: "Discarded",
+          label: i18n.t("Generality.Ge_Discarded"),
+        },
+      ],
+    },
+  },
 
 ]

@@ -80,7 +80,7 @@ export const formSchema = [
   //需求类别搜索
   {
     prop: "purchase",
-    label: i18n.t("production.Pu_RequirementType"),
+    label: i18n.t("purchase.Pu_RequirementType"),
     cpn: "FormSelect",
     options: {
       list: [
