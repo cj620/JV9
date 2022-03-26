@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-03-25 11:53:41
+ * @LastEditTime: 2022-03-26 10:23:09
  * @Description: 模具BOM
 -->
 
@@ -630,10 +630,14 @@ var saveData ={
       if(this.importTableObj.selectData.datas.length>0){
        var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
      console.log(arr)
- var saveData = temMerge(
+ var Boms = temMerge(
         this.saveData,
         this.mixinToolId(arr)
       );
+      var saveData ={
+  ToolingNo:this.toolId,
+  Boms
+}
      console.log(saveData)
             savePartBom(saveData).then((res) => {
               this.getData();

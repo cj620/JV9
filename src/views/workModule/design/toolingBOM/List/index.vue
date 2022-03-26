@@ -632,10 +632,15 @@ var saveData ={
       if(this.importTableObj.selectData.datas.length>0){
        var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
      console.log(arr)
- var saveData = temMerge(
+ var Boms = temMerge(
         this.saveData,
         this.mixinToolId(arr)
       );
+       
+var saveData ={
+  ToolingNo:this.toolId,
+  Boms
+}
      console.log(saveData)
             savePartBom(saveData).then((res) => {
               this.getData();
