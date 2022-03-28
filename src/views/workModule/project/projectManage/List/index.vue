@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-01 15:42:07
- * @LastEditTime: 2022-03-02 14:57:30
+ * @LastEditTime: 2022-03-28 11:25:57
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\List\index.vue
@@ -163,10 +163,16 @@ export default {
         query: { BillId: row.BillId },
       });
     },
+    // toProjrctCost(row) {
+    //   this.$router.push({
+    //     name: "Pm_ProjectCost",
+    //     query: { Project: row.Project },
+    //   });
+    // },
     toProjrctCost(row) {
       this.$router.push({
-        name: "Pm_ProjectCost",
-        query: { Project: row.Project },
+        name:'Pm_PivotTable',
+        query: { ProjectId: row.Project },
       });
     },
     toShare(row) {

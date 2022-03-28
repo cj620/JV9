@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-03-21 19:09:33
+ * @LastEditTime: 2022-03-28 09:52:36
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
@@ -153,6 +153,7 @@ export const tableConfig = [
       label: i18n.t("Generality.Ge_MaterialRequirementState"),
       width: 140,
       custom: true,
+      sortable:true,
       editConfig: {
         disabled: true,
       },
