@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-01 15:42:07
- * @LastEditTime: 2022-03-28 11:25:57
+ * @LastEditTime: 2022-03-30 18:01:07
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\List\index.vue
@@ -169,10 +169,14 @@ export default {
     //     query: { Project: row.Project },
     //   });
     // },
-    toProjrctCost(row) {
+    toProjrctCost(row,flag) {
+      console.log(row,flag,111);
+      let ProjectId ;
+     flag?ProjectId=row.Project:ProjectId=row.Id
+           console.log(ProjectId,111);
       this.$router.push({
         name:'Pm_PivotTable',
-        query: { ProjectId: row.Project },
+        query: { ProjectId: ProjectId,Typ: flag},
       });
     },
     toShare(row) {
@@ -239,7 +243,7 @@ export default {
             },
             {
               label: this.$t("project.Pro_Cost"),
-              confirm: this.toProjrctCost.bind(null, row),
+              confirm: this.toProjrctCost.bind(null, row,true),
             },
             // {
             //   label: this.$t("project.Pro_Share"),
@@ -251,6 +255,10 @@ export default {
             {
               label: this.$t("project.Pro_ToolingDetails"),
               confirm: this.toMouldDetail.bind(null, row),
+            },
+            {
+              label: this.$t("project.Pro_Cost"),
+              confirm: this.toProjrctCost.bind(null, row,false),
             },
           ];
         } else if (flag == "2") {

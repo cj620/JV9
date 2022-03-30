@@ -1,6 +1,6 @@
 <!--透视表-->
 <template>
-  <PageWrapper :footer="false"  style="background-color: #ffffff">
+  <PageWrapper :footer="false"  v-loading="loading"  style="background-color: #ffffff">
     <DxChart ref="chart">
       <DxTooltip
          :enabled="true"
@@ -133,6 +133,7 @@ export default {
       drillDownDataSource: null,
       popupTitle: '',
       popupVisible: false,
+            loading: false,
       // customizeTooltip(args) {
       //   console.log(args);
       //   const valueText = currencyFormatter.format(args.originalValue);
@@ -167,10 +168,18 @@ export default {
   },
   methods: {
     GetData(){
-      project_cost_details_list({
-        Project:this.$route.query.ProjectId,
+      this.loading = true;
+      console.log(this.$route.query.Typ);
+      let str = {
+         Project:'',
         ToolingNo:'',
-      }).then(res=>{
+      }
+      if(this.$route.query.Typ){
+        str.Project=this.$route.query.ProjectId
+      }else{
+ str.ToolingNo=this.$route.query.ProjectId
+      }
+      project_cost_details_list(str).then(res=>{
         console.log(res.Items)
         res.Items.forEach(item => {
                   console.log(item.TaskType)
@@ -186,6 +195,9 @@ export default {
           store: res.Items
         }),
           console.log(this.dataSource.store)
+          setTimeout(() => {
+          this.loading = false;
+        }, 500);
       })
     },
     onCellClick(e){
