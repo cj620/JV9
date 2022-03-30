@@ -3,7 +3,9 @@
   <PageWrapper :footer="false"  style="background-color: #ffffff">
     <DxChart ref="chart">
       <DxTooltip
-        :enabled="true"
+         :enabled="true"
+         :shared="true"
+      :customize-tooltip="customizeTooltip"
 
       />
       <DxAdaptiveLayout :width="450"/>
@@ -99,6 +101,7 @@ import zhMessages from 'devextreme/localization/messages/zh.json'
 import { locale, loadMessages } from 'devextreme/localization'
 import { DxPopup } from 'devextreme-vue/popup';
 import { projectTypeEnum,processTypeEnum,taskTypeEnum,taskStateEnum } from "@/enum/workModule";
+import { amountFormat } from "@/jv_doc/utils/handleData/index";
 
 
 import { DxDataGrid, DxColumn } from 'devextreme-vue/data-grid';
@@ -130,12 +133,13 @@ export default {
       drillDownDataSource: null,
       popupTitle: '',
       popupVisible: false,
-      customizeTooltip(args) {
-        const valueText = currencyFormatter.format(args.originalValue);
-        return {
-          html: `${args.seriesName} | Total<div class='currency'>${valueText}</div>`,
-        };
-      },
+      // customizeTooltip(args) {
+      //   console.log(args);
+      //   const valueText = currencyFormatter.format(args.originalValue);
+      //   return {
+      //     html: `${args.seriesName} | Total<div class='currency'>${valueText}</div>`,
+      //   };
+      // },
     };
   },
   async created(){
@@ -197,6 +201,16 @@ export default {
             }
       
     },
+    //格式化
+      customizeTooltip(pointInfo) {
+        console.log(pointInfo.originalValue);
+       return {
+        html: `<div>${
+          amountFormat(pointInfo.originalValue)
+        }</div>`,
+      };
+    },
+
    
     onExporting(e) {
       const workbook = new Workbook();
