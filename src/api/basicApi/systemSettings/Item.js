@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-29 14:06:27
- * @LastEditTime: 2021-11-02 18:31:01
+ * @LastEditTime: 2022-03-31 15:59:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\api\basicApi\systemSettings\Item.js
@@ -68,7 +68,7 @@ export function materialInfoAttribute(data) {
 //批量保存物料信息
 export function batchInsertMaterialInfo(data) {
   return request({
-    url: '/ba_material_info/batch_insert',
+    url: '/item/batch_add',
     method: 'post',
     data
   })

@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-10 11:01:42
- * @LastEditTime: 2021-11-10 11:09:05
+ * @LastEditTime: 2022-03-31 16:32:36
  * @Description:供应商
  */
 
@@ -43,6 +43,14 @@ export function addSupplier(data) {
 }
 
 // 修改供应商
+export function purchase_supplier_batch_import(data) {
+  return request({
+    url: "/purchase_supplier/batch_import",
+    method: "post",
+    data,
+  });
+}
+// 导入供应商
 export function editSupplier(data) {
   return request({
     url: "/purchase_supplier/update",
@@ -50,7 +58,6 @@ export function editSupplier(data) {
     data,
   });
 }
-
 // 删除供应商
 export function deleteSupplier(data) {
   return request({

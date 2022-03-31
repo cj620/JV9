@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-04 14:49:56
- * @LastEditTime: 2022-03-07 13:25:59
+ * @LastEditTime: 2022-03-31 16:18:08
  * @Description:
  */
 import request from "@/utils/request";
@@ -35,6 +35,14 @@ export function addSalesCustomer(data) {
 export function editSalesCustomer(data) {
   return request({
     url: "/sales_customer/update",
+    method: "post",
+    data,
+  });
+}
+// 导入销售客户
+export function sales_customer_batch_import(data) {
+  return request({
+    url: "/sales_customer/batch_import",
     method: "post",
     data,
   });

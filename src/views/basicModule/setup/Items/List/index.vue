@@ -62,7 +62,6 @@
           ref="BillTable"
           :table-obj="tableObj"
           @selectionChange="handleSelectionChange"
-          @importConfirm="importConfirm"
         >
           <template #State="{ row }">
             {{ stateEnum[row.State] && stateEnum[row.State].name }}
@@ -93,6 +92,12 @@
             <el-button size="mini" @click="add">{{
               $t("Generality.Ge_New")
             }}</el-button>
+            <el-button size="mini" @click="downExport2Excel">
+              {{$t('design.De_DownloadTemplate')}}
+            </el-button>
+             <el-button size="mini" @click="Import">
+{{$t("Generality.Ge_Import")}}
+            </el-button>
           </Action>
         </JvTable>
       </div>
@@ -107,6 +112,13 @@
     >
       <JvForm :formObj="formObj"> </JvForm>
     </jv-dialog>
+      <!-- 导入数据 -->
+    <Import
+      :visible.sync="importShow"
+      width="28%"
+      :title="$t('Generality.Ge_Import')"
+      @complete="importComplete"
+    ></Import>
   </PageWrapper>
 </template>
 
@@ -124,6 +136,8 @@ import {
   batchInsertMaterialInfo,
 } from "@/api/basicApi/systemSettings/Item";
 import { stateEnum } from "@/enum/baseModule";
+import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
+
 export default {
   data() {
     return {
@@ -138,6 +152,8 @@ export default {
       showTree: false,
       formObj: {},
       dialogFormVisible: false,
+            importShow: false,
+
       form: { filterText: "" },
       CategoryListData: [],
       defaultProps: {
@@ -148,6 +164,38 @@ export default {
         keyword: "",
       },
       importData: {},
+         exportTemplate: [
+        {
+          prop: "ItemId",
+          label: this.$t("Generality.Ge_ID"),
+        },
+
+        /*名称*/
+        {
+          prop: "ItemName",
+          label: this.$t("Generality.Ge_ItemName"),
+        },
+        /*描述*/
+        {
+          prop: "Description",
+          label: this.$t("Generality.Ge_Describe"),
+        },
+        /*单位*/
+        {
+          prop: "Unit",
+          label: this.$t("Generality.Ge_Unit"),
+        },
+       
+      ],
+      exportTemplateData: {
+        checkData: [],
+        checkedFields: [],
+        sourceType: "editTable",
+        dataType: "TEMPLATE",
+        saveType: "xlsx",
+        title: "",
+        fileName: this.$t("menu.Se_Item"),
+      },
     };
   },
   watch: {
@@ -186,6 +234,20 @@ export default {
         this.CategoryListData = [];
         this.getData();
       });
+    },
+     //下载导入模板
+    downExport2Excel() {
+      var arr = [];
+      this.tableObj.props.tableSchema.forEach((item) =>
+        this.exportTemplate.forEach((Titem) => {
+          if (item.label === Titem.label) {
+            arr.push(item);
+          }
+        })
+      );
+      console.log(arr);
+      this.exportTemplateData.checkedFields = arr;
+      export2Excel(this.exportTemplateData);
     },
     //新增类别确认保存
     confirmAddCategory() {
@@ -290,49 +352,41 @@ export default {
         if (r.children) this.childrenList(r.children, res);
       });
     },
+    Import(){
+       this.importShow = true;
+    },
     //导入成功
-    async importConfirm(e) {
-      var saveData = [];
-      var materialAttributeListData = [];
-      var materialCategoryListData = [];
-      var ruleForm = {
-        id: "",
-        name: "",
-        code: "",
-        materialAttribute: "",
-        materialCategory: "",
-        materialInventoryInfo: {
-          id: 0,
-          defaultWarehouseId: 0, //默认仓库
-          defaultWarehouseLocation: 0, //默认库位
-        },
-      };
-      await this.tableObj.formObj.formSchema[3].api().then((res) => {
-        materialAttributeListData = res.Items;
-      });
-      await this.tableObj.formObj.formSchema[4].api().then((res) => {
-        materialCategoryListData = res.Items;
-      });
-      console.log(materialAttributeListData);
-      e.forEach((item) => {
-        ruleForm.code = item["物料编号"];
-        ruleForm.name = item[this.$t("Generality.Ge_ItemsName")];
+     importComplete(e) {
+      this.importShow = false;
 
-        materialAttributeListData.forEach((Titem) => {
-          if (Titem.attributeName === item["属性"]) {
-            ruleForm.materialAttribute = Titem.id;
-            console.log(ruleForm, 6969);
+       var arr = [];
+      e.forEach((Titem) => {
+        var str = {
+           ItemId: "",
+        ItemName: "",
+        Description: "",
+        Unit: "",
+        ItemType: "",
+        State: "Enable",
+        PhotoUrl: "",
+        SafetyStock: "",
+        MaxStock: "",
+        DataState: "Add",
+        ItemCategory: "Standard",
+        Project: "",
+        };
+        this.exportTemplate.forEach((item) => {
+          if (Titem[item.label]) {
+            str[item.prop] = Titem[item.label];
           }
         });
-        materialCategoryListData.forEach((Ttem) => {
-          if (Ttem.name === item["分类"]) {
-            ruleForm.materialCategory = Ttem.id;
-          }
-        });
-        saveData.push(ruleForm);
+        arr.push(str);
       });
+      console.log(arr);
 
-      batchInsertMaterialInfo(saveData).then((res) => {});
+       batchInsertMaterialInfo(arr).then((res) => {
+         this.tableObj.getData();
+       });
     },
     handleSelectionChange() {},
   },

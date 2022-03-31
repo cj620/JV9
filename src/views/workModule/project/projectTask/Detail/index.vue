@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-29 10:47:35
- * @LastEditTime: 2022-01-20 16:39:28
+ * @LastEditTime: 2022-03-31 16:25:14
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\project\projectTask\Detail\index.vue
@@ -72,6 +72,9 @@
             :stroke-width="14"
             :percentage="row.Progress"
           ></el-progress>
+        </template>
+         <template #Worker="{ row }">
+         {{row.Worker}}
         </template>
       </JvTable>
     </JvBlock>

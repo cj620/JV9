@@ -19,26 +19,7 @@
               slot-scope="{ node, data }"
             >
               <span>{{ node.label }}</span>
-              <!-- <span>
-                <el-button
-                  type="text"
-                  size="mini"
-                  style="font-size: 14px"
-                  v-if="node.label !== $t('Generality.Ge_All')"
-                  @click.stop="() => append(data)"
-                >
-                  {{ $t("Generality.Ge_AddChild") }}
-                </el-button>
-                <el-button
-                  type="text"
-                  size="mini"
-                  style="font-size: 14px"
-                  v-if="node.label !== $t('Generality.Ge_All')"
-                  @click.stop="() => remove(node, data)"
-                >
-                  {{ $t("Generality.Ge_Delete") }}
-                </el-button>
-              </span> -->
+             
               <span>
                 <el-button
                   type="text"
@@ -65,25 +46,7 @@
                   </el-button>
                 </el-popconfirm>
               </span>
-              <!-- <TableAction
-                :actions="[
-                  {
-                    label: '删除',
-                    icon: 'el-icon-delete',
-                    popConfirm: {
-                      title: '是否删除？',
-                      confirm: () => {},
-                    },
-                  },
-                  {
-                    icon: 'el-icon-delete',
-                    popConfirm: {
-                      title: '是否删除？',
-                      confirm: remove.bind(null, node, data),
-                    },
-                  },
-                ]"
-              /> -->
+             
             </span>
           </el-tree>
         </div>
@@ -135,6 +98,12 @@
             <el-button size="mini" @click="deleted">{{
               $t("setup.DeletedUsers")
             }}</el-button>
+                        <el-button size="mini" @click="downExport2Excel">
+              {{$t('design.De_DownloadTemplate')}}
+            </el-button>
+             <el-button size="mini" @click="Import">
+{{$t("Generality.Ge_Import")}}
+            </el-button>
           </Action>
         </JvTable>
       </div>
@@ -150,6 +119,13 @@
     >
       <JvForm :formObj="formObj"> </JvForm>
     </jv-dialog>
+         <!-- 导入数据 -->
+    <Import
+      :visible.sync="importShow"
+      width="28%"
+      :title="$t('Generality.Ge_Import')"
+      @complete="importComplete"
+    ></Import>
   </PageWrapper>
 </template>
 
@@ -168,7 +144,10 @@ import {
   getUserInfoList,
   editUserInfo,
   deleteUserAccount,
+  user_data_batch_import
 } from "@/api/basicApi/systemSettings/user";
+import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
+
 export default {
   name: "Se_Users",
   data() {
@@ -178,6 +157,7 @@ export default {
       formObj: {},
       remarkShow: false,
       dialogFormVisible: false,
+        importShow: false,
       chooseList: [],
       editAccountTitle: "编辑账号",
       showTree: false,
@@ -193,6 +173,32 @@ export default {
         keyword: "",
       },
       addDialogVisible: false,
+       exportTemplate: [
+        {
+          prop: "UserId",
+          label: this.$t("setup.UserId"),
+        },
+        {
+          prop: "UserName",
+          label: this.$t("setup.UserName"),
+        },
+       
+        /*性别*/
+        {
+          prop: "DepartmentName",
+          label: this.$t("menu.Se_Department"),
+        },
+       
+      ],
+      exportTemplateData: {
+        checkData: [],
+        checkedFields: [],
+        sourceType: "editTable",
+        dataType: "TEMPLATE",
+        saveType: "xlsx",
+        title: "",
+        fileName: this.$t("menu.Se_Users"),
+      },
     };
   },
   watch: {
@@ -328,7 +334,56 @@ export default {
         },
       });
     },
+     //下载导入模板
+    downExport2Excel() {
+      var arr = [];
+      this.tableObj.props.tableSchema.forEach((item) =>
+        this.exportTemplate.forEach((Titem) => {
+          if (item.label === Titem.label) {
+            arr.push(item);
+          }
+        })
+      );
+      console.log(arr);
+      
+      this.exportTemplateData.checkedFields = arr;
+      export2Excel(this.exportTemplateData);
+    },
+    Import(){
+       this.importShow = true;
+    },
 
+    //导入成功
+     importComplete(e) {
+      this.importShow = false;
+       var arr = [];
+      e.forEach((Titem) => {
+        var str = {
+           UserId: "",
+        UserName: "",
+        DepartmentName: "",
+        Sex: "Male",
+        Activate: true,
+        Birthday: "",
+        Mail: "",
+        Tel: "",
+        Phone: "",
+        FamilyAddress: "",
+        };
+        this.exportTemplate.forEach((item) => {
+          if (Titem[item.label]) {
+            str[item.prop] = Titem[item.label];
+          }
+        });
+        arr.push(str);
+      });
+      console.log(arr);
+
+       user_data_batch_import(arr).then((res) => {
+         this.tableObj.getData();
+    
+       });
+    },
     handleSelectionChange() {},
   },
 };

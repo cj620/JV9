@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-09 18:53:00
- * @LastEditTime: 2022-03-22 17:57:35
+ * @LastEditTime: 2022-03-31 15:54:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-element-admin-master\src\api\user.js
@@ -57,6 +57,14 @@ export function editUserInfo(data) {
   });
 }
 
+// 导入用户信息
+export function user_data_batch_import(data) {
+  return request({
+    url: "/user_data/batch_import",
+    method: "post",
+    data,
+  });
+}
 export function deleteUserAccount(data) {
   return request({
     url: "/user_data/delete",
