@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-23 14:02:56
- * @LastEditTime: 2022-01-07 10:14:32
+ * @LastEditTime: 2022-04-04 11:42:41
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\project\projectManage\mouldDetail\config.js
@@ -98,7 +98,7 @@ const P_tableSchema = [
   },
   /*备注*/
   {
-    prop: "Remark",
+    prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
 ];
