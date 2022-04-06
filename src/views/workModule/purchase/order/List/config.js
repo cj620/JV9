@@ -1,13 +1,16 @@
 /*
  * @Author: H.
  * @Date: 2021-11-10 09:01:19
- * @LastEditTime: 2022-03-25 13:27:17
+ * @LastEditTime: 2022-04-06 11:51:49
  * @Description:
  */
 
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 // import { getPurchaseOrderList } from "@/api/workApi/purchase/order";
 import { API } from "@/api/workApi/purchase/order";
+import {
+  getAllSupplier,
+} from "@/api/workApi/purchase/supplier";
 export class api extends TableAPI {
   getData = API.api_list;
 }
@@ -99,6 +102,17 @@ export const formSchema = [
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_BillId"),
   },
+    //供应商搜索
+    {
+      prop: "SupplierName",
+      label: i18n.t("purchase.Pr_SupplierName"),
+      cpn: "SyncSelect",
+      api: getAllSupplier,
+      apiOptions: {
+        keyName: "ShortName",
+        valueName: "ShortName"
+      }
+    },
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
