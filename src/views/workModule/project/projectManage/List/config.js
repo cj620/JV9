@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-02-28 17:44:41
+ * @LastEditTime: 2022-04-06 17:45:43
  * @Description: file content
  */
 // 引入表格表格类和表格API类
@@ -122,6 +122,8 @@ export const tableConfig = [
     prop: "Progress",
     label: i18n.t("project.Pro_ProcessingProgress"),
     custom: true,
+    sortable:true,
+    sortBy(row,index){ return row.Progress; }
   },
 ];
 // 表单配置
