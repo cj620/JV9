@@ -70,7 +70,8 @@
               <DxColumn :caption="$t('Generality.Ge_CostType')" data-field="CostType"  />
               <DxColumn :caption="$t('Generality.Ge_Quantity')" data-field="Quantity"/>
               <DxColumn :caption="$t('Generality.Ge_Amount')"  data-field="Amount" data-type="number" />
-      
+              <DxColumn :caption="$t('Generality.Ge_Remarks')"  data-field="Remarks"  />
+
       </DxDataGrid> 
   </jv-dialog>
   </PageWrapper>
