@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-01 09:26:46
- * @LastEditTime: 2022-03-31 16:36:20
+ * @LastEditTime: 2022-04-07 18:37:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\views\workModule\sale\baseData\customer\List\index.vue
@@ -45,6 +45,13 @@
             </el-button>
       </Action>
     </JvTable>
+     <!-- 导入数据 -->
+    <Import
+      :visible.sync="importShow"
+      width="28%"
+      :title="$t('Generality.Ge_Import')"
+      @complete="importComplete"
+    ></Import>
   </PageWrapper>
 </template>
 <script>
@@ -64,8 +71,8 @@ export default {
        importShow: false,
          exportTemplate: [
         {
-          prop: "CustomerId",
-          label: this.$t("sale.Sa_CustomerId"),
+          prop: "SupplierId",
+          label: this.$t("purchase.Pr_SupplierId"),
         },
 
         /*名称*/
