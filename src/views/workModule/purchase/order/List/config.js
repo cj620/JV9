@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-10 09:01:19
- * @LastEditTime: 2022-04-06 11:51:49
+ * @LastEditTime: 2022-04-07 17:27:19
  * @Description:
  */
 
@@ -68,6 +68,16 @@ export const tableConfig = [
   {
     prop: "SupplierName",
     label: i18n.t("purchase.Pr_SupplierName"),
+    innerSearch:{
+      prop: "SupplierName",
+      label: i18n.t("purchase.Pr_SupplierName"),
+      cpn: "SyncSelect",
+      api: getAllSupplier,
+      apiOptions: {
+        keyName: "ShortName",
+        valueName: "ShortName"
+      }
+    }
   },
   /*计划交期*/
   {
