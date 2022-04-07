@@ -57,7 +57,6 @@
     >
    <DxDataGrid
         :ref="dataGridRefName"
-        :height="300"
         boeder
         :data-source="drillDownDataSource"
       >
