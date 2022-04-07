@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-01 15:42:07
- * @LastEditTime: 2022-03-30 18:01:07
+ * @LastEditTime: 2022-04-06 18:32:13
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\List\index.vue
@@ -10,7 +10,7 @@
 <template>
   <PageWrapper :footer="false">
     <!-- 表格 -->
-    <JvTable ref="BillTable" :table-obj="tableObj">
+    <JvTable ref="BillTable" :table-obj="tableObj" @sort-change="sortChange">
       <template #PhotoUrl="{ record, row }">
         <JvImg
           v-if="row.Flag != 0"
@@ -130,6 +130,7 @@ export default {
       toolingShareVisible: false,
       shareTableObj: {},
       shareList: [],
+      tableCache:null
     };
   },
   created() {
@@ -142,6 +143,33 @@ export default {
       this.tableObj = new Table();
       // this.tableObj.getData();
       this.shareTableObj = new ToolTable();
+      this.tableObj.setCallBack(()=>{
+        this.tableCache=JSON.stringify(this.tableObj.tableData)
+        this.tableObj.tableRef?.clearSort()
+      })
+    },
+    sortChange(sortMsg,b,c){
+      if(sortMsg.order=="ascending"){
+        this.tableObj.tableData.map(item=>{
+          return{
+            ...item,
+            Children:item.Children.sort((a,b)=>{
+              return a.Progress-b.Progress
+            })
+          }
+        })
+      }else if(sortMsg.order=="descending"){
+         this.tableObj.tableData.map(item=>{
+          return{
+            ...item,
+            Children:item.Children.sort((a,b)=>{
+              return b.Progress- a.Progress
+            })
+          }
+        })
+      }else{
+        this.tableObj.tableData=JSON.parse(this.tableCache)
+      }
     },
     // 跳转项目进度
     toProjectProcess(row) {
