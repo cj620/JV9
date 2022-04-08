@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-09-17 09:11:19
- * @LastEditTime: 2022-03-24 10:04:43
+ * @LastEditTime: 2022-04-08 10:01:52
  * @Description: file content
 -->
 <template>
@@ -158,6 +158,7 @@
         ref="ElSelect"
         :multiple="cdata.type == 'multiple'"
         v-else
+        filterable
         :id="getPrefixId"
         @visible-change="selcetBlur"
         v-bind="getElFormItemProps(cdata)"
