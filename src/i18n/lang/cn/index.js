@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:34:11
- * @LastEditTime: 2022-03-23 17:56:38
+ * @LastEditTime: 2022-04-27 18:07:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\i18n\lang\cn\index.js
@@ -968,6 +968,7 @@ const cn = {
     P10184: "分享密钥不存在！",
     P10185: "分享密钥已过期！",
     P10186: "无法删除!",
+    P10187: "单位不存在!",
   },
   program: {
     Pr_ProcessPlanning: "工艺设计",
