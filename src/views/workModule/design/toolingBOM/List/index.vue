@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-03-25 13:08:22
+ * @LastEditTime: 2022-04-27 17:37:16
  * @Description: 模具BOM
 -->
 
@@ -321,7 +321,12 @@ export default {
           prop: "Quantity",
           label: this.$t("Generality.Ge_Quantity"),
         },
-        /*数量*/
+        /*单位*/
+        {
+          prop: "Unit",
+          label: this.$t("Generality.Ge_Unit"),
+        },
+        /*备注*/
         {
           prop: "Remarks",
           label: this.$t("Generality.Ge_Remarks"),
@@ -413,6 +418,7 @@ export default {
     l_addRow() {
       /*this.l_insert(-1);*/
       this.saveData.Quantity = 1;
+      console.log(this.saveData);
       this.eTableObj.push([this.saveData]);
     },
     l_insert(index) {

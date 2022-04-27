@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-03-26 10:23:09
+ * @LastEditTime: 2022-04-27 17:40:19
  * @Description: 模具BOM
 -->
 
@@ -316,6 +316,11 @@ export default {
           prop: "Quantity",
           label: this.$t("Generality.Ge_Quantity"),
         },
+        /*单位*/
+        {
+          prop: "Unit",
+          label: this.$t("Generality.Ge_Unit"),
+        },
         /*数量*/
         {
           prop: "Remarks",
@@ -619,7 +624,7 @@ var saveData ={
       // ToolingNo
       return list.map((item) => {
         item["ToolingNo"] = this.ToolingNo;
-        item["Unit"] = "pcs";
+        // item["Unit"] = "pcs";
         return item;
       });
     },
