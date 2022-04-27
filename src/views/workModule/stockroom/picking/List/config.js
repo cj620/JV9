@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-12 09:10:24
- * @LastEditTime: 2022-03-25 13:45:39
+ * @LastEditTime: 2022-04-27 12:24:49
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \JvMmsV9Front\src\views\workModule\stockroom\picking\List\config.js
@@ -14,6 +14,8 @@
  */
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
 import { API } from "@/api/workApi/stockroom/picking";
+import { itemList } from "@/api/basicApi/systemSettings/Item";
+
 let {api_list,api_delete}=API
 export class api extends TableAPI {
   getData = api_list;
@@ -149,6 +151,21 @@ export const formSchema = [
         },
       ],
     },
+  },
+  //模号搜索 Ge_ToolingName
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo")+'  /  '+ i18n.t("Generality.Ge_ToolingName"),
+    cpn: "AsyncSearch",
+      api: itemList,
+      apiOptions: {
+        keyName: "ItemName",
+        showValue:true,
+        valueName: "ItemId",
+        params:{
+          ItemCategory:'Tooling'
+        }
+      },
   },
 
 ]

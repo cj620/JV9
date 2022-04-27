@@ -1,12 +1,14 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-03-25 13:45:57
+ * @LastEditTime: 2022-04-27 12:24:54
  * @Description: file content
  */
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
 
 import { API } from "@/api/workApi/stockroom/returnPicking";
+import { itemList } from "@/api/basicApi/systemSettings/Item";
+
 let {api_list,api_delete}=API
 export class api extends TableAPI {
   getData = api_list;
@@ -136,5 +138,19 @@ export const formSchema = [
       ],
     },
   },
-
+//模号搜索 Ge_ToolingName
+{
+  prop: "ToolingNo",
+  label: i18n.t("Generality.Ge_ToolingNo")+'  /  '+ i18n.t("Generality.Ge_ToolingName"),
+  cpn: "AsyncSearch",
+    api: itemList,
+    apiOptions: {
+      keyName: "ItemName",
+      showValue:true,
+      valueName: "ItemId",
+      params:{
+        ItemCategory:'Tooling'
+      }
+    },
+},
 ]

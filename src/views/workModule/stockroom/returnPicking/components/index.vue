@@ -145,6 +145,7 @@ export default {
         Unit: "",
         Quantity: 0,
         Remarks: "",
+        ToolingNo: "",
         AssociatedNo: 0,
       },
     };

@@ -2,7 +2,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2021-11-02 15:50:53
+ * @LastEditTime: 2022-04-27 12:20:40
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
@@ -65,7 +65,14 @@ export const tableConfig = [
     width:'100px',
     filter: "amount",
   },
-
+ /*模具编号*/
+ {
+  prop: "ToolingNo",
+  label:i18n.t("Generality.Ge_ToolingNo"),
+  editConfig:{
+    disabled:true,
+  }
+},
   /*备注*/
   {
     prop: "Remarks",

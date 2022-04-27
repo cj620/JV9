@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-12-22 13:09:11
- * @LastEditTime: 2022-01-07 10:33:47
+ * @LastEditTime: 2022-04-27 12:20:53
  * @Description:
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
@@ -45,7 +45,11 @@ export const tableConfig = [
     filter: "amount",
     width: "100px",
   },
-
+ /*模具编号*/
+ {
+  prop: "ToolingNo",
+  label: i18n.t("Generality.Ge_ToolingNo"),
+},
   /*备注*/
   {
     prop: "Remarks",
@@ -67,18 +71,9 @@ export const detailConfig = [
     // 仓库
     prop: "Stockroom",
     label: i18n.t("setup.Stockroom"),
-    filter: "date",
   },
-  /*模具编号*/
-  {
-    prop: "ToolingNo",
-    label: i18n.t("Generality.Ge_ToolingNo"),
-  },
-  /*任务单号*/
-  {
-    prop: "PmTaskBillId",
-    label: i18n.t("project.Pro_TaskSheetNo"),
-  },
+ 
+ 
   {
     // 制单人
     prop: "Creator",
