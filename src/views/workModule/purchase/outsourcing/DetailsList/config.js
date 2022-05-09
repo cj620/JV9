@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2022-02-22 16:21:55
- * @LastEditTime: 2022-02-25 17:04:19
+ * @LastEditTime: 2022-05-09 16:14:01
  * @Description: file content
  */
 //销售订单明细 配置文件
@@ -76,13 +76,20 @@ const tableSchema = [
     filter: "date",
     width: "120px",
   },
-  /*物料编号*/
+  /*工序*/
   {
+    prop: "Process",
+    label:i18n.t("Generality.Ge_Process"),
+
+  },
+
+  
+   /*物料编号*/
+   {
     prop: "PartNo",
     label:i18n.t("Generality.Ge_PartNo"),
 
   },
-
   /*物料名称*/
   {
     prop: "PartName",
