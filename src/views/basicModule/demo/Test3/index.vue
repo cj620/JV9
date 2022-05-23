@@ -45,7 +45,7 @@
         :width="100"
       />
     </DxDataGrid>
-  </div> 
+  </div>
 </template>
 <script>
 import {
@@ -57,7 +57,7 @@ import { saveAs } from 'file-saver-es';
 // We recommend that you use the official 'file-saver' package in your applications.
 import { exportDataGrid } from 'devextreme/excel_exporter';
 import service from './data.js';
-
+// 1
 export default {
   components: {
     DxDataGrid, DxColumn, DxExport, DxSelection, DxGroupPanel, DxGrouping,
