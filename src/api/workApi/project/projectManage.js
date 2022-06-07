@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-04 11:31:34
- * @LastEditTime: 2022-03-02 14:42:27
+ * @LastEditTime: 2022-06-07 14:40:48
  * @Description:
  */
 import request from "@/utils/request";
@@ -14,6 +14,15 @@ export function getProjectBillList(data) {
   data,
   });
 }
+// 获取项目列表
+export function getProjectBillListDefault(data) {
+  return request({
+    url: "/project_info/list_default",
+    method: "post",
+  data,
+  });
+}
+
 // 模糊查询项目
 export function getProjectQuery(data) {
   return request({

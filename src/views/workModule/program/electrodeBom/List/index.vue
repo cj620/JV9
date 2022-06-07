@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-04-27 17:40:19
+ * @LastEditTime: 2022-06-03 11:26:10
  * @Description: 模具BOM
 -->
 
@@ -392,7 +392,9 @@ export default {
       });
     },
     copy(row, index) {
-      this.eTableObj.insert(index, format2source([row]));
+       let str=JSON.parse(JSON.stringify(row))
+       str.ItemId=''
+      this.eTableObj.insert(index, format2source([str]));
     },
     //设置级别弹窗
     l_setLevel() {
@@ -450,7 +452,12 @@ var saveData ={
     },
     //批量复制一张单出来
     l_copy() {
-      this.eTableObj.push(format2source(this.eTableObj.selectData.datas));
+      let arr = JSON.parse(JSON.stringify( this.eTableObj.selectData.datas))
+      
+            arr.forEach(item=>{
+        item.ItemId=''
+      })
+      this.eTableObj.push(format2source(arr));
     },
 
     //批量删除

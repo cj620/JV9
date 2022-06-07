@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-01 15:42:07
- * @LastEditTime: 2022-04-06 18:32:13
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-06-07 14:45:26
+ * @LastEditors: 勿忘 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\List\index.vue
 -->
@@ -100,6 +100,9 @@ import { Table } from "./config";
 import { getCpn } from "@/jv_doc/maps/cpnMaps";
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
 import { ToolTable } from "./tool.share";
+import {
+ getProjectBillListDefault
+} from "@/api/workApi/project/projectManage";
 const Image = getCpn("Image");
 import {
   listTableColBtnModel,
@@ -135,6 +138,7 @@ export default {
   },
   created() {
     this.init();
+    this.getData();
   },
   methods: {
     imgUrlPlugin,
@@ -147,6 +151,16 @@ export default {
         this.tableCache=JSON.stringify(this.tableObj.tableData)
         this.tableObj.tableRef?.clearSort()
       })
+    },
+    getData(){
+      getProjectBillListDefault().then((res=>{
+        console.log(res)
+        this.tableObj.setData(res.Items)
+         this.tableObj.setCallBack(()=>{
+        this.tableCache=JSON.stringify(this.tableObj.tableData)
+        this.tableObj.tableRef?.clearSort()
+      })
+      }))
     },
     sortChange(sortMsg,b,c){
       if(sortMsg.order=="ascending"){

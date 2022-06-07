@@ -57,7 +57,7 @@
           >
             <el-option
               v-for="item in WorkerList"
-              :key="item.UserName"
+              :key="item.UserId"
               :label="item.UserName"
               :value="item.UserName "
             >
