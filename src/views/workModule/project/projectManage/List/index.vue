@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-01 15:42:07
- * @LastEditTime: 2022-06-07 14:45:26
+ * @LastEditTime: 2022-06-17 08:46:59
  * @LastEditors: 勿忘 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\List\index.vue
@@ -138,7 +138,8 @@ export default {
   },
   created() {
     this.init();
-    this.getData();
+    
+    
   },
   methods: {
     imgUrlPlugin,
@@ -151,6 +152,7 @@ export default {
         this.tableCache=JSON.stringify(this.tableObj.tableData)
         this.tableObj.tableRef?.clearSort()
       })
+      this.getData();
     },
     getData(){
       getProjectBillListDefault().then((res=>{
