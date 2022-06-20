@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2022-03-02 13:20:25
- * @LastEditTime: 2022-03-02 14:58:10
+ * @LastEditTime: 2022-06-20 14:38:43
  * @Description: file content
 -->
 <!-- 项目信息 页面-->
@@ -17,6 +17,11 @@
       <template #operation="{ row }">
         <TableAction
           :actions="[
+             // 生成模具
+            {
+              label: $t('Generality.Ge_GenerateItems'),
+              confirm: generateItems.bind(null, row),
+            },
             // 编辑按钮
             {
               label: $t('Generality.Ge_Edit'),
@@ -33,6 +38,19 @@
           ]"
         />
       </template>
+            <!-- 表格操作行 -->
+      <Action
+        size="mini"
+        slot="btn-list"
+        :actions="[
+          {
+            label: $t('Generality.Ge_New'),
+            confirm: add,
+          }
+
+        ]"
+      >
+      </Action>
     </JvTable>
     <JvDialog
       :title="$t('Generality.Ge_Edit')"
@@ -43,6 +61,12 @@
     >
       <JvForm :formObj="formObj"> </JvForm>
     </JvDialog>
+        <!--生成模具物料-->
+    <generateItems
+      :visible.sync="generateItemsDialogFormVisible"
+      @confirmGenerateItems="confirmGenerateItems"
+      ref="generateItems"
+    ></generateItems>
   </PageWrapper>
 </template>
 <script>
@@ -52,12 +76,15 @@ import { Table } from "./config";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import { listTableColBtnModel } from "~/utils/system/pagePlugin";
 import { Form } from "@/jv_doc/class/form";
+import { saveItem } from "@/api/basicApi/systemSettings/Item";
+import generateItems from "./generateItems";
 export default {
   // 页面的标识
   name: "Pm_ProjectManagement_Msg",
   components: {
     // 单据状态组件
     BillStateTags,
+    generateItems,
   },
   props: {},
   data() {
@@ -68,51 +95,27 @@ export default {
       EditRoute: "",
       // 新增路由
       AddRoute: "",
+      ProjectData: "",
       formObj: {},
       projectDialogVisible: false,
+      generateItemsDialogFormVisible: false,
     };
   },
   created() {
     // 创建表格实例
     this.tableObj = new Table();
     this.tableObj.getData();
-  },
-  computed: {
-    // 表格行
-    getListTableColBtnModel() {
-      return (row) => {
-        return listTableColBtnModel(this, row);
-      };
-    },
-  },
-  methods: {
-    l_edit(row) {
-      this.formObj = new Form({
+          this.formObj = new Form({
         formSchema: [
-          {
-            prop: "Id",
-            label: "",
-            cpn: "FormInput",
-            default: row.ProjectId,
-            hidden: true,
-            rules: [
-              {
-                required: true,
-                message: i18n.t("Generality.Ge_PleaseSelect"),
-                trigger: ["change", "blur"],
-              },
-            ],
-          },
           {
             prop: "Project",
             label: i18n.t("menu.Pm_Project"),
             cpn: "FormInput",
-            default: row.Project,
             rules: [
               {
                 required: true,
                 message: i18n.t("Generality.Ge_PleaseSelect"),
-                trigger: ["change", "blur"],
+                trigger: [ "blur"],
               },
             ],
           },
@@ -120,12 +123,11 @@ export default {
             prop: "Remarks",
             label: i18n.t("Generality.Ge_Remarks"),
             cpn: "FormInput",
-            default: row.Description,
             rules: [
               {
                 required: true,
                 message: i18n.t("Generality.Ge_PleaseSelect"),
-                trigger: ["change", "blur"],
+                trigger: [ "blur"],
               },
             ],
           },
@@ -138,6 +140,37 @@ export default {
         // 是否自动聚焦
         autoFocus: true,
       });
+  },
+  computed: {
+    // 表格行
+    getListTableColBtnModel() {
+      return (row) => {
+        return listTableColBtnModel(this, row);
+      };
+    },
+  },
+  methods: {
+    add(){
+           this.formObj.form={
+        Id: "",
+        Project: "",
+        Remarks: "",
+      }
+      this.projectDialogVisible = true;
+    },
+    generateItems(row){
+      console.log(row,999999)
+      this.ProjectData = row
+       this.generateItemsDialogFormVisible = true;
+    },
+    l_edit(row) {
+      console.log(row,999999)
+      const str = JSON.parse(JSON.stringify(row))
+       this.formObj.form={
+        Id: str.Id,
+        Project: str.Project,
+        Remarks: str.Description,
+      }
       this.projectDialogVisible = true;
     },
     l_delete(row) {
@@ -145,11 +178,22 @@ export default {
         this.tableObj.getData();
       });
     },
+    //保存模具
+    confirmGenerateItems(e){
+            e.Project = this.ProjectData.Project;
+      e.ItemCategory = "Tooling";
+      e.DataState = "Add";
+      saveItem(e).then((res) => {
+        this.generateItemsDialogFormVisible = false;
+        this.$refs.generateItems.formObj.reset();
+      });
+    },
     saveChanges() {
       // console.log(this.formObj.form, 5555555);
       this.tableObj.api.save(this.formObj.form).then((_) => {
         this.projectDialogVisible = false;
         this.tableObj.getData();
+         this.formObj.reset();
       });
     },
   },
