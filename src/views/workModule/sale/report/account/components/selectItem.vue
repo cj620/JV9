@@ -34,6 +34,10 @@
             </el-option>
           </el-select>
         </el-form-item>
+          <el-form-item label="模具" label-width="80px">
+        <el-input v-model="form.ToolingNo" ></el-input>
+
+        </el-form-item>
         <el-form-item label="" label-width="20px">
           <el-checkbox v-model="form.IsNotChecked">{{
             $t("purchase.Pr_Unreconciled")
@@ -82,6 +86,7 @@ export default {
       form: {
         BillId: "",
         CustomerName: "",
+        ToolingNo: "",
         DateType: 0,
         IsNotChecked: true,
         StartDate: "",
