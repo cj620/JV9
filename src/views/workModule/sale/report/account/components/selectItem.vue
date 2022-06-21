@@ -35,7 +35,24 @@
           </el-select>
         </el-form-item>
           <el-form-item label="模具" label-width="80px">
-        <el-input v-model="form.ToolingNo" ></el-input>
+
+                  <el-select
+            v-model="form.ToolingNo"
+            clearable 
+            filterable
+            remote
+            reserve-keyword
+            :remote-method="remoteMethod"
+            :loading="loading"
+          >
+            <el-option
+              v-for="item in ItemListData"
+              :key="item.ItemId"
+              :label="item.ItemId"
+              :value="item.ItemId"
+            >
+            </el-option>
+          </el-select>
 
         </el-form-item>
         <el-form-item label="" label-width="20px">
@@ -66,6 +83,8 @@
 <script>
 import { getAllSalesCustomer } from "@/api/workApi/sale/customer";
 import { Table } from "./selectItemTableConfig";
+import { itemList } from "@/api/basicApi/systemSettings/Item";
+
 export default {
   name: "selectItem",
   data() {
@@ -75,6 +94,8 @@ export default {
       ruleForm: {},
       CustomerData: [],
       multipleSelection: [],
+       ItemListData:[],
+        loading:false,
       BillTypeEnum: {
         0: {
           name: i18n.t("menu.Sa_SaleDelivery"),
@@ -115,9 +136,30 @@ export default {
     );
 
     this.tableObj.getData();
+     this.GetItemData()
     this.Configuration();
   },
   methods: {
+        GetItemData(e){
+      this.loading = true;
+      let str = {
+        CurrentPage:1,
+        InventoryAlert:false,
+        ItemType:'',
+        Keyword:e,
+        PageSize:20,
+
+      }
+      itemList(str).then(res=>{
+        console.log(res.Items);
+        this.ItemListData =res.Items
+        this.loading = false;
+      })
+    },
+    //根据编号搜索
+    remoteMethod(query){
+      this.GetItemData(query)
+    },
     //获取客户
     async Configuration() {
       await getAllSalesCustomer({}).then((res) => {
