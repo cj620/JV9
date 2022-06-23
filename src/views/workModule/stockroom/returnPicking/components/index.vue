@@ -141,6 +141,7 @@ export default {
         BillGui: "",
         ItemId: "",
         ItemName: "",
+        PmTaskBillId: "",
         Description: "",
         Unit: "",
         Quantity: 0,
