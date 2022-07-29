@@ -172,7 +172,7 @@ export default {
       M_TableObj: {},
       prefix:'',
       detailRouteName: "Pm_ProjectTask_Detail",
-      fileBillId: "",
+      fileBillId: this.$route.query.BillId,
       WorkerList:[],
       ruleForm: {
         TaskType: 0,
