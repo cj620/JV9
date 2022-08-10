@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:45:33
- * @LastEditTime: 2022-01-20 17:20:24
+ * @LastEditTime: 2022-08-10 17:18:04
  * @Description: 采购入库
 -->
 
@@ -68,6 +68,7 @@ import { API } from "@/api/workApi/purchase/stockIn";
 import { Table } from "./config";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 export default {
+  name:'Pu_StockIn',
   data() {
     return {
       stateEnum,

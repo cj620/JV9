@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 12:56:14
- * @LastEditTime: 2022-03-24 11:03:57
+ * @LastEditTime: 2022-08-10 17:13:02
  * @Description: 项目任务工序
 -->
 
@@ -68,6 +68,7 @@ import {
   updateSort,
 } from "@/api/workApi/project/baseData";
 export default {
+  name:'Pm_Process',
   data() {
     return {
       tableObj: {},

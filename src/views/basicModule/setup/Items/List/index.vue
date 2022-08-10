@@ -139,6 +139,7 @@ import { stateEnum } from "@/enum/baseModule";
 import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
 
 export default {
+  name:'Items',
   data() {
     return {
       stateEnum,

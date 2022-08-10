@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-12-08 11:00:45
- * @LastEditTime: 2022-01-20 17:20:08
+ * @LastEditTime: 2022-08-10 17:20:52
  * @Description:
 -->
 <template>
@@ -45,6 +45,7 @@
 import { deleteOutsourcingrRequirement } from "@/api/workApi/purchase/outsourcingRequirement";
 import { Table } from "./config";
 export default {
+  name:'Pu_OutsourcingRequirement',
   data() {
     return {
       tableObj: {},

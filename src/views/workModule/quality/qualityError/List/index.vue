@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-18 18:23:23
- * @LastEditTime: 2022-01-20 17:20:37
+ * @LastEditTime: 2022-08-10 17:23:58
  * @Description:
 -->
 <template>
@@ -48,6 +48,7 @@
 import { Table } from "./config";
 import { deleteCheckErr } from "@/api/workApi/quality/checkErr";
 export default {
+  name:'QualityError',
   data() {
     return {
       tableObj: {},

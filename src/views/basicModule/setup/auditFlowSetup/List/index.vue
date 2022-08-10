@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-05 13:19:54
- * @LastEditTime: 2022-01-20 17:12:43
+ * @LastEditTime: 2022-08-10 17:33:17
  * @Description: 审核人配置
 -->
 <template>
@@ -58,6 +58,7 @@ import { setAudit } from "@/api/basicApi/systemSettings/auditFlowSetup";
 import { Table } from "./config";
 
 export default {
+  name:'Se_AuditFlowSetup',
   data() {
     return {
       addStaffShow: false,

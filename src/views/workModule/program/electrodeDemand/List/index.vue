@@ -2,7 +2,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:25:31
- * @LastEditTime: 2022-01-20 17:18:20
+ * @LastEditTime: 2022-08-10 17:15:03
  * @Description: 电极物料需求
 -->
 
@@ -62,7 +62,7 @@ import { stateEnum } from "@/enum/workModule";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 export default {
   // 页面的标识
-  name: "ItemsDemand",
+  name: "ElectrodeDemand",
   components: {
     // 单据状态组件
     BillStateTags,

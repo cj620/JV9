@@ -1,13 +1,14 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 11:33:00
- * @LastEditTime: 2021-11-29 16:06:05
+ * @LastEditTime: 2022-08-10 17:12:40
  * @Description: 试模任务
 -->
 <script>
 import Common from "../../projectTask/List";
 import { tableConfig, Table as T_table } from "./config";
 export default {
+  name:'Pm_TestTask',
   extends: Common,
   data() {
     return {

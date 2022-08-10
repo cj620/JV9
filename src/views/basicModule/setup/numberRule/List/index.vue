@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-12-21 14:03:00
- * @LastEditTime: 2022-01-20 18:50:21
+ * @LastEditTime: 2022-08-10 17:33:48
  * @Description:
 -->
 
@@ -48,7 +48,7 @@ import i18n from "@/i18n/i18n";
 
 export default {
   // 页面的标识
-  name: "",
+  name: "Se_CodeRule",
   props: {},
   data() {
     return {

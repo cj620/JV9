@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-18 18:23:23
- * @LastEditTime: 2022-01-20 17:20:41
+ * @LastEditTime: 2022-08-10 17:23:21
  * @Description:
 -->
 <template>
@@ -48,7 +48,7 @@
 import { Table } from "./config";
 import { deleteCheckRecord } from "@/api/workApi/quality/checkRecord";
 export default {
-  name: "Qu_QualityRecord",
+  name: "QualityRecord",
   data() {
     return {
       tableObj: {},
