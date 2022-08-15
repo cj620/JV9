@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-01 15:42:07
- * @LastEditTime: 2022-01-20 17:21:27
+ * @LastEditTime: 2022-08-10 17:10:13
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\List\index.vue
+ * @FilePath: \keitoolv9\src\views\workModule\sale\saleQuote\List\index.vue
 -->
 <!--销售订单-->
 <template>
@@ -32,7 +32,7 @@ import {
 } from "@/jv_doc/utils/system/pagePlugin";
 export default {
   // 页面的标识
-  name: "Sa_Quote",
+  name: "Sa_SaleQuote",
   components: {
     // 单据状态组件
     BillStateTags,

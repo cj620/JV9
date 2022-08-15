@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-17
- * @LastEditTime: 2022-01-20 17:20:00
+ * @LastEditTime: 2022-08-10 17:19:55
  * @Description: 采购对账
 -->
 
@@ -68,6 +68,7 @@ import { Table } from "./config";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 
 export default {
+  name:'Pu_Outsourcing',
   data() {
     return {
       stateEnum,

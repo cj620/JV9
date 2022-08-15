@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-12-01 15:49:33
- * @LastEditTime: 2022-01-20 17:22:15
+ * @LastEditTime: 2022-08-10 17:25:49
  * @Description:
 -->
 
@@ -18,6 +18,7 @@
 <script>
 import { Table } from "./config";
 export default {
+  name:'StockSummary',
   data() {
     return {
       tableObj: {},

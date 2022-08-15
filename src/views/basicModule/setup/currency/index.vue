@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-29 15:06:43
- * @LastEditTime: 2022-01-21 13:32:24
+ * @LastEditTime: 2022-08-10 17:29:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \JvMmsV9Front\src\views\basicModule\setup\currency\index.vue
+ * @FilePath: \keitoolv9\src\views\basicModule\setup\currency\index.vue
 -->
 <!--货币-->
 <template>
@@ -60,6 +60,7 @@ import {
   deleteCurrency,
 } from "@/api/basicApi/systemSettings/currency";
 export default {
+  name:'Currency',
   data() {
     return {
       // 表格数据

@@ -1,23 +1,26 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-08 16:48:55
- * @LastEditTime: 2022-01-14 11:27:11
+ * @LastEditTime: 2022-08-10 18:37:56
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \V9_Dev\src\components\BasicModule\AuditProcess\index.vue
+ * @FilePath: \keitoolv9\src\components\BasicModule\AuditProcess\index.vue
 -->
 <template>
   <div class="audit-process">
+    <!-- {{getActive}} -->
     <div class="top-descreption">
-      <div>{{ "" }}</div>
+      <div class="state-tag"></div>
       <div
+        class="state-tag"
         v-for="item in getAuditLine"
         :key="item.Id"
-        :style="{ color: stateMap(item.AuditState).color }"
+        :style="{ color: stateMap(item.AuditState).fcolor,
+        background: stateMap(item.AuditState).color, }"
       >
         {{ stateMap(item.AuditState).name }}
       </div>
-      <div>{{ "" }}</div>
+      <div class="state-tag"></div>
     </div>
     <el-steps :active="getActive" finish-status="finish" align-center>
       <el-step icon="el-icon-edit">
@@ -26,8 +29,10 @@
           <span class="title">{{ $t("Generality.Ge_Start") }}</span>
         </span>
       </el-step>
-
-      <el-step icon="el-icon-edit" v-for="item in getAuditLine" :key="item.Id">
+<!-- :key="item.Id" -->
+      <template v-for="(item,index) in getAuditLine" >
+        <template >
+          <el-step icon="el-icon-edit" :key="item.Id">
         <i
           slot="icon"
           :class="stateMap(item.AuditState).icon"
@@ -43,7 +48,22 @@
           {{ item.AuditedAt | timeFrom("") }}
         </div>
       </el-step>
-      <el-step icon="el-icon-edit">
+        </template>
+
+      <el-step icon="el-icon-edit" v-if="index == getAuditLine.length - 1" :key="uuid()">
+        <i
+          slot="icon"
+          class="el-icon-switch-button"
+          style="font-size: 22px"
+        ></i>
+        <span slot="title">
+          <span class="title">{{ $t("Generality.Ge_End") }}</span>
+        </span>
+      </el-step>
+      </template>
+
+      
+      <el-step icon="el-icon-edit" v-if="getAuditLine.length == 0">
         <i
           slot="icon"
           class="el-icon-switch-button"
@@ -60,6 +80,7 @@
 <script>
 import ProcessItem from "./cpns/ProcessItem.vue";
 import { auditEnum } from "@/enum/baseModule/auditEnum";
+import { uuid } from "~/utils/common";
 export default {
   components: {
     ProcessItem,
@@ -69,6 +90,9 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  methods:{
+    uuid
   },
   computed: {
     stateMap() {
@@ -88,11 +112,16 @@ export default {
         return item.AuditState == "WaitToProcess" && item.NodeState != -1;
       });
       if (index == -1) {
-        // console.log(index, this.getAuditLine.length + 2, 7777777777777777);
-        return this.getAuditLine.length + 2;
+        
+        // return this.getAuditLine.length + 2;
+         if (this.getAuditLine.length == 0) {
+          index = 0;
+        } else {
+          index = this.getAuditLine.length + 3;
+        }
       }
 
-      return index + 3;
+      return index + 1;
     },
   },
 };
@@ -112,6 +141,11 @@ export default {
       // width: 100%;
       flex: 1;
       @include flexBox;
+    }
+    .state-tag {
+      max-width: 100px;
+      padding: 4px 5px;
+      border-radius: 20px;
     }
   }
   padding: 5px 10px;

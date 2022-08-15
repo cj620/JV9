@@ -53,7 +53,7 @@ import { formSchema } from "./formConfig";
 import { SaveSy_DwgDefaultDirectory,DeleteSy_DwgDefaultDirectoryByIds } from "@/api/basicApi/systemSettings/fileManagementSetup";
 
 export default {
-  name: 'index',
+  name: 'Se_FileManagementSetup',
   data() {
     return {
       tableObj: {},

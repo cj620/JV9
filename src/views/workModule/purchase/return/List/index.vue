@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:47:32
- * @LastEditTime: 2022-01-20 17:20:19
+ * @LastEditTime: 2022-08-10 17:18:25
  * @Description: 采购退货
 -->
 
@@ -67,6 +67,7 @@ import { API } from "@/api/workApi/purchase/return";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 export default {
+  name:'Pu_Return',
   data() {
     return {
       stateEnum,

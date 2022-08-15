@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-01 09:26:46
- * @LastEditTime: 2022-04-07 18:37:06
+ * @LastEditTime: 2022-08-10 17:16:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \JvMmsV9Front\src\views\workModule\sale\baseData\customer\List\index.vue
+ * @FilePath: \keitoolv9\src\views\workModule\purchase\baseData\supplier\List\index.vue
 -->
 <!--客户-->
 <template>
@@ -60,6 +60,7 @@ import { deleteSupplier,purchase_supplier_batch_import } from "@/api/workApi/pur
 import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
 
 export default {
+  name:'Pu_Supplier',
   data() {
     return {
       // 表格数据

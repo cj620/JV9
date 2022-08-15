@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-12-31 10:04:21
- * @LastEditTime: 2022-01-20 17:13:50
+ * @LastEditTime: 2022-08-10 17:30:09
  * @Description:
 -->
 <!--  页面-->
@@ -20,6 +20,7 @@
 import { Table } from "./config";
 
 export default {
+  name:'Se_UserLog',
   props: {},
   data() {
     return {

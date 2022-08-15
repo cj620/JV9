@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:42:54
- * @LastEditTime: 2022-01-20 17:20:13
+ * @LastEditTime: 2022-08-10 17:17:13
  * @Description: 采购订单
 -->
 
@@ -69,6 +69,7 @@ import { Table } from "./config";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 
 export default {
+  name:'Pu_Requisition',
   data() {
     return {
       stateEnum,
