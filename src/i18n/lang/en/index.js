@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-11-12 10:35:07
- * @LastEditTime: 2022-04-27 18:08:04
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-08-15 14:14:11
+ * @LastEditors: DESKTOP-2CGOASQ\JvUser 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \JvMmsV9Front\src\i18n\lang\en\index.js
  */
@@ -180,9 +180,9 @@ const en = {
     Pro_ReportToWorkRecord: "Report to work record",
     Pro_Production: "Production",
     Pro_Outsource: "Outsource",
-    Pro_DesignChange: "Design change",
+    Pro_DesignChange: "Modification",
     Pro_NewTooling: "New tooling",
-    Pro_CorrectingTooling: "Correcting tooling",
+    Pro_CorrectingTooling: "Repair",
     Pro_NotStarted: "Not started",
     Pro_Ongoing: "Ongoing",
     Pro_QuantityShouldBeGreaterThan1: "Quantity should be greater than 1",
