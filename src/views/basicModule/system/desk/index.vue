@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-12-16 11:05:37
- * @LastEditTime: 2022-01-25 10:28:46
+ * @LastEditTime: 2022-08-22 10:50:50
  * @Description: file content
 -->
 <!--  页面-->
@@ -170,14 +170,6 @@ export default {
     reporWorkConfirm() {
       this.taskFormObj.validate((valid) => {
         if (valid) {
-          this.taskFormObj.form.StartDate = new Date(
-            Date.parse(new Date(this.taskFormObj.form.StartDate)) +
-              8 * 3600 * 1000
-          );
-          this.taskFormObj.form.EndDate = new Date(
-            Date.parse(new Date(this.taskFormObj.form.EndDate)) +
-              8 * 3600 * 1000
-          );
           this.taskTableObj.api
             .report_work(this.taskFormObj.form)
             .then((res) => {
