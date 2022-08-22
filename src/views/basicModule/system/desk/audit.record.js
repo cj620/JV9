@@ -56,6 +56,8 @@ export class AuditRecordTable extends BaseTable {
       api,
       // 打印模块标识
       printMod: "",
+      // 打印按钮
+      printBar: false,
       tableHeaderShow: false,
       // 序号列
       sortCol: false,

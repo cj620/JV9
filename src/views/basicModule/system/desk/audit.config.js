@@ -26,6 +26,8 @@ export class Table extends BaseTable {
       formSchema: formSchema,
       // 行标识
       rowId: "BillId",
+      // 打印按钮
+      printBar: false,
       // 表格标题
       title: i18n.t("setup.SheetToBeAudited"),
       // 接口类

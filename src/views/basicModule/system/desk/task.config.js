@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-12-16 11:05:57
- * @LastEditTime: 2022-02-18 14:56:22
+ * @LastEditTime: 2022-08-22 11:19:15
  * @Description: file content
  */
 // 配置文件
@@ -12,9 +12,8 @@ import {
   my_project_task_record,
   report_work,
 } from "@/api/basicApi/systemSettings/user";
-import { taskStateEnum, enumToList } from "@/enum/workModule";
+import { taskStateEnum, enumToList,taskTypeEnum,enumFilter } from "@/enum/workModule";
 import { Form } from "@/jv_doc/class/form";
-
 class api extends TableAPI {
   // 获取列表
   getData = my_todo_task;
@@ -28,7 +27,9 @@ export class Table extends BaseTable {
       // 表单配置
       formSchema: formSchema,
       // 行标识
-      rowId: "BillId",
+      rowId: "Id",
+      // 打印按钮
+      printBar: false,
       // 表格标题
       title: i18n.t("Generality.Ge_MyTask"),
       // 接口类
@@ -40,12 +41,21 @@ export class Table extends BaseTable {
 }
 //  表格配置
 const tableSchema = [
-  /*模具编号*/
+  /*产品编号*/
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
   },
+
   /*工序*/
+  /*任务类型*/
+  // {
+  //   prop: "TaskType",
+  //   label: '任务类型',
+  //   // taskTypeEnum,enumFilter
+  //   customFilter:(value)=>enumFilter(value,taskTypeEnum)
+  //   // enumFilter(taskTypeEnum)
+  // },
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
@@ -164,6 +174,7 @@ const taskFormSchema = [
     prop: "EndDate",
     label: i18n.t("Generality.Ge_EndTime"),
     cpn: "SingleDateTime",
+    default:new Date(),
     rules: [
       {
         required: true,
@@ -199,3 +210,7 @@ export class TaskForm extends Form {
     });
   }
 }
+
+export const detailConfig=tableSchema.filter(item=>{
+  return ['ToolingNo','Process','PlanTime'].includes(item.prop)
+})

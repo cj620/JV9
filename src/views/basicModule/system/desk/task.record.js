@@ -45,7 +45,7 @@ const tableSchema = [
     prop: "TaskType",
     label: i18n.t("Generality.Ge_DocumentType"),
     customFilter: (val) => {
-      return taskTypeEnum[val].name;
+      return taskTypeEnum[val]&&taskTypeEnum[val].name;
     },
   },
   /*负责人*/
@@ -68,7 +68,7 @@ export class ReportWorkTable extends BaseTable {
       // 表格配置
       tableSchema: tableSchema,
       // 行标识
-      rowId: "BillId",
+      rowId: "Id",
       // 表格标题
       title: "",
       // 接口类
@@ -80,6 +80,8 @@ export class ReportWorkTable extends BaseTable {
       sortCol: false,
       // 选择列
       chooseCol: false,
+      // 打印按钮
+      printBar: false,
       // 表单配置
       formSchema: formSchema,
       height: 300,

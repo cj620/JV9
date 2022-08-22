@@ -1,12 +1,12 @@
 <!--
  * @Author: C.
  * @Date: 2021-12-16 11:05:37
- * @LastEditTime: 2022-08-22 10:50:50
+ * @LastEditTime: 2022-08-22 11:26:06
  * @Description: file content
 -->
 <!--  页面-->
 <template>
-  <PageWrapper>
+  <PageWrapper :footer="false">
     <div style="height: 50%; padding-bottom: 15px">
       <!-- 表格 -->
       <JvTable class="wrapper" ref="BillTable" :table-obj="taskTableObj">
@@ -30,7 +30,7 @@
             :actions="[
               {
                 label: $t('setup.ReportWork'),
-                confirm: reporWork.bind(null, row.Id),
+                confirm: reporWork.bind(null, row),
               },
               {
                 label: $t('setup.ShowRecords'),
@@ -79,13 +79,16 @@
         </template>
       </JvTable>
     </div>
+    <!-- 报工 -->
     <JvDialog
       :title="$t('setup.ReportWork')"
       :visible.sync="reporWorkVisible"
       v-if="reporWorkVisible"
-      width="30%"
+      width="60%"
       @confirm="reporWorkConfirm"
     >
+    <JvDetail :detailObj="detailObj"> </JvDetail>
+     <el-divider></el-divider>
       <JvForm :formObj="taskFormObj"></JvForm>
     </JvDialog>
     <JvDialog
@@ -120,13 +123,14 @@
 </template>
 <script>
 // 引入表格类
-import { Table as TaskTable, TaskForm } from "./task.config";
+import { Table as TaskTable, TaskForm,detailConfig } from "./task.config";
 import { ReportWorkTable } from "./task.record";
 import { Table as AuditTable } from "./audit.config";
 import { AuditRecordTable } from "./audit.record";
 import MapBox from "@/components/BasicModule/mapBox";
 import { auditEnum } from "@/enum/baseModule/auditEnum";
 import { unified_audit_bill } from "@/api/basicApi/systemSettings/user";
+import Detail from "@/jv_doc/class/detail/Detail";
 export default {
   // 页面的标识
   name: "Se_Desk",
@@ -142,6 +146,7 @@ export default {
       taskFormObj: {},
       taskRecordTable: {},
       auditRecordTable: {},
+      detailObj:{},
       auditEnum,
       // 编辑路由
       EditRoute: "",
@@ -159,6 +164,14 @@ export default {
     this.taskFormObj = new TaskForm();
     this.taskRecordTable = new ReportWorkTable();
     this.auditRecordTable = new AuditRecordTable();
+    this.detailObj = new Detail({
+      data: {},
+      schema: detailConfig,
+      // border: true,
+      direction: "horizontal",
+      column: 4,
+
+    });
     this.taskTableObj.getData();
     this.auditTableObj.getData();
   },
@@ -170,6 +183,15 @@ export default {
     reporWorkConfirm() {
       this.taskFormObj.validate((valid) => {
         if (valid) {
+          //element 自带bug，时区不在东八区，要加八个小时
+          this.taskFormObj.form.StartDate = new Date(
+            Date.parse(new Date(this.taskFormObj.form.StartDate)) +
+              8 * 3600 * 1000
+          );
+          this.taskFormObj.form.EndDate = new Date(
+            Date.parse(new Date(this.taskFormObj.form.EndDate)) +
+              8 * 3600 * 1000
+          );
           this.taskTableObj.api
             .report_work(this.taskFormObj.form)
             .then((res) => {
@@ -180,8 +202,12 @@ export default {
         }
       });
     },
-    reporWork(Id) {
-      this.taskFormObj.form.ProjectTaskItemId = Id;
+    reporWork(row) {
+      this.taskFormObj.reset()
+      this.detailObj.detailData = row
+      this.taskFormObj.form.WorkHour = '';
+      this.taskFormObj.form.ProjectTaskItemId = row.Id;
+      this.taskFormObj.form.Progress=row.Progress
       this.reporWorkVisible = true;
     },
     scanRecord(Id) {
@@ -215,8 +241,10 @@ export default {
       });
     },
     linkTo(row) {
+      console.log(`${row.BillKey}_Detail`);
+      const str =`${row.BillKey}_Detail`
       this.$router.push({
-        name: `${row.BillKey}_Detail`,
+        name:str,
         query: {
           BillId: row.BillId,
         },
@@ -229,6 +257,16 @@ export default {
       this.taskRecordVisible = false;
       this.auditRecordVisible = false;
     },
+    'taskFormObj.form.WorkHour':{
+      handler(n,o){
+        if(n){
+            // n*60*60*1000
+            this.taskFormObj.form.StartDate = new Date(new Date(this.taskFormObj.form.EndDate).getTime() - n * 60 * 60 * 1000);
+          // this.taskFormObj.form.StartDate EndDate
+
+        }
+      }
+    }
   },
 };
 </script>
