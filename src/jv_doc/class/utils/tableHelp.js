@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2022-01-17 09:18:51
- * @LastEditTime: 2022-01-18 13:51:15
+ * @LastEditTime: 2022-08-31 10:19:28
  * @Description: file content
  */
 import { Form } from "../form";
@@ -19,7 +19,7 @@ import { setDefaultTableSchema,
 export function tablePropInit(tableObj,props){
   let cacheKey=getCacheId(props.printMod)
   let tableCache=getLocalStorage(cacheKey)
-  // console.log(tableCache,1213232);
+  console.log(props.printMod,1213232);
 //    // 将props补充默认值
    const resultProps = setDefaultTableProps(deepClone(props));
    tableObj.setPropMap(resultProps)
@@ -68,7 +68,8 @@ export function setTableSchema(tableId,schema){
   if(!tableId) return
   debounce(()=>{
     _setTableSchema(tableId,schema)
-  },2000,false)
+    Message('Form is already cached')
+  },1000,false)
 }
 function _setTableSchema(tableId,schema){
   let cacheKey=getCacheId(tableId)
