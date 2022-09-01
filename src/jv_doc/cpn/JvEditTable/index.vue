@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-27 14:55:20
- * @LastEditTime: 2022-03-22 17:32:53
+ * @LastEditTime: 2022-09-01 10:28:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \V9_Dev\src\jv_doc\cpn\JvEditTable\index.vue
@@ -71,7 +71,7 @@
                   :row="scope.row"
                   v-if="item.custom"
                   :cdata="item"
-                   :formBlur="formBlur"
+                  :formBlur="formBlur"
                   :scope="scope"
                 ></slot>
                 <span v-else>
@@ -142,6 +142,7 @@ import FormItem from "../JvForm/cpn/FormItem.vue";
 import { filterMaps } from "../../maps";
 import { debounce } from "@/jv_doc/utils/optimization";
 import { clickOutside } from "~/utils/common";
+import { setTableSchema } from "../../class/utils/editTableHelp";
 export default {
   name: "JvEditTable",
   components: {
@@ -236,7 +237,7 @@ export default {
       // this.dom_obj.editBlur();
       // 当前节点聚焦
       this.dom_obj.tableId = this.tableObj.id;
-       console.log(this.dom_obj.col, this.dom_obj.row,this.dom_obj);
+      console.log(this.dom_obj.col, this.dom_obj.row, this.dom_obj);
       this.dom_obj.editFocus();
       this.changeEditState(true);
     },
@@ -296,6 +297,14 @@ export default {
     },
     // 拖拽的动作
     headerDragend(newWidth, oldWidth, column, event) {
+      let schema = this.tableObj.props.tableSchema;
+      for (let key in schema) {
+        if (schema[key].prop == column.property) {
+          schema[key].width = newWidth;
+        }
+      }
+      setTableSchema(this.tableObj.props.tid, this.tableObj.props.tableSchema);
+      // console.log(newWidth, 6666555);
       this.$nextTick(() => {
         this.tableObj.doLayout();
       });

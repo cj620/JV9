@@ -1,12 +1,19 @@
 /*
  * @Author: your name
  * @Date: 2021-10-31 12:02:38
- * @LastEditTime: 2022-02-21 11:06:34
+ * @LastEditTime: 2022-09-01 11:00:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \copy-demo\src\jv_doc\class\utils\findNextStep.js
  */
-import { Message } from "element-ui";
+import { setLocalStorage, getLocalStorage,removeLocalStorage} from "../../utils/handleData/localCache";
+  import { debounce } from "../../utils/optimization";
+  import { deepClone } from "../../utils/object";
+  import { Message } from 'element-ui';
+  const cachePrefix='tableCache-'
+  import i18n from "@/i18n/i18n.js";
+  import { setDefaultTableSchema,
+    setDefaultTableProps,defaultTableSchemProp } from "./setDefaultProp";
 export function find_right_col(arr, col) {
   let target = -1,
     cur_col = col;
@@ -66,32 +73,6 @@ export function insertValidate(schema, source) {
   }
   return !valid;
 }
-
-// 整体表格做必填校验 记录dom信息
-
-// export function checkEditTable(requiredArr,source,schema ){
-//   // console.log(requiredArr,source ,schema);
-//   let checkState=true
-// const map={}
-//   source.forEach((A,index) => {
-//     requiredArr.forEach((key,keyIndex)=>{
-//       if(typeof(A[key].value)=='number' ||['true','false'].includes(String(A[key].value) )  || A[key].value){
-//             // 通过
-//       }else{
-//         // 不通过+
-//         if(map[key]){
-//           map[key].push(index)
-//         }else{
-//           map[key]=[index]
-//         }
-//       }
-
-//     })
-//   });
-//   checkState=JSON.stringify(map)=='{}'
-//   return [checkState,map]
-// }
-
 export function checkEditTable(requiredArr, source) {
   console.log(requiredArr, source);
   let checkState = true;
@@ -144,4 +125,52 @@ function setRuleMap(map, key, value) {
 function setMsg(rules, msg) {
   if (msg) return msg;
   return rules?.message ?? "请输入必填项";
+}
+
+
+export function cacheInit(prop){
+  let cacheKey=getCacheId(prop.tid)
+  let tableCache=getLocalStorage(cacheKey)
+  console.log(cacheKey,66996699);
+  if(prop.tid&&tableCache){
+    prop.tableSchema&&mergeSchema(prop.tableSchema,tableCache.tableSchema)
+  }else{
+    prop.tableSchema&&setDefaultTableSchema(prop.tableSchema)
+  }
+}
+
+
+
+export function setTableSchema(tableId,schema){
+  if(!tableId) return
+  debounce(()=>{
+    _setTableSchema(tableId,schema)
+    Message('Form is already cached')
+  },1000,false)
+}
+function _setTableSchema(tableId,schema){
+  let cacheKey=getCacheId(tableId)
+  let tableCache=getLocalStorage(cacheKey)
+  // let tableSchemaCache=tableCache.tableSchema
+  setLocalStorage(cacheKey,{
+    tableSchema:schema
+   })
+}
+
+export function resetCache(tableId){
+  let cacheKey=getCacheId(tableId)
+  removeLocalStorage(cacheKey)
+}
+
+function getCacheId(tableId){
+  return `${i18n.locale}-editTableCache-${tableId}`
+}
+function mergeSchema(n=[],c=[]){
+  for(let key in n){
+    for(let key2 in c){
+      if(n[key].prop==c[key2].prop){
+        n[key]=Object.assign({},defaultTableSchemProp,n[key],c[key])
+      }
+    }
+}
 }

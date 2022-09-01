@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 11:15:29
- * @LastEditTime: 2021-12-02 15:46:35
+ * @LastEditTime: 2022-09-01 11:00:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \V9_Dev\src\jv_doc\class\table\EditTable.js
@@ -15,6 +15,7 @@ import { source2format,format2source,insertCol,getTableSummaries } from "../util
 import {insertValidate,checkEditTable} from "../utils/editTableHelp";
 import { uuid } from "@/jv_doc/utils/common";
 import { Message } from 'element-ui';
+import { cacheInit } from "../utils/editTableHelp";
 class EditTable{
   // row_disabled_map
   // row_edit_props_map
@@ -31,24 +32,28 @@ class EditTable{
     this.id='editTable'+uuid(5)
     this.initProps(props)
   }
-  getTableData=()=>{
-    return format2source(this.tableData)
-  }
   // 初始化参数
   initProps = props => {
     this.initData(props)
     // 将props补充默认值
     const resultProps = setDefaultEditTableProps(props);
-    if (resultProps.tableSchema) {
-      // 给tableSchema项补充默认值
-      setDefaultTableSchema(resultProps.tableSchema);
-    }
+    // if (resultProps.tableSchema) {
+    //   // 给tableSchema项补充默认值
+    //   // setDefaultTableSchema(resultProps.tableSchema);
+      
+    // }
+    cacheInit(resultProps)
     Object.assign(this.props,resultProps,props)
+
+    
     this.getRowMap(props)
   }
   // 初始化数据
   initData=props=>{
     this.tableData=source2format(props.data)
+  }
+  getTableData=()=>{
+    return format2source(this.tableData)
   }
   // 获取行的键值列表
   getRowMap=props=>{

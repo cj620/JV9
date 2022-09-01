@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-03-28 09:51:50
+ * @LastEditTime: 2022-09-01 10:29:48
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
@@ -16,6 +16,7 @@ export class EditTable extends BaseTable {
       operationWidth: 180,
       importBar: false,
       sortCol: false,
+      tid:'De_ToolingBOM'
       // sortCol:false
     });
   }

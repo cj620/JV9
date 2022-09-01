@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-09-14 15:43:31
- * @LastEditTime: 2022-03-07 14:21:25
+ * @LastEditTime: 2022-09-01 10:41:29
  * @Description: file content
  */
 // 默认schema 配置值
@@ -104,6 +104,7 @@ export function setDefaultTableSchema(tableSchema) {
   //   });
   // });
   for(let key in tableSchema){
+    console.log(key,66655888);
     tableSchema[key]=Object.assign({},defaultTableSchemProp,tableSchema[key])
   }
 }
