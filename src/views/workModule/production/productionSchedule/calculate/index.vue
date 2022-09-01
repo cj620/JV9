@@ -8,6 +8,8 @@
         <el-button size="mini" @click="endSchedule">{{
           $t("Generality.Ge_FinishSchedule")
         }}</el-button>
+                <el-button size="mini" @click="editDeliveryDate">编辑交期</el-button>
+
       </div>
 
       <!-- 表格 -->
@@ -156,6 +158,7 @@
       :visible.sync="editDeliveryDialogFormVisible"
       v-if="editDeliveryDialogFormVisible"
       :editDeliveryData="editDeliveryData"
+      :editDeliveryType="editDeliveryType"
       @cancel="cancel"
     ></editDelivery>
     <editOverload
@@ -208,6 +211,7 @@ export default {
       },
       editDeliveryDialogFormVisible: false,
       editOverloadDialogFormVisible: false,
+      editDeliveryType:'noBatch'
     };
   },
   components: {
@@ -228,10 +232,21 @@ export default {
   },
   methods: {
     add() {},
+        //批量修改交期
+        editDeliveryDate(){
+      if (this.multipleSelection.length > 0) {
+        this.editDeliveryDialogFormVisible = true;
+        this.editDeliveryType = 'batch'
+        this.editDeliveryData =this.multipleSelection
+      }else {
+        this.$message.warning(this.$t("Generality.Ge_CheckDetails"));
+      }
+    },
     //修改交期
     editDate(index, row) {
       this.editDeliveryDialogFormVisible = true;
-      this.editDeliveryData = row;
+      this.editDeliveryType = 'noBatch'
+      this.editDeliveryData = [row];
     },
     //取消修改交期弹窗
     cancel() {
