@@ -1,94 +1,33 @@
 <!--
- * @Author: your name
- * @Date: 2022-03-21 15:20:05
- * @LastEditTime: 2022-03-21 15:32:01
- * @LastEditors: Please set LastEditors
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /jv-mms-v9-front/src/views/basicModule/demo/Test3/index.vue
+ * @Author: C.
+ * @Date: 2022-08-31 09:59:45
+ * @LastEditTime: 2022-09-14 15:03:29
+ * @Description: file content
 -->
 <template>
-
-<div>
-    <DxDataGrid
-      id="gridContainer"
-      :data-source="employees"
-      key-expr="ID"
-      :show-borders="true"
-      @exporting="onExporting"
-    >
-      <DxGroupPanel :visible="true"/>
-      <DxGrouping :auto-expand-all="true"/>
-      <DxExport
-        :enabled="true"
-        :allow-export-selected-data="true"
-      />
-      <DxSelection mode="multiple"/>
-      <DxColumn data-field="FirstName"/>
-      <DxColumn data-field="LastName"/>
-      <DxColumn data-field="City"/>
-      <DxColumn
-        data-field="State"
-        :group-index="0"
-      />
-      <DxColumn
-        data-field="Position"
-        :width="130"
-      />
-      <DxColumn
-        data-field="BirthDate"
-        data-type="date"
-        :width="100"
-      />
-      <DxColumn
-        data-field="HireDate"
-        data-type="date"
-        :width="100"
-      />
-    </DxDataGrid>
+  <div>
+    <el-button @click="init">init</el-button>
+    <!-- <iframe id="frame" :src="src" frameborder="0" ref="iframe"></iframe> -->
   </div>
 </template>
 <script>
-import {
-  DxDataGrid, DxColumn, DxExport, DxSelection, DxGroupPanel, DxGrouping,
-} from 'devextreme-vue/data-grid';
-import { Workbook } from 'exceljs';
-import { saveAs } from 'file-saver-es';
-// Our demo infrastructure requires us to use 'file-saver-es'.
-// We recommend that you use the official 'file-saver' package in your applications.
-import { exportDataGrid } from 'devextreme/excel_exporter';
-import service from './data.js';
-// 1
+import { printPdf } from "~/utils/system/pdfPrint";
 export default {
-  components: {
-    DxDataGrid, DxColumn, DxExport, DxSelection, DxGroupPanel, DxGrouping,
-  },
+  name: "Home",
+
   data() {
     return {
-      employees: service.getEmployees(),
+      src: "",
     };
   },
+  created() {},
+  mounted: function () {},
   methods: {
-    onExporting(e) {
-      const workbook = new Workbook();
-      const worksheet = workbook.addWorksheet('Employees');
-
-      exportDataGrid({
-        component: e.component,
-        worksheet,
-        autoFilterEnabled: true,
-      }).then(() => {
-        workbook.xlsx.writeBuffer().then((buffer) => {
-          saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'DataGrid.xlsx');
-        });
-      });
-      e.cancel = true;
+    init() {
+      printPdf(
+        "http://192.168.1.22:9002/Pdf/c318763b-bcca-46d3-b77d-13269efd0543.pdf"
+      );
     },
   },
 };
 </script>
-
-<style scoped>
-#gridContainer {
-  height: 423px;
-}
-</style>
