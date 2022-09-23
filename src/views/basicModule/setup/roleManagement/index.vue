@@ -110,8 +110,7 @@ import {
   deleteRole,
   editRoleMember,
 } from "@/api/basicApi/systemSettings/role";
-import { getMenuFunction } from "@/api/menuFunction";
-import { date } from "jszip/lib/defaults";
+
 import { formSchema } from "./config";
 import { Table } from "./tableConfig";
 import { Form } from "@/jv_doc/class/form";
@@ -150,7 +149,6 @@ export default {
   },
   methods: {
     batchChange(row) {
-    
       for (let key in row) {
         row[key].PermissionValue = this.batchRadio;
         if (row[key].Children.length !== 0) {

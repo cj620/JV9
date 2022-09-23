@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-12-16 11:05:37
- * @LastEditTime: 2022-08-22 11:26:06
+ * @LastEditTime: 2022-09-23 14:08:36
  * @Description: file content
 -->
 <!--  页面-->
@@ -131,6 +131,7 @@ import MapBox from "@/components/BasicModule/mapBox";
 import { auditEnum } from "@/enum/baseModule/auditEnum";
 import { unified_audit_bill } from "@/api/basicApi/systemSettings/user";
 import Detail from "@/jv_doc/class/detail/Detail";
+import { timeFormat } from "@/jv_doc/utils/time";
 export default {
   // 页面的标识
   name: "Se_Desk",
@@ -184,14 +185,9 @@ export default {
       this.taskFormObj.validate((valid) => {
         if (valid) {
           //element 自带bug，时区不在东八区，要加八个小时
-          this.taskFormObj.form.StartDate = new Date(
-            Date.parse(new Date(this.taskFormObj.form.StartDate)) +
-              8 * 3600 * 1000
-          );
-          this.taskFormObj.form.EndDate = new Date(
-            Date.parse(new Date(this.taskFormObj.form.EndDate)) +
-              8 * 3600 * 1000
-          );
+          this.taskFormObj.form.StartDate =timeFormat(this.taskFormObj.form.StartDate,'yyyy-MM-dd hh:mm:ss')
+          this.taskFormObj.form.EndDate =timeFormat(this.taskFormObj.form.EndDate,'yyyy-MM-dd hh:mm:ss')
+
           this.taskTableObj.api
             .report_work(this.taskFormObj.form)
             .then((res) => {

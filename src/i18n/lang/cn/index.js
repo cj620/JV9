@@ -1018,6 +1018,7 @@ const cn = {
     Ftp_file_management_backup_path_desc: "项目文件将备份到这个路径下",
     Ftp_file_management_path_name: "项目文件路径",
     Ftp_file_management_path_desc: "项目文件将保存到这个路径下",
+
   },
 
   ...zhLocale,

@@ -103,6 +103,7 @@ import cardList from "./cardList";
 import selectProcess from "./selectProcess";
 import { getUser } from "@/api/basicApi/systemSettings/user";
 import UserImg from "@/components/JVInternal/UserImg";
+import { timeFormat } from "@/jv_doc/utils/time";
 import {
   downMachineCollection,
   currentSiteList,
@@ -210,9 +211,7 @@ export default {
         ],
         UserId: this.form.UserId,
         IsSuspend: true,
-        EndDate: new Date(
-          Date.parse(new Date(this.form.EndDate)) + 8 * 3600 * 1000
-        ),
+        EndDate:timeFormat(this.form.EndDate,'yyyy-MM-dd hh:mm:ss'),
       };
       this.IsDisembark(str);
     },
@@ -232,9 +231,7 @@ export default {
         ],
         UserId: this.form.UserId,
         IsSuspend: false,
-        EndDate: new Date(
-          Date.parse(new Date(this.form.EndDate)) + 8 * 3600 * 1000
-        ),
+        EndDate:timeFormat(this.form.EndDate,'yyyy-MM-dd hh:mm:ss'),
       };
       this.IsDisembark(str);
     },

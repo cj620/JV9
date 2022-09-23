@@ -25,10 +25,6 @@
             @click="toWorkDesk"
           ></div>
         </div>
-        <search id="header-search" class="right-menu-item" />
-        <!-- <search id="header-search" class="right-menu-item" /> -->
-        <!-- <error-log class="errLog-container right-menu-item hover-effect" />-->
-
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
         <el-tooltip content="Global Size" effect="dark" placement="bottom">
@@ -121,7 +117,6 @@ import Hamburger from "@/components/Hamburger";
 import ErrorLog from "@/components/ErrorLog";
 import Screenfull from "@/components/Screenfull";
 import SizeSelect from "@/components/SizeSelect";
-import Search from "@/components/HeaderSearch";
 import { formSchema } from "./formConfig";
 import { Form } from "@/jv_doc/class/form";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
@@ -170,7 +165,6 @@ export default {
     ErrorLog,
     Screenfull,
     SizeSelect,
-    Search,
   },
   computed: {
     ...mapGetters(["userId", "sidebar", "avatar", "device", "name"]),

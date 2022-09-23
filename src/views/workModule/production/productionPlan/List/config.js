@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-12-09 15:20:07
- * @LastEditTime: 2022-01-14 11:21:59
+ * @LastEditTime: 2022-09-01 19:15:35
  * @Description:
  */
 // 配置文件
@@ -9,7 +9,7 @@
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getProductionPlan } from "@/api/workApi/production/plan";
 import {
-  getAllResource,
+  getAllDevice,
   getAllProcess,
 } from "@/api/workApi/production/baseData";
 class api extends TableAPI {
@@ -79,13 +79,13 @@ const tableSchema = [
 //  搜索表单配置
 const formSchema = [
   {
-    prop: "ResourceGroup",
-    label: i18n.t("menu.Pr_Resources"),
+    prop: "PlanDevice",
+    label: '设备',
     cpn: "SyncSelect",
-    api: getAllResource,
+    api: getAllDevice,
     apiOptions: {
-      keyName: "ResourceGroup",
-      valueName: "ResourceId",
+      keyName: "Device",
+      valueName: "DeviceNo",
     },
   },
   {
