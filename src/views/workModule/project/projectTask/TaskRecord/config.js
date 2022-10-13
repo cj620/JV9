@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-01-17 09:21:06
+ * @LastEditTime: 2022-09-30 08:58:26
  * @Description: file content
  */
 // 引入表格表格类和表格API类
@@ -158,7 +158,7 @@ export const tableObjTemp = {
   // 表单配置
   formSchema,
   // 行标识
-  rowId: "BillId",
+  rowId: "Id",
   // 表格标题
   title: i18n.t("project.Pro_ProjectTaskRecord"),
   // 接口类

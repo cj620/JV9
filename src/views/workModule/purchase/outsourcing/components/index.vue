@@ -239,6 +239,7 @@ export default {
           Process: item.Process,
           Quantity: item.Quantity,
           Remarks: item.Remarks,
+          PmTaskBillId: item.PmTaskBillId,
           Tax: "",
           ToolingNo: item.ToolingNo,
           Unit: "pcs",

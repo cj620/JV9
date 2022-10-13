@@ -21,6 +21,7 @@
         },
         {
           label: $t('Generality.Ge_Delete'),
+
           confirm: del.bind(null, detailObj.detailData.BillId),
         },
         {
@@ -60,7 +61,11 @@
       </div>
     </JvBlock>
     <JvBlock ref="second">
-      <el-tabs v-model="activeName" class="productionTask-details-tab" @tab-click="handleClick">
+      <el-tabs
+        v-model="activeName"
+        class="productionTask-details-tab"
+        @tab-click="handleClick"
+      >
         <el-tab-pane :label="$t('Generality.Ge_Process')" name="first">
           <div class="productionTask-details-process-list">
             <div
@@ -137,17 +142,19 @@
         <el-tab-pane :label="$t('production.Pr_PartDetail')" name="third">
           <JvTable :table-obj="tableObj1"> </JvTable>
         </el-tab-pane>
-        <el-tab-pane :label="$t('Generality.Ge_WorkingHoursRecord')" name="fourth">
+        <el-tab-pane
+          :label="$t('Generality.Ge_WorkingHoursRecord')"
+          name="fourth"
+        >
           <JvTable :table-obj="tableObj2" ref="BillTable2">
             <template #operation="{ row }">
               <TableAction
                 :actions="[
-                {
-                  label: $t('Generality.Ge_Edit'),
-                  confirm: editActualEnd.bind(null, row),
-                },
-
-          ]"
+                  {
+                    label: $t('Generality.Ge_Edit'),
+                    confirm: editActualEnd.bind(null, row),
+                  },
+                ]"
               />
             </template>
           </JvTable>
@@ -181,7 +188,12 @@ import Detail from "@/jv_doc/class/detail/Detail";
 import { Table } from "@/jv_doc/class/table";
 import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
-import { tableConfig, tableConfig1,tableConfig2, detailConfig } from "./config";
+import {
+  tableConfig,
+  tableConfig1,
+  tableConfig2,
+  detailConfig,
+} from "./config";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import {
@@ -214,7 +226,7 @@ export default {
       fileBillId: "",
       formObj: {},
 
-      dialogFormVisible:false,
+      dialogFormVisible: false,
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -293,19 +305,21 @@ export default {
     });
 
     this.formObj = new Form({
-      formSchema:[ {
-        // 字段名
-        prop: 'ActualEnd',
-        cpn: "SingleDateTime",
-        label: i18n.t("Generality.Ge_ActualEnd"),
-        rules: [
-          {
-            required: true,
-            message: i18n.t("Generality.Ge_PleaseFillIn"),
-            trigger: ['change', 'blur']
-          }
-        ]
-      },],
+      formSchema: [
+        {
+          // 字段名
+          prop: "ActualEnd",
+          cpn: "SingleDateTime",
+          label: i18n.t("Generality.Ge_ActualEnd"),
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseFillIn"),
+              trigger: ["change", "blur"],
+            },
+          ],
+        },
+      ],
       labelPosition: "top",
       baseColProps: {
         span: 24,
@@ -324,8 +338,6 @@ export default {
         this.tableObj.setData(res.WorkRecords);
         this.tableObj1.setData(res.Parts);
         this.tableObj2.setData(res.TaskRecords);
-
-
       });
     },
     //编辑
@@ -339,13 +351,18 @@ export default {
     },
     //删除
     del(BillId) {
-      deleteProductionTask({ BillIds: [BillId] }).then((res) => {
-        let TagName = {
-          path: "/production/productionTask",
-          name: `ProductionTask`,
-          fullPath: "/production/productionTask",
-        };
-        closeTag(this.current, TagName);
+      this.$confirm(this.$t("Generality.Ge_DeleteConfirm"), {
+        confirmButtonText: this.$t("Generality.Ge_OK"),
+        cancelButtonText: this.$t("Generality.Ge_Cancel"),
+      }).then(() => {
+        deleteProductionTask({ BillIds: [BillId] }).then((res) => {
+          let TagName = {
+            path: "/production/productionTask",
+            name: `ProductionTask`,
+            fullPath: "/production/productionTask",
+          };
+          closeTag(this.current, TagName);
+        });
       });
     },
     //打印
@@ -358,27 +375,26 @@ export default {
     },
 
     //编辑实际结束日期
-    editActualEnd(row){
-      console.log(row)
-      this.dialogFormVisible = true
-      this.formObj.form.Id = row.Id
-      this.formObj.form.ActualEnd = row.ActualEnd
-      console.log(this.formObj.form)
+    editActualEnd(row) {
+      console.log(row);
+      this.dialogFormVisible = true;
+      this.formObj.form.Id = row.Id;
+      this.formObj.form.ActualEnd = row.ActualEnd;
+      console.log(this.formObj.form);
     },
 
     //确认修改实际结束日期
-    confirmEditActualEnd(){
+    confirmEditActualEnd() {
       this.formObj.validate((valid) => {
         if (valid) {
-      this.formObj.form.ActualEnd = timeFormat(
-        this.formObj.form.ActualEnd,
-        "yyyy-MM-dd hh:mm"
-      );
-        update_record_actual_end(this.formObj.form).then(res=>{
-          this.dialogFormVisible = false
-          this.GetData();
-        })
-
+          this.formObj.form.ActualEnd = timeFormat(
+            this.formObj.form.ActualEnd,
+            "yyyy-MM-dd hh:mm"
+          );
+          update_record_actual_end(this.formObj.form).then((res) => {
+            this.dialogFormVisible = false;
+            this.GetData();
+          });
         }
       });
     },
@@ -387,15 +403,14 @@ export default {
       this.$refs.page.scrollTo(top);
     },
 
-    handleClick(tab, event){
+    handleClick(tab, event) {
       console.log(tab.name, event);
-      if(tab.name==='fourth'){
+      if (tab.name === "fourth") {
         this.$nextTick(() => {
           this.tableObj2.doLayout();
         });
       }
-
-    }
+    },
   },
 };
 </script>
