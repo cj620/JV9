@@ -101,7 +101,7 @@
               {{ $t("Generality.Ge_Import") }}
             </el-button>
             <el-button size="mini" @click="toDeleteList">
-              {{ $t("menu.Se_deleteItemList") }}
+              {{ $t("menu.Se_DeleteItemList") }}
             </el-button>
           </Action>
         </JvTable>

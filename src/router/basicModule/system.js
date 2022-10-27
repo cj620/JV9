@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:27:36
- * @LastEditTime: 2022-10-27 17:16:51
+ * @LastEditTime: 2022-10-27 17:45:44
  * @LastEditors: 勿忘 208760845@qq.com
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\router\basicModule\system.js
@@ -65,7 +65,7 @@ const system = [
       Parent: "Se_Setup",
       name: "Se_Item_deleteList",
       path: "Se_Item_deleteList",
-      title: i18n.t("menu.Se_deleteItemList"),
+      title: i18n.t("menu.Se_DeleteItemList"),
       hidden: true,
     },
   // // 物料类别
