@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:34:11
- * @LastEditTime: 2022-04-27 18:07:35
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-10-20 11:32:53
+ * @LastEditors: 勿忘 208760845@qq.com
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\i18n\lang\cn\index.js
  */
@@ -250,6 +250,7 @@ const cn = {
     ReadOnlyRights: "只读权限",
     EditPermissions: "编辑权限",
     PrintPreview: "打印预览",
+    ConfirmPasswordReset: "是否确认重置密码",
   },
   //销售
   sale: {
@@ -687,6 +688,7 @@ const cn = {
     Ge_ShowInProdSchedule: "在生产调度页面是否显示",
     Ge_Terms: "账期",
     Ge_MaterialRequirementState: "物料需求状态",
+    Ge_ResetPassword: "重置密码",
   },
   //生产
   production: {

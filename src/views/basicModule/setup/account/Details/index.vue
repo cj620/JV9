@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-04 10:35:27
- * @LastEditTime: 2022-01-20 15:29:03
+ * @LastEditTime: 2022-10-20 11:33:08
  * @Description:
 -->
 <template>
@@ -35,6 +35,11 @@
             slot="extra"
             size="mini"
             :primary="[
+              {
+                label: $t('Generality.Ge_ResetPassword'),
+
+                confirm: resetPwd.bind(null, UserId),
+              },
               {
                 label: $t('Generality.Ge_Edit'),
                 icon: 'el-icon-delete',
@@ -77,6 +82,7 @@ import Detail from "@/jv_doc/class/detail/Detail";
 import {
   getAllUserConfig,
   updateConfig,
+  user_data_reset_pwd,
 } from "@/api/basicApi/systemSettings/user";
 import { translation } from "@/views/basicModule/setup/systemSetup/utils";
 export default {
@@ -114,6 +120,22 @@ export default {
       this.$router.push({
         name: "Se_Users_Edit",
         query: { UserId: id, type: "edit", title: "editUsers" },
+      });
+    },
+    //重置用户密码
+    resetPwd(id) {
+      console.log(id);
+      this.$confirm(
+        this.$t("setup.ConfirmPasswordReset"),
+        this.$t("Generality.Ge_Remind"),
+        {
+          confirmButtonText: this.$t("Generality.Ge_OK"),
+          cancelButtonText: this.$t("Generality.Ge_Cancel"),
+        }
+      ).then(() => {
+        user_data_reset_pwd([id]).then((res) => {
+          console.log(res);
+        });
       });
     },
     roleClick(row) {

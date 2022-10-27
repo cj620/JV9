@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-09-09 18:53:00
- * @LastEditTime: 2022-03-31 15:54:36
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-10-20 10:42:40
+ * @LastEditors: 勿忘 208760845@qq.com
  * @Description: In User Settings Edit
  * @FilePath: \vue-element-admin-master\src\api\user.js
  */
@@ -194,5 +194,13 @@ export function get_by_department(query) {
     url: "/user_data/get_by_department",
     method: "get",
     params: query,
+  });
+}
+// 重置用户密码
+export function user_data_reset_pwd(data) {
+  return request({
+    url: "/user_data/reset_pwd",
+    method: "post",
+    data,
   });
 }

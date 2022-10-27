@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-11-12 10:35:07
- * @LastEditTime: 2022-08-15 14:14:11
- * @LastEditors: DESKTOP-2CGOASQ\JvUser 208760845@qq.com
+ * @LastEditTime: 2022-10-20 11:33:30
+ * @LastEditors: 勿忘 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \JvMmsV9Front\src\i18n\lang\en\index.js
  */
@@ -266,6 +266,7 @@ const en = {
     ReadOnlyRights: "Read only rights",
     EditPermissions: "Edit permissions",
     PrintPreview: "Print preview",
+    ConfirmPasswordReset: "Confirm Password Reset",
   },
   sale: {
     Sa_CustomerId: "Customer No.",
@@ -698,6 +699,7 @@ const en = {
     Ge_ShowInProdSchedule: "Show In prod schedule",
     Ge_Terms: "Terms",
     Ge_MaterialRequirementState: "Material Requirement state",
+    Ge_ResetPassword: "Reset password",
 
 
   },
