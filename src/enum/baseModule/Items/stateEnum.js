@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-11-03 13:44:39
- * @LastEditTime: 2021-11-09 14:49:58
- * @LastEditors: your name
+ * @LastEditTime: 2022-10-27 17:28:20
+ * @LastEditors: 勿忘 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \JvMmsV9Front\src\enum\baseModule\Items\stateEnum.js
  */
@@ -26,6 +26,16 @@ export default {
   'Enable': {
     name: i18n.t("Generality.Ge_Enable"),
     value: 'Enable',
+    color: '#39B54A',
+    icon: '',
+    operation: {}
+  },
+   /// <summary>
+  /// 删除
+  /// </summary>
+  'Deleted': {
+    name: '删除',
+    value: 'Deleted',
     color: '#39B54A',
     icon: '',
     operation: {}

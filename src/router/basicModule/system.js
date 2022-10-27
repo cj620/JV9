@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:27:36
- * @LastEditTime: 2022-02-15 16:48:14
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-10-27 17:16:51
+ * @LastEditors: 勿忘 208760845@qq.com
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\router\basicModule\system.js
  */
@@ -58,6 +58,16 @@ const system = [
     title: i18n.t("menu.Se_Item") + "  " + i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+    // 已删除物料列表
+    {
+      key: "Se_Item_deleteList",
+      component: () => import("@/views/basicModule/setup/Items/deleteList"),
+      Parent: "Se_Setup",
+      name: "Se_Item_deleteList",
+      path: "Se_Item_deleteList",
+      title: i18n.t("menu.Se_deleteItemList"),
+      hidden: true,
+    },
   // // 物料类别
   // {
   //   key: "Se_ItemType",

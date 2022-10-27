@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:34:11
- * @LastEditTime: 2022-10-20 11:32:53
+ * @LastEditTime: 2022-10-27 17:36:53
  * @LastEditors: 勿忘 208760845@qq.com
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\i18n\lang\cn\index.js
@@ -117,6 +117,7 @@ const cn = {
     Pr_Task: "生产任务",
     Qc_Error: "质检异常",
     Pr_LabelPrint: "标签打印",
+    Se_DeleteItemList: "已删除物料",
   },
   login: {
     l_LogIn: "登录",

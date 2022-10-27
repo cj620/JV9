@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-10-29 14:06:27
- * @LastEditTime: 2022-03-31 15:59:16
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-10-27 17:24:43
+ * @LastEditors: 勿忘 208760845@qq.com
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\api\basicApi\systemSettings\Item.js
  */
@@ -51,7 +51,14 @@ export function updateStateItem(data) {
   })
 }
 
-
+//恢复物料信息
+export function item_Recovery(data) {
+  return request({
+    url: '/item/Recovery',
+    method: 'post',
+    data: data
+  })
+}
 
 
 

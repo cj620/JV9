@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-12 10:35:07
- * @LastEditTime: 2022-10-20 11:33:30
+ * @LastEditTime: 2022-10-27 17:36:43
  * @LastEditors: 勿忘 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \JvMmsV9Front\src\i18n\lang\en\index.js
@@ -118,6 +118,7 @@ const en = {
     Pr_Task: "Production task",
     Qc_Error: "QC Error",
     Pr_LabelPrint: "Label printing",
+    Se_DeleteItemList: "Delete item list",
   },
   login: {
     l_LogIn: "Log in",

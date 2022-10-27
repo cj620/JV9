@@ -77,6 +77,7 @@
                   label: $t('Generality.Ge_Copy'),
                   confirm: copy.bind(null, row),
                 },
+
                 {
                   label: $t('Generality.Ge_Delete'),
                   popConfirm: {
@@ -93,10 +94,14 @@
               $t("Generality.Ge_New")
             }}</el-button>
             <el-button size="mini" @click="downExport2Excel">
-              {{$t('design.De_DownloadTemplate')}}
+              {{ $t("design.De_DownloadTemplate") }}
             </el-button>
-             <el-button size="mini" @click="Import">
-{{$t("Generality.Ge_Import")}}
+
+            <el-button size="mini" @click="Import">
+              {{ $t("Generality.Ge_Import") }}
+            </el-button>
+            <el-button size="mini" @click="toDeleteList">
+              {{ $t("menu.Se_deleteItemList") }}
             </el-button>
           </Action>
         </JvTable>
@@ -112,7 +117,7 @@
     >
       <JvForm :formObj="formObj"> </JvForm>
     </jv-dialog>
-      <!-- 导入数据 -->
+    <!-- 导入数据 -->
     <Import
       :visible.sync="importShow"
       width="28%"
@@ -139,7 +144,7 @@ import { stateEnum } from "@/enum/baseModule";
 import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
 
 export default {
-  name:'Items',
+  name: "Items",
   data() {
     return {
       stateEnum,
@@ -153,7 +158,7 @@ export default {
       showTree: false,
       formObj: {},
       dialogFormVisible: false,
-            importShow: false,
+      importShow: false,
 
       form: { filterText: "" },
       CategoryListData: [],
@@ -165,7 +170,7 @@ export default {
         keyword: "",
       },
       importData: {},
-         exportTemplate: [
+      exportTemplate: [
         {
           prop: "ItemId",
           label: this.$t("Generality.Ge_ID"),
@@ -186,7 +191,6 @@ export default {
           prop: "Unit",
           label: this.$t("Generality.Ge_Unit"),
         },
-       
       ],
       exportTemplateData: {
         checkData: [],
@@ -236,7 +240,7 @@ export default {
         this.getData();
       });
     },
-     //下载导入模板
+    //下载导入模板
     downExport2Excel() {
       var arr = [];
       this.tableObj.props.tableSchema.forEach((item) =>
@@ -318,6 +322,11 @@ export default {
         query: { ItemId: row.ItemId, type: "copy" },
       });
     },
+    toDeleteList() {
+      this.$router.push({
+        name: "Se_Item_deleteList",
+      });
+    },
     // 获取物料分类列表
     getData() {
       getAllItemType().then((data) => {
@@ -353,28 +362,28 @@ export default {
         if (r.children) this.childrenList(r.children, res);
       });
     },
-    Import(){
-       this.importShow = true;
+    Import() {
+      this.importShow = true;
     },
     //导入成功
-     importComplete(e) {
+    importComplete(e) {
       this.importShow = false;
 
-       var arr = [];
+      var arr = [];
       e.forEach((Titem) => {
         var str = {
-           ItemId: "",
-        ItemName: "",
-        Description: "",
-        Unit: "",
-        ItemType: "",
-        State: "Enable",
-        PhotoUrl: "",
-        SafetyStock: "",
-        MaxStock: "",
-        DataState: "Add",
-        ItemCategory: "Standard",
-        Project: "",
+          ItemId: "",
+          ItemName: "",
+          Description: "",
+          Unit: "",
+          ItemType: "",
+          State: "Enable",
+          PhotoUrl: "",
+          SafetyStock: "",
+          MaxStock: "",
+          DataState: "Add",
+          ItemCategory: "Standard",
+          Project: "",
         };
         this.exportTemplate.forEach((item) => {
           if (Titem[item.label]) {
@@ -385,9 +394,9 @@ export default {
       });
       console.log(arr);
 
-       batchInsertMaterialInfo(arr).then((res) => {
-         this.tableObj.getData();
-       });
+      batchInsertMaterialInfo(arr).then((res) => {
+        this.tableObj.getData();
+      });
     },
     handleSelectionChange() {},
   },
