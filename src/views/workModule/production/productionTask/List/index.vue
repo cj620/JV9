@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 10:24:11
- * @LastEditTime: 2022-03-23 20:02:00
+ * @LastEditTime: 2022-11-30 15:28:51
  * @LastEditTime: 2022-01-20 17:17:19
  * @Description: 生产任务
 -->
@@ -24,6 +24,9 @@
               </el-button>
               <el-button size="mini" @click="add">{{
                 $t("Generality.Ge_New")
+              }}</el-button>
+              <el-button size="mini" @click="copy">{{
+                $t("Generality.Ge_Copy")
               }}</el-button>
               <el-button size="mini" @click="del">{{
                 $t("Generality.Ge_Delete")
@@ -87,14 +90,13 @@
                     :disabled="!tooltipFlag"
                     placement="top-start"
                   >
-                  <span
-                    style="color:#1890ff "
-                    @click="linkTo(item.BillId)"
-                    @mouseenter="visibilityChange($event)"
+                    <span
+                      style="color: #1890ff"
+                      @click="linkTo(item.BillId)"
+                      @mouseenter="visibilityChange($event)"
                     >
-
-                    {{ item.BillId }}
-                  </span>
+                      {{ item.BillId }}
+                    </span>
                   </el-tooltip>
                 </div>
 
@@ -186,7 +188,7 @@
                 }"
                 class="productionTask-card-content-craft-content"
               >
-        {{ TItem.Process }}({{ TItem.PlanTime}}H)
+                {{ TItem.Process }}({{ TItem.PlanTime }}H)
               </div>
             </div>
           </div>
@@ -194,7 +196,7 @@
       </div>
       <div class="productionTask-footer">
         <div class="productionTask-pagination">
-          <div style="padding-top:4px ">
+          <div style="padding-top: 4px">
             <el-checkbox
               v-model="IsFlag"
               :indeterminate="isIndeterminate"
@@ -203,13 +205,18 @@
             ></el-checkbox>
           </div>
 
-
-          <div v-for="(item,index) in ProductionTaskStateList" :key="index" class="productionTask-pagination-status">
-            <div class="status-circle" :style="{backgroundColor:ProcessStateMap[item].color}" ></div>
-            {{ProcessStateMap[item].name}}
+          <div
+            v-for="(item, index) in ProductionTaskStateList"
+            :key="index"
+            class="productionTask-pagination-status"
+          >
+            <div
+              class="status-circle"
+              :style="{ backgroundColor: ProcessStateMap[item].color }"
+            ></div>
+            {{ ProcessStateMap[item].name }}
           </div>
         </div>
-
 
         <div class="productionTask-pagination">
           <el-pagination
@@ -255,6 +262,12 @@
       @confirmOutsourcingProcessData="confirmOutsourcingProcessData"
     >
     </outsourcingProcess>
+    <copyOrder
+      :visible.sync="copyOrderDialogFormVisible"
+      v-if="copyOrderDialogFormVisible"
+      @confirmCopyOrder="confirmCopyOrder"
+    >
+    </copyOrder>
   </PageWrapper>
 </template>
 
@@ -267,6 +280,7 @@ import AComponents from "./components/AComponents";
 import outsourcingProcess from "./components/outsourcingProcess";
 import outsourcingPart from "./components/outsourcingPart";
 import searchForm from "./components/searchForm";
+import copyOrder from "./components/copyOrder";
 import {
   LevelEnum,
   ProcessState,
@@ -281,14 +295,14 @@ export default {
   data() {
     return {
       dataList: [],
-      ProductionTaskStateList:
-        ['ToBeReceived',
-          'Received',
-          'Processing',
-          'Processed',
-          'Pausing',
-          'Outsourcing',
-        ],
+      ProductionTaskStateList: [
+        "ToBeReceived",
+        "Received",
+        "Processing",
+        "Processed",
+        "Pausing",
+        "Outsourcing",
+      ],
       form: {
         ToolingNo: "",
         CustomerName: "",
@@ -301,11 +315,13 @@ export default {
       drawer: false,
       Checked: false,
       tooltipFlag: false,
+
       CheckedData: 1,
       IsFlag: false, //判断选择框是否全部选中
       isIndeterminate: false, //判断选择框里面的状态
       outsourcingProcessDialogFormVisible: false, //选择委外工序的弹窗
       outsourcingPartDialogFormVisible: false, //选择委外零件的弹窗
+      copyOrderDialogFormVisible: false, //复制工单的弹窗
       multipleSelection: [],
       transferData: "",
       searchFormData: {},
@@ -518,6 +534,11 @@ export default {
         Items: arr,
       });
     },
+
+    //工单复制确认
+    confirmCopyOrder() {
+      this.copyOrderDialogFormVisible = false;
+    },
     //零件委外确认保存
     confirmOutsourcingPartData(e) {
       console.log(e);
@@ -534,6 +555,11 @@ export default {
         Items: arr,
       });
     },
+
+    //复制工单
+    copy() {
+      this.copyOrderDialogFormVisible = true;
+    },
     //保存委外物料需求
     OutsourcingrRequirement(res) {
       addOutsourcingrRequirement(res).then((res) => {
@@ -544,7 +570,7 @@ export default {
     },
 
     visibilityChange(event) {
-      console.log(11)
+      console.log(11);
       this.tooltipFlag = true;
     },
 
@@ -583,6 +609,7 @@ export default {
     outsourcingProcess,
     outsourcingPart,
     searchForm,
+    copyOrder,
   },
 };
 </script>
@@ -718,23 +745,21 @@ export default {
   }
 }
 
-  .productionTask-pagination{
+.productionTask-pagination {
+  display: flex;
+  font-size: 14px;
+  .productionTask-pagination-status {
     display: flex;
-    font-size: 14px;
-    .productionTask-pagination-status{
-      display: flex;
-      margin-left:10px ;
-      align-items: center;
-      border: 1px solid #ccc;
-      padding: 3px;
-      .status-circle{
-        width: 10px;
-        height: 10px;
-        border-radius: 5px;
-        margin: 0 5px;
-
-      }
+    margin-left: 10px;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 3px;
+    .status-circle {
+      width: 10px;
+      height: 10px;
+      border-radius: 5px;
+      margin: 0 5px;
     }
-
   }
+}
 </style>

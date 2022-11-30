@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-12 10:35:07
- * @LastEditTime: 2022-10-27 17:36:43
+ * @LastEditTime: 2022-11-30 15:38:32
  * @LastEditors: 勿忘 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \JvMmsV9Front\src\i18n\lang\en\index.js
@@ -427,10 +427,12 @@ const en = {
     Ge_StartDate: "Start Date",
     Ge_EndDate: "End Date",
     Ge_ToolingNo: "Tooling No.",
+    Ge_NewToolingNo: "New Tooling No.",
     Ge_Process: "Process",
     Ge_TaskContent: "Task Content",
     Ge_Resource: "Resource",
     Ge_PartNo: "Part No",
+    Ge_NewPartNo: "New Part No",
     Ge_PartName: "Part name",
     Ge_Worker: "Worker",
     Ge_WorkType: "Work Type",

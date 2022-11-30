@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:34:11
- * @LastEditTime: 2022-10-27 17:36:53
+ * @LastEditTime: 2022-11-30 15:39:28
  * @LastEditors: 勿忘 208760845@qq.com
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\i18n\lang\cn\index.js
@@ -422,10 +422,12 @@ const cn = {
     Ge_StartDate: "开始日期",
     Ge_EndDate: "结束日期",
     Ge_ToolingNo: "模具编号",
+    Ge_NewToolingNo: "目标模具编号",
     Ge_Process: "工序",
     Ge_TaskContent: "加工内容",
     Ge_Resource: "计划资源",
     Ge_PartNo: "零件编号",
+    Ge_NewPartNo: "目标零件编号",
     Ge_PartName: "零件名称",
     Ge_Worker: "作业员",
     Ge_WorkType: "作业类别",

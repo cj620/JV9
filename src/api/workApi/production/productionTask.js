@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-18 14:41:33
- * @LastEditTime: 2021-11-29 16:41:46
+ * @LastEditTime: 2022-11-30 15:27:36
  * @Description: 生产模块加工任务
  */
 
@@ -61,6 +61,22 @@ export function update_plan_end(data) {
 export function update_record_actual_end(data) {
   return request({
     url: "/production_task/update_record_actual_end",
+    method: "post",
+    data
+  });
+}
+// 获取加工任务列表
+export function production_task_copy_list(data) {
+  return request({
+    url: "/production_task/copy_list",
+    method: "post",
+    data
+  });
+}
+// 复制加工任务列表
+export function production_task_copy(data) {
+  return request({
+    url: "/production_task/copy",
     method: "post",
     data
   });

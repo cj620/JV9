@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-03 13:44:39
- * @LastEditTime: 2022-10-27 17:28:20
+ * @LastEditTime: 2022-10-28 08:58:31
  * @LastEditors: 勿忘 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \JvMmsV9Front\src\enum\baseModule\Items\stateEnum.js
@@ -34,7 +34,7 @@ export default {
   /// 删除
   /// </summary>
   'Deleted': {
-    name: '删除',
+    name: i18n.t("Generality.Ge_Delete"),
     value: 'Deleted',
     color: '#39B54A',
     icon: '',

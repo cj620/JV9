@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2022-01-20 15:50:55
- * @LastEditTime: 2022-10-27 17:22:32
+ * @LastEditTime: 2022-10-28 08:57:29
  * @Description:
  */
 /*
@@ -23,7 +23,7 @@ export class Table extends BaseTable {
       tableSchema: tableConfig,
       formSchema,
       rowId: "id",
-      title: '已删除物料',
+      title: i18n.t("menu.Se_DeleteItemList"),
       api,
     });
   }
