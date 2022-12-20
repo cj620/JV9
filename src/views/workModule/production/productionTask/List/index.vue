@@ -165,6 +165,11 @@
                   <svg-icon icon-class="whole-site-accelerator" />
                   {{ item.CurrentStation }}
                 </div>
+                <!--备注-->
+                <div style="width: 100px">
+                  <svg-icon icon-class="remarks" />
+                  {{ item.Remarks }}
+                </div>
               </div>
               <div class="productionTask-card-content-baseInfo-operate">
                 <el-button type="text" @click="edit(item.BillId)">{{
