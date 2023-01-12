@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-12-07 10:45:08
- * @LastEditTime: 2022-01-20 17:16:20
+ * @LastEditTime: 2023-01-11 17:05:24
  * @Description:
 -->
 <template>
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     checkProgress() {
-      this.$router.push({ name: "ProductionSchedule" });
+      this.$router.push({ name: "ProductionChart" });
     },
     checkLoad() {
       this.$router.push({ name: "ProductionLoad" });

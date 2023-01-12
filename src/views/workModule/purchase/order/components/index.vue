@@ -9,7 +9,7 @@
           <el-select
             v-model="formObj.form[prop]"
             filterable
-            @change="changeCustomerId"
+
           >
             <el-option
               v-for="item in SupplierData"
@@ -368,6 +368,15 @@ export default {
         this.billData = this.$route.query.BillId;
         this.GetData(this.billData);
       }
+    },
+    "formObj.form.SupplierId": {
+      handler: function (n, o) {
+        console.log(n, o,648);
+        if(n){
+          this.changeCustomerId(n)
+
+        }
+      },
     },
   },
 };

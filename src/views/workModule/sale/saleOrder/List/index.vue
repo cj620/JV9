@@ -76,8 +76,9 @@ export default {
   },
   created() {
     // 创建表格实例
-      this.tableObj = new Table();
+    this.tableObj = new Table();
     this.tableObj.getData();
+
   },
   computed: {
     // 是否可以批量删除

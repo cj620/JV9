@@ -166,9 +166,20 @@
                   {{ item.CurrentStation }}
                 </div>
                 <!--备注-->
-                <div style="width: 100px">
+                <div style="width: 300px">
+                  <el-tooltip
+                    ref="tlp"
+                    :content="item.Remarks"
+                    effect="dark"
+                    :disabled="!tooltipFlag"
+                    placement="top-start"
+                  >
+                    <span @mouseenter="visibilityChange($event)">
+
                   <svg-icon icon-class="remarks" />
                   {{ item.Remarks }}
+                        </span>
+                  </el-tooltip>
                 </div>
               </div>
               <div class="productionTask-card-content-baseInfo-operate">
