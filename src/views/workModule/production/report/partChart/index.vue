@@ -29,6 +29,7 @@ export default {
   created() {
     this.tableObj = new Table();
     this.tableObj.getData();
+  
   },
 };
 </script>

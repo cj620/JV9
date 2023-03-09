@@ -321,6 +321,7 @@ export default {
       ],
       form: {
         ToolingNo: "",
+        Remarks: "",
         CustomerName: "",
         StartDate: "",
         EndDate: "",
@@ -381,6 +382,7 @@ export default {
       console.log(e);
       this.drawer = false;
       this.form.ToolingNo = e.ToolingNo;
+      this.form.Remarks = e.Remarks;
       this.form.CurrentPage = 1;
       this.GetData();
     },

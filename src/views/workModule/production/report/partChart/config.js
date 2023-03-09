@@ -2,6 +2,11 @@ import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getPartWork } from "@/api/workApi/production/dataReport";
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
+import { itemList } from "@/api/basicApi/systemSettings/Item";
+
+import {
+  getAllProcess,
+} from "@/api/workApi/production/baseData";
 export class api extends TableAPI {
   getData = getPartWork;
 }
@@ -15,6 +20,9 @@ export class Table extends BaseTable {
       api,
       // searchBar: true,
       operationCol: false,
+    
+      showSummary: true,
+     
     });
   }
 }
@@ -56,14 +64,20 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_ActualTime"),
     align: "right",
     custom: true,
+    commonConfig: {
+      summary: true,
 
+    },
   },
   /*预计用时*/
   {
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
     align: "right",
+    commonConfig: {
+      summary: true,
 
+    },
   },
   /*超时*/
   {
@@ -71,9 +85,11 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_OverTime"),
     align: "right",
     custom: true,
+    commonConfig: {
+      summary: true,
 
+    },
   },
-
 ];
 
 export const formSchema = [
@@ -101,6 +117,28 @@ export const formSchema = [
         keyName: "Department",
         valueName: "Department",
       },
+    },
+  },
+    //模号搜索 Ge_ToolingName
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    cpn: "FormInput",
+  },
+    //单号搜索
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+    cpn: "FormInput",
+  },
+    {
+    prop: "TaskProcess",
+    label: i18n.t("Generality.Ge_Process"),
+    cpn: "SyncSelect",
+    api: getAllProcess,
+    apiOptions: {
+      keyName: "Process",
+      valueName: "Process",
     },
   },
   {

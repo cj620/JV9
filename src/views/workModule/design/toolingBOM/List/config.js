@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-09-01 10:29:48
+ * @LastEditTime: 2023-02-03 09:50:09
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
@@ -116,6 +116,7 @@ export const tableConfig = [
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
     formCpn: "FormInput",
+    sortable:true,
     width: 80,
   },
   /*级别*/

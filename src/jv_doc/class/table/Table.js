@@ -96,6 +96,7 @@ class Table {
         if((startTimeStamp+500)>endTimeStamp){
           setTimeout(()=>{
             this.loading = false;
+            this.doLayout()
           },startTimeStamp+500-endTimeStamp)
         }else{
           this.loading = false;

@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2022-03-18 15:28:41
- * @LastEditTime: 2022-03-30 18:04:44
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-02-24 13:59:56
+ * @LastEditors: 勿忘 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /jv-mms-v9-front/src/views/workModule/project/projectCost/PivotTable/config.js
  */
@@ -31,6 +31,12 @@ export const config = [ {
   {
     caption:i18n.t("Generality.Ge_CostType"),
     dataField: 'CostType',
+    width: 150,
+    area: 'row',
+  },
+  {
+    caption:i18n.t("Generality.Ge_Remarks"),
+    dataField: 'Remarks',
     width: 150,
     area: 'row',
   },

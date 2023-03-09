@@ -16,6 +16,7 @@
     <DxPivotGrid
       id="pivotgrid"
       ref="grid"
+      height="600"
       :data-source="dataSource"
       :allow-sorting-by-summary="true"
       :allow-sorting="true"
