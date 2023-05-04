@@ -159,6 +159,12 @@
             </template>
           </JvTable>
         </el-tab-pane>
+        <el-tab-pane :label="$t('Generality.Ge_Dynamic')" name="fifth">
+          <DynamicList
+            :cdata="ProcessDynamicInfo"
+            @fresh="GetData"
+          ></DynamicList>
+        </el-tab-pane>
       </el-tabs>
     </JvBlock>
 
@@ -212,6 +218,7 @@ import {
 import { imgUrlPlugin, printPlugin } from "@/jv_doc/utils/system/index.js";
 import closeTag from "@/utils/closeTag";
 import { mapState } from "vuex";
+import DynamicList from "./DynamicList.vue";
 export default {
   name: "index",
   data() {
@@ -227,6 +234,7 @@ export default {
       formObj: {},
 
       dialogFormVisible: false,
+      ProcessDynamicInfo: [],
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -246,6 +254,7 @@ export default {
   components: {
     JvRemark,
     JvFileExhibit,
+    DynamicList,
   },
   computed: {
     ...mapState({
@@ -338,6 +347,7 @@ export default {
         this.tableObj.setData(res.WorkRecords);
         this.tableObj1.setData(res.Parts);
         this.tableObj2.setData(res.TaskRecords);
+        this.ProcessDynamicInfo = res.ProcessDynamicInfo;
       });
     },
     //编辑
@@ -441,10 +451,10 @@ export default {
 }
 
 .productionTask-details-tab {
-  height: 1700px;
+  // height: 1700px;
 }
 .productionTask-details-process-list {
-  height: 1650px;
+  // height: 1650px;
   overflow-y: auto;
   .productionTask-details-process {
     padding-top: 20px;
