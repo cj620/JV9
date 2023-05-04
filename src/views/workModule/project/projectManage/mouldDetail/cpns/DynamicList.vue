@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-12-02 08:56:20
- * @LastEditTime: 2021-12-03 13:08:59
+ * @LastEditTime: 2023-05-04 15:40:57
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\project\projectManage\mouldDetail\cpns\DynamicList.vue
@@ -9,7 +9,7 @@
 <template>
   <el-timeline>
     <el-timeline-item
-      :timestamp="item.CreationDate | timeFormat"
+      :timestamp="item.CreationDate | time"
       placement="top"
       v-for="item in cdata"
       :key="item.GUI"
@@ -35,7 +35,7 @@
             {
               icon: 'el-icon-delete',
               popConfirm: {
-                title: '是否删除？',
+                title: $t('Generality.Ge_DeleteConfirm'),
                 confirm: delDynamic.bind(null, item.GUI),
               },
             },

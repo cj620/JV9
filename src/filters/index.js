@@ -1,16 +1,15 @@
 /*
  * @Author: your name
  * @Date: 2021-10-27 09:45:10
- * @LastEditTime: 2021-11-09 16:53:32
+ * @LastEditTime: 2023-05-04 15:40:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \V9_Dev\src\filters\index.js
  */
 // import parseTime, formatTime and set to filter
-export { parseTime, formatTime } from '@/utils'
-export { timeFormat,
-  timeFrom } from "@/jv_doc/utils/time";
-  export { amountFormat } from "@/jv_doc/utils/handleData/index";
+export { parseTime, formatTime } from "@/utils";
+export { timeFormat, timeFrom, time } from "@/jv_doc/utils/time";
+export { amountFormat } from "@/jv_doc/utils/handleData/index";
 /**
  * Show plural label if time is plural number
  * @param {number} time
@@ -19,22 +18,22 @@ export { timeFormat,
  */
 function pluralize(time, label) {
   if (time === 1) {
-    return time + label
+    return time + label;
   }
-  return time + label + 's'
+  return time + label + "s";
 }
 
 /**
  * @param {number} time
  */
 export function timeAgo(time) {
-  const between = Date.now() / 1000 - Number(time)
+  const between = Date.now() / 1000 - Number(time);
   if (between < 3600) {
-    return pluralize(~~(between / 60), ' minute')
+    return pluralize(~~(between / 60), " minute");
   } else if (between < 86400) {
-    return pluralize(~~(between / 3600), ' hour')
+    return pluralize(~~(between / 3600), " hour");
   } else {
-    return pluralize(~~(between / 86400), ' day')
+    return pluralize(~~(between / 86400), " day");
   }
 }
 
@@ -46,19 +45,23 @@ export function timeAgo(time) {
  */
 export function numberFormatter(num, digits) {
   const si = [
-    { value: 1E18, symbol: 'E' },
-    { value: 1E15, symbol: 'P' },
-    { value: 1E12, symbol: 'T' },
-    { value: 1E9, symbol: 'G' },
-    { value: 1E6, symbol: 'M' },
-    { value: 1E3, symbol: 'k' }
-  ]
+    { value: 1e18, symbol: "E" },
+    { value: 1e15, symbol: "P" },
+    { value: 1e12, symbol: "T" },
+    { value: 1e9, symbol: "G" },
+    { value: 1e6, symbol: "M" },
+    { value: 1e3, symbol: "k" },
+  ];
   for (let i = 0; i < si.length; i++) {
     if (num >= si[i].value) {
-      return (num / si[i].value).toFixed(digits).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + si[i].symbol
+      return (
+        (num / si[i].value)
+          .toFixed(digits)
+          .replace(/\.0+$|(\.[0-9]*[1-9])0+$/, "$1") + si[i].symbol
+      );
     }
   }
-  return num.toString()
+  return num.toString();
 }
 
 /**
@@ -66,7 +69,9 @@ export function numberFormatter(num, digits) {
  * @param {number} num
  */
 export function toThousandFilter(num) {
-  return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+  return (+num || 0)
+    .toString()
+    .replace(/^-?\d+/g, (m) => m.replace(/(?=(?!\b)(\d{3})+$)/g, ","));
 }
 
 /**
@@ -74,28 +79,29 @@ export function toThousandFilter(num) {
  * @param {String} string
  */
 export function uppercaseFirst(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1)
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export function IsEmpty(value,desc='--') {
+export function IsEmpty(value, desc = "--") {
   switch (typeof value) {
-    case 'undefined':
-      return desc
-    case 'string':
-      if (value.replace(/(^[ \t\n\r]*)|([ \t\n\r]*$)/g, '').length == 0) return desc
-      break
-    case 'boolean':
-      if (!value) return desc
-      break
-    case 'number':
-      if (value === 0 || isNaN(value)) return desc
-      break
-    case 'object':
-      if (value === null || value.length === 0) return desc
+    case "undefined":
+      return desc;
+    case "string":
+      if (value.replace(/(^[ \t\n\r]*)|([ \t\n\r]*$)/g, "").length == 0)
+        return desc;
+      break;
+    case "boolean":
+      if (!value) return desc;
+      break;
+    case "number":
+      if (value === 0 || isNaN(value)) return desc;
+      break;
+    case "object":
+      if (value === null || value.length === 0) return desc;
       for (var i in value) {
-        return false
+        return false;
       }
-      return desc
+      return desc;
   }
-  return value
+  return value;
 }
