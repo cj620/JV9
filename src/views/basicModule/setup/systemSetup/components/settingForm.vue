@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-12-06 17:02:24
- * @LastEditTime: 2022-01-20 09:31:55
+ * @LastEditTime: 2023-06-02 14:41:38
  * @Description:
 -->
 
@@ -82,6 +82,11 @@ export default {
           value: "Unit",
           isMultiple: false,
         },
+        ProhibitSkipStationProcesses: {
+          api: getAllProcess,
+          value: "Process",
+          isMultiple: true,
+        },
       },
     };
   },
@@ -103,6 +108,7 @@ export default {
           "ProgramUsers",
           "DesignUsers",
           "BomDefaultUnit",
+          "ProhibitSkipStationProcesses",
         ].includes(this.ConfigKey)
       ) {
         this.isMultiple = this.ConfigItems[this.ConfigKey].isMultiple;
@@ -125,6 +131,7 @@ export default {
         "ProgramUsers",
         "DesignUsers",
         "BomDefaultUnit",
+        "ProhibitSkipStationProcesses",
       ].includes(this.ConfigKey);
     },
   },

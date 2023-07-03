@@ -28,7 +28,7 @@
       </template>
       <template #Progress="{ record, row }">
         <el-progress
-          v-if="row.Flag != 0"
+
           :percentage="record"
           :color="getProceeType(row.Flag)"
         ></el-progress>
@@ -101,8 +101,9 @@ import { getCpn } from "@/jv_doc/maps/cpnMaps";
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
 import { ToolTable } from "./tool.share";
 import {
- getProjectBillListDefault
-} from "@/api/workApi/project/projectManage";
+  getProjectBillList,
+  getProjectBillListDefault
+} from '@/api/workApi/project/projectManage'
 const Image = getCpn("Image");
 import {
   listTableColBtnModel,
@@ -138,8 +139,8 @@ export default {
   },
   created() {
     this.init();
-    
-    
+
+
   },
   methods: {
     imgUrlPlugin,
@@ -155,9 +156,21 @@ export default {
       this.getData();
     },
     getData(){
-      getProjectBillListDefault().then((res=>{
+      getProjectBillList({"Project":"K151","MoldId":"","CustomerName":"","PageSize":20,"CurrentPage":1}).then((res=>{
         console.log(res)
-        this.tableObj.setData(res.Items)
+        let arr =[]
+        res.Items.forEach(item=>{
+          item.Id='SA230625001'
+          item.Name='TOKE TOOL'
+          item.Description='0625订单,0720前完成'
+          item.Progress=18.25
+          item.PlanDueDate='2023-07-25'
+          arr.push(
+            item
+          )
+
+        })
+        this.tableObj.setData(arr)
          this.tableObj.setCallBack(()=>{
         this.tableCache=JSON.stringify(this.tableObj.tableData)
         this.tableObj.tableRef?.clearSort()

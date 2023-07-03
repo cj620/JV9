@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:34:11
- * @LastEditTime: 2022-11-30 15:39:28
+ * @LastEditTime: 2023-06-02 13:55:06
  * @LastEditors: 勿忘 208760845@qq.com
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\i18n\lang\cn\index.js
@@ -974,6 +974,7 @@ const cn = {
     P10185: "分享密钥已过期！",
     P10186: "无法删除!",
     P10187: "单位不存在!",
+    P10188: "当前工序禁止跳站!",
   },
   program: {
     Pr_ProcessPlanning: "工艺设计",
@@ -1023,6 +1024,7 @@ const cn = {
     Ftp_file_management_backup_path_desc: "项目文件将备份到这个路径下",
     Ftp_file_management_path_name: "项目文件路径",
     Ftp_file_management_path_desc: "项目文件将保存到这个路径下",
+    Prohibit_skip_station_processes: "禁止跳站工序",
 
   },
 

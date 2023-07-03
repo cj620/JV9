@@ -996,6 +996,7 @@ const en = {
     P10185: "Shared key has expired！",
     P10186: "It is associated with the mold and cannot be deleted！",
     P10187: "The unit dose not exist!",
+    P10188: "The current process prohibits skipping stations!",
   },
   program: {
     Pr_ProcessPlanning: "Process planning",
@@ -1048,8 +1049,8 @@ const en = {
     Ftp_file_management_backup_path_desc:
       "root folder where backup project files are stored in",
     Ftp_file_management_path_name: "root path of project files",
-    Ftp_file_management_path_desc:
-      "root folder where project files are stored in",
+    Ftp_file_management_path_desc:"root folder where project files are stored in",
+    Prohibit_skip_station_processes:"Prohibit skip station processes",
   },
   ...enLocale,
 };
