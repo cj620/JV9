@@ -9,8 +9,12 @@
 <template>
   <div>
     <div style="margin-bottom: 10px">
-      <el-button size="mini" onclick="gantt.ext.zoom.zoomIn()">{{$t('Generality.Ge_ZoomOut')}}</el-button>
-      <el-button size="mini" onclick="gantt.ext.zoom.zoomOut()">{{$t('Generality.Ge_ZoomIn')}}</el-button>
+      <el-button size="mini" onclick="gantt.ext.zoom.zoomIn()">{{
+        $t("Generality.Ge_ZoomOut")
+      }}</el-button>
+      <el-button size="mini" onclick="gantt.ext.zoom.zoomOut()">{{
+        $t("Generality.Ge_ZoomIn")
+      }}</el-button>
     </div>
 
     <div ref="gantt" style="height: 630px" />
@@ -38,8 +42,10 @@ export default {
       var that = this;
       if (localStorage.lang === "cn") {
         gantt.i18n.setLocale("cn");
-      } else {
+      } else if (localStorage.lang === "en") {
         gantt.i18n.setLocale("en");
+      } else {
+        gantt.i18n.setLocale("ja");
       }
       // 时间轴图表中，甘特图的高度
       gantt.config.row_height = 35;
