@@ -6,15 +6,44 @@
 -->
 <template>
 
-  <div style="padding:20px;background-color: #fff">
-    <div class="device-item">
-      <div v-for="item in 10">
-        <div style="width: 300px;border: 1px #000 solid">
-          <DeviceStatusContent :transferData="transferData"></DeviceStatusContent>
+  <PageWrapper :footer="false">
+    <div class="productionTask">
+      <div class="productionTask-header">
+        <div>
+          设备负荷
         </div>
-      </div>
-    </div>
+        <div class="productionTask-header-title">
+          <div class="title">
+            <i class="el-icon-search"></i>
 
+            <div style="margin-left: 50px">时间：2023/6/26-2023/7/01</div>
+            <div style="margin-left: 50px">地区：中国上海</div>
+
+          </div>
+          <div class="oprations">
+            <div>   <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select></div>
+          </div>
+        </div>
+        <div class="productionTask-header-setting"></div>
+      </div>
+    <el-row :gutter="20">
+
+      <el-col :span="4"  v-for="item in transferDataList">
+        <div style="border: 1px #000 solid;margin-top: 20px">
+          <DeviceStatusContent :transferData="item"></DeviceStatusContent>
+        </div>
+
+      </el-col>
+
+
+    </el-row>
 
 
 
@@ -23,7 +52,7 @@
 
 
   </div>
-
+  </PageWrapper>
 </template>
 <script>
 
@@ -41,7 +70,24 @@ export default {
         MakInfo:'YZ200054-621',
         Activation:20,
       },
-
+      transferDataList:[],
+      options: [{
+        value: '中国上海',
+        label: '中国上海'
+      }, {
+        value: '选项2',
+        label: '双皮奶'
+      }, {
+        value: '选项3',
+        label: '蚵仔煎'
+      }, {
+        value: '选项4',
+        label: '龙须面'
+      }, {
+        value: '选项5',
+        label: '北京烤鸭'
+      }],
+      value: '中国上海',
       opinionData1:[
         ["90", "80", "85", "90", "90", "95", "93"],
         ["8", "15", "10", "5", "8", "4", "5"],
@@ -68,7 +114,25 @@ export default {
       ]
     };
   },
-  created() {},
+  created() {
+    let arr =['CNC01','CNC02','CNC03','CNC04','CNC05','CNC06','CNC07','CNC08','CNC09',
+      'EDM01','EDM02','EDM03','EDM04','EDM05','EDM06','EDM07','EDM08','WEDM01','WEDM02','WEDM03','WEDM04']
+    let str={}
+    for (var i = 1; i <= arr.length; i++) {
+      str = {
+        State:'Runing',
+          EquipmentId:arr[i],
+        ImgUrl:'http://www.jverp.com:8101//Files/'+arr[i]+'.PNG',
+        MakInfo:'YZ200054-621'+i,
+        Activation:70+i,
+      }
+      if(i==2||i==7||i==10||i==15){
+        str.State = 'stop'
+        str.MakInfo = ''
+      }
+      this.transferDataList.push(str)
+    }
+  },
 //调用
   mounted() {
 
@@ -87,13 +151,50 @@ export default {
 };
 </script>
 <style lang="scss">
-
-.charts-line{
+@import "~@/jv_doc/style/mixin.scss";
+.productionTask {
+  height: 100%;
+  /*width: 100%;*/
+  min-width: 1400px;
+  padding: 15px;
   background: #fff;
-  display: flex;
-  margin-top: 20px;
-}
-.device-item{
-  display: flex;
-}
-</style>
+  .productionTask-header {
+    width: 100%;
+    height: 45px;
+    background-color: #fff;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .productionTask-header-title {
+      height: 100%;
+
+      display: flex;
+      flex: 1;
+      .title {
+        margin-left: 15px;
+        height: 100%;
+        font-size: 18px;
+        font-weight: 700;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        align-items: center;
+        flex-flow: row;
+      }
+      .oprations {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        align-items: center;
+        flex-flow: row;
+      }
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+}</style>
