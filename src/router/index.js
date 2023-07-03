@@ -199,17 +199,23 @@ export const constantRoutes = [
         name: "Test4",
         meta: { title: "产值报表", icon: "dashboard" },
       },
-      {
+/*      {
         path: "test7",
         component: () => import("@/views/basicModule/demo/Test7"),
         name: "Test7",
         meta: { title: "设备负荷", icon: "dashboard" },
-      },
+      },*/
       {
         path: "test8",
         component: () => import("@/views/basicModule/demo/Test8"),
         name: "Test8",
-        meta: { title: "人员作业汇总", icon: "dashboard" },
+        meta: { title: "设计任务", icon: "dashboard" },
+      },
+      {
+        path: "test14",
+        component: () => import("@/views/basicModule/demo/Test8"),
+        name: "Test14",
+        meta: { title: "编程任务", icon: "dashboard" },
       },
       {
         path: "test9",
@@ -233,8 +239,9 @@ export const constantRoutes = [
         path: "test13",
         component: () => import("@/views/basicModule/demo/Test13"),
         name: "Test13",
-        meta: { title: "设备负荷1", icon: "dashboard" },
+        meta: { title: "设备负荷", icon: "dashboard" },
       },
+
     ],
   },
   {

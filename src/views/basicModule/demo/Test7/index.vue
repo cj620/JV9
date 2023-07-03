@@ -19,10 +19,13 @@
 
           </div>
           <div class="oprations">
-            
+
+
           </div>
         </div>
-        <div class="productionTask-header-setting"></div>
+        <div class="productionTask-header-setting">
+
+        </div>
       </div>
       <div class="jv-table-style">
         <el-tabs type="border-card">

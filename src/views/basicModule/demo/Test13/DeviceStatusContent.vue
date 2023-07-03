@@ -74,8 +74,8 @@ export default {
 }
 .ChildContent {
   width: 100%;
-  height: 100%;
-  color: #a8b4c1;
+  height: 212px;
+  color: #000;
   font-size: 12px;
   .left-container {
     text-align: center;
@@ -114,6 +114,7 @@ export default {
   }
   .left-footer {
     text-align: center;
+    margin-bottom: 10px;
   }
   .ChildContent-main {
     width: 100%;
@@ -137,6 +138,7 @@ export default {
     .right-top {
       width: 20px;
       height: 10%;
+      margin-top: 5px;
     }
   }
 }
