@@ -135,7 +135,7 @@ export default {
   },
   // 错误状态
   Fail: {
-    name: i18n.t("Generality.Ge_Error"),
+    name: '错误',
     value: "Completed",
     color: "#39B54A",
     fcolor: "#fff",

@@ -160,7 +160,7 @@ const production = [
     key: "Pr_Report",
     component: () => import("@/views/workModule/production/report"),
     Parent: "Pr_Production",
-    name: "Report",
+    name: "Pr_Report",
     path: "report",
     title: i18n.t("menu.Pr_Report"),
   },
@@ -217,7 +217,7 @@ const production = [
   },
 
   // 生产报表
-  {
+/*  {
     key: "Pr_ProductionReport",
     component: () =>
       import("@/views/workModule/production/report/productionReport"),
@@ -225,7 +225,7 @@ const production = [
     name: "ProductionReport",
     path: "productionReport",
     title: i18n.t("menu.Pr_ProductionReport"),
-  },
+  },*/
   /*  // 品质报表
   {
     key: "Pr_QualityReport",

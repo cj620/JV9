@@ -557,7 +557,7 @@ const stockroom = [
     key: "St_Report",
     component: () => import("@/views/workModule/stockroom/report/"),
     Parent: "St_Stockroom",
-    name: "Report",
+    name: "St_Report",
     path: "report",
     title: i18n.t("menu.St_Report"),
   },

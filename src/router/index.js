@@ -91,23 +91,23 @@ export const constantRoutes = [
     component: () => import("@/views/sys/error-page/401"),
     hidden: true,
   },
-  // {
-  //   path: "/",
-  //   component: Layout,
-  //   redirect: "/dashboard",
-  //   children: [
-  //     {
-  //       path: "dashboard",
-  //       component: () => import("@/views/dashboard/index"),
-  //       name: "Dashboard",
-  //       meta: {
-  //         title: i18n.t("Generality.Ge_Dashboard"),
-  //         icon: "dashboard",
-  //         affix: true,
-  //       },
-  //     },
-  //   ],
-  // },
+  {
+    path: "/",
+    component: Layout,
+    redirect: "/dashboard",
+    children: [
+      {
+        path: "dashboard",
+        component: () => import("@/views/dashboard/index"),
+        name: "Dashboard",
+        meta: {
+          title: i18n.t("Generality.Ge_Dashboard"),
+          icon: "dashboard",
+          affix: true,
+        },
+      },
+    ],
+  },
     {
     path: "/demo",
     component: Layout,
@@ -180,7 +180,7 @@ export const constantRoutes = [
         name: "Test12",
         meta: { title: "仪表盘", icon: "dashboard" },
       },
-     
+
       {
         path: "test5",
         component: () => import("@/views/basicModule/demo/Test5"),
@@ -228,6 +228,12 @@ export const constantRoutes = [
         component: () => import("@/views/basicModule/demo/Test11"),
         name: "Test11",
         meta: { title: "质量汇总", icon: "dashboard" },
+      },
+      {
+        path: "test13",
+        component: () => import("@/views/basicModule/demo/Test13"),
+        name: "Test13",
+        meta: { title: "设备负荷1", icon: "dashboard" },
       },
     ],
   },

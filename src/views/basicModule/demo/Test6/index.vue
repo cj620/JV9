@@ -34,26 +34,26 @@
                 <el-table-column prop="data2" label="数量"></el-table-column>
                 <el-table-column prop="data3" label="金额"></el-table-column>
               </el-table-column>
-              <el-table-column label="2月">
-                <el-table-column prop="data2" label="数量"></el-table-column>
-                <el-table-column prop="data3" label="金额"></el-table-column>
-              </el-table-column>
-              <el-table-column label="3月">
-                <el-table-column prop="data2" label="数量"></el-table-column>
-                <el-table-column prop="data3" label="金额"></el-table-column>
-              </el-table-column>
-              <el-table-column label="4月">
-                <el-table-column prop="data2" label="数量"></el-table-column>
-                <el-table-column prop="data3" label="金额"></el-table-column>
-              </el-table-column>
-              <el-table-column label="5月">
-                <el-table-column prop="data2" label="数量"></el-table-column>
-                <el-table-column prop="data3" label="金额"></el-table-column>
-              </el-table-column>
-              <el-table-column label="6月">
-                <el-table-column prop="data2" label="数量"></el-table-column>
-                <el-table-column prop="data3" label="金额"></el-table-column>
-              </el-table-column>
+              <!--             <el-table-column label="2月">
+                           <el-table-column prop="data2" label="数量"></el-table-column>
+                           <el-table-column prop="data3" label="金额"></el-table-column>
+                         </el-table-column>
+                         <el-table-column label="3月">
+                           <el-table-column prop="data2" label="数量"></el-table-column>
+                           <el-table-column prop="data3" label="金额"></el-table-column>
+                         </el-table-column>
+                       <el-table-column label="4月">
+                           <el-table-column prop="data2" label="数量"></el-table-column>
+                           <el-table-column prop="data3" label="金额"></el-table-column>
+                         </el-table-column>
+                         <el-table-column label="5月">
+                           <el-table-column prop="data2" label="数量"></el-table-column>
+                           <el-table-column prop="data3" label="金额"></el-table-column>
+                         </el-table-column>
+                         <el-table-column label="6月">
+                           <el-table-column prop="data2" label="数量"></el-table-column>
+                           <el-table-column prop="data3" label="金额"></el-table-column>
+                         </el-table-column>-->
               <el-table-column label="总计">
                 <el-table-column prop="data4" label="数量"></el-table-column>
                 <el-table-column prop="data5" label="金额"></el-table-column>
