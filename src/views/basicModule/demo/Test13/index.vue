@@ -35,7 +35,7 @@
       </div>
     <el-row :gutter="20">
 
-      <el-col :span="4"  v-for="item in transferDataList">
+      <el-col :span="4"  v-for="item in transferDataList" :key="item.EquipmentId">
         <div style="border: 1px #000 solid;margin-top: 20px">
           <DeviceStatusContent :transferData="item"></DeviceStatusContent>
         </div>
