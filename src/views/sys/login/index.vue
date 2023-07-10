@@ -117,6 +117,10 @@ export default {
           value: "en",
           label: "English",
         },
+        {
+          value: "ja",
+          label: "日本語",
+        },
       ],
       languageEnum: {
         cn: 1,

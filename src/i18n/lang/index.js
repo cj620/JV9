@@ -7,11 +7,12 @@
  * @FilePath: \JvMmsV9Front\src\i18n\lang\index.js
  */
 
-import en from './en'
-import cn from './cn'
-
+import en from "./en";
+import cn from "./cn";
+import ja from "./ja";
 
 export default {
   en,
   cn,
-}
+  ja,
+};

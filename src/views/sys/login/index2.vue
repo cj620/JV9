@@ -76,7 +76,9 @@
                   >
                   </el-option>
                 </el-select>
-                <el-checkbox v-model="LoginData.checked">{{ $t("Generality.Ge_RememberPassword")}}</el-checkbox>
+                <el-checkbox v-model="LoginData.checked">{{
+                  $t("Generality.Ge_RememberPassword")
+                }}</el-checkbox>
               </div>
             </template>
           </el-form-item>
@@ -116,6 +118,10 @@ export default {
         {
           value: "en",
           label: "English",
+        },
+        {
+          value: "ja",
+          label: "日本語",
         },
       ],
       languageEnum: {
