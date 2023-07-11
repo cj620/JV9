@@ -771,6 +771,7 @@ const cn = {
   },
   quality: {
     Qc_CheckResult: "检验结果",
+    Qc_Operator: "检验人",
     Qc_CheckDate: "检验日期",
     Qc_EstimatedLoss: "预估损失",
     Qc_ProportionOfAbnormalQualityOfDepartment: "部门品质异常占比",

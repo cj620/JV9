@@ -783,6 +783,7 @@ const en = {
   },
   quality: {
     Qc_CheckResult: "Check result",
+    Qc_Operator: "Operator",
     Qc_CheckDate: "Check date",
     Qc_EstimatedLoss: "Estimated loss",
     Qc_ProportionOfAbnormalQualityOfDepartment:

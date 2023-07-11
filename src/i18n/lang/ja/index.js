@@ -779,6 +779,7 @@ const ja = {
   },
   quality: {
     Qc_CheckResult: "検査結果",
+    Qc_Operator: "検査人",
     Qc_CheckDate: "検査日",
     Qc_EstimatedLoss: "よさんそんしつ",
     Qc_ProportionOfAbnormalQualityOfDepartment: "部門品質異常占有率",
