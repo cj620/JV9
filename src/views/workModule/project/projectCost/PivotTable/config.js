@@ -43,7 +43,15 @@ export const config = [ {
   {
     caption:i18n.t("Generality.Ge_Quantity"),
     dataField: 'Quantity',
-    width: 150,
+    dataType: 'number',
+    summaryType: 'sum',
+    area: 'data',
+
+    customizeText: function (cellInfo) {
+      console.log(cellInfo);
+      // Your code goes here
+      return amountFormat(cellInfo.value?cellInfo.value:0)
+    }
   },
   {
     caption:i18n.t("Generality.Ge_ToolingName"),
@@ -62,7 +70,7 @@ export const config = [ {
     dataType: 'number',
     summaryType: 'sum',
     area: 'data',
-    
+
     customizeText: function (cellInfo) {
       console.log(cellInfo);
       // Your code goes here

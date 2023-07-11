@@ -156,21 +156,8 @@ export default {
       this.getData();
     },
     getData(){
-      getProjectBillList({"Project":"K151","MoldId":"","CustomerName":"","PageSize":20,"CurrentPage":1}).then((res=>{
-        console.log(res)
-        let arr =[]
-        res.Items.forEach(item=>{
-          item.Id='SA230625001'
-          item.Name='TOKE TOOL'
-          item.Description='0625订单,0720前完成'
-          item.Progress=18.25
-          item.PlanDueDate='2023-07-25'
-          arr.push(
-            item
-          )
-
-        })
-        this.tableObj.setData(arr)
+      getProjectBillListDefault().then((res=>{
+        this.tableObj.setData(res.Items)
          this.tableObj.setCallBack(()=>{
         this.tableCache=JSON.stringify(this.tableObj.tableData)
         this.tableObj.tableRef?.clearSort()

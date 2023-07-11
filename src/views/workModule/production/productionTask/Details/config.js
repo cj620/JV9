@@ -30,6 +30,12 @@ export const tableConfig2 = [
   {
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_ActualTime"),
+    align: "right",
+    custom: true,
+    commonConfig: {
+      summary: true,
+
+    },
   },
   /*数量*/
   {

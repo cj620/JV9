@@ -130,6 +130,12 @@ export const tableConfig = [
 export const formSchema = [
   //单号搜索
   {
+    prop: "Keyword",
+    label: i18n.t("Generality.Ge_KeyWords"),
+    cpn: "FormInput",
+  },
+  //单号搜索
+  {
     prop: "Project",
     label: i18n.t("sale.Sa_ProjectId"),
     cpn: "AsyncSearch",
@@ -164,6 +170,16 @@ export const formSchema = [
       keyName: "ShortName",
       valueName: "ShortName",
     },
-  }
+  },
+  {
+    prop: "StartDate",
+    label: i18n.t("Generality.Ge_DeliveryDate")+' '+ i18n.t("Generality.Ge_StartTime"),
+    cpn: "SingleTime"
+  },
+  {
+    prop: "EndDate",
+    label: i18n.t("Generality.Ge_DeliveryDate")+' '+ i18n.t("Generality.Ge_EndTime"),
+    cpn: "SingleTime"
+  },
 
 ];

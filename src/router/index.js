@@ -108,7 +108,7 @@ export const constantRoutes = [
       },
     ],
   },
-    {
+/*     {
     path: "/demo",
     component: Layout,
     redirect: "/table",
@@ -199,12 +199,12 @@ export const constantRoutes = [
         name: "Test4",
         meta: { title: "产值报表", icon: "dashboard" },
       },
-/*      {
+     {
         path: "test7",
         component: () => import("@/views/basicModule/demo/Test7"),
         name: "Test7",
         meta: { title: "设备负荷", icon: "dashboard" },
-      },*/
+      },
       {
         path: "test8",
         component: () => import("@/views/basicModule/demo/Test8"),
@@ -243,7 +243,7 @@ export const constantRoutes = [
       },
 
     ],
-  },
+  }, */
   {
     path: "/print",
     component: Layout,

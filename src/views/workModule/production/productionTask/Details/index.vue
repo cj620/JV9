@@ -147,7 +147,11 @@
           name="fourth"
         >
           <JvTable :table-obj="tableObj2" ref="BillTable2">
+            <template #ActualTime="{ row }">
+        <span>{{ row.ActualTime.toFixed(2) }}</span>
+      </template>
             <template #operation="{ row }">
+
               <TableAction
                 :actions="[
                   {
@@ -310,7 +314,8 @@ export default {
       title: "",
       tableHeaderShow: false,
       operationCol: true,
-      height: 1650,
+      showSummary: true,
+      height: 500,
     });
 
     this.formObj = new Form({
