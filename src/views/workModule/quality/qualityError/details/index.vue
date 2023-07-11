@@ -57,7 +57,7 @@ export default {
         },
       ],
       detailObj: {},
-      printMod: "Qu_QualityError",
+      printMod: "Qc_QualityError",
     };
   },
   methods: {
@@ -67,7 +67,6 @@ export default {
     },
   },
   created() {
-
     this.detailObj = new Detail({
       data: this.$route.query.data,
       schema: detailConfig,

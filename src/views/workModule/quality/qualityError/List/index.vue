@@ -48,12 +48,12 @@
 import { Table } from "./config";
 import { deleteCheckErr } from "@/api/workApi/quality/checkErr";
 export default {
-  name:'QualityError',
+  name: "QualityError",
   data() {
     return {
       tableObj: {},
       CheckResult: {
-        Rework: this.$t("quality.Qu_Rework"),
+        Rework: this.$t("quality.Qc_Rework"),
         Scrap: this.$t("setup.ReportWork"),
       },
     };

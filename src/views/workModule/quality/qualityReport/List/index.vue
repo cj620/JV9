@@ -34,7 +34,7 @@
         <el-row :gutter="20">
           <el-col :span="12">
             <div class="qualityReport-page-size">
-              {{ $t("quality.Qu_ProcessReworkRatio") }}
+              {{ $t("quality.Qc_ProcessReworkRatio") }}
             </div>
             <el-divider></el-divider>
             <PieChart
@@ -49,7 +49,7 @@
 
           <el-col :span="12">
             <div class="qualityReport-page-size">
-              {{ $t("quality.Qu_ProportionOfAbnormalQualityOfDepartment") }}
+              {{ $t("quality.Qc_ProportionOfAbnormalQualityOfDepartment") }}
             </div>
             <el-divider></el-divider>
 
@@ -69,7 +69,7 @@
           <el-col :span="12">
             <div class="qualityReport-page-bottom-header">
               <div class="qualityReport-page-size">
-                {{ $t("quality.Qu_ReworkDetailList") }}
+                {{ $t("quality.Qc_ReworkDetailList") }}
               </div>
               <div class="qualityReport-page-bottom-more" @click="JumpDetail">
                 {{ $t("Generality.Ge_More")
@@ -83,7 +83,7 @@
           <el-col :span="12">
             <div class="qualityReport-page-bottom-header">
               <div class="qualityReport-page-size">
-                {{ $t("quality.Qu_Ge_QualityAbnormal") }}
+                {{ $t("quality.Qc_Ge_QualityAbnormal") }}
               </div>
               <div class="qualityReport-page-bottom-more" @click="JumpDetail">
                 {{ $t("Generality.Ge_More")
@@ -156,7 +156,6 @@ export default {
   methods: {
     async GetData() {
       await dataReportQc(this.form).then((res) => {
-
         this.ReworkProportion = res.ReworkProportion;
         this.AbnormalProportion = res.AbnormalProportion;
 
@@ -166,7 +165,6 @@ export default {
     },
     //月份查询
     monthSearch(e) {
-
       this.value1 = [this.GetPreMonthDay(e), new Date()];
       this.timeChange();
     },

@@ -9,7 +9,7 @@
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
       <div slot="extra">
         <el-button type="primary" size="mini" @click="hanldeNewError">{{
-          $t("quality.Qu_CreatFromManufacturingTaskList")
+          $t("quality.Qc_CreatFromManufacturingTaskList")
         }}</el-button>
       </div>
       <JvForm :formObj="formObj">
@@ -70,7 +70,7 @@
       }}</el-button>
     </div>
     <JvDialog
-      :title="$t('quality.Qu_CreatFromManufacturingTaskList')"
+      :title="$t('quality.Qc_CreatFromManufacturingTaskList')"
       :visible.sync="dialogVisible"
       @confirm="handleConfirm"
       width="40%"
@@ -173,21 +173,21 @@ export default {
       const { datas } = this.tableObj.selectData;
       if (datas.length === 0)
         return this.$message.warning(
-          this.$t("quality.Qu_PleaseSelectADocument")
+          this.$t("quality.Qc_PleaseSelectADocument")
         );
       this.dialogVisible = false;
       this.setFormData(datas[0]);
     },
     setFormData(data) {
-      console.log(data)
+      console.log(data);
       const { ToolingNo, PartNo, PartName, Quantity, Process } = data;
-      console.log(PartName)
+      console.log(PartName);
       this.processList = Process.filter(
         (item) => item.State !== "Received" && item.State !== "ToBeReceived"
       );
       if (this.processList.length === 0)
         return this.$message.error(
-          this.$t("quality.Qu_ThereAreNoManufacturedProcesses")
+          this.$t("quality.Qc_ThereAreNoManufacturedProcesses")
         );
       const obj = {
         ToolingNo,

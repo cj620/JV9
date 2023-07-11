@@ -87,16 +87,16 @@ export const formSchema = [
     // 检验结果
     prop: "CheckResult",
     cpn: "FormSelect",
-    label: i18n.t("quality.Qu_CheckResult"),
+    label: i18n.t("quality.Qc_CheckResult"),
     options: {
       list: [
         {
           value: "Qualified",
-          label: i18n.t("quality.Qu_Qualified"),
+          label: i18n.t("quality.Qc_Qualified"),
         },
         {
           value: "Unqualified",
-          label: i18n.t("quality.Qu_Unqualified"),
+          label: i18n.t("quality.Qc_Unqualified"),
         },
       ],
     },
@@ -104,7 +104,7 @@ export const formSchema = [
   /*日期*/
   {
     prop: "CheckDate",
-    label: i18n.t("quality.Qu_CheckDate"),
+    label: i18n.t("quality.Qc_CheckDate"),
     filter: "time",
     cpn: "SingleTime",
   },

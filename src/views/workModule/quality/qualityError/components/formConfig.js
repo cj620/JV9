@@ -98,16 +98,16 @@ export const formSchema = [
     // 处理结果
     prop: "CheckResult",
     cpn: "FormSelect",
-    label: i18n.t("quality.Qu_CheckResult"),
+    label: i18n.t("quality.Qc_CheckResult"),
     options: {
       list: [
         {
           value: "Rework",
-          label: i18n.t("quality.Qu_Rework"),
+          label: i18n.t("quality.Qc_Rework"),
         },
         {
           value: "Scrap",
-          label: i18n.t("quality.Qu_Scrapped"),
+          label: i18n.t("quality.Qc_Scrapped"),
         },
       ],
     },
@@ -115,14 +115,14 @@ export const formSchema = [
   /*日期*/
   {
     prop: "CheckDate",
-    label: i18n.t("quality.Qu_CheckDate"),
+    label: i18n.t("quality.Qc_CheckDate"),
     filter: "time",
     cpn: "SingleTime",
   },
   /*预估损失*/
   {
     prop: "EstimatedLoss",
-    label: i18n.t("quality.Qu_EstimatedLoss"),
+    label: i18n.t("quality.Qc_EstimatedLoss"),
     cpn: "FormInput",
     type: "number",
     rules: [

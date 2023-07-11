@@ -16,7 +16,7 @@ export default {
   data() {
     return {};
   },
-  name: "Qu_AddQualityError",
+  name: "Qc_AddQualityError",
   methods: {},
   created() {},
   mounted() {},

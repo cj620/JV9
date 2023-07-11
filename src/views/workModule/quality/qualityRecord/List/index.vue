@@ -53,9 +53,9 @@ export default {
     return {
       tableObj: {},
       CheckResultEnum: {
-        Qualified: i18n.t("quality.Qu_Qualified"),
-        TobeChecked: i18n.t("quality.Qu_ToBeTested"),
-        Unqualified: i18n.t("quality.Qu_Unqualified"),
+        Qualified: i18n.t("quality.Qc_Qualified"),
+        TobeChecked: i18n.t("quality.Qc_ToBeTested"),
+        Unqualified: i18n.t("quality.Qc_Unqualified"),
       },
     };
   },
