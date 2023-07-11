@@ -52,7 +52,7 @@ export default {
         },
       ],
       detailObj: {},
-      printMod: "Qu_QualityRecord",
+      printMod: "Qc_QualityRecord",
     };
   },
   methods: {

@@ -43,12 +43,12 @@ export const detailConfig = [
   /*检验结果*/
   {
     prop: "CheckResult",
-    label: i18n.t("quality.Qu_CheckResult"),
+    label: i18n.t("quality.Qc_CheckResult"),
   },
   /*日期*/
   {
     prop: "CheckDate",
-    label: i18n.t("quality.Qu_CheckDate"),
+    label: i18n.t("quality.Qc_CheckDate"),
     filter: "time",
   },
 ];

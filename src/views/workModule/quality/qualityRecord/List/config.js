@@ -17,10 +17,10 @@ export class Table extends BaseTable {
       tableSchema: tableConfig,
       formSchema,
       rowId: "Id",
-      title: i18n.t("menu.Qu_QualityRecord"),
+      title: i18n.t("menu.Qc_QualityRecord"),
       api,
       operationWidth: 110,
-      printMod: "Qu_QualityRecord",
+      printMod: "Qc_QualityRecord",
       searchBar: false,
     });
   }
@@ -68,14 +68,14 @@ export const tableConfig = [
   /*检验结果*/
   {
     prop: "CheckResult",
-    label: i18n.t("quality.Qu_CheckResult"),
+    label: i18n.t("quality.Qc_CheckResult"),
     width: "120",
     custom: true,
   },
   /*日期*/
   {
     prop: "CheckDate",
-    label: i18n.t("quality.Qu_CheckDate"),
+    label: i18n.t("quality.Qc_CheckDate"),
     filter: "time",
   },
   /*备注*/

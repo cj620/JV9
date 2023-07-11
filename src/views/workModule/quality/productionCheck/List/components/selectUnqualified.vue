@@ -8,7 +8,7 @@
 -->
 <template>
   <jv-dialog
-    :title="$t('quality.Qu_PleaseChooseTheUnqualifiedProcess')"
+    :title="$t('quality.Qc_PleaseChooseTheUnqualifiedProcess')"
     width="70%"
     :close-on-click-modal="true"
     :modal-append-to-body="false"
