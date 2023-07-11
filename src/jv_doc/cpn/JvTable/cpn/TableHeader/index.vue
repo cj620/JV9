@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-07-20 15:47:56
- * @LastEditTime: 2022-01-17 11:34:55
+ * @LastEditTime: 2023-07-11 17:00:06
  * @LastEditTime: 2021-11-08 16:07:49
  * @Description: file content
 -->
@@ -9,7 +9,8 @@
   <div class="table-header">
     <div class="table-title">
       <div class="title">
-        <span v-if="tableProps.title">{{ tableProps.title }}</span>
+        <span class="item" v-if="tableProps.title">{{ tableProps.title }}</span>
+
         <slot name="subTitleBar"></slot>
         <el-tooltip
           class="item"
@@ -24,8 +25,20 @@
             @click="$emit('openSearch')"
           />
         </el-tooltip>
-        <div v-if="remark" class="table-remark">{{ remark }}</div>
+
+        <!-- <div v-if="remark" class="table-remark">{{ remark }}</div> -->
       </div>
+      <KeywordDisplay
+        v-if="tableObj.formObj"
+        style="flex: 1"
+        :formObj="tableObj.formObj"
+        @fresh="$emit('fresh')"
+      >
+        <SelectTag
+          :tableObj="tableObj"
+          v-if="tableObj.selectData.keys.length !== 0"
+        ></SelectTag>
+      </KeywordDisplay>
       <div class="oprations">
         <slot />
       </div>
@@ -46,7 +59,7 @@
             'setting-icon',
             tableObj.loading ? 'el-icon-loading' : 'el-icon-refresh-right',
           ]"
-          @click="$emit('fresh')"
+          @click="$emit('countFresh')"
         />
       </el-tooltip>
 
@@ -182,14 +195,18 @@
 <script>
 import SortList from "../SortList.vue";
 import Export from "../Export.vue";
+import SelectTag from "./SelectTag.vue";
 import { checkImport } from "../../utils/importHelp";
 // import Screenfull from "@/components/Screenfull";
 import { printPlugin } from "@/jv_doc/utils/system/printPlugin";
+import KeywordDisplay from "./KeywordDisplay.vue";
 export default {
   name: "TableHeader",
   components: {
     SortList,
     Export,
+    KeywordDisplay,
+    SelectTag,
     //  Screenfull
   },
   data() {
@@ -257,7 +274,7 @@ export default {
           message: this.$t("setup.ChooseFile"),
         });
       } else {
-        if (checkImport(this.tableProps.tableSchema, e)) {
+        if (true) {
           this.importShow = false;
           this.$emit("importConfirm", e);
         } else {
@@ -295,7 +312,8 @@ export default {
     // width: 100px;
     height: 100%;
     // padding: 3px 10px;
-    display: flex;
+    // display: flex;
+    @include flexBox($jc: space-between);
     flex: 1;
     // background-color: pink;
     .title {
@@ -313,7 +331,7 @@ export default {
       }
     }
     .oprations {
-      flex: 1;
+      // flex: 1;
       height: 100%;
       @include flexBox($jc: flex-end);
       // background-color: pink;
