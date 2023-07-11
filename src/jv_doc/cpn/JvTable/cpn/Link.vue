@@ -1,14 +1,21 @@
 <!--
  * @Author: C.
  * @Date: 2021-09-15 09:50:28
- * @LastEditTime: 2021-11-24 16:58:00
+ * @LastEditTime: 2023-07-11 16:55:04
  * @Description: file content
 -->
 <template>
-  <el-link type="primary" @click="linkTo">{{ state }}</el-link>
+  <!-- <div>
+    <el-link type="primary" @click="linkTo">{{ state }}</el-link>
+  </div> -->
+  <div @click="linkTo" class="link-style" v-if="state">
+    <i class="el-icon-document-copy copy-icon" @click.stop="copy"></i>
+    {{ state }}
+  </div>
 </template>
 
 <script>
+import handleClipboard from "@/utils/clipboard";
 export default {
   props: {
     state: [Array, String, Boolean, Object],
@@ -35,9 +42,13 @@ export default {
   },
   methods: {
     linkTo() {
+      if (!this.state) return;
       if (this.routeCheck()) {
         this.$router.push(this.handleRoute());
       }
+    },
+    copy(e) {
+      handleClipboard(this.state, e);
     },
     handleRoute() {
       let route = {};
@@ -46,8 +57,6 @@ export default {
       } else if (this.cpnProps.routePath) {
         route["path"] = this.cpnProps.routePath;
       }
-
-      console.log(this.cpnProps.moreDynamicParameters, this.rowData, 8879798);
 
       let dynamicParameters = {};
       this.cpnProps.moreDynamicParameters?.forEach((item) => {
@@ -77,4 +86,19 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+@import "~@/jv_doc/style/mixin.scss";
+.link-style {
+  color: #409eff;
+  @include ellipsis;
+  cursor: pointer;
+  .copy-icon {
+    color: #909399;
+    font-size: 15px;
+  }
+  &:hover {
+    // text-decoration: dashed;
+    text-decoration: underline;
+  }
+}
+</style>
