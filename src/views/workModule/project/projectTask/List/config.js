@@ -19,6 +19,7 @@ class api extends TableAPI {
 
 //  表格配置
 export const tableConfig = [
+
   /*图片*/
   {
     prop: "PhotoUrl",
@@ -112,11 +113,11 @@ export const tableConfig = [
     filter: "time",
     width: "150px",
   },
-    /*备注*/
-    {
-      prop: "Remarks",
-      label: i18n.t("Generality.Ge_Remarks"),
-    },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  },
 ];
 // taskTypeEnum
 // 表单配置
@@ -136,12 +137,12 @@ export const formSchema = [
   },
   {
     prop: "StartDate",
-    label: "完成开始时间",
+    label: i18n.t("Generality.Ge_DeliveryDate")+' '+ i18n.t("Generality.Ge_StartTime"),
     cpn: "SingleTime"
   },
   {
     prop: "EndDate",
-    label: "完成结束时间",
+    label: i18n.t("Generality.Ge_DeliveryDate")+' '+ i18n.t("Generality.Ge_EndTime"),
     cpn: "SingleTime"
   },
   {
@@ -194,7 +195,7 @@ export const formSchema = [
     prop: "SortType",
     label: i18n.t("Generality.Ge_SortType"),
     cpn: "FormRadio",
-    default: "DeliveryDateOrder",
+    default: "CreationDateOrder",
     options: {
       list: [
         {
