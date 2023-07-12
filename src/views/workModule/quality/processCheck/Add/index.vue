@@ -1,11 +1,17 @@
 <template>
-  <div></div>
+  <div>
+    <EditCom> </EditCom>
+  </div>
 </template>
 
 <script>
+import EditCom from "../components/index";
+
 export default {
   name: "Qc_ProcessCheck_Add",
-  components: {},
+  components: {
+    EditCom,
+  },
 
   methods: {},
   activated() {
