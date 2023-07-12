@@ -18,6 +18,18 @@
     </div>
 
     <div ref="gantt" style="height: 630px" />
+    <JvDialog :title="dialogTitle" @confirm="confirm" width="35%" :visible.sync="dialogVisible">
+      <JvForm :formObj="formObj">
+        <!-- 选择人员部门 -->
+        <template #Submitter="{ prop }">
+          <el-select v-model="formObj.form[prop]" filterable @change="$listeners.changeSubmitter">
+            <el-option v-for="item in $attrs.SubmitterData" :key="item.UserName" :label="item.UserName"
+              :value="item.UserName">
+            </el-option>
+          </el-select>
+        </template>
+      </JvForm>
+    </JvDialog>
   </div>
 </template>
 
@@ -33,8 +45,40 @@ export default {
         return { data: [], links: [] };
       },
     },
+    formObj: {
+      type: Object,
+      default: {}
+    }
   },
+  data() {
+    return {
+      dialogTitle: '标题',
+      dialogVisible: false,
+      currentId: 0,
+      timeout: null,
+    }
+  },
+  mounted() {
+    let that = this;
+    gantt.attachEvent("onTaskClick", function (id, e) {
+      gantt.config.details_on_dblclick = false; // 关闭原生弹窗（灯箱）
+      that.currentId = id;
+      if (e.target.className.indexOf('gantt_task_content') !== -1) {
+        that.dialogVisible = true;
+        that.dialogTitle = that.tasks.data[id - 1].text;
+      }
+      // return false;
+    });
+    
+    gantt.attachEvent("onTaskDrag", function (id, mode, task, original) {
+      that.debounce(() => {
+        that.reload();
+      }, 500);
+      //any custom logic here
+    });
 
+    // console.log('this.tasks.data::: ', this.tasks.data【id-1】);
+  },
   methods: {
     GetData() {
       // 日期列显示
@@ -152,13 +196,13 @@ export default {
       // 可以通过拖动进度旋钮来更改任务进度
       gantt.config.drag_progress = false;
       // 可以通过拖放移动任务
-      gantt.config.drag_move = false;
+      gantt.config.drag_move = true;
       // 设置false ，无法拖动任务
-      gantt.config.touch_drag = false;
+      gantt.config.touch_drag = true;
       // 可以通过拖放来调整任务大小
-      gantt.config.drag_resize = false;
+      gantt.config.drag_resize = true;
       // 可读模式，不许编辑
-      gantt.config.readonly = true;
+      gantt.config.readonly = false;
       this.addTodayLine();
       gantt.init(this.$refs.gantt);
       /* 缩放配置
@@ -280,6 +324,18 @@ export default {
       //加载数据
       gantt.parse(this.$props.tasks);
     },
+    confirm() {
+      let that = this;
+      this.formObj.validate((valid) => {
+        if (!valid) return
+        var task = gantt.getTask(that.currentId);
+        task.text = that.formObj.form.Title;
+
+        gantt.refreshTask(that.currentId);
+
+        that.dialogVisible = false;
+      })
+    },
     reload() {
       gantt.clearAll();
       this.addTodayLine();
@@ -298,12 +354,19 @@ export default {
         title: this.$t("Generality.Ge_Today") + ":" + date_to_str(today),
       });
     },
+    debounce(func, wait) {
+        if(this.timeout) {
+          clearTimeout(this.timeout);
+        }
+        this.timeout = setTimeout(func, wait);
+    },
   },
 };
 </script>
 
 <style lang="scss">
 @import "~dhtmlx-gantt/codebase/dhtmlxgantt.css";
+
 .weekend {
   //background:#f4f7f4!important;
   color: red !important;
