@@ -44,15 +44,6 @@ export const tableConfig = [
     formCpn: "FormInput",
     type: "number",
   },
-  /*备注*/
-  {
-    prop: "Remarks",
-    label: i18n.t("Generality.Ge_Remarks"),
-    formCpn: "FormInput",
-    // editConfig:{
-    //   disabled:true,
-    // }
-  },
   /*实测值*/
   {
     prop: "MeasuredValue",
@@ -68,5 +59,14 @@ export const tableConfig = [
     editConfig: {
       disabled: true,
     },
+  },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+    formCpn: "FormInput",
+    // editConfig:{
+    //   disabled:true,
+    // }
   },
 ];

@@ -301,9 +301,9 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      this.$refs.editTask.focus();
-    });
+    // this.$nextTick(() => {
+    //   this.$refs.editTask.focus();
+    // });
   },
 
   methods: {
@@ -328,6 +328,7 @@ export default {
     getConfigData() {
       getConfigKey({ ConfigKey: "ReasonForUnqualifiedProcessInspection" }).then(
         (res) => {
+          console.log(res.ConfigValue);
           this.ConfigDataList = JSON.parse(res.ConfigValue);
         }
       );
