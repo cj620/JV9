@@ -35,21 +35,18 @@ export const ProcessCheckTypeEnum = {
     name: "巡检",
     value: "NormalCheck",
   },
-    // NG
-    FirstInspection: {
-      name: "首检",
-      value: "FirstInspection",
-    },
+  // NG
+  FirstInspection: {
+    name: "首检",
+    value: "FirstInspection",
+  },
 };
 // 成品检验类型
 export const FinishedProductCheckType = {
-
-
-    
-    FirstInspection: {
-      name: "首检",
-      value: "FirstInspection",
-    },
+  FirstInspection: {
+    name: "首检",
+    value: "FirstInspection",
+  },
 };
 export const ProcessingResult = {
   //   Normal 正常
@@ -85,15 +82,15 @@ export const ProcessingResult = {
 
 export const CheckResulteEnum = {
   Qualified: {
-    name: i18n.t("quality.Qu_Qualified"),
+    name: i18n.t("quality.Qc_Qualified"),
     value: "Qualified",
   },
   TobeChecked: {
-    name: i18n.t("quality.Qu_ToBeTested"),
+    name: i18n.t("quality.Qc_ToBeTested"),
     value: "TobeChecked",
   },
   Unqualified: {
-    name: i18n.t("quality.Qu_Unqualified"),
+    name: i18n.t("quality.Qc_Unqualified"),
     value: "Unqualified",
   },
   Completed: {

@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import settingModule from "./components/settingModule.vue";
-import settingItem from "./components/settingItem.vue";
+import settingModule from "@/views/basicModule/setup/systemSetup/components/settingModule.vue";
+import settingItem from "@/views/basicModule/setup/systemSetup/components/settingItem.vue";
 import {
   sysConfigUpdate,
   getAllSysConfig,

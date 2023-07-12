@@ -1,15 +1,15 @@
 <template>
-  <div></div>
+  <div>
+    <EditCom> </EditCom>
+  </div>
 </template>
 
 <script>
+import EditCom from "../components/index";
 export default {
   name: "Qc_FinishedProduct_Add",
-  components: {},
+  components: { EditCom },
 
   methods: {},
-  activated() {
-    console.log(11111);
-  },
 };
 </script>

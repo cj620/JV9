@@ -20,6 +20,24 @@
         <TableAction
           :actions="[
             {
+              label: '免检',
+              disabled: getActionState(row.CheckResult),
+              popConfirm: {
+                title: '确定要免检吗',
+                confirm: inspectionArrival.bind(null, row),
+              },
+            },
+            {
+              label: '过程单',
+              disabled: getActionState(row.CheckResult),
+              confirm: toMachiningCheckList.bind(null, row),
+            },
+            {
+              label: '成品单',
+              disabled: getActionState(row.CheckResult),
+              confirm: toFinishedProduct.bind(null, row),
+            },
+            {
               label: $t('Generality.Ge_Delete'),
               popConfirm: {
                 title: $t('Generality.Ge_DeleteConfirm'),
@@ -78,13 +96,51 @@ export default {
       });
       console.log(row, "row");
     },
+    //免检
+    inspectionArrival(e) {
+      console.log(e);
+      this.$confirm("确定要免检吗", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+      }).then(() => {
+        site_collection_inspection_arrival({ Ids: [e.Id] }).then((res) => {
+          this.tableObj.getData();
+        });
+      });
+    },
+    //点击过程检验单
+    toMachiningCheckList(e) {
+      this.$router.push({
+        name: "Qc_ProcessCheck_Add",
+        params: {
+          type: "add",
+          ProcessCheckType: "NormalCheck",
+          title: "addSaleOrder",
+          data: { row: e },
+        },
+      });
+    },
+    //点击成品检验单
+    toFinishedProduct(e) {
+      this.$router.push({
+        name: "Qc_FinishedProduct_Add",
+        params: { type: "add", title: "addSaleOrder", data: { row: e } },
+      });
+    },
   },
   created() {
     this.tableObj = new Table();
     this.tableObj.getData();
   },
   mounted() {},
-  computed: {},
+  computed: {
+    // 获取按钮状态
+    getActionState() {
+      return (state) => {
+        return state !== "TobeChecked";
+      };
+    },
+  },
   components: {},
 };
 </script>
