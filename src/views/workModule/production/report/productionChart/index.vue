@@ -11,12 +11,8 @@
       <div class="project-container">
         <gantt ref="ganttchart" class="left-container"
         :tasks="tasks"
-        :formObj="formObj"
-        :SubmitterData="SubmitterData"
-        @changeSubmitter="changeSubmitter"
+        :formSchema="formSchema"
         >
-          
-
         </gantt>
       </div>
     </div>
@@ -26,9 +22,7 @@
 <script>
 import gantt from "@/components/JVInternal/Gantt";
 import { formSchema } from "./formConfig";
-import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
-import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { partProcessingPlan } from "@/api/workApi/production/dataReport";
 export default {
   name: "index",
@@ -37,8 +31,7 @@ export default {
       tasks: {
         data: [],
       },
-      formObj: {},
-      SubmitterData: [],
+      formSchema: formSchema,
     };
   },
   components: {
@@ -46,15 +39,6 @@ export default {
   },
   async created() {
     this.GetData();
-    this.formObj = new Form({
-      formSchema,
-      baseColProps: {
-        span: 24,
-      },
-      // gutter: 30,
-      labelWidth: "80px",
-    });
-    await this.Configuration();
   },
   methods: {
     GetData() {
@@ -72,25 +56,12 @@ export default {
             color: item.Color,
             duration: item.Duration,
             progress: item.ProcessRate,
+            row_height: 50, 
+            bar_height: 40
           });
         });
         this.tasks.data = [...arr];
         this.$refs.ganttchart.GetData();
-      });
-    },
-
-    //获取客户Id
-    async Configuration() {
-      await getAllUserData({}).then((res) => {
-        this.SubmitterData = res.Items;
-      });
-    },
-    //选择提交人确定部门
-    changeSubmitter(e) {
-      this.SubmitterData.forEach((item) => {
-        if (item.UserName === e) {
-          this.formObj.form.Department = item.DepartmentName;
-        }
       });
     },
   },
