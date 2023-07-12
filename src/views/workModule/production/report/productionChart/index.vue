@@ -9,7 +9,15 @@
   <PageWrapper :footer="false">
     <div style="background: #fff">
       <div class="project-container">
-        <gantt ref="ganttchart" class="left-container" :tasks="tasks" />
+        <gantt ref="ganttchart" class="left-container"
+        :tasks="tasks"
+        :formObj="formObj"
+        :SubmitterData="SubmitterData"
+        @changeSubmitter="changeSubmitter"
+        >
+          
+
+        </gantt>
       </div>
     </div>
   </PageWrapper>
@@ -17,7 +25,10 @@
 
 <script>
 import gantt from "@/components/JVInternal/Gantt";
+import { formSchema } from "./formConfig";
+import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
+import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { partProcessingPlan } from "@/api/workApi/production/dataReport";
 export default {
   name: "index",
@@ -26,18 +37,29 @@ export default {
       tasks: {
         data: [],
       },
+      formObj: {},
+      SubmitterData: [],
     };
   },
   components: {
     gantt,
   },
-  created() {
+  async created() {
     this.GetData();
+    this.formObj = new Form({
+      formSchema,
+      baseColProps: {
+        span: 24,
+      },
+      // gutter: 30,
+      labelWidth: "80px",
+    });
+    await this.Configuration();
   },
   methods: {
     GetData() {
       partProcessingPlan({}).then((res) => {
-        console.log(res);
+        // console.log(res);
         let arr = [];
         res.forEach((item) => {
           arr.push({
@@ -56,6 +78,21 @@ export default {
         this.$refs.ganttchart.GetData();
       });
     },
+
+    //获取客户Id
+    async Configuration() {
+      await getAllUserData({}).then((res) => {
+        this.SubmitterData = res.Items;
+      });
+    },
+    //选择提交人确定部门
+    changeSubmitter(e) {
+      this.SubmitterData.forEach((item) => {
+        if (item.UserName === e) {
+          this.formObj.form.Department = item.DepartmentName;
+        }
+      });
+    },
   },
 };
 </script>
@@ -65,6 +102,7 @@ export default {
   height: 100%;
   padding: 10px;
   min-height: calc(100vh - 120px);
+
   .left-container {
     overflow: hidden;
     position: relative;

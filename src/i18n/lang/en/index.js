@@ -67,11 +67,13 @@ const en = {
     Pr_ProductionChart: "Production Chart",
     Pr_EmployeesChart: "Employees Chart",
     Pr_PartChart: "Part Chart",
-    Qu_Quality: "Quality",
-    Qu_ProductionCheck: "Production Check",
-    Qu_QualityReport: "Quality Report",
-    Qu_QualityRecord: "Quality Record",
-    Qu_QualityError: "Quality Error",
+    Qc_Quality: "Quality",
+    Qc_ProductionCheck: "Production Check",
+    Qc_FinishedProduct: "Finished Product",
+    Qc_ProcessCheck: "Process Check",
+    Qc_QualityReport: "Quality Report",
+    Qc_QualityRecord: "Quality Record",
+    Qc_QualityError: "Quality Error",
 
     Pr_ProductionReport: "Production Report",
     Pr_Reports: "Reports",
@@ -311,7 +313,7 @@ const en = {
     Pu_EnterStorage: "Enter storage",
     Pu_PleaseSelectTheOutsourcingRequirements:
       "Please select the outsourcing requirements",
-      Pu_RequirementType: "Requirement Type",
+    Pu_RequirementType: "Requirement Type",
 
     Pu_Outsourced: "Outsourced",
   },
@@ -703,8 +705,6 @@ const en = {
     Ge_Terms: "Terms",
     Ge_MaterialRequirementState: "Material Requirement state",
     Ge_ResetPassword: "Reset password",
-
-
   },
   //生产
   production: {
@@ -782,24 +782,25 @@ const en = {
     Pr_PrintbyTooling: "Print By Tooling",
   },
   quality: {
-    Qu_CheckResult: "Check result",
-    Qu_CheckDate: "Check date",
-    Qu_EstimatedLoss: "Estimated loss",
-    Qu_ProportionOfAbnormalQualityOfDepartment:
+    Qc_CheckResult: "Check result",
+    Qc_Operator: "Operator",
+    Qc_CheckDate: "Check date",
+    Qc_EstimatedLoss: "Estimated loss",
+    Qc_ProportionOfAbnormalQualityOfDepartment:
       "Proportion of abnormal quality Of department",
-    Qu_ProcessReworkRatio: "Process rework rate",
-    Qu_ReworkDetailList: "Rework detail list",
-    Qu_Ge_QualityAbnormal: "Quality abnormal",
-    Qu_ThereAreNoManufacturedProcesses: "There are no manufactured processes",
-    Qu_PleaseSelectADocument: "Please select a document",
-    Qu_CreatFromManufacturingTaskList: "Creat from manufacturing task list",
-    Qu_Qualified: "Qualified",
-    Qu_Unqualified: "Unqualified",
-    Qu_ToBeTested: "To be tested",
-    Qu_PleaseChooseTheUnqualifiedProcess:
+    Qc_ProcessReworkRatio: "Process rework rate",
+    Qc_ReworkDetailList: "Rework detail list",
+    Qc_Ge_QualityAbnormal: "Quality abnormal",
+    Qc_ThereAreNoManufacturedProcesses: "There are no manufactured processes",
+    Qc_PleaseSelectADocument: "Please select a document",
+    Qc_CreatFromManufacturingTaskList: "Creat from manufacturing task list",
+    Qc_Qualified: "Qualified",
+    Qc_Unqualified: "Unqualified",
+    Qc_ToBeTested: "To be tested",
+    Qc_PleaseChooseTheUnqualifiedProcess:
       "Please choose the unqualified process",
-    Qu_Rework: "Rework",
-    Qu_Scrapped: "Scrapped",
+    Qc_Rework: "Rework",
+    Qc_Scrapped: "Scrapped",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",
@@ -1049,8 +1050,9 @@ const en = {
     Ftp_file_management_backup_path_desc:
       "root folder where backup project files are stored in",
     Ftp_file_management_path_name: "root path of project files",
-    Ftp_file_management_path_desc:"root folder where project files are stored in",
-    Prohibit_skip_station_processes:"Prohibit skip station processes",
+    Ftp_file_management_path_desc:
+      "root folder where project files are stored in",
+    Prohibit_skip_station_processes: "Prohibit skip station processes",
   },
   ...enLocale,
 };

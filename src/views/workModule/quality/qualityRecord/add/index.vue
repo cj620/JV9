@@ -17,7 +17,7 @@ export default {
     return {};
   },
   methods: {},
-  name: "Qu_AddQualityRecord",
+  name: "Qc_AddQualityRecord",
   mounted() {},
   computed: {},
   components: {
