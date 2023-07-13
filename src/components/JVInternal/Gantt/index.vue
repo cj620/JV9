@@ -69,9 +69,9 @@ export default {
 	data() {
 		return {
 			dialogTitle: '标题',
-			dialogVisible: false,
-			currentId: 0,
-			timeout: null,
+			dialogVisible: false, // 弹窗状态
+			currentId: 0, // 当前选中的ID
+			timeout: null, // 用来做防抖
 			formObj: {},
 			SubmitterData: [],
 			oldDateList: [], // 原数据的时间列表
@@ -219,7 +219,8 @@ export default {
 				marker: true,
 				quick_info: true,
 				fullscreen: true, // 允许全屏
-				critical_path: true,
+				// critical_path: true,
+				drag_timeline: true, // 拖动时间线
 			});
 			// 设置时间刻度的高度和网格的标题
 			gantt.config.scale_height = 50;
@@ -386,6 +387,13 @@ export default {
 
 			// 	//any custom logic here
 			// });
+			
+			gantt.attachEvent("onLinkCreated", (id) => {
+				console.log('id::: ', id);
+				// gantt.config.link_attribute = "_custom-link-id";
+				return true;
+			})
+			
 		},
 		confirm() {
 			let that = this;
