@@ -108,8 +108,8 @@ import {
   getAllUserConfig,
   updateConfig,
 } from "@/api/basicApi/systemSettings/user";
-import SettingModule from "@/views/basicModule/setup/systemSetup/components/settingModule.vue";
-import SettingItem from "@/views/basicModule/setup/systemSetup/components/settingItem.vue";
+import SettingModule from "@/views/basicModule/setup/systemSetup/components1/settingModule.vue";
+import SettingItem from "@/views/basicModule/setup/systemSetup/components1/settingItem.vue";
 import { Form } from "@/jv_doc/class/form";
 import { formSchema, formSchema1 } from "./config";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
@@ -161,16 +161,16 @@ export default {
     });
     if (this.type === "edit") {
       this.getUser();
-         
+
 
     }
-    
-   
+
+
 
   },
   mounted() {
     // this.$refs.JvForm.$el.children[0][0].focus();
-  
+
   },
   methods: {
     imgUrlPlugin,

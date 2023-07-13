@@ -19,7 +19,11 @@ class api extends TableAPI {
 
 //  表格配置
 export const tableConfig = [
-
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  },
   /*图片*/
   {
     prop: "PhotoUrl",
@@ -113,11 +117,7 @@ export const tableConfig = [
     filter: "time",
     width: "150px",
   },
-  /*备注*/
-  {
-    prop: "Remarks",
-    label: i18n.t("Generality.Ge_Remarks"),
-  },
+
 ];
 // taskTypeEnum
 // 表单配置

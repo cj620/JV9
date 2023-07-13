@@ -73,8 +73,8 @@
 </template>
 
 <script>
-import SettingModule from "@/views/basicModule/setup/systemSetup/components/settingModule.vue";
-import SettingItem from "@/views/basicModule/setup/systemSetup/components/settingItem.vue";
+import SettingModule from "@/views/basicModule/setup/systemSetup/components1/settingModule.vue";
+import SettingItem from "@/views/basicModule/setup/systemSetup/components1/settingItem.vue";
 import { getUser } from "@/api/basicApi/systemSettings/user";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { detailConfig } from "./config";

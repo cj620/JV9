@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-12-06 17:02:24
- * @LastEditTime: 2023-06-02 14:41:38
+ * @LastEditTime: 2022-08-17 10:05:28
  * @Description:
 -->
 
@@ -21,6 +21,7 @@
             style="width: 100%"
             v-model="form.ConfigValue"
             :multiple="isMultiple"
+            filterable 
             :placeholder="$t('Generality.Ge_PleaseSelect')"
           >
             <el-option
@@ -82,11 +83,6 @@ export default {
           value: "Unit",
           isMultiple: false,
         },
-        ProhibitSkipStationProcesses: {
-          api: getAllProcess,
-          value: "Process",
-          isMultiple: true,
-        },
       },
     };
   },
@@ -108,7 +104,6 @@ export default {
           "ProgramUsers",
           "DesignUsers",
           "BomDefaultUnit",
-          "ProhibitSkipStationProcesses",
         ].includes(this.ConfigKey)
       ) {
         this.isMultiple = this.ConfigItems[this.ConfigKey].isMultiple;
@@ -131,7 +126,6 @@ export default {
         "ProgramUsers",
         "DesignUsers",
         "BomDefaultUnit",
-        "ProhibitSkipStationProcesses",
       ].includes(this.ConfigKey);
     },
   },
