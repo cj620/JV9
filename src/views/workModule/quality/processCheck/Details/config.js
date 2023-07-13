@@ -71,23 +71,7 @@ export const detailConfig = [
   {
     // 自检工序
     prop: "SelfCheckProcess",
-    label: "检验工序",
-  },
-  // {
-  //   // 品质状态
-  //   prop: "CheckResult",
-  //   label: '品质状态',
-  // },
-  {
-    // 处理结果
-    prop: "ProcessingResult",
-    label: "检测结果",
-    customFilter: (value, row) => enumFilter(value, ProcessingResult),
-    // {
-
-    //   if(!value) return ''
-    //   return ProcessingResult?.[value]?.name??value
-    // }
+    label: "自检工序",
   },
   {
     // 检验类型
@@ -97,6 +81,17 @@ export const detailConfig = [
     // {
     //   if(!value) return ''
     //   return ProcessCheckTypeEnum?.[value]?.name??value
+    // }
+  },
+  {
+    // 检测结果
+    prop: "ProcessingResult",
+    label: "检测结果",
+    customFilter: (value, row) => enumFilter(value, ProcessingResult),
+    // {
+
+    //   if(!value) return ''
+    //   return ProcessingResult?.[value]?.name??value
     // }
   },
   {
@@ -120,20 +115,20 @@ export const detailConfig = [
     label: "不合格原因",
   },
   {
-    prop: "AbnormalCauseItem",
-    label: "不合格原因子项",
+    prop: "SubmittedForInspectionQty",
+    label: "送检数量",
   },
   {
-    prop: "MachiningPosition",
-    label: "夹位",
+    prop: "InspectionQty",
+    label: "检验数量",
   },
   {
-    prop: "CheckDate",
-    label: "送检日期",
+    prop: "UnqualifiedQty",
+    label: "不合格数量",
   },
   {
-    prop: "Worker",
-    label: "送检人",
+    prop: "AssociatedNo",
+    label: "关联编号",
   },
   {
     // 制单人
@@ -145,76 +140,6 @@ export const detailConfig = [
     prop: "CreationDate",
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
-  },
-  {
-    // 评审人 multiple
-    prop: "Reviewer",
-    label: "评审人",
-    cpn: "SyncSelect",
-    customFilter: (value) => {
-      if (!value) return "--";
-      let res = JSON.parse(value || "");
-      if (typeof res == "object") {
-        return res.join(",");
-      } else if (typeof res == "string") {
-        return res;
-      } else {
-        return "--";
-      }
-    },
-  },
-
-  //   送检数量  QuantitySubmittedForInspection
-  {
-    prop: "QuantitySubmittedForInspection",
-    label: "送检数量",
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["blur"],
-      },
-    ],
-  },
-
-  // 检验数量  InspectionQuantity
-  {
-    prop: "InspectionQuantity",
-    label: "检验数量",
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["blur"],
-      },
-    ],
-  },
-  // 不合格数量  UnqualifiedQuantity
-  {
-    prop: "UnqualifiedQuantity",
-    label: "不合格数量",
-    default: "0",
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["blur"],
-      },
-    ],
-  },
-  // 主要不良点  MainDefects
-  {
-    prop: "MainDefects",
-    label: "主要不良点",
-  },
-  // 不合格原因分析  CauseAnalysisOfNonconformity
-  {
-    prop: "CauseAnalysisOfNonconformity",
-    label: "不合格原因分析",
-  },
-  {
-    prop: "DisposalClassification",
-    label: "处置分类",
   },
   // 备注  Remarks
   {

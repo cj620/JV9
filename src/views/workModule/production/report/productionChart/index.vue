@@ -12,6 +12,7 @@
         <gantt ref="ganttchart" class="left-container"
         :tasks="tasks"
         :formSchema="formSchema"
+        :api="partProcessingPlan"
         >
         </gantt>
       </div>
@@ -32,6 +33,7 @@ export default {
         data: [],
       },
       formSchema: formSchema,
+      partProcessingPlan: partProcessingPlan,
     };
   },
   components: {
@@ -56,8 +58,8 @@ export default {
             color: item.Color,
             duration: item.Duration,
             progress: item.ProcessRate,
-            row_height: 50, 
-            bar_height: 40
+            // row_height: 50, 
+            // bar_height: 40
           });
         });
         this.tasks.data = [...arr];
@@ -73,10 +75,10 @@ export default {
   height: 100%;
   padding: 10px;
   min-height: calc(100vh - 120px);
-
   .left-container {
     overflow: hidden;
     position: relative;
+    height: 100%;
   }
 }
 </style>

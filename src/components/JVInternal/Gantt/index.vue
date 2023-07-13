@@ -7,17 +7,23 @@
  * @FilePath: \vue-element-admin-master\src\views\clipboard\components\Gantt.vue
 -->
 <template>
-	<div>
+	<div style="height: 100%;">
 		<div style="margin-bottom: 10px">
-			<el-button size="mini" onclick="gantt.ext.zoom.zoomIn()">{{
+			单位：
+			<!-- <el-button size="mini" onclick="gantt.ext.zoom.zoomIn()">{{
 				$t("Generality.Ge_ZoomOut")
 			}}</el-button>
 			<el-button size="mini" onclick="gantt.ext.zoom.zoomOut()">{{
 				$t("Generality.Ge_ZoomIn")
-			}}</el-button>
+			}}</el-button> -->
+			<el-button size="medium" @click="setGanttZoom('year')">年</el-button>
+			<el-button size="medium" @click="setGanttZoom('month')">月</el-button>
+			<el-button size="medium" @click="setGanttZoom('week')">周</el-button>
+			<el-button size="medium" @click="setGanttZoom('day')">日</el-button>
+			<!-- <el-button size="medium" @click="setExpand">全屏</el-button> -->
 		</div>
 
-		<div ref="gantt" style="height: 630px" />
+		<div ref="gantt" style="height: 100%;min-height: calc(100vh - 180px);" />
 		<JvDialog :title="dialogTitle" @confirm="confirm" width="35%" :visible.sync="dialogVisible">
 			<JvForm :formObj="formObj">
 				<!-- 选择人员部门 -->
@@ -37,7 +43,7 @@
 import { gantt } from "dhtmlx-gantt";
 import { Form } from "@/jv_doc/class/form";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
-import data from "@/views/basicModule/demo/Test10/data";
+// import data from "@/views/basicModule/demo/Test10/data";
 export default {
 	name: "index",
 	props: {
@@ -52,16 +58,24 @@ export default {
 			default() {
 				return [];
 			},
+		},
+		api: {
+			type: Function,
+			default() {
+				return () => { }
+			}
 		}
 	},
 	data() {
 		return {
 			dialogTitle: '标题',
-			dialogVisible: false,
-			currentId: 0,
-			timeout: null,
+			dialogVisible: false, // 弹窗状态
+			currentId: 0, // 当前选中的ID
+			timeout: null, // 用来做防抖
 			formObj: {},
 			SubmitterData: [],
+			oldDateList: [], // 原数据的时间列表
+			isConfrim: false, // 如果用户刚拖动了任务条，做出了是否更新操作后，阻止再次触发监听
 		}
 	},
 	async created() {
@@ -76,15 +90,26 @@ export default {
 		const SubmitterFlag = this.formSchema.some(item => {
 			return item.prop === 'Submitter'
 		})
-		if(SubmitterFlag) {
+		if (SubmitterFlag) {
 			await this.Configuration();
 		}
-		
 	},
 	mounted() {
-		this.onTaskClick(); // 单击事件
-		this.onTaskDblClick(); // 双击事件
-		this.onTaskDrag(); // 拖动事件
+		// gantt.setSizes();
+	},
+	watch: {
+		tasks: {
+			deep: true,
+			handler() {
+				this.tasks.data.forEach(item => {
+					this.oldDateList.push({
+						start_date: item.start_date,
+						end_date: item.end_date
+					})
+				})
+			},
+			// immediate: true
+		}
 	},
 	methods: {
 		GetData() {
@@ -99,11 +124,11 @@ export default {
 				gantt.i18n.setLocale("ja");
 			}
 			// 时间轴图表中，甘特图的高度
-			gantt.config.row_height = 35;
+			gantt.config.row_height = 50;
 			// 时间轴图表中，任务条形图的高度
-			gantt.config.bar_height = 28;
+			gantt.config.bar_height = 36;
 			// 时间轴图表中，甘特图左边的宽度
-			gantt.config.grid_width = 520;
+			// gantt.config.grid_width = 520;
 
 			// duration  计算值默认是1分钟
 			gantt.config.duration_step = 1;
@@ -123,21 +148,20 @@ export default {
 					name: "start_date",
 					align: "center",
 					label: this.$t("Generality.Ge_StartDate"),
-					width: "180",
+					width: "100",
 					resize: true,
 				},
 				{
 					name: "cap_plan_end",
 					align: "center",
 					label: this.$t("Generality.Ge_EndDate"),
-					width: "180",
+					width: "100",
 					resize: true,
 					template: function (task) {
 						return task.cap_plan_end ? task.cap_plan_end.substring(0, 10) : "";
 					},
 				},
 			];
-
 			// task 任务条文本
 			gantt.templates.task_text = function (start, end, task) {
 				if (task.start_date !== undefined) {
@@ -194,13 +218,16 @@ export default {
 				tooltip: false, // 鼠标悬浮
 				marker: true,
 				quick_info: true,
+				fullscreen: true, // 允许全屏
+				// critical_path: true,
+				drag_timeline: true, // 拖动时间线
 			});
 			// 设置时间刻度的高度和网格的标题
 			gantt.config.scale_height = 50;
 			// 可以通过标题拖动编辑弹窗
 			gantt.config.drag_lightbox = false;
 			// 可以通过拖放创建依赖链接
-			gantt.config.drag_links = false;
+			gantt.config.drag_links = true;
 			// 可以通过拖动进度旋钮来更改任务进度
 			gantt.config.drag_progress = false;
 			// 可以通过拖放移动任务
@@ -331,6 +358,42 @@ export default {
 			gantt.render();
 			//加载数据
 			gantt.parse(this.$props.tasks);
+
+			this.onTaskClick(); // 单击事件
+			this.onTaskDblClick(); // 双击事件
+			this.onTaskDrag(); // 拖动事件
+			// 任务更新前
+			gantt.attachEvent("onBeforeTaskUpdate", (id, new_item) => {
+				if (this.isConfrim) return
+				var task = gantt.getTask(id);
+				this.$confirm('您当前修改了日期，是否提交修改?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.setGanttUpdate(); //甘特图数据更新
+				}).catch(() => {
+					this.isConfrim = true;
+					task.start_date = this.oldDateList[new_item.$index].start_date;
+					task.end_date = this.oldDateList[new_item.$index].end_date;
+					gantt.updateTask(id);
+					this.$nextTick(() => {
+						this.isConfrim = false;
+					})
+				})
+			});
+			// // 任务更新后
+			// gantt.attachEvent("onAfterTaskUpdate", (id, item) => {
+
+			// 	//any custom logic here
+			// });
+			
+			gantt.attachEvent("onLinkCreated", (id) => {
+				console.log('id::: ', id);
+				// gantt.config.link_attribute = "_custom-link-id";
+				return true;
+			})
+			
 		},
 		confirm() {
 			let that = this;
@@ -347,6 +410,7 @@ export default {
 				},
 				EndDate: (val) => {
 					task.cap_plan_end = val
+					task.end_date = new Date(val)
 				},
 				ParentId: (val) => {
 					task.parent = val
@@ -369,11 +433,13 @@ export default {
 						Maps[item](that.formObj.form[item]);
 					}
 				});
-				// 修改完成后刷新数据
-				gantt.ext.quickInfo.hide(that.currentId);
-				gantt.ext.quickInfo.show(that.currentId);
-				gantt.refreshTask(that.currentId);
+				this.setGanttUpdate(); //甘特图数据更新
 
+				// 修改完成后刷新数据
+				// gantt.ext.quickInfo.hide(that.currentId);
+				// gantt.ext.quickInfo.show(that.currentId);
+				// // gantt.refreshTask(that.currentId);
+				// gantt.updateTask(that.currentId);
 				// 关闭表单弹窗
 				that.dialogVisible = false;
 			})
@@ -427,11 +493,12 @@ export default {
 		onTaskDrag() {
 			gantt.attachEvent("onTaskDrag", (id, mode, task, original) => {
 				this.debounce(() => {
-					this.reload();
+					// this.reload();
 				}, 500);
 			});
 		},
 		setQuickInfo() {
+			gantt.config.quickinfo_buttons = ["icon_edit"];
 			gantt.$click.buttons.edit = (id) => {
 				const data = this.tasks.data[id - 1]
 				this.currentId = id;
@@ -440,20 +507,20 @@ export default {
 				this.setForm(data)
 				return false; //blocks the default behavior
 			};
-			gantt.$click.buttons.delete = (id) => {
-				this.$confirm('确认是否删除?', '提示', {
-					confirmButtonText: '确定',
-					cancelButtonText: '取消',
-					type: 'warning'
-				}).then(() => {
-					gantt.deleteTask(id);
-					this.$message({
-						type: 'success',
-						message: '删除成功!'
-					});
-				})
-				return false; //blocks the default behavior
-			};
+			// gantt.$click.buttons.delete = (id) => {
+			// 	this.$confirm('确认是否删除?', '提示', {
+			// 		confirmButtonText: '确定',
+			// 		cancelButtonText: '取消',
+			// 		type: 'warning'
+			// 	}).then(() => {
+			// 		gantt.deleteTask(id);
+			// 		this.$message({
+			// 			type: 'success',
+			// 			message: '删除成功!'
+			// 		});
+			// 	})
+			// 	return false; //blocks the default behavior
+			// };
 			gantt.templates.quick_info_content = (start, end, task) => {
 				return task.details || task.text;
 			};
@@ -512,6 +579,41 @@ export default {
 					this.formObj.form[item] = Maps[item]
 				}
 			})
+		},
+		setGanttZoom(unit) { // 设置甘特图缩放级别（年月周 单位）
+			gantt.ext.zoom.setLevel(unit);
+		},
+		setExpand() { // 设置全屏
+			gantt.ext.fullscreen.toggle();
+		},
+		setGanttUpdate() { // 甘特图数据更新
+			this.api({}).then((res) => {
+				this.$message({
+					type: 'success',
+					message: '更新成功!'
+				});
+				// console.log(res);
+				let arr = [];
+				res.forEach((item) => {
+					arr.push({
+						id: item.Id, // 父节点id
+						open: item.IsOpen, // 是否展开
+						text: item.Title, // 父节点名字
+						start_date: this.formatDate(item.StartDate, "yyyy-MM-dd hh:mm:ss"), // 必须要字段 task 开始时间
+						cap_plan_end: this.formatDate(item.EndDate, "yyyy-MM-dd hh:mm:ss"),
+						parent: item.ParentId,
+						color: item.Color,
+						duration: item.Duration,
+						progress: item.ProcessRate,
+					});
+				});
+				gantt.render();
+				let tasks = {
+					data: [...arr]
+				}
+				//加载数据
+				gantt.parse(tasks);
+			});
 		}
 	},
 };
