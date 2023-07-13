@@ -38,7 +38,7 @@ export const tableConfig = [
   },
   {
     id: "665487545",
-    prop: "AuditNodes",
+    prop: "ApproveNodes",
     label: i18n.t("Generality.Ge_Auditor"),
     fixed: false,
     align: "center",

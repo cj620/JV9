@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:27:36
- * @LastEditTime: 2022-10-27 17:45:44
- * @LastEditors: 勿忘 208760845@qq.com
+ * @LastEditTime: 2023-07-13 15:48:39
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\router\basicModule\system.js
  */
@@ -248,6 +248,15 @@ const system = [
     name: "Se_FileManagementSetup",
     path: "Se_FileManagementSetup",
     title: i18n.t("menu.Se_FileManagementSetup"),
+  },
+  {
+    key: "Se_oadesign",
+    path: "se_oadesign",
+    name: "Se_oadesign",
+    Parent: "Se_Setup",
+    hidden: true,
+    component: () => import("@/views/basicModule/OA"),
+    title: "审核配置",
   },
   /*  // 模具进度看板
   {

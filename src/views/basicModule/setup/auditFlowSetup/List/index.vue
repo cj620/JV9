@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-05 13:19:54
- * @LastEditTime: 2022-08-10 17:33:17
+ * @LastEditTime: 2023-07-13 16:22:05
  * @Description: 审核人配置
 -->
 <template>
@@ -14,17 +14,17 @@
       <template #BillKey="{ record }">
         {{ $t("menu." + record) }}
       </template>
-      <template #AuditNodes="{ record }">
+      <template #ApproveNodes="{ record }">
         <div class="auditnodes">
-          <span
-            class="auditnodes-items"
-            v-for="item in record"
-            :key="item.UseId"
-          >
-            <span class="auditnodes-items-auditor">{{ item.UserName }}</span>
+          <span class="auditnodes-items" v-for="item in record" :key="item.Id">
+            <span
+              class="auditnodes-items-auditor"
+              :style="{ background: multiplayer[item.ApproveType].color }"
+              >{{ item.Name }}</span
+            >
             <span
               ><i
-                class="el-icon-right"
+                class="el-icon-caret-right"
                 v-if="item !== record[record.length - 1]"
               ></i
             ></span>
@@ -56,9 +56,10 @@
 import StaffSelect from "@/components/BasicModule/StaffSelect";
 import { setAudit } from "@/api/basicApi/systemSettings/auditFlowSetup";
 import { Table } from "./config";
-
+import { multiplayer } from "@/views/basicModule/OA/maps/auditMap";
+console.log(multiplayer, "multiplayer");
 export default {
-  name:'Se_AuditFlowSetup',
+  name: "Se_AuditFlowSetup",
   data() {
     return {
       addStaffShow: false,
@@ -68,6 +69,7 @@ export default {
         BillKey: "",
         AuditorIds: [],
       },
+      multiplayer,
     };
   },
   methods: {
@@ -82,9 +84,16 @@ export default {
       });
     },
     add(e) {
-      this.addStaffShow = true;
-      this.auditor.BillKey = e.BillKey;
-      this.choosedStaff = e.AuditNodes;
+      console.log(e);
+      // this.addStaffShow = true;
+      // this.auditor.BillKey = e.BillKey;
+      // this.choosedStaff = e.AuditNodes;
+      this.$router.push({
+        name: "Se_oadesign",
+        query: {
+          BillKey: e.BillKey,
+        },
+      });
     },
     handleSelectionChange() {},
   },
@@ -105,13 +114,13 @@ export default {
   display: inline-flex;
   align-items: center;
   &-auditor {
-    background-color: #ecf5ff;
+    // background-color: #ecf5ff;
     display: inline-block;
     height: 32px;
     padding: 0 10px;
     line-height: 30px;
     font-size: 12px;
-    color: #409eff;
+    color: #fff;
     border: 1px solid #d9ecff;
     border-radius: 4px;
     box-sizing: border-box;

@@ -1,13 +1,14 @@
 <!--
  * @Author: C.
  * @Date: 2021-07-14 08:59:00
- * @LastEditTime: 2022-02-28 13:31:46
+ * @LastEditTime: 2023-07-13 16:01:43
  * @Description: file content
 -->
 <template>
   <div ref="jvTable" class="jv-table-style">
     <!-- 表格操作栏 -->
     <TableHeader
+      @countFresh="Refresh"
       @fresh="tableObj.getData"
       @openSearch="showSearchForm = true"
       v-if="tableObj.props.tableHeaderShow"
@@ -18,6 +19,7 @@
       <div slot="subTitleBar">
         <slot name="titleBar" />
       </div>
+
       <div slot="subSetingBar">
         <slot name="setingBar" />
       </div>
@@ -36,6 +38,7 @@
         @current-change="currentChange"
         @select="handleSelect"
         v-if="tableObj.tableShow"
+        :row-style="rowStyle"
         :summary-method="tableObj.getTableSummaries"
       >
         <!-- 序号 -->
@@ -53,6 +56,7 @@
           type="selection"
           width="50"
           align="center"
+          :selectable="selectInit"
           :reserve-selection="!!tableObj.props.rowId"
         />
         <el-table-column v-if="tableProps.expand" type="expand">
@@ -65,7 +69,7 @@
           <el-table-column
             v-if="item.show"
             :key="item.prop"
-            v-bind="{ ...propsAfterHandle(item) }"
+            v-bind="{ ...item }"
             :show-overflow-tooltip="item.showOverflowTooltip ? false : true"
           >
             <template slot-scope="scope">
@@ -73,6 +77,7 @@
                 :name="item.prop"
                 :record="scope.row[item.prop]"
                 :row="scope.row"
+                :scope="scope"
                 v-if="item.custom"
               ></slot>
 
@@ -80,6 +85,7 @@
                 <CpnContainer
                   v-if="item.cpn"
                   :cpn="item.cpn"
+                  :key="item.prop"
                   :params="{
                     state: scope.row[item.prop],
                     rowData: scope.row,
@@ -98,16 +104,34 @@
 
             <template slot="header">
               {{ item.label }}
-              <Popover
-                v-if="item.innerSearch"
-                @confirm="tableObj.getData()"
-                @reset="tableObj.reset()"
-              >
-                <InnerForm
-                  :cdata="item.innerSearch"
-                  :form-obj="tableObj.formObj"
-                />
-              </Popover>
+              <span @click.stop="() => {}">
+                <Popover
+                  v-if="item.innerSearch"
+                  @confirm="tableObj.getData()"
+                  @reset="tableObj.reset()"
+                >
+                  <InnerForm
+                    :cdata="item.innerSearch"
+                    :form-obj="tableObj.formObj"
+                  />
+                </Popover>
+              </span>
+              <span @click.stop="() => {}">
+                <el-popover
+                  v-if="item.filterSearch"
+                  placement="top"
+                  width="200"
+                  trigger="click"
+                  @show="currentFilter.value = ''"
+                >
+                  <InnerInput
+                    :form="tableObj.filterForm"
+                    :keyName="item.prop"
+                    @change="changeFilter(tableObj.filterForm, item.prop)"
+                  />
+                  <i slot="reference" class="el-icon-search filter-icon" />
+                </el-popover>
+              </span>
             </template>
           </el-table-column>
         </template>
@@ -120,7 +144,7 @@
           v-if="tableObj.props.operationCol"
         >
           <template slot-scope="scope">
-            <slot name="operation" :row="scope.row" />
+            <slot name="operation" :row="scope.row" :scope="scope" />
           </template>
         </el-table-column>
       </el-Table>
@@ -130,7 +154,7 @@
       v-if="tableProps.pagination"
       :page-sizes="tableObj.pager.Sizes"
       :page-size="tableObj.pager.pageSize"
-      :current-page.sync="tableObj.pager.CurrentPage"
+      :current-page.sync="tableObj.pager.page"
       :layout="tableObj.pager.Layout"
       :total="tableObj.pager.Total"
       @size-change="tablePageSizeChange"
@@ -154,13 +178,13 @@ import JvPagination from "../JvPagination";
 import TableHeader from "./cpn/TableHeader";
 import { filterMaps } from "../../maps";
 import CpnContainer from "./cpn/CpnContainer";
-import { handleProps } from "./utils";
-import InnerForm from "./cpn/InnerForm";
+import InnerForm from "./cpn/InnerForm.vue";
 import Popover from "./cpn/Popover.vue";
 import SearchForm from "./cpn/SearchForm";
 import { fullScreen } from "@/jv_doc/utils/system";
 import { debounce } from "@/jv_doc/utils/optimization";
 import { setTableSchema, setPageSize } from "../../class/utils/tableHelp";
+import InnerInput from "./cpn/InnerInput.vue";
 export default {
   name: "JvTable",
   components: {
@@ -170,17 +194,22 @@ export default {
     InnerForm,
     Popover,
     SearchForm,
+    InnerInput,
   },
   props: {
     tableObj: {
       type: Object,
+      default: () => {},
     },
   },
-
   data() {
     return {
       // 展示搜索组件
       showSearchForm: false,
+      currentFilter: {
+        prop: "",
+        value: "",
+      },
       // tableConfigColumn: [],
     };
   },
@@ -195,11 +224,8 @@ export default {
     this.tableObj.tableRef = null;
     window.removeEventListener("resize", () => this.screenChange(), false);
   },
-  update() {
-    console.log("update");
-  },
+  update() {},
   activated() {
-    console.log("activated");
     this.$nextTick(() => {
       this.tableObj.doLayout();
     });
@@ -209,15 +235,15 @@ export default {
     dataFilter() {
       return (type = "default", data) => filterMaps[type].func(data);
     },
-    propsAfterHandle() {
-      return handleProps;
-    },
     tableProps() {
       return this.tableObj.props;
     },
     getBindProp() {
       return Object.assign(this.tableProps, {
-        data: this.tableObj.tableData,
+        // data: this.tableObj.tableData,
+        data: this.currentFilter.value
+          ? this.getfilterData(this.tableObj.tableData)
+          : this.tableObj.tableData,
         rowKey: (row) => row[this.tableObj.props.rowId],
       });
     },
@@ -226,6 +252,25 @@ export default {
     },
   },
   methods: {
+    rowStyle({ row, rowIndex }) {
+      // this.tableObj.props.rowId
+      // this.tableObj.selectData.keys
+      let cur_row_id = row[this.tableObj.props.rowId];
+      let keys = this.tableObj.selectData.keys;
+      return {
+        background: keys.includes(cur_row_id) ? "#FEF3C7" : "",
+      };
+    },
+    getfilterData(data) {
+      let { prop, value } = this.currentFilter;
+      let reg = new RegExp(value);
+      // console.log(data.filter((item) => reg.test(item[prop].toLowerCase())));
+      return data.filter((item) => reg.test(item[prop].toLowerCase()));
+    },
+    changeFilter(form, prop) {
+      this.currentFilter.prop = prop;
+      this.currentFilter.value = form[prop].toLowerCase();
+    },
     // 处理多选
     handleSelectionChange(val) {
       // console.log(val);
@@ -238,20 +283,23 @@ export default {
       }
     },
     handleSelectData(val) {
+      // console.log(val);
       const Keys = [];
       val.forEach((item) => {
         Keys.push(item[this.tableObj.props.rowId]);
       });
-      Object.assign(this.tableObj.selectData, {
-        keys: Keys,
-        datas: val,
-      });
-      // console.log(this.isRadio);
+      this.tableObj.selectData.keys = Keys;
+      this.tableObj.selectData.datas = val;
       this.$emit("selectionChange", val, Keys);
     },
     // 获取当前的表格引用
     getTableRef() {
       return this.$refs.multipleTable;
+    },
+    // 刷新
+    Refresh() {
+      // this.clearSelection();
+      this.tableObj.getData({}, "count-page");
     },
     // 拖拽的动作
     headerDragend(newWidth, oldWidth, column, event) {
@@ -323,6 +371,9 @@ export default {
       this.tableObj.pager.sizeChange(size);
       setPageSize(this.tableObj.props.printMod, size);
     },
+    selectInit(row, index) {
+      return this.tableObj.selectable(row, index);
+    },
   },
   watch: {
     showSearchForm: {
@@ -347,6 +398,24 @@ export default {
 .jv-table-style {
   // border: 15px solid #f3f3f3;
   height: 100%;
+  /* 滚动条样式 */
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 11px;
+  }
+
+  /*定义滚动条轨道 内阴影+圆角*/
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /*定义滑块 内阴影+圆角*/
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.1);
+  }
   .table-wrapper {
     height: calc(100% - 78px);
     padding: 0 10px;
