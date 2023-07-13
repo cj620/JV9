@@ -81,11 +81,3 @@ export function production_task_copy(data) {
     data,
   });
 }
-// 根据Id获取生产需求
-export function production_task_get_related_demand(query) {
-  return request({
-    url: "/production_task/get_related_demand",
-    method: "get",
-    params: query,
-  });
-}
