@@ -78,6 +78,12 @@ export const tableConfig = [
     label: i18n.t("quality.Qc_CheckDate"),
     filter: "time",
   },
+  // 任务单号
+  {
+    prop: "BillId",
+    label: i18n.t("Generality.Ge_BillId"),
+    custom: true,
+  },
   /*备注*/
   {
     prop: "Remarks",

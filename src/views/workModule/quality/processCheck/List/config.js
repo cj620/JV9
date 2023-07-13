@@ -97,13 +97,8 @@ export const tableConfig = [
   {
     // 自检工序
     prop: "SelfCheckProcess",
-    label: "检验工序",
+    label: "自检工序",
   },
-  // {
-  //   // 品质状态
-  //   prop: "CheckResult",
-  //   label: '品质状态',
-  // },
   {
     // 检验类型
     prop: "ProcessCheckType",
@@ -142,21 +137,39 @@ export const tableConfig = [
     label: "不合格原因",
   },
   {
-    prop: "AbnormalCauseItem",
-    label: "不合格原因子项",
+    prop: "SubmittedForInspectionQty",
+    label: "送检数量",
+  },
+  {
+    // 检验数量
+    prop: "InspectionQty",
+    label: "检验数量",
+  },
+  {
+    // 不合格数量
+    prop: "UnqualifiedQty",
+    label: "不合格数量",
+  },
+  {
+    // 关联编号
+    prop: "AssociatedNo",
+    label: "关联编号",
   },
   {
     // 制单人
     prop: "Creator",
     label: i18n.t("Generality.Ge_Creator"),
   },
-
   /*制单日期*/
   {
     prop: "CreationDate",
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
     width: "150px",
+  },
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
   },
 ];
 // 表单配置
