@@ -678,6 +678,7 @@ const cn = {
     Ge_PleaseInputEmailAddressWithCorrectFormat: "请填写正确的邮箱号",
     Ge_IsDuplicate: "明细",
     Ge_ToolingProgressDashboard: "模具进度看板",
+    Ge_FileSizeCannotBeGreaterThan100MB: "文件大小不得超过100MB",
     Ge_CostDetails: "成本明细",
     Ge_Optional: "选项",
     Ge_WorkingHoursRecord: "工时记录",

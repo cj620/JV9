@@ -16,6 +16,11 @@
       <template #CheckResult="{ row }">
         <span>{{ CheckResultEnum[row.CheckResult] }}</span>
       </template>
+      <template #BillId="{ row }">
+        <el-link type="primary" @click="goDetail1(row)">{{
+          row.BillId
+        }}</el-link>
+      </template>
       <template #operation="{ row }">
         <TableAction
           :actions="[
@@ -65,6 +70,7 @@
 <script>
 import { Table } from "./config";
 import { deleteCheckRecord } from "@/api/workApi/quality/checkRecord";
+import { site_collection_inspection_arrival } from "@/api/workApi/quality/siteCollection";
 export default {
   name: "QualityRecord",
   data() {
@@ -74,6 +80,7 @@ export default {
         Qualified: i18n.t("quality.Qc_Qualified"),
         TobeChecked: i18n.t("quality.Qc_ToBeTested"),
         Unqualified: i18n.t("quality.Qc_Unqualified"),
+        Completed: "已完成",
       },
     };
   },
@@ -92,6 +99,15 @@ export default {
         name: "QualityRecordDetails",
         query: {
           data: row,
+        },
+      });
+      console.log(row, "row");
+    },
+    goDetail1(row) {
+      this.$router.push({
+        name: "ProductionTaskDetails",
+        query: {
+          BillId: row.BillId,
         },
       });
       console.log(row, "row");
@@ -144,5 +160,3 @@ export default {
   components: {},
 };
 </script>
-
-<style lang="scss" scoped></style>

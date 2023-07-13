@@ -685,6 +685,8 @@ const ja = {
       "正しいメールアドレスを記入してください",
     Ge_IsDuplicate: "詳細",
     Ge_ToolingProgressDashboard: "金型進捗カンバン",
+    Ge_FileSizeCannotBeGreaterThan100MB:
+      "ファイルサイズは100 MBを超えてはならない",
     Ge_CostDetails: "原価詳細",
     Ge_Optional: "オプション",
     Ge_WorkingHoursRecord: "労働時間記録",

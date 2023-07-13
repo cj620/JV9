@@ -69,29 +69,23 @@ export const tableConfig = [
     custom: true,
   },
   {
-    // 需求单
-    prop: "PrDemandBillId",
-    label: "需求单",
+    // 加工单
+    prop: "PrTaskBillId",
+    label: "加工单",
   },
   {
-    // 计划交期
-    prop: "DeliveryDate",
-    label: i18n.t("Generality.Ge_DeliveryDate"),
-    filter: "time",
+    // 返工工序
+    prop: "ReworkProcess",
+    label: "返工工序",
   },
   {
-    // 处理结果
+    // 检测结果
     prop: "ProcessingResult",
     label: "检测结果",
     customFilter: (value, row) => {
       if (!value) return "";
       return ProcessingResult?.[value]?.name ?? value;
     },
-  },
-  {
-    // 返工工序
-    prop: "ReworkProcess",
-    label: "返工工序",
   },
   {
     // 负责人
@@ -104,13 +98,27 @@ export const tableConfig = [
     label: "不合格原因",
   },
   {
-    prop: "AbnormalCauseItem",
-    label: "不合格原因子项",
+    prop: "Analyst",
+    label: "不合格原因分析人",
   },
   {
-    prop: "FinishedProductCheckType",
-    label: "检验类型",
-    customFilter: (value, row) => enumFilter(value, FinishedProductCheckType),
+    prop: "SubmittedForInspectionQty",
+    label: "送检数量",
+  },
+  {
+    // 检验数量
+    prop: "InspectionQty",
+    label: "检验数量",
+  },
+  {
+    // 不合格数量
+    prop: "UnqualifiedQty",
+    label: "不合格数量",
+  },
+  {
+    // 关联编号
+    prop: "AssociatedNo",
+    label: "关联编号",
   },
   /*制单人*/
   {
@@ -122,6 +130,10 @@ export const tableConfig = [
     prop: "CreationDate",
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
+  },
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
   },
 ];
 export const formSchema = [

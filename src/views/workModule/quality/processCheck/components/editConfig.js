@@ -23,6 +23,12 @@ export class EditTable extends BaseTable {
 }
 
 export const tableConfig = [
+  // 序号
+  {
+    prop: "SortOrder",
+    label: "序号",
+    formCpn: "FormInput",
+  },
   /*理论值*/
   {
     prop: "TheoreticalValue",

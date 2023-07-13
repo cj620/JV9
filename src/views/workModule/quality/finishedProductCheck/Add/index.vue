@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <EditCom> </EditCom>
-  </div>
+  <div><EditCom> </EditCom></div>
 </template>
 
 <script>
@@ -11,5 +9,8 @@ export default {
   components: { EditCom },
 
   methods: {},
+  activated() {
+    console.log(11111);
+  },
 };
 </script>
