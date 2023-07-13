@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "Qc_FinishedProduct_Item",
+  name: "Qc_FinishedProduct_Detail_list",
   components: {},
 
   methods: {},

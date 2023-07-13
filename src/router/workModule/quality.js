@@ -59,12 +59,12 @@ const quality = [
   },
   // 成品检验明细
   {
-    key: "Qc_FinishedProduct_Item",
+    key: "Qc_FinishedProduct_Detail_list",
     component: () =>
-      import("@/views/workModule/quality/finishedProductCheck/Item"),
+      import("@/views/workModule/quality/finishedProductCheck/DetailsList"),
     Parent: "Qc_Quality",
-    name: "Qc_FinishedProductItem",
-    path: "qc_FinishedProductItem",
+    name: "Qc_FinishedProduct_Detail_list",
+    path: "qc_FinishedProduct_Detail_list",
     title:
       i18n.t("menu.Qc_FinishedProduct") +
       "   " +
@@ -98,18 +98,6 @@ const quality = [
     name: "Qc_ProcessCheck_Detail",
     path: "qc_ProcessCheck_Detail",
     title:
-      i18n.t("menu.Qc_ProcessCheck") + "  " + i18n.t("Generality.Ge_Details"),
-    hidden: true,
-  },
-  // 过程检验明细
-  {
-    key: "Qc_ProcessCheck_Item",
-    component: () => import("@/views/workModule/quality/processCheck/Item"),
-    Parent: "Qc_Quality",
-    name: "Qc_ProcessCheckItem",
-    path: "Qc_ProcessCheckItem",
-    title:
-      // 需修改
       i18n.t("menu.Qc_ProcessCheck") + "  " + i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
