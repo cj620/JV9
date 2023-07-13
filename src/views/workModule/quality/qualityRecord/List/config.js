@@ -22,6 +22,7 @@ export class Table extends BaseTable {
       operationWidth: 110,
       printMod: "Qc_QualityRecord",
       searchBar: false,
+      operationWidth: 210,
     });
   }
 }
