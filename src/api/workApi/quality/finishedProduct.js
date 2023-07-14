@@ -23,7 +23,14 @@ export function get_qc_finished_product_export(data) {
     data,
   });
 }
-
+// 获取成品检测信息
+export function qc_finished_profuct_get(query) {
+  return request({
+    url: "/qc_finished_product/get",
+    method: "get",
+    params: query,
+  });
+}
 export function get_qc_finished_product_update_reason_for_nonconformity(data) {
   return request({
     url: "/qc_finished_product/update_reason_for_nonconformity",
