@@ -29,7 +29,7 @@ export const formSchema = [
 
   {
     // 客户
-    prop: "CustomerName",
+    prop: "CustomerId",
     cpn: "SyncSelect",
     label: i18n.t("menu.Sa_Customer"),
     rules: [
@@ -43,7 +43,7 @@ export const formSchema = [
     apiOptions: {
       immediate: true,
       keyName: "ShortName",
-      valueName: "ShortName",
+      valueName: "CustomerId",
     },
   },
   {
@@ -52,6 +52,20 @@ export const formSchema = [
     cpn: "FormInput",
     label: i18n.t("menu.Pm_Project"),
     custom: true,
+  },
+
+  {
+    // 名称
+    prop: "ToolingNo",
+    cpn: "FormInput",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
   },
   {
     // 名称

@@ -247,6 +247,9 @@ export default {
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
     }
+    if(this.$route.params.quotationData){
+      await this.GetQuotationData(this.$route.params.quotationData);
+    }
     await this.Configuration();
     await this.GetProjectData();
   },
@@ -264,6 +267,20 @@ export default {
         console.log(res.Items);
         this.projectDataList = res.Items;
       });
+    },
+    GetQuotationData(e){
+      console.log(e)
+      let str = {}
+      this.formObj.form.CustomerId=e.CustomerId
+      this.formObj.form.ProjectId=e.Project
+      this.formObj.form.DeliveryDate=e.DeliveryDate
+      str.ItemId=e.ToolingNo
+      str.ItemName=e.ToolingName
+      str.Unit='PCS'
+      str.Quantity=1
+      str.Price=e.Total
+      str.AssociatedNo=e.BillId
+      this.eTableObj.push(temMerge(this.BillItems, [str]));
     },
     //编辑的时候获取信息
     async GetData(Id) {

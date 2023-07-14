@@ -96,6 +96,11 @@ export const detailConfig = [
     label: i18n.t("menu.Pm_Project"),
   },
   {
+    // 模具编号
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+  },
+  {
     // 模具名称
     prop: "ToolingName",
     label: i18n.t("Generality.Ge_ToolingName"),

@@ -104,7 +104,6 @@ export function setDefaultTableSchema(tableSchema) {
   //   });
   // });
   for(let key in tableSchema){
-    console.log(key,66655888);
     tableSchema[key]=Object.assign({},defaultTableSchemProp,tableSchema[key])
   }
 }

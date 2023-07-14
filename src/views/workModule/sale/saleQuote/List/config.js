@@ -109,7 +109,7 @@ export const tableProps = {
   // 接口类
   api,
   // 操作列宽度
-  operationWidth: 110,
+  operationWidth: 150,
   // 打印模块标识
   printMod: "Sa_SaleQuote",
 };

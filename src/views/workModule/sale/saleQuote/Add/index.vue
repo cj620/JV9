@@ -34,7 +34,7 @@
           :srcUrl="ruleForm.PhotoUrl"
         ></ImgUploader>
       </div>
-      <JvForm :formObj="formObj"> 
+      <JvForm :formObj="formObj">
         <template #Project="{ prop }">
           <el-select
             v-model="formObj.form[prop]"
@@ -287,6 +287,8 @@ export default {
         Project: "",
         // 名称
         ToolingName: "",
+        // 编号
+        ToolingNo: "",
         // 描述
         Description: "",
         // 备注
@@ -390,11 +392,35 @@ export default {
      this.GetProjectData();
     // console.log(this.$route.name,this.$options.name);
     this.$options.name == "Sa_SaleQuote_Add" && this.get_last_data();
+    console.log(this.$route.query.type,999)
+
   },
 
   methods: {
     get_last_data() {
-      sales_quotation_get_last().then((res) => {
+      if(this.$route.query.type==='copy'){
+        Quotation.api_get({ BillId: this.cur_Id }).then((res) => {
+          this.formObj.form = res;
+          this.ruleForm = res;
+          this.ruleForm.BillId=''
+          this.ruleForm.BillGui=''
+          res.MaterialCost.forEach(item=>{
+            item.Id=0
+          })
+          res.ProductionCost.forEach(item=>{
+            item.Id=0
+          })
+          res.AdditionalCost.forEach(item=>{
+            item.Id=0
+          })
+          this.M_TableObj.setData(res.MaterialCost);
+          this.P_TableObj.setData(data2doubleCol(res.ProductionCost));
+          this.C_TableObj.setData(res.AdditionalCost);
+
+        });
+
+      }
+      /*sales_quotation_get_last().then((res) => {
         console.log(res);
 
         if (!res) return;
@@ -404,7 +430,7 @@ export default {
         this.M_TableObj.setData(result.MaterialCost);
         this.P_TableObj.setData(data2doubleCol(result.ProductionCost));
         this.C_TableObj.setData(result.AdditionalCost);
-      });
+      });*/
     },
     // 新增编辑行
     addEditRow() {

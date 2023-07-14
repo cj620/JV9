@@ -13,7 +13,12 @@
     <JvTable ref="BillTable" :table-obj="tableObj">
       <!-- operation操作列 -->
       <template #operation="{ row }">
-        <TableAction :actions="getListTableColBtnModel(row)" />
+        <TableAction :actions="[
+          ...[{
+              label: '复制',
+              confirm: copy.bind(null, row),
+            }]
+            ,...getListTableColBtnModel(row) ]"/>
       </template>
       <!-- 表格操作行 -->
       <Action size="mini" slot="btn-list" :actions="getListTableBtnModel">
@@ -60,9 +65,19 @@ export default {
     // 表格行
     getListTableColBtnModel() {
       return (row) => {
+        console.log(listTableColBtnModel(this, row))
         return listTableColBtnModel(this, row);
       };
     },
   },
+  methods:{
+    copy(row){
+      console.log(row)
+      this.$router.push({
+        name: "Sa_SaleQuote_Add",
+        query: { BillId: row.BillId, type: "copy" },
+      });
+    }
+  }
 };
 </script>

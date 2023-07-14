@@ -1,4 +1,6 @@
 import { Table as BaseTable } from "@/jv_doc/class/table";
+/*import { tableConfig as Qc_ProcessCheckTableConfig } from "@/views/workModule/quality/machiningCheckList/List/config";
+import { tableConfig as Qc_FinishedProductTableConfig } from "@/views/workModule/quality/finishedProductCheckList/List/config";*/
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -174,3 +176,55 @@ export const detailConfig = [
     label: i18n.t("Generality.Ge_Quantity"),
   },
 ];
+
+
+
+export class tableObj2 extends BaseTable {
+  constructor() {
+    super({
+      tableSchema: tableConfig2,
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: true,
+      height: 1650,
+    });
+  }
+}
+export class Qc_FinishedProductTable extends BaseTable {
+  constructor() {
+    super({
+      tableSchema: Qc_FinishedProductTableConfig.filter(
+        (item) => item.prop !== "State"
+      ),
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: false,
+      height: 1650,
+    });
+  }
+}
+export class Qc_ProcessCheckTable extends BaseTable {
+  constructor() {
+    super({
+      tableSchema: Qc_ProcessCheckTableConfig.filter(
+        (item) => item.prop !== "State"
+      ),
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: false,
+      height: 1650,
+    });
+  }
+}

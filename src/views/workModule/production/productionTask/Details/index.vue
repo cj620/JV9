@@ -163,6 +163,14 @@
             </template>
           </JvTable>
         </el-tab-pane>
+
+        <el-tab-pane label="过程检验" name="Qc_ProcessCheckList">
+          <JvTable :table-obj="Qc_ProcessCheckTableObj"> </JvTable>
+        </el-tab-pane>
+        <el-tab-pane label="成品检验" name="Qc_FinishedProductList">
+          <JvTable :table-obj="Qc_FinishedProductTableObj"> </JvTable>
+        </el-tab-pane>
+
         <el-tab-pane :label="$t('Generality.Ge_Dynamic')" name="fifth">
           <DynamicList
             :cdata="ProcessDynamicInfo"
@@ -201,9 +209,9 @@ import { timeFormat } from "@/jv_doc/utils/time";
 import {
   tableConfig,
   tableConfig1,
-  tableConfig2,
+  tableObj2,
   detailConfig,
-} from "./config";
+} from './config'
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import {
@@ -236,7 +244,8 @@ export default {
       RemarkData: "",
       fileBillId: "",
       formObj: {},
-
+      Qc_ProcessCheckTableObj: {},
+      Qc_FinishedProductTableObj: {},
       dialogFormVisible: false,
       ProcessDynamicInfo: [],
       tabPanes: [
@@ -305,18 +314,7 @@ export default {
       operationCol: false,
       height: 1650,
     });
-    this.tableObj2 = new Table({
-      tableSchema: tableConfig2,
-      pagination: false,
-      sortCol: false,
-      chooseCol: false,
-      data: [],
-      title: "",
-      tableHeaderShow: false,
-      operationCol: true,
-      showSummary: true,
-      height: 500,
-    });
+    this.tableObj2 = new tableObj2();
 
     this.formObj = new Form({
       formSchema: [
@@ -340,6 +338,9 @@ export default {
       },
       labelWidth: "80px",
     });
+
+    this.Qc_FinishedProductTableObj = new Qc_FinishedProductTable();
+    this.Qc_ProcessCheckTableObj = new Qc_ProcessCheckTable();
     this.GetData();
   },
   methods: {
@@ -353,6 +354,8 @@ export default {
         this.tableObj1.setData(res.Parts);
         this.tableObj2.setData(res.TaskRecords);
         this.ProcessDynamicInfo = res.ProcessDynamicInfo;
+        this.Qc_ProcessCheckTableObj.setData(res.ProcessDetails);
+        this.Qc_FinishedProductTableObj.setData(res.FinishedDetails);
       });
     },
     //编辑
