@@ -120,9 +120,7 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
-    this.formObj.eventBus.$on("SubmittedForInspectionQty", (n) => {
-      this.formObj.form.InspectionQty = n;
-    });
+
     this.eTableObj = new EditTable();
 
     console.log(
@@ -195,7 +193,7 @@ export default {
           }
         });
         console.log(arr);
-        this.formObj.formSchema[1].options.list = arr;
+        this.formObj.formSchema[2].options.list = arr;
         let arr2 = res.Parts.map((part) => {
           part.ItemId = part.PartNo;
           part.ItemName = part.PartName;
@@ -249,7 +247,7 @@ export default {
           this.ruleForm.BillItems = this.eTableObj.getTableData();
           this.ruleForm.BillFiles = this.BillFiles;
           let arr3 = this.ruleForm.BillItems.map((billItems) => {
-            billItems.Id = "";
+            billItems.Id = 0;
             billItems.BillGui = "";
             return billItems;
           });
@@ -274,6 +272,7 @@ export default {
             console.log(saveArr.ReworkProcess);
             if (valid1) {
               qc_finished_product_save(saveArr).then((res) => {
+                console.log(res)
                 let TagName = {
                   path: "/quality/Qc_FinishedProduct_Detail",
                   name: `Qc_FinishedProduct_Detail`,
@@ -292,7 +291,32 @@ export default {
       this.BillFiles = fileData;
     },
   },
+  computed: {
+    ...mapState({
+      current: (state) => state.page.current,
+    }),
+  },
+  watch: {
+    "formObj.form.SubmittedForInspectionQty": {
+      handler(n, o) {
+        console.log(n, o)
+        this.formObj.form.InspectionQty = n;
+      }
+    },
+    "formObj.form.ProcessingResult": {
+      handler: function (n, o) {
+        console.log(n, o);
+        if (n === "Normal") {
+          this.formObj.form.ReworkProcess = "";
+          this.formObj.form.AbnormalCause = "";
+          this.formObj.props.formSchema[2].cpnProps.disabled = true;
 
+        } else {
+          this.formObj.props.formSchema[2].cpnProps.disabled = false;
+        }
+      },
+    },
+  }
   // watch: {
   //   "formObj.form.AbnormalCause": {
   //     handler(n, o) {

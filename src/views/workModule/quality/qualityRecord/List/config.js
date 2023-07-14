@@ -19,7 +19,6 @@ export class Table extends BaseTable {
       rowId: "Id",
       title: i18n.t("menu.Qc_QualityRecord"),
       api,
-      operationWidth: 110,
       printMod: "Qc_QualityRecord",
       searchBar: false,
       operationWidth: 210,

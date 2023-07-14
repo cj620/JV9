@@ -24,14 +24,7 @@
       <template #operation="{ row }">
         <TableAction
           :actions="[
-            {
-              label: '免检',
-              disabled: getActionState(row.CheckResult),
-              popConfirm: {
-                title: '确定要免检吗',
-                confirm: inspectionArrival.bind(null, row),
-              },
-            },
+
             {
               label: '过程单',
               disabled: getActionState(row.CheckResult),

@@ -42,17 +42,6 @@ export const formSchema = [
     ],
   },
   {
-    // 返工工序
-    prop: "ReworkProcess",
-    label: "返工工序",
-    cpn: "FormSelect",
-    type: "multiple",
-    options: {
-      list: [],
-    },
-  },
-
-  {
     // 检测结果
     prop: "ProcessingResult",
     label: "检测结果",
@@ -68,6 +57,21 @@ export const formSchema = [
       },
     ],
   },
+  {
+    // 返工工序
+    prop: "ReworkProcess",
+    label: "返工工序",
+    cpn: "FormSelect",
+    type: "multiple",
+    cpnProps: {
+      disabled: true,
+    },
+    options: {
+      list: [],
+    },
+  },
+
+
   {
     // 负责人
     prop: "PersonInCharge",
