@@ -39,6 +39,16 @@ const design = [
     title: i18n.t("design.De_DesignTaskRecord"),
     hidden: true,
   },
+  // 设计任务列表
+  {
+    key: "De_DesignTaskList",
+    component: () =>
+      import("@/views/workModule/design/designTask/DesignTaskList"),
+    Parent: "De_Design",
+    name: "De_DesignTaskList",
+    path: "De_DesignTaskList",
+    title: i18n.t("menu.De_DesignTaskList"),
+  },
   // 模具BOM
   {
     key: "De_ToolingBOM",

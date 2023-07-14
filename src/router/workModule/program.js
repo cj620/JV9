@@ -31,6 +31,16 @@ const program = [
     path: "programTask",
     title: i18n.t("menu.Pa_ProgramTask"),
   },
+  // 编程任务列表
+  {
+    key: "Pa_ProgramTaskList",
+    component: () =>
+      import("@/views/workModule/program/programTask/ProgramTaskList"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramTaskList",
+    path: "Pa_ProgramTaskList",
+    title: "编程任务列表",
+  },
   // 编程任务记录
   {
     key: "Pa_ProgramTask_Record",
