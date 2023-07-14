@@ -166,7 +166,7 @@ export default {
   methods: {
     imgUrlPlugin,
     cardClick() {
-      this.moreMsgShow = true;
+      //this.moreMsgShow = true;
     },
     handleCommand(e) {
       if (e == "edit") {

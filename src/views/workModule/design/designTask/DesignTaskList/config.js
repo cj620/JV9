@@ -56,23 +56,6 @@ const tableSchema = [
       parameterKey: "BillId",
     },
   },
-  {
-    prop: "PrTaskBillId",
-    label: "加工单号",
-    align: "center",
-    cpn: "Link",
-    width: "150px",
-    cpnProps: {
-      // 路由名称
-      routeName: "ProductionTaskDetails",
-      // 路由路径（名称和路径二选一）
-      // routePath:'/dashboard',
-      // 路由传参方式 默认query
-      methods: "query",
-      // 传参的键名，值为当前数据
-      parameterKey: "BillId",
-    },
-  },
   /*状态*/
   {
     prop: "ItemState",
@@ -121,25 +104,13 @@ const tableSchema = [
       return taskTypeEnum[value].name;
     },
   },
-    /*生产类别*/
-    {
-      prop: "ProductionType",
-      label: "生产类别",
-      width: 120,
-      customFilter: (value, row) => {
-        if (!value) return "";
-        return ProductionType[value] && ProductionType[value].name;
-      },
-    },
+
   /*工序*/
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
   },
-  {
-    prop: "HistoryWorker",
-    label: "历史负责人",
-  },
+
   /*负责人*/
   {
     prop: "Worker",
@@ -301,37 +272,5 @@ const formSchema = [
       ],
     },
   },
-  {
-    prop: "ProjectType",
-    label: "项目类别",
-    cpn: "FormRadio",
-    options: {
-      list: [
-        {
-          value: "",
-          label: "全部",
-        },
-        {
-          value: "Tooling",
-          label: "模具",
-        },
-        {
-          value: "Machining",
-          label: "机加",
-        },
-      ],
-    },
-  },
-  // {
-  //   prop: "StartDate",
-  //   label: i18n.t("Generality.Ge_StartDate"),
-  //   cpn: "SingleTime",
-  // },
-  // {
-  //   prop: "EndDate",
-  //   label: i18n.t("Generality.Ge_EndDate"),
-  //   cpn: "SingleTime",
-  // },
 
-  // QueryAll
 ];
