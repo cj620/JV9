@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-12-08 08:36:02
- * @LastEditTime: 2022-01-21 15:08:15
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-07-14 09:04:20
+ * @LastEditors: 勿忘 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \JvMmsV9Front\src\views\workModule\sale\saleQuote\Add\index.vue
 -->
@@ -34,7 +34,28 @@
           :srcUrl="ruleForm.PhotoUrl"
         ></ImgUploader>
       </div>
-      <JvForm :formObj="formObj"> </JvForm>
+      <JvForm :formObj="formObj"> 
+        <template #Project="{ prop }">
+          <el-select
+            v-model="formObj.form[prop]"
+            filterable
+            remote
+            style="width: 90%"
+            reserve-keyword
+            :remote-method="remoteMethod"
+            :loading="loading"
+          >
+            <el-option
+              v-for="item in projectDataList"
+              :key="item.Project"
+              :label="item.Project"
+              :value="item.Project"
+            >
+            </el-option>
+          </el-select>
+          <i class="el-icon-plus" @click="addProject"></i>
+        </template>
+      </JvForm>
     </JvBlock>
     <!-- 物料信息 -->
     <JvBlock :title="$t('sale.Sa_MaterialCost')" ref="second">
@@ -178,6 +199,11 @@
         $t("Generality.Ge_SaveAndSubmit")
       }}</el-button>
     </div>
+        <!--新增项目-->
+        <addProject
+      :visible.sync="addProjectDialogFormVisible"
+      @confirmAddProject="confirmAddProject"
+    ></addProject>
   </PageWrapper>
 </template>
 
@@ -191,6 +217,10 @@ import { mapState } from "vuex";
 import { amountFormat, amount2Number } from "@/jv_doc/utils/handleData/index";
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
 import { data2doubleCol } from "../utils";
+import {
+  getProjectQuery,
+  saveProjectInfo,
+} from "@/api/workApi/project/projectManage";
 // 引入模块API接口
 import {
   API as Quotation,
@@ -233,10 +263,12 @@ export default {
       costSummary: 0,
       transferData: [],
       CustomerData: [],
+      projectDataList: [],
       textarea: "",
       fileList: [],
       detailRouteName: "Sa_SaleQuote_Detail",
       fileBillId: "",
+      addProjectDialogFormVisible: false,
       ruleForm: {
         // 单据编号
         // BillId: "",
@@ -355,7 +387,7 @@ export default {
     this.P_TableObj = new P_EditTable();
     this.C_TableObj = new C_EditTable();
     // await this.Configuration();
-
+     this.GetProjectData();
     // console.log(this.$route.name,this.$options.name);
     this.$options.name == "Sa_SaleQuote_Add" && this.get_last_data();
   },
@@ -377,6 +409,39 @@ export default {
     // 新增编辑行
     addEditRow() {
       this.M_TableObj.addEmptyRow();
+    },
+        //获取项目
+        async GetProjectData() {
+      await getProjectQuery({ Keyword: "" }).then((res) => {
+        console.log(res.Items);
+        this.projectDataList = res.Items;
+      });
+    },
+    //搜索项目
+    remoteMethod(query) {
+      getProjectQuery({ Keyword: query }).then((res) => {
+        console.log(res.Items,555)
+        if (query !== "") {
+          this.loading = true;
+          setTimeout(() => {
+            this.loading = false;
+            this.projectDataList = res.Items;
+          });
+        } else {
+          this.GetProjectData();
+        }
+      });
+    },
+    //新增项目
+    addProject() {
+      this.addProjectDialogFormVisible = true;
+    },
+    //保存项目
+    confirmAddProject(e) {
+      saveProjectInfo(e).then((res) => {
+        this.addProjectDialogFormVisible = false;
+        this.formObj.form.Project = e.Project;
+      });
     },
     insertDoubleCol,
     delDoubleCol,
