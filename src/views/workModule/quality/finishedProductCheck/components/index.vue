@@ -203,6 +203,7 @@ export default {
           part.Remarks = "";
           delete part.PartNo;
           delete part.PartName;
+          delete part.ToolingNo;
           return part;
         });
         console.log(arr2);
@@ -247,10 +248,14 @@ export default {
         if (valid) {
           this.ruleForm.BillItems = this.eTableObj.getTableData();
           this.ruleForm.BillFiles = this.BillFiles;
-          console.log(
-            this.ruleForm.ReworkProcess,
-            this.formObj.form.ReworkProcess
-          );
+          let arr3 = this.ruleForm.BillItems.map((billItems) => {
+            billItems.Id = "";
+            billItems.BillGui = "";
+            return billItems;
+          });
+          this.ruleForm.BillItems = arr3;
+          console.log(this.ruleForm.BillItems);
+
           this.eTableObj.validate((valid1) => {
             let saveArr = Object.assign(
               {},
