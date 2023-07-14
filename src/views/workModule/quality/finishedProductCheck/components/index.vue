@@ -3,28 +3,9 @@
 <template>
   <!-- 单据信息 -->
   <PageWrapper ref="page">
-    <!-- <div class="input-query">
-      <el-input
-        v-model="PrTaskBillIdKeyword"
-        ref="editTask"
-        style="width: 180px"
-        @keyup.enter.native="getProData($event)"
-        placeholder="请扫描加工单"
-      ></el-input>
-    </div> -->
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
       <JvForm :formObj="formObj">
-        <template #SelfCheckProcess="{ prop }">
-          <!-- <el-select v-model="formObj.form[prop]" filterable>
-            <el-option
-              v-for="item in ProcessData"
-              :key="item.Id"
-              :label="item.Process"
-              :value="item.Process"
-            >
-            </el-option>
-          </el-select> -->
-        </template>
+        <template #SelfCheckProcess="{ prop }"> </template>
       </JvForm>
     </JvBlock>
     <!-- 物料信息 -->
@@ -44,40 +25,6 @@
           />
         </template>
       </JvEditTable>
-    </JvBlock>
-    <JvBlock title="检验图" ref="third">
-      <!-- <div style="height: 600px;display: flex;flex-wrap: wrap">
-        <div class="check-mould-img" v-for="(item,index) in BillFiles" :key="index">
-          <el-image
-            :preview-src-list="[imgUrlPlugin(item)]"
-            style="width: 100%; height: 100%"
-            :src="imgUrlPlugin(item)"
-            fit="cover"
-            class="items-details-Img-error"
-          >
-            <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline"></i>
-            </div>
-          </el-image>
-        </div>
-      </div> -->
-      <!-- https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg -->
-      <!-- <div class="check-mould-img"></div> -->
-
-      <el-image
-        v-for="(item, index) in Images"
-        :key="index"
-        style="width: 100px; height: 100px; padding: 5px"
-        :preview-src-list="[imgUrlPlugin(item)]"
-        :src="imgUrlPlugin(item)"
-        fit="cover"
-        class="items-details-Img-error"
-      >
-        <div slot="error" class="image-slot">
-          <i class="el-icon-picture-outline"></i>
-        </div>
-      </el-image>
-      <el-empty description="暂无数据" v-if="Images.length == 0"></el-empty>
     </JvBlock>
     <!-- 附件 -->
     <JvBlock :title="$t('Generality.Ge_Annex')">
@@ -113,8 +60,6 @@ import { mapState, mapGetters } from "vuex";
 import { StateEnum, enumToList } from "@/enum/workModule";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 
-import { qc_process_check_get_relevant_info } from "@/api/workApi/quality/processCheck";
-// import { API as finishedProduct } from "@/api/workApi/quality/finishedProduct";
 import { getProductionTask } from "@/api/workApi/production/productionTask";
 import { qc_finished_product_save } from "@/api/workApi/quality/finishedProduct";
 import { getUser } from "@/api/basicApi/systemSettings/user";
@@ -140,22 +85,19 @@ export default {
       ruleForm: {
         BillId: "",
         BillGui: "",
-        ItemId: "",
-        SelfCheckProcess: "",
+        PrTaskBillId: "",
+        ReworkProcess: "",
         ProcessingResult: "",
-        MachiningPosition: "",
-        CheckResult: "",
-        Remarks: "",
-        Operator: "",
-        AssociatedNo: "",
-        OperationDate: "",
-        ProcessCheckType: "",
         PersonInCharge: "",
         AbnormalCause: "",
-        PrTaskBillId: "",
+        Analyst: "",
+        SubmittedForInspectionQty: "",
+        InspectionQty: "",
+        UnqualifiedQty: "",
+        AssociatedNo: "",
+        Remarks: "",
         BillItems: [],
         BillFiles: [],
-        Images: [],
       },
       BillItems: {
         Id: 0,
@@ -167,7 +109,6 @@ export default {
         State: "",
         Remarks: "",
       },
-      Images: [],
     };
   },
   async created() {
@@ -186,61 +127,30 @@ export default {
 
     console.log(
       this.$route.params.data.row,
-      this.$route.params.ProcessCheckType
+      this.ruleForm
+      // this.$route.params.ProcessCheckType
     );
     var routeParams = this.$route.params;
     this.formObj.form.SelfCheckProcess = routeParams.data.row.Process
       ? routeParams.data.row.Process
       : "";
-    this.formObj.form.ProcessCheckType = routeParams.ProcessCheckType;
-    if (routeParams.ProcessCheckType === "SelfCheck") {
-      this.formObj.form.ProcessingResult = "Normal";
-      this.formObj.form.PersonInCharge = routeParams.data.row.UserName;
-      this.formObj.form.Operator = routeParams.data.row.UserName;
-    } else {
-      this.formObj.form.Operator = this.name;
-    }
+    // this.formObj.form.ProcessCheckType = routeParams.ProcessCheckType;
+    // if (routeParams.ProcessCheckType === "SelfCheck") {
+    //   this.formObj.form.ProcessingResult = "Normal";
+    //   this.formObj.form.PersonInCharge = routeParams.data.row.UserName;
+    //   this.formObj.form.Operator = routeParams.data.row.UserName;
+    // } else {
+    //   this.formObj.form.Operator = this.name;
+    // }
     if (routeParams.data) {
       this.ruleForm.AssociatedNo = routeParams.data.row.Id
         ? routeParams.data.row.Id
         : 0;
-      this.ruleForm.MachiningPosition = routeParams.data.row.MachiningPosition
-        ? routeParams.data.row.MachiningPosition
-        : "";
       this.GetProcessCheckData(routeParams.data.row.BillId);
     }
-    console.log(this.ruleForm);
     // this.getConfigData();
   },
-  computed: {
-    ...mapState({
-      current: (state) => state.page.current,
-    }),
-    ...mapGetters(["userId", "sidebar", "avatar", "device", "name"]),
-
-    getState() {
-      return (row) => {
-        const number1 =
-          Number(row.TheoreticalValue.value) + Number(row.UpperTolerance.value);
-        const number2 =
-          Number(row.TheoreticalValue.value) - Number(row.LowerTolerance.value);
-        if (
-          number2 <= Number(row.MeasuredValue.value) &&
-          Number(row.MeasuredValue.value) <= number1
-        ) {
-          row.State.value = "OK";
-        } else {
-          row.State.value = "NG";
-        }
-        return row.State.value;
-      };
-    },
-  },
-  mounted() {
-    // this.$nextTick(() => {
-    //   this.$refs.editTask.focus();
-    // });
-  },
+  mounted() {},
 
   methods: {
     imgUrlPlugin,
@@ -273,7 +183,6 @@ export default {
     GetProcessCheckData(e) {
       getProductionTask({ BillId: e }).then((res) => {
         this.formObj.form.PrTaskBillId = res.BillId;
-        // this.formObj.form.ItemId = res.PartNo;
         let arr = [];
 
         res.Process.forEach((item) => {
@@ -287,7 +196,6 @@ export default {
         });
         console.log(arr);
         this.formObj.formSchema[1].options.list = arr;
-        this.PrTaskBillIdKeyword = "";
         let arr2 = res.Parts.map((part) => {
           part.ItemId = part.PartNo;
           part.ItemName = part.PartName;
@@ -298,15 +206,7 @@ export default {
           return part;
         });
         console.log(arr2);
-        // this.BillFiles = res.ProcessSelfCheckInfo.BillFiles;
         this.eTableObj.setData(arr2);
-        // console.log(temMerge(this.BillItems, res.BillItems));
-        // this.eTableObj.setData(temMerge(this.BillItems, res.BillItems));
-        // this.getCheckImgs(res.ProcessSelfCheckInfo.Id);
-        if (this.$route.params.ProcessCheckType === "SelfCheck") {
-          console.log(str, 69696969);
-          this.formObj.form.SelfCheckProcess = str.Process;
-        }
       });
     },
     //编辑的时候获取信息
@@ -322,15 +222,6 @@ export default {
     //删除明细
     delItem(index) {
       this.eTableObj.delItem(index);
-    },
-    //获取检验图片
-    getCheckImgs(id) {
-      getBillFile({ OwnerId: id }).then((res) => {
-        console.log(res);
-        this.Images = res.Items.map((item) => {
-          return item.FileUrl;
-        });
-      });
     },
 
     changeValue(e, row, cb) {
@@ -348,28 +239,34 @@ export default {
     //   });
     // },
     save() {
+      this.ruleForm.SaveAndSubmit = true;
+      this.IsSave();
+    },
+    IsSave() {
       this.formObj.validate((valid) => {
         if (valid) {
           this.ruleForm.BillItems = this.eTableObj.getTableData();
           this.ruleForm.BillFiles = this.BillFiles;
-          this.ruleForm.Images = this.Images;
+          console.log(
+            this.ruleForm.ReworkProcess,
+            this.formObj.form.ReworkProcess
+          );
           this.eTableObj.validate((valid1) => {
             let saveArr = Object.assign(
               {},
               this.ruleForm,
               this.formObj.form,
               {
-                Analyst: JSON.stringify(this.formObj.form.Analyst),
+                Analyst: this.formObj.form.Analyst,
               },
               {
-                PersonInCharge: JSON.stringify(
-                  this.formObj.form.PersonInCharge
-                ),
+                PersonInCharge: this.formObj.form.PersonInCharge,
+              },
+              {
+                ReworkProcess: this.formObj.form.ReworkProcess.toString(),
               }
             );
-            console.log(saveArr);
-            ruleForm.ReworkProcess = ruleForm.ReworkProcess.toString();
-            // saveArr.AbnormalCause = saveArr.AbnormalCause.toString();
+            console.log(saveArr.ReworkProcess);
             if (valid1) {
               qc_finished_product_save(saveArr).then((res) => {
                 let TagName = {
