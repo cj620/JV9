@@ -31,3 +31,11 @@ export function get_qc_finished_product_update_reason_for_nonconformity(data) {
     data,
   });
 }
+// 保存成品检测信息
+export function qc_finished_product_save(data) {
+  return request({
+    url: "/qc_finished_product/save",
+    method: "post",
+    data,
+  });
+}

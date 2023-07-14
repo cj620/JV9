@@ -132,10 +132,8 @@ import { mapState, mapGetters } from "vuex";
 import { StateEnum, enumToList } from "@/enum/workModule";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 
-import {
-  qc_process_check_get_relevant_info,
-  qc_process_check_save,
-} from "@/api/workApi/quality/processCheck";
+import { qc_process_check_get_relevant_info } from "@/api/workApi/quality/processCheck";
+import { qc_finished_product_save } from "@/api/workApi/quality/finishedProduct";
 import { getUser } from "@/api/basicApi/systemSettings/user";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
@@ -193,29 +191,29 @@ export default {
       importShow: false,
       exportTemplate: [
         {
-          prop: "TheoreticalValue",
-          label: "理论值",
+          prop: "ItemId",
+          label: "物料编号",
         },
 
         /*上公差*/
         {
-          prop: "UpperTolerance",
-          label: "上公差",
+          prop: "ItemName",
+          label: "名称",
         },
         /*下公差*/
         {
-          prop: "LowerTolerance",
-          label: "下公差",
+          prop: "Description",
+          label: "描述",
         },
         /*备注*/
         {
-          prop: "Remarks",
-          label: i18n.t("Generality.Ge_Remarks"),
+          prop: "Unit",
+          label: "单位",
         },
         /*实测值*/
         {
-          prop: "MeasuredValue",
-          label: "实测值",
+          prop: "Quantity",
+          label: "数量",
         },
       ],
       exportTemplateData: {
@@ -238,8 +236,8 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
-    this.formObj.eventBus.$on("QuantitySubmittedForInspection", (n) => {
-      this.formObj.form.InspectionQuantity = n;
+    this.formObj.eventBus.$on("SubmittedForInspectionQty", (n) => {
+      this.formObj.form.InspectionQty = n;
     });
     this.eTableObj = new EditTable();
 
@@ -439,14 +437,13 @@ export default {
             });
             console.log(saveArr);
             saveArr.AbnormalCause = saveArr.AbnormalCause.toString();
-            saveArr.AbnormalCauseItem = saveArr.AbnormalCauseItem.toString();
             if (valid1) {
-              qc_process_check_save(saveArr).then((res) => {
+              qc_finished_product_save(saveArr).then((res) => {
                 let TagName = {
-                  path: "/quality/Qc_ProcessCheck_Detail",
-                  name: `Qc_ProcessCheck_Detail`,
+                  path: "/quality/Qc_FinishedProduct_Detail",
+                  name: `Qc_FinishedProduct_Detail`,
                   query: { BillId: res },
-                  fullPath: "/quality/Qc_ProcessCheck_Detail",
+                  fullPath: "/quality/Qc_FinishedProduct_Detail",
                 };
                 closeTag(this.current, TagName);
               });

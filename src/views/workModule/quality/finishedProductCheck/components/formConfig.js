@@ -7,22 +7,22 @@ import {
 } from "@/enum/workModule";
 import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
 
-async function ReasonOfUnqualified(e) {
-  var DataList = {};
-  await getConfigKey(e).then((res) => {
-    let arr = [];
-    console.log(JSON.parse(res.ConfigValue));
-    let dataList = JSON.parse(res.ConfigValue);
-    Object.keys(dataList).forEach((item) => {
-      arr.push({
-        value: item,
-        label: item,
-      });
-    });
-    DataList.Items = arr;
-  });
-  return DataList;
-}
+// async function ReasonOfUnqualified(e) {
+//   var DataList = {};
+//   await getConfigKey(e).then((res) => {
+//     let arr = [];
+//     console.log(JSON.parse(res.ConfigValue));
+//     let dataList = JSON.parse(res.ConfigValue);
+//     Object.keys(dataList).forEach((item) => {
+//       arr.push({
+//         value: item,
+//         label: item,
+//       });
+//     });
+//     DataList.Items = arr;
+//   });
+//   return DataList;
+// }
 
 export const formSchema = [
   {
@@ -42,86 +42,19 @@ export const formSchema = [
     ],
   },
   {
-    // 零件编号
-    prop: "ItemId",
-    label: "零件编号",
+    // 返工工序
+    prop: "ReworkProcess",
+    label: "返工工序",
     cpn: "FormInput",
-    cpnProps: {
-      disabled: true,
-    },
   },
   {
-    // 自检工序
-    prop: "SelfCheckProcess",
-    label: "自检工序",
-    cpn: "FormInput",
-    custom: true,
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["blur"],
-      },
-    ],
-  },
-  {
-    // 检验类型
-    prop: "ProcessCheckType",
-    label: "检验类型",
-    cpn: "FormSelect",
-    options: {
-      list: enumToList(ProcessCheckTypeEnum),
-    },
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["blur"],
-      },
-    ],
-  },
-  {
-    // 处理结果
+    // 检测结果
     prop: "ProcessingResult",
     label: "检测结果",
     cpn: "FormSelect",
     options: {
       list: enumToList(ProcessingResult),
     },
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["blur"],
-      },
-    ],
-  },
-
-  {
-    // 检验人
-    prop: "Operator",
-    label: "检验人",
-    cpn: "SyncSelect",
-    api: getAllUserData,
-    apiOptions: {
-      immediate: true,
-      keyName: "UserName",
-      valueName: "UserName",
-    },
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["blur"],
-      },
-    ],
-  },
-  {
-    // 检验日期
-    prop: "OperationDate",
-    label: "检验日期",
-    cpn: "SingleTime",
-    default: new Date(),
     rules: [
       {
         required: true,
@@ -146,18 +79,31 @@ export const formSchema = [
   {
     prop: "AbnormalCause",
     label: "不合格原因",
+    cpn: "FormInput",
+    // cpn: "SyncSelect",
+    // api: ReasonOfUnqualified,
+    // type: "multiple",
+    // apiOptions: {
+    //   params: { ConfigKey: "ReasonForUnqualifiedProcessInspection" },
+    //   keyName: "label",
+    //   valueName: "value",
+    // },
+  },
+  // 不合格原因分析人
+  {
+    prop: "Analyst",
+    label: "不合格原因分析人",
     cpn: "SyncSelect",
-    api: ReasonOfUnqualified,
-    type: "multiple",
+    api: getAllUserData,
     apiOptions: {
-      params: { ConfigKey: "ReasonForUnqualifiedProcessInspection" },
-      keyName: "label",
-      valueName: "value",
+      immediate: true,
+      keyName: "UserName",
+      valueName: "UserName",
     },
   },
   //   送检数量  QuantitySubmittedForInspection
   {
-    prop: "QuantitySubmittedForInspection",
+    prop: "SubmittedForInspectionQty",
     label: "送检数量",
     cpn: "FormInput",
     rules: [
@@ -173,7 +119,7 @@ export const formSchema = [
   },
   // 检验数量  InspectionQuantity
   {
-    prop: "InspectionQuantity",
+    prop: "InspectionQty",
     label: "检验数量",
     cpn: "FormInput",
     rules: [
@@ -189,7 +135,7 @@ export const formSchema = [
   },
   // 不合格数量  UnqualifiedQuantity
   {
-    prop: "UnqualifiedQuantity",
+    prop: "UnqualifiedQty",
     label: "不合格数量",
     cpn: "FormInput",
     default: "0",

@@ -238,8 +238,10 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
-    this.formObj.eventBus.$on("QuantitySubmittedForInspection", (n) => {
-      this.formObj.form.InspectionQuantity = n;
+    this.formObj.eventBus.$on("SubmittedForInspectionQty", (n) => {
+      console.log(n);
+      this.formObj.form.InspectionQty = n;
+      console.log(this.formObj.form.InspectionQty);
     });
     this.eTableObj = new EditTable();
 
@@ -274,7 +276,7 @@ export default {
       this.GetProcessCheckData(routeParams.data.row.BillId);
     }
     console.log(this.ruleForm);
-    this.getConfigData();
+    // this.getConfigData();
   },
   computed: {
     ...mapState({
@@ -325,14 +327,14 @@ export default {
       }
     },
 
-    getConfigData() {
-      getConfigKey({ ConfigKey: "ReasonForUnqualifiedProcessInspection" }).then(
-        (res) => {
-          console.log(res.ConfigValue);
-          this.ConfigDataList = JSON.parse(res.ConfigValue);
-        }
-      );
-    },
+    // getConfigData() {
+    //   getConfigKey({ ConfigKey: "ReasonForUnqualifiedProcessInspection" }).then(
+    //     (res) => {
+    //       console.log(res.ConfigValue);
+    //       this.ConfigDataList = JSON.parse(res.ConfigValue);
+    //     }
+    //   );
+    // },
     //获取检验数据
     GetProcessCheckData(e) {
       qc_process_check_get_relevant_info({ BillId: e }).then((res) => {
@@ -434,12 +436,17 @@ export default {
           //     this.formObj.form.Reviewer
           //   );
           this.eTableObj.validate((valid1) => {
-            let saveArr = Object.assign({}, this.ruleForm, this.formObj.form, {
-              Reviewer: JSON.stringify(this.formObj.form.Reviewer),
-            });
+            let saveArr = Object.assign(
+              {},
+              this.ruleForm,
+              this.formObj.form
+              // {
+              //   Reviewer: JSON.stringify(this.formObj.form.Reviewer),
+              // }
+            );
             console.log(saveArr);
-            saveArr.AbnormalCause = saveArr.AbnormalCause.toString();
-            saveArr.AbnormalCauseItem = saveArr.AbnormalCauseItem.toString();
+            // saveArr.AbnormalCause = saveArr.AbnormalCause.toString();
+            // saveArr.AbnormalCauseItem = saveArr.AbnormalCauseItem.toString();
             if (valid1) {
               qc_process_check_save(saveArr).then((res) => {
                 let TagName = {
@@ -461,31 +468,31 @@ export default {
     },
   },
 
-  watch: {
-    "formObj.form.AbnormalCause": {
-      handler(n, o) {
-        console.log(n, o, this.ConfigDataList);
-        let arr = [];
-        let arrItem = [];
-        if (n.length > 0) {
-          n.forEach((item) => {
-            arr = [...this.ConfigDataList[item], ...arr];
-          });
-        } else {
-          arr = [];
-        }
+  // watch: {
+  //   "formObj.form.AbnormalCause": {
+  //     handler(n, o) {
+  //       console.log(n, o, this.ConfigDataList);
+  //       let arr = [];
+  //       let arrItem = [];
+  //       if (n.length > 0) {
+  //         n.forEach((item) => {
+  //           arr = [...this.ConfigDataList[item], ...arr];
+  //         });
+  //       } else {
+  //         arr = [];
+  //       }
 
-        console.log(arr);
-        arr.forEach((item) => {
-          arrItem.push({
-            value: item,
-            label: item,
-          });
-        });
-        this.formObj.props.formSchema[9].options.list = arrItem;
-      },
-    },
-  },
+  //       console.log(arr);
+  //       arr.forEach((item) => {
+  //         arrItem.push({
+  //           value: item,
+  //           label: item,
+  //         });
+  //       });
+  //       this.formObj.props.formSchema[9].options.list = arrItem;
+  //     },
+  //   },
+  // },
 };
 </script>
 
