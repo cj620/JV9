@@ -25,35 +25,32 @@ export class EditTable extends BaseTable {
 export const tableConfig = [
   // 序号
   {
-    prop: "SortOrder",
-    label: "序号",
+    prop: "ItemId",
+    label: "物料编号",
     formCpn: "FormInput",
   },
-  /*理论值*/
+  /*名称*/
   {
-    prop: "TheoreticalValue",
-    label: "理论值",
+    prop: "ItemName",
+    label: "名称",
     formCpn: "FormInput",
-    type: "number",
   },
-  /*上公差*/
+  /*描述*/
   {
-    prop: "UpperTolerance",
-    label: "上公差",
+    prop: "Description",
+    label: "描述",
     formCpn: "FormInput",
-    type: "number",
   },
-  /*下公差*/
+  /*单位*/
   {
-    prop: "LowerTolerance",
-    label: "下公差",
+    prop: "Unit",
+    label: "单位",
     formCpn: "FormInput",
-    type: "number",
   },
-  /*实测值*/
+  /*数量*/
   {
-    prop: "MeasuredValue",
-    label: "实测值",
+    prop: "Quantity",
+    label: "数量",
     formCpn: "FormInput",
     type: "number",
   },
