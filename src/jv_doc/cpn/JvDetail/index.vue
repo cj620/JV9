@@ -22,9 +22,14 @@
           :record="detailObj.detailData[item.prop]"
         >
         </slot>
-        <span v-else>{{
-          dataFilter(item.filter, detailObj.detailData[item.prop])
-        }}</span>
+        <span v-else> {{
+            item.customFilter
+              ? item.customFilter(
+                detailObj.detailData[item.prop],
+                detailObj.detailData
+              )
+              : dataFilter(item.filter, detailObj.detailData[item.prop])
+          }}</span>
       </el-descriptions-item>
     </el-descriptions>
     <!-- <el-button @click="print">12 </el-button> -->

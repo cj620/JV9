@@ -238,11 +238,6 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
-    this.formObj.eventBus.$on("SubmittedForInspectionQty", (n) => {
-      console.log(n);
-      this.formObj.form.InspectionQty = n;
-      console.log(this.formObj.form.InspectionQty);
-    });
     this.eTableObj = new EditTable();
 
     if (this.type === "edit") {
@@ -493,6 +488,14 @@ export default {
   //     },
   //   },
   // },
+  watch: {
+    "formObj.form.SubmittedForInspectionQty": {
+      handler(n, o) {
+        console.log(n, o)
+        this.formObj.form.InspectionQty = n;
+      }
+    }
+  }
 };
 </script>
 
