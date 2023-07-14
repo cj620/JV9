@@ -45,8 +45,13 @@ export const formSchema = [
     // 返工工序
     prop: "ReworkProcess",
     label: "返工工序",
-    cpn: "FormInput",
+    cpn: "FormSelect",
+    type: "multiple",
+    options: {
+      list: [],
+    },
   },
+
   {
     // 检测结果
     prop: "ProcessingResult",

@@ -15,7 +15,7 @@
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
       <JvForm :formObj="formObj">
         <template #SelfCheckProcess="{ prop }">
-          <el-select v-model="formObj.form[prop]" filterable>
+          <!-- <el-select v-model="formObj.form[prop]" filterable>
             <el-option
               v-for="item in ProcessData"
               :key="item.Id"
@@ -23,7 +23,7 @@
               :value="item.Process"
             >
             </el-option>
-          </el-select>
+          </el-select> -->
         </template>
       </JvForm>
     </JvBlock>
@@ -334,22 +334,35 @@ export default {
     //获取检验数据
     GetProcessCheckData(e) {
       qc_process_check_get_relevant_info({ BillId: e }).then((res) => {
+        console.log(res);
         this.formObj.form.PrTaskBillId = res.PrTaskBillId;
         this.formObj.form.ItemId = res.ItemId;
-        let str = res.Process.pop();
-        console.log(str, 69696969);
+        // let str = res.Process.pop();
+        // console.log(str, 69696969);
 
-        this.ProcessData = res.Process;
+        // this.ProcessData = res.Process;
+        let arr = [];
+
+        res.Process.forEach((item) => {
+          console.log(item, 5555999);
+          arr.push({
+            value: item.Process,
+            label: item.Process,
+          });
+        });
+        console.log(arr);
+        console.log(this.formObj.formSchema);
+        this.formObj.formSchema[1].options.list = arr;
         this.PrTaskBillIdKeyword = "";
         this.BillFiles = res.ProcessSelfCheckInfo.BillFiles;
         this.eTableObj.setData(
           temMerge(this.BillItems, res.ProcessSelfCheckInfo.BillItems)
         );
         this.getCheckImgs(res.ProcessSelfCheckInfo.Id);
-        if (this.$route.params.ProcessCheckType === "SelfCheck") {
-          console.log(str, 69696969);
-          this.formObj.form.SelfCheckProcess = str.Process;
-        }
+        // if (this.$route.params.ProcessCheckType === "SelfCheck") {
+        //   console.log(str, 69696969);
+        //   this.formObj.form.SelfCheckProcess = str.Process;
+        // }
       });
     },
     //删除明细
@@ -436,7 +449,7 @@ export default {
               Reviewer: JSON.stringify(this.formObj.form.Reviewer),
             });
             console.log(saveArr);
-            saveArr.AbnormalCause = saveArr.AbnormalCause.toString();
+            // saveArr.AbnormalCause = saveArr.AbnormalCause.toString();
             if (valid1) {
               qc_finished_product_save(saveArr).then((res) => {
                 let TagName = {
@@ -458,31 +471,31 @@ export default {
     },
   },
 
-  watch: {
-    "formObj.form.AbnormalCause": {
-      handler(n, o) {
-        console.log(n, o, this.ConfigDataList);
-        let arr = [];
-        let arrItem = [];
-        if (n.length > 0) {
-          n.forEach((item) => {
-            arr = [...this.ConfigDataList[item], ...arr];
-          });
-        } else {
-          arr = [];
-        }
+  // watch: {
+  //   "formObj.form.AbnormalCause": {
+  //     handler(n, o) {
+  //       console.log(n, o, this.ConfigDataList);
+  //       let arr = [];
+  //       let arrItem = [];
+  //       if (n.length > 0) {
+  //         n.forEach((item) => {
+  //           arr = [...this.ConfigDataList[item], ...arr];
+  //         });
+  //       } else {
+  //         arr = [];
+  //       }
 
-        console.log(arr);
-        arr.forEach((item) => {
-          arrItem.push({
-            value: item,
-            label: item,
-          });
-        });
-        this.formObj.props.formSchema[9].options.list = arrItem;
-      },
-    },
-  },
+  //       console.log(arr);
+  //       arr.forEach((item) => {
+  //         arrItem.push({
+  //           value: item,
+  //           label: item,
+  //         });
+  //       });
+  //       this.formObj.props.formSchema[9].options.list = arrItem;
+  //     },
+  //   },
+  // },
 };
 </script>
 
