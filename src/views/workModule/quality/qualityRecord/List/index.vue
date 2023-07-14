@@ -115,14 +115,14 @@ export default {
     //免检
     inspectionArrival(e) {
       console.log(e);
-      this.$confirm("确定要免检吗", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-      }).then(() => {
-        site_collection_inspection_arrival({ Ids: [e.Id] }).then((res) => {
-          this.tableObj.getData();
-        });
-      });
+      // this.$confirm("确定要免检吗", "提示", {
+      //   confirmButtonText: "确定",
+      //   cancelButtonText: "取消",
+      // }).then(() => {
+      //   site_collection_inspection_arrival({ Ids: [e.Id] }).then((res) => {
+      //     this.tableObj.getData();
+      //   });
+      // });
     },
     //点击过程检验单
     toMachiningCheckList(e) {
