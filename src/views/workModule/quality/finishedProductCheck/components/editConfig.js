@@ -7,11 +7,13 @@
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
-import { tableConfigWrapper } from "@/jv_doc/utils/system/taxCount";
+// import { tableConfigWrapper } from "@/jv_doc/utils/system/taxCount"
+import { StateEnum, enumToList } from "@/enum/workModule";
 export class EditTable extends BaseTable {
   constructor() {
     super({
-      tableSchema: tableConfigWrapper(tableConfig),
+      // tableSchema: tableConfigWrapper(tableConfig),
+      tableSchema: tableConfig,
       data: [],
       title: "",
       tableHeaderShow: false,
@@ -27,25 +29,25 @@ export const tableConfig = [
   {
     prop: "ItemId",
     label: "物料编号",
-    formCpn: "FormInput",
+    editConfig: {
+      disabled: true,
+    },
   },
   /*名称*/
   {
     prop: "ItemName",
     label: "名称",
-    formCpn: "FormInput",
+    editConfig: {
+      disabled: true,
+    },
   },
   /*描述*/
   {
     prop: "Description",
     label: "描述",
-    formCpn: "FormInput",
-  },
-  /*单位*/
-  {
-    prop: "Unit",
-    label: "单位",
-    formCpn: "FormInput",
+    editConfig: {
+      disabled: true,
+    },
   },
   /*数量*/
   {
@@ -58,9 +60,14 @@ export const tableConfig = [
   {
     prop: "State",
     label: "状态",
-    custom: true,
+    formCpn: "FormSelect",
+    options: {
+      list: enumToList(StateEnum),
+    },
     editConfig: {
-      disabled: true,
+      rules: {
+        required: true,
+      },
     },
   },
   /*备注*/

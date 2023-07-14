@@ -5,7 +5,7 @@ import {
   enumToList,
   ProcessCheckTypeEnum,
 } from "@/enum/workModule";
-import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
+// import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
 
 // async function ReasonOfUnqualified(e) {
 //   var DataList = {};
@@ -155,8 +155,8 @@ export const formSchema = [
       type: "number",
     },
   },
-  // 关联编号
-  { prop: "AssociatedNo", label: "关联编号", cpn: "FormInput" },
+  // // 关联编号
+  // { prop: "AssociatedNo", label: "关联编号", cpn: "FormInput" },
   // 备注  Remarks
   {
     prop: "Remarks",

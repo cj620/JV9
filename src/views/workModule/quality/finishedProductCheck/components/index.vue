@@ -27,25 +27,13 @@
         </template>
       </JvForm>
     </JvBlock>
-    <JvBlock title="检验明细" ref="third">
-      <div slot="extra">
-        <el-button size="mini" @click="downExport2Excel">{{
-          $t("design.De_DownloadTemplate")
-        }}</el-button>
-        <el-button size="mini" @click="Import">{{
-          $t("Generality.Ge_Import")
-        }}</el-button>
-        <el-button size="mini" @click="addRow">新增</el-button>
-      </div>
-
+    <!-- 物料信息 -->
+    <JvBlock :title="$t('Generality.Ge_ItemsInfo')">
+      <!-- <div slot="extra">
+        <el-button size="mini" @click="selectItems">选择明细</el-button>
+      </div> -->
       <JvEditTable :tableObj="eTableObj">
-        <!-- 单价 -->
-        <template #State="{ row }">
-          <span :style="{ color: getState(row) == 'NG' ? 'red' : '#000' }">
-            {{ getState(row) }}
-          </span>
-        </template>
-        <template #operation="{ row_index }">
+        <template #operation="{ row, row_index }">
           <TableAction
             :actions="[
               {
@@ -113,13 +101,6 @@
         $t("Generality.Ge_Save")
       }}</el-button>
     </div>
-    <!-- 导入数据 -->
-    <Import
-      :visible.sync="importShow"
-      width="28%"
-      :title="$t('Generality.Ge_Import')"
-      @complete="importComplete"
-    ></Import>
   </PageWrapper>
 </template>
 
@@ -133,13 +114,14 @@ import { StateEnum, enumToList } from "@/enum/workModule";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 
 import { qc_process_check_get_relevant_info } from "@/api/workApi/quality/processCheck";
+// import { API as finishedProduct } from "@/api/workApi/quality/finishedProduct";
+import { getProductionTask } from "@/api/workApi/production/productionTask";
 import { qc_finished_product_save } from "@/api/workApi/quality/finishedProduct";
 import { getUser } from "@/api/basicApi/systemSettings/user";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { getBillFile } from "@/api/basicApi/systemSettings/upload";
-import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
-import { export2Excel } from "~/cpn/JvTable/utils/export2Excel";
+// import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
 
 export default {
   components: {
@@ -178,53 +160,14 @@ export default {
       BillItems: {
         Id: 0,
         BillGui: "",
-        SortOrder: 0,
-        TheoreticalValue: "",
-        UpperTolerance: "",
-        LowerTolerance: "",
-        ReasonOfUnqualified: "",
-        MeasuredValue: 0,
+        ItemId: "",
+        ItemName: "",
+        Description: "",
+        Quantity: "",
         State: "",
         Remarks: "",
       },
       Images: [],
-      importShow: false,
-      exportTemplate: [
-        {
-          prop: "ItemId",
-          label: "物料编号",
-        },
-
-        /*上公差*/
-        {
-          prop: "ItemName",
-          label: "名称",
-        },
-        /*下公差*/
-        {
-          prop: "Description",
-          label: "描述",
-        },
-        /*备注*/
-        {
-          prop: "Unit",
-          label: "单位",
-        },
-        /*实测值*/
-        {
-          prop: "Quantity",
-          label: "数量",
-        },
-      ],
-      exportTemplateData: {
-        checkData: [],
-        checkedFields: [],
-        sourceType: "editTable",
-        dataType: "TEMPLATE",
-        saveType: "xlsx",
-        title: "",
-        fileName: "检验明细",
-      },
     };
   },
   async created() {
@@ -240,11 +183,6 @@ export default {
       this.formObj.form.InspectionQty = n;
     });
     this.eTableObj = new EditTable();
-
-    if (this.type === "edit") {
-      this.fileBillId = this.billData;
-      //await this.GetData(this.billData);
-    }
 
     console.log(
       this.$route.params.data.row,
@@ -272,7 +210,7 @@ export default {
       this.GetProcessCheckData(routeParams.data.row.BillId);
     }
     console.log(this.ruleForm);
-    this.getConfigData();
+    // this.getConfigData();
   },
   computed: {
     ...mapState({
@@ -323,48 +261,64 @@ export default {
       }
     },
 
-    getConfigData() {
-      getConfigKey({ ConfigKey: "ReasonForUnqualifiedProcessInspection" }).then(
-        (res) => {
-          console.log(res.ConfigValue);
-          this.ConfigDataList = JSON.parse(res.ConfigValue);
-        }
-      );
-    },
+    // getConfigData() {
+    //   getConfigKey({ ConfigKey: "ReasonForUnqualifiedProcessInspection" }).then(
+    //     (res) => {
+    //       console.log(res.ConfigValue);
+    //       this.ConfigDataList = JSON.parse(res.ConfigValue);
+    //     }
+    //   );
+    // },
     //获取检验数据
     GetProcessCheckData(e) {
-      qc_process_check_get_relevant_info({ BillId: e }).then((res) => {
-        console.log(res);
-        this.formObj.form.PrTaskBillId = res.PrTaskBillId;
-        this.formObj.form.ItemId = res.ItemId;
-        // let str = res.Process.pop();
-        // console.log(str, 69696969);
-
-        // this.ProcessData = res.Process;
+      getProductionTask({ BillId: e }).then((res) => {
+        this.formObj.form.PrTaskBillId = res.BillId;
+        // this.formObj.form.ItemId = res.PartNo;
         let arr = [];
 
         res.Process.forEach((item) => {
           console.log(item, 5555999);
-          arr.push({
-            value: item.Process,
-            label: item.Process,
-          });
+          if (item.State === "Processed") {
+            arr.push({
+              value: item.Process,
+              label: item.Process,
+            });
+          }
         });
         console.log(arr);
-        console.log(this.formObj.formSchema);
         this.formObj.formSchema[1].options.list = arr;
         this.PrTaskBillIdKeyword = "";
-        this.BillFiles = res.ProcessSelfCheckInfo.BillFiles;
-        this.eTableObj.setData(
-          temMerge(this.BillItems, res.ProcessSelfCheckInfo.BillItems)
-        );
-        this.getCheckImgs(res.ProcessSelfCheckInfo.Id);
-        // if (this.$route.params.ProcessCheckType === "SelfCheck") {
-        //   console.log(str, 69696969);
-        //   this.formObj.form.SelfCheckProcess = str.Process;
-        // }
+        let arr2 = res.Parts.map((part) => {
+          part.ItemId = part.PartNo;
+          part.ItemName = part.PartName;
+          part.State = "";
+          part.Remarks = "";
+          delete part.PartNo;
+          delete part.PartName;
+          return part;
+        });
+        console.log(arr2);
+        // this.BillFiles = res.ProcessSelfCheckInfo.BillFiles;
+        this.eTableObj.setData(arr2);
+        // console.log(temMerge(this.BillItems, res.BillItems));
+        // this.eTableObj.setData(temMerge(this.BillItems, res.BillItems));
+        // this.getCheckImgs(res.ProcessSelfCheckInfo.Id);
+        if (this.$route.params.ProcessCheckType === "SelfCheck") {
+          console.log(str, 69696969);
+          this.formObj.form.SelfCheckProcess = str.Process;
+        }
       });
     },
+    //编辑的时候获取信息
+    // async GetData(Id) {
+    //   await finishedProduct.api_get({ BillId: Id }).then((res) => {
+    //     console.log(res);
+    //     this.ruleForm = res;
+    //     this.formObj.form = this.ruleForm;
+
+    //     this.eTableObj.setData(res.BillItems);
+    //   });
+    // },
     //删除明细
     delItem(index) {
       this.eTableObj.delItem(index);
@@ -384,71 +338,37 @@ export default {
         cb();
       }
     },
-
-    //新增一行数据
-    addRow() {
-      this.BillItems.UpperTolerance = 0.01;
-      this.BillItems.LowerTolerance = 0.01;
-      this.eTableObj.push([this.BillItems]);
-    },
-    //下载导入模板
-    downExport2Excel() {
-      var arr = [];
-      this.eTableObj.props.tableSchema.forEach((item) =>
-        this.exportTemplate.forEach((Titem) => {
-          if (item.label === Titem.label) {
-            arr.push(item);
-          }
-          export2Excel;
-        })
-      );
-      console.log(arr);
-      this.exportTemplateData.checkedFields = arr;
-      export2Excel(this.exportTemplateData);
-    },
-
-    //导入
-    Import() {
-      this.importShow = true;
-    },
-
-    //导入成功
-    importComplete(e) {
-      this.importShow = false;
-      var arr = [];
-
-      e.forEach((Titem) => {
-        var str = {
-          TheoreticalValue: "",
-          UpperTolerance: "",
-          LowerTolerance: "",
-          MeasuredValue: "",
-          Remarks: "",
-        };
-        this.exportTemplate.forEach((item) => {
-          if (Titem[item.label]) {
-            str[item.prop] = Titem[item.label];
-          }
-        });
-        arr.push(str);
-      });
-      this.eTableObj.push(temMerge(this.BillItems, arr));
-    },
-
+    // //选择物料
+    // selectItems() {
+    //   this.formObj.validate((valid) => {
+    //     if (valid) {
+    //       this.ItemsDialogFormVisible = true;
+    //       this.transferData = this.formObj.form.PrDemandBillId;
+    //     }
+    //   });
+    // },
     save() {
       this.formObj.validate((valid) => {
         if (valid) {
           this.ruleForm.BillItems = this.eTableObj.getTableData();
           this.ruleForm.BillFiles = this.BillFiles;
           this.ruleForm.Images = this.Images;
-          // this.formObj.form.Reviewer = JSON.stringify(
-          //     this.formObj.form.Reviewer
-          //   );
           this.eTableObj.validate((valid1) => {
-            let saveArr = Object.assign({}, this.ruleForm, this.formObj.form, {
-              Reviewer: JSON.stringify(this.formObj.form.Reviewer),
-            });
+            let saveArr = Object.assign(
+              {},
+              this.ruleForm,
+              this.formObj.form,
+              {
+                Analyst: JSON.stringify(this.formObj.form.Analyst),
+              },
+              {
+                PersonInCharge: JSON.stringify(
+                  this.formObj.form.PersonInCharge
+                ),
+              }
+            );
             console.log(saveArr);
+            ruleForm.ReworkProcess = ruleForm.ReworkProcess.toString();
             // saveArr.AbnormalCause = saveArr.AbnormalCause.toString();
             if (valid1) {
               qc_finished_product_save(saveArr).then((res) => {

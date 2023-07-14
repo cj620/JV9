@@ -345,11 +345,11 @@ export default {
 
         this.ProcessData = res.Process;
         this.PrTaskBillIdKeyword = "";
-        this.BillFiles = res.ProcessSelfCheckInfo.BillFiles;
-        this.eTableObj.setData(
-          temMerge(this.BillItems, res.ProcessSelfCheckInfo.BillItems)
-        );
-        this.getCheckImgs(res.ProcessSelfCheckInfo.Id);
+        // this.BillFiles = res.ProcessSelfCheckInfo.BillFiles;
+        // this.eTableObj.setData(
+        //   temMerge(this.BillItems, res.ProcessSelfCheckInfo.BillItems)
+        // );
+        // this.getCheckImgs(res.ProcessSelfCheckInfo.Id);
         if (this.$route.params.ProcessCheckType === "SelfCheck") {
           console.log(str, 69696969);
           this.formObj.form.SelfCheckProcess = str.Process;
@@ -361,14 +361,14 @@ export default {
       this.eTableObj.delItem(index);
     },
     //获取检验图片
-    getCheckImgs(id) {
-      getBillFile({ OwnerId: id }).then((res) => {
-        console.log(res);
-        this.Images = res.Items.map((item) => {
-          return item.FileUrl;
-        });
-      });
-    },
+    // getCheckImgs(id) {
+    //   getBillFile({ OwnerId: id }).then((res) => {
+    //     console.log(res);
+    //     this.Images = res.Items.map((item) => {
+    //       return item.FileUrl;
+    //     });
+    //   });
+    // },
 
     changeValue(e, row, cb) {
       if (!e) {
