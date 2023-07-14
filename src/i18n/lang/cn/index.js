@@ -10,6 +10,8 @@
 import zhLocale from "element-ui/lib/locale/lang/zh-CN";
 const cn = {
   menu: {
+    Pa_ProgramTaskList: "编程任务列表",
+    De_DesignTaskList: "设计任务列表",
     De_ProcessTemplate: "工序模板",
     Pu_Supplier: "供应商",
     Sa_Sale: "销售",

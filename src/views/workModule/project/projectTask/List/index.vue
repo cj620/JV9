@@ -32,6 +32,10 @@
             label: $t('project.Pro_TaskRecord'),
             confirm: taskRecord,
           },
+          {
+            label: $t('Generality.Ge_Details1'),
+            confirm: detailsList,
+          },
         ]"
       >
       </Action>
@@ -85,6 +89,12 @@ export default {
       this.$router.push({
         name: "Pm_ProjectTask_Record",
         query: { TaskType: this.TaskType },
+      });
+    },
+    //项目任务明细
+    detailsList() {
+      this.$router.push({
+        name: "Pm_ProjectTask_DetailList",
       });
     },
   },

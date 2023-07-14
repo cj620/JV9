@@ -1,28 +1,66 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-24 11:16:43
- * @LastEditTime: 2021-12-14 11:14:24
+ * @LastEditTime: 2023-02-08 09:11:49
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\design\designTask\List\cpns\TaskCard.vue
 -->
 <template>
-  <div class="task-card" @click="cardClick">
+  <div class="task-card">
     <div class="state-bar" :style="{ background: stateMap.color }">
-      {{ cdata.ToolingNo }}
+      <svg-icon icon-class="father" v-if="cdata.ParentId === 0" />
+      <svg-icon icon-class="son" v-else />
+      <div>
+        {{ cdata.ToolingNo }}
+        <el-tooltip
+          ref="tlp"
+          :content="cdata.ToolingName"
+          effect="dark"
+          :disabled="!tooltipFlag"
+          placement="top-start"
+        >
+          <span @mouseenter="visibilityChange($event)">
+            {{ cdata.ToolingName }}
+          </span>
+        </el-tooltip>
+      </div>
     </div>
-    <div class="task-content">
+    <div class="more-func">
+      <el-dropdown @command="handleCommand">
+        <span>
+          <i class="el-icon-more el-icon--right" style="font-size: 20px"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="edit">修改</el-dropdown-item>
+          <el-dropdown-item
+            :disabled="!(cdata.ParentId == 0)"
+            command="distributionTask"
+            >分发任务</el-dropdown-item
+          >
+          <el-dropdown-item
+            :disabled="!(cdata.ParentId == 0)"
+            command="viewSubTask"
+            >查看子任务</el-dropdown-item
+          >
+          <!-- <el-dropdown-item command="downLoadProductImg"
+            >下载图纸</el-dropdown-item
+          > -->
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+    <div class="task-content" @click="cardClick">
       <div class="img-desc">
         <el-image
           style="width: 50px; height: 50px"
           class="img"
           :src="imgUrlPlugin(cdata.PhotoUrl)"
           :preview-src-list="[imgUrlPlugin(cdata.PhotoUrl)]"
+          @click.stop="() => {}"
         >
           <div slot="error" class="image-slot">
-            <i class="el-icon-picture-outline  error-icon"></i>
+            <i class="el-icon-picture-outline error-icon"></i>
           </div>
-
         </el-image>
         <div class="desc-box">
           <div class="desc-text">
@@ -51,27 +89,132 @@
         </div>
       </div>
     </div>
+    <!--父级物料弹窗-->
+    <addProjectTask
+      :visible.sync="addProjectTaskDialogFormVisible"
+      v-if="addProjectTaskDialogFormVisible"
+      :transferData="transferData"
+      :type="type"
+      @confirmData="confirmData"
+    >
+    </addProjectTask>
+
+    <distributionTaskDialog
+      :visible.sync="distributionTaskDialogFormVisible"
+      v-if="distributionTaskDialogFormVisible"
+      :TaskData="TaskData"
+      @confirmData="confirmDistributionTask"
+    >
+    </distributionTaskDialog>
+    <JvDialog
+      :visible.sync="viewSubtasksDialogVisible"
+      title="查看子任务"
+      v-if="viewSubtasksDialogVisible"
+      @confirm="dialogConfirm"
+      width="60%"
+    >
+      <JvTable :tableObj="viewSubtasksTableObj"> </JvTable>
+    </JvDialog>
+    <DetailModel
+      ref="detailModel"
+      title="更多信息"
+      :visible.sync="moreMsgShow"
+      width="40%"
+      :cdata="cdata"
+      @confirm="moreMsgShow = false"
+    ></DetailModel>
   </div>
 </template>
 
 <script>
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
-import { taskStateEnum } from "@/enum/workModule";
-import { taskTypeEnum } from "@/enum/workModule";
+import { taskStateEnum, taskTypeEnum } from "@/enum/workModule";
+import { ViewSubtasksTableObj } from "./viewSubtasksTableConfig";
+import { downLoad } from "@/jv_doc/utils/file/index";
+import addProjectTask from "@/views/workModule/project/projectTask/DetailsList/addProjectTask";
+import { project_task_get_children_item } from "@/api/workApi/project/projectTask";
+import distributionTaskDialog from "./distributionTaskDialog";
+import DetailModel from "./DetailModel/index.vue";
 export default {
+  components: {
+    addProjectTask,
+    distributionTaskDialog,
+    DetailModel,
+  },
+  data() {
+    return {
+      type: "edit",
+      moreMsgShow: false,
+      addProjectTaskDialogFormVisible: false,
+      distributionTaskDialogFormVisible: false,
+      viewSubtasksDialogVisible: false,
+      transferData: {},
+      viewSubtasksTableObj: {},
+      tooltipFlag: false,
+      TaskData: {},
+    };
+  },
   props: {
     cdata: {
       type: Object,
       default: () => {},
     },
   },
+  created() {
+    this.viewSubtasksTableObj = new ViewSubtasksTableObj();
+  },
   methods: {
     imgUrlPlugin,
     cardClick() {
-      this.$router.push({
-        name: "Pm_ProjectTask_Detail",
-        query: { BillId: this.cdata.BillId },
-      });
+      this.moreMsgShow = true;
+    },
+    handleCommand(e) {
+      if (e == "edit") {
+        // alert("edit");
+        this.addProjectTaskDialogFormVisible = true;
+        this.transferData = JSON.parse(
+          JSON.stringify(
+            Object.assign({}, this.cdata, {
+              ItemPlanEnd: this.cdata.PlanEnd,
+              ItemPlanStart: this.cdata.PlanStart,
+            })
+          )
+        );
+        console.log(this.transferData, 66656868);
+      } else if (e == "distributionTask") {
+        this.distributionTaskDialogFormVisible = true;
+        this.TaskData = this.cdata;
+      } else if (e == "viewSubTask") {
+        this.viewSubtasksDialogVisible = true;
+        project_task_get_children_item({ Id: this.cdata.Id }).then((res) => {
+          this.viewSubtasksTableObj.setData(res.Items);
+        });
+      } else if (e == "downLoadProductImg") {
+        downLoad({
+          params: {
+            Version: this.cdata.ProductVersion,
+            PartNo: this.cdata.PartNo,
+          },
+          url: `/files/down_file_ftp`,
+        });
+      }
+    },
+    dialogConfirm() {
+      this.viewSubtasksDialogVisible = false;
+    },
+    confirmData() {
+      this.addProjectTaskDialogFormVisible = false;
+      // this.tableObj.getData();
+      this.toFresh();
+    },
+    confirmDistributionTask() {
+      this.distributionTaskDialogFormVisible = false;
+    },
+    visibilityChange(event) {
+      this.tooltipFlag = true;
+    },
+    toFresh() {
+      this.$emit("toFresh");
     },
   },
   computed: {
@@ -96,14 +239,26 @@ export default {
   background-color: #fff;
   font-size: 14px;
   cursor: pointer;
+  position: relative;
+  .more-func {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+  }
   .state-bar {
     // width: 100%;
     height: 20px;
+    display: flex;
     border-radius: 10px 10px 0px 0px;
     background-color: rgb(211, 153, 153);
     width: 210px;
     padding: 1px 5px;
-    @include ellipsis;
+
+    div {
+      margin-left: 5px;
+      width: 150px;
+      @include ellipsis;
+    }
   }
   .task-content {
     width: 100%;
@@ -125,7 +280,7 @@ export default {
         top: 5px;
         background-color: rgb(231, 231, 231);
         .image-slot {
-          width: 100%;
+          width: 50px;
           height: 100%;
           display: flex;
           justify-content: center;

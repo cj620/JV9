@@ -10,6 +10,8 @@
 import enLocale from "element-ui/lib/locale/lang/en";
 const en = {
   menu: {
+    Pa_ProgramTaskList: "Pa program task list",
+    De_DesignTaskList: "Design task list",
     De_ProcessTemplate: "Process template",
     Pu_Supplier: "Supplier",
     Sa_Sale: "Sale",
