@@ -59,6 +59,10 @@
         <template #operation="{ row }">
           <TableAction
             :actions="[
+               {
+                label: '查看子任务',
+                confirm: viewSubtasks.bind(null, row),
+              },
               {
                 label: $t('project.Pro_ReportToWorkRecord'),
                 confirm: jobRecordVisiable.bind(null, row),
@@ -120,18 +124,30 @@
         </template>
       </JvTable>
     </JvDialog>
+
+    <JvDialog
+      :visible.sync="viewSubtasksDialogVisible"
+      title="查看子任务"
+      v-if="viewSubtasksDialogVisible"
+      @confirm="viewSubtasksDialogConfirm"
+      width="60%"
+    >
+      <JvTable :tableObj="viewSubtasksTableObj"> </JvTable>
+    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import { Table, detailConfig } from "./config";
+import { ViewSubtasksTableObj } from "./viewSubtasksTableConfig";
 import { JobRecordTable } from "./jobRecordTableConfig";
 import Detail from "@/jv_doc/class/detail/Detail";
 import {
   API as ProjectTask,
   getJobRecord,
   successProjectTask,
+  project_task_get_children_item,
 } from "@/api/workApi/project/projectTask";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { save_project_dynamic } from "@/api/workApi/project/projectInfo";
@@ -194,6 +210,8 @@ export default {
       ],
       dynamicShow: false,
       dialogVisible: false,
+      viewSubtasksDialogVisible: false,
+      viewSubtasksTableObj: {},
     };
   },
   computed: {
@@ -213,6 +231,7 @@ export default {
     });
     this.jobRecordTableObj = new JobRecordTable();
     this.getData();
+    this.viewSubtasksTableObj = new ViewSubtasksTableObj();
   },
   mounted() {},
   methods: {
@@ -271,6 +290,17 @@ export default {
       successProjectTask({ BillId: this.cur_Id }).then(() => {
         this.getData();
       });
+    },
+    //查看子用户
+    viewSubtasks(row) {
+      this.viewSubtasksDialogVisible = true;
+
+      project_task_get_children_item({ Id: row.Id }).then((res) => {
+        this.viewSubtasksTableObj.setData(res.Items);
+      });
+    },
+    viewSubtasksDialogConfirm() {
+      this.viewSubtasksDialogVisible = false;
     },
   },
 };
