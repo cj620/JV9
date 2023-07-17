@@ -32,10 +32,10 @@
               confirm: del.bind(),
             },
           },
-          // {
-          //   label: $t('project.Pro_CheckDetails'),
-          //   confirm: toDetailsList,
-          // },
+          {
+            label: $t('project.Pro_CheckDetails'),
+            confirm: toDetailsList,
+          },
         ]"
       >
       </Action>
@@ -93,11 +93,11 @@ export default {
     },
   },
   methods: {
-    // toDetailsList() {
-    //   this.$router.push({
-    //     name: "Qc_FinishedProduct_Detail_list",
-    //   });
-    // },
+    toDetailsList() {
+      this.$router.push({
+        name: "Qc_FinishedProduct_Detail_list",
+      });
+    },
     //删除单据
     deleteOrder(id) {
       this.tableObj.api.del({ BillIds: id }).then((data) => {
