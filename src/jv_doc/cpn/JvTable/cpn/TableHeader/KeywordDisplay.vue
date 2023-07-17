@@ -10,7 +10,7 @@
         <FormTag
           :formObj="formObj"
           :formItem="item"
-          v-if="item._label && formObj.form[item.prop] && !item.hidden"
+          v-if="isTagShow(item)"
           @fresh="$emit('fresh')"
         ></FormTag>
       </div>
@@ -37,7 +37,17 @@ export default {
     return {};
   },
   methods: {},
-  computed: {},
+  computed: {
+    isTagShow() {
+      return (item) => {
+        return (
+          item._label &&
+          ![undefined, null].includes(this.formObj.form[item.prop]) &&
+          !item.hidden
+        );
+      };
+    },
+  },
 };
 </script>
 
