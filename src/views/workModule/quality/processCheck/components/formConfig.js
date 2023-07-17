@@ -28,7 +28,7 @@ export const formSchema = [
   {
     // 加工单
     prop: "PrTaskBillId",
-    label: "加工单",
+    label: i18n.t("Generality.Ge_PrTaskBillId"),
     cpn: "FormInput",
     cpnProps: {
       disabled: true,
@@ -44,7 +44,7 @@ export const formSchema = [
   {
     // 零件编号
     prop: "ItemId",
-    label: "零件编号",
+    label: i18n.t("Generality.Ge_PartNo"),
     cpn: "FormInput",
     cpnProps: {
       disabled: true,
@@ -53,7 +53,7 @@ export const formSchema = [
   {
     // 自检工序
     prop: "SelfCheckProcess",
-    label: "自检工序",
+    label: i18n.t("quality.Qc_SelfCheckProcess"),
     cpn: "FormInput",
     custom: true,
     rules: [
@@ -67,7 +67,7 @@ export const formSchema = [
   {
     // 检验类型
     prop: "ProcessCheckType",
-    label: "检验类型",
+    label: i18n.t("quality.Qc_ProcessCheckType"),
     cpn: "FormSelect",
     options: {
       list: enumToList(ProcessCheckTypeEnum),
@@ -81,9 +81,9 @@ export const formSchema = [
     ],
   },
   {
-    // 处理结果
+    // 检测结果
     prop: "ProcessingResult",
-    label: "检测结果",
+    label: i18n.t("quality.Qc_CheckResult"),
     cpn: "FormSelect",
     options: {
       list: enumToList(ProcessingResult),
@@ -100,7 +100,7 @@ export const formSchema = [
   {
     // 检验人
     prop: "Operator",
-    label: "检验人",
+    label: i18n.t("quality.Qc_Operator"),
     cpn: "SyncSelect",
     api: getAllUserData,
     apiOptions: {
@@ -119,7 +119,7 @@ export const formSchema = [
   {
     // 检验日期
     prop: "OperationDate",
-    label: "检验日期",
+    label: i18n.t("quality.Qc_CheckDate"),
     cpn: "SingleTime",
     default: new Date(),
     rules: [
@@ -133,7 +133,7 @@ export const formSchema = [
   {
     // 负责人
     prop: "PersonInCharge",
-    label: "负责人",
+    label: i18n.t("project.Pro_Worker"),
     cpn: "SyncSelect",
     api: getAllUserData,
     apiOptions: {
@@ -145,7 +145,7 @@ export const formSchema = [
   /*不合格原因*/
   {
     prop: "AbnormalCause",
-    label: "不合格原因",
+    label: i18n.t("quality.Qc_AbnormalCause"),
     cpn: "FormInput",
     // cpn: "SyncSelect",
     // api: ReasonOfUnqualified,
@@ -159,7 +159,7 @@ export const formSchema = [
   //   送检数量  QuantitySubmittedForInspection
   {
     prop: "SubmittedForInspectionQty",
-    label: "送检数量",
+    label: i18n.t("quality.Qc_SubmittedForInspectionQty"),
     cpn: "FormInput",
     rules: [
       {
@@ -175,7 +175,7 @@ export const formSchema = [
   // 检验数量  InspectionQuantity
   {
     prop: "InspectionQty",
-    label: "检验数量",
+    label: i18n.t("quality.Qc_InspectionQty"),
     cpn: "FormInput",
     rules: [
       {
@@ -191,7 +191,7 @@ export const formSchema = [
   // 不合格数量  UnqualifiedQuantity
   {
     prop: "UnqualifiedQty",
-    label: "不合格数量",
+    label: i18n.t("quality.Qc_UnqualifiedQty"),
     cpn: "FormInput",
     default: "0",
     rules: [
@@ -206,11 +206,11 @@ export const formSchema = [
     },
   },
   // // 关联编号
-  // { prop: "AssociatedNo", label: "关联编号", cpn: "FormInput" },
+  // { prop: "AssociatedNo", label: i18n.t("Generality.Ge_AssociatedNo"), cpn: "FormInput" },
   // 备注  Remarks
   {
     prop: "Remarks",
-    label: "备注",
+    label: i18n.t("Generality.Ge_Remarks"),
     cpn: "FormInput",
     cpnProps: {
       type: "textarea",

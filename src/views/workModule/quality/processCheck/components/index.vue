@@ -27,7 +27,7 @@
         </template>
       </JvForm>
     </JvBlock>
-    <JvBlock title="检验明细" ref="third">
+    <JvBlock :title="$t('quality.Qc_CheckDetailList')" ref="third">
       <div slot="extra">
         <el-button size="mini" @click="downExport2Excel">{{
           $t("design.De_DownloadTemplate")
@@ -35,7 +35,9 @@
         <el-button size="mini" @click="Import">{{
           $t("Generality.Ge_Import")
         }}</el-button>
-        <el-button size="mini" @click="addRow">新增</el-button>
+        <el-button size="mini" @click="addRow">{{
+          $t("Generality.Ge_New")
+        }}</el-button>
       </div>
 
       <JvEditTable :tableObj="eTableObj">
@@ -57,7 +59,7 @@
         </template>
       </JvEditTable>
     </JvBlock>
-    <JvBlock title="检验图" ref="third">
+    <JvBlock :title="$t('quality.Qc_ProcessCheckChart')" ref="third">
       <!-- <div style="height: 600px;display: flex;flex-wrap: wrap">
         <div class="check-mould-img" v-for="(item,index) in BillFiles" :key="index">
           <el-image
@@ -89,7 +91,10 @@
           <i class="el-icon-picture-outline"></i>
         </div>
       </el-image>
-      <el-empty description="暂无数据" v-if="Images.length == 0"></el-empty>
+      <el-empty
+        :description="$t('Generality.Ge_NoData')"
+        v-if="Images.length == 0"
+      ></el-empty>
     </JvBlock>
     <!-- 附件 -->
     <JvBlock :title="$t('Generality.Ge_Annex')">
@@ -194,18 +199,18 @@ export default {
       exportTemplate: [
         {
           prop: "TheoreticalValue",
-          label: "理论值",
+          label: i18n.t("quality.Qc_TheoreticalValue"),
         },
 
         /*上公差*/
         {
           prop: "UpperTolerance",
-          label: "上公差",
+          label: i18n.t("quality.Qc_UpperTolerance"),
         },
         /*下公差*/
         {
           prop: "LowerTolerance",
-          label: "下公差",
+          label: i18n.t("quality.Qc_LowerTolerance"),
         },
         /*备注*/
         {
@@ -215,7 +220,7 @@ export default {
         /*实测值*/
         {
           prop: "MeasuredValue",
-          label: "实测值",
+          label: i18n.t("quality.Qc_MeasuredValue"),
         },
       ],
       exportTemplateData: {
@@ -225,7 +230,7 @@ export default {
         dataType: "TEMPLATE",
         saveType: "xlsx",
         title: "",
-        fileName: "检验明细",
+        fileName: this.$t("quality.Qc_CheckDetailList"),
       },
     };
   },
@@ -491,11 +496,11 @@ export default {
   watch: {
     "formObj.form.SubmittedForInspectionQty": {
       handler(n, o) {
-        console.log(n, o)
+        console.log(n, o);
         this.formObj.form.InspectionQty = n;
-      }
-    }
-  }
+      },
+    },
+  },
 };
 </script>
 

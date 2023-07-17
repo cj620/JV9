@@ -35,7 +35,7 @@
     </JvBlock>
 
     <!--物料信息-->
-    <JvBlock title="检验明细" ref="second">
+    <JvBlock :title="$t('quality.Qc_CheckDetailList')" ref="second">
       <JvTable :table-obj="tableObj">
         <template #State="{ record }">
           <span :style="{ color: record == 'NG' ? 'red' : '#000' }">
@@ -46,7 +46,7 @@
       </JvTable>
     </JvBlock>
     <!--物料信息-->
-    <JvBlock title="检验图" ref="third">
+    <JvBlock :title="$t('quality.Qc_ProcessCheckChart')" ref="third">
       <!-- <div style="height: 600px;display: flex;flex-wrap: wrap">
         <div class="check-mould-img" v-for="(item,index) in BillFiles" :key="index">
           <el-image
@@ -76,7 +76,7 @@
         </div>
       </el-image>
       <el-empty
-        description="暂无数据"
+        :description="$t('Generality.Ge_NoData')"
         v-if="
           !detailObj.detailData.Images ||
           detailObj.detailData.Images.length == 0
@@ -133,20 +133,24 @@ export default {
           label: this.$t("Generality.Ge_BillInfo"),
           name: "first",
         },
+        // 检验明细
         {
-          label: "检验明细",
+          label: this.$t("quality.Qc_CheckDetailList"),
           name: "second",
         },
+        // 检验图
         {
-          label: "检验图",
+          label: this.$t("quality.Qc_ProcessCheckChart"),
           name: "third",
         },
+        // 附件
         {
-          label: "附件",
+          label: this.$t("Generality.Ge_Annex"),
           name: "fourth",
         },
+        // 审核流程
         {
-          label: "审核流程",
+          label: this.$t("Generality.Ge_ApproveProcess"),
           name: "fifth",
         },
       ],

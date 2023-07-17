@@ -79,20 +79,20 @@ const tableSchema = [
   {
     // 加工单
     prop: "PrTaskBillId",
-    label: "加工单",
+    label: i18n.t("Generality.Ge_PrTaskBillId"),
     width: "120px",
   },
   {
     // 制单日期
     prop: "CreationDate",
-    label: "制单日期",
+    label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
     width: "150px",
   },
   {
-    // 处理结果
+    // 检测结果
     prop: "ProcessingResult",
-    label: "检测结果",
+    label: i18n.t("quality.Qc_CheckResult"),
     customFilter: (value, row) => {
       if (!value) return "";
       return ProcessingResult?.[value]?.name ?? value;
@@ -101,17 +101,17 @@ const tableSchema = [
   {
     // 返工工序
     prop: "ReworkProcess",
-    label: "返工工序",
+    label: i18n.t("quality.Qc_ReworkProcess"),
   },
   {
     // 负责人
     prop: "PersonInCharge",
-    label: "负责人",
+    label: i18n.t("project.Pro_Worker"),
   },
   {
     // 不合格原因
     prop: "AbnormalCause",
-    label: "不合格原因",
+    label: i18n.t("quality.Qc_AbnormalCause"),
   },
   /*物料编号*/
   {
@@ -156,7 +156,7 @@ const formSchema = [
 
   {
     prop: "ItemId",
-    label: "零件编号",
+    label: i18n.t("Generality.Ge_PartNo"),
     cpn: "AsyncSearch",
     api: itemList,
     apiOptions: {

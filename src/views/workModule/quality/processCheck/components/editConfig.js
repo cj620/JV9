@@ -26,41 +26,41 @@ export const tableConfig = [
   // 序号
   {
     prop: "SortOrder",
-    label: "序号",
+    label: i18n.t("production.Pr_SortOrder"),
     formCpn: "FormInput",
   },
   /*理论值*/
   {
     prop: "TheoreticalValue",
-    label: "理论值",
+    label: i18n.t("quality.Qc_TheoreticalValue"),
     formCpn: "FormInput",
     type: "number",
   },
   /*上公差*/
   {
     prop: "UpperTolerance",
-    label: "上公差",
+    label: i18n.t("quality.Qc_UpperTolerance"),
     formCpn: "FormInput",
     type: "number",
   },
   /*下公差*/
   {
     prop: "LowerTolerance",
-    label: "下公差",
+    label: i18n.t("quality.Qc_LowerTolerance"),
     formCpn: "FormInput",
     type: "number",
   },
   /*实测值*/
   {
     prop: "MeasuredValue",
-    label: "实测值",
+    label: i18n.t("quality.Qc_MeasuredValue"),
     formCpn: "FormInput",
     type: "number",
   },
   /*状态*/
   {
     prop: "State",
-    label: "状态",
+    label: i18n.t("Generality.Ge_State"),
     custom: true,
     editConfig: {
       disabled: true,

@@ -71,17 +71,17 @@ export const tableConfig = [
   {
     // 加工单
     prop: "PrTaskBillId",
-    label: "加工单",
+    label: i18n.t("Generality.Ge_PrTaskBillId"),
   },
   {
     // 返工工序
     prop: "ReworkProcess",
-    label: "返工工序",
+    label: i18n.t("quality.Qc_ReworkProcess"),
   },
   {
     // 检测结果
     prop: "ProcessingResult",
-    label: "检测结果",
+    label: i18n.t("quality.Qc_CheckResult"),
     customFilter: (value, row) => {
       if (!value) return "";
       return ProcessingResult?.[value]?.name ?? value;
@@ -90,35 +90,35 @@ export const tableConfig = [
   {
     // 负责人
     prop: "PersonInCharge",
-    label: "负责人",
+    label: i18n.t("project.Pro_Worker"),
   },
   {
     // 不合格原因
     prop: "AbnormalCause",
-    label: "不合格原因",
+    label: i18n.t("quality.Qc_AbnormalCause"),
   },
   {
     prop: "Analyst",
-    label: "不合格原因分析人",
+    label: i18n.t("quality.Qc_AbnormalCauseAnalyst"),
   },
   {
     prop: "SubmittedForInspectionQty",
-    label: "送检数量",
+    label: i18n.t("quality.Qc_SubmittedForInspectionQty"),
   },
   {
     // 检验数量
     prop: "InspectionQty",
-    label: "检验数量",
+    label: i18n.t("quality.Qc_InspectionQty"),
   },
   {
     // 不合格数量
     prop: "UnqualifiedQty",
-    label: "不合格数量",
+    label: i18n.t("quality.Qc_UnqualifiedQty"),
   },
   {
     // 关联编号
     prop: "AssociatedNo",
-    label: "关联编号",
+    label: i18n.t("Generality.Ge_AssociatedNo"),
   },
   /*制单人*/
   {

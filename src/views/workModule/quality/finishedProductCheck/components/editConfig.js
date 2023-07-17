@@ -28,7 +28,7 @@ export const tableConfig = [
   // 序号
   {
     prop: "ItemId",
-    label: "物料编号",
+    label: i18n.t("Generality.Ge_ItemId"),
     editConfig: {
       disabled: true,
     },
@@ -36,7 +36,7 @@ export const tableConfig = [
   /*名称*/
   {
     prop: "ItemName",
-    label: "名称",
+    label: i18n.t("Generality.Ge_ItemName"),
     editConfig: {
       disabled: true,
     },
@@ -44,7 +44,7 @@ export const tableConfig = [
   /*描述*/
   {
     prop: "Description",
-    label: "描述",
+    label: i18n.t("Generality.Ge_Describe"),
     editConfig: {
       disabled: true,
     },
@@ -52,14 +52,14 @@ export const tableConfig = [
   /*数量*/
   {
     prop: "Quantity",
-    label: "数量",
+    label: i18n.t("Generality.Ge_Quantity"),
     formCpn: "FormInput",
     type: "number",
   },
   /*状态*/
   {
     prop: "State",
-    label: "状态",
+    label: i18n.t("Generality.Ge_State"),
     formCpn: "FormSelect",
     options: {
       list: enumToList(StateEnum),

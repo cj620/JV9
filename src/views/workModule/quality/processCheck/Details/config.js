@@ -21,32 +21,32 @@ export const tableConfig = [
   // 序号
   {
     prop: "SortOrder",
-    label: "序号",
+    label: i18n.t("production.Pr_SortOrder"),
   },
   /*理论值*/
   {
     prop: "TheoreticalValue",
-    label: "理论值",
+    label: i18n.t("quality.Qc_TheoreticalValue"),
   },
   /*上公差*/
   {
     prop: "UpperTolerance",
-    label: "上公差",
+    label: i18n.t("quality.Qc_UpperTolerance"),
   },
   /*下公差*/
   {
     prop: "LowerTolerance",
-    label: "下公差",
+    label: i18n.t("quality.Qc_LowerTolerance"),
   },
   /*实测值*/
   {
     prop: "MeasuredValue",
-    label: "实测值",
+    label: i18n.t("quality.Qc_MeasuredValue"),
   },
   /*状态*/
   {
     prop: "State",
-    label: "状态",
+    label: i18n.t("Generality.Ge_State"),
     custom: true,
   },
   // ReasonOfUnqualified
@@ -60,23 +60,23 @@ export const detailConfig = [
   {
     // 加工单
     prop: "PrTaskBillId",
-    label: "加工单",
+    label: i18n.t("Generality.Ge_PrTaskBillId"),
     custom: true,
   },
   {
     // 零件编号
     prop: "ItemId",
-    label: "零件编号",
+    label: i18n.t("Generality.Ge_PartNo"),
   },
   {
     // 自检工序
     prop: "SelfCheckProcess",
-    label: "自检工序",
+    label: i18n.t("quality.Qc_SelfCheckProcess"),
   },
   {
     // 检验类型
     prop: "ProcessCheckType",
-    label: "检验类型",
+    label: i18n.t("quality.Qc_ProcessCheckType"),
     customFilter: (value, row) => enumFilter(value, ProcessCheckTypeEnum),
     // {
     //   if(!value) return ''
@@ -86,7 +86,7 @@ export const detailConfig = [
   {
     // 检测结果
     prop: "ProcessingResult",
-    label: "检测结果",
+    label: i18n.t("quality.Qc_CheckResult"),
     customFilter: (value, row) => enumFilter(value, ProcessingResult),
     // {
 
@@ -97,38 +97,38 @@ export const detailConfig = [
   {
     // 检验人
     prop: "Operator",
-    label: "检验人",
+    label: i18n.t("quality.Qc_Operator"),
   },
   {
     // 检验日期
     prop: "OperationDate",
-    label: "检验日期",
+    label: i18n.t("quality.Qc_CheckDate"),
     filter: "date",
   },
   {
     // 负责人
     prop: "PersonInCharge",
-    label: "负责人",
+    label: i18n.t("project.Pro_Worker"),
   },
   {
     prop: "AbnormalCause",
-    label: "不合格原因",
+    label: i18n.t("quality.Qc_AbnormalCause"),
   },
   {
     prop: "SubmittedForInspectionQty",
-    label: "送检数量",
+    label: i18n.t("quality.Qc_SubmittedForInspectionQty"),
   },
   {
     prop: "InspectionQty",
-    label: "检验数量",
+    label: i18n.t("quality.Qc_InspectionQty"),
   },
   {
     prop: "UnqualifiedQty",
-    label: "不合格数量",
+    label: i18n.t("quality.Qc_UnqualifiedQty"),
   },
   {
     prop: "AssociatedNo",
-    label: "关联编号",
+    label: i18n.t("Generality.Ge_AssociatedNo"),
   },
   {
     // 制单人
@@ -144,6 +144,6 @@ export const detailConfig = [
   // 备注  Remarks
   {
     prop: "Remarks",
-    label: "备注",
+    label: i18n.t("Generality.Ge_Remarks"),
   },
 ];

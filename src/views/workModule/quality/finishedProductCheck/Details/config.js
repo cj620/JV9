@@ -20,27 +20,27 @@ export class Table extends BaseTable {
 export const tableConfig = [
   {
     prop: "ItemId",
-    label: "物料编号",
+    label: i18n.t("Generality.Ge_ItemId"),
   },
 
   {
     prop: "ItemName",
-    label: "名称",
+    label: i18n.t("Generality.Ge_ItemName"),
   },
 
   {
     prop: "Description",
-    label: "描述",
+    label: i18n.t("Generality.Ge_Describe"),
   },
 
   {
     prop: "Quantity",
-    label: "数量",
+    label: i18n.t("Generality.Ge_Quantity"),
   },
   /*状态*/
   {
     prop: "State",
-    label: "状态",
+    label: i18n.t("Generality.Ge_State"),
     custom: true,
   },
 
@@ -54,17 +54,17 @@ export const detailConfig = [
   {
     // 加工单
     prop: "PrTaskBillId",
-    label: "加工单",
+    label: i18n.t("Generality.Ge_PrTaskBillId"),
   },
   {
     // 返工工序
     prop: "ReworkProcess",
-    label: "返工工序",
+    label: i18n.t("quality.Qc_ReworkProcess"),
   },
   {
     // 检测结果
     prop: "ProcessingResult",
-    label: "检测结果",
+    label: i18n.t("quality.Qc_CheckResult"),
     customFilter: (value, row) => enumFilter(value, ProcessingResult),
     // {
 
@@ -75,31 +75,31 @@ export const detailConfig = [
   {
     // 负责人
     prop: "PersonInCharge",
-    label: "负责人",
+    label: i18n.t("project.Pro_Worker"),
   },
   {
     prop: "AbnormalCause",
-    label: "不合格原因",
+    label: i18n.t("quality.Qc_AbnormalCause"),
   },
   {
     prop: "Analyst",
-    label: "不合格原因分析人	",
+    label: i18n.t("quality.Qc_AbnormalCauseAnalyst"),
   },
   {
     prop: "SubmittedForInspectionQty",
-    label: "送检数量",
+    label: i18n.t("quality.Qc_SubmittedForInspectionQty"),
   },
   {
     prop: "InspectionQty",
-    label: "检验数量",
+    label: i18n.t("quality.Qc_InspectionQty"),
   },
   {
     prop: "UnqualifiedQty",
-    label: "不合格数量",
+    label: i18n.t("quality.Qc_UnqualifiedQty"),
   },
   {
     prop: "AssociatedNo",
-    label: "关联编号",
+    label: i18n.t("Generality.Ge_AssociatedNo"),
   },
   // {
   //   prop: "State",
@@ -119,6 +119,6 @@ export const detailConfig = [
   // 备注  Remarks
   {
     prop: "Remarks",
-    label: "备注",
+    label: i18n.t("Generality.Ge_Remarks"),
   },
 ];

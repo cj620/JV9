@@ -97,18 +97,18 @@ export const tableConfig = [
   {
     // 自检工序
     prop: "SelfCheckProcess",
-    label: "自检工序",
+    label: i18n.t("quality.Qc_SelfCheckProcess"),
   },
   {
     // 检验类型
     prop: "ProcessCheckType",
-    label: "检验类型",
+    label: i18n.t("quality.Qc_ProcessCheckType"),
     customFilter: (value, row) => enumFilter(value, ProcessCheckTypeEnum),
   },
   {
     // 处理结果
     prop: "ProcessingResult",
-    label: "检测结果",
+    label: i18n.t("quality.Qc_CheckResult"),
     customFilter: (value, row) => {
       if (!value) return "";
       return ProcessingResult?.[value]?.name ?? value;
@@ -129,31 +129,31 @@ export const tableConfig = [
   {
     // 负责人
     prop: "PersonInCharge",
-    label: "负责人",
+    label: i18n.t("project.Pro_Worker"),
   },
   {
     // 不合格原因
     prop: "AbnormalCause",
-    label: "不合格原因",
+    label: i18n.t("quality.Qc_AbnormalCause"),
   },
   {
     prop: "SubmittedForInspectionQty",
-    label: "送检数量",
+    label: i18n.t("quality.Qc_SubmittedForInspectionQty"),
   },
   {
     // 检验数量
     prop: "InspectionQty",
-    label: "检验数量",
+    label: i18n.t("quality.Qc_InspectionQty"),
   },
   {
     // 不合格数量
     prop: "UnqualifiedQty",
-    label: "不合格数量",
+    label: i18n.t("quality.Qc_UnqualifiedQty"),
   },
   {
     // 关联编号
     prop: "AssociatedNo",
-    label: "关联编号",
+    label: i18n.t("Generality.Ge_AssociatedNo"),
   },
   {
     // 制单人
@@ -183,13 +183,13 @@ export const formSchema = [
   //零件编号
   {
     prop: "ItemId",
-    label: "零件编号",
+    label: i18n.t("Generality.Ge_PartNo"),
     cpn: "FormInput",
   },
-  //操作人
+  //检验人
   {
     prop: "Operator",
-    label: "操作人",
+    label: i18n.t("quality.Qc_Operator"),
     cpn: "SyncSelect",
     api: getAllUserData,
     apiOptions: {
@@ -201,7 +201,7 @@ export const formSchema = [
   //检测结果
   {
     prop: "ProcessCheckType",
-    label: "检验类型",
+    label: i18n.t("quality.Qc_ProcessCheckType"),
     cpn: "FormSelect",
     options: {
       list: enumToList(ProcessCheckTypeEnum),
@@ -210,7 +210,7 @@ export const formSchema = [
   //检测结果
   {
     prop: "ProcessingResult",
-    label: "检测结果",
+    label: i18n.t("quality.Qc_CheckResult"),
     cpn: "FormSelect",
     options: {
       list: enumToList(ProcessingResult),
@@ -219,17 +219,17 @@ export const formSchema = [
   //加工单号
   {
     prop: "PrTaskBillId",
-    label: "加工单号",
+    label: i18n.t("Generality.Ge_PrTaskBillId"),
     cpn: "FormInput",
   },
   {
     prop: "StartDate",
-    label: "开始时间",
+    label: i18n.t("Generality.Ge_StartDate"),
     cpn: "SingleTime",
   },
   {
     prop: "EndDate",
-    label: "结束时间",
+    label: i18n.t("Generality.Ge_EndDate"),
     cpn: "SingleTime",
   },
   {

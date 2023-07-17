@@ -5,6 +5,7 @@ import {
   enumToList,
   ProcessCheckTypeEnum,
 } from "@/enum/workModule";
+import i18n from "@/i18n/i18n";
 // import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
 
 // async function ReasonOfUnqualified(e) {
@@ -28,7 +29,7 @@ export const formSchema = [
   {
     // 加工单
     prop: "PrTaskBillId",
-    label: "加工单",
+    label: i18n.t("Generality.Ge_PrTaskBillId"),
     cpn: "FormInput",
     cpnProps: {
       disabled: true,
@@ -44,7 +45,7 @@ export const formSchema = [
   {
     // 检测结果
     prop: "ProcessingResult",
-    label: "检测结果",
+    label: i18n.t("quality.Qc_CheckResult"),
     cpn: "FormSelect",
     options: {
       list: enumToList(ProcessingResult),
@@ -60,7 +61,7 @@ export const formSchema = [
   {
     // 返工工序
     prop: "ReworkProcess",
-    label: "返工工序",
+    label: i18n.t("quality.Qc_ReworkProcess"),
     cpn: "FormSelect",
     type: "multiple",
     cpnProps: {
@@ -71,11 +72,10 @@ export const formSchema = [
     },
   },
 
-
   {
     // 负责人
     prop: "PersonInCharge",
-    label: "负责人",
+    label: i18n.t("project.Pro_Worker"),
     cpn: "SyncSelect",
     api: getAllUserData,
     apiOptions: {
@@ -87,7 +87,7 @@ export const formSchema = [
   /*不合格原因*/
   {
     prop: "AbnormalCause",
-    label: "不合格原因",
+    label: i18n.t("quality.Qc_AbnormalCause"),
     cpn: "FormInput",
     // cpn: "SyncSelect",
     // api: ReasonOfUnqualified,
@@ -101,7 +101,7 @@ export const formSchema = [
   // 不合格原因分析人
   {
     prop: "Analyst",
-    label: "不合格原因分析人",
+    label: i18n.t("quality.Qc_AbnormalCauseAnalyst"),
     cpn: "SyncSelect",
     api: getAllUserData,
     apiOptions: {
@@ -113,7 +113,7 @@ export const formSchema = [
   //   送检数量  QuantitySubmittedForInspection
   {
     prop: "SubmittedForInspectionQty",
-    label: "送检数量",
+    label: i18n.t("quality.Qc_SubmittedForInspectionQty"),
     cpn: "FormInput",
     rules: [
       {
@@ -129,7 +129,7 @@ export const formSchema = [
   // 检验数量  InspectionQuantity
   {
     prop: "InspectionQty",
-    label: "检验数量",
+    label: i18n.t("quality.Qc_InspectionQty"),
     cpn: "FormInput",
     rules: [
       {
@@ -145,7 +145,7 @@ export const formSchema = [
   // 不合格数量  UnqualifiedQuantity
   {
     prop: "UnqualifiedQty",
-    label: "不合格数量",
+    label: i18n.t("quality.Qc_UnqualifiedQty"),
     cpn: "FormInput",
     default: "0",
     rules: [
@@ -164,7 +164,7 @@ export const formSchema = [
   // 备注  Remarks
   {
     prop: "Remarks",
-    label: "备注",
+    label: i18n.t("Generality.Ge_Remarks"),
     cpn: "FormInput",
     cpnProps: {
       type: "textarea",

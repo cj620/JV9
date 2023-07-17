@@ -24,14 +24,15 @@
       <template #operation="{ row }">
         <TableAction
           :actions="[
-
+            // 创建过程单
             {
-              label: '过程单',
+              label: $t('menu.Qc_ProcessCheck'),
               disabled: getActionState(row.CheckResult),
               confirm: toMachiningCheckList.bind(null, row),
             },
+            // 创建成品单
             {
-              label: '成品单',
+              label: $t('menu.Qc_FinishedProduct'),
               disabled: getActionState(row.CheckResult),
               confirm: toFinishedProduct.bind(null, row),
             },
@@ -73,7 +74,7 @@ export default {
         Qualified: i18n.t("quality.Qc_Qualified"),
         TobeChecked: i18n.t("quality.Qc_ToBeTested"),
         Unqualified: i18n.t("quality.Qc_Unqualified"),
-        Completed: "已完成",
+        Completed: i18n.t("Generality.Ge_Completed"),
       },
     };
   },

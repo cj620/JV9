@@ -35,7 +35,7 @@
     </JvBlock>
 
     <!--物料信息-->
-    <JvBlock title="检验明细" ref="second">
+    <JvBlock :title="$t('quality.Qc_CheckDetailList')" ref="second">
       <JvTable :table-obj="tableObj">
         <template #State="{ record }">
           <span :style="{ color: record == 'NG' ? 'red' : '#000' }">
@@ -99,15 +99,15 @@ export default {
           name: "first",
         },
         {
-          label: "检验明细",
+          label: this.$t("quality.Qc_CheckDetailList"),
           name: "second",
         },
         {
-          label: "附件",
+          label: this.$t("Generality.Ge_Annex"),
           name: "fourth",
         },
         {
-          label: "审核流程",
+          label: this.$t("Generality.Ge_ApproveProcess"),
           name: "fifth",
         },
       ],

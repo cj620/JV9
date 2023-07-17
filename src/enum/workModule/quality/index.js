@@ -27,24 +27,24 @@ export const ProcessCheckTypeEnum = {
   // 首检  FirstInspection
 
   SelfCheck: {
-    name: "自检",
+    name: i18n.t("quality.Qc_SelfCheck"),
     value: "SelfCheck",
   },
   // NG
   NormalCheck: {
-    name: "巡检",
+    name: i18n.t("quality.Qc_NormalCheck"),
     value: "NormalCheck",
   },
   // NG
   FirstInspection: {
-    name: "首检",
+    name: i18n.t("quality.Qc_FirstInspection"),
     value: "FirstInspection",
   },
 };
 // 成品检验类型
 export const FinishedProductCheckType = {
   FirstInspection: {
-    name: "首检",
+    name: i18n.t("quality.Qc_FirstInspection"),
     value: "FirstInspection",
   },
 };
@@ -55,27 +55,27 @@ export const ProcessingResult = {
   // AcceptOnDeviation 特采
 
   Normal: {
-    name: "正常",
+    name: i18n.t("production.Pr_Normal"),
     value: "Normal",
   },
   // 返工
   Rework: {
-    name: "返工",
+    name: i18n.t("quality.Qc_Rework"),
     value: "Rework",
   },
   // 报废
   Scrap: {
-    name: "报废",
+    name: i18n.t("quality.Qc_Scrapped"),
     value: "Scrap",
   },
   // 特采
   AcceptOnDeviation: {
-    name: "特采",
+    name: i18n.t("quality.Qc_AcceptOnDeviation"),
     value: "AcceptOnDeviation",
   },
   // 过程返工
   NormalRework: {
-    name: "过程返工",
+    name: i18n.t("quality.Qc_NormalRework"),
     value: "NormalRework",
   },
 };
@@ -94,35 +94,36 @@ export const CheckResulteEnum = {
     value: "Unqualified",
   },
   Completed: {
-    name: "已完成",
+    name: i18n.t("Generality.Ge_Completed"),
     value: "Completed",
   },
   InspectionExemption: {
-    name: "免检",
+    name: i18n.t("quality.Qc_InspectionExemption"),
     value: "InspectionExemption",
   },
 };
 
 export const gageStateEnum = {
   Unreturn: {
-    name: "未归还",
+    name: i18n.t("quality.Qc_Unreturn"),
     value: "Unreturn",
   },
   // 返工
   Return: {
-    name: "归还",
+    name: i18n.t("quality.Qc_Return"),
     value: "Return",
   },
 };
 //质检类型
 export const QcType = {
+  //过程检验
   Qc_ProcessCheck: {
-    name: "过程检验单",
+    name: i18n.t("menu.Qc_ProcessCheck"),
     value: "Qc_ProcessCheck",
   },
-  // 返工
+  // 成品检验
   Qc_FinishedProduct: {
-    name: "成品检验",
+    name: i18n.t("menu.Qc_FinishedProduct"),
     value: "Qc_FinishedProduct",
   },
 };
