@@ -72,7 +72,7 @@ const ja = {
     Qc_Quality: "品質",
     Qc_ProductionCheck: "プロセスチェツク",
     Qc_FinishedProduct: "製品検査",
-    Qc_ProcessCheck: "プロセス検証文書",
+    Qc_ProcessCheck: "プロセスチェツク",
     Qc_QualityReport: "品質レポート",
     Qc_QualityRecord: "チェツクレコード",
     Qc_QualityError: "品質異常",
