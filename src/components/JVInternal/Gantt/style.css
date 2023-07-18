@@ -777,6 +777,16 @@ div.dhx_modal_cover {
     rgba(255, 255, 255, 0.15) 20px
   );
 }
+.gantt_task_line .gantt_task_drag {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQYV2NkQAOMIP6vX7/+g2g2NjZG7ALIugAfzQgFD7inoAAAAABJRU5ErkJggg==);
+  opacity: 0.95;
+}
+.gantt_task_line .gantt_task_drag.task_left {
+  left: 9px;
+}
+.gantt_task_line .gantt_task_drag.task_right {
+  right: 9px;
+}
 .gantt_task_line.gantt_drag_move div {
   cursor: move;
 }
@@ -957,10 +967,10 @@ div.dhx_modal_cover {
   cursor: w-resize;
 }
 .gantt_task_drag {
-  height: 100%;
+  height: 80%;
   width: 8px;
   z-index: 1;
-  top: -1px;
+  top: 10%;
 }
 .gantt_task_drag.task_left {
   left: -7px;
@@ -2037,4 +2047,106 @@ div.dhx_modal_cover {
   border: 0;
   box-sizing: border-box;
   opacity: 0;
+}
+
+/* 新增自定义 */
+.gantt_task_link .custom-tooltip {
+	position: absolute;
+	bottom: 0;
+	font-size: 14px;
+	background: #ffffff;
+	color: #ffffff;
+	padding: 5px 8px;
+	border-radius: 5px;
+	box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+	opacity: 0;
+	pointer-events: none;
+	transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.gantt_task_link .custom-tooltip::before {
+	position: absolute;
+	content: "";
+	height: 8px;
+	width: 8px;
+	background: #ffffff;
+	/* bottom: -3px; */
+	top: -3px;
+	left: 50%;
+	transform: translate(-50%) rotate(45deg);
+	transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.gantt_task_link .gantt_line_wrapper:hover .custom-tooltip {
+	bottom: -35px;
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+.gantt_task_link .gantt_line_wrapper:hover span,
+.gantt_task_link .gantt_line_wrapper:hover .custom-tooltip {
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.gantt_task_link .gantt_line_wrapper:hover .custom-tooltip,
+.gantt_task_link .gantt_line_wrapper:hover .custom-tooltip::before {
+	background: #333333;
+	color: #ffffff;
+  z-index: 999;
+}
+
+
+.gantt_container ::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  /* width: 10px; 高宽分别对应横竖滚动条的尺寸*/
+  height: 6px;
+}
+.gantt_container ::-webkit-scrollbar-thumb {
+  width: 40px;
+  /*滚动条里面小方块*/
+  border-radius: 10px;
+  background-color: #a6a6a6;
+  background-image: -webkit-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+}
+.gantt_container ::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  box-shadow: inset 0 0 5px #ebebeb;
+  background: #ededed;
+  border-radius: 10px;
+}
+ 
+.gantt_layout_cell_border_transparent ::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  /* width: 10px; 高宽分别对应横竖滚动条的尺寸*/
+  width: 6px;
+  height: 30px;
+}
+.gantt_layout_cell_border_transparent ::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 10px;
+  background-color: #a6a6a6;
+  background-image: -webkit-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+}
+.gantt_layout_cell_border_transparent ::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  box-shadow: inset 0 0 5px #ebebeb;
+  background: #ededed;
+  border-radius: 10px;
 }

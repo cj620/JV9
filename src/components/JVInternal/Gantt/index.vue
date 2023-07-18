@@ -115,7 +115,7 @@ export default {
 		GetData() {
 			// 日期列显示
 			// gantt.config.min_column_width = 60
-			var that = this;
+			// var that = this;
 			if (localStorage.lang === "cn") {
 				gantt.i18n.setLocale("cn");
 			} else if (localStorage.lang === "en") {
@@ -358,7 +358,6 @@ export default {
 			gantt.render();
 			//加载数据
 			gantt.parse(this.$props.tasks);
-
 			this.onTaskClick(); // 单击事件
 			this.onTaskDblClick(); // 双击事件
 			this.onTaskDrag(); // 拖动事件
@@ -377,6 +376,7 @@ export default {
 					task.start_date = this.oldDateList[new_item.$index].start_date;
 					task.end_date = this.oldDateList[new_item.$index].end_date;
 					gantt.updateTask(id);
+					this.setLinks();
 					this.$nextTick(() => {
 						this.isConfrim = false;
 					})
@@ -384,16 +384,29 @@ export default {
 			});
 			// // 任务更新后
 			// gantt.attachEvent("onAfterTaskUpdate", (id, item) => {
-
-			// 	//any custom logic here
 			// });
 			
-			gantt.attachEvent("onLinkCreated", (id) => {
-				console.log('id::: ', id);
-				// gantt.config.link_attribute = "_custom-link-id";
+			gantt.attachEvent("onLinkCreated", (link) => { // 创建链接
+				console.log('link::: ', link);
 				return true;
 			})
+
+			gantt.attachEvent("onLinkClick", function(id,e){ // 链接单击
+				console.log('e::: ', e);
+				console.log('id::: ', id);
+			});
 			
+			// 页面进来可能甘特图还未挂载完毕，定个延时器，延迟设置links
+			let timer = setTimeout(() => {
+				this.setLinks();
+				clearTimeout(timer);
+			},100);
+			// 监听浏览器窗口变化，重新设置links
+			window.onresize = () => {
+				this.debounce(this.setLinks,300)
+			}
+			// let ids = linkr[1].getAttribute("data-link-id");
+			// console.log('ids::: ', ids);
 		},
 		confirm() {
 			let that = this;
@@ -613,7 +626,28 @@ export default {
 				}
 				//加载数据
 				gantt.parse(tasks);
+				this.setLinks(); // 设置link
 			});
+		},
+		setLinks() { // 设置link  gantt_task_link
+			let linkr = document.querySelectorAll('.gantt_task_link');
+			// 创建一个tooltip节点
+			let span = document.createElement('span')
+    		span.className = "custom-tooltip";
+			// 循环link节点
+			linkr.forEach((item,i) => {
+				// 循环linewrapper节点
+				item.childNodes.forEach((jtem, j) => {
+					// 鼠标悬浮事件
+					jtem.addEventListener('mouseenter', (e) => {
+						// console.log('e::: ', e.offsetX,e.offsetY);
+						span.innerHTML = gantt.getLink(i+1).info;
+						span.style.transform = `translateX(${e.offsetX}px)`;
+						jtem.appendChild(span);
+					})
+				})
+				
+			})
 		}
 	},
 };
@@ -633,6 +667,7 @@ export default {
 .gantt_selected .weekend {
 	background: #f7eb91 !important;
 }
+
 
 // .gantt_cal_quick_info{ // 单击显示的信息弹窗
 //   border-radius: 8px;

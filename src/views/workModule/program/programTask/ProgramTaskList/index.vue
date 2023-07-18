@@ -9,7 +9,7 @@ export default {
   data(){
     return{
         tableTitle:'编程任务列表',
-      ProcessType:'Program'
+        ProcessType:'Program'
     }
   }
 }

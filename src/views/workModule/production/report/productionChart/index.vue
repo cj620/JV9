@@ -31,6 +31,7 @@ export default {
     return {
       tasks: {
         data: [],
+        links: []
       },
       formSchema: formSchema,
       partProcessingPlan: partProcessingPlan,
@@ -63,6 +64,13 @@ export default {
           });
         });
         this.tasks.data = [...arr];
+        
+        this.tasks.links = [
+            // { id:1, source:2, target:2, type:1},
+            { id:1, source:1, target:2, type:1, info: '这是第一条link'},
+            { id:2, source:2, target:3, type:1, info: '这是第二条link'},
+            { id:3, source:3, target:4, type:1, info: '这是第三条link'},
+        ]
         this.$refs.ganttchart.GetData();
       });
     },
