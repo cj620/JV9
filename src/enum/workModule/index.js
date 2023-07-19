@@ -28,6 +28,14 @@ import {
   ProcessCheckTypeEnum,
   FinishedProductCheckType,
 } from "./quality";
+import {
+  machineCategoryEnum,
+  maintenanceEnum,
+  deviceStateEnum,
+  repairEnum,
+  scrapEnum,
+  inventoryStateEnum,
+} from "./equipment";
 export { enumToList, enumFilter } from "@/jv_doc/utils/system/enumsPlugin";
 export {
   // 单据状态枚举
@@ -66,4 +74,16 @@ export {
   ProcessCheckTypeEnum,
   //成品检验类型
   FinishedProductCheckType,
+  // 设备类型
+  machineCategoryEnum,
+  // 设备维护方式
+  maintenanceEnum,
+  // 设备状态
+  deviceStateEnum,
+  // 报修类型
+  repairEnum,
+  // 报废类别
+  scrapEnum,
+  // 出入库状态枚举
+  inventoryStateEnum,
 };
