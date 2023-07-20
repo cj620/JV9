@@ -13,6 +13,7 @@ import request from "@/utils/request";
 // 维护单
 const API = apiGenPlugin("assets_device_maintenance", apiType.COMMON);
 export { API };
+console.log('API::: ', API);
 //类别保存
 export function assets_device_managetype_add(data) {
   return request({

@@ -119,7 +119,7 @@ export default {
         Creator: "",
         CreationDate: "",
         Description: "",
-        Items:[]
+        BillItems:[]
       },
       Items:{
         Id:'',
@@ -167,7 +167,7 @@ export default {
       });
     },
     _save() {
-      this.ruleForm.Items = this.M_TableObj.getTableData();
+      this.ruleForm.BillItems = this.M_TableObj.getTableData();
       Maintenance_tpl.api_save(this.ruleForm).then((res) => {
         let TagName = {
           name: this.detailRouteName,
@@ -197,6 +197,7 @@ export default {
     },
     addTPLItem() {
       this.M_TableObj.addEmptyRow();
+      console.log('this.M_TableObj::: ', this.M_TableObj);
     },
     //删除物料
     delTPLItem(index) {

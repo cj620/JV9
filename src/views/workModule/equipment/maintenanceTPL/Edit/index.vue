@@ -22,7 +22,7 @@ export default {
       API.api_get({ Id: this.cur_Id }).then((res) => {
         this.formObj.form = res;
         this.ruleForm = res;
-        this.M_TableObj.setData(res.Items);
+        this.M_TableObj.setData(res.BillItems);
       });
       console.log(this.cur_Id, 4444444);
     },

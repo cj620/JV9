@@ -117,7 +117,7 @@ export default {
     getData() {
       Maintenance_tpl.api_get({ Id: this.cur_Id }).then((res) => {
         this.detailObj.setData(res);
-        this.maintenanceTableObj.setData(res.Items);
+        this.maintenanceTableObj.setData(res.BillItems);
         // this.tableObj.setData(res.BillItems);
         // this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
       });

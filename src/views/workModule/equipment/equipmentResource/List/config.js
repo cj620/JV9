@@ -86,7 +86,7 @@ export const tableConfig = [
   },
   /*设备名称*/
   {
-    prop: "Device",
+    prop: "DeviceName",
     label: i18n.t("production.Pr_DeviceName"),
   },
    /*设备厂商*/
@@ -94,14 +94,14 @@ export const tableConfig = [
     prop: "Manufacture",
     label: i18n.t("production.Pr_Manufacture"),
   },
-  {
-    prop: "DeviceCategory",
-    label: i18n.t("Generality.Ge_Category"),
-    customFilter: (value) => {
-      if (!value) return "";
-      return machineCategoryEnum[value].name;
-    },
-  },
+  // {
+  //   prop: "DeviceCategory",
+  //   label: i18n.t("Generality.Ge_Category"),
+  //   customFilter: (value) => {
+  //     if (!value) return "";
+  //     return machineCategoryEnum[value].name;
+  //   },
+  // },
     /*使用部门*/
     {
       prop: "UserDepartment",

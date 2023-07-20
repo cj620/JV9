@@ -92,6 +92,116 @@ const equipment = [
     path: "as_DeviceDetail",
     title: '设备详情',
   },
+  // 编辑设备
+  {
+    key: "As_DeviceEdit",
+    component: () =>
+      import("@/views/workModule/equipment/equipmentResource/Edit/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_DeviceEdit",
+    path: "as_DeviceEdit",
+    title: '编辑设备',
+  },
+  // 新增报修信息
+  {
+    key: "As_MaintenanceTPLAdd",
+    component: () =>
+      import("@/views/workModule/equipment/maintenanceTPL/Add/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_MaintenanceTPLAdd",
+    path: "as_MaintenanceTPLAdd",
+    title: '新增保养模板',
+  },
+  // 编辑报修信息
+  {
+    key: "As_MaintenanceTPLEdit",
+    component: () =>
+      import("@/views/workModule/equipment/maintenanceTPL/Edit/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_MaintenanceTPLEdit",
+    path: "as_MaintenanceTPLEdit",
+    title: '编辑保养模板',
+  },
+  // 保养模板详情
+  {
+    key: "As_MaintenanceTPLDetail",
+    component: () =>
+      import("@/views/workModule/equipment/maintenanceTPL/Detail/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_MaintenanceTPLDetail",
+    path: "as_MaintenanceTPLDetail",
+    title: '保养模板详情',
+  },
+  // 保养类别，报废类别
+  {
+    key: "As_DeviceMaintenanceType",
+    component: () =>
+      import("@/views/workModule/equipment/maintenance/Type/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceMaintenanceType",
+    path: "As_DeviceMaintenanceType",
+    title: '类别',
+  },
+  // 新增保养信息
+  {
+    key: "As_DeviceMaintainAdd",
+    component: () =>
+      import("@/views/workModule/equipment/maintenance/Add/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_DeviceMaintainAdd",
+    path: "as_DeviceMaintenanceAdd",
+    title: '新增保养信息',
+  },
+  // 保养信息详情
+  {
+    key: "As_DeviceMaintenanceDetail",
+    component: () =>
+      import("@/views/workModule/equipment/maintenance/Detail/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_DeviceMaintenanceDetail",
+    path: "as_DeviceMaintenanceDetail",
+    title: '设备保养详情',
+  },
+  // 新增报修信息
+  {
+    key: "As_DeviceRepairAdd",
+    component: () =>
+      import("@/views/workModule/equipment/repair/Add/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_DeviceRepairAdd",
+    path: "as_DeviceRepairAdd",
+    title: '新增报修信息',
+  },
+  // 报修信息详情
+  {
+    key: "As_DeviceRepairDetail",
+    component: () =>
+      import("@/views/workModule/equipment/repair/Detail/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_DeviceRepairDetail",
+    path: "as_DeviceRepairDetail",
+    title: '设备报修详情',
+  },
+  // 新增报废信息
+  {
+    key: "As_DeviceScrapAdd",
+    component: () =>
+      import("@/views/workModule/equipment/scrap/Add/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_DeviceScrapAdd",
+    path: "as_DeviceScrapAdd",
+    title: '新增报废信息',
+  },
+  // 报废信息详情
+  {
+    key: "As_DeviceScrapDetail",
+    component: () =>
+      import("@/views/workModule/equipment/scrap/Detail/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_DeviceScrapDetail",
+    path: "as_DeviceScrapDetail",
+    title: '设备报废详情',
+  },
 ];
 
 export default equipment;

@@ -24,7 +24,7 @@
           <el-input v-model="formObj.form[prop]" :disabled="IsDisabled">
           </el-input>
         </template>
-        <template #Device="{ prop }">
+        <template #DeviceName="{ prop }">
           <el-input v-model="formObj.form[prop]" :disabled="IsDisabled">
           </el-input>
         </template>
@@ -109,7 +109,7 @@ export default {
       M_TableObj: {},
       ruleForm: {
         BillId: "",
-        Device: "",
+        DeviceName: "",
         DeviceNo: "",
         Repairer: "",
         RepairCategory: "FaultRepair",
@@ -145,7 +145,8 @@ export default {
   mounted() {
     // Object.assign(this.formObj.form, this.$route.params);
     if (this.$route.params.type == "toRepair") {
-      this.ruleForm.Device = this.$route.params.cdata.Device;
+      console.log('this.$route.params.cdata::: ', this.$route.params.cdata);
+      this.ruleForm.DeviceName = this.$route.params.cdata.DeviceName;
       this.ruleForm.PhotoUrl = this.$route.params.cdata.PhotoUrl;
       this.ruleForm.DeviceNo = this.$route.params.cdata.DeviceNo;
       console.log(this.formObj.form);

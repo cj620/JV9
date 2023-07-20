@@ -9,7 +9,7 @@
           <el-input v-model="formObj.form[prop]" :disabled="IsDisabled">
           </el-input>
         </template>
-        <template #Device="{ prop }">
+        <template #DeviceName="{ prop }">
           <el-input v-model="formObj.form[prop]" :disabled="IsDisabled">
           </el-input>
         </template>
@@ -21,9 +21,9 @@
           <el-select v-model="formObj.form[prop]" filterable>
             <el-option
               v-for="item in MaintenanceCategoryData"
-              :key="item.Id"
-              :label="item.Value"
-              :value="item.Value"
+              :key="item.label"
+              :label="item.label"
+              :value="item.value"
             >
             </el-option>
           </el-select>
@@ -119,7 +119,16 @@ export default {
     return {
       cur_Id: this.$route.query.BillId,
       formObj: {},
-      MaintenanceCategoryData: [],
+      MaintenanceCategoryData: [
+        {
+          label: '定时保养',
+          value: "FixedDate",
+        },
+        {
+          label: '定量保养',
+          value: "FixedUsedTime",
+        },
+      ],
       TemplateDialogFormVisible: false,
       detailRouteName: "As_DeviceMaintenanceDetail",
       fileBillId: "",
@@ -167,7 +176,7 @@ export default {
   mounted() {
     // Object.assign(this.formObj.form, this.$route.params);
     if (this.$route.params.type == "toMaintenance") {
-      this.ruleForm.Device = this.$route.params.cdata.Device;
+      this.ruleForm.DeviceName = this.$route.params.cdata.DeviceName;
       this.ruleForm.PhotoUrl = this.$route.params.cdata.PhotoUrl;
       this.ruleForm.DeviceNo = this.$route.params.cdata.DeviceNo;
       this.formObj.form = this.ruleForm;
@@ -182,10 +191,10 @@ export default {
         96969
       );
       Maintenance_tpl.api_get({ Id: str }).then((res) => {
-        if (res.Items.length > 0) {
+        if (res.BillItems.length > 0) {
           // this.detailObj.setData(res);
           this.M_TableObj.setData(
-            res.Items.map((item) => {
+            res.BillItems.map((item) => {
               return {
                 MaintenanceContent: item.MaintenanceContent,
                 MaintenanceResults: "true",
@@ -196,7 +205,7 @@ export default {
         }
       });
     }
-    this.getAllType();
+    // this.getAllType();
   },
   methods: {
     getAllType() {
@@ -225,10 +234,10 @@ export default {
       });
     },
     confirmData(e) {
-      console.log(e[0].Items);
+      console.log(e);
       this.TemplateDialogFormVisible = false;
 
-      this.M_TableObj.push(temMerge(this.Items, e[0].Items));
+      this.M_TableObj.push(temMerge(this.Items, e[0].BillItems));
     },
     //保存销售订单
     save(saveAndSubmit) {
