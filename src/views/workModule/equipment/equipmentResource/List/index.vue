@@ -4,9 +4,10 @@
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
 
-      <template #UsageRate="{ record }">
+      <template #CumulativeTime="{ record }">
         <!-- 状态标签 -->
-        <el-progress :percentage="record* 100"  :color="customColors" style="width: 120px;line-height: 30px;"></el-progress>
+        <el-progress :percentage="record"  :color="customColors" style="width: 120px;line-height: 30px;"></el-progress>
+        <!-- <el-progress :percentage="record* 100"  :color="customColors" style="width: 120px;line-height: 30px;"></el-progress> -->
 
       </template>
       <!-- operation操作列 -->

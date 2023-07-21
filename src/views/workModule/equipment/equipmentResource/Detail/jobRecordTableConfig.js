@@ -14,8 +14,7 @@ import { API as Scrap } from "@/api/workApi/equipment/scrap";
 import { API as Maintenance } from "@/api/workApi/equipment/maintenance";
 // 使用记录的接口
 import { API as Record,assets_device_stock_ops_list } from "@/api/workApi/equipment/record";
-import { inventoryStateEnum } from "@/enum/workModule";
-
+import { inventoryStateEnum, maintenanceEnum, repairEnum } from "@/enum/workModule";
 export class maintenanceAPI extends TableAPI {
   // 获取列表
   getData = Maintenance.api_list;
@@ -50,7 +49,7 @@ export class MaintenanceTable extends BaseTable {
       // 行标识
       rowId: 'BillId',
       // 表格标题
-      title: '设备保养',
+      title: i18n.t("menu.As_DeviceMaintain"),
       // 接口类
       api:maintenanceAPI,
       // 操作列宽度
@@ -72,6 +71,10 @@ export const MaintenanceConfig = [
   {
     prop: "MaintenanceCategory",
     label: i18n.t("Generality.Ge_Category"),
+    customFilter: (value) => {
+      if(!value) return;
+      return maintenanceEnum[value].name;
+    }
   },
   // 保养日期
   {
@@ -83,7 +86,7 @@ export const MaintenanceConfig = [
   // 操作者
   {
     prop: "Creator",
-    label: '操作者',
+    label: i18n.t("device.De_Handlers"),
   },
 ];
 export const formSchema = [];
@@ -98,7 +101,7 @@ export class RepairTable extends BaseTable {
       // 行标识
       rowId: 'BillId',
       // 表格标题
-      title: '设备报修',
+      title: i18n.t("menu.As_DeviceRepair"),
       // 接口类
       api:repairAPI,
       // 操作列宽度
@@ -120,6 +123,10 @@ export const RepairConfig = [
   {
     prop: "RepairCategory",
     label: i18n.t("Generality.Ge_Category"),
+    customFilter: (value) => {
+      if(!value) return;
+      return repairEnum[value].name;
+    }
   },
 
   // 修理厂商

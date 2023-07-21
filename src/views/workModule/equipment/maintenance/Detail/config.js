@@ -34,7 +34,7 @@ export const detailConfig = [
     },
     //设备名称
     {
-      prop: "Device",
+      prop: "DeviceName",
       label: i18n.t("production.Pr_DeviceName"),
     },
 
@@ -73,7 +73,7 @@ export const m_tableConfig = [
     prop: "MaintenanceResults",
     label: i18n.t("device.De_MaintenanceResults"),
     customFilter:(value,row)=>{
-      if(value===true){
+      if(value){
         return '是'
       }else  if(value===false){
         return '否'

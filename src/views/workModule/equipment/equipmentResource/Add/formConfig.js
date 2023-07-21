@@ -13,6 +13,7 @@ import {
   enumToList,
 } from "@/enum/workModule";
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
+import { i18n } from "element-ui/lib/locale";
 
 // 引入模块API接口
 // import { API as Maintenance_tpl } from "@/api/workApi/equipment/maintenance_tpl";
@@ -51,7 +52,7 @@ export const formSchema = [
   }, //厂商
   {
     prop: "Manufacture",
-    label: "厂商",
+    label: i18n.t("device.De_Manufacturer"),
     cpn: "FormInput",
     rules: [
       {
@@ -184,7 +185,7 @@ export const formSchema = [
   },
   {
     prop: "MaintenanceTplId",
-    label: "维护模板",
+    label: i18n.t("device.De_MaintenanceTemplate"),
     custom: true,
   },
   /*  //寿命设定
