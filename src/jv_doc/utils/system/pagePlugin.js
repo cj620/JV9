@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-17 09:05:32
- * @LastEditTime: 2023-07-13 14:47:54
+ * @LastEditTime: 2023-07-21 14:01:56
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\jv_doc\utils\system\pagePlugin.js
@@ -37,24 +37,70 @@ export function listTableBtnModel($el) {
   ];
 }
 // 表格页表格操作列按钮控制
-export function listTableColBtnModel($el, row) {
-  return [
+export function listTableColBtnModel($el, row, configArr = []) {
+  const btns = [
+    // 复制按钮
+    {
+      type: "copy",
+      label: "复制",
+      confirm: copy.bind($el, row.BillId),
+      isShow: !!$el.AddRoute,
+    },
     // 编辑按钮
     {
+      type: "edit",
       label: i18n.t("Generality.Ge_Edit"),
       confirm: l_edit.bind($el, row.BillId),
       disabled: getActionState(row.State, "edit"),
+      isShow: true,
     },
     // 删除按钮
     {
+      type: "delete",
       label: i18n.t("Generality.Ge_Delete"),
       disabled: getActionState(row.State, "del"),
       popConfirm: {
         title: i18n.t("Generality.Ge_DeleteConfirm"),
         confirm: l_delete.bind($el, [row.BillId]),
       },
+      isShow: true,
     },
   ];
+  configArr.forEach((item) => {
+    let index = btns.findIndex((btn) => btn.type == item.type);
+    if (index != -1) {
+      btns[index] = {
+        ...btns[index],
+        ...item,
+      };
+    }
+  });
+  // console.log(btns, "btns");
+  return btns.filter((item) => item.isShow);
+  // return [
+  //   // 编辑按钮
+  //   {
+  //     label: i18n.t("Generality.Ge_Edit"),
+  //     confirm: l_edit.bind($el, row.BillId),
+  //     disabled: getActionState(row.State, "edit"),
+  //   },
+  //   // 删除按钮
+  //   {
+  //     label: i18n.t("Generality.Ge_Delete"),
+  //     disabled: getActionState(row.State, "del"),
+  //     popConfirm: {
+  //       title: i18n.t("Generality.Ge_DeleteConfirm"),
+  //       confirm: l_delete.bind($el, [row.BillId]),
+  //     },
+  //   },
+  // ];
+}
+
+function copy(BillId) {
+  this.$router.push({
+    name: this.AddRoute,
+    query: { BillId, type: "copy" },
+  });
 }
 // 是否可以被批量删除
 function canIsDel(datas) {

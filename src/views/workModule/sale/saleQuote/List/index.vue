@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-01 15:42:07
- * @LastEditTime: 2022-08-10 17:10:13
+ * @LastEditTime: 2023-07-21 14:01:41
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \keitoolv9\src\views\workModule\sale\saleQuote\List\index.vue
@@ -13,12 +13,7 @@
     <JvTable ref="BillTable" :table-obj="tableObj">
       <!-- operation操作列 -->
       <template #operation="{ row }">
-        <TableAction :actions="[
-          ...[{
-              label: '复制',
-              confirm: copy.bind(null, row),
-            }]
-            ,...getListTableColBtnModel(row) ]"/>
+        <TableAction :actions="getListTableColBtnModel(row)" />
       </template>
       <!-- 表格操作行 -->
       <Action size="mini" slot="btn-list" :actions="getListTableBtnModel">
@@ -65,19 +60,25 @@ export default {
     // 表格行
     getListTableColBtnModel() {
       return (row) => {
-        console.log(listTableColBtnModel(this, row))
+        // console.log(listTableColBtnModel(this, row));
+        // return listTableColBtnModel(this, row, [
+        //   {
+        //     type: "copy",
+        //     isShow: false,
+        //   },
+        // ]);
         return listTableColBtnModel(this, row);
       };
     },
   },
-  methods:{
-    copy(row){
-      console.log(row)
+  methods: {
+    copy(row) {
+      console.log(row);
       this.$router.push({
         name: "Sa_SaleQuote_Add",
         query: { BillId: row.BillId, type: "copy" },
       });
-    }
-  }
+    },
+  },
 };
 </script>
