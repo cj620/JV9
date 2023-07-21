@@ -714,6 +714,8 @@ const ja = {
     Ge_PrTaskBillId: "加工リスト番号です",
     Ge_AssociatedNo: "関連番号",
     Ge_NoData: "データが一時的にありません",
+    Ge_DeliveryCompleted: "出荷が完了しました。続行しますか？",
+    Ge_StockInCompleted: "入庫が完了しました。続行しますか？",
   },
   //生产
   production: {

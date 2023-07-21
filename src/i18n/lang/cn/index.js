@@ -709,6 +709,8 @@ const cn = {
     Ge_PrTaskBillId: "加工单",
     Ge_AssociatedNo: "关联编号",
     Ge_NoData: "暂无数据",
+    Ge_DeliveryCompleted: "已完成发货，是否继续进行操作？",
+    Ge_StockInCompleted: "已完成入库，是否继续进行操作？",
   },
   //生产
   production: {
@@ -850,7 +852,7 @@ const cn = {
     De_LifeSetting: "寿命设定",
     De_MaintenanceTemplate: "维护模板",
     De_Manufacturer: "厂商",
-    De_Interval : "间隔天数/累计小时/累计次数",
+    De_Interval: "间隔天数/累计小时/累计次数",
     De_StorageStatus: "出入库状态",
     De_Handlers: "操作者",
   },
