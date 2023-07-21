@@ -20,7 +20,7 @@ export class Table extends BaseTable {
     super({
       tableSchema: tableConfig,
       formSchema,
-      rowId: "BillId",
+      rowId: "Id",
       title: "",
       api,
       operationWidth: 110,
@@ -35,16 +35,17 @@ export class Table extends BaseTable {
 }
 
 export const tableConfig = [
+  /*名称*/
   {
     prop: "ItemName",
     label: i18n.t("Generality.Ge_ItemName"),
   },
-  /*客户简称*/
+  /*描述*/
   {
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
   },
-  /*出货日期*/
+  /*单位*/
   {
     prop: "Unit",
     label: i18n.t("Generality.Ge_Unit"),
@@ -55,32 +56,40 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_Currency"),
     width: "95px",
   },
-  /*销售员*/
+  /*数量*/
   {
     prop: "Quantity",
     label: i18n.t("Generality.Ge_Quantity"),
   },
-
-  /*制单日期*/
+  /*发货数量*/
+  {
+    prop: "DeliveryQuantity",
+    label: i18n.t("Generality.Ge_DeliveryQuantity"),
+  },
+  /*退货数量*/
+  {
+    prop: "ReturnQuantity",
+    label: i18n.t("Generality.Ge_ReturnQuantity"),
+  },
+  /*单价*/
   {
     prop: "Price",
     label: i18n.t("Generality.Ge_Price"),
   },
-  /*制单日期*/
+  /*金额*/
   {
     prop: "Amount",
     label: i18n.t("Generality.Ge_Amount"),
   },
-  /*制单日期*/
+  /*备注*/
   {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
-  /*制单日期*/
+  /*项目类别*/
   {
     prop: "ItemType",
     label: i18n.t("project.Pro_ItemType"),
   },
 ];
 export const formSchema = [];
-

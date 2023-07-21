@@ -51,14 +51,14 @@
 
     <!-- 发货完成提醒弹窗 -->
     <jv-dialog
-      title="跳转至新增发货"
+      :title="`${$t('Generality.Ge_New')} ${$t('menu.Sa_SaleDelivery')}`"
       width="45%"
       :visible.sync="confirmFormVisible"
       @confirm="orderTransform"
     >
-      <span style="color: red; font-size: 18px"
-        >物料编号{{ completedItems }}</span
-      >已发货完成，是否继续发货？
+      {{ $t("Generality.Ge_ItemId")
+      }}<span style="color: red; font-size: 18px">{{ completedItems }}</span
+      >{{ $t("Generality.Ge_DeliveryCompleted") }}
     </jv-dialog>
   </PageWrapper>
 </template>

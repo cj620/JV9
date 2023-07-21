@@ -719,6 +719,10 @@ const en = {
     Ge_PrTaskBillId: "Process Task BillId",
     Ge_AssociatedNo: "Associated No.",
     Ge_NoData: "No data",
+    Ge_DeliveryCompleted:
+      "has been completed. Do you want to continue with the operation?",
+    Ge_StockInCompleted:
+      "has been completed. Do you want to continue with the operation?",
   },
   //生产
   production: {
@@ -863,7 +867,7 @@ const en = {
     De_LifeSetting: "Life Setting",
     De_MaintenanceTemplate: "Maintenance Template",
     De_Manufacturer: "Manufacturer",
-    De_Interval : "Interval days/Cumulative hours/Cumulative times",
+    De_Interval: "Interval days/Cumulative hours/Cumulative times",
     De_StorageStatus: "Storage Status",
     De_Handlers: "Handlers",
   },
@@ -1069,7 +1073,8 @@ const en = {
     P10192: "Some data is not deleted",
     P10193: "The template name already exists!",
     P10194: "The quantity that can be stored is less than the current quantity",
-    P10195: "The quantity that can be delivery is less than the current quantity",
+    P10195:
+      "The quantity that can be delivery is less than the current quantity",
     P10196: "Returnable quantity is less than the current quantity",
   },
   program: {
@@ -1126,7 +1131,8 @@ const en = {
     Ftp_file_management_path_desc:
       "root folder where project files are stored in",
     Prohibit_skip_station_processes: "Prohibit skip station processes",
-    Create_purchase_request_below_safety_stock: "Create purchase request below safety stock",
+    Create_purchase_request_below_safety_stock:
+      "Create purchase request below safety stock",
   },
   ...enLocale,
 };

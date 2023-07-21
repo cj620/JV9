@@ -44,11 +44,7 @@
           </el-option>
         </el-select>
       </div>
-        <JvDetail :detailObj="detailObj">
-
-        </JvDetail>
-
-
+      <JvDetail :detailObj="detailObj"> </JvDetail>
     </JvBlock>
     <!-- 物料信息 -->
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
@@ -127,15 +123,27 @@
       v-if="detailsVisible"
       :tableConfig="Table"
       :detailedData="detailedData"
-      @confirmDetails="detailsConfirm"
+      @confirmDetails="validateIsCompleted"
     ></select-doc-details>
+
+    <!-- 发货完成提醒弹窗 -->
+    <jv-dialog
+      :title="`${$t('Generality.Ge_New')} ${$t('menu.Sa_SaleDelivery')}`"
+      width="45%"
+      :visible.sync="confirmFormVisible"
+      @confirm="detailsConfirm"
+    >
+      {{ $t("Generality.Ge_ItemId")
+      }}<span style="color: red; font-size: 18px">{{ completedItems }}</span
+      >{{ $t("Generality.Ge_DeliveryCompleted") }}
+    </jv-dialog>
   </PageWrapper>
 </template>
 
 <script>
-import { formSchema , detailConfig } from "./formConfig";
+import { formSchema, detailConfig } from "./formConfig";
 import { EditTable } from "./editConfig";
-import { Table} from "./tableConfig";
+import { Table } from "./tableConfig";
 import Detail from "@/jv_doc/class/detail/Detail";
 import { Form } from "@/jv_doc/class/form";
 import { getAllSalesCustomer } from "@/api/workApi/sale/customer";
@@ -176,6 +184,9 @@ export default {
       textarea: "",
       fileList: [],
       fileBillId: "",
+      confirmFormVisible: false,
+      completedItems: [],
+      selectedItems: [],
       ruleForm: {
         BillId: "",
         BillGui: "",
@@ -190,10 +201,10 @@ export default {
         SaveAndSubmit: false,
         BillItems: [],
         BillFiles: [],
-        Address:'',
-        Contact:'',
-        Tel:'',
-        Email:'',
+        Address: "",
+        Contact: "",
+        Tel: "",
+        Email: "",
       },
       BillItems: {
         Id: "",
@@ -280,7 +291,7 @@ export default {
     },
     //选择客户确定税率
     changeCustomerId(e) {
-      console.log(e)
+      console.log(e);
       getCustomer({ CustomerId: e }).then((res) => {
         this.ruleForm.CustomerName = res.ShortName;
         this.AddressData = res.ContactInfo;
@@ -290,14 +301,14 @@ export default {
     },
 
     //选择地址
-    changeAddress(e){
-      console.log(e)
-      this.AddressData.forEach(item=>{
-        if(item.Address===e){
+    changeAddress(e) {
+      console.log(e);
+      this.AddressData.forEach((item) => {
+        if (item.Address === e) {
           this.detailObj.detailData = item;
-          console.log(this.ruleForm,item,this.detailObj)
+          console.log(this.ruleForm, item, this.detailObj);
         }
-      })
+      });
     },
     changeTax(val) {
       this.eTableObj.setDefaultColData({
@@ -332,15 +343,40 @@ export default {
 
       this.eTableObj.push(temMerge(this.BillItems, e));
     },
+    // 判断是否发货完成
+    validateIsCompleted(e) {
+      this.selectedItems = e;
+      // e.forEach((item) => {
+      //   if (item.Quantity - item.DeliveryQuantity + item.ReturnQuantity === 0) {
+      //     this.completedItems.push(item.ItemId);
+      //     console.log(111);
+      //   }
+      // });
+      this.completedItems = e
+        .filter(
+          (item) =>
+            item.Quantity - item.DeliveryQuantity + item.ReturnQuantity === 0
+        )
+        .map((item) => item.ItemId);
+      console.log("this.completedItems::: ", this.completedItems);
+      this.completedItems.length === 0
+        ? this.detailsConfirm()
+        : (this.confirmFormVisible = true);
+    },
     // 确认选择明细
-    detailsConfirm(e) {
-      console.log(5566);
-      e.forEach((item) => {
+    detailsConfirm() {
+      console.log("this.selectedItems::: ", this.selectedItems);
+      this.selectedItems.forEach((item) => {
         item.AssociatedNo = item.Id;
         item.Id = 0;
+        item.Quantity =
+          item.Quantity - item.DeliveryQuantity + item.ReturnQuantity;
       });
+      this.confirmFormVisible = false;
       this.detailsVisible = false;
-      this.eTableObj.push(temMerge(this.BillItems, e));
+      this.eTableObj.push(temMerge(this.BillItems, this.selectedItems));
+      this.selectedItems = [];
+      this.completedItems = [];
     },
     //删除物料
     delItem(index) {
@@ -365,7 +401,14 @@ export default {
             this.eTableObj.validate((valid1) => {
               if (valid1) {
                 delivery
-                  .api_save(Object.assign({}, this.ruleForm, this.formObj.form,this.detailObj.detailData))
+                  .api_save(
+                    Object.assign(
+                      {},
+                      this.ruleForm,
+                      this.formObj.form,
+                      this.detailObj.detailData
+                    )
+                  )
                   .then((res) => {
                     let TagName = {
                       path: "/sale/saleDeliveryDetails",

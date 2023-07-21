@@ -58,14 +58,14 @@
 
     <!-- 入库完成提醒弹窗 -->
     <jv-dialog
-      title="跳转至新增入库"
+      :title="`${$t('Generality.Ge_New')} ${$t('menu.Pu_StockIn')}`"
       width="45%"
       :visible.sync="confirmFormVisible"
       @confirm="orderTransform"
     >
-      <span style="color: red; font-size: 18px"
-        >物料编号{{ completedItems }}</span
-      >已入库完成，是否继续发货？
+      {{ $t("Generality.Ge_ItemId")
+      }}<span style="color: red; font-size: 18px">{{ completedItems }}</span
+      >{{ $t("Generality.Ge_StockInCompleted") }}
     </jv-dialog>
   </PageWrapper>
 </template>
