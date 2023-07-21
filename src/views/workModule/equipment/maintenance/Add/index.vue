@@ -35,7 +35,18 @@
       <div slot="extra">
         <el-button size="mini" @click="selectTemplate"> 选择模板 </el-button>
       </div>
-      <JvEditTable :tableObj="M_TableObj"> </JvEditTable>
+      <JvEditTable :tableObj="M_TableObj">
+        <template #operation="{ row_index }">
+          <TableAction
+            :actions="[
+              {
+                icon: 'el-icon-delete',
+                confirm: delTPLItem.bind(null, row_index),
+              },
+            ]"
+          /> </template
+      >
+      </JvEditTable>
     </JvBlock>
 
     <!-- 备注 -->
@@ -262,6 +273,10 @@ export default {
         };
         closeTag(this.current, TagName);
       });
+    },
+    //删除物料
+    delTPLItem(index) {
+      this.M_TableObj.delItem(index);
     },
   },
 };

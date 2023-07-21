@@ -27,10 +27,12 @@
             :key="index"
             :disabled="isDisabled(dActionItem)"
           >
-            <span @click="confirm(dActionItem)"
-              ><i :class="dActionItem.icon" style="margin: 0 7px"></i>
-              {{ dActionItem.label }}</span
-            >
+            <div class="el-dropdown-item-box" @click="confirm(dActionItem)">
+              <span
+                ><i :class="dActionItem.icon" style="margin: 0 7px"></i>
+                {{ dActionItem.label }}</span
+              >
+            </div>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -49,7 +51,7 @@
     </span>
     <JvDialog
       :visible.sync="dialogVisible"
-      :title=" $t('Generality.Ge_Remind')"
+      :title="$t('Generality.Ge_Remind')"
       @confirm="dialogConfirm"
       width="30%"
     >
@@ -121,6 +123,13 @@ export default {
   .el-button-group > .el-dropdown > .el-button {
     border-left-color: #dcdfe6;
   }
+}
+.el-dropdown-menu--medium .el-dropdown-menu__item {
+  padding: 0;
+}
+.el-dropdown-item-box {
+  padding: 0 17px;
+  width: 100%;
 }
 // .el-button-group > .el-dropdown > .el-button
 </style>

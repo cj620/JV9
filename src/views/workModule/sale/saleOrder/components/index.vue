@@ -6,10 +6,7 @@
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
       <JvForm :formObj="formObj">
         <template #CustomerId="{ prop }">
-          <el-select
-            v-model="formObj.form[prop]"
-            filterable
-          >
+          <el-select v-model="formObj.form[prop]" filterable>
             <el-option
               v-for="item in CustomerData"
               :key="item.CustomerId"
@@ -152,6 +149,8 @@ import {
   getPrice,
 } from "@/jv_doc/utils/system/taxCount";
 import { saveItem } from "@/api/basicApi/systemSettings/Item";
+import { login } from "../../../../../api/basicApi/systemSettings/user";
+import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
 
 export default {
   components: {
@@ -245,8 +244,16 @@ export default {
     if (this.type === "edit") {
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
+    } else if (this.type === "copy") {
+      this.fileBillId = this.billData;
+      await ORDER.api_get({ BillId: this.billData }).then((res) => {
+        const result = handleBillContent(res);
+        this.ruleForm = result;
+        this.formObj.form = this.ruleForm;
+        this.eTableObj.setData(result.BillItems);
+      });
     }
-    if(this.$route.params.quotationData){
+    if (this.$route.params.quotationData) {
       await this.GetQuotationData(this.$route.params.quotationData);
     }
     await this.Configuration();
@@ -267,18 +274,18 @@ export default {
         this.projectDataList = res.Items;
       });
     },
-    GetQuotationData(e){
-      console.log(e)
-      let str = {}
-      this.formObj.form.CustomerId=e.CustomerId
-      this.formObj.form.ProjectId=e.Project
-      this.formObj.form.DeliveryDate=e.DeliveryDate
-      str.ItemId=e.ToolingNo
-      str.ItemName=e.ToolingName
-      str.Unit='PCS'
-      str.Quantity=1
-      str.Price=e.Total
-      str.AssociatedNo=e.BillId
+    GetQuotationData(e) {
+      console.log(e);
+      let str = {};
+      this.formObj.form.CustomerId = e.CustomerId;
+      this.formObj.form.ProjectId = e.Project;
+      this.formObj.form.DeliveryDate = e.DeliveryDate;
+      str.ItemId = e.ToolingNo;
+      str.ItemName = e.ToolingName;
+      str.Unit = "PCS";
+      str.Quantity = 1;
+      str.Price = e.Total;
+      str.AssociatedNo = e.BillId;
       this.eTableObj.push(temMerge(this.BillItems, [str]));
     },
     //编辑的时候获取信息
@@ -315,7 +322,7 @@ export default {
     //搜索项目
     remoteMethod(query) {
       getProjectQuery({ Keyword: query }).then((res) => {
-        console.log(res.Items,555)
+        console.log(res.Items, 555);
         if (query !== "") {
           this.loading = true;
           setTimeout(() => {
@@ -421,9 +428,8 @@ export default {
     },
     "formObj.form.CustomerId": {
       handler: function (n, o) {
-        if(n){
-          this.changeCustomerId(n)
-
+        if (n) {
+          this.changeCustomerId(n);
         }
       },
     },

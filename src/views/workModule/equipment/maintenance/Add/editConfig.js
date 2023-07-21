@@ -19,7 +19,7 @@ export class M_EditTable extends BaseTable {
       height: null,
       maxHeight: 2000,
       operationWidth: 80,
-      operationCol: false,
+      operationCol: true,
       // showSummary:true,
       // 选择列
       // chooseCol:false,
