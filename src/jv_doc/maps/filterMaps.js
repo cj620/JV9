@@ -43,3 +43,6 @@ export const filterMaps = {
     func: thousandthFormat,
   },
 };
+export const datafilter = (type, data) => {
+  return filterMaps[type].func(data);
+};

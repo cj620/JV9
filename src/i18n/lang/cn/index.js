@@ -35,6 +35,7 @@ const cn = {
     Pm_Processes: "项目任务工序 ",
     Pm_BudgetCost: "成本预算表 ",
     Pm_MakeCalculation: "制造结算表 ",
+    Pm_Estimate: "评审单 ",
     De_Design: "设计",
     De_ToolingBOM: "模具BOM",
     De_ItemsDemand: "物料需求",
