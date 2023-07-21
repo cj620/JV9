@@ -179,6 +179,12 @@ export default {
     },
     // 订单转
     orderTransform(routerName, keyName) {
+      if (routerName === "Pu_StockIn_Add") {
+        this.detailObj.detailData.BillItems.forEach((item) => {
+          item.Quantity =
+            item.Quantity - item.StockInQuantity + item.ReturnQuantity;
+        });
+      }
       this.$router.push({
         name: routerName,
         params: { [keyName]: this.detailObj.detailData },
