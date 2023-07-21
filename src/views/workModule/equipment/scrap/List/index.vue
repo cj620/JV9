@@ -28,10 +28,10 @@
         size="mini"
         slot="btn-list"
         :actions="[
-  {
-            label: '类别',
-            confirm: mnageType,
-          },
+  // {
+  //           label: '类别',
+  //           confirm: mnageType,
+  //         },
           {
             label: $t('Generality.Ge_Delete'),
             disabled: canIsDel,

@@ -30,7 +30,7 @@ export const formSchema = [
   },
   //设备名称
   {
-    prop: "Device",
+    prop: "DeviceName",
     label: i18n.t("production.Pr_DeviceName"),
     cpn: "FormInput",
     custom: true,

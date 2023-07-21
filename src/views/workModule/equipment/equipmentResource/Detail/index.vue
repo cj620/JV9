@@ -13,51 +13,32 @@
   <PageWrapper ref="page">
     <el-tabs @tab-click="tabClick" slot="sticky-tabs">
       <!-- tab 导航栏  -->
-      <el-tab-pane
-        v-for="pane in tabPanes"
-        :key="pane.name"
-        :label="pane.label"
-        :name="pane.name"
-      ></el-tab-pane>
+      <el-tab-pane v-for="pane in tabPanes" :key="pane.name" :label="pane.label" :name="pane.name"></el-tab-pane>
     </el-tabs>
-    <Action
-      slot="sticky-extra"
-      size="small"
-      :actions="[
-       {
-          label: '编辑',
-          confirm: editBill,
-        },
-        {
-          label: '查看报废单',
-          confirm: checkScrap,
-        },
-        {
-          label: '报废',
-          confirm: toScrap,
-        },
+    <Action slot="sticky-extra" size="small" :actions="[
+      {
+        label: '编辑',
+        confirm: editBill,
+      },
+      {
+        label: '查看报废单',
+        confirm: checkScrap,
+      },
+      {
+        label: '报废',
+        confirm: toScrap,
+      },
 
-      ]"
-    ></Action>
+    ]"></Action>
     <Action slot="sticky-extra" size="small" :actions="btnAction"></Action>
-    <JvBlock
-      title="设备信息"
-      ref="first"
-      :contentStyle="{
-        paddingLeft: '150px',
-        height: '140px',
-        height: '300px',
-      }"
-      style="position: relative"
-    >
+    <JvBlock title="设备信息" ref="first" :contentStyle="{
+      paddingLeft: '150px',
+      height: '140px',
+      height: '300px',
+    }" style="position: relative">
       <div class="mould-img">
-        <el-image
-          :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
-          style="width: 100%; height: 100%"
-          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
-          fit="cover"
-          class="items-details-Img-error"
-        >
+        <el-image :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]" style="width: 100%; height: 100%"
+          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)" fit="cover" class="items-details-Img-error">
           <div slot="error" class="image-slot">
             <i class="el-icon-picture-outline"></i>
           </div>
@@ -67,23 +48,13 @@
         <JvDetail :detailObj="detailObj">
           <template #MaintenanceTplId>
             <el-select v-model="Main_tpl" placeholder="请选择">
-              <el-option
-                v-for="item in Maintenance_tpl_list"
-                :key="item.Id"
-                :label="item.TemplateName"
-                :value="item.Id"
-              >
+              <el-option v-for="item in Maintenance_tpl_list" :key="item.Id" :label="item.TemplateName" :value="item.Id">
               </el-option>
             </el-select>
-            <el-button
-              type="primary"
-              @click="chooseTPL"
-              style="margin-left: 7px"
-              >选择</el-button
-            >
+            <el-button type="primary" @click="chooseTPL" style="margin-left: 7px">选择</el-button>
           </template>
           <template #DeviceCurrentLife="{ record }">
-              {{ record }}
+            {{ record }}
           </template>
 
         </JvDetail>
@@ -117,8 +88,7 @@
     <JvBlock title="使用记录" ref="usageRecord">
       <JvTable :tableObj="useTableObj">
         <template #operation="{ row }">
-          <TableAction
-            :actions="[
+          <TableAction :actions="[
 
             {
               label: $t('Generality.Ge_Delete'),
@@ -127,8 +97,7 @@
                 confirm: deleteOrder.bind(null, [row.Id]),
               },
             },
-          ]"
-          />
+          ]" />
         </template>
       </JvTable>
       <div slot="extra">
@@ -146,30 +115,20 @@
       </div>
     </JvBlock>
     <!--添加使用记录弹窗-->
-    <jv-dialog
-      :title="$t('Generality.Ge_New')"
-      width="35%"
-      :visible.sync="dialogFormVisible"
-      v-if="dialogFormVisible"
-      @confirm="confirmAdd"
-      :autoFocus="true"
-    >
+    <jv-dialog :title="$t('Generality.Ge_New')" width="35%" :visible.sync="dialogFormVisible" v-if="dialogFormVisible"
+      @confirm="confirmAdd" :autoFocus="true">
       <JvForm :formObj="formObj"> </JvForm>
     </jv-dialog>
     <!--添加出入库记录弹窗-->
-    <add-stock-ops
-      :visible.sync="addStockOpsDialogFormVisible"
-      v-if="addStockOpsDialogFormVisible"
-      :transferData="stockOpsData"
-      @confirmStockOps="confirmStockOps"
-      :autoFocus="true">
+    <add-stock-ops :visible.sync="addStockOpsDialogFormVisible" v-if="addStockOpsDialogFormVisible"
+      :transferData="stockOpsData" @confirmStockOps="confirmStockOps" :autoFocus="true">
 
     </add-stock-ops>
   </PageWrapper>
 </template>
 
 <script>
-import { mapState,mapGetters } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import { Table, detailConfig } from "./config";
 import {
   MaintenanceTable,
@@ -177,21 +136,21 @@ import {
   UseTable,
   StockOpsTable,
 } from "./jobRecordTableConfig";
-import {formSchema} from "./formRecord";
+import { formSchema } from "./formRecord";
 import Detail from "@/jv_doc/class/detail/Detail";
 // 引入模块API接口
 import {
   API as Maintenance_tpl,
   set_maintenance_tpl,
 } from "@/api/workApi/equipment/maintenance_tpl";
-import {getJobRecord,} from "@/api/workApi/project/projectTask";
-import { API,assets_device_get } from "@/api/workApi/equipment/device";
+import { getJobRecord, } from "@/api/workApi/project/projectTask";
+import { API, assets_device_get } from "@/api/workApi/equipment/device";
 import { Form } from "@/jv_doc/class/form";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { taskTypeEnum } from "@/enum/workModule";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
-import { assets_device_usage_record_add ,assets_device_usage_record_delete} from "@/api/workApi/equipment/record";
+import { assets_device_usage_record_add, assets_device_usage_record_delete } from "@/api/workApi/equipment/record";
 import addStockOps from "./addStockOps";
 export default {
   // name: "Pm_ProjectTask_Detail",
@@ -217,8 +176,8 @@ export default {
       // 编辑路由指向 谨慎删除
       editRouteName: "Pm_ProjectTask_Edit",
       printMod: "Pm_ProjectTask",
-      dialogFormVisible:false,
-      addStockOpsDialogFormVisible:false,
+      dialogFormVisible: false,
+      addStockOpsDialogFormVisible: false,
       taskTypeEnum,
       tabPanes: [
         {
@@ -265,11 +224,11 @@ export default {
     ...mapState({
       current: (state) => state.page.current,
     }),
-    ...mapGetters([ "name"]),
-    BillIdShow() {},
+    ...mapGetters(["name"]),
+    BillIdShow() { },
   },
   created() {
-    // this.ruleForm
+    this.ruleForm
     this.tableObj = new Table();
     this.detailObj = new Detail({
       data: {},
@@ -280,10 +239,11 @@ export default {
     this.repairTableObj = new RepairTable();
     this.useTableObj = new UseTable();
     this.stockOpsTableObj = new StockOpsTable();
-    this.maintenanceTableObj.formObj.form.DeviceNo=this.cur_Id
-    this.repairTableObj.formObj.form.DeviceNo=this.cur_Id
-    this.useTableObj.formObj.form.DeviceNo=this.cur_Id
-    this.stockOpsTableObj.formObj.form.DeviceNo=this.cur_Id
+    this.maintenanceTableObj.formObj.form.DeviceNo = this.cur_Id
+
+    this.repairTableObj.formObj.form.DeviceNo = this.cur_Id
+    this.useTableObj.formObj.form.DeviceNo = this.cur_Id
+    this.stockOpsTableObj.formObj.form.DeviceNo = this.cur_Id
     this.getData();
     Maintenance_tpl.api_list({ CurrentPage: 1, PageSize: 99 }).then((res) => {
       console.log(res, 78978978989);
@@ -299,16 +259,16 @@ export default {
     });
   },
 
-  mounted() {},
+  mounted() { },
   methods: {
     imgUrlPlugin,
     getData() {
       assets_device_get({ DeviceNo: this.cur_Id }).then((res) => {
         this.detailObj.setData(res);
-        this.maintenanceTableObj.getData();
-        this.repairTableObj.getData();
-        this.useTableObj.getData();
-        this.stockOpsTableObj.getData();
+        this.maintenanceTableObj.getData({ States: ["Approved", "Completed"] });
+        this.repairTableObj.getData({ States: ["Approved", "Completed"] });
+        this.useTableObj.getData({ States: ["Approved", "Completed"] });
+        this.stockOpsTableObj.getData({ States: ["Approved", "Completed"] });
         this.Main_tpl = res.MaintenanceTplId;
       });
     },
@@ -345,7 +305,7 @@ export default {
     // 保养
     toMaintenance() {
       this.$router.push({
-        name:  this.toMaintainRouterName,
+        name: this.toMaintainRouterName,
         params: {
           type: "toMaintenance",
           cdata: this.detailObj.detailData,
@@ -355,7 +315,7 @@ export default {
     // 去报修
     toRepair() {
       this.$router.push({
-        name:  this.toRepairRouterName ,
+        name: this.toRepairRouterName,
         params: {
           type: "toRepair",
           cdata: this.detailObj.detailData,
@@ -373,18 +333,18 @@ export default {
     editBill() {
       this.$router.push({
         name: this.editRouterName,
-        query: { DeviceNo:this.cur_Id },
+        query: { DeviceNo: this.cur_Id },
       });
     },
     //添加使用记录
-    addRecord(){
+    addRecord() {
       this.dialogFormVisible = true
-      this.formObj.form.UseDate=new Date()
-      this.formObj.form.Operator=this.name
+      this.formObj.form.UseDate = new Date()
+      this.formObj.form.Operator = this.name
     },
 
     //添加出入库记录
-    addStockOps(){
+    addStockOps() {
       this.addStockOpsDialogFormVisible = true
       this.stockOpsData = this.detailObj.detailData
     },
@@ -396,13 +356,13 @@ export default {
       });
     },
     //保存使用记录
-    confirmAdd(){
+    confirmAdd() {
       console.log(this.formObj.form);
       this.formObj.validate((valid) => {
-        console.log(valid,999);
+        console.log(valid, 999);
         if (valid) {
-          this.formObj.form.DeviceNo=this.cur_Id
-          assets_device_usage_record_add(this.formObj.form).then(res=>{
+          this.formObj.form.DeviceNo = this.cur_Id
+          assets_device_usage_record_add(this.formObj.form).then(res => {
             console.log(res);
             this.useTableObj.getData();
             this.dialogFormVisible = false
@@ -414,8 +374,8 @@ export default {
 
 
     //出入库记录
-    confirmStockOps(){
-      this.addStockOpsDialogFormVisible=false
+    confirmStockOps() {
+      this.addStockOpsDialogFormVisible = false
       this.stockOpsTableObj.getData();
     }
   },
@@ -438,14 +398,17 @@ export default {
   width: 200px;
   text-align: end;
 }
+
 .items-details-Img-error {
   background-color: rgb(231, 231, 231);
+
   .image-slot {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+
     // color: rgb(161, 161, 161);
     .error-icon {
       color: rgb(161, 161, 161);

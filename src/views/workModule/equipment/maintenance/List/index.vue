@@ -28,10 +28,10 @@
         size="mini"
         slot="btn-list"
         :actions="[
-        {
-            label:  $t('Generality.Ge_Category'),
-            confirm: mnageType,
-          },
+        // {
+        //     label:  $t('Generality.Ge_Category'),
+        //     confirm: mnageType,
+        //   },
 
           {
             label: $t('Generality.Ge_Delete'),

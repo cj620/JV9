@@ -19,7 +19,7 @@
         ></ImgUploader>
       </div>
       <JvForm :formObj="formObj">
-        <template #ScrapCategory="{ prop }">
+        <!-- <template #ScrapCategory="{ prop }">
           <el-select
             v-model="formObj.form[prop]"
             filterable
@@ -33,7 +33,7 @@
             >
             </el-option>
           </el-select>
-        </template>
+        </template> -->
       </JvForm>
     </JvBlock>
     <!-- 物料信息 -->
@@ -112,7 +112,7 @@ export default {
       ruleForm: {
         BillId: "",
         DeviceNo: "",
-        Device: "",
+        DeviceName: "",
         DeviceCategory: "",
         ScrapCategory: "",
         ScrapDate: "",
@@ -144,14 +144,15 @@ export default {
   mounted() {
     // Object.assign(this.formObj.form, this.$route.params);
     if (this.$route.params.type == "As_DeviceScrapAdd") {
-      this.ruleForm.Device = this.$route.params.cdata.Device;
+      console.log('this.$route.params.cdata::: ', this.$route.params.cdata);
+      this.ruleForm.DeviceName = this.$route.params.cdata.DeviceName;
       this.ruleForm.PhotoUrl = this.$route.params.cdata.PhotoUrl;
       this.ruleForm.DeviceNo = this.$route.params.cdata.DeviceNo;
       this.formObj.form =this.ruleForm
     } else {
       Object.assign(this.formObj.form, this.$route.params);
     }
-    this.getAllType()
+    // this.getAllType()
   },
   methods: {
     getAllType(){

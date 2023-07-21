@@ -27,7 +27,7 @@ export const formSchema = [
   },
   //设备名称
   {
-    prop: "Device",
+    prop: "DeviceName",
     label: i18n.t("production.Pr_DeviceName"),
     cpn: "FormInput",
     cpnProps: {
@@ -56,19 +56,19 @@ export const formSchema = [
     ],
   },
   //报废类别
-  {
-    prop: "ScrapCategory",
-    label: i18n.t("Generality.Ge_Category"),
-    cpn: "FormSelect",
-    custom:true,
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseSelect"),
-        trigger: ["change", "blur"],
-      },
-    ],
-  },
+  // {
+  //   prop: "ScrapCategory",
+  //   label: i18n.t("Generality.Ge_Category"),
+  //   cpn: "FormSelect",
+  //   custom:true,
+  //   rules: [
+  //     {
+  //       required: true,
+  //       message: i18n.t("Generality.Ge_PleaseSelect"),
+  //       trigger: ["change", "blur"],
+  //     },
+  //   ],
+  // },
 
 
 ];

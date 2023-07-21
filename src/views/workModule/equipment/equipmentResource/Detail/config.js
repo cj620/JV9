@@ -40,7 +40,7 @@ export const detailConfig = [
   },
   //设备名称
   {
-    prop: "Device",
+    prop: "DeviceName",
     label: i18n.t("production.Pr_DeviceName"),
   },
   //厂商
