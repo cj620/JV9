@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-25 13:40:20
- * @LastEditTime: 2022-03-25 13:25:19
+ * @LastEditTime: 2023-07-21 10:21:36
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\jv_doc\utils\system\detailPlugin.js
@@ -57,11 +57,16 @@ export function detailPageModel($el, optionsState, API, callBack) {
     {
       label: i18n.t("Generality.Ge_Delete"),
       disabled: !btnMap.delete,
-            popConfirm: {
+      popConfirm: {
         title: i18n.t("Generality.Ge_DeleteConfirm"),
         // doDelete
         confirm: doDelete(API.api_delete, { BillIds: [BillId] }, $el),
       },
+    },
+    {
+      label: "复制",
+      disabled: !$el.addRouteName,
+      confirm: doCopy({ BillId }, $el),
     },
     // 打印
     {
@@ -139,7 +144,17 @@ function doEdit(params, $el) {
     console.log($el.editRouteName);
     router.push({
       name: $el.editRouteName,
-      query: Object.assign({ type: "edit", title: "Se_Item_Edit" }, params),
+      query: Object.assign({ type: "edit" }, params),
+    });
+  };
+}
+
+function doCopy(params, $el) {
+  return function () {
+    // console.log($el.editRouteName);
+    router.push({
+      name: $el.addRouteName,
+      query: Object.assign({ type: "copy" }, params),
     });
   };
 }

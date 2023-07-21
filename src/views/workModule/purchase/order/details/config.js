@@ -39,6 +39,26 @@ export const tableConfig = [
     filter: "amount",
     width: "100px",
   },
+  /*入库数量*/
+  {
+    prop: "StockInQuantity",
+    label: i18n.t("Generality.Ge_StockInQuantity"),
+    formCpn: "FormInput",
+    align: "right",
+    type: "number",
+    filter: "amount",
+    width: "100px",
+  },
+  /*退货数量*/
+  {
+    prop: "ReturnQuantity",
+    label: i18n.t("Generality.Ge_ReturnQuantity"),
+    formCpn: "FormInput",
+    align: "right",
+    type: "number",
+    filter: "amount",
+    width: "100px",
+  },
   /*未税单价*/
   {
     prop: "NoTaxPrice",
