@@ -56,6 +56,7 @@ export default {
       getAllRoleMember({ RoleId: this.RoleId }).then((res) => {
         if (res.Items.length > 0) {
           this.selectedValue = res.Items.map((item) => item.UserId);
+          this.$emit("updateUser", this.selectedValue);
         }
       });
     },

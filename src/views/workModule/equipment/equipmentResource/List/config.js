@@ -9,7 +9,7 @@ import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
 
 
 import { API} from "@/api/workApi/equipment/device";
-import { machineCategoryEnum,maintenanceEnum, enumToList,inventoryStateEnum } from "@/enum/workModule";
+import { deviceStateEnum,machineCategoryEnum,maintenanceEnum, enumToList,inventoryStateEnum } from "@/enum/workModule";
 // 结构
 let {api_list,api_delete}=API
 
@@ -120,6 +120,10 @@ export const tableConfig = [
   {
     prop: "State",
     label: '状态',
+    customFilter: (value) =>  {
+      if(!value) return ""
+      return deviceStateEnum[value].name
+    }
   },
   //出入库状态
   {

@@ -10,6 +10,7 @@ import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
 import { getAllDevice } from "@/api/workApi/production/baseData";
 // 引入模块API接口
 import { API } from "@/api/workApi/equipment/maintenance";
+import { maintenanceEnum } from "@/enum/workModule";
 // 结构
 let {api_list,api_delete}=API
 export class api extends TableAPI {
@@ -90,6 +91,10 @@ export const tableConfig = [
       {
       prop: "MaintenanceCategory",
         label: i18n.t("Generality.Ge_Category"),
+        customFilter: (value) => {
+          if (!value) return "";
+          return maintenanceEnum[value].name;
+        },
       },
       /*上次保养日期*/
       {
