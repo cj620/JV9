@@ -123,6 +123,7 @@ export default {
       ],
       // 编辑路由指向 谨慎删除
       editRouteName: "Sa_SaleOrder_Edit",
+      addRouteName: "Sa_SaleOrder_Add",
       // 打印模板标识 谨慎删除
       printMod: "Sa_SaleOrder",
     };

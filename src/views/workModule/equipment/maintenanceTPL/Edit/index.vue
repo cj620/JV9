@@ -24,9 +24,10 @@ export default {
         this.ruleForm = res;
         this.M_TableObj.setData(res.BillItems);
       });
-      console.log(this.cur_Id, 4444444);
+     
     },
     _save() {
+      this.ruleForm.BillItems = this.M_TableObj.getTableData();
       API.api_save(this.ruleForm).then((res) => {
         let TagName = {
           name: this.detailRouteName,

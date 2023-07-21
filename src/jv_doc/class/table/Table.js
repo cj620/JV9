@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-09-13 13:05:28
- * @LastEditTime: 2023-07-13 16:12:06
+ * @LastEditTime: 2023-07-21 08:57:16
  * @Description: file content
  */
 /*
@@ -10,15 +10,10 @@
  * @LastEditTime: 2021-09-22 14:39:47
  * @Description: file content
  */
-import Pager from "./Pager";
+// import Pager from "./Pager";
 import { getTableSummaries } from "../utils/dataFormat";
 import { Message } from "element-ui";
-import {
-  setDefaultTableSchema,
-  setDefaultTableProps,
-} from "../utils/setDefaultProp";
 import { tablePropInit } from "../utils/tableHelp";
-import { Form } from "../form";
 import { debounce } from "~/utils/optimization";
 class Table {
   formObj = null;
