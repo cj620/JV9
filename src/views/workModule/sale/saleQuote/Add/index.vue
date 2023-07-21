@@ -226,6 +226,7 @@ import {
   API as Quotation,
   sales_quotation_get_last,
 } from "@/api/workApi/sale/quotation";
+import addProject from "./addProject";
 import closeTag from "@/utils/closeTag";
 import {
   pushDoubleCol,
@@ -238,6 +239,7 @@ export default {
   components: {
     JvUploadFile,
     ImgUploader,
+    addProject,
   },
   props: {
     billData: {
@@ -264,6 +266,7 @@ export default {
       transferData: [],
       CustomerData: [],
       projectDataList: [],
+      loading: false,
       textarea: "",
       fileList: [],
       detailRouteName: "Sa_SaleQuote_Detail",
