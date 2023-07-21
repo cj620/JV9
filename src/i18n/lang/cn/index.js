@@ -1006,6 +1006,14 @@ const cn = {
     P10186: "无法删除!",
     P10187: "单位不存在!",
     P10188: "当前工序禁止跳站!",
+    P10189: "操作失败",
+    P10190: "工单状态未完成",
+    P10191: "关联编号不能为空!",
+    P10192: "部分数据未删除",
+    P10193: "模板名称已存在,请重新输入!",
+    P10194: "可入库数量小于当前数量",
+    P10195: "可发货数量小于当前数量",
+    P10196: "可退货数量小于当前数量",
   },
   program: {
     Pr_ProcessPlanning: "工艺设计",
@@ -1056,6 +1064,7 @@ const cn = {
     Ftp_file_management_path_name: "项目文件路径",
     Ftp_file_management_path_desc: "项目文件将保存到这个路径下",
     Prohibit_skip_station_processes: "禁止跳站工序",
+    Create_purchase_request_below_safety_stock: "低于安全库存创建采购申请",
   },
 
   ...zhLocale,
