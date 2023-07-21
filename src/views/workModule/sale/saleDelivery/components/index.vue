@@ -44,11 +44,7 @@
           </el-option>
         </el-select>
       </div>
-        <JvDetail :detailObj="detailObj">
-
-        </JvDetail>
-
-
+      <JvDetail :detailObj="detailObj"> </JvDetail>
     </JvBlock>
     <!-- 物料信息 -->
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
@@ -133,9 +129,9 @@
 </template>
 
 <script>
-import { formSchema , detailConfig } from "./formConfig";
+import { formSchema, detailConfig } from "./formConfig";
 import { EditTable } from "./editConfig";
-import { Table} from "./tableConfig";
+import { Table } from "./tableConfig";
 import Detail from "@/jv_doc/class/detail/Detail";
 import { Form } from "@/jv_doc/class/form";
 import { getAllSalesCustomer } from "@/api/workApi/sale/customer";
@@ -190,10 +186,10 @@ export default {
         SaveAndSubmit: false,
         BillItems: [],
         BillFiles: [],
-        Address:'',
-        Contact:'',
-        Tel:'',
-        Email:'',
+        Address: "",
+        Contact: "",
+        Tel: "",
+        Email: "",
       },
       BillItems: {
         Id: "",
@@ -280,7 +276,7 @@ export default {
     },
     //选择客户确定税率
     changeCustomerId(e) {
-      console.log(e)
+      console.log(e);
       getCustomer({ CustomerId: e }).then((res) => {
         this.ruleForm.CustomerName = res.ShortName;
         this.AddressData = res.ContactInfo;
@@ -290,14 +286,14 @@ export default {
     },
 
     //选择地址
-    changeAddress(e){
-      console.log(e)
-      this.AddressData.forEach(item=>{
-        if(item.Address===e){
+    changeAddress(e) {
+      console.log(e);
+      this.AddressData.forEach((item) => {
+        if (item.Address === e) {
           this.detailObj.detailData = item;
-          console.log(this.ruleForm,item,this.detailObj)
+          console.log(this.ruleForm, item, this.detailObj);
         }
-      })
+      });
     },
     changeTax(val) {
       this.eTableObj.setDefaultColData({
@@ -338,6 +334,8 @@ export default {
       e.forEach((item) => {
         item.AssociatedNo = item.Id;
         item.Id = 0;
+        item.Quantity =
+          item.Quantity - item.DeliveryQuantity + item.ReturnQuantity;
       });
       this.detailsVisible = false;
       this.eTableObj.push(temMerge(this.BillItems, e));
@@ -365,7 +363,14 @@ export default {
             this.eTableObj.validate((valid1) => {
               if (valid1) {
                 delivery
-                  .api_save(Object.assign({}, this.ruleForm, this.formObj.form,this.detailObj.detailData))
+                  .api_save(
+                    Object.assign(
+                      {},
+                      this.ruleForm,
+                      this.formObj.form,
+                      this.detailObj.detailData
+                    )
+                  )
                   .then((res) => {
                     let TagName = {
                       path: "/sale/saleDeliveryDetails",
