@@ -15,6 +15,7 @@ import production from "./workModule/production";
 import stockroom from "./workModule/stockroom";
 import program from "./workModule/program";
 import quality from "./workModule/quality";
+import equipment from "./workModule/equipment";
 /* Router Modules */
 
 /**
@@ -314,6 +315,7 @@ export const asyncRoutes = [
   ...stockroom,
   ...program,
   ...quality,
+  ...equipment,
   /*   ...produce,
   ...enterprise,
   ...equipment, */

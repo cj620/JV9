@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2022-01-17 09:18:51
- * @LastEditTime: 2023-07-11 16:53:29
+ * @LastEditTime: 2023-07-21 08:57:07
  * @Description: file content
  */
 import { Form } from "../form";
@@ -16,10 +16,10 @@ import {
   getLocalStorage,
   removeLocalStorage,
 } from "../../utils/handleData/localCache";
-import { debounce, throttle } from "../../utils/optimization";
+import { throttle } from "../../utils/optimization";
 import { deepClone } from "../../utils/object";
 import { Message } from "element-ui";
-const cachePrefix = "tableCache-";
+// const cachePrefix = "tableCache-";
 import i18n from "@/i18n/i18n.js";
 // localStorage.getItem("lang");
 // window.global_config.IsSaveTableSchema

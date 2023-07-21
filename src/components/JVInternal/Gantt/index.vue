@@ -595,6 +595,7 @@ export default {
 		},
 		setGanttZoom(unit) { // 设置甘特图缩放级别（年月周 单位）
 			gantt.ext.zoom.setLevel(unit);
+			this.setLinks();
 		},
 		setExpand() { // 设置全屏
 			gantt.ext.fullscreen.toggle();

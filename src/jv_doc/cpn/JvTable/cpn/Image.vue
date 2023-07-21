@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-09-24 13:02:47
- * @LastEditTime: 2022-01-25 10:10:50
+ * @LastEditTime: 2023-07-19 11:15:32
  * @Description: file content
 -->
 <template>
@@ -57,7 +57,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .jv-table-inner-img {
   background-color: rgb(231, 231, 231);
   .image-slot {
@@ -76,6 +76,6 @@ export default {
 .img-box {
   // width: 50px;
   // height: 50px;
-  background-color: pink;
+  /* background-color: pink; */
 }
 </style>
