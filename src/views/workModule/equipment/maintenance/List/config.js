@@ -84,7 +84,7 @@ export const tableConfig = [
       },
       /*设备名称*/
       {
-      prop: "Device",
+      prop: "DeviceName",
       label: i18n.t("production.Pr_DeviceName"),
       },
 

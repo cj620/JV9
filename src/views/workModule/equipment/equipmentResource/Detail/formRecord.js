@@ -6,7 +6,7 @@ export const formSchema = [
     // 数量
     prop: "Quantity",
     cpn: "FormInput",
-    label: '数量',
+    label: i18n.t("Generality.Ge_Quantity"),
     rules: [
       {
         required: true,
@@ -20,7 +20,7 @@ export const formSchema = [
     // 日期
     prop: "UseDate",
     cpn: "SingleTime",
-    label: '日期',
+    label: i18n.t("Generality.Ge_Date"),
     rules: [
       {
         required: true,
@@ -34,7 +34,7 @@ export const formSchema = [
     // 操作者
     prop: "Operator",
     cpn: "SyncSelect",
-    label: '操作者',
+    label: i18n.t("device.De_Handlers"),
     api: getAllUserData,
     apiOptions: {
       immediate: true,
@@ -53,6 +53,6 @@ export const formSchema = [
     // 数量
     prop: "Category",
     cpn: "FormInput",
-    label: '类别',
+    label: i18n.t("Generality.Ge_Category"),
   },
 ];

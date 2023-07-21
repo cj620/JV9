@@ -48,11 +48,11 @@ export const m_tableConfig = [
     options: {
       list: [
         {
-          label: "是",
+          label: i18n.t("Generality.Ge_Yes"),
           value: "true",
         },
         {
-          label: "否",
+          label: i18n.t("Generality.Ge_No"),
           value: "false",
         },
       ],
@@ -60,9 +60,9 @@ export const m_tableConfig = [
     customFilter: (value, row) => {
       if (!value) return "";
       if (value === "true") {
-        return "是";
+        return i18n.t("Generality.Ge_Yes");
       } else if (value === "false") {
-        return "否";
+        return i18n.t("Generality.Ge_No");
       }
     },
     editConfig: {

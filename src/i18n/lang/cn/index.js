@@ -848,6 +848,11 @@ const cn = {
     De_AcquisitionDate: "购置日期",
     De_UserDepartment: "使用部门",
     De_LifeSetting: "寿命设定",
+    De_MaintenanceTemplate: "维护模板",
+    De_Manufacturer: "厂商",
+    De_Interval : "间隔天数/累计小时/累计次数",
+    De_StorageStatus: "出入库状态",
+    De_Handlers: "操作者",
   },
   // 后端提示
   backendMessage: {
