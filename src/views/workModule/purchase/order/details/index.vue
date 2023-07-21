@@ -23,12 +23,7 @@
         {
           label: $t('purchase.Pu_EnterStorage'),
           disabled: !stateForm.transform,
-          confirm: orderTransform.bind(null, 'Pu_StockIn_Add', 'deliveryData'),
-        },
-        {
-          label: $t('Generality.Ge_ReturnGoods'),
-          disabled: !stateForm.transform,
-          confirm: orderTransform.bind(null, 'Pu_Return_Add', 'deliveryData'),
+          confirm: validateIsCompleted,
         },
       ]"
     ></Action>
@@ -60,6 +55,18 @@
     <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
       <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
     </JvBlock>
+
+    <!-- 入库完成提醒弹窗 -->
+    <jv-dialog
+      title="跳转至新增入库"
+      width="45%"
+      :visible.sync="confirmFormVisible"
+      @confirm="orderTransform"
+    >
+      <span style="color: red; font-size: 18px"
+        >物料编号{{ completedItems }}</span
+      >已入库完成，是否继续发货？
+    </jv-dialog>
   </PageWrapper>
 </template>
 
@@ -118,6 +125,10 @@ export default {
         },
       ],
       btnAction: [],
+      confirmFormVisible: false,
+      isCompleted: false,
+      // 完成物料编号组
+      completedItems: [],
       printMod: "Pu_Order",
       editRouteName: "Pu_Order_Edit",
     };
@@ -168,7 +179,24 @@ export default {
         this.stateForm = auditPlugin(res);
         this.tableObj.setData(res.BillItems);
         this.btnAction = detailPageModel(this, res, ORDER, this.GetData);
+
+        this.detailObj.detailData.BillItems.forEach((item) => {
+          if (
+            item.Quantity - item.StockInQuantity + item.ReturnQuantity ===
+            0
+          ) {
+            this.completedItems.push(item.ItemId);
+            this.isCompleted = true;
+          }
+        });
       });
+    },
+    //判断是否入库完成
+    validateIsCompleted() {
+      console.log(this.completedItems);
+      this.isCompleted
+        ? (this.confirmFormVisible = true)
+        : this.orderTransform();
     },
     // 打印询价单
     printPR() {
@@ -178,17 +206,17 @@ export default {
       });
     },
     // 订单转
-    orderTransform(routerName, keyName) {
-      if (routerName === "Pu_StockIn_Add") {
-        this.detailObj.detailData.BillItems.forEach((item) => {
-          item.Quantity =
-            item.Quantity - item.StockInQuantity + item.ReturnQuantity;
-        });
-      }
-      this.$router.push({
-        name: routerName,
-        params: { [keyName]: this.detailObj.detailData },
+    orderTransform() {
+      this.detailObj.detailData.BillItems.forEach((item) => {
+        item.Quantity =
+          item.Quantity - item.StockInQuantity + item.ReturnQuantity;
+        item.Quantity = item.Quantity === 0 ? 1 : item.Quantity;
       });
+      this.$router.push({
+        name: "Pu_StockIn_Add",
+        params: { ["deliveryData"]: this.detailObj.detailData },
+      });
+      this.confirmFormVisible = false;
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;

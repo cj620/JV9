@@ -19,11 +19,7 @@
         {
           label: $t('Generality.Ge_DeliverGoods'),
           disabled: !stateForm.transform,
-          confirm: orderTransform.bind(
-            null,
-            'Sa_SaleDelivery_Add',
-            'orderData'
-          ),
+          confirm: validateIsCompleted,
         },
       ]"
     ></Action>
@@ -52,6 +48,18 @@
     <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
       <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
     </JvBlock>
+
+    <!-- 发货完成提醒弹窗 -->
+    <jv-dialog
+      title="跳转至新增发货"
+      width="45%"
+      :visible.sync="confirmFormVisible"
+      @confirm="orderTransform"
+    >
+      <span style="color: red; font-size: 18px"
+        >物料编号{{ completedItems }}</span
+      >已发货完成，是否继续发货？
+    </jv-dialog>
   </PageWrapper>
 </template>
 
@@ -65,6 +73,7 @@ import { Table } from "@/jv_doc/class/table";
 import Detail from "@/jv_doc/class/detail/Detail";
 import JvState from "@/components/JVInternal/JvState/index";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
+import JvDialog from "@/jv_doc/cpn/JvDialog/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import {
   auditPlugin,
@@ -90,12 +99,15 @@ export default {
       detailData: {},
       formObj: {},
       stateForm: {},
-      dialogFormVisible: false,
+      confirmFormVisible: false,
       tableDetail: [],
       fileBillId: "",
       RemarkData: "",
       type: "",
       btnAction: [],
+      isCompleted: false,
+      // 完成物料编号组
+      completedItems: [],
 
       // 编辑路由
       EditRoute: "Sa_SaleOrder_Edit",
@@ -189,20 +201,52 @@ export default {
         this.tableObj.setData(res.BillItems);
 
         this.btnAction = detailPageModel(this, res, ORDER, this.GetData);
+
+        this.detailObj.detailData.BillItems.forEach((item) => {
+          if (
+            item.Quantity - item.DeliveryQuantity + item.ReturnQuantity ===
+            0
+          ) {
+            this.completedItems.push(item.ItemId);
+            this.isCompleted = true;
+          }
+        });
       });
     },
 
+    // 判断是否发货完成
+    validateIsCompleted() {
+      console.log(this.completedItems);
+      this.isCompleted
+        ? (this.confirmFormVisible = true)
+        : this.orderTransform();
+    },
     //订单转
-    orderTransform(routerName, keyName) {
+    orderTransform() {
       this.detailObj.detailData.BillItems.forEach((item) => {
         item.Quantity =
           item.Quantity - item.DeliveryQuantity + item.ReturnQuantity;
+        item.Quantity = item.Quantity === 0 ? 1 : item.Quantity;
       });
       this.$router.push({
-        name: routerName,
-        params: { [keyName]: this.detailObj.detailData },
+        name: "Sa_SaleDelivery_Add",
+        params: { ["orderData"]: this.detailObj.detailData },
       });
+      this.confirmFormVisible = false;
     },
+    // orderTransform(routerName, keyName) {
+    //   this.detailObj.detailData.BillItems.forEach((item) => {
+    //     item.Quantity =
+    //       item.Quantity - item.DeliveryQuantity + item.ReturnQuantity;
+    //     if (item.Quantity === 0) {
+    //       item.Quantity = 1;
+    //     }
+    //   });
+    //   this.$router.push({
+    //     name: routerName,
+    //     params: { [keyName]: this.detailObj.detailData },
+    //   });
+    // },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
