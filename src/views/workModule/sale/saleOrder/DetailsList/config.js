@@ -6,30 +6,31 @@
  */
 //销售订单明细 配置文件
 // 引入表格表格类和表格API类
-import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
+import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getSaleOrderDetails } from "@/api/workApi/sale/order";
 class api extends TableAPI {
   // 获取列表
-  getData=getSaleOrderDetails
+  getData = getSaleOrderDetails;
 }
- export class Table extends BaseTable {
+export class Table extends BaseTable {
   constructor() {
-    super( {
+    super({
       // 表格配置
       tableSchema: tableSchema,
       // 表单配置
-      formSchema:formSchema,
+      formSchema: formSchema,
       // 行标识
-      rowId: 'Id',
+      rowId: "Id",
       // 表格标题
-      title: i18n.t("menu.Sa_SaleOrder")+'   '+i18n.t('Generality.Ge_Details1'),
+      title:
+        i18n.t("menu.Sa_SaleOrder") + "   " + i18n.t("Generality.Ge_Details1"),
       // 接口类
       api,
       // 打印模块标识
-      printMod:'Sa_SaleOrder_Detail_list',
-      operationCol:false,
-      printBar:false
-    })
+      printMod: "Sa_SaleOrder_Detail_list",
+      operationCol: false,
+      printBar: false,
+    });
   }
 }
 //  表格配置
@@ -42,7 +43,7 @@ const tableSchema = [
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
-      label: i18n.t("Generality.Ge_BillId")
+      label: i18n.t("Generality.Ge_BillId"),
     },
     cpnProps: {
       // 路由名称
@@ -54,20 +55,20 @@ const tableSchema = [
       // 传参的键名，值为当前数据
       parameterKey: "BillId",
       // 补充动态参数
-      moreDynamicParameters:[
+      moreDynamicParameters: [
         {
-          keyName:'ItemId',
-          valueName:'ItemId'
-        }
+          keyName: "ItemId",
+          valueName: "ItemId",
+        },
       ],
-    }
+    },
   },
   /*状态*/
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    custom:true,
-    width:'115px',
+    custom: true,
+    width: "115px",
   },
   /*客户简称*/
   {
@@ -76,10 +77,10 @@ const tableSchema = [
   },
   {
     // 相关编号
-    prop:'RelationId',
+    prop: "RelationId",
     label: i18n.t("sale.Sa_RelationId"),
   },
-     /*计划交期*/
+  /*计划交期*/
   {
     prop: "DeliveryDate",
     label: i18n.t("Generality.Ge_DeliveryDate"),
@@ -89,11 +90,10 @@ const tableSchema = [
   /*物料编号*/
   {
     prop: "ItemId",
-    label:i18n.t("Generality.Ge_ItemId"),
-
+    label: i18n.t("Generality.Ge_ItemId"),
   },
-   /*物料类别*/
-   {
+  /*物料类别*/
+  {
     prop: "ItemType",
     label: i18n.t("Generality.Ge_ItemType"),
   },
@@ -102,63 +102,78 @@ const tableSchema = [
     prop: "ItemName",
     label: i18n.t("Generality.Ge_ItemName"),
   },
-    /*描述*/
-    {
-      prop: "Description",
-      label: i18n.t("Generality.Ge_Describe"),
-    },
-    /*单位*/
-    {
-      prop: "Unit",
-      label: i18n.t("Generality.Ge_Unit"),
-      width: "70px",
-    },
-    /*数量*/
-    {
-      prop: "Quantity",
-      label: i18n.t("Generality.Ge_Quantity"),
-      width: "90px",
-      align: "right",
-      filter: "amount",
-    },
-    /*单价*/
-    {
-      prop: "Price",
-      label: i18n.t("Generality.Ge_Price"),
-      width: "90px",
-      align: "right",
-      filter: "amount",
-    },
-     /*未税单价*/
+  /*描述*/
+  {
+    prop: "Description",
+    label: i18n.t("Generality.Ge_Describe"),
+  },
+  /*单位*/
+  {
+    prop: "Unit",
+    label: i18n.t("Generality.Ge_Unit"),
+    width: "70px",
+  },
+  /*数量*/
+  {
+    prop: "Quantity",
+    label: i18n.t("Generality.Ge_Quantity"),
+    width: "90px",
+    align: "right",
+    filter: "amount",
+  },
+  /*发货数量*/
+  {
+    prop: "DeliveryQuantity",
+    label: i18n.t("Generality.Ge_DeliveryQuantity"),
+    width: "90px",
+    align: "right",
+    filter: "amount",
+  },
+  /*退货数量*/
+  {
+    prop: "ReturnQuantity",
+    label: i18n.t("Generality.Ge_ReturnQuantity"),
+    width: "90px",
+    align: "right",
+    filter: "amount",
+  },
+  /*单价*/
+  {
+    prop: "Price",
+    label: i18n.t("Generality.Ge_Price"),
+    width: "90px",
+    align: "right",
+    filter: "amount",
+  },
+  /*未税单价*/
   {
     prop: "NoTaxPrice",
     label: i18n.t("Generality.Ge_NoTaxPrice"),
     align: "right",
     width: "120px",
     filter: "amount",
-
   },
-    /*金额*/
-    {
-      prop: "Amount",
-      label: i18n.t("Generality.Ge_Amount"),
-      width: "100px",
-      align: "right",
-      filter: "amount",
-    },
-    {
-      // 币种
-      prop: "Currency",
-      label: i18n.t("Generality.Ge_Currency"),
-    },
-    /*税率*/
-    {
-      prop: "Tax",
-      label: i18n.t("sale.Sa_Tax"),
-      width: "70px",
-      align: "right",
-    },
-    /*未税金额*/
+  /*金额*/
+  {
+    prop: "Amount",
+    label: i18n.t("Generality.Ge_Amount"),
+    width: "100px",
+    align: "right",
+    filter: "amount",
+  },
+  {
+    // 币种
+    prop: "Currency",
+    label: i18n.t("Generality.Ge_Currency"),
+  },
+  /*税率*/
+  {
+    prop: "Tax",
+    label: i18n.t("sale.Sa_Tax"),
+    width: "70px",
+    align: "right",
+  },
+  /*未税金额*/
   {
     prop: "TDA",
     label: i18n.t("Generality.Ge_TDA"),
@@ -171,7 +186,7 @@ const tableSchema = [
     prop: "ItemRemarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
-]
+];
 //  搜索表单配置
 const formSchema = [
   {
@@ -196,10 +211,10 @@ const formSchema = [
   },
   {
     prop: "QueryAll",
-    label: '',
+    label: "",
     cpn: "FormInput",
-    default:true,
-    hidden:true
+    default: true,
+    hidden: true,
   },
   // QueryAll
-]
+];

@@ -193,6 +193,10 @@ export default {
 
     //订单转
     orderTransform(routerName, keyName) {
+      this.detailObj.detailData.BillItems.forEach((item) => {
+        item.Quantity =
+          item.Quantity - item.DeliveryQuantity + item.ReturnQuantity;
+      });
       this.$router.push({
         name: routerName,
         params: { [keyName]: this.detailObj.detailData },
