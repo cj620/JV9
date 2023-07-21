@@ -46,17 +46,18 @@ export const detailConfig = [
   //厂商
   {
     prop: "Manufacture",
-    label: "厂商",
+    label: i18n.t("device.De_Manufacturer"),
   },
   //设备类别
-  {
-    prop: "DeviceCategory",
-    label: i18n.t("Generality.Ge_Category"),
-    customFilter: (value) => {
-      if (!value) return "";
-      return machineCategoryEnum[value].name;
-    },
-  }, //保养方式
+  // {
+  //   prop: "DeviceCategory",
+  //   label: i18n.t("Generality.Ge_Category"),
+  //   customFilter: (value) => {
+  //     if (!value) return "";
+  //     return machineCategoryEnum[value].name;
+  //   },
+  // }, 
+  //保养方式
   {
     prop: "MaintenanceMode",
     label: i18n.t("device.De_MaintenanceMode"),
@@ -68,7 +69,7 @@ export const detailConfig = [
   //间隔天数/累计小时/累计次数
   {
     prop: "IntervalDays",
-    label: "间隔天数/累计小时/累计次数",
+    label: i18n.t("device.De_Interval"),
   }, //上次保养日期
   {
     prop: "LastMaintenanceDate",
@@ -102,7 +103,7 @@ export const detailConfig = [
   //出入库状态
   {
     prop: "InventoryState",
-    label: "出入库状态",
+    label: i18n.t("device.De_StorageStatus"),
     customFilter: (value) => {
       if (!value) return "";
       return inventoryStateEnum[value].name;
@@ -128,6 +129,6 @@ export const detailConfig = [
   // MaintenanceTplId
   {
     prop: "MaintenanceTplName",
-    label: "维护模板",
+    label: i18n.t("device.De_MaintenanceTemplate"),
   },
 ];

@@ -117,14 +117,14 @@ export const tableConfig = [
     },
   },
   // 状态
-  {
-    prop: "State",
-    label: '状态',
-    customFilter: (value) =>  {
-      if(!value) return ""
-      return deviceStateEnum[value].name
-    }
-  },
+  // {
+  //   prop: "State",
+  //   label: '状态',
+  //   customFilter: (value) =>  {
+  //     if(!value) return ""
+  //     return deviceStateEnum[value].name
+  //   }
+  // },
   //出入库状态
   {
     prop: "InventoryState",
@@ -135,10 +135,10 @@ export const tableConfig = [
     },
   },
   // 设备保养模板编号
-  {
-    prop: "MaintenanceTplId",
-    label: "设备保养模板编号"
-  },
+  // {
+  //   prop: "MaintenanceTplId",
+  //   label: "设备保养模板编号"
+  // },
    /*上次保养日期*/
    {
     prop: "LastMaintenanceDate",
@@ -155,6 +155,7 @@ export const tableConfig = [
   {
     prop: "CumulativeTime",
     label: i18n.t("production.Pr_CumulativeTime"),
+    custom: true,
   },
   // 创建日期
   {
