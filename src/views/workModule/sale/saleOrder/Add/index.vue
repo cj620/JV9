@@ -1,14 +1,14 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-08 15:11:06
- * @LastEditTime: 2021-11-08 15:11:40
+ * @LastEditTime: 2023-07-21 10:07:58
  * @Description:
 -->
 <!--新增-->
 <!--新增销售订单-->
 <template>
   <div>
-    <EditCom> </EditCom>
+    <EditCom :billData="billData" :type="type"> </EditCom>
   </div>
 </template>
 
@@ -20,10 +20,18 @@ export default {
   components: {
     EditCom,
   },
+  data() {
+    return {
+      type: undefined,
+      billData: "",
+    };
+  },
 
   methods: {},
-  activated() {
-    console.log(11111);
+  created() {
+    console.log(this.$route.query);
+    this.billData = this.$route.query.BillId;
+    this.type = this.$route.query.type;
   },
 };
 </script>
