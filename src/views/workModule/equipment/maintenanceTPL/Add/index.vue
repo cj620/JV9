@@ -197,7 +197,6 @@ export default {
     },
     addTPLItem() {
       this.M_TableObj.addEmptyRow();
-      console.log('this.M_TableObj::: ', this.M_TableObj);
     },
     //删除物料
     delTPLItem(index) {

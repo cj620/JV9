@@ -93,7 +93,7 @@ export const tableConfig = [
         label: i18n.t("Generality.Ge_Category"),
         customFilter: (value) => {
           if (!value) return "";
-          return maintenanceEnum[value].name;
+          return maintenanceEnum[value] ? maintenanceEnum[value].name : value;
         },
       },
       /*上次保养日期*/
