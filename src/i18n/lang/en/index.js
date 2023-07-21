@@ -1057,6 +1057,14 @@ const en = {
     P10186: "It is associated with the mold and cannot be deleted！",
     P10187: "The unit dose not exist!",
     P10188: "The current process prohibits skipping stations!",
+    P10189: "Operation failed",
+    P10190: "The work order status is not completed",
+    P10191: "The associated no cannot be empty!",
+    P10192: "Some data is not deleted",
+    P10193: "The template name already exists!",
+    P10194: "The quantity that can be stored is less than the current quantity",
+    P10195: "The quantity that can be delivery is less than the current quantity",
+    P10196: "Returnable quantity is less than the current quantity",
   },
   program: {
     Pr_ProcessPlanning: "Process planning",
@@ -1112,6 +1120,7 @@ const en = {
     Ftp_file_management_path_desc:
       "root folder where project files are stored in",
     Prohibit_skip_station_processes: "Prohibit skip station processes",
+    Create_purchase_request_below_safety_stock: "Create purchase request below safety stock",
   },
   ...enLocale,
 };
