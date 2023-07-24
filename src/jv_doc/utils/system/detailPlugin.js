@@ -65,7 +65,7 @@ export function detailPageModel($el, optionsState, API, callBack) {
     },
     {
       label: "复制",
-      disabled: !$el.addRouteName,
+      // disabled: !$el.addRouteName,
       confirm: doCopy({ BillId }, $el),
     },
     // 打印

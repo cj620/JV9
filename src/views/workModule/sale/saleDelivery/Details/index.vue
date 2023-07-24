@@ -55,11 +55,7 @@
     <!--客户信息-->
     <JvBlock title="客户信息" ref="first">
       <!---->
-      <JvDetail :detailObj="detailObj1">
-
-      </JvDetail>
-
-
+      <JvDetail :detailObj="detailObj1"> </JvDetail>
     </JvBlock>
     <!--物料信息-->
     <JvBlock :title="$t('Generality.Ge_ItemsInfo')" ref="second">
@@ -116,6 +112,7 @@ export default {
       btnAction: [],
       // 编辑路由
       editRouteName: "Sa_SaleDelivery_Edit",
+      addRouteName: "Sa_SaleDelivery_Add",
       // 打印模板标识 谨慎删除
       printMod: "Sa_SaleDelivery",
       fileBillId: "",
