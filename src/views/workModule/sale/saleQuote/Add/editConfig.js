@@ -17,7 +17,7 @@ export class M_EditTable extends BaseTable {
       tableHeaderShow: false,
       operationWidth: 80,
       showSummary: true,
-      height: "",
+      height: null,
       // 选择列
       chooseCol: false,
     });
@@ -95,7 +95,7 @@ export class P_EditTable extends BaseTable {
       tableHeaderShow: false,
       operationWidth: 80,
       showSummary: true,
-      height: "",
+      height: null,
       // 序号列
       sortCol: false,
       // 选择列
@@ -163,7 +163,7 @@ export class C_EditTable extends BaseTable {
       tableSchema: c_tableConfig,
       data: [],
       title: "",
-      height: "",
+      height: null,
       tableHeaderShow: false,
       operationWidth: 80,
       showSummary: true,

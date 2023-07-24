@@ -108,6 +108,16 @@ const design = [
       i18n.t("menu.De_ItemsDemand") + "  " + i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+  //物料需求明细
+  {
+    key: "De_ItemsDemand_Detail_list",
+    component: () => import("@/views/workModule/design/itemsDemand/DetailsList"),
+    Parent: "De_Design",
+    name: "De_ItemsDemand_Detail_list",
+    path: "De_ItemsDemand_Detail_list",
+    title: i18n.t("menu.De_ItemsDemand")+'   '+i18n.t('Generality.Ge_Details1'),
+    hidden: true,
+  },
   // 生产需求
   {
     key: "De_ProductionDemand",

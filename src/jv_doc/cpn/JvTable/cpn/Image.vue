@@ -57,7 +57,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .jv-table-inner-img {
   background-color: rgb(231, 231, 231);
   .image-slot {

@@ -9,9 +9,10 @@
     <div class="img-box" :style="imgStyle" v-if="getImageBind.length !== 0">
       <el-image
         class="jv-table-inner-img"
-        v-for="item in getImageBind"
+        v-for="(item,index) in getImageBind"
         style="height: 100%; width: 100%"
         v-bind="item"
+        :key="index"
       >
         <div slot="error" class="image-slot">
           <i class="el-icon-picture error-icon"></i>
