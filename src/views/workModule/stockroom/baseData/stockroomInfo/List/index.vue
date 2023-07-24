@@ -26,7 +26,7 @@
             </div>
             <div>
               <div class="unit-list-item-content-operate">
-                <div @click="del(item.Unit)">
+                <div @click="del(item.Stockroom)">
                   {{ $t("Generality.Ge_Delete") }}
                 </div>
               </div>
