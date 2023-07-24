@@ -6,50 +6,13 @@
       <template #State="{ record }">
         <BillStateTags :state="record"></BillStateTags>
       </template>
-
-      <template #operation="{ row }">
-        <TableAction
-          :actions="[
-            {
-              label: $t('Generality.Ge_Edit'),
-              confirm: edit.bind(null, row),
-              disabled: getActionState(row.State, 'edit'),
-            },
-            {
-              label: $t('Generality.Ge_Delete'),
-              disabled: getActionState(row.State, 'edit'),
-              popConfirm: {
-                title: $t('Generality.Ge_DeleteConfirm'),
-                confirm: deleteOrder.bind(null, [row.BillId]),
-              },
-            },
-          ]"
-        />
-      </template>
-      <Action
-        size="mini"
-        slot="btn-list"
-        :actions="[
-          {
-            label: $t('Generality.Ge_New'),
-
-            confirm: add.bind(),
-          },
-          {
-            label: $t('Generality.Ge_Delete'),
-            disabled: canIsDel,
-            popConfirm: {
-              title: $t('Generality.Ge_DeleteConfirm'),
-              confirm: del.bind(),
-            },
-          },
-          {
-            label: $t('project.Pro_CheckDetails'),
-            confirm: toDetailsList,
-          },
-        ]"
-      >
+      <!-- 表格操作行 -->
+      <Action size="mini" slot="btn-list" :actions="getListTableBtnModel">
       </Action>
+      <!-- 表格操作列按钮 -->
+      <template #operation="{ row }">
+        <TableAction :actions="getListTableColBtnModel(row)" />
+      </template>
     </JvTable>
   </PageWrapper>
 </template>
@@ -57,6 +20,10 @@
 import { Table } from "./config";
 import { stateEnum } from "@/enum/workModule";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
+import {
+  listTableBtnModel,
+  listTableColBtnModel,
+} from "@/jv_doc/utils/system/pagePlugin";
 export default {
   name: "Sa_SaleDelivery",
   components: {
@@ -70,6 +37,10 @@ export default {
         type: "",
         data: "",
       },
+      // 编辑路由
+      EditRoute: "Sa_SaleDelivery_Edit",
+      // 新增路由
+      AddRoute: "Sa_SaleDelivery_Add",
       IsState: false,
     };
   },
@@ -92,8 +63,32 @@ export default {
         return !stateEnum[state]?.operation?.[type];
       };
     },
+
+    // 表格操作模块
+    getListTableBtnModel() {
+      return [
+        ...listTableBtnModel(this),
+        {
+          label: i18n.t("project.Pro_CheckDetails"),
+          confirm: this.toDetailsList,
+        },
+      ];
+    },
+    // 表格操作列按钮
+    getListTableColBtnModel() {
+      return (row) => {
+        return listTableColBtnModel(this, row);
+      };
+    },
   },
   methods: {
+    copy(row) {
+      console.log(row);
+      this.$router.push({
+        name: "Sa_SaleDelivery_Add",
+        query: { BillId: row.BillId, type: "copy" },
+      });
+    },
     toDetailsList() {
       this.$router.push({
         name: "Sa_SaleDelivery_Detail_list",
@@ -104,23 +99,6 @@ export default {
       this.tableObj.api.del({ BillIds: id }).then((data) => {
         this.tableObj.getData();
         console.log("110", data);
-      });
-    },
-    //新增
-    add() {
-      this.$router.push({
-        name: "Sa_SaleDelivery_Add",
-        params: { type: "add", title: "addSaleDelivery" },
-      });
-    },
-
-    //编辑
-    edit(e) {
-      this.tableObj.api.editLock({ BillId: e.BillId }).then((res) => {
-        this.$router.push({
-          name: "Sa_SaleDelivery_Edit",
-          query: { BillId: e.BillId },
-        });
       });
     },
     //批量删除单据
