@@ -199,8 +199,8 @@
         $t("Generality.Ge_SaveAndSubmit")
       }}</el-button>
     </div>
-        <!--新增项目-->
-        <addProject
+    <!--新增项目-->
+    <addProject
       :visible.sync="addProjectDialogFormVisible"
       @confirmAddProject="confirmAddProject"
     ></addProject>
@@ -389,36 +389,33 @@ export default {
     this.P_TableObj = new P_EditTable();
     this.C_TableObj = new C_EditTable();
     // await this.Configuration();
-     this.GetProjectData();
+    this.GetProjectData();
     // console.log(this.$route.name,this.$options.name);
     this.$options.name == "Sa_SaleQuote_Add" && this.get_last_data();
-    console.log(this.$route.query.type,999)
-
+    console.log(this.$route.query.type, 999);
   },
 
   methods: {
     get_last_data() {
-      if(this.$route.query.type==='copy'){
+      if (this.$route.query.type === "copy") {
         Quotation.api_get({ BillId: this.cur_Id }).then((res) => {
           this.formObj.form = res;
           this.ruleForm = res;
-          this.ruleForm.BillId=''
-          this.ruleForm.BillGui=''
-          res.MaterialCost.forEach(item=>{
-            item.Id=0
-          })
-          res.ProductionCost.forEach(item=>{
-            item.Id=0
-          })
-          res.AdditionalCost.forEach(item=>{
-            item.Id=0
-          })
+          this.ruleForm.BillId = "";
+          this.ruleForm.BillGui = "";
+          res.MaterialCost.forEach((item) => {
+            item.Id = 0;
+          });
+          res.ProductionCost.forEach((item) => {
+            item.Id = 0;
+          });
+          res.AdditionalCost.forEach((item) => {
+            item.Id = 0;
+          });
           this.M_TableObj.setData(res.MaterialCost);
           this.P_TableObj.setData(data2doubleCol(res.ProductionCost));
           this.C_TableObj.setData(res.AdditionalCost);
-
         });
-
       }
       /*sales_quotation_get_last().then((res) => {
         console.log(res);
@@ -436,8 +433,8 @@ export default {
     addEditRow() {
       this.M_TableObj.addEmptyRow();
     },
-        //获取项目
-        async GetProjectData() {
+    //获取项目
+    async GetProjectData() {
       await getProjectQuery({ Keyword: "" }).then((res) => {
         console.log(res.Items);
         this.projectDataList = res.Items;
@@ -446,7 +443,7 @@ export default {
     //搜索项目
     remoteMethod(query) {
       getProjectQuery({ Keyword: query }).then((res) => {
-        console.log(res.Items,555)
+        console.log(res.Items, 555);
         if (query !== "") {
           this.loading = true;
           setTimeout(() => {

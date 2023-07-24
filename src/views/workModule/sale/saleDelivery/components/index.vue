@@ -172,6 +172,7 @@ export default {
   data() {
     return {
       Table,
+      cur_Id: this.$route.query.BillId,
       formObj: {},
       eTableObj: {},
       detailObj: {},
@@ -262,9 +263,13 @@ export default {
       schema: detailConfig,
     });
     this.eTableObj = new EditTable();
+
     if (this.type === "edit") {
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
+    } else if (this.$route.query.type === "copy") {
+      console.log("复制跳转");
+      this.get_last_data();
     } else if (this.$route.params.orderData) {
       console.log(this.$route.params.orderData, 99669955);
       billTransform(this, "orderData");
@@ -273,6 +278,22 @@ export default {
   },
 
   methods: {
+    // 复制跳转时获取数据
+    get_last_data() {
+      delivery.api_get({ BillId: this.cur_Id }).then((res) => {
+        this.formObj.form = res;
+        console.log(this.formObj.form.CustomerName);
+        this.ruleForm = res;
+        this.ruleForm.BillId = "";
+        this.ruleForm.BillGui = "";
+
+        res.BillItems.forEach((item) => {
+          item.Id = 0;
+        });
+        this.eTableObj.setData(res.BillItems);
+        this.detailObj.detailData = this.ruleForm;
+      });
+    },
     //获取客户Id
     async Configuration() {
       await getAllSalesCustomer({}).then((res) => {
