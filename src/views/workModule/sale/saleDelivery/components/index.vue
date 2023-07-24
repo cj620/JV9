@@ -371,6 +371,9 @@ export default {
         item.Id = 0;
         item.Quantity =
           item.Quantity - item.DeliveryQuantity + item.ReturnQuantity;
+        if (!item.Quantity) {
+          item.Quantity = 1;
+        }
       });
       this.confirmFormVisible = false;
       this.detailsVisible = false;
