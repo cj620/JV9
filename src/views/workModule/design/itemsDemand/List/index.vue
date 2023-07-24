@@ -46,6 +46,10 @@
               confirm: delBills,
             },
           },
+          {
+            label: $t('project.Pro_CheckDetails'),
+            confirm: toDetailsList,
+          },
         ]"
       >
       </Action>
@@ -95,6 +99,11 @@ export default {
     },
   },
   methods: {
+    toDetailsList() {
+      this.$router.push({
+        name: "De_ItemsDemand_Detail_list",
+      });
+    },
     //删除单据
     deleteOrder(ids) {
       this.tableObj.api.del({ BillIds: ids }).then((_) => {
