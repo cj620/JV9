@@ -35,6 +35,16 @@ export class Table extends BaseTable {
 }
 
 export const tableConfig = [
+  /*订单编号*/
+  {
+    prop: "BillId",
+    label: i18n.t("Generality.Ge_BillId"),
+  },
+  /*物料编号*/
+  {
+    prop: "ItemId",
+    label: i18n.t("Generality.Ge_ItemId"),
+  },
   /*名称*/
   {
     prop: "ItemName",
