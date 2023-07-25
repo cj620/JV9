@@ -302,6 +302,7 @@ export default {
     changeCustomerId(e) {
       console.log(e);
       getCustomer({ CustomerId: e }).then((res) => {
+        this.formObj.form.Currency = res.Currency;
         this.ruleForm.CustomerName = res.ShortName;
         this.AddressData = res.ContactInfo;
         this.BillItems.Tax = res.Tax;

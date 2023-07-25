@@ -3,6 +3,7 @@ export class EventBus {
     this.eventMap = {};
   }
   $on = (event, cb) => {
+    console.log(event, "on");
     let currentlist = this.eventMap[event];
     if (currentlist) {
       currentlist.push(cb);
@@ -11,6 +12,7 @@ export class EventBus {
     }
   };
   $emit = (event, ...args) => {
+    console.log(event, "emit");
     let currentlist = this.eventMap[event];
     if (!currentlist) return;
     currentlist.forEach((cb) => {
