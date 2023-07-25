@@ -135,7 +135,7 @@ import {
   getToolingDetail,
   save_project_dynamic,
 } from "@/api/workApi/project/projectInfo";
-import { saveItem } from "@/api/basicApi/systemSettings/Item";
+import { saveToolingBasis } from "@/api/basicApi/systemSettings/Item";
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
 import { taskTypeEnum } from "@/enum/workModule";
 import JvUploadList from "@/components/JVInternal/JvUpload/List";
@@ -288,7 +288,7 @@ export default {
       this.formObj1.form.PhotoUrl = this.ImgDataList[0];
       this.formObj1.form.ItemId = this.formObj1.form.ToolingNo;
       this.formObj1.form.DataState = "Modify";
-      saveItem(this.formObj1.form).then((res) => {
+      saveToolingBasis(this.formObj1.form).then((res) => {
         this.editVisible = false;
         this.getData();
       });
