@@ -113,3 +113,11 @@ export function getPlanStrategy(query) {
     params: query
   })
 }
+// 编辑模具基础信息
+export function saveToolingBasis(data) {
+  return request({
+    url: '/project_info/save_tooling_basis',
+    method: 'post',
+    data
+  })
+}

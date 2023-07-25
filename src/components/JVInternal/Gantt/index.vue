@@ -44,6 +44,7 @@ import { gantt } from "dhtmlx-gantt";
 import { Form } from "@/jv_doc/class/form";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 // import data from "@/views/basicModule/demo/Test10/data";
+import { timeFormat } from "@/jv_doc/utils/time";
 export default {
 	name: "index",
 	props: {
@@ -362,26 +363,26 @@ export default {
 			this.onTaskDblClick(); // 双击事件
 			this.onTaskDrag(); // 拖动事件
 			// 任务更新前
-			gantt.attachEvent("onBeforeTaskUpdate", (id, new_item) => {
-				if (this.isConfrim) return
-				var task = gantt.getTask(id);
-				this.$confirm('您当前修改了日期，是否提交修改?', '提示', {
-					confirmButtonText: '确定',
-					cancelButtonText: '取消',
-					type: 'warning'
-				}).then(() => {
-					this.setGanttUpdate(); //甘特图数据更新
-				}).catch(() => {
-					this.isConfrim = true;
-					task.start_date = this.oldDateList[new_item.$index].start_date;
-					task.end_date = this.oldDateList[new_item.$index].end_date;
-					gantt.updateTask(id);
-					this.setLinks();
-					this.$nextTick(() => {
-						this.isConfrim = false;
-					})
-				})
-			});
+			// gantt.attachEvent("onBeforeTaskUpdate", (id, new_item) => {
+			// 	if (this.isConfrim) return
+			// 	var task = gantt.getTask(id);
+			// 	this.$confirm('您当前修改了日期，是否提交修改?', '提示', {
+			// 		confirmButtonText: '确定',
+			// 		cancelButtonText: '取消',
+			// 		type: 'warning'
+			// 	}).then(() => {
+			// 		this.setGanttUpdate(); //甘特图数据更新
+			// 	}).catch(() => {
+			// 		this.isConfrim = true;
+			// 		task.start_date = this.oldDateList[new_item.$index].start_date;
+			// 		task.end_date = this.oldDateList[new_item.$index].end_date;
+			// 		gantt.updateTask(id);
+			// 		this.setLinks();
+			// 		this.$nextTick(() => {
+			// 			this.isConfrim = false;
+			// 		})
+			// 	})
+			// });
 			// // 任务更新后
 			// gantt.attachEvent("onAfterTaskUpdate", (id, item) => {
 			// });
@@ -405,6 +406,8 @@ export default {
 			window.onresize = () => {
 				this.debounce(this.setLinks,300)
 			}
+
+			console.log('gantt.config.types;::: ', gantt.config.types);
 			// let ids = linkr[1].getAttribute("data-link-id");
 			// console.log('ids::: ', ids);
 		},
