@@ -157,8 +157,8 @@ export default {
         {
             "Id": 9,
             "Title": "线切割 ",
-            "StartDate": "2023-01-10T12:00:00",
-            "EndDate": "2023-07-12T12:00:00",
+            "StartDate": "2024-01-10T12:00:00",
+            "EndDate": "2025-07-12T12:00:00",
             "Duration": 263520,
             "IsOpen": true,
             "ParentId": 8,

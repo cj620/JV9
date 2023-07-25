@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { gantt } from "dhtmlx-gantt";
+import { gantt } from "dhtmlx-gantt/codebase/sources/dhtmlxgantt.js";
 import { Form } from "@/jv_doc/class/form";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 // import data from "@/views/basicModule/demo/Test10/data";
@@ -114,6 +114,9 @@ export default {
 	},
 	methods: {
 		GetData() {
+			// gantt.addTask
+			// console.log('gantt::: ', gantt.createTask);
+			
 			// 日期列显示
 			// gantt.config.min_column_width = 60
 			// var that = this;
@@ -351,11 +354,11 @@ export default {
 			gantt.ext.zoom.init(zoomConfig);
 			// 时间轴图表中，甘特图左边的宽度
 			//切换到指定的缩放级别
-			gantt.ext.zoom.setLevel("week");
+			gantt.ext.zoom.setLevel("year");
 
 			//gantt.ext.zoom.zoomIn()
 			//容器内初始化 dhtmlxGantt
-
+			
 			gantt.render();
 			//加载数据
 			gantt.parse(this.$props.tasks);
@@ -384,8 +387,9 @@ export default {
 			// 	})
 			// });
 			// // 任务更新后
-			// gantt.attachEvent("onAfterTaskUpdate", (id, item) => {
-			// });
+			gantt.attachEvent("onAfterTaskUpdate", (id, item) => {
+				// console.log('id, item::: ', id, item);
+			});
 			
 			gantt.attachEvent("onLinkCreated", (link) => { // 创建链接
 				console.log('link::: ', link);
@@ -397,9 +401,58 @@ export default {
 				console.log('id::: ', id);
 			});
 			
+
+			gantt.attachEvent("onAfterTaskDrag", function(id, mode, e){
+				console.log('测试::: ');
+				// if(id == 9 || id == 10) {
+				// 	let taskNode = document.querySelectorAll('div[task_id="8"]')[2];
+				// 	let childrenNode = document.querySelectorAll('div[task_id="9"]')[2];
+				// 	let childrenNode1 = document.querySelectorAll('div[task_id="10"]')[2];
+				// 	// let task = gantt.getTask(9);
+				// 	// task.start_date = new Date('2024-01-20')
+				// 	// task.end_date = new Date('2024-12-15');
+				// 	// gantt.updateTask(9);
+				// 	// taskNode.appendChild(childrenNode);
+				// 	taskNode.style.display = "block";
+				// 	childrenNode.style.top = taskNode.offsetTop + 'px';
+				// 	childrenNode1.style.top = taskNode.offsetTop + 'px';
+				// 	taskNode.style.display = "none";
+				// }
+   				 //any custom logic here
+			});
+			// gantt.attachEvent("onBeforeTaskDrag", function(id, mode, e){
+			// 	console.log('id, mode, e::: ', id, mode, e);
+			// 	let childrenNode = document.querySelectorAll('div[task_id="9"]')[2];
+			// 	childrenNode.style.top = 0;
+			// 	//any custom logic here
+			// 	return true;
+			// });
+			
+			// gantt.attachEvent("onTaskDrag", function(id, mode, task, original){
+			// 	//any custom logic here
+			// 	let childrenNode = document.querySelectorAll('div[task_id="9"]')[2];
+			// 	childrenNode.style.top = 0;
+			// });
+
 			// 页面进来可能甘特图还未挂载完毕，定个延时器，延迟设置links
 			let timer = setTimeout(() => {
 				this.setLinks();
+
+				// let taskNode = document.querySelectorAll('div[task_id="8"]')[2];
+				// let childrenNode = document.querySelectorAll('div[task_id="9"]')[2];
+				// let childrenNode1 = document.querySelectorAll('div[task_id="10"]')[2];
+				// // let task = gantt.getTask(9);
+				// // task.start_date = new Date('2024-01-20')
+				// // task.end_date = new Date('2024-12-15');
+				// // gantt.updateTask(9);
+				// // taskNode.appendChild(childrenNode);
+				// // taskNode.appendChild(childrenNode1);
+				
+				// console.log('taskNode.offsetTop::: ', taskNode.offsetTop);
+				// childrenNode.style.top = taskNode.offsetTop + 'px';
+				// childrenNode1.style.top = taskNode.offsetTop + 'px';
+				// taskNode.style.display = "none";
+				// console.log('childrenNode::: ', childrenNode);
 				clearTimeout(timer);
 			},100);
 			// 监听浏览器窗口变化，重新设置links
@@ -407,7 +460,6 @@ export default {
 				this.debounce(this.setLinks,300)
 			}
 
-			console.log('gantt.config.types;::: ', gantt.config.types);
 			// let ids = linkr[1].getAttribute("data-link-id");
 			// console.log('ids::: ', ids);
 		},
