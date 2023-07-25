@@ -3,9 +3,6 @@
   <PageWrapper :footer="false">
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
-      <template #State="{ record }">
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
       <!-- 表格操作行 -->
       <Action size="mini" slot="btn-list" :actions="getListTableBtnModel">
       </Action>
@@ -18,7 +15,6 @@
 </template>
 <script>
 import { Table } from "./config";
-import { stateEnum } from "@/enum/workModule";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import {
   listTableBtnModel,
@@ -31,7 +27,6 @@ export default {
   },
   data() {
     return {
-      stateEnum,
       // 表格数据
       tableObj: {
         type: "",
@@ -49,21 +44,6 @@ export default {
     this.tableObj.getData();
   },
   computed: {
-    // 是否可以批量删除
-    canIsDel() {
-      let { datas } = this.tableObj.selectData;
-      if (datas.length === 0) return true;
-      return datas.some((item) => {
-        return !["Rejected", "Unsubmitted"].includes(item.State);
-      });
-    },
-    // 获取按钮状态
-    getActionState() {
-      return (state, type) => {
-        return !stateEnum[state]?.operation?.[type];
-      };
-    },
-
     // 表格操作模块
     getListTableBtnModel() {
       return [
@@ -87,17 +67,6 @@ export default {
       this.$router.push({
         name: "Sa_SaleDelivery_Detail_list",
       });
-    },
-    //删除单据
-    deleteOrder(id) {
-      this.tableObj.api.del({ BillIds: id }).then((data) => {
-        this.tableObj.getData();
-        console.log("110", data);
-      });
-    },
-    //批量删除单据
-    del() {
-      this.deleteOrder(this.tableObj.selectData.keys);
     },
   },
 };
