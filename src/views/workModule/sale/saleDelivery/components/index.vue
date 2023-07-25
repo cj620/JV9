@@ -267,17 +267,6 @@ export default {
     });
     this.eTableObj = new EditTable();
 
-    // if (this.type === "edit") {
-    //   this.fileBillId = this.billData;
-    //   await this.GetData(this.billData);
-    // } else if (this.$route.query.type === "copy") {
-    //   console.log("复制跳转");
-    //   this.get_last_data();
-    // } else if (this.$route.params.orderData) {
-    //   console.log(this.$route.params.orderData, 99669955);
-    //   billTransform(this, "orderData");
-    // }
-    console.log("this.type::: ", this.type);
     // 判断是否为编辑或复制
     if (this.type === "edit" || this.type === "copy") {
       this.fileBillId = this.billData;
@@ -297,22 +286,6 @@ export default {
         this.CustomerData = res.Items;
       });
     },
-    // 复制跳转时获取数据
-    // get_last_data() {
-    //   delivery.api_get({ BillId: this.cur_Id }).then((res) => {
-    //     this.formObj.form = res;
-    //     console.log(this.formObj.form.CustomerName);
-    //     this.ruleForm = res;
-    //     this.ruleForm.BillId = "";
-    //     this.ruleForm.BillGui = "";
-
-    //     res.BillItems.forEach((item) => {
-    //       item.Id = 0;
-    //     });
-    //     this.eTableObj.setData(res.BillItems);
-    //     this.detailObj.detailData = this.ruleForm;
-    //   });
-    // },
     //编辑的时候获取信息
     async GetData(Id) {
       await delivery.api_get({ BillId: Id }).then((res) => {
@@ -382,12 +355,6 @@ export default {
     // 判断是否发货完成
     validateIsCompleted(e) {
       this.selectedItems = e;
-      // e.forEach((item) => {
-      //   if (item.Quantity - item.DeliveryQuantity + item.ReturnQuantity === 0) {
-      //     this.completedItems.push(item.ItemId);
-      //     console.log(111);
-      //   }
-      // });
       this.completedItems = e
         .filter(
           (item) =>
