@@ -30,6 +30,15 @@
       }"
       style="position: relative"
     >
+      <div slot="extra">
+        <el-button
+          size="mini"
+          type="primary"
+          @click="editBaciInfo(detailObj.detailData)"
+        >
+          编辑
+        </el-button>
+      </div>
       <div class="mould-img">
         <el-image
           style="width: 100%; height: 100%"
@@ -102,6 +111,18 @@
       @dynamicConfirm="dynamicConfirm"
     >
     </Dynamic>
+    <jv-dialog
+      title="编辑"
+      width="35%"
+      :visible.sync="editVisible"
+      v-if="editVisible"
+      @confirm="confirmEditDate"
+      :autoFocus="true"
+      :confirmText="$t('Generality.Ge_Save')"
+    >
+      <JvForm :formObj="formObj1"> </JvForm>
+      <JvUploadList v-model="ImgDataList" :listType="false"></JvUploadList>
+    </jv-dialog>
   </PageWrapper>
 </template>
 
@@ -114,16 +135,22 @@ import {
   getToolingDetail,
   save_project_dynamic,
 } from "@/api/workApi/project/projectInfo";
+import { saveItem } from "@/api/basicApi/systemSettings/Item";
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
 import { taskTypeEnum } from "@/enum/workModule";
+import JvUploadList from "@/components/JVInternal/JvUpload/List";
 // 单据状态组件
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import DynamicList from "./cpns/DynamicList.vue";
+import { formSchema1 } from "./formConfig";
+import { Form } from "~/class/form";
 export default {
   name: "index",
-  components: { BillStateTags, DynamicList, Dynamic },
+  components: { BillStateTags, DynamicList, Dynamic, JvUploadList },
   data() {
     return {
+      ImgDataList: [],
+      editVisible: false, // 编辑基础信息弹窗
       // 当前单据的id
       cur_billId: "",
       // 技术要求
@@ -169,6 +196,7 @@ export default {
       skillReqTemp: [],
       // 打印模板标识 谨慎删除
       printMod: "Sa_SaleOrder",
+      formObj1: {},
     };
   },
   async created() {
@@ -180,6 +208,15 @@ export default {
     this.T_tableObj = new T_Table();
     this.R_tableObj = new R_Table();
     await this.getData();
+
+    this.formObj1 = new Form({
+      formSchema: formSchema1,
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
   },
 
   methods: {
@@ -241,6 +278,21 @@ export default {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
     },
+    editBaciInfo(data) {
+      this.editVisible = true;
+      data.ItemName = JSON.parse(JSON.stringify(data.ToolingName));
+      this.formObj1.form = JSON.parse(JSON.stringify(data));
+      this.ImgDataList = [JSON.parse(JSON.stringify(data.PhotoUrl))];
+    },
+    confirmEditDate() {
+      this.formObj1.form.PhotoUrl = this.ImgDataList[0];
+      this.formObj1.form.ItemId = this.formObj1.form.ToolingNo;
+      this.formObj1.form.DataState = "Modify";
+      saveItem(this.formObj1.form).then((res) => {
+        this.editVisible = false;
+        this.getData();
+      });
+    }
   },
 };
 </script>
