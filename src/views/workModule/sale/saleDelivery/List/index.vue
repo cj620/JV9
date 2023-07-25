@@ -82,13 +82,13 @@ export default {
     },
   },
   methods: {
-    copy(row) {
-      console.log(row);
-      this.$router.push({
-        name: "Sa_SaleDelivery_Add",
-        query: { BillId: row.BillId, type: "copy" },
-      });
-    },
+    // copy(row) {
+    //   console.log(row);
+    //   this.$router.push({
+    //     name: "Sa_SaleDelivery_Add",
+    //     query: { BillId: row.BillId, type: "copy" },
+    //   });
+    // },
     toDetailsList() {
       this.$router.push({
         name: "Sa_SaleDelivery_Detail_list",
