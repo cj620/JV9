@@ -78,10 +78,7 @@
 
 <script>
 import { Form } from "@/jv_doc/class/form";
-import { stateEnum } from "@/enum/workModule";
 import { tableConfig, detailConfig, detailConfig1 } from "./config";
-import { mapState } from "vuex";
-import closeTag from "@/utils/closeTag";
 import { Table } from "@/jv_doc/class/table";
 
 import Detail from "@/jv_doc/class/detail/Detail";
@@ -170,14 +167,6 @@ export default {
       height: 350,
     });
     await this.GetData();
-  },
-  computed: {
-    ...mapState({
-      current: (state) => state.page.current,
-    }),
-    stateMap() {
-      return stateEnum[this.detailObj.detailData.State];
-    },
   },
 
   methods: {

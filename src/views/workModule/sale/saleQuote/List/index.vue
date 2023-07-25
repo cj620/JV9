@@ -71,14 +71,14 @@ export default {
       };
     },
   },
-  methods: {
-    copy(row) {
-      console.log(row);
-      this.$router.push({
-        name: "Sa_SaleQuote_Add",
-        query: { BillId: row.BillId, type: "copy" },
-      });
-    },
-  },
+  // methods: {
+  //   copy(row) {
+  //     console.log(row);
+  //     this.$router.push({
+  //       name: "Sa_SaleQuote_Add",
+  //       query: { BillId: row.BillId, type: "copy" },
+  //     });
+  //   },
+  // },
 };
 </script>
