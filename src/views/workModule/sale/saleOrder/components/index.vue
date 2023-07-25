@@ -241,7 +241,7 @@ export default {
       labelWidth: "80px",
     });
     this.eTableObj = new EditTable();
-    if (this.type === "edit"||this.type === "copy") {
+    if (this.type === "edit" || this.type === "copy") {
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
     }
@@ -283,14 +283,12 @@ export default {
     //编辑的时候获取信息
     async GetData(Id) {
       await ORDER.api_get({ BillId: Id }).then((res) => {
-        if(this.type === "copy"){
+        if (this.type === "copy") {
           res = handleBillContent(res);
-
         }
         this.ruleForm = res;
         this.formObj.form = this.ruleForm;
         this.eTableObj.setData(res.BillItems);
-
       });
     },
     //选择客户确定税率
