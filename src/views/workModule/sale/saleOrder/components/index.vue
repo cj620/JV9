@@ -285,11 +285,11 @@ export default {
       await ORDER.api_get({ BillId: Id }).then((res) => {
         if(this.type === "copy"){
           res = handleBillContent(res);
+
         }
         this.ruleForm = res;
         this.formObj.form = this.ruleForm;
         this.eTableObj.setData(res.BillItems);
-
 
       });
     },
