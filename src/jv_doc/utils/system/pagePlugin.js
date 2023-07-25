@@ -28,6 +28,7 @@ export function listTableBtnModel($el) {
         confirm: l_delete.bind($el, keys),
       },
     },
+
     // 快速打印
     // 新增按钮
     // {
