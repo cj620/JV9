@@ -25,6 +25,15 @@
             @click="toWorkDesk"
           ></div>
         </div>
+        <!-- el-icon-message-solid -->
+        <div class="right-menu-item hover-effect" style="padding-top: 2px">
+          <!-- <el-badge is-dot></el-badge> -->
+          <span
+            class="el-icon-message-solid"
+            style="font-size: 25px"
+            @click="toWorkDesk"
+          ></span>
+        </div>
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
         <el-tooltip content="Global Size" effect="dark" placement="bottom">
@@ -231,7 +240,6 @@ export default {
     float: right;
     height: 100%;
     line-height: 50px;
-
     &:focus {
       outline: none;
     }
