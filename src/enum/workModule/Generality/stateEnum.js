@@ -53,8 +53,8 @@ export default {
     fcolor: "#fff",
     icon: "",
     operation: {
-      edit: true,
-      del: true,
+      edit: false,
+      del: false,
       audit: true,
       reject: true,
       withdraw: true,
@@ -135,7 +135,7 @@ export default {
   },
   // 错误状态
   Fail: {
-    name: '错误',
+    name: "错误",
     value: "Completed",
     color: "#39B54A",
     fcolor: "#fff",
