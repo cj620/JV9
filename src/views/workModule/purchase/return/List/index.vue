@@ -69,33 +69,6 @@ export default {
         name: "Pu_Return_Detail_list",
       });
     },
-    //删除单据
-    deleteOrder(id) {
-      API.api_delete({ BillIds: id }).then((data) => {
-        this.tableObj.getData();
-      });
-    },
-    //新增分类
-    add() {
-      this.$router.push({
-        name: "Pu_Return_Add",
-        params: { type: "add" },
-      });
-    },
-
-    //编辑
-    edit(e) {
-      editLock({ BillId: e.BillId }).then((res) => {
-        this.$router.push({
-          name: "Pu_Return_Edit",
-          query: { BillId: e.BillId },
-        });
-      });
-    },
-    //批量删除单据
-    del() {
-      this.deleteOrder(this.tableObj.selectData.keys);
-    },
   },
   created() {
     this.tableObj = new Table();
@@ -103,14 +76,6 @@ export default {
   },
   mounted() {},
   computed: {
-    // 是否可以批量删除
-    canIsDel() {
-      let { datas } = this.tableObj.selectData;
-      if (datas.length === 0) return true;
-      return datas.some((item) => {
-        return !["Rejected", "Unsubmitted"].includes(item.State);
-      });
-    },
     // 表格操作模块
     getListTableBtnModel() {
       return [
