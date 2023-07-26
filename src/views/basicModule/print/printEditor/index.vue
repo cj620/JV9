@@ -40,7 +40,7 @@
     </div>
 
     <div class="print-setting">
-      <div>{{$t("Generality.Ge_PrintEditor")}}</div>
+      <div>{{ $t("Generality.Ge_PrintEditor") }}</div>
 
       <PrintSetting @quit="editor" />
 
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 import PrintTable from "./cpn/PrintCpn/PrintTable";
 import PrintSetting from "./cpn/PrintSetting";
 import PrintBlock from "./cpn/PrintCpn/PrintBlock";
@@ -106,7 +106,6 @@ export default {
     },
     delTmp() {
       DelById(this.CurTmp.Id).then((res) => {
-      
         this.getBack();
       });
     },
