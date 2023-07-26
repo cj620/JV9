@@ -71,6 +71,7 @@ export default {
       type: "",
       btnAction: [],
       editRouteName: "Pu_Return_Edit",
+      addRouteName: "Pu_Return_Add",
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),

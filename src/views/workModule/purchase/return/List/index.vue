@@ -9,48 +9,12 @@
   <PageWrapper :footer="false">
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
+      <!-- operation操作列 -->
       <template #operation="{ row }">
-        <TableAction
-          :actions="[
-            {
-              label: $t('Generality.Ge_Edit'),
-              confirm: edit.bind(null, row),
-              disabled: !(
-                stateEnum[row.State] && stateEnum[row.State].operation.edit
-              ),
-            },
-            {
-              label: $t('Generality.Ge_Delete'),
-              disabled: !(
-                stateEnum[row.State] && stateEnum[row.State].operation.del
-              ),
-              popConfirm: {
-                title: $t('Generality.Ge_DeleteConfirm'),
-                confirm: deleteOrder.bind(null, [row.BillId]),
-              },
-            },
-          ]"
-        />
+        <TableAction :actions="getListTableColBtnModel(row)" />
       </template>
-      <Action
-        size="mini"
-        slot="btn-list"
-        :actions="[
-          {
-            label: $t('Generality.Ge_New'),
-
-            confirm: add.bind(),
-          },
-          {
-            label: $t('Generality.Ge_Delete'),
-            disabled: canIsDel,
-            popConfirm: {
-              title: $t('Generality.Ge_DeleteConfirm'),
-              confirm: del.bind(),
-            },
-          },
-        ]"
-      >
+      <!-- 表格操作行 -->
+      <Action size="mini" slot="btn-list" :actions="getListTableBtnModel">
       </Action>
     </JvTable>
   </PageWrapper>
@@ -58,36 +22,45 @@
 
 <script>
 import { Table } from "./config";
-import { stateEnum } from "@/enum/workModule";
 import { API } from "@/api/workApi/purchase/return";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
+import {
+  listTableBtnModel,
+  listTableColBtnModel,
+} from "@/jv_doc/utils/system/pagePlugin";
 export default {
   name: "Pu_Return",
   data() {
+    // return {
+    //   stateEnum,
+    //   // 表格数据
+    //   tableObj: {
+    //     type: "",
+    //     data: "",
+    //   },
+    //   transferData: {
+    //     type: "",
+    //     data: "",
+    //   },
+    //   form: {
+    //     SortColumn: "ItemType",
+    //     SortOrder: 4,
+    //   },
+    //   auditForm: {
+    //     Remarks: "",
+    //     BizFormId: "",
+    //     AuditResult: "",
+    //   },
+    //   remarkShow: false,
+    //   dialogFormVisible: false,
+    //   chooseList: [],
+    // };
     return {
-      stateEnum,
-      // 表格数据
-      tableObj: {
-        type: "",
-        data: "",
-      },
-      transferData: {
-        type: "",
-        data: "",
-      },
-      form: {
-        SortColumn: "ItemType",
-        SortOrder: 4,
-      },
-      auditForm: {
-        Remarks: "",
-        BizFormId: "",
-        AuditResult: "",
-      },
-      remarkShow: false,
-      dialogFormVisible: false,
-      chooseList: [],
+      tableObj: {},
+      // 编辑路由
+      EditRoute: "Pu_Return_Edit",
+      AddRoute: "Pu_Return_Add",
     };
   },
   methods: {
@@ -96,33 +69,6 @@ export default {
         name: "Pu_Return_Detail_list",
       });
     },
-    //删除单据
-    deleteOrder(id) {
-      API.api_delete({ BillIds: id }).then((data) => {
-        this.tableObj.getData();
-      });
-    },
-    //新增分类
-    add() {
-      this.$router.push({
-        name: "Pu_Return_Add",
-        params: { type: "add" },
-      });
-    },
-
-    //编辑
-    edit(e) {
-      editLock({ BillId: e.BillId }).then((res) => {
-        this.$router.push({
-          name: "Pu_Return_Edit",
-          query: { BillId: e.BillId },
-        });
-      });
-    },
-    //批量删除单据
-    del() {
-      this.deleteOrder(this.tableObj.selectData.keys);
-    },
   },
   created() {
     this.tableObj = new Table();
@@ -130,13 +76,21 @@ export default {
   },
   mounted() {},
   computed: {
-    // 是否可以批量删除
-    canIsDel() {
-      let { datas } = this.tableObj.selectData;
-      if (datas.length === 0) return true;
-      return datas.some((item) => {
-        return !["Rejected", "Unsubmitted"].includes(item.State);
-      });
+    // 表格操作模块
+    getListTableBtnModel() {
+      return [
+        ...listTableBtnModel(this),
+        {
+          label: i18n.t("project.Pro_CheckDetails"),
+          confirm: this.toDetailsList,
+        },
+      ];
+    },
+    // 表格操作列按钮
+    getListTableColBtnModel() {
+      return (row) => {
+        return listTableColBtnModel(this, row);
+      };
     },
   },
   components: {

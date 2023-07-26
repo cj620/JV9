@@ -6,22 +6,30 @@
 -->
 
 <template>
-  <AddOutsourcingAccount />
+  <AddOutsourcingAccount
+    :billData="billData"
+    :type="type"
+  ></AddOutsourcingAccount>
 </template>
 
 <script>
 import AddOutsourcingAccount from "../components/index.vue";
 export default {
-  data() {
-    return {};
-  },
   name: "Pu_OutsourcingAccount_Add",
-  methods: {},
-  created() {},
-  mounted() {},
-  computed: {},
   components: {
     AddOutsourcingAccount,
+  },
+  data() {
+    return {
+      type: undefined,
+      billData: "",
+    };
+  },
+  methods: {},
+  created() {
+    console.log(this.$route.query);
+    this.billData = this.$route.query.BillId;
+    this.type = this.$route.query.type;
   },
 };
 </script>

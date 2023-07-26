@@ -10,7 +10,6 @@ import store from '@/store'
 import { stateEnum } from '@/enum/workModule'
 function auditState(data){
   let operationMap=stateEnum[data.State]?.operation
-  console.log(operationMap.transform,88888);
   let {Creator,ShowButtonMode}=data
   return {
     submit:ShowButtonMode.includes(0),

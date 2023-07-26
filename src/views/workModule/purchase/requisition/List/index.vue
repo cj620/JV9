@@ -35,8 +35,6 @@ export default {
       // 编辑路由
       EditRoute: "Pu_Requisition_Edit",
       AddRoute: "Pu_Requisition_Add",
-      editRouteName: "Pu_Requisition_Edit",
-      addRouteName: "Pu_Requisition_Add",
     };
   },
   methods: {

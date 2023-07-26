@@ -1,32 +1,57 @@
 <!--
  * @Author: C.
+import { ElButton } from "element-ui/types/button";
  * @Date: 2022-08-31 09:59:45
- * @LastEditTime: 2022-09-14 15:03:31
+ * @LastEditTime: 2023-07-26 17:09:24
  * @Description: file content
 -->
 <template>
   <div>
-    <el-button @click="init">init</el-button>
-    <!-- <iframe id="frame" :src="src" frameborder="0" ref="iframe"></iframe> -->
+    <el-button @click="sendAudit">sendAudit</el-button>
+    <el-button @click="sendMsg">sendMsg</el-button>
   </div>
 </template>
 <script>
-import { printPdf } from "~/utils/system/pdfPrint";
+import { mapActions } from "vuex";
+import { receiveMessages } from "@/store/modules/websocket";
 export default {
   name: "Home",
-
   data() {
-    return {
-      src: "",
-    };
+    return {};
   },
-  created() {},
+  created() {
+    // console.log(this.connect, "this.connect();");
+    this.connect();
+  },
   mounted: function () {},
   methods: {
-    init() {
-      printPdf(
-        "http://192.168.1.22:9002/Pdf/c318763b-bcca-46d3-b77d-13269efd0543.pdf"
-      );
+    // ...mapMutations("websocket", ["HOLD_CONFIG", "RESET_CONFIG"]),
+    ...mapActions("websocket", ["sendNessage", "connect"]),
+    sendAudit() {
+      receiveMessages({
+        data: JSON.stringify({
+          FromUser: {
+            UserId: "cj",
+            UserName: "henry",
+            PhotoUrl: null,
+            Department: "销售部",
+          },
+          Content: "xxx提交的单据等待审核",
+          DynamicData: {
+            BillId: "SA230606001",
+            BillKey: "Sa_Order",
+          },
+          SendTime: new Date(),
+          Type: "Audit",
+        }),
+      });
+    },
+    sendMsg() {
+      this.sendNessage({
+        Content: "message",
+        Type: "Message",
+        ToUserId: "cj",
+      });
     },
   },
 };

@@ -74,6 +74,7 @@ export default {
       type: "",
       stateForm: {},
       editRouteName: "Pu_Account_Edit",
+      addRouteName: "Pu_Account_Add",
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),

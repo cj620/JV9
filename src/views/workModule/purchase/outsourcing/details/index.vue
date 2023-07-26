@@ -77,6 +77,7 @@ export default {
       type: "",
       stateForm: {},
       editRouteName: "Pu_Outsourcing_Edit",
+      addRouteName: "Pu_Outsourcing_Add",
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),

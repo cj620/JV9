@@ -6,22 +6,27 @@
 -->
 
 <template>
-  <AddAcount />
+  <AddAcount :billData="billData" :type="type"></AddAcount>
 </template>
 
 <script>
 import AddAcount from "../components/index.vue";
 export default {
-  data() {
-    return {};
-  },
   name: "Pu_Account_Add",
-  methods: {},
-  created() {},
-  mounted() {},
-  computed: {},
   components: {
     AddAcount,
+  },
+  data() {
+    return {
+      type: undefined,
+      billData: "",
+    };
+  },
+  methods: {},
+  created() {
+    console.log(this.$route.query);
+    this.billData = this.$route.query.BillId;
+    this.type = this.$route.query.type;
   },
 };
 </script>

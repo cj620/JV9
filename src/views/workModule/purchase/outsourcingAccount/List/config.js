@@ -9,6 +9,7 @@ import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { API } from "@/api/workApi/purchase/outsourcingAccount";
 export class api extends TableAPI {
   getData = API.api_list;
+  del = API.api_delete;
 }
 export class Table extends BaseTable {
   constructor() {
@@ -18,7 +19,7 @@ export class Table extends BaseTable {
       rowId: "BillId",
       title: i18n.t("menu.Pu_OutsourcingAccount"),
       api,
-      operationWidth: 110,
+      operationWidth: 150,
       printMod: "Pu_OutsourcingAccount",
     });
   }

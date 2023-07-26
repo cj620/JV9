@@ -6,22 +6,27 @@
 -->
 
 <template>
-  <AddStockIn />
+  <AddStockIn :billData="billData" :type="type"></AddStockIn>
 </template>
 
 <script>
 import AddStockIn from "../components/index.vue";
 export default {
-  data() {
-    return {};
-  },
   name: "Pu_StockIn_Add",
-  methods: {},
-  created() {},
-  mounted() {},
-  computed: {},
   components: {
     AddStockIn,
+  },
+  data() {
+    return {
+      type: undefined,
+      billData: "",
+    };
+  },
+  methods: {},
+  created() {
+    console.log(this.$route.query);
+    this.billData = this.$route.query.BillId;
+    this.type = this.$route.query.type;
   },
 };
 </script>

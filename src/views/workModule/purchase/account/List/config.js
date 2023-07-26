@@ -10,6 +10,7 @@ import { API } from "@/api/workApi/purchase/account";
 
 export class api extends TableAPI {
   getData = API.api_list;
+  del = API.api_delete;
 }
 export class Table extends BaseTable {
   constructor() {
@@ -17,11 +18,10 @@ export class Table extends BaseTable {
       tableSchema: tableConfig,
       formSchema,
       rowId: "BillId",
-      title: "",
-      api,
-      operationWidth: 110,
-      printMod: "Pu_Account",
       title: i18n.t("menu.Pu_Account"),
+      api,
+      operationWidth: 150,
+      printMod: "Pu_Account",
     });
   }
 }

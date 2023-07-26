@@ -21,11 +21,11 @@
           disabled: !stateForm.transform,
           confirm: orderTransform.bind(null, 'Pu_Return_Add', 'deliveryData'),
         },
-         {
+        {
           label: $t('stockroom.St_Picking'),
           disabled: !stateForm.transform,
-          confirm: picking.bind(null, ),
-        }
+          confirm: picking.bind(null),
+        },
       ]"
     ></Action>
     <!--单据信息-->
@@ -89,6 +89,7 @@ export default {
       type: "",
       stateForm: {},
       editRouteName: "Pu_StockIn_Edit",
+      addRouteName: "Pu_StockIn_Add",
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -172,12 +173,11 @@ export default {
       });
     },
     //领料单
-    picking(){
+    picking() {
       this.$router.push({
         name: "St_Picking_Add",
         params: { stockInData: this.detailObj.detailData },
       });
-
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;

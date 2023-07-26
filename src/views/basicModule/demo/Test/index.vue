@@ -11,12 +11,19 @@
         :style="{ background: item.state, width: item.time / 14.4 + '%' }"
         class="state-item"
         effect="dark"
-        :content="item.time"
+        :content="Number(item.time)"
         placement="top-start"
       >
         <div>{{ item.time }}</div>
       </el-tooltip>
     </div>
+    <div style="height:20px;border: 1px solid #000;width: 100%;display: flex ">
+      <div v-for="(item,index) in 24" :style="{width: (100/24)+'%'}">
+        {{index}}
+
+      </div>
+    </div>
+
   </jv-block>
 </template>
 <script>

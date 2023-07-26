@@ -6,18 +6,27 @@
 -->
 
 <template>
-  <ArrOutsourcing />
+  <ArrOutsourcing :billData="billData" :type="type"></ArrOutsourcing>
 </template>
 
 <script>
 import ArrOutsourcing from "../components/index.vue";
 export default {
-  data() {
-    return {};
-  },
   name: "Pu_Outsourcing_Add",
   components: {
     ArrOutsourcing,
+  },
+  data() {
+    return {
+      type: undefined,
+      billData: "",
+    };
+  },
+  methods: {},
+  created() {
+    console.log(this.$route.query);
+    this.billData = this.$route.query.BillId;
+    this.type = this.$route.query.type;
   },
 };
 </script>
