@@ -44,12 +44,12 @@ const test = window.global_config.showTestTab ? [
 	    //   name: "ProjectAnalyze",
 	    //   meta: { title: "ProjectAnalyze", icon: "dashboard" },
 	    // },
-	    // {
-	    //   path: "test",
-	    //   component: () => import("@/views/basicModule/demo/Test"),
-	    //   name: "Test",
-	    //   meta: { title: "测试数据页面", icon: "dashboard" },
-	    // },
+	    {
+	      path: "test",
+	      component: () => import("@/views/basicModule/demo/Test"),
+	      name: "Test",
+	      meta: { title: "测试数据页面", icon: "dashboard" },
+	    },
 	    {
 	      path: "test1",
 	      component: () => import("@/views/basicModule/demo/Test1"),
