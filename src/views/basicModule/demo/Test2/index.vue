@@ -2,12 +2,13 @@
  * @Author: C.
 import { ElButton } from "element-ui/types/button";
  * @Date: 2022-08-31 09:59:45
- * @LastEditTime: 2023-07-26 15:43:07
+ * @LastEditTime: 2023-07-26 17:09:24
  * @Description: file content
 -->
 <template>
   <div>
     <el-button @click="sendAudit">sendAudit</el-button>
+    <el-button @click="sendMsg">sendMsg</el-button>
   </div>
 </template>
 <script>
@@ -43,6 +44,13 @@ export default {
           SendTime: new Date(),
           Type: "Audit",
         }),
+      });
+    },
+    sendMsg() {
+      this.sendNessage({
+        Content: "message",
+        Type: "Message",
+        ToUserId: "cj",
       });
     },
   },
