@@ -8,9 +8,6 @@
 <template>
   <PageWrapper :footer="false">
     <JvTable ref="BillTable" :table-obj="tableObj">
-      <template #State="{ record }">
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
       <template #operation="{ row }">
         <TableAction
           :actions="[
@@ -49,7 +46,8 @@
               title: $t('Generality.Ge_DeleteConfirm'),
               confirm: del.bind(),
             },
-          },{
+          },
+          {
             label: $t('project.Pro_CheckDetails'),
             confirm: toDetailsList,
           },
@@ -68,7 +66,7 @@ import { Table } from "./config";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 
 export default {
-  name:'Pu_Outsourcing',
+  name: "Pu_Outsourcing",
   data() {
     return {
       stateEnum,

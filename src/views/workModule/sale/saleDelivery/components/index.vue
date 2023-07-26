@@ -165,7 +165,7 @@ import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
 
 export default {
-  name: "Sa_SaleOrder_Edit",
+  name: "Sa_SaleDelivery_Edit",
   components: {
     SelectMaterial,
     JvUploadFile,

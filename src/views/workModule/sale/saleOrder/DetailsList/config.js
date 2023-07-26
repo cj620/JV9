@@ -67,7 +67,7 @@ const tableSchema = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    custom: true,
+    cpn: "BillStateTags",
     width: "115px",
   },
   /*客户简称*/

@@ -118,15 +118,17 @@ import {
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 // 单据转换逻辑
 import { billTransform } from "~/utils/system/editPagePlugin";
+import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
 
 export default {
-  name: "index",
+  name: "Sa_SaleReturn_Edit",
   components: {
     SelectMaterial,
     JvUploadFile,
   },
   data() {
     return {
+      Id: this.$route.query.BillId,
       formObj: {},
       eTableObj: {},
       ItemsDialogFormVisible: false,
@@ -203,11 +205,20 @@ export default {
     });
     console.log(1234, this.billData, this.type);
     this.eTableObj = new EditTable();
-    if (this.type === "edit") {
-      console.log(55555);
+    // if (this.type === "edit") {
+    //   console.log(55555);
+    //   this.fileBillId = this.billData;
+    //   await this.GetData(this.billData);
+    // } else if (this.$route.params.deliveryData) {
+    //   billTransform(this, "deliveryData");
+    // }
+    // 判断是否为编辑或复制
+    if (this.type === "edit" || this.type === "copy") {
       this.fileBillId = this.billData;
-      await this.GetData(this.billData);
-    } else if (this.$route.params.deliveryData) {
+      await this.GetData(this.fileBillId);
+    }
+    // 判断是否由销售发货转退货
+    if (this.$route.params.deliveryData) {
       billTransform(this, "deliveryData");
     }
     await this.Configuration();
@@ -223,6 +234,9 @@ export default {
     //编辑的时候获取信息
     async GetData(Id) {
       await Return.api_get({ BillId: Id }).then((res) => {
+        if (this.$route.query.type === "copy") {
+          res = handleBillContent(res);
+        }
         this.ruleForm = res;
         this.formObj.form = this.ruleForm;
 

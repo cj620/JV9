@@ -5,37 +5,37 @@
  * @Description: file content
  */
 // 引入表格表格类和表格API类
-import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
+import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 // 获取客户接口
 import { getAllSalesCustomer } from "@/api/workApi/sale/customer";
 // 引入模块API接口
 import { API } from "@/api/workApi/sale/order";
 // 结构
-let {api_list,api_delete}=API
+let { api_list, api_delete } = API;
 export class api extends TableAPI {
   // 获取列表
   getData = api_list;
   // 删除单据
-  del=api_delete
+  del = api_delete;
 }
 export class Table extends BaseTable {
   constructor() {
-    super( {
+    super({
       // 表格配置
       tableSchema: tableConfig,
       // 表单配置
       formSchema,
       // 行标识
-      rowId: 'BillId',
+      rowId: "BillId",
       // 表格标题
       title: i18n.t("menu.Sa_SaleOrder"),
       // 接口类
       api,
       // 操作列宽度
-      operationWidth:110,
+      operationWidth: 150,
       // 打印模块标识
-      printMod:'Sa_SaleOrder',
-    })
+      printMod: "Sa_SaleOrder",
+    });
   }
 }
 //  表格配置
@@ -48,7 +48,7 @@ export const tableConfig = [
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
-      label: i18n.t("Generality.Ge_BillId")
+      label: i18n.t("Generality.Ge_BillId"),
     },
     cpnProps: {
       // 路由名称
@@ -60,20 +60,20 @@ export const tableConfig = [
       // 传参的键名，值为当前数据
       parameterKey: "BillId",
       // 补充动态参数
-      moreDynamicParameters:[
+      moreDynamicParameters: [
         {
-          keyName:'ItemId',
-          valueName:'ItemId'
-        }
+          keyName: "ItemId",
+          valueName: "ItemId",
+        },
       ],
-    }
+    },
   },
   /*状态*/
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    custom:true,
-    width:'115px',
+    cpn: "BillStateTags",
+    width: "115px",
   },
   /*客户简称*/
   {
@@ -87,28 +87,28 @@ export const tableConfig = [
       apiOptions: {
         immediate: true,
         keyName: "ShortName",
-        valueName: "ShortName"
-      }
-    }
+        valueName: "ShortName",
+      },
+    },
   },
   /*计划交期*/
   {
     prop: "DeliveryDate",
     label: i18n.t("Generality.Ge_DeliveryDate"),
     filter: "date",
-    width:'120px',
+    width: "120px",
   },
   /*币种*/
   {
     prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
-    width:'90px',
+    width: "90px",
   },
   /*销售员*/
   {
     prop: "SalesReps",
     label: i18n.t("sale.Sa_SalesReps"),
-    width:'110px',
+    width: "110px",
   },
   /*项目编号*/
   {
@@ -119,22 +119,22 @@ export const tableConfig = [
   {
     prop: "Creator",
     label: i18n.t("Generality.Ge_Creator"),
-    width:'95px',
+    width: "95px",
   },
   /*制单日期*/
   {
     prop: "CreationDate",
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
-    width:'150px',
+    width: "150px",
   },
-   /*备注*/
-   {
+  /*备注*/
+  {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
-    width:'150px',
+    width: "150px",
   },
-]
+];
 // 表单配置
 export const formSchema = [
   //单号搜索
@@ -151,8 +151,8 @@ export const formSchema = [
     api: getAllSalesCustomer,
     apiOptions: {
       keyName: "ShortName",
-      valueName: "ShortName"
-    }
+      valueName: "ShortName",
+    },
   },
   {
     prop: "State",
@@ -191,5 +191,4 @@ export const formSchema = [
       ],
     },
   },
-
-]
+];
