@@ -8,9 +8,6 @@
 <template>
   <PageWrapper :footer="false">
     <JvTable ref="BillTable" :table-obj="tableObj">
-      <template #State="{ record }">
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
       <template #operation="{ row }">
         <TableAction
           :actions="[

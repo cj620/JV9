@@ -3,10 +3,6 @@
   <PageWrapper :footer="false">
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
-      <template #State="{ record }">
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
-
       <template #operation="{ row }">
         <TableAction
           :actions="[

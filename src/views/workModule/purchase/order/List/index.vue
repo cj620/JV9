@@ -8,9 +8,6 @@
 <template>
   <PageWrapper :footer="false">
     <JvTable ref="BillTable" :table-obj="tableObj">
-      <template #State="{ record }">
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
       <template #operation="{ row }">
         <TableAction
           :actions="[
@@ -31,7 +28,6 @@
                 stateEnum[row.State] && stateEnum[row.State].operation.del
               ),
             },
-
           ]"
         ></TableAction
       ></template>
@@ -70,7 +66,7 @@ import { Table } from "./config";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 
 export default {
-  name:'Pu_Order',
+  name: "Pu_Order",
   data() {
     return {
       stateEnum,

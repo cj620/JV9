@@ -9,10 +9,6 @@
   <PageWrapper :footer="false">
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
-      <template #State="{ record }">
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
-
       <template #operation="{ row }">
         <TableAction
           :actions="[
@@ -67,7 +63,7 @@ import { API } from "@/api/workApi/purchase/return";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 export default {
-  name:'Pu_Return',
+  name: "Pu_Return",
   data() {
     return {
       stateEnum,

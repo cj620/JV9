@@ -8,12 +8,7 @@
 <template>
   <PageWrapper :footer="false">
     <!-- 销售订单 明细表格 -->
-    <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj">
-      <!-- 状态标签 -->
-      <template #State="{ record }">
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
-    </JvTable>
+    <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj"> </JvTable>
   </PageWrapper>
 </template>
 <script>

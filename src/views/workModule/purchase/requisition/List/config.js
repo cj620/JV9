@@ -52,7 +52,7 @@ export const tableConfig = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    custom: true,
+    cpn: "BillStateTags",
     width: "120px",
   },
   /*提交人*/
