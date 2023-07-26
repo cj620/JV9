@@ -6,69 +6,84 @@
  */
 import { getAll } from "@/api/basicApi/systemSettings/currency";
 
-
 export const formSchema = [
   {
     // 客户简称
-    prop: 'CustomerId',
-    custom:true,
+    prop: "CustomerId",
+    custom: true,
     label: i18n.t("sale.Sa_CustomerName"),
     rules: [
       {
         required: true,
         message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ['change', 'blur']
-      }
-    ]
+        trigger: ["change", "blur"],
+      },
+    ],
   },
   {
     // 开始日期
-    prop: 'StartDate',
+    prop: "StartDate",
     cpn: "SingleTime",
     label: i18n.t("Generality.Ge_StartDate"),
     rules: [
       {
         required: true,
         message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ['change', 'blur']
-      }
-    ]
+        trigger: ["change", "blur"],
+      },
+    ],
   },
   {
     // 结束日期
-    prop: 'EndDate',
+    prop: "EndDate",
     cpn: "SingleTime",
     label: i18n.t("Generality.Ge_EndDate"),
     rules: [
       {
         required: true,
         message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ['change', 'blur']
-      }
-    ]
+        trigger: ["change", "blur"],
+      },
+    ],
   },
+  // {
+  //   // 币种
+  //   prop: 'Currency',
+  //   cpn: "SyncSelect",
+  //   label: i18n.t("Generality.Ge_Currency"),
+  //   api: getAll,
+  //   apiOptions: {
+  //     immediate: true,
+  //     keyName: "Currency",
+  //     valueName: "Currency"
+  //   },
+  //   rules: [
+  //     {
+  //       required: true,
+  //       message: i18n.t("Generality.Ge_PleaseEnter"),
+  //       trigger: ['change', 'blur']
+  //     }
+  //   ]
+  // },
   {
     // 币种
-    prop: 'Currency',
-    cpn: "SyncSelect",
-    label: i18n.t("Generality.Ge_Currency"),
-    api: getAll,
-    apiOptions: {
-      immediate: true,
-      keyName: "Currency",
-      valueName: "Currency"
+    prop: "Currency",
+    cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
     },
+    label: i18n.t("Generality.Ge_Currency"),
     rules: [
       {
         required: true,
         message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ['change', 'blur']
-      }
-    ]
+        trigger: ["change", "blur"],
+      },
+    ],
   },
   {
     // 发票号
-    prop: 'ReceiptNumber',
+    prop: "ReceiptNumber",
     cpn: "FormInput",
     label: i18n.t("sale.Sa_ReceiptNumber"),
   },

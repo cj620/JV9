@@ -294,6 +294,7 @@ export default {
     //选择客户确定税率
     changeCustomerId(e) {
       getCustomer({ CustomerId: e }).then((res) => {
+        this.formObj.form.Currency = res.Currency;
         this.ruleForm.CustomerName = res.ShortName;
         this.BillItems.Tax = res.Tax;
         this.changeTax(res.Tax);

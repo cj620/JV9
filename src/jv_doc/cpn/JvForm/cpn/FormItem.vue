@@ -395,15 +395,16 @@ export default {
           : this.form[this.cdata.prop];
       },
       set(val) {
-        console.log(val, 8989);
+        // console.log(val, this.isEdit, 8989);
         if (this.isEdit) {
           this.form[this.cdata.prop].value = val;
         } else {
-          this?.formObj?.eventBus.$emit(
-            this.cdata.prop,
-            val,
-            this.form[this.cdata.prop]
+          console.log(this.treeSyncData, val, "lllll");
+          // 获取当前选项
+          const currentOption = this.treeSyncData.find(
+            (item) => item[this.cdata.prop] === val
           );
+          this?.formObj?.eventBus.$emit(this.cdata.prop, val, currentOption);
           this.form[this.cdata.prop] = val;
         }
       },

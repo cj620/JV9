@@ -6,11 +6,9 @@
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleOrder\components\formConfig.js
  */
-import { getAll } from "@/api/basicApi/systemSettings/currency";
+// import { getAll } from "@/api/basicApi/systemSettings/currency";
 import { getAllSalesCustomer } from "@/api/workApi/sale/customer";
-import {
-  getProjectQuery,
-} from "@/api/workApi/project/projectManage";
+import { getProjectQuery } from "@/api/workApi/project/projectManage";
 export const formSchema = [
   // {
   //   // 报价编号
@@ -55,7 +53,7 @@ export const formSchema = [
   },
 
   {
-    // 名称
+    // 模具编号
     prop: "ToolingNo",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_ToolingNo"),
@@ -68,7 +66,7 @@ export const formSchema = [
     ],
   },
   {
-    // 名称
+    // 模具名称
     prop: "ToolingName",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_ToolingName"),
@@ -100,17 +98,33 @@ export const formSchema = [
     ],
   },
 
+  // {
+  //   // 币种
+  //   prop: "Currency",
+  //   cpn: "SyncSelect",
+  //   label: i18n.t("Generality.Ge_Currency"),
+  //   api: getAll,
+  //   apiOptions: {
+  //     immediate: true,
+  //     keyName: "Currency",
+  //     valueName: "Currency",
+  //   },
+  //   rules: [
+  //     {
+  //       required: true,
+  //       message: i18n.t("Generality.Ge_PleaseEnter"),
+  //       trigger: ["change", "blur"],
+  //     },
+  //   ],
+  // },
   {
     // 币种
     prop: "Currency",
-    cpn: "SyncSelect",
-    label: i18n.t("Generality.Ge_Currency"),
-    api: getAll,
-    apiOptions: {
-      immediate: true,
-      keyName: "Currency",
-      valueName: "Currency",
+    cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
     },
+    label: i18n.t("Generality.Ge_Currency"),
     rules: [
       {
         required: true,
@@ -120,7 +134,7 @@ export const formSchema = [
     ],
   },
   {
-     // 描述
+    // 描述
     prop: "Description",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_Describe"),

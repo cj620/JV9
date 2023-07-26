@@ -40,7 +40,11 @@
             v-else
             :label="showLabel ? formItem.label : ''"
           >
-            <FormItem :cdata="formItem" :form="formObj.form"></FormItem>
+            <FormItem
+              :cdata="formItem"
+              :form="formObj.form"
+              :formObj="formObj"
+            ></FormItem>
           </el-form-item>
         </el-col>
       </el-row>
