@@ -4,7 +4,6 @@ import {
   ProcessCheckTypeEnum,
   enumFilter,
 } from "@/enum/workModule";
-import { tableConfig as Qc_FinishedProductTableConfig } from "@/views/workModule/quality/finishedProductCheck/List/config";
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -186,17 +185,24 @@ export const Qc_ProcessCheckTableConfig=[
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
-  },
-
-  /*加工单*/
-  {
-    prop: "PrTaskBillId",
-    label: i18n.t("production.Pr_WorkSheetNo"),
-  },
-  {
-    // 零件编号
-    prop: "ItemId",
-    label: i18n.t("Generality.Ge_PartNo"),
+    cpn: "Link",
+    cpnProps: {
+      // 路由名称
+      routeName: "Qc_ProcessCheck_Detail",
+      // 路由路径（名称和路径二选一）
+      // routePath:'/dashboard',
+      // 路由传参方式 默认query
+      methods: "query",
+      // 传参的键名，值为当前数据
+      parameterKey: "BillId",
+      // 补充动态参数
+      moreDynamicParameters: [
+        {
+          keyName: "ItemId",
+          valueName: "ItemId",
+        },
+      ],
+    },
   },
   {
     // 自检工序
@@ -255,11 +261,6 @@ export const Qc_ProcessCheckTableConfig=[
     label: i18n.t("quality.Qc_UnqualifiedQty"),
   },
   {
-    // 关联编号
-    prop: "AssociatedNo",
-    label: i18n.t("Generality.Ge_AssociatedNo"),
-  },
-  {
     // 制单人
     prop: "Creator",
     label: i18n.t("Generality.Ge_Creator"),
@@ -276,7 +277,98 @@ export const Qc_ProcessCheckTableConfig=[
     label: i18n.t("Generality.Ge_Remarks"),
   },
 ]
-
+export const Qc_FinishedProductTableConfig=[
+  {
+    prop: "BillId",
+    label: i18n.t("Generality.Ge_BillId"),
+    align: "center",
+    cpn: "Link",
+    cpnProps: {
+      // 路由名称
+      routeName: "Qc_FinishedProduct_Detail",
+      // 路由路径（名称和路径二选一）
+      // routePath:'/dashboard',
+      // 路由传参方式 默认query
+      methods: "query",
+      // 传参的键名，值为当前数据
+      parameterKey: "BillId",
+      // 补充动态参数
+      moreDynamicParameters: [
+        {
+          keyName: "ItemId",
+          valueName: "ItemId",
+        },
+      ],
+    },
+  },
+  {
+    // 加工单
+    prop: "PrTaskBillId",
+    label: i18n.t("Generality.Ge_PrTaskBillId"),
+  },
+  {
+    // 返工工序
+    prop: "ReworkProcess",
+    label: i18n.t("quality.Qc_ReworkProcess"),
+  },
+  {
+    // 检测结果
+    prop: "ProcessingResult",
+    label: i18n.t("quality.Qc_CheckResult"),
+    customFilter: (value, row) => {
+      if (!value) return "";
+      return ProcessingResult?.[value]?.name ?? value;
+    },
+  },
+  {
+    // 负责人
+    prop: "PersonInCharge",
+    label: i18n.t("project.Pro_Worker"),
+  },
+  {
+    // 不合格原因
+    prop: "AbnormalCause",
+    label: i18n.t("quality.Qc_AbnormalCause"),
+  },
+  {
+    prop: "Analyst",
+    label: i18n.t("quality.Qc_AbnormalCauseAnalyst"),
+  },
+  {
+    prop: "SubmittedForInspectionQty",
+    label: i18n.t("quality.Qc_SubmittedForInspectionQty"),
+  },
+  {
+    // 检验数量
+    prop: "InspectionQty",
+    label: i18n.t("quality.Qc_InspectionQty"),
+  },
+  {
+    // 不合格数量
+    prop: "UnqualifiedQty",
+    label: i18n.t("quality.Qc_UnqualifiedQty"),
+  },
+  {
+    // 关联编号
+    prop: "AssociatedNo",
+    label: i18n.t("Generality.Ge_AssociatedNo"),
+  },
+  /*制单人*/
+  {
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+  },
+  /*制单日期*/
+  {
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
+  },
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  },
+]
 export class tableObj2 extends BaseTable {
   constructor() {
     super({
@@ -295,9 +387,7 @@ export class tableObj2 extends BaseTable {
 export class Qc_FinishedProductTable extends BaseTable {
   constructor() {
     super({
-      tableSchema: Qc_FinishedProductTableConfig.filter(
-        (item) => item.prop !== "State"
-      ),
+      tableSchema: Qc_FinishedProductTableConfig,
       pagination: false,
       sortCol: false,
       chooseCol: false,
