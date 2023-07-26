@@ -8,9 +8,6 @@
 <template>
   <PageWrapper :footer="false">
     <JvTable ref="BillTable" :table-obj="tableObj">
-      <template #State="{ record }">
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
       <template #operation="{ row }">
         <TableAction
           :actions="[
@@ -65,7 +62,7 @@ import { Table } from "./config";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 
 export default {
-  name:'Pu_OutsourcingAccount',
+  name: "Pu_OutsourcingAccount",
   data() {
     return {
       stateEnum,
