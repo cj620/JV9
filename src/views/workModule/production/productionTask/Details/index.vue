@@ -139,7 +139,7 @@
             </template>
           </JvTable>
         </el-tab-pane>
-        <el-tab-pane :label="$t('production.Pr_PartDetail')" name="third">
+      <el-tab-pane :label="$t('production.Pr_PartDetail')" name="third">
           <JvTable :table-obj="tableObj1"> </JvTable>
         </el-tab-pane>
         <el-tab-pane
@@ -164,12 +164,12 @@
           </JvTable>
         </el-tab-pane>
 
-        <el-tab-pane label="过程检验" name="Qc_ProcessCheckList">
-          <JvTable :table-obj="Qc_ProcessCheckTableObj"> </JvTable>
-        </el-tab-pane>
-        <el-tab-pane label="成品检验" name="Qc_FinishedProductList">
-          <JvTable :table-obj="Qc_FinishedProductTableObj"> </JvTable>
-        </el-tab-pane>
+ <el-tab-pane label="过程检验" name="Qc_ProcessCheckList">
+           <JvTable :table-obj="Qc_ProcessCheckTableObj"> </JvTable>
+         </el-tab-pane>
+             <el-tab-pane label="成品检验" name="Qc_FinishedProductList">
+     <JvTable :table-obj="Qc_FinishedProductTableObj"> </JvTable>
+   </el-tab-pane>
 
         <el-tab-pane :label="$t('Generality.Ge_Dynamic')" name="fifth">
           <DynamicList
@@ -211,6 +211,8 @@ import {
   tableConfig1,
   tableObj2,
   detailConfig,
+  Qc_ProcessCheckTable,
+  Qc_FinishedProductTable,
 } from './config'
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
