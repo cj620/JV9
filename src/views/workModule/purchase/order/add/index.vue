@@ -6,18 +6,27 @@
 -->
 
 <template>
-  <AddPuOrder />
+  <AddPuOrder :billData="billData" :type="type"></AddPuOrder>
 </template>
 
 <script>
 import AddPuOrder from "../components/index.vue";
 export default {
-  data() {
-    return {};
-  },
   name: "Pu_Order_Add",
   components: {
     AddPuOrder,
+  },
+  data() {
+    return {
+      type: undefined,
+      billData: "",
+    };
+  },
+  methods: {},
+  created() {
+    console.log(this.$route.query);
+    this.billData = this.$route.query.BillId;
+    this.type = this.$route.query.type;
   },
 };
 </script>

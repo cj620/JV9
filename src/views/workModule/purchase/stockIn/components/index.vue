@@ -116,6 +116,7 @@ import {
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 // 单据转换逻辑
 import { billTransform } from "~/utils/system/editPagePlugin";
+import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
 export default {
   components: {
     SelectMaterial,
@@ -201,10 +202,11 @@ export default {
       labelWidth: "80px",
     });
     this.eTableObj = new EditTable();
-    if (this.type === "edit") {
+    if (this.type === "edit" || this.type === "copy") {
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
-    } else if (this.$route.params.deliveryData) {
+    }
+    if (this.$route.params.deliveryData) {
       billTransform(this, "deliveryData");
     }
     await this.Configuration();
@@ -214,6 +216,9 @@ export default {
     //编辑的时候获取信息
     async GetData(Id) {
       await API.api_get({ BillId: Id }).then((res) => {
+        if (this.type === "copy") {
+          res = handleBillContent(res);
+        }
         this.ruleForm = res;
         this.formObj.form = this.ruleForm;
         this.eTableObj.setData(res.BillItems);

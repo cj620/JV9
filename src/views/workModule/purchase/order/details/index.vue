@@ -130,6 +130,7 @@ export default {
       // 完成物料编号组
       completedItems: [],
       printMod: "Pu_Order",
+      addRouteName: "Pu_Order_Add",
       editRouteName: "Pu_Order_Edit",
     };
   },
@@ -180,7 +181,7 @@ export default {
         this.tableObj.setData(res.BillItems);
         this.btnAction = detailPageModel(this, res, ORDER, this.GetData);
         this.btnAction.push({
-          label: this.$t('Generality.Ge_Print')+'KTM',
+          label: this.$t("Generality.Ge_Print") + "KTM",
           confirm: this.Print1,
         });
         this.detailObj.detailData.BillItems.forEach((item) => {
@@ -209,7 +210,7 @@ export default {
       });
     },
     //添加不同的模板
-    Print1(){
+    Print1() {
       printPlugin({
         ids: [this.cur_billId],
         category: "Pu_Order_2",
