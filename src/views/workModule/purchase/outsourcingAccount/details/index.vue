@@ -73,6 +73,7 @@ export default {
       RemarkData: "",
       type: "",
       editRouteName: "Pu_OutsourcingAccount_Edit",
+      addRouteName: "Pu_OutsourcingAccount_Add",
       stateForm: {},
       tabPanes: [
         {

@@ -115,6 +115,7 @@ import {
 } from "@/jv_doc/utils/system/taxCount";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import SelectItem from "./selectItem.vue";
+import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
 export default {
   components: {
     JvUploadFile,
@@ -199,7 +200,7 @@ export default {
       labelWidth: "80px",
     });
     this.eTableObj = new EditTable();
-    if (this.type === "edit") {
+    if (this.type === "edit" || this.type === "copy") {
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
     }
@@ -210,6 +211,9 @@ export default {
     //编辑的时候获取信息
     async GetData(Id) {
       await Account.api_get({ BillId: Id }).then((res) => {
+        if (this.type === "copy") {
+          res = handleBillContent(res);
+        }
         this.ruleForm = res;
         this.formObj.form = this.ruleForm;
         this.eTableObj.setData(res.BillItems);

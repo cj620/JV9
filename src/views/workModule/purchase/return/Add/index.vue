@@ -7,7 +7,7 @@
 <!--新增-->
 <!--新增采购退货单-->
 <template>
-  <EditCom> </EditCom>
+  <EditCom :billData="billData" :type="type"> </EditCom>
 </template>
 
 <script>
@@ -18,7 +18,17 @@ export default {
   components: {
     EditCom,
   },
-
+  data() {
+    return {
+      type: undefined,
+      billData: "",
+    };
+  },
   methods: {},
+  created() {
+    console.log(this.$route.query);
+    this.billData = this.$route.query.BillId;
+    this.type = this.$route.query.type;
+  },
 };
 </script>
