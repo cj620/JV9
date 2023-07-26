@@ -1,5 +1,9 @@
 import store from "@/store";
-
+import { isString } from "@/utils/validate";
+const echoMsg = {
+  PING: "ping",
+  PONG: "pong",
+};
 export class Ws {
   websocket = null;
   connectURL = window.global_config.WebSocket_Url;
