@@ -1,6 +1,10 @@
 import { Table as BaseTable } from "@/jv_doc/class/table";
-/*import { tableConfig as Qc_ProcessCheckTableConfig } from "@/views/workModule/quality/machiningCheckList/List/config";
-import { tableConfig as Qc_FinishedProductTableConfig } from "@/views/workModule/quality/finishedProductCheckList/List/config";*/
+import {
+  ProcessingResult,
+  ProcessCheckTypeEnum,
+  enumFilter,
+} from "@/enum/workModule";
+import { tableConfig as Qc_FinishedProductTableConfig } from "@/views/workModule/quality/finishedProductCheck/List/config";
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -177,7 +181,101 @@ export const detailConfig = [
   },
 ];
 
+export const Qc_ProcessCheckTableConfig=[
+  {
+    prop: "BillId",
+    label: i18n.t("Generality.Ge_BillId"),
+    align: "center",
+  },
 
+  /*加工单*/
+  {
+    prop: "PrTaskBillId",
+    label: i18n.t("production.Pr_WorkSheetNo"),
+  },
+  {
+    // 零件编号
+    prop: "ItemId",
+    label: i18n.t("Generality.Ge_PartNo"),
+  },
+  {
+    // 自检工序
+    prop: "SelfCheckProcess",
+    label: i18n.t("quality.Qc_SelfCheckProcess"),
+  },
+  {
+    // 检验类型
+    prop: "ProcessCheckType",
+    label: i18n.t("quality.Qc_ProcessCheckType"),
+    customFilter: (value, row) => enumFilter(value, ProcessCheckTypeEnum),
+  },
+  {
+    // 处理结果
+    prop: "ProcessingResult",
+    label: i18n.t("quality.Qc_CheckResult"),
+    customFilter: (value, row) => {
+      if (!value) return "";
+      return ProcessingResult?.[value]?.name ?? value;
+    },
+  },
+  {
+    // 检验人
+    prop: "Operator",
+    label: i18n.t("quality.Qc_Operator"),
+  },
+  {
+    // 检验日期
+    prop: "OperationDate",
+    label: i18n.t("quality.Qc_CheckDate"),
+    filter: "date",
+    width: "150px",
+  },
+  {
+    // 负责人
+    prop: "PersonInCharge",
+    label: i18n.t("project.Pro_Worker"),
+  },
+  {
+    // 不合格原因
+    prop: "AbnormalCause",
+    label: i18n.t("quality.Qc_AbnormalCause"),
+  },
+  {
+    prop: "SubmittedForInspectionQty",
+    label: i18n.t("quality.Qc_SubmittedForInspectionQty"),
+  },
+  {
+    // 检验数量
+    prop: "InspectionQty",
+    label: i18n.t("quality.Qc_InspectionQty"),
+  },
+  {
+    // 不合格数量
+    prop: "UnqualifiedQty",
+    label: i18n.t("quality.Qc_UnqualifiedQty"),
+  },
+  {
+    // 关联编号
+    prop: "AssociatedNo",
+    label: i18n.t("Generality.Ge_AssociatedNo"),
+  },
+  {
+    // 制单人
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+  },
+  /*制单日期*/
+  {
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
+    width: "150px",
+  },
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  },
+]
 
 export class tableObj2 extends BaseTable {
   constructor() {
@@ -214,9 +312,7 @@ export class Qc_FinishedProductTable extends BaseTable {
 export class Qc_ProcessCheckTable extends BaseTable {
   constructor() {
     super({
-      tableSchema: Qc_ProcessCheckTableConfig.filter(
-        (item) => item.prop !== "State"
-      ),
+      tableSchema: Qc_ProcessCheckTableConfig,
       pagination: false,
       sortCol: false,
       chooseCol: false,

@@ -27,7 +27,6 @@ export default {
   computed: {
     getProceeColor() {
       let type = this.rowData.Flag;
-      console.log(type);
       if (type == "0") {
         return "#409EFF";
       } else if (type == "1") {

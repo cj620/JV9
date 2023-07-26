@@ -24,7 +24,7 @@ export class Table extends BaseTable {
       // 表单配置
       formSchema: formSchema,
       // 行标识
-      rowId: "BillId",
+      rowId: "Id",
       title: i18n.t("menu.Pr_ProductionPlan"),
       // 接口类
       api,
