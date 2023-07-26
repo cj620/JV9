@@ -11,11 +11,11 @@ export function getBarData() {
     Device: "钳工设备01",
     DeviceNo: "Assy01",
     Data: [
-      { time: 20, state: "green" },
+      { time: 60, state: "green" },
       { time: 1000, state: "yellow" },
       { time: 50, state: "black" },
       { time: 120, state: "green" },
-      { time: 20, state: "green" },
+      { time: 0, state: "green" },
     ],
   };
 }

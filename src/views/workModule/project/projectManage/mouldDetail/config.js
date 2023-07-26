@@ -148,7 +148,7 @@ export class P_Table extends BaseTable {
     super({
       tableSchema: P_tableSchema,
       pagination: false,
-      height: "",
+      height: null,
       data: [],
       tableHeaderShow: false,
       operationCol: false,
@@ -162,7 +162,7 @@ export class T_Table extends BaseTable {
     super({
       tableSchema: single2Double(T_tableSchema),
       pagination: false,
-      height: "",
+      height: null,
       data: [],
       tableHeaderShow: false,
       operationCol: false,
@@ -178,7 +178,7 @@ export class R_Table extends BaseTable {
     super({
       tableSchema: single2Double(R_tableSchema),
       pagination: false,
-      height: "",
+      height: null,
       data: [],
       tableHeaderShow: false,
       operationCol: false,

@@ -440,7 +440,6 @@ export default {
       } else {
         // this.prefix !== "edit" && this.apiManager(this.cdata.api);
         if (this.prefix !== "edit") {
-          console.log(1111111111111111);
           this.apiManager(this.cdata.api);
         }
       }

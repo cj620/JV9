@@ -179,7 +179,10 @@ export default {
         this.stateForm = auditPlugin(res);
         this.tableObj.setData(res.BillItems);
         this.btnAction = detailPageModel(this, res, ORDER, this.GetData);
-
+        this.btnAction.push({
+          label: this.$t('Generality.Ge_Print')+'KTM',
+          confirm: this.Print1,
+        });
         this.detailObj.detailData.BillItems.forEach((item) => {
           if (
             item.Quantity - item.StockInQuantity + item.ReturnQuantity ===
@@ -203,6 +206,13 @@ export default {
       printPlugin({
         ids: [this.cur_billId],
         category: "Pu_Order_PR",
+      });
+    },
+    //添加不同的模板
+    Print1(){
+      printPlugin({
+        ids: [this.cur_billId],
+        category: "Pu_Order_2",
       });
     },
     // 订单转

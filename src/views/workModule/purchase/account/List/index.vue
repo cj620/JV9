@@ -8,104 +8,52 @@
 <template>
   <PageWrapper :footer="false">
     <JvTable ref="BillTable" :table-obj="tableObj">
+      <!-- operation操作列 -->
       <template #operation="{ row }">
-        <TableAction
-          :actions="[
-            {
-              label: $t('Generality.Ge_Edit'),
-              confirm: edit.bind(null, row),
-              disabled: !(
-                stateEnum[row.State] && stateEnum[row.State].operation.edit
-              ),
-            },
-            {
-              label: $t('Generality.Ge_Delete'),
-              popConfirm: {
-                title: $t('Generality.Ge_DeleteConfirm'),
-                confirm: deletePurchaseAccount.bind(null, [row.BillId]),
-              },
-              disabled: !(
-                stateEnum[row.State] && stateEnum[row.State].operation.del
-              ),
-            },
-          ]"
-        ></TableAction
-      ></template>
-      <Action
-        size="mini"
-        slot="btn-list"
-        :actions="[
-          {
-            label: $t('Generality.Ge_New'),
-            confirm: add.bind(),
-          },
-          {
-            label: $t('Generality.Ge_Delete'),
-            disabled: canIsDel,
-            popConfirm: {
-              title: $t('Generality.Ge_DeleteConfirm'),
-              confirm: del.bind(),
-            },
-          },
-        ]"
-      >
+        <TableAction :actions="getListTableColBtnModel(row)" />
+      </template>
+      <!-- 表格操作行 -->
+      <Action size="mini" slot="btn-list" :actions="getListTableBtnModel">
       </Action>
     </JvTable>
   </PageWrapper>
 </template>
 
 <script>
-import { stateEnum } from "@/enum/workModule";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import { API } from "@/api/workApi/purchase/account";
 import { Table } from "./config";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
+import {
+  listTableBtnModel,
+  listTableColBtnModel,
+} from "@/jv_doc/utils/system/pagePlugin";
 
 export default {
   name: "Pu_Account",
   data() {
     return {
-      stateEnum,
       tableObj: {},
+      EditRoute: "Pu_Account_Edit",
+      AddRoute: "Pu_Account_Add",
     };
   },
-  methods: {
-    deletePurchaseAccount(id) {
-      API.api_delete({ BillIds: id }).then(() => {
-        this.tableObj.getData();
-      });
-    },
-    edit(e) {
-      editLock({ BillId: e.BillId }).then((res) => {
-        this.$router.push({
-          name: "Pu_Account_Edit",
-          query: { BillId: e.BillId },
-        });
-      });
-    },
-    add() {
-      this.$router.push({
-        name: "Pu_Account_Add",
-        params: { type: "add", title: "addSaleOrder" },
-      });
-    },
-    del() {
-      this.deletePurchaseAccount(this.tableObj.selectData.keys);
-    },
-  },
+  methods: {},
   created() {
     this.tableObj = new Table();
     this.tableObj.getData();
   },
   mounted() {},
   computed: {
-    // 是否可以批量删除
-    canIsDel() {
-      let { datas } = this.tableObj.selectData;
-      if (datas.length === 0) return true;
-      return datas.some((item) => {
-        return !["Rejected", "Unsubmitted"].includes(item.State);
-      });
+    // 表格操作模块
+    getListTableBtnModel() {
+      return listTableBtnModel(this);
+    },
+    // 表格操作列按钮
+    getListTableColBtnModel() {
+      return (row) => {
+        return listTableColBtnModel(this, row);
+      };
     },
   },
   components: {

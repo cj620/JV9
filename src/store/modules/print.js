@@ -181,7 +181,7 @@ const getters = {
 const actions = {
   // 接口获取打印数据源
   async printInit({ commit }, payload) {
-    //  console.log('555',448898798);
+      console.log('555',448898798);
     if (payload.Ids.length == 0) {
       Message({
         type: "error",

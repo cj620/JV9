@@ -18,7 +18,7 @@ export function printPlugin(printMod){
       isTag:printMod.isTag,
       // Default Query Print
        Mode: printMod.Mode?printMod.Mode:'Default',
-       Mode:'Print'
+      // Mode:'Print'
     })
   }else{
 
