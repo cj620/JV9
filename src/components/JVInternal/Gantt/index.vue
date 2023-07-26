@@ -116,7 +116,7 @@ export default {
 		GetData() {
 			// gantt.addTask
 			// console.log('gantt::: ', gantt.createTask);
-			
+
 			// 日期列显示
 			// gantt.config.min_column_width = 60
 			// var that = this;
@@ -349,16 +349,15 @@ export default {
 					return gantt.$root.querySelector(".gantt_task");
 				},
 			};
-
 			//设置甘特图可以缩放的
-			gantt.ext.zoom.init(zoomConfig);
-			// 时间轴图表中，甘特图左边的宽度
-			//切换到指定的缩放级别
-			gantt.ext.zoom.setLevel("year");
+			 gantt.ext.zoom.init(zoomConfig)
+			// // 时间轴图表中，甘特图左边的宽度
+			// //切换到指定的缩放级别
+			 gantt.ext.zoom.setLevel("year");
 
 			//gantt.ext.zoom.zoomIn()
 			//容器内初始化 dhtmlxGantt
-			
+
 			gantt.render();
 			//加载数据
 			gantt.parse(this.$props.tasks);
@@ -390,7 +389,7 @@ export default {
 			gantt.attachEvent("onAfterTaskUpdate", (id, item) => {
 				// console.log('id, item::: ', id, item);
 			});
-			
+
 			gantt.attachEvent("onLinkCreated", (link) => { // 创建链接
 				console.log('link::: ', link);
 				return true;
@@ -400,7 +399,7 @@ export default {
 				console.log('e::: ', e);
 				console.log('id::: ', id);
 			});
-			
+
 
 			gantt.attachEvent("onAfterTaskDrag", function(id, mode, e){
 				console.log('测试::: ');
@@ -427,7 +426,7 @@ export default {
 			// 	//any custom logic here
 			// 	return true;
 			// });
-			
+
 			// gantt.attachEvent("onTaskDrag", function(id, mode, task, original){
 			// 	//any custom logic here
 			// 	let childrenNode = document.querySelectorAll('div[task_id="9"]')[2];
@@ -447,7 +446,7 @@ export default {
 				// // gantt.updateTask(9);
 				// // taskNode.appendChild(childrenNode);
 				// // taskNode.appendChild(childrenNode1);
-				
+
 				// console.log('taskNode.offsetTop::: ', taskNode.offsetTop);
 				// childrenNode.style.top = taskNode.offsetTop + 'px';
 				// childrenNode1.style.top = taskNode.offsetTop + 'px';
@@ -702,7 +701,7 @@ export default {
 						jtem.appendChild(span);
 					})
 				})
-				
+
 			})
 		}
 	},
