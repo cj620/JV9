@@ -73,6 +73,7 @@ export default {
       RemarkData: "",
       type: "",
       stateForm: {},
+      addRouteName: "Pu_Requisition_Add",
       editRouteName: "Pu_Requisition_Edit",
       tabPanes: [
         {
