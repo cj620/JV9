@@ -40,9 +40,11 @@
 </template>
 
 <script>
-import { gantt } from "dhtmlx-gantt/codebase/sources/dhtmlxgantt.js";
+import { gantt } from "dhtmlx-gantt";
+// import { gantt } from '@/views/basicModule/demo/dhtmlx-gantt/codebase/sources/dhtmlxgantt'
 import { Form } from "@/jv_doc/class/form";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
+import zoomConfig from './zoomConfig'
 // import data from "@/views/basicModule/demo/Test10/data";
 import { timeFormat } from "@/jv_doc/utils/time";
 export default {
@@ -97,6 +99,8 @@ export default {
 	},
 	mounted() {
 		// gantt.setSizes();
+		// this.GetData();
+		
 	},
 	watch: {
 		tasks: {
@@ -114,9 +118,6 @@ export default {
 	},
 	methods: {
 		GetData() {
-			// gantt.addTask
-			// console.log('gantt::: ', gantt.createTask);
-			
 			// 日期列显示
 			// gantt.config.min_column_width = 60
 			// var that = this;
@@ -173,7 +174,7 @@ export default {
 						"<b><!--名称:--></b> " +
 						task.text +
 						"：" +
-						task.progress * 100 +
+						(task.progress * 100).toFixed(2) +
 						"%" /*+ ' (' + task.progress * 100 + '%)'*/
 					);
 				} else {
@@ -242,126 +243,23 @@ export default {
 			gantt.config.drag_resize = true;
 			// 可读模式，不许编辑
 			gantt.config.readonly = false;
-			this.addTodayLine();
-			gantt.init(this.$refs.gantt);
+			
+			// this.addTodayLine();
+			
 			/* 缩放配置
 			 * levels：缩放级别
 			 * useKey：使用键盘
 			 * trigger ：缩放触发器  wheel 滚轮
 			 * */
-			var zoomConfig = {
-				levels: [
-					{
-						name: "minute",
-						scale_height: 50,
-						min_column_width: 45,
-						scales: [
-							{ unit: "hour", format: "%H" },
-							{ unit: "minute", format: "%H:%i", step: 10 },
-						],
-					},
-					{
-						name: "hour",
-						scale_height: 50,
-						min_column_width: 45,
-						scales: [
-							{ unit: "day", format: "%d" },
-							{ unit: "hour", format: "%H" },
-						],
-					},
-					{
-						name: "day",
-						scale_height: 50,
-						min_column_width: 80,
-						scales: [{ unit: "day", step: 1, format: "%M" + "%d " }],
-					},
-					{
-						name: "week",
-						scale_height: 50,
-						min_column_width: 80,
-						scales: [
-							{
-								unit: "week",
-								step: 1,
-								format: function (date) {
-									var dateToStr = gantt.date.date_to_str("%M %d ");
-									var endDate = gantt.date.add(date, +6, "day");
-									var weekNum = gantt.date.date_to_str("%W")(date);
-									return (
-										"#" +
-										weekNum +
-										", " +
-										dateToStr(date) +
-										" - " +
-										dateToStr(endDate)
-									);
-								},
-							},
-							{ unit: "day", step: 1, format: "%D" + " %j " },
-						],
-					},
-					{
-						name: "month",
-						scale_height: 50,
-						min_column_width: 120,
-						scales: [
-							{ unit: "month", format: "%F, %Y" },
-							{ unit: "week", format: "%W" + this.$t("Generality.Ge_Week") },
-						],
-					},
-					{
-						name: "quarter",
-						height: 50,
-						min_column_width: 90,
-						scales: [
-							{
-								unit: "quarter",
-								step: 1,
-								format: function (date) {
-									var dateToStr = gantt.date.date_to_str("%M");
-									var endDate = gantt.date.add(
-										gantt.date.add(date, 3, "month"),
-										-1,
-										"day"
-									);
-									return dateToStr(date) + " - " + dateToStr(endDate);
-								},
-							},
-							{ unit: "month", step: 1, format: "%M" },
-						],
-					},
-					{
-						name: "year",
-						scale_height: 50,
-						min_column_width: 30,
-						scales: [
-							{
-								unit: "year",
-								step: 1,
-								format: "%Y" + this.$t("Generality.Ge_Year"),
-							},
-						],
-					},
-				],
-				useKey: "ctrlKey",
-				trigger: "wheel",
-				element: function () {
-					return gantt.$root.querySelector(".gantt_task");
-				},
-			};
 
-			//设置甘特图可以缩放的
-			gantt.ext.zoom.init(zoomConfig);
-			// 时间轴图表中，甘特图左边的宽度
-			//切换到指定的缩放级别
-			gantt.ext.zoom.setLevel("year");
+			
 
 			//gantt.ext.zoom.zoomIn()
 			//容器内初始化 dhtmlxGantt
 			
-			gantt.render();
+			
 			//加载数据
-			gantt.parse(this.$props.tasks);
+			
 			this.onTaskClick(); // 单击事件
 			this.onTaskDblClick(); // 双击事件
 			this.onTaskDrag(); // 拖动事件
@@ -400,68 +298,29 @@ export default {
 				console.log('e::: ', e);
 				console.log('id::: ', id);
 			});
-			
-
-			gantt.attachEvent("onAfterTaskDrag", function(id, mode, e){
-				console.log('测试::: ');
-				// if(id == 9 || id == 10) {
-				// 	let taskNode = document.querySelectorAll('div[task_id="8"]')[2];
-				// 	let childrenNode = document.querySelectorAll('div[task_id="9"]')[2];
-				// 	let childrenNode1 = document.querySelectorAll('div[task_id="10"]')[2];
-				// 	// let task = gantt.getTask(9);
-				// 	// task.start_date = new Date('2024-01-20')
-				// 	// task.end_date = new Date('2024-12-15');
-				// 	// gantt.updateTask(9);
-				// 	// taskNode.appendChild(childrenNode);
-				// 	taskNode.style.display = "block";
-				// 	childrenNode.style.top = taskNode.offsetTop + 'px';
-				// 	childrenNode1.style.top = taskNode.offsetTop + 'px';
-				// 	taskNode.style.display = "none";
-				// }
-   				 //any custom logic here
-			});
-			// gantt.attachEvent("onBeforeTaskDrag", function(id, mode, e){
-			// 	console.log('id, mode, e::: ', id, mode, e);
-			// 	let childrenNode = document.querySelectorAll('div[task_id="9"]')[2];
-			// 	childrenNode.style.top = 0;
-			// 	//any custom logic here
-			// 	return true;
-			// });
-			
-			// gantt.attachEvent("onTaskDrag", function(id, mode, task, original){
-			// 	//any custom logic here
-			// 	let childrenNode = document.querySelectorAll('div[task_id="9"]')[2];
-			// 	childrenNode.style.top = 0;
-			// });
-
 			// 页面进来可能甘特图还未挂载完毕，定个延时器，延迟设置links
 			let timer = setTimeout(() => {
 				this.setLinks();
-
-				// let taskNode = document.querySelectorAll('div[task_id="8"]')[2];
-				// let childrenNode = document.querySelectorAll('div[task_id="9"]')[2];
-				// let childrenNode1 = document.querySelectorAll('div[task_id="10"]')[2];
-				// // let task = gantt.getTask(9);
-				// // task.start_date = new Date('2024-01-20')
-				// // task.end_date = new Date('2024-12-15');
-				// // gantt.updateTask(9);
-				// // taskNode.appendChild(childrenNode);
-				// // taskNode.appendChild(childrenNode1);
-				
-				// console.log('taskNode.offsetTop::: ', taskNode.offsetTop);
-				// childrenNode.style.top = taskNode.offsetTop + 'px';
-				// childrenNode1.style.top = taskNode.offsetTop + 'px';
-				// taskNode.style.display = "none";
-				// console.log('childrenNode::: ', childrenNode);
 				clearTimeout(timer);
 			},100);
 			// 监听浏览器窗口变化，重新设置links
 			window.onresize = () => {
 				this.debounce(this.setLinks,300)
 			}
-
-			// let ids = linkr[1].getAttribute("data-link-id");
-			// console.log('ids::: ', ids);
+			console.log('gantt.ext::: ', gantt.ext.zoom.getLevels());
+			if(!gantt.ext.zoom.getLevels()) {
+				gantt.ext.zoom.init(zoomConfig);
+			}
+			
+			//设置甘特图可以缩放的
+			
+			//切换到指定的缩放级别
+			gantt.ext.zoom.setLevel("year");
+			console.log('gantt.ext::: ', gantt.ext.zoom.getLevels());
+			gantt.init(this.$refs.gantt);
+			gantt.parse(this.$props.tasks);
+			gantt.render();
+			
 		},
 		confirm() {
 			let that = this;
@@ -501,13 +360,13 @@ export default {
 						Maps[item](that.formObj.form[item]);
 					}
 				});
-				this.setGanttUpdate(); //甘特图数据更新
+				// this.setGanttUpdate(); //甘特图数据更新
 
 				// 修改完成后刷新数据
 				// gantt.ext.quickInfo.hide(that.currentId);
 				// gantt.ext.quickInfo.show(that.currentId);
 				// // gantt.refreshTask(that.currentId);
-				// gantt.updateTask(that.currentId);
+				gantt.updateTask(that.currentId);
 				// 关闭表单弹窗
 				that.dialogVisible = false;
 			})
@@ -706,6 +565,10 @@ export default {
 			})
 		}
 	},
+	destroyed() {
+		// gantt.ext.zoom.init({});
+	}
+
 };
 </script>
 
