@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-03-25 13:20:37
  * @Description: file content
  */
-import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
+import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 /*import { getSalesReturnList } from "@/api/workApi/sale/return";*/
 import { getAllSalesCustomer } from "@/api/workApi/sale/customer";
 import { API as Return } from "@/api/workApi/sale/return";
@@ -14,16 +14,16 @@ export class api extends TableAPI {
 }
 export class Table extends BaseTable {
   constructor() {
-    super( {
+    super({
       tableSchema: tableConfig,
       formSchema,
-      rowId: 'BillId',
+      rowId: "BillId",
       title: i18n.t("menu.Sa_SaleReturn"),
       api,
-      operationWidth:110,
+      operationWidth: 150,
       // 打印模块标识
-      printMod:'Sa_SaleReturn',
-    })
+      printMod: "Sa_SaleReturn",
+    });
   }
 }
 
@@ -36,7 +36,7 @@ export const tableConfig = [
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
-      label: i18n.t("Generality.Ge_BillId")
+      label: i18n.t("Generality.Ge_BillId"),
     },
     cpnProps: {
       // 路由名称
@@ -48,20 +48,20 @@ export const tableConfig = [
       // 传参的键名，值为当前数据
       parameterKey: "BillId",
       // 补充动态参数
-      moreDynamicParameters:[
+      moreDynamicParameters: [
         {
-          keyName:'ItemId',
-          valueName:'ItemId'
-        }
+          keyName: "ItemId",
+          valueName: "ItemId",
+        },
       ],
-    }
+    },
   },
   /*状态*/
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    custom:true,
-    width:'115px',
+    cpn: "BillStateTags",
+    width: "115px",
   },
   /*客户简称*/
   {
@@ -75,49 +75,49 @@ export const tableConfig = [
       apiOptions: {
         immediate: true,
         keyName: "ShortName",
-        valueName: "ShortName"
-      }
-    }
+        valueName: "ShortName",
+      },
+    },
   },
   /*退货日期*/
   {
     prop: "ReturnDate",
     label: i18n.t("sale.Sa_ReturnDate"),
     filter: "date",
-    width:'120px',
+    width: "120px",
   },
   /*币种*/
   {
     prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
-    width:'95px',
+    width: "95px",
   },
   /*销售员*/
   {
     prop: "SalesReps",
     label: i18n.t("sale.Sa_SalesReps"),
-    width:'110px',
+    width: "110px",
   },
   /*仓库*/
   {
     prop: "Stockroom",
     label: i18n.t("setup.Stockroom"),
-    width:'110px',
+    width: "110px",
   },
   /*制单人*/
   {
     prop: "Creator",
     label: i18n.t("Generality.Ge_Creator"),
-    width:'95px',
+    width: "95px",
   },
   /*制单日期*/
   {
     prop: "CreationDate",
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
-    width:'150px',
+    width: "150px",
   },
-]
+];
 export const formSchema = [
   //单号搜索
   {
@@ -133,8 +133,8 @@ export const formSchema = [
     api: getAllSalesCustomer,
     apiOptions: {
       keyName: "ShortName",
-      valueName: "ShortName"
-    }
+      valueName: "ShortName",
+    },
   },
   {
     prop: "State",
@@ -173,4 +173,4 @@ export const formSchema = [
       ],
     },
   },
-]
+];

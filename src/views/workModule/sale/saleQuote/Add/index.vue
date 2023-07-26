@@ -388,6 +388,10 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
+    this.formObj.eventBus.$on("CustomerId", (a, b, c) => {
+      // console.log(a, b, c, "fasdfjasdklf");
+      this.formObj.form.Currency = b.Currency;
+    });
     this.M_TableObj = new M_EditTable();
     this.P_TableObj = new P_EditTable();
     this.C_TableObj = new C_EditTable();

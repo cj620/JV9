@@ -21,7 +21,7 @@ export class Table extends BaseTable {
       rowId: "BillId",
       title: i18n.t("menu.Sa_Account"),
       api,
-      operationWidth: 110,
+      operationWidth: 150,
       printMod: "Sa_Account",
     });
   }
@@ -60,7 +60,7 @@ export const tableConfig = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    custom: true,
+    cpn: "BillStateTags",
     width: "115px",
   },
   /*客户简称*/

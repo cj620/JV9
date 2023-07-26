@@ -60,7 +60,6 @@
     <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
       <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
     </JvBlock>
-
   </PageWrapper>
 </template>
 
@@ -105,6 +104,7 @@ export default {
       btnAction: [],
       // 编辑路由指向 谨慎删除
       editRouteName: "Sa_SaleReturn_Edit",
+      addRouteName: "Sa_SaleReturn_Add",
       // 打印模板标识 谨慎删除
       printMod: "Sa_SaleReturn",
       fileBillId: "",

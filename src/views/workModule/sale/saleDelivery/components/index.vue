@@ -165,7 +165,7 @@ import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
 
 export default {
-  name: "Sa_SaleOrder_Edit",
+  name: "Sa_SaleDelivery_Edit",
   components: {
     SelectMaterial,
     JvUploadFile,
@@ -302,6 +302,7 @@ export default {
     changeCustomerId(e) {
       console.log(e);
       getCustomer({ CustomerId: e }).then((res) => {
+        this.formObj.form.Currency = res.Currency;
         this.ruleForm.CustomerName = res.ShortName;
         this.AddressData = res.ContactInfo;
         this.BillItems.Tax = res.Tax;

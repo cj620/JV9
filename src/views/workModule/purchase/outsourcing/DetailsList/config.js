@@ -6,30 +6,33 @@
  */
 //销售订单明细 配置文件
 // 引入表格表格类和表格API类
-import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
+import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { purchase_outsourcing_Detail } from "@/api/workApi/purchase/outsourcing";
 class api extends TableAPI {
   // 获取列表
-  getData=purchase_outsourcing_Detail
+  getData = purchase_outsourcing_Detail;
 }
- export class Table extends BaseTable {
+export class Table extends BaseTable {
   constructor() {
-    super( {
+    super({
       // 表格配置
       tableSchema: tableSchema,
       // 表单配置
-      formSchema:formSchema,
+      formSchema: formSchema,
       // 行标识
-      rowId: 'Id',
+      rowId: "Id",
       // 表格标题
-      title: i18n.t("menu.Pu_Outsourcing")+'   '+i18n.t('Generality.Ge_Details1'),
+      title:
+        i18n.t("menu.Pu_Outsourcing") +
+        "   " +
+        i18n.t("Generality.Ge_Details1"),
       // 接口类
       api,
       // 打印模块标识
-      printMod:'Pu_Outsourcing_Detail_list',
-      operationCol:false,
-      printBar:false
-    })
+      printMod: "Pu_Outsourcing_Detail_list",
+      operationCol: false,
+      printBar: false,
+    });
   }
 }
 //  表格配置
@@ -42,7 +45,7 @@ const tableSchema = [
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
-      label: i18n.t("Generality.Ge_BillId")
+      label: i18n.t("Generality.Ge_BillId"),
     },
     cpnProps: {
       // 路由名称
@@ -54,22 +57,22 @@ const tableSchema = [
       // 传参的键名，值为当前数据
       parameterKey: "BillId",
       // 补充动态参数
-      moreDynamicParameters:[
+      moreDynamicParameters: [
         {
-          keyName:'ItemId',
-          valueName:'ItemId'
-        }
+          keyName: "ItemId",
+          valueName: "ItemId",
+        },
       ],
-    }
+    },
   },
   /*状态*/
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    custom:true,
-    width:'115px',
+    cpn: "BillStateTags",
+    width: "115px",
   },
-     /*计划交期*/
+  /*计划交期*/
   {
     prop: "DeliveryDate",
     label: i18n.t("Generality.Ge_DeliveryDate"),
@@ -79,41 +82,38 @@ const tableSchema = [
   /*工序*/
   {
     prop: "Process",
-    label:i18n.t("Generality.Ge_Process"),
-
+    label: i18n.t("Generality.Ge_Process"),
   },
 
-  
-   /*物料编号*/
-   {
+  /*物料编号*/
+  {
     prop: "PartNo",
-    label:i18n.t("Generality.Ge_PartNo"),
-
+    label: i18n.t("Generality.Ge_PartNo"),
   },
   /*物料名称*/
   {
     prop: "PartName",
     label: i18n.t("Generality.Ge_PartName"),
   },
-    /*描述*/
-    {
-      prop: "Description",
-      label: i18n.t("Generality.Ge_Describe"),
-    },
-    /*单位*/
-    {
-      prop: "Unit",
-      label: i18n.t("Generality.Ge_Unit"),
-      width: "70px",
-    },
-    /*数量*/
-    {
-      prop: "Quantity",
-      label: i18n.t("Generality.Ge_Quantity"),
-      width: "90px",
-      align: "right",
-      filter: "amount",
-    },
+  /*描述*/
+  {
+    prop: "Description",
+    label: i18n.t("Generality.Ge_Describe"),
+  },
+  /*单位*/
+  {
+    prop: "Unit",
+    label: i18n.t("Generality.Ge_Unit"),
+    width: "70px",
+  },
+  /*数量*/
+  {
+    prop: "Quantity",
+    label: i18n.t("Generality.Ge_Quantity"),
+    width: "90px",
+    align: "right",
+    filter: "amount",
+  },
   /*单价*/
   {
     prop: "Price",
@@ -129,7 +129,6 @@ const tableSchema = [
     align: "right",
     width: "120px",
     filter: "amount",
-
   },
   /*金额*/
   {
@@ -164,7 +163,7 @@ const tableSchema = [
     prop: "ItemRemarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
-]
+];
 //  搜索表单配置
 const formSchema = [
   {
@@ -189,10 +188,10 @@ const formSchema = [
   },
   {
     prop: "QueryAll",
-    label: '',
+    label: "",
     cpn: "FormInput",
-    default:true,
-    hidden:true
+    default: true,
+    hidden: true,
   },
   // QueryAll
-]
+];

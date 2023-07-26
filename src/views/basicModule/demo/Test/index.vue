@@ -1,30 +1,56 @@
+<!--
+ * @Author: C.
+ * @Date: 2022-08-31 09:59:45
+-->
 <template>
-  <div>
-    <el-button @click="init">init</el-button>
-    <!-- <iframe id="frame" :src="src" frameborder="0" ref="iframe"></iframe> -->
-  </div>
+  <jv-block title="机床运行状态">
+    <div class="state-bar">
+      <el-tooltip
+        v-for="(item, index) in machineData.Data"
+        :key="index"
+        :style="{ background: item.state, width: item.time / 14.4 + '%' }"
+        class="state-item"
+        effect="dark"
+        :content="item.time"
+        placement="top-start"
+      >
+        <div>{{ item.time }}</div>
+      </el-tooltip>
+    </div>
+  </jv-block>
 </template>
 <script>
-import { printPdf } from "~/utils/system/pdfPrint";
-import axios from "axios";
-import { DownFile } from "@/api/basicApi/systemSettings/upload";
-import request from "@/utils/request";
+import { getBarData } from "./utils";
 export default {
   name: "Home",
 
   data() {
     return {
-      src: "",
+      machineData: null,
     };
   },
-  created() {},
-  mounted: function () {},
-  methods: {
-    init() {
-      printPdf(
-        "http://192.168.1.22:9002/Pdf/c318763b-bcca-46d3-b77d-13269efd0543.pdf"
-      );
-    },
+  created() {
+    this.machineData = getBarData();
   },
+  methods: {},
 };
 </script>
+<style lang="scss" scoped>
+.state-bar {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #ccc;
+  background-color: #ccc;
+  display: flex;
+  justify-content: start;
+  .state-item {
+    height: 100%;
+    &:hover {
+      filter: brightness(1.2);
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+</style>

@@ -57,7 +57,6 @@
     <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
       <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
     </JvBlock>
-
   </PageWrapper>
 </template>
 
@@ -98,6 +97,8 @@ export default {
       type: "",
       // 编辑路由
       editRouteName: "Sa_AccountChecking_Edit",
+      // 新增路由
+      addRouteName: "Sa_AccountChecking_Add",
       // 打印模板标识 谨慎删除
       printMod: "Sa_Account",
     };
