@@ -15,7 +15,6 @@
 </template>
 <script>
 import { Table } from "./config";
-import { stateEnum } from "@/enum/workModule";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import {
   listTableBtnModel,
@@ -28,7 +27,6 @@ export default {
   },
   data() {
     return {
-      stateEnum,
       // 表格数据
       tableObj: {
         type: "",
