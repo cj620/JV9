@@ -405,9 +405,11 @@ export default {
   methods: {
     get_last_data() {
       if (this.$route.query.type === "copy") {
+        this.fileBillId = this.$route.query.BillId;
         Quotation.api_get({ BillId: this.cur_Id }).then((res) => {
-          this.formObj.form = res;
-          this.ruleForm = res;
+          this.ruleForm = Object.assign({}, this.ruleForm, res);
+          this.formObj.form = this.ruleForm;
+
           this.ruleForm.BillId = "";
           this.ruleForm.BillGui = "";
           res.MaterialCost.forEach((item) => {

@@ -11,13 +11,14 @@
       ></el-tab-pane>
     </el-tabs>
 
-    <Action slot="sticky-extra"
-            size="small"
-            :actions="btnAction"
-            :dropDownActions="[
+    <Action
+      slot="sticky-extra"
+      size="small"
+      :actions="btnAction"
+      :dropDownActions="[
         {
           label: '订单',
-          disabled: !this.detailObj.detailData.State==='Approved',
+          disabled: !this.detailObj.detailData.State === 'Approved',
           confirm: orderTransform.bind(
             null,
             'Sa_SaleOrder_Add',
@@ -171,6 +172,7 @@ export default {
       ],
       // 编辑路由指向 谨慎删除
       editRouteName: "Sa_SaleQuote_Edit",
+      addRouteName: "Sa_SaleQuote_Add",
       // 打印模板标识 谨慎删除
       printMod: "Sa_SaleQuote",
     };
@@ -208,13 +210,13 @@ export default {
         this.P_TableObj.setData(data2doubleCol(res.ProductionCost));
         this.C_TableObj.setData(res.AdditionalCost);
         this.btnAction = detailPageModel(this, res, Quotation, this.GetData);
-        this.btnAction=[...this.btnAction,...[{
-          label: '复制',
-          confirm: this.copy,
-        }]]
+        // this.btnAction=[...this.btnAction,...[{
+        //   label: '复制',
+        //   confirm: this.copy,
+        // }]]
       });
     },
-    copy(){
+    copy() {
       this.$router.push({
         name: "Sa_SaleQuote_Add",
         query: { BillId: this.$route.query.BillId, type: "copy" },

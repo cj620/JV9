@@ -22,7 +22,7 @@ export default {
       submit: true,
       edit: true,
       del: true,
-      discarded: true,
+      discarded: false,
     },
   },
   /// <summary>
@@ -40,7 +40,7 @@ export default {
       audit: true,
       reject: true,
       withdraw: true,
-      Discarded: true,
+      discarded: false,
     },
   },
   /// <summary>
@@ -58,7 +58,7 @@ export default {
       audit: true,
       reject: true,
       withdraw: true,
-      discarded: true,
+      discarded: false,
     },
   },
   /// <summary>

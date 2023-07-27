@@ -19,16 +19,16 @@
 		align-items: center;">
 			<div>
 				单位：
-			<!-- <el-button size="mini" onclick="gantt.ext.zoom.zoomIn()">{{
+				<!-- <el-button size="mini" onclick="gantt.ext.zoom.zoomIn()">{{
 				$t("Generality.Ge_ZoomOut")
 			}}</el-button>
 			<el-button size="mini" onclick="gantt.ext.zoom.zoomOut()">{{
 				$t("Generality.Ge_ZoomIn")
 			}}</el-button> -->
-			<el-select style="width: 66px;" @change="setGanttZoom" v-model="unitValue" placeholder="请选择单位">
-				<el-option v-for="item in unitOptions" :key="item.value" :label="item.label" :value="item.value">
-				</el-option>
-			</el-select>
+				<el-select style="width: 66px;" @change="setGanttZoom" v-model="unitValue" placeholder="请选择单位">
+					<el-option v-for="item in unitOptions" :key="item.value" :label="item.label" :value="item.value">
+					</el-option>
+				</el-select>
 			</div>
 		</div>
 
@@ -81,6 +81,22 @@ export default {
 		foldoRunfoldFlag: {
 			type: Number,
 			default: NaN
+		},
+		dragProgress: {
+			type: Boolean,
+			default: false
+		},
+		tooltip: {
+			type: Boolean,
+			default: false,
+		},
+		rowHeight: {
+			type: Number,
+			default: 50,
+		},
+		barHeight: {
+			type: Number,
+			default: 36,
 		}
 	},
 	data() {
@@ -137,20 +153,20 @@ export default {
 	mounted() {
 		// gantt.setSizes();
 		// this.GetData();
-
 	},
 	watch: {
 		tasks: {
 			deep: true,
 			handler() {
-				// this.tasks.data.forEach(item => {
-				// 	this.oldDateList.push({
-				// 		start_date: item.start_date,
-				// 		end_date: item.end_date
-				// 	})
-				// })
+				this.tasks.data.forEach(item => {
+					this.oldDateList.push({
+						start_date: item.start_date,
+						end_date: item.end_date,
+						progress: item.progress,
+					})
+				})
 			},
-			// immediate: true
+			immediate: true
 		}
 	},
 	methods: {
@@ -162,7 +178,7 @@ export default {
 			gantt.attachEvent("onBeforeTaskUpdate", (id, new_item) => {
 				if (this.isConfrim) return
 				var task = gantt.getTask(id);
-				this.$confirm('您当前修改了日期，是否提交修改?', '提示', {
+				this.$confirm('您当前修改了数据，是否提交修改?', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'warning'
@@ -170,8 +186,9 @@ export default {
 					this.setGanttUpdate(); //甘特图数据更新
 				}).catch(() => {
 					this.isConfrim = true;
-					task.start_date = this.oldDateList[new_item.$index].start_date;
-					task.end_date = this.oldDateList[new_item.$index].end_date;
+					task.start_date = new Date(this.oldDateList[new_item.$index].start_date);
+					task.end_date = new Date(this.oldDateList[new_item.$index].end_date);
+					task.progress = this.oldDateList[new_item.$index].progress
 					gantt.updateTask(id);
 					this.setLinks();
 					this.$nextTick(() => {
@@ -200,7 +217,9 @@ export default {
 			window.onresize = () => {
 				this.debounce(this.setLinks, 300)
 			}
-
+			gantt.attachEvent("onGanttScroll", (left, top) => {
+				this.debounce(this.setPreview, 200)
+			});
 			this.ganttConfig(); // 甘特图的配置和初始化
 		},
 		confirm() {
@@ -410,7 +429,7 @@ export default {
 						text: item.Title, // 父节点名字
 						start_date: this.formatDate(item.StartDate, "yyyy-MM-dd hh:mm:ss"), // 必须要字段 task 开始时间
 						cap_plan_end: this.formatDate(item.EndDate, "yyyy-MM-dd hh:mm:ss"),
-						end_date: item.EndDate ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"): '',
+						end_date: item.EndDate ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss") : '',
 						parent: item.ParentId,
 						color: item.Color,
 						duration: item.Duration,
@@ -418,7 +437,7 @@ export default {
 					});
 				});
 				// gantt.render();
-				gantt.eachTask(function(task){
+				gantt.eachTask(function (task) {
 					task.id = arr[task.$index].id
 					task.open = arr[task.$index].open
 					task.text = arr[task.$index].text
@@ -472,16 +491,17 @@ export default {
 				gantt.i18n.setLocale("ja");
 			}
 			// 时间轴图表中，甘特图的高度
-			gantt.config.row_height = 50;
+			gantt.config.row_height = this.rowHeight;
 			// 时间轴图表中，任务条形图的高度
-			gantt.config.bar_height = 36;
+			gantt.config.bar_height = this.barHeight;
 			// 时间轴图表中，甘特图左边的宽度
 			// gantt.config.grid_width = 520;
 
 			// duration  计算值默认是1分钟
-			gantt.config.duration_step = 1;
+			// gantt.config.duration_step = 1;
 			//按照分钟计算的
-			gantt.config.duration_unit = "minute";
+			// gantt.config.duration_unit = "minute";
+
 			// 表头配置显示列   //name:绑定数据的名称  align：对其方式  label显示在表头的名称
 			gantt.config.columns = headerColumns;
 			// task 任务条文本
@@ -526,8 +546,13 @@ export default {
 			};
 			//gantt自动扩展时间刻度以适应所有显示的任务
 			gantt.config.fit_tasks = true;
+
+			// gantt.templates.scale_cell_class = function (date) {
+			// 	if (is_selected_column(date))
+			// 		return "highlighted-column";
+			// };
 			//鼠标悬浮提示隐藏之前的时间长度
-			gantt.config.tooltip_hide_timeout = 2000;
+			// gantt.config.tooltip_hide_timeout = 2000;
 			//本地格式化
 			//gantt.i18n.setLocale('cn')
 			//文件的字符串被转换为符合此模板的日期对象
@@ -537,7 +562,7 @@ export default {
 				  marker:标记线
 				  */
 			gantt.plugins({
-				tooltip: true, // 鼠标悬浮
+				tooltip: this.tooltip, // 鼠标悬浮
 				marker: true,
 				quick_info: true,
 				fullscreen: true, // 允许全屏
@@ -551,7 +576,7 @@ export default {
 			// 可以通过拖放创建依赖链接
 			gantt.config.drag_links = true;
 			// 可以通过拖动进度旋钮来更改任务进度
-			gantt.config.drag_progress = false;
+			gantt.config.drag_progress = this.dragProgress;
 			// 可以通过拖放移动任务
 			gantt.config.drag_move = true;
 			// 设置false ，无法拖动任务
@@ -566,8 +591,10 @@ export default {
 			 * useKey：使用键盘
 			 * trigger ：缩放触发器  wheel 滚轮
 			 * */
+			// 判断是否已经初始化过zoomConfig
 			if (!gantt.ext.zoom.getLevels()) {
 				gantt.ext.zoom.init(zoomConfig);
+
 			}
 
 			//切换到指定的缩放级别
@@ -578,8 +605,8 @@ export default {
 		},
 		// 折叠展开
 		foldoRunfold() {
-			const arr = {data: [],links: this.$props.tasks.links}
-			if(this.$props.foldoRunfoldFlag === 1) {
+			const arr = { data: [], links: this.$props.tasks.links }
+			if (this.$props.foldoRunfoldFlag === 1) {
 				arr.data = this.$props.tasks.data.map(item => {
 					return {
 						...item,
@@ -587,7 +614,7 @@ export default {
 					}
 				});
 
-			} else if(this.$props.foldoRunfoldFlag === 0) {
+			} else if (this.$props.foldoRunfoldFlag === 0) {
 				arr.data = this.$props.tasks.data.map(item => {
 					return {
 						...item,
@@ -596,10 +623,22 @@ export default {
 				});
 			} else {
 				arr.data = this.$props.tasks.data.map(item => {
-					return {...item}
+					return { ...item }
 				});
 			}
 			gantt.parse(arr);
+
+		},
+		// 设置预览事件
+		setPreview() {
+			this.$props.tasks.data.forEach(item => {
+				let preview = document.getElementById('preview' + item.id)
+				if (preview) {
+					preview.onclick = () => {
+						console.count()
+					}
+				}
+			})
 
 		}
 	},
@@ -622,6 +661,9 @@ export default {
 	background: #f7eb91 !important;
 }
 
+.highlighted-column {
+	background-color: #fff3a1;
+}
 
 // .gantt_cal_quick_info{ // 单击显示的信息弹窗
 //   border-radius: 8px;
