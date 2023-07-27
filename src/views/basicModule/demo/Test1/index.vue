@@ -1,15 +1,19 @@
 <template>
-    <div class="customize-visualization">
+    <PageWrapper :footer="false">
+        <div class="customize-visualization">
       <div class="project-container">
         <gantt ref="ganttchart" class="left-container"
         :tasks="tasks"
         :formSchema="formSchema"
         :api="partProcessingPlan"
+        :foldoRunfoldFlag="1"
         >
         </gantt>
       </div>
 
     </div>
+    </PageWrapper>
+    
 </template>
 
 <script>
@@ -47,9 +51,9 @@ export default {
             "Id": 1,
             "Title": "TEST0530",
             "StartDate": "2023-05-30T11:40:00",
-            "EndDate": "2029-07-25T16:00:00",
+            "EndDate": "2023-07-25T16:00:00",
             "Duration": 3237380,
-            "IsOpen": false,
+            "IsOpen": true,
             "ParentId": 0,
             "Color": "#5692f0",
             "PlanTime": 0,
@@ -75,7 +79,7 @@ export default {
             "Id": 3,
             "Title": "0530-001-A01",
             "StartDate": "2023-05-30T11:40:00",
-            "EndDate": "2029-07-25T16:00:00",
+            "EndDate": "2023-07-25T16:00:00",
             "Duration": 3237380,
             "IsOpen": false,
             "ParentId": 2,
@@ -160,8 +164,8 @@ export default {
         {
             "Id": 9,
             "Title": "线切割 ",
-            "StartDate": "2024-01-10T12:00:00",
-            "EndDate": "2025-07-12T12:00:00",
+            "StartDate": "2023-01-10T12:00:00",
+            "EndDate": "2023-07-12T12:00:00",
             "Duration": 263520,
             "IsOpen": false,
             "ParentId": 8,
@@ -749,7 +753,7 @@ export default {
             "Id": 51,
             "Title": "K151",
             "StartDate": "2022-01-06T00:00:00",
-            "EndDate": "2024-05-15T16:00:00",
+            "EndDate": "2023-05-15T16:00:00",
             "Duration": 1239360,
             "IsOpen": false,
             "ParentId": 0,
@@ -1631,7 +1635,7 @@ export default {
             "Id": 114,
             "Title": "2201002-A02",
             "StartDate": "2023-03-21T11:39:00",
-            "EndDate": "2024-05-15T16:00:00",
+            "EndDate": "2023-05-15T16:00:00",
             "Duration": 606501,
             "IsOpen": false,
             "ParentId": 107,
@@ -2051,7 +2055,7 @@ export default {
             "Id": 144,
             "Title": "J22",
             "StartDate": "2022-09-13T11:37:00",
-            "EndDate": "2024-05-22T16:00:00",
+            "EndDate": "2023-05-22T16:00:00",
             "Duration": 888743,
             "IsOpen": false,
             "ParentId": 0,
@@ -2079,7 +2083,7 @@ export default {
             "Id": 146,
             "Title": "J2201-02",
             "StartDate": "2022-09-13T11:37:00",
-            "EndDate": "2024-05-22T16:00:00",
+            "EndDate": "2023-05-22T16:00:00",
             "Duration": 888743,
             "IsOpen": false,
             "ParentId": 145,
@@ -2594,21 +2598,6 @@ export default {
             "EmployeeName": "唐纳德·特朗普",
             "fatherId": 1
         },
-        {
-            "Id": 183,
-            "Title": "TEST0531",
-            "StartDate": "2023-12-30T11:40:00",
-            "EndDate": "2024-01-25T16:00:00",
-            "Duration": 1,
-            "IsOpen": false,
-            "ParentId": 0,
-            "Color": "#5692f0",
-            "PlanTime": 0,
-            "UserTime": 0,
-            "ProcessRate": 0,
-            "EmployeeName": "唐纳德·特朗普",
-            "fatherId": 1
-        },
     ]
     list.forEach((item) => {
           arr.push({
@@ -2622,7 +2611,7 @@ export default {
             color: item.Color,
             duration: item.Duration,
             progress: item.ProcessRate,
-            fatherId: item.fatherId
+            // fatherId: item.fatherId
             // row_height: 50, 
             // bar_height: 40
           });
