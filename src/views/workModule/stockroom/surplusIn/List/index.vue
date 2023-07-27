@@ -9,52 +9,12 @@
   <PageWrapper :footer="false">
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
-      <template #State="{ record }">
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
-
+      <!-- operation操作列 -->
       <template #operation="{ row }">
-        <TableAction
-          :actions="[
-            {
-              label: $t('Generality.Ge_Edit'),
-              confirm: edit.bind(null, row),
-              disabled: getActionState(row.State, 'edit'),
-            },
-            {
-              label: $t('Generality.Ge_Delete'),
-              disabled: getActionState(row.State, 'edit'),
-              popConfirm: {
-                title: $t('Generality.Ge_DeleteConfirm'),
-                confirm: deleteOrder.bind(null, [row.BillId]),
-              },
-            },
-          ]"
-        />
+        <TableAction :actions="getListTableColBtnModel(row)" />
       </template>
-      <Action
-        size="mini"
-        slot="btn-list"
-        :actions="[
-          {
-            label: $t('Generality.Ge_New'),
-
-            confirm: add.bind(),
-          },
-          {
-            label: $t('Generality.Ge_Delete'),
-            disabled: canIsDel,
-            popConfirm: {
-              title: $t('Generality.Ge_DeleteConfirm'),
-              confirm: del.bind(),
-            },
-          },
-            {
-            label: $t('project.Pro_CheckDetails'),
-            confirm: toDetailsList,
-          },
-        ]"
-      >
+      <!-- 表格操作行 -->
+      <Action size="mini" slot="btn-list" :actions="getListTableBtnModel">
       </Action>
     </JvTable>
   </PageWrapper>
@@ -64,6 +24,10 @@ import { Table } from "./config";
 import { stateEnum } from "@/enum/workModule";
 import { deleteStockSurplusIn } from "@/api/workApi/stockroom/surplusIn";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
+import {
+  listTableBtnModel,
+  listTableColBtnModel,
+} from "@/jv_doc/utils/system/pagePlugin";
 export default {
   name: "SurplusIn",
   components: {
@@ -88,26 +52,31 @@ export default {
 
       dialogFormVisible: false,
       chooseList: [],
+      // 编辑路由
+      EditRoute: "St_SurplusIn_Edit",
+      // 新增路由
+      AddRoute: "St_SurplusIn_Add",
     };
   },
   created() {
     this.tableObj = new Table();
-
     this.tableObj.getData();
   },
   computed: {
-    // 是否可以批量删除
-    canIsDel() {
-      let { datas } = this.tableObj.selectData;
-      if (datas.length === 0) return true;
-      return datas.some((item) => {
-        return !["Rejected", "Unsubmitted"].includes(item.State);
-      });
+    // 表格操作模块
+    getListTableBtnModel() {
+      return [
+        ...listTableBtnModel(this),
+        {
+          label: i18n.t("project.Pro_CheckDetails"),
+          confirm: this.toDetailsList,
+        },
+      ];
     },
-    // 获取按钮状态
-    getActionState() {
-      return (state, type) => {
-        return !stateEnum[state]?.operation?.[type];
+    // 表格操作列按钮
+    getListTableColBtnModel() {
+      return (row) => {
+        return listTableColBtnModel(this, row);
       };
     },
   },
@@ -116,34 +85,6 @@ export default {
       this.$router.push({
         name: "St_SurplusIn_Detail_list",
       });
-    },
-
-    //删除单据
-    deleteOrder(id) {
-      this.tableObj.api.del({ BillIds: id }).then((data) => {
-        this.tableObj.getData();
-      });
-    },
-    //新增分类
-    add() {
-      this.$router.push({
-        name: "St_SurplusIn_Add",
-        params: { type: "add", title: "addSaleOrder" },
-      });
-    },
-
-    //编辑
-    edit(e) {
-      this.tableObj.api.editLock({ BillId: e.BillId }).then((res) => {
-        this.$router.push({
-          name: "St_SurplusIn_Edit",
-          query: { BillId: e.BillId },
-        });
-      });
-    },
-    //批量删除单据
-    del() {
-      this.deleteOrder(this.tableObj.selectData.keys);
     },
   },
 };
