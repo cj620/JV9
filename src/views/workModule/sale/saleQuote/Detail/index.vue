@@ -171,6 +171,7 @@ export default {
       ],
       // 编辑路由指向 谨慎删除
       editRouteName: "Sa_SaleQuote_Edit",
+      addRouteName: "Sa_SaleQuote_Add",
       // 打印模板标识 谨慎删除
       printMod: "Sa_SaleQuote",
     };
