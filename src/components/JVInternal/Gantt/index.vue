@@ -586,7 +586,7 @@ export default {
 						open: true,
 					}
 				});
-				
+
 			} else if(this.$props.foldoRunfoldFlag === 0) {
 				arr.data = this.$props.tasks.data.map(item => {
 					return {
@@ -600,7 +600,7 @@ export default {
 				});
 			}
 			gantt.parse(arr);
-			
+
 		}
 	},
 
