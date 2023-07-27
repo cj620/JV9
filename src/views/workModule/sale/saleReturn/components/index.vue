@@ -237,7 +237,7 @@ export default {
         if (this.$route.query.type === "copy") {
           res = handleBillContent(res);
         }
-        this.ruleForm = res;
+        this.ruleForm = Object.assign({}, this.ruleForm, res);
         this.formObj.form = this.ruleForm;
 
         this.eTableObj.setData(res.BillItems);
