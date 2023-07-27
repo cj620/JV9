@@ -81,6 +81,7 @@ export default {
       await getBillFile({ OwnerId: this.BillId }).then((res) => {
         this.fileList = res.Items;
         this.tableFileObj.setData(res.Items);
+        this.returnFileData(this.tableFileObj.tableData);
       });
     },
     handleRemove(row, index) {
