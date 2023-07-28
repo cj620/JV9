@@ -799,6 +799,7 @@ const ja = {
     Pr_Top: "の頂部をおおう",
     Pr_SwitchDevice: "スイッチングデバイス",
     Pr_PrintbyTooling: "型番号で印刷",
+    Pr_SimulatedCalculate: "アナログ計算",
   },
   quality: {
     Qc_CheckResult: "検査結果",

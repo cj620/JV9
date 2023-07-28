@@ -91,6 +91,7 @@ export default {
       btnAction: [],
       // 编辑路由
       editRouteName: "St_SurplusIn_Edit",
+      addRouteName: "St_SurplusIn_Add",
       // 打印模板标识 谨慎删除
       printMod: "St_SurplusIn",
     };

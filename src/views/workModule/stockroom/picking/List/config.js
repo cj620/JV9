@@ -12,28 +12,28 @@
  * @LastEditTime: 2021-11-09 09:28:46
  * @Description: file content
  */
-import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
+import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { API } from "@/api/workApi/stockroom/picking";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 
-let {api_list,api_delete}=API
+let { api_list, api_delete } = API;
 export class api extends TableAPI {
   getData = api_list;
   // 删除单据
-  del=api_delete
+  del = api_delete;
 }
 export class Table extends BaseTable {
   constructor() {
-    super( {
+    super({
       tableSchema: tableConfig,
       formSchema,
-      rowId: 'BillId',
+      rowId: "BillId",
       title: i18n.t("menu.St_Picking"),
       api,
-      operationWidth:110,
+      operationWidth: 150,
       // 打印模块标识
-      printMod:'St_Picking',
-    })
+      printMod: "St_Picking",
+    });
   }
 }
 
@@ -46,7 +46,7 @@ export const tableConfig = [
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
-      label: i18n.t("Generality.Ge_BillId")
+      label: i18n.t("Generality.Ge_BillId"),
     },
     cpnProps: {
       // 路由名称
@@ -58,20 +58,20 @@ export const tableConfig = [
       // 传参的键名，值为当前数据
       parameterKey: "BillId",
       // 补充动态参数
-      moreDynamicParameters:[
+      moreDynamicParameters: [
         {
-          keyName:'ItemId',
-          valueName:'ItemId'
-        }
+          keyName: "ItemId",
+          valueName: "ItemId",
+        },
       ],
-    }
+    },
   },
   /*状态*/
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    custom:true,
-    width:'115px',
+    cpn: "BillStateTags",
+    width: "115px",
   },
   /*提交人*/
   {
@@ -87,13 +87,13 @@ export const tableConfig = [
   {
     prop: "Stockroom",
     label: i18n.t("setup.Stockroom"),
-    width:'105px',
+    width: "105px",
   },
   /*领料类别*/
   {
     prop: "PickingType",
     label: i18n.t("stockroom.St_PickingType"),
-    custom:true,
+    custom: true,
   },
   /*模具编号*/
   {
@@ -104,21 +104,21 @@ export const tableConfig = [
   {
     prop: "Creator",
     label: i18n.t("Generality.Ge_Creator"),
-    width:'95px',
+    width: "95px",
   },
   /*制单日期*/
   {
     prop: "CreationDate",
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
-    width:'150px',
+    width: "150px",
   },
-]
+];
 export const formSchema = [
   {
     prop: "BillId",
     cpn: "FormInput",
-    label: i18n.t("Generality.Ge_BillId")
+    label: i18n.t("Generality.Ge_BillId"),
   },
   {
     prop: "State",
@@ -160,17 +160,19 @@ export const formSchema = [
   //模号搜索 Ge_ToolingName
   {
     prop: "ToolingNo",
-    label: i18n.t("Generality.Ge_ToolingNo")+'  /  '+ i18n.t("Generality.Ge_ToolingName"),
+    label:
+      i18n.t("Generality.Ge_ToolingNo") +
+      "  /  " +
+      i18n.t("Generality.Ge_ToolingName"),
     cpn: "AsyncSearch",
-      api: itemList,
-      apiOptions: {
-        keyName: "ItemName",
-        showValue:true,
-        valueName: "ItemId",
-        params:{
-          ItemCategory:'Tooling'
-        }
+    api: itemList,
+    apiOptions: {
+      keyName: "ItemName",
+      showValue: true,
+      valueName: "ItemId",
+      params: {
+        ItemCategory: "Tooling",
       },
+    },
   },
-
-]
+];

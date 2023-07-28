@@ -2,12 +2,7 @@
 <template>
   <PageWrapper :footer="false">
     <!-- 其它出库 明细表格 -->
-    <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj">
-      <!-- 状态标签 -->
-      <template #State="{ record }">
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
-    </JvTable>
+    <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj"> </JvTable>
   </PageWrapper>
 </template>
 <script>
