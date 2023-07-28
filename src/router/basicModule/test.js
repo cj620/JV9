@@ -136,6 +136,12 @@ const test = window.global_config.showTestTab
           //       name: "Test13",
           //       meta: { title: "设备负荷", icon: "dashboard" },
           //     },
+          {
+            path: "test14",
+            component: () => import("@/views/basicModule/demo/Test14"),
+            name: "Test14",
+            meta: { title: "测试数据页面14", icon: "dashboard" },
+          },
         ],
       },
     ]
