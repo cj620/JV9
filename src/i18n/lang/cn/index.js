@@ -793,6 +793,7 @@ const cn = {
     Pr_Top: "置顶",
     Pr_SwitchDevice: "切换设备",
     Pr_PrintbyTooling: "按模号打印",
+    Pr_SimulatedCalculation: "模拟计算",
   },
   quality: {
     Qc_CheckResult: "检验结果",

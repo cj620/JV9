@@ -24,6 +24,10 @@
             confirm: load.bind(null),
           },
           {
+            label: $t('production.Pr_SimulatedCalculation'),
+            confirm: simulatedCalculation.bind(null),
+          },
+          {
             label: $t('production.Pr_Calculate'),
             confirm: calculate.bind(null),
           },
@@ -135,7 +139,10 @@ export default {
     load() {
       this.tableObj.getData();
     },
-
+    // 模拟计算
+    simulatedCalculation() {
+      this.tableObj.getData();
+    },
     //计算
     calculate() {
       this.calculateTimeDialogFormVisible = true;
