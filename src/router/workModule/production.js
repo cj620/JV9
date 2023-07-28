@@ -30,15 +30,15 @@ const production = [
     path: "productionTask",
     title: i18n.t("menu.Pr_ProductionTask"),
   },
-   // 按模号打印生产任务
-   {
+  // 按模号打印生产任务
+  {
     key: "Pr_ProductionTask_print_by_tooling",
     component: () =>
       import("@/views/workModule/production/productionTask/printByTooling"),
     Parent: "Pr_Production",
     name: "Pr_ProductionTask_print_by_tooling",
     path: "pr_ProductionTask_print_by_tooling",
-    title: '打印',
+    title: "打印",
   },
   // 新增生产任务
   {
@@ -84,6 +84,18 @@ const production = [
     name: "ProductionSchedule",
     path: "productionSchedule",
     title: i18n.t("menu.Pr_ProductionSchedule"),
+  },
+  // 模拟计算
+  {
+    key: "Pr_ProductionSimulatedCalculate",
+    component: () =>
+      import(
+        "@/views/workModule/production/productionSchedule/simulatedCalculate"
+      ),
+    Parent: "Pr_Production",
+    name: "ProductionSimulatedCalculate",
+    path: "productionSimulatedCalculate",
+    title: i18n.t("production.Pr_SimulatedCalculate"),
   },
   // 排程结果
   {
@@ -217,7 +229,7 @@ const production = [
   },
 
   // 生产报表
-/*  {
+  /*  {
     key: "Pr_ProductionReport",
     component: () =>
       import("@/views/workModule/production/report/productionReport"),

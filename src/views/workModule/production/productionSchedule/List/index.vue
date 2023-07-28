@@ -24,8 +24,8 @@
             confirm: load.bind(null),
           },
           {
-            label: $t('production.Pr_SimulatedCalculation'),
-            confirm: simulatedCalculation.bind(null),
+            label: $t('production.Pr_SimulatedCalculate'),
+            confirm: simulatedCalculate.bind(null),
           },
           {
             label: $t('production.Pr_Calculate'),
@@ -140,8 +140,10 @@ export default {
       this.tableObj.getData();
     },
     // 模拟计算
-    simulatedCalculation() {
-      this.tableObj.getData();
+    simulatedCalculate() {
+      this.$router.push({
+        name: "ProductionSimulatedCalculate",
+      });
     },
     //计算
     calculate() {
