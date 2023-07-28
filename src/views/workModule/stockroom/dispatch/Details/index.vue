@@ -94,8 +94,8 @@ export default {
       type: "",
       btnAction: [],
       // 编辑路由
-      editRouteName: "St_WasteOut_Edit",
-      addRouteName: "St_WasteOut_Add",
+      editRouteName: "St_Dispatch_Edit",
+      addRouteName: "St_Dispatch_Add",
       // 打印模板标识 谨慎删除
       printMod: "St_Dispatch",
     };

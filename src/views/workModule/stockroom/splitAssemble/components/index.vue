@@ -104,6 +104,7 @@ import { mapState } from "vuex";
 import closeTag from "@/utils/closeTag";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
+import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
 export default {
   name: "index",
   components: {
@@ -172,9 +173,9 @@ export default {
     });
     this.eTableObj = new EditTable();
     this.viceTableObj = new EditTable();
-    if (this.type === "edit") {
+    if (this.type === "edit" || this.type === "copy") {
       this.fileBillId = this.billData;
-      await this.GetData(this.billData);
+      await this.GetData(this.fileBillId);
     }
   },
 
@@ -182,7 +183,10 @@ export default {
     //编辑的时候获取信息
     async GetData(Id) {
       await splitAssemble.api_get({ BillId: Id }).then((res) => {
-        this.ruleForm = res;
+        if (this.$route.query.type === "copy") {
+          res = handleBillContent(res);
+        }
+        this.ruleForm = Object.assign({}, this.ruleForm, res);
         this.formObj.form = this.ruleForm;
 
         let arr = [];
