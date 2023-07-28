@@ -36,11 +36,11 @@ export const formSchema = [
       list: [
         {
           value: "Split",
-          label: i18n.t("Generality.St_Split"),
+          label: i18n.t("stockroom.St_Split"),
         },
         {
           value: "Assemble",
-          label: i18n.t("Generality.St_Assembly"),
+          label: i18n.t("stockroom.St_Assembly"),
         },
       ],
     },
