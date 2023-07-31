@@ -211,7 +211,7 @@ export default {
         this.C_TableObj.setData(res.AdditionalCost);
         this.btnAction = detailPageModel(this, res, Quotation, this.GetData);
         // this.btnAction=[...this.btnAction,...[{
-        //   label: '复制',
+        //   label: i18n.t("Generality.Ge_Copy"),
         //   confirm: this.copy,
         // }]]
       });
