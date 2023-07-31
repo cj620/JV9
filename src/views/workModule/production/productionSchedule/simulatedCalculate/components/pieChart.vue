@@ -13,7 +13,7 @@ export default {
     height: {
       type: Number,
       default() {
-        return 300;
+        return 290;
       },
     },
     id: {
@@ -36,21 +36,17 @@ export default {
     drawLine() {
       // 基于准备好的dom，初始化echarts实例
       let myChart = echarts.init(document.getElementById(this.id));
-      console.log("myCgart::: ", myChart);
       // 绘制图表
       myChart.setOption({
         tooltip: {
           trigger: "item",
         },
         legend: {
-          // orient: "vertical",
-          // left: "left",
           top: "5%",
           left: "center",
         },
         series: [
           {
-            // name: "Access From",
             type: "pie",
             radius: ["40%", "70%"],
             avoidLabelOverlap: false,
@@ -61,22 +57,9 @@ export default {
               borderWidth: 2,
             },
             label: {
-              // formatter: "{b}: {c}",
               show: false,
               position: "center",
             },
-            // emphasis: {
-            //   // itemStyle: {
-            //   //   shadowBlur: 10,
-            //   //   shadowOffsetX: 0,
-            //   //   shadowColor: "rgba(0, 0, 0, 0.5)",
-            //   // },
-            //   label: {
-            //     show: true,
-            //     fontSize: 15,
-            //     fontWeight: "bold",
-            //   },
-            // },
             labelLine: {
               show: false,
             },

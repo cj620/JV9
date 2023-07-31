@@ -10,12 +10,19 @@
             size="small"
             style="width: 400px"
           >
-            <el-option label="经典算法" value="经典算法"></el-option>
-            <el-option label="CR值排程" value="CR值排程"></el-option>
-            <el-option label="最短工期" value="最短工期"></el-option>
-            <el-option label="最短交货期" value="最短交货期"></el-option>
+            <el-option label="经典算法" value="1"></el-option>
+            <el-option label="CR值排程" value="2"></el-option>
+            <el-option label="最短工期" value="3"></el-option>
+            <el-option label="最早交货期" value="4"></el-option>
           </el-select>
-          <el-button plain size="small" style="margin-left: 10px"
+          <el-button plain size="small" style="margin-left: 10px" @click="clear"
+            >清空</el-button
+          >
+          <el-button
+            plain
+            size="small"
+            style="margin-left: 10px"
+            @click="simulatedCalculate"
             >模拟计算</el-button
           >
         </el-form-item>
@@ -24,72 +31,55 @@
             <el-row :gutter="20">
               <!-- 经典算法 -->
               <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
-                <div class="chart-top-title">经典算法</div>
-                <div class="simulatedCalculate-page-chart">
-                  <!-- <div class="chart-description">
-                    共有8个普通生产任务单延迟，共延迟128个小时。
-                  </div> -->
-                  <div class="chart-description">
-                    当前共有18个工单正在生产,7个工单待生产。
-                  </div>
-                  <PieChart
-                    id="PieChart1"
-                    :data="AbnormalProportion"
-                  ></PieChart>
-                </div>
+                <ChartWrapper
+                  title="经典算法"
+                  :data="calculatedData1"
+                  :num="num"
+                  :hours="hours"
+                  id="PieChart1"
+                ></ChartWrapper>
               </el-col>
               <!-- CR值排程 -->
               <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
-                <div class="chart-top-title">CR值排程</div>
+                <!-- <div class="chart-title">CR值排程</div>
                 <div class="simulatedCalculate-page-chart">
                   <div class="chart-description">
                     共有8个普通生产任务单延迟，共延迟128个小时。
                   </div>
                   <PieChart
                     id="PieChart2"
-                    :data="AbnormalProportion"
+                    :data="calculatedData"
                   ></PieChart>
-                </div>
+                </div> -->
+                <ChartWrapper
+                  title="CR值排程"
+                  :data="calculatedData2"
+                  :num="num"
+                  :hours="hours"
+                  id="PieChart2"
+                ></ChartWrapper>
               </el-col>
             </el-row>
             <el-row :gutter="20">
               <!-- 最短工期 -->
               <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
-                <div class="chart-bottom-title">最短工期</div>
-                <div
-                  class="simulatedCalculate-page-chart"
-                  v-if="AbnormalProportion.length > 0"
-                >
-                  <div class="chart-description">
-                    共有8个普通生产任务单延迟，共延迟128个小时。
-                  </div>
-                  <PieChart
-                    id="PieChart3"
-                    :data="AbnormalProportion"
-                  ></PieChart>
-                </div>
-                <div class="simulatedCalculate-page-chart" v-else>
-                  <div class="chart-description">
-                    当前共有18个工单正在生产,7个工单待生产。
-                  </div>
-                  <PieChart
-                    id="PieChart3"
-                    :data="AbnormalProportion"
-                  ></PieChart>
-                </div>
+                <ChartWrapper
+                  title="最短工期"
+                  :data="calculatedData3"
+                  :num="num"
+                  :hours="hours"
+                  id="PieChart3"
+                ></ChartWrapper>
               </el-col>
               <!-- 最早交货期 -->
               <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
-                <div class="chart-bottom-title">最早交货期</div>
-                <div class="simulatedCalculate-page-chart">
-                  <div class="chart-description">
-                    共有8个普通生产任务单延迟，共延迟128个小时。
-                  </div>
-                  <PieChart
-                    id="PieChart4"
-                    :data="AbnormalProportion"
-                  ></PieChart>
-                </div>
+                <ChartWrapper
+                  title="最早交货期"
+                  :data="calculatedData4"
+                  :num="num"
+                  :hours="hours"
+                  id="PieChart4"
+                ></ChartWrapper>
               </el-col>
             </el-row>
           </el-tab-pane>
@@ -104,20 +94,35 @@
 </template>
 
 <script>
-import PieChart from "./components/pieChart";
+import ChartWrapper from "./components/chartWrapper.vue";
 export default {
   name: "index",
   components: {
-    PieChart,
+    ChartWrapper,
   },
   data() {
     return {
       value: [],
-      AbnormalProportion: [
+      calculatedData1: [
         { value: 0, name: "正常任务单", itemStyle: { color: "#00FF00" } },
         { value: 0, name: "延迟任务单", itemStyle: { color: "red" } },
       ],
+      calculatedData2: [],
+      calculatedData3: [],
+      calculatedData4: [],
+      num: 1,
+      hours: 2,
     };
+  },
+  methods: {
+    clear() {
+      this.value = [];
+    },
+    simulatedCalculate() {
+      this.value.forEach((item) => {
+        console.log("item::: ", item);
+      });
+    },
   },
 };
 </script>
@@ -133,28 +138,6 @@ export default {
   .simulatedCalculate-page-chartwrapper {
     padding: 0 20px;
     height: 40%;
-    .simulatedCalculate-page-chart {
-      border: 2px solid gainsboro;
-      margin: 0 10% 0 10%;
-    }
   }
-}
-.chart-top-title {
-  margin-bottom: 5px;
-  font-size: 16px;
-  font-weight: 500;
-  margin: 0 10% 5px 10%;
-}
-.chart-bottom-title {
-  margin: 10px 0 5px 0;
-  font-size: 16px;
-  font-weight: 500;
-  margin: 10px 10% 5px 10%;
-}
-.chart-description {
-  font-size: 14px;
-  font-weight: 500;
-  margin-top: 12px;
-  text-align: center;
 }
 </style>
