@@ -59,7 +59,7 @@ import { Table } from "./config";
 import { multiplayer } from "@/views/basicModule/OA/maps/auditMap";
 console.log(multiplayer, "multiplayer");
 export default {
-  name: "Se_AuditFlowSetup",
+  name: "index",
   data() {
     return {
       addStaffShow: false,
