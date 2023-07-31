@@ -53,7 +53,10 @@ export default {
             columns: columns,
             cWidth: this.cWidth,
             cHeight: this.cHeight,
-            tasks: [{id: 1, }]
+            tasks: [{id: 1, data: [{start: 400, end: 800,name: 'a'}, {start: 820, end: 890,name: 'b'}]}, 
+            {id: 2, data: [{start: 810, end: 1010,name: 'c'}]}, 
+            {id: 3, data: [{start: 830, end: 1030,name: 'd'}]}, 
+            {id: 4, data: [{start: 860, end: 1060,name: 'e'}]}]
         }
          this.gannt = new CreateGantt(canvas, options);
         
