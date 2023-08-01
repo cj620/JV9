@@ -43,7 +43,7 @@ export function listTableColBtnModel($el, row, configArr = []) {
     // 复制按钮
     {
       type: "copy",
-      label: "复制",
+      label: i18n.t("Generality.Ge_Copy"),
       confirm: copy.bind($el, row.BillId),
       isShow: !!$el.AddRoute,
     },

@@ -806,6 +806,7 @@ const en = {
     Pr_Top: "Top",
     Pr_SwitchDevice: "Change",
     Pr_PrintbyTooling: "Print By Tooling",
+    Pr_SimulatedCalculate: "Simulated Calculation",
   },
   quality: {
     Qc_CheckResult: "Check result",

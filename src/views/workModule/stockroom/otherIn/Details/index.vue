@@ -1,28 +1,22 @@
 <!--销售订单详情-->
 <template>
-  <PageWrapper  ref="page">
+  <PageWrapper ref="page">
+    <el-tabs @tab-click="tabClick" slot="sticky-tabs">
+      <!-- tab 导航栏  -->
+      <el-tab-pane
+        v-for="pane in tabPanes"
+        :key="pane.name"
+        :label="pane.label"
+        :name="pane.name"
+      ></el-tab-pane>
+    </el-tabs>
 
-      <el-tabs @tab-click="tabClick" slot="sticky-tabs">
-        <!-- tab 导航栏  -->
-        <el-tab-pane
-          v-for="pane in tabPanes"
-          :key="pane.name"
-          :label="pane.label"
-          :name="pane.name"
-        ></el-tab-pane>
-      </el-tabs>
-
-
-    <Action slot="sticky-extra"
-            size="small"
-            :actions="btnAction"
-    ></Action>
+    <Action slot="sticky-extra" size="small" :actions="btnAction"></Action>
     <!--单据信息-->
     <JvBlock :title="detailObj.detailData.BillId" ref="first">
       <!---->
       <div style="position: relative">
-        <JvDetail :detailObj="detailObj">
-        </JvDetail>
+        <JvDetail :detailObj="detailObj"> </JvDetail>
         <JvState :state="detailObj.detailData.State"></JvState>
       </div>
     </JvBlock>
@@ -34,8 +28,7 @@
     <!--备注-->
     <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
       <JvRemark :RemarkData="RemarkData"></JvRemark>
-
-  </JvBlock>
+    </JvBlock>
     <!--附件-->
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
       <JvFileExhibit :BillId="fileBillId"></JvFileExhibit>
@@ -44,26 +37,27 @@
     <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
       <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
     </JvBlock>
-
   </PageWrapper>
 </template>
 
 <script>
 import { Form } from "@/jv_doc/class/form";
-import { stateEnum } from '@/enum/workModule'
-import {  tableConfig ,detailConfig } from "./config";
+import { stateEnum } from "@/enum/workModule";
+import { tableConfig, detailConfig } from "./config";
 import { mapState } from "vuex";
 import closeTag from "@/utils/closeTag";
 import { Table } from "@/jv_doc/class/table";
 import Detail from "@/jv_doc/class/detail/Detail";
-import { auditPlugin,detailBtnModel,detailPageModel } from "@/jv_doc/utils/system/index";
+import {
+  auditPlugin,
+  detailBtnModel,
+  detailPageModel,
+} from "@/jv_doc/utils/system/index";
 import JvState from "@/components/JVInternal/JvState/index";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import AuditProcess from "@/components/BasicModule/AuditProcess";
-import {
-  API as otherIn
-} from "@/api/workApi/stockroom/otherIn";
+import { API as otherIn } from "@/api/workApi/stockroom/otherIn";
 export default {
   name: "index",
   data() {
@@ -103,6 +97,7 @@ export default {
       btnAction: [],
       // 编辑路由
       editRouteName: "St_OtherIn_Edit",
+      addRouteName: "St_OtherIn_Add",
       // 打印模板标识 谨慎删除
       printMod: "St_OtherIn",
     };
@@ -158,22 +153,23 @@ export default {
     ...mapState({
       current: (state) => state.page.current,
     }),
-    stateMap(){
-
-      return stateEnum[this.detailObj.detailData.State]
+    stateMap() {
+      return stateEnum[this.detailObj.detailData.State];
     },
   },
 
   methods: {
     //获取数据
     async GetData() {
-      await otherIn.api_get({ BillId: this.$route.query.BillId }).then((res) => {
-        this.detailObj.detailData = res;
-        this.RemarkData = res.Remarks
-        this.stateForm = auditPlugin(res);
-        this.tableObj.setData(res.BillItems);
-        this.btnAction = detailPageModel(this, res, otherIn, this.GetData);
-      });
+      await otherIn
+        .api_get({ BillId: this.$route.query.BillId })
+        .then((res) => {
+          this.detailObj.detailData = res;
+          this.RemarkData = res.Remarks;
+          this.stateForm = auditPlugin(res);
+          this.tableObj.setData(res.BillItems);
+          this.btnAction = detailPageModel(this, res, otherIn, this.GetData);
+        });
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
@@ -183,6 +179,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

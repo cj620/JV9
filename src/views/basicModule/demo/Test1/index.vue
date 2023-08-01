@@ -7,6 +7,8 @@
         :formSchema="formSchema"
         :api="partProcessingPlan"
         :foldoRunfoldFlag="1"
+        dragProgress
+        tooltip
         >
         </gantt>
       </div>
@@ -41,6 +43,7 @@ export default {
         this.GetData();
   },
   mounted() {
+    
   },
   methods: {
     GetData() {
@@ -2611,6 +2614,7 @@ export default {
             color: item.Color,
             duration: item.Duration,
             progress: item.ProcessRate,
+            EmployeeName: item.EmployeeName
             // fatherId: item.fatherId
             // row_height: 50, 
             // bar_height: 40

@@ -25,7 +25,9 @@
     <!-- 物料信息 -->
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
       <div slot="extra">
-        <el-button size="mini" @click="PickingDetails">{{$t('Generality.Ge_PickingDetails')}}</el-button>
+        <el-button size="mini" @click="PickingDetails">{{
+          $t("Generality.Ge_PickingDetails")
+        }}</el-button>
       </div>
       <JvEditTable :tableObj="eTableObj">
         <template #operation="{ row_index }">
@@ -101,6 +103,7 @@ import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 // 单据转换逻辑
 import { billTransform } from "~/utils/system/editPagePlugin";
 import pickingDetails from "./pickingDetails";
+import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
 
 export default {
   name: "index",
@@ -111,6 +114,7 @@ export default {
   },
   data() {
     return {
+      Id: this.$route.query.BillId,
       formObj: {},
       eTableObj: {},
       ItemsDialogFormVisible: false,
@@ -178,10 +182,11 @@ export default {
       labelWidth: "80px",
     });
     this.eTableObj = new EditTable();
-    if (this.type === "edit") {
+    if (this.type === "edit" || this.type === "copy") {
       this.fileBillId = this.billData;
-      await this.GetData(this.billData);
-    } else if (this.$route.params.deliveryData) {
+      await this.GetData(this.fileBillId);
+    }
+    if (this.$route.params.deliveryData) {
       billTransform(this, "deliveryData", {
         ToolingNo: this.$route.params.deliveryData.ToolingNo,
       });
@@ -199,7 +204,10 @@ export default {
     //编辑的时候获取信息
     async GetData(Id) {
       await returnPicking.api_get({ BillId: Id }).then((res) => {
-        this.ruleForm = res;
+        if (this.$route.query.type === "copy") {
+          res = handleBillContent(res);
+        }
+        this.ruleForm = Object.assign({}, this.ruleForm, res);
         this.formObj.form = this.ruleForm;
 
         this.eTableObj.setData(res.BillItems);

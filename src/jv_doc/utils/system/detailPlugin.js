@@ -64,7 +64,7 @@ export function detailPageModel($el, optionsState, API, callBack) {
       },
     },
     {
-      label: "复制",
+      label: i18n.t("Generality.Ge_Copy"),
       // disabled: !$el.addRouteName,
       confirm: doCopy({ BillId }, $el),
     },

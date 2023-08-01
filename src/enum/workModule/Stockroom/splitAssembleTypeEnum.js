@@ -12,24 +12,23 @@ export default {
   /// <summary>
   /// 拆
   /// </summary>
-  'Split': {
-    name: '拆',
-    value: 'Split',
-    color: '#909399',
-    fcolor:'#fff',
-    icon: '',
-    operation: {}
+  Split: {
+    name: i18n.t("stockroom.St_Split"),
+    value: "Split",
+    color: "#909399",
+    fcolor: "#fff",
+    icon: "",
+    operation: {},
   },
   /// <summary>
   /// 补料
   /// </summary>
-  'Assemble': {
-    name: '装',
-    value: 'Assemble',
-    color: '#909399',
-    fcolor:'#fff',
-    icon: '',
-    operation: {}
+  Assemble: {
+    name: i18n.t("stockroom.St_Assembly"),
+    value: "Assemble",
+    color: "#909399",
+    fcolor: "#fff",
+    icon: "",
+    operation: {},
   },
-
-}
+};
