@@ -104,8 +104,8 @@ export default {
     return {
       value: [],
       calculatedData1: [
-        { value: 0, name: "正常任务单", itemStyle: { color: "#00FF00" } },
-        { value: 0, name: "延迟任务单", itemStyle: { color: "red" } },
+        // { value: 1231, name: "正常任务单", itemStyle: { color: "#00FF00" } },
+        // { value: 987, name: "延迟任务单", itemStyle: { color: "red" } },
       ],
       calculatedData2: [],
       calculatedData3: [],
@@ -117,11 +117,47 @@ export default {
   methods: {
     clear() {
       this.value = [];
+      this.calculatedData1 = [];
+      this.calculatedData2 = [];
+      this.calculatedData3 = [];
+      this.calculatedData4 = [];
+      this.simulatedCalculate();
     },
     simulatedCalculate() {
+      console.log(this.value);
       this.value.forEach((item) => {
-        console.log("item::: ", item);
+        if (item === "1") {
+          this.calculatedData1 = [
+            {
+              value: 1231,
+              name: "正常任务单",
+              itemStyle: { color: "#00FF00" },
+            },
+            { value: 987, name: "延迟任务单", itemStyle: { color: "red" } },
+          ];
+        }
+        if (item === "2") {
+          this.calculatedData2 = [
+            {
+              value: 543,
+              name: "正常任务单",
+              itemStyle: { color: "#00FF00" },
+            },
+            { value: 937, name: "延迟任务单", itemStyle: { color: "red" } },
+          ];
+        }
+        if (item === "3") {
+          this.calculatedData3 = [
+            {
+              value: 655,
+              name: "正常任务单",
+              itemStyle: { color: "#00FF00" },
+            },
+            { value: 231, name: "延迟任务单", itemStyle: { color: "red" } },
+          ];
+        }
       });
+      console.log("this.calculatedData1::: ", this.calculatedData1);
     },
   },
 };

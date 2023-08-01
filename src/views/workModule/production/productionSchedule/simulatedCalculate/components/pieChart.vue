@@ -32,8 +32,14 @@ export default {
   async mounted() {
     await this.drawLine();
   },
+  watch: {
+    data() {
+      this.drawLine();
+    },
+  },
   methods: {
     drawLine() {
+      echarts.dispose(document.getElementById(this.id));
       // 基于准备好的dom，初始化echarts实例
       let myChart = echarts.init(document.getElementById(this.id));
       // 绘制图表

@@ -52,9 +52,19 @@ export default {
     };
   },
   mounted() {
-    this.data.length == 0
-      ? (this.description = `当前有${this.num}个工单正在生产，${this.hours}个工单等待生产`)
-      : (this.description = `共有8个普通生产任务单延迟，共延迟128个小时`);
+    this.load();
+  },
+  watch: {
+    data() {
+      this.load();
+    },
+  },
+  methods: {
+    load() {
+      this.data.length == 0
+        ? (this.description = `当前有${this.num}个工单正在生产，${this.hours}个工单等待生产`)
+        : (this.description = `共有8个普通生产任务单延迟，共延迟128个小时`);
+    },
   },
 };
 </script>
@@ -65,7 +75,7 @@ export default {
   margin: 10px 10% 5px 10%;
 }
 .simulatedCalculate-page-chart {
-  border: 2px solid gainsboro;
+  border: 2px solid #d3d3d3;
   margin: 0 10% 0 10%;
 }
 .chart-description {
