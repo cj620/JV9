@@ -80,7 +80,7 @@ export default {
           },
         ],
       });
-      window.addEventListener("resize", function () {
+      window.addEventListener("resize", () => {
         this.myChart.resize();
       });
       // this.myChart.resize();

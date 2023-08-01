@@ -7,7 +7,7 @@
 <template>
   <div>
     <jv-dialog
-      title="计算排程"
+      :title="$t('production.Pr_DoAPS')"
       width="30%"
       :close-on-click-modal="true"
       :modal-append-to-body="false"

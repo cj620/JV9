@@ -1,7 +1,7 @@
 export const formSchema = [
   {
     prop: "StartDate",
-    label: "开始排程时间",
+    label: i18n.t("production.Pr_StartScheduleTime"),
     cpn: "SingleTime",
     rules: [
       {
@@ -12,8 +12,9 @@ export const formSchema = [
     ],
   },
   {
+    // prop/value待确定
     prop: "CalculateMethods",
-    label: "排程算法选择",
+    label: i18n.t("production.Pr_SchedulingAlgorithmSelection"),
     cpn: "FormCheckBox",
     type: "button",
     rules: [
@@ -27,19 +28,19 @@ export const formSchema = [
       list: [
         {
           value: 0,
-          label: "经典算法",
+          label: i18n.t("production.Pr_ConventionalAlgorithm"),
         },
         {
           value: 1,
-          label: "CR值排程",
+          label: i18n.t("production.Pr_CRValueScheduling"),
         },
         {
           value: 2,
-          label: "最短工期",
+          label: i18n.t("production.Pr_ShortestDurationAlgorithm"),
         },
         {
           value: 3,
-          label: "最早交货期",
+          label: i18n.t("production.Pr_AlgorithmForEarliestDeliveryTime"),
         },
       ],
     },
