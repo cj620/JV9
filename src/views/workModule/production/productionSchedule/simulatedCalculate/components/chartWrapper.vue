@@ -5,7 +5,7 @@
       <div class="chart-description">
         {{ description }}
       </div>
-      <PieChart :id="id" :data="data"></PieChart>
+      <PieChart :id="id" :datas="datas"></PieChart>
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
         return null;
       },
     },
-    data: {
+    datas: {
       type: Array,
       default() {
         return [];
@@ -55,13 +55,13 @@ export default {
     this.load();
   },
   watch: {
-    data() {
+    datas() {
       this.load();
     },
   },
   methods: {
     load() {
-      this.data.length == 0
+      this.datas.length == 0
         ? (this.description = `当前有${this.num}个工单正在生产，${this.hours}个工单等待生产`)
         : (this.description = `共有8个普通生产任务单延迟，共延迟128个小时`);
     },

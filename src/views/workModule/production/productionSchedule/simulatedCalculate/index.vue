@@ -10,10 +10,10 @@
             size="small"
             style="width: 400px"
           >
-            <el-option label="经典算法" value="1"></el-option>
-            <el-option label="CR值排程" value="2"></el-option>
-            <el-option label="最短工期" value="3"></el-option>
-            <el-option label="最早交货期" value="4"></el-option>
+            <el-option label="经典算法" :value="0"></el-option>
+            <el-option label="CR值排程" :value="1"></el-option>
+            <el-option label="最短工期" :value="2"></el-option>
+            <el-option label="最早交货期" :value="3"></el-option>
           </el-select>
           <el-button plain size="small" style="margin-left: 10px" @click="clear"
             >清空</el-button
@@ -27,13 +27,14 @@
           >
         </el-form-item>
         <el-tabs type="border-card">
+          <!-- 模拟排程tabs -->
           <el-tab-pane label="模拟排程">
             <el-row :gutter="20">
               <!-- 经典算法 -->
               <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   title="经典算法"
-                  :data="calculatedData1"
+                  :datas="calculatedData[0]"
                   :num="num"
                   :hours="hours"
                   id="PieChart1"
@@ -41,19 +42,9 @@
               </el-col>
               <!-- CR值排程 -->
               <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
-                <!-- <div class="chart-title">CR值排程</div>
-                <div class="simulatedCalculate-page-chart">
-                  <div class="chart-description">
-                    共有8个普通生产任务单延迟，共延迟128个小时。
-                  </div>
-                  <PieChart
-                    id="PieChart2"
-                    :data="calculatedData"
-                  ></PieChart>
-                </div> -->
                 <ChartWrapper
                   title="CR值排程"
-                  :data="calculatedData2"
+                  :datas="calculatedData[1]"
                   :num="num"
                   :hours="hours"
                   id="PieChart2"
@@ -65,7 +56,7 @@
               <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   title="最短工期"
-                  :data="calculatedData3"
+                  :datas="calculatedData[2]"
                   :num="num"
                   :hours="hours"
                   id="PieChart3"
@@ -75,7 +66,7 @@
               <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   title="最早交货期"
-                  :data="calculatedData4"
+                  :datas="calculatedData[3]"
                   :num="num"
                   :hours="hours"
                   id="PieChart4"
@@ -102,62 +93,62 @@ export default {
   },
   data() {
     return {
+      // 多选值
       value: [],
-      calculatedData1: [
-        // { value: 1231, name: "正常任务单", itemStyle: { color: "#00FF00" } },
-        // { value: 987, name: "延迟任务单", itemStyle: { color: "red" } },
-      ],
-      calculatedData2: [],
-      calculatedData3: [],
-      calculatedData4: [],
+      // chartWrapper接收数据
+      calculatedData: [[], [], [], []],
+      // 算法个数
+      dataNum: [0, 1, 2, 3],
+      // 传递给组件description的数据（由接口获取）
       num: 1,
       hours: 2,
     };
   },
   methods: {
+    // 清空多选框与重置数据
     clear() {
       this.value = [];
-      this.calculatedData1 = [];
-      this.calculatedData2 = [];
-      this.calculatedData3 = [];
-      this.calculatedData4 = [];
+      this.calculatedData = [[], [], [], []];
       this.simulatedCalculate();
     },
+    // 获取接口数据并赋值
     simulatedCalculate() {
-      console.log(this.value);
-      this.value.forEach((item) => {
-        if (item === "1") {
-          this.calculatedData1 = [
-            {
-              value: 1231,
-              name: "正常任务单",
-              itemStyle: { color: "#00FF00" },
-            },
-            { value: 987, name: "延迟任务单", itemStyle: { color: "red" } },
-          ];
-        }
-        if (item === "2") {
-          this.calculatedData2 = [
-            {
-              value: 543,
-              name: "正常任务单",
-              itemStyle: { color: "#00FF00" },
-            },
-            { value: 937, name: "延迟任务单", itemStyle: { color: "red" } },
-          ];
-        }
-        if (item === "3") {
-          this.calculatedData3 = [
-            {
-              value: 655,
-              name: "正常任务单",
-              itemStyle: { color: "#00FF00" },
-            },
-            { value: 231, name: "延迟任务单", itemStyle: { color: "red" } },
-          ];
-        }
+      // let maps = {
+      //   0: first,
+      //   1: first,
+      //   2: first,
+      //   3: first,
+      // };
+      this.value.forEach((item, i) => {
+        // first().then(res => {
+        //   this.calculatedData.splice(item, 1, res);
+        // })
+        // setTimeout(() => {
+        //   let res = [
+        //     {
+        //       value: 1231,
+        //       name: "正常任务单",
+        //       itemStyle: { color: "#00FF00" },
+        //     },
+        //     { value: 987, name: "延迟任务单", itemStyle: { color: "red" } },
+        //   ];
+        //   this.calculatedData.splice(item, 1, res);
+        // }, 1000);
+        let res = [
+          {
+            value: 1231,
+            name: "正常任务单",
+            itemStyle: { color: "#00FF00" },
+          },
+          { value: 987, name: "延迟任务单", itemStyle: { color: "red" } },
+        ];
+        this.calculatedData.splice(item, 1, res);
       });
-      console.log("this.calculatedData1::: ", this.calculatedData1);
+      // 获取未选中方法并重置其组件获取数据
+      let list = this.dataNum.filter((num) => !this.value.includes(num));
+      list.forEach((item) => {
+        this.calculatedData.splice(item, 1, []);
+      });
     },
   },
 };
