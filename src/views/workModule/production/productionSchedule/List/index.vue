@@ -39,7 +39,7 @@
           {
             label: $t('production.Pr_Release'),
             popConfirm: {
-              title: $t('Generality.Ge_WhetherRelease'),
+              title: $t('Generality.Ge_WhetherReleaseSchedulingResults'),
               confirm: release.bind(null),
             },
           },

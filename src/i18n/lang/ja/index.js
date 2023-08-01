@@ -597,7 +597,7 @@ const ja = {
     Ge_FinishSchedule: "終了スケジュール",
     Ge_CheckDetails: "詳細をチェックしてください",
     Ge_EditDeliveryDate: "納期の変更",
-    Ge_WhetherRelease: "発行するかどうか",
+    Ge_WhetherReleaseSchedulingResults: "スケジュール結果を発表するかどうか",
     Ge_CheckSameMoldDetails: "同じ金型の詳細をチェックしてください",
     Ge_SelectNextOne: "部品が選択されているので、次を選択してください",
     Ge_SheetIsAlreadyCreated:

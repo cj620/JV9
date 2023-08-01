@@ -600,7 +600,7 @@ const en = {
     Ge_FinishSchedule: "Finish schedule",
     Ge_CheckDetails: "Please check the details ",
     Ge_EditDeliveryDate: "Edit the delivery date ",
-    Ge_WhetherRelease: "Whether release",
+    Ge_WhetherReleaseSchedulingResults: "Whether release scheduling results",
     Ge_CheckSameMoldDetails: "Please check the details of the same mold",
     Ge_SelectNextOne: "Part selected, please select next one",
     Ge_SheetIsAlreadyCreated:

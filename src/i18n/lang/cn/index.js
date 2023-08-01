@@ -595,7 +595,7 @@ const cn = {
     Ge_FinishSchedule: "结束排程",
     Ge_CheckDetails: "请勾选明细",
     Ge_EditDeliveryDate: "修改交期",
-    Ge_WhetherRelease: "是否发布",
+    Ge_WhetherReleaseSchedulingResults: "是否发布排程结果",
     Ge_CheckSameMoldDetails: "请勾选相同模具的明细",
     Ge_SelectNextOne: "零件已选择，请选择下一个",
     Ge_SheetIsAlreadyCreated: "已有创建加工单，是否继续创建",
