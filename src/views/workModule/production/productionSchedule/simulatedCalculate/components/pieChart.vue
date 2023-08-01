@@ -29,8 +29,15 @@ export default {
       },
     },
   },
-  async mounted() {
-    await this.drawLine();
+  data() {
+    return {
+      myChart: {},
+    };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.drawLine();
+    });
   },
   watch: {
     datas() {
@@ -41,9 +48,10 @@ export default {
   methods: {
     drawLine() {
       // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById(this.id));
+      this.myChart = echarts.init(document.getElementById(this.id));
+
       // 绘制图表
-      myChart.setOption({
+      this.myChart.setOption({
         tooltip: {
           trigger: "item",
         },
@@ -73,12 +81,12 @@ export default {
         ],
       });
       window.addEventListener("resize", function () {
-        myChart.resize();
+        this.myChart.resize();
       });
-      myChart.resize();
-      this.$nextTick(() => {
-        myChart.resize(); // 图表自适应
-      });
+      // this.myChart.resize();
+      // this.$nextTick(() => {
+      //   this.myChart.resize(); // 图表自适应
+      // });
     },
   },
 };
