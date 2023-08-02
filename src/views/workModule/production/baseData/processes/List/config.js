@@ -40,10 +40,20 @@ export const tableConfig = [
     prop: "Resource",
     label: i18n.t("menu.Pr_Resources"),
   },
-  /*资源组*/
+  /*加工内容*/
   {
     prop: "ProcessContent",
     label: i18n.t("Generality.Ge_TaskContent"),
+  },
+  // 前置时间
+  {
+    prop: "LeadTime",
+    label: i18n.t("Generality.Ge_LeadTime"),
+  },
+  // 后置时间
+  {
+    prop: "PostTime",
+    label: i18n.t("Generality.Ge_PostTime"),
   },
 ];
 

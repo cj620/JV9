@@ -25,12 +25,12 @@ export class Ws {
   reconnect_interval = 5 * 1000;
   init = (receiveMessage) => {
     if (!("WebSocket" in window)) {
-      createMessage.warning("浏览器不支持WebSocket");
+      console.log("浏览器不支持WebSocket");
       return null;
     }
     // const token = Session.get('token');
     // if (!token) {
-    //   createMessage.warning('websocket认证失败');
+    //   createMessage.log('websocket认证失败');
     //   return null;
     // }
     const linkToken = store.getters.userId ?? undefined;
@@ -99,7 +99,7 @@ export class Ws {
       callback && callback();
     } else {
       clearInterval(this.hearbeat_timer);
-      createMessage.warning("socket链接已断开");
+      console.log("socket链接已断开");
     }
   };
   close = () => {

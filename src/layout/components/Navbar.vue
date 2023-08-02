@@ -27,12 +27,69 @@
         </div>
         <!-- el-icon-message-solid -->
         <div class="right-menu-item hover-effect" style="padding-top: 2px">
-          <!-- <el-badge is-dot></el-badge> -->
-          <span
-            class="el-icon-message-solid"
-            style="font-size: 25px"
-            @click="toWorkDesk"
-          ></span>
+          <el-popover
+            placement="bottom"
+            width="400"
+            trigger="click"
+            @show="popoverInit"
+          >
+            <div style="position: relative" class="notify-box">
+              <div
+                class="notify-box-select"
+                style="
+                  position: absolute;
+                  right: 0;
+                  top: 7px;
+                  z-index: 99;
+                  width: 100px;
+                "
+              >
+                <el-select
+                  v-model="notifyType"
+                  placeholder="请选择"
+                  size="mini"
+                  @change="notifyTypeChange"
+                >
+                  <el-option :value="0" label="全部消息"></el-option>
+                  <el-option :value="1" label="未读消息"></el-option>
+                </el-select>
+              </div>
+              <el-tabs v-model="activeType" @tab-click="tabClick">
+                <!-- <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
+              <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane> -->
+                <el-tab-pane
+                  :label="item.label"
+                  :name="item.value"
+                  v-for="item in notifyObjs"
+                  :key="item.value"
+                >
+                  <div
+                    ref="listRef"
+                    v-if="item.data.length !== 0"
+                    v-infinite-scroll="getData"
+                    style="
+                      overflow: auto;
+                      height: 300px;
+                      padding: 0 5px;
+                      margin: 0;
+                    "
+                  >
+                    <NotifyItem
+                      :cdata="item"
+                      v-for="item in item.data"
+                      :key="item.Id"
+                    ></NotifyItem>
+                  </div>
+                  <el-empty description="无消息" v-else></el-empty>
+                </el-tab-pane>
+              </el-tabs>
+            </div>
+            <span
+              slot="reference"
+              class="el-icon-message-solid"
+              style="font-size: 25px"
+            ></span>
+          </el-popover>
         </div>
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
@@ -129,7 +186,8 @@ import SizeSelect from "@/components/SizeSelect";
 import { formSchema } from "./formConfig";
 import { Form } from "@/jv_doc/class/form";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-
+import { msgEnum, MsgTypeEnum } from "@/enum/baseModule/msgEnum";
+import NotifyItem from "./Sidebar/NotifyItem.vue";
 export default {
   data() {
     return {
@@ -138,6 +196,8 @@ export default {
         OldPassword: "",
         NewPassword: "",
       },
+      msgEnum,
+      activeType: MsgTypeEnum.NOTICE,
       defaultImg:
         'this.src="' + require("../../assets/errorImg/error.png") + '"',
       rules: {
@@ -157,6 +217,8 @@ export default {
         ],
       },
       changePasswordDialogVisible: false,
+      notifyType: 0,
+      currentNotifyObj: null,
     };
   },
   created() {
@@ -167,6 +229,8 @@ export default {
       },
       labelWidth: "70px",
     });
+    this.connect();
+    // this.getNotifys();
   },
   components: {
     Breadcrumb,
@@ -174,11 +238,43 @@ export default {
     ErrorLog,
     Screenfull,
     SizeSelect,
+    NotifyItem,
   },
   computed: {
     ...mapGetters(["userId", "sidebar", "avatar", "device", "name"]),
+    ...mapState("websocket", ["notifyObjs"]),
   },
   methods: {
+    ...mapActions("websocket", ["sendNessage", "connect", "changeSelectType"]),
+    getData() {
+      // console.log(this.currentNotifyObj, "444notifyObjs");
+      this.currentNotifyObj.nextPage();
+    },
+    tabClick(tab) {
+      this.notifyObjs.forEach((item) => {
+        if (item.value === tab.name) {
+          this.currentNotifyObj = item;
+          this.currentNotifyObj.getData();
+
+          if (Array.isArray(this.$refs.listRef)) {
+            this.$refs.listRef.forEach((ref) => {
+              ref.scrollTop = 0;
+            });
+          } else {
+            this.$refs.listRef && (this.$refs.listRef.scrollTop = 0);
+          }
+        }
+      });
+    },
+    popoverInit() {
+      this.tabClick({
+        name: this.activeType,
+      });
+    },
+    notifyTypeChange(type) {
+      this.changeSelectType(type);
+      this.popoverInit();
+    },
     imgUrlPlugin,
     toggleSideBar() {
       this.$store.dispatch("app/toggleSideBar");
@@ -213,7 +309,6 @@ export default {
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-
   .hamburger-container {
     line-height: 46px;
     height: 100%;

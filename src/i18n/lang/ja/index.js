@@ -454,6 +454,8 @@ const ja = {
     Ge_CloseAll: "すべてを閉じる",
     Ge_TaskType: "タスクカテゴリ",
     Ge_CostType: "原価カテゴリ",
+    Ge_LeadTime: "プリタイム",
+    Ge_PostTime: "バックタイム",
 
     Ge_Pending: "処理待ち",
     Ge_Processed: "処理済み",
@@ -597,7 +599,7 @@ const ja = {
     Ge_FinishSchedule: "終了スケジュール",
     Ge_CheckDetails: "詳細をチェックしてください",
     Ge_EditDeliveryDate: "納期の変更",
-    Ge_WhetherRelease: "発行するかどうか",
+    Ge_WhetherReleaseSchedulingResults: "スケジュール結果を発表するかどうか",
     Ge_CheckSameMoldDetails: "同じ金型の詳細をチェックしてください",
     Ge_SelectNextOne: "部品が選択されているので、次を選択してください",
     Ge_SheetIsAlreadyCreated:
@@ -745,6 +747,7 @@ const ja = {
     Pr_ProcessOutsourcing: "工程外",
     Pr_Calculate: "計算",
     Pr_StartScheduleTime: "スケジュール開始時間",
+    Pr_PleaseSelectStartScheduleTime: "スケジュール開始時間を選択してください",
     Pr_UpToMachine: "オン",
     Pr_DownFromMachine: "ダウン",
     Pr_EnterStation: "インバウンド",
@@ -800,6 +803,15 @@ const ja = {
     Pr_SwitchDevice: "スイッチングデバイス",
     Pr_PrintbyTooling: "型番号で印刷",
     Pr_SimulatedCalculate: "アナログ計算",
+    Pr_SimulatedAPS: "シミュレーションスケジュール",
+    Pr_SchedulingAlgorithmSelection: "スケジューリングアルゴリズムの選択",
+    Pr_ConventionalAlgorithm: "一般的なアルゴリズム",
+    Pr_CRValueScheduling: "CR値スケジューリング",
+    Pr_ShortestDurationAlgorithm: "最短工期アルゴリズム",
+    Pr_AlgorithmForEarliestDeliveryTime: "最早納期アルゴリズム",
+    Pr_DoAPS: "計算スケジュール",
+    Pr_PleaseSelectSchedulingAlgorithms:
+      "スケジュールアルゴリズムを選択してください",
   },
   quality: {
     Qc_CheckResult: "検査結果",
