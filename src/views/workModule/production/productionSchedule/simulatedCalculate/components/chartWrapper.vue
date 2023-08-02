@@ -33,14 +33,8 @@ export default {
         return [];
       },
     },
-    num: {
-      type: Number,
-      default() {
-        return null;
-      },
-    },
-    hours: {
-      type: Number,
+    WorksheetNum: {
+      type: Array,
       default() {
         return null;
       },
@@ -59,11 +53,31 @@ export default {
       this.load();
     },
   },
+  // methods: {
+  //   load() {
+  //     this.datas.length == 0
+  //       ? (this.description = `暂无数据，请进行模拟排程`)
+  //       : (this.description = `共对${this.WorksheetNum[0]}个工单进行了模拟排程，含${this.WorksheetNum[1]}个正常工单，${this.WorksheetNum[2]}个超交期工单，${this.WorksheetNum[3]}个超负荷工单`);
+  //   },
+  // },
   methods: {
     load() {
-      this.datas.length == 0
-        ? (this.description = `当前有${this.num}个工单正在生产，${this.hours}个工单等待生产`)
-        : (this.description = `共有8个普通生产任务单延迟，共延迟128个小时`);
+      if (this.datas.length == 0) {
+        this.description = "暂无数据，请进行模拟排程";
+      } else {
+        let description =
+          "共对" + this.WorksheetNum[0] + "个工单进行了模拟排程，其中：";
+        if (this.WorksheetNum[1] !== 0) {
+          description += this.WorksheetNum[1] + "个正常工单，";
+        }
+        if (this.WorksheetNum[2] !== 0) {
+          description += this.WorksheetNum[2] + "个超交期工单，";
+        }
+        if (this.WorksheetNum[3] !== 0) {
+          description += this.WorksheetNum[3] + "个超负荷工单";
+        }
+        this.description = description;
+      }
     },
   },
 };

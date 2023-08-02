@@ -801,7 +801,7 @@ const cn = {
     Pr_SchedulingAlgorithmSelection: "排程算法选择",
     Pr_ConventionalAlgorithm: "经典算法",
     Pr_CRValueScheduling: "CR值排程",
-    Pr_ShortestDurationAlgorithm: "最短工期算法",
+    Pr_ShortestDurationAlgorithm: "最短工期",
     Pr_AlgorithmForEarliestDeliveryTime: "最早交货期",
     Pr_DoAPS: "计算排程",
     Pr_PleaseSelectSchedulingAlgorithms: "请选择排程算法",

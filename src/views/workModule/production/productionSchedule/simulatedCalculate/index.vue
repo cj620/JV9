@@ -56,8 +56,7 @@
                 <ChartWrapper
                   :title="$t('production.Pr_ConventionalAlgorithm')"
                   :datas="calculatedData[0]"
-                  :num="num"
-                  :hours="hours"
+                  :WorksheetNum="WorksheetNum"
                   id="PieChart1"
                 ></ChartWrapper>
               </el-col>
@@ -66,8 +65,7 @@
                 <ChartWrapper
                   :title="$t('production.Pr_CRValueScheduling')"
                   :datas="calculatedData[1]"
-                  :num="num"
-                  :hours="hours"
+                  :WorksheetNum="WorksheetNum"
                   id="PieChart2"
                 ></ChartWrapper>
               </el-col>
@@ -78,8 +76,7 @@
                 <ChartWrapper
                   :title="$t('production.Pr_ShortestDurationAlgorithm')"
                   :datas="calculatedData[2]"
-                  :num="num"
-                  :hours="hours"
+                  :WorksheetNum="WorksheetNum"
                   id="PieChart3"
                 ></ChartWrapper>
               </el-col>
@@ -88,8 +85,7 @@
                 <ChartWrapper
                   :title="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
                   :datas="calculatedData[3]"
-                  :num="num"
-                  :hours="hours"
+                  :WorksheetNum="WorksheetNum"
                   id="PieChart4"
                 ></ChartWrapper>
               </el-col>
@@ -129,9 +125,8 @@ export default {
       calculatedData: [[], [], [], []],
       // 算法个数
       dataNum: [0, 1, 2, 3],
-      // 传递给组件description的数据（由接口获取）
-      num: 1,
-      hours: 2,
+      // 传递给组件的（由接口获取）
+      WorksheetNum: [10, 0, 2, 3],
     };
   },
   methods: {
@@ -165,6 +160,9 @@ export default {
         //   this.calculatedData.splice(item, 1, res);
         // }, 1000);
         let res = [
+          // "NormalWorksheetNum":正常工单数
+          // "TimeoutWorksheetNum"：超交期工单数
+          // "OverloadWorksheetNum":超负荷工单数
           {
             value: 1231,
             name: "正常工单",
@@ -195,7 +193,7 @@ export default {
   padding: 10px;
   .simulatedCalculate-page-chartwrapper {
     padding: 0 20px;
-    height: 40%;
+    height: 50%;
   }
 }
 </style>

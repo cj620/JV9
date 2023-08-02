@@ -20,10 +20,6 @@
         slot="btn-list"
         :actions="[
           {
-            label: $t('production.Pr_LoadOn'),
-            confirm: load.bind(null),
-          },
-          {
             label: $t('production.Pr_SimulatedCalculate'),
             confirm: simulatedCalculate.bind(null),
           },
@@ -47,10 +43,6 @@
       >
       </Action>
     </JvTable>
-    <editDelivery
-      :visible.sync="editDeliveryDialogFormVisible"
-      v-if="editDeliveryDialogFormVisible"
-    ></editDelivery>
     <calculateTime
       :visible.sync="calculateTimeDialogFormVisible"
       v-if="calculateTimeDialogFormVisible"
@@ -66,7 +58,6 @@ import { stateEnum } from "@/enum/workModule";
 // 单据状态组件
 import { do_publish } from "@/api/workApi/production/aps";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
-import editDelivery from "./components/editDelivery";
 import calculateTime from "./components/calculateTime";
 export default {
   // 页面的标识
@@ -74,14 +65,12 @@ export default {
   components: {
     // 单据状态组件
     BillStateTags,
-    editDelivery,
     calculateTime,
   },
   data() {
     return {
       // 表格实例
       tableObj: {},
-      editDeliveryDialogFormVisible: false,
       calculateTimeDialogFormVisible: false,
     };
   },
@@ -121,24 +110,6 @@ export default {
       });
     },
 
-    //编辑
-    editBill(row) {
-      let { BillId } = row;
-      this.tableObj.api.editLock({ BillId }).then((res) => {
-        this.$router.push({
-          name: "Sa_SaleOrder_Edit",
-          query: { BillId },
-        });
-      });
-    },
-    //批量删除单据
-    delBills() {
-      this.deleteOrder(this.tableObj.selectData.keys);
-    },
-    //加载数据
-    load() {
-      this.tableObj.getData();
-    },
     // 模拟计算
     simulatedCalculate() {
       this.$router.push({
