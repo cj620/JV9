@@ -6,7 +6,7 @@ export const formSchema = [
     rules: [
       {
         required: true,
-        message: i18n.t(""),
+        message: i18n.t("production.Pr_PleaseSelectStartScheduleTime"),
         trigger: ["change", "blur"],
       },
     ],
@@ -15,15 +15,8 @@ export const formSchema = [
     // prop/value待确定
     prop: "CalculateMethods",
     label: i18n.t("production.Pr_SchedulingAlgorithmSelection"),
-    cpn: "FormCheckBox",
-    type: "button",
-    rules: [
-      {
-        required: true,
-        message: i18n.t(""),
-        trigger: ["change", "blur"],
-      },
-    ],
+    cpn: "FormRadio",
+    default: 0,
     options: {
       list: [
         {

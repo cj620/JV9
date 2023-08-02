@@ -454,6 +454,8 @@ const cn = {
     Ge_CloseAll: "关闭全部",
     Ge_TaskType: "任务类别",
     Ge_CostType: "成本类别",
+    Ge_LeadTime: "前置时间",
+    Ge_PostTime: "后置时间",
 
     Ge_Pending: "待处理",
     Ge_Processed: "已处理",
@@ -740,6 +742,7 @@ const cn = {
     Pr_ProcessOutsourcing: "工序委外",
     Pr_Calculate: "计算",
     Pr_StartScheduleTime: "开始排程时间",
+    Pr_PleaseSelectStartScheduleTime: "请选择开始排程时间",
     Pr_UpToMachine: "上机",
     Pr_DownFromMachine: "下机",
     Pr_EnterStation: "进站",

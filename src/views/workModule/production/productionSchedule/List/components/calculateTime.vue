@@ -43,6 +43,7 @@ export default {
       },
       labelWidth: "80px",
     });
+    this.formObj.form.StartDate = this.StartDate;
   },
   methods: {
     //点击计算排程

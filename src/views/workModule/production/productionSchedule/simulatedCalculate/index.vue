@@ -167,10 +167,11 @@ export default {
         let res = [
           {
             value: 1231,
-            name: "正常任务单",
+            name: "正常工单",
             itemStyle: { color: "#00FF00" },
           },
-          { value: 987, name: "延迟任务单", itemStyle: { color: "red" } },
+          { value: 987, name: "超交期工单", itemStyle: { color: "red" } },
+          { value: 987, name: "超负荷工单", itemStyle: { color: "yellow" } },
         ];
         this.calculatedData.splice(item, 1, res);
       });

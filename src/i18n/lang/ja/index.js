@@ -454,6 +454,8 @@ const ja = {
     Ge_CloseAll: "すべてを閉じる",
     Ge_TaskType: "タスクカテゴリ",
     Ge_CostType: "原価カテゴリ",
+    Ge_LeadTime: "プリタイム",
+    Ge_PostTime: "バックタイム",
 
     Ge_Pending: "処理待ち",
     Ge_Processed: "処理済み",
@@ -745,6 +747,7 @@ const ja = {
     Pr_ProcessOutsourcing: "工程外",
     Pr_Calculate: "計算",
     Pr_StartScheduleTime: "スケジュール開始時間",
+    Pr_PleaseSelectStartScheduleTime: "スケジュール開始時間を選択してください",
     Pr_UpToMachine: "オン",
     Pr_DownFromMachine: "ダウン",
     Pr_EnterStation: "インバウンド",
