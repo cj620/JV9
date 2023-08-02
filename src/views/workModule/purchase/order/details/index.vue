@@ -20,6 +20,10 @@
           label: $t('Generality.Ge_Print') + '  ' + $t('menu.Pu_Order_PR'),
           confirm: printPR,
         },
+          {
+          label: $t('Generality.Ge_Print') + ' KTM ' + $t('menu.Pu_Order_PR'),
+          confirm: printKTMPR,
+        },
         {
           label: $t('purchase.Pu_EnterStorage'),
           disabled: !stateForm.transform,
@@ -101,7 +105,6 @@ export default {
       RemarkData: "",
       type: "",
       stateForm: {},
-
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -207,6 +210,13 @@ export default {
       printPlugin({
         ids: [this.cur_billId],
         category: "Pu_Order_PR",
+      });
+    },
+    //打印马来西亚询价单
+    printKTMPR(){
+      printPlugin({
+        ids: [this.cur_billId],
+        category: "Pu_Order_PR_2",
       });
     },
     //添加不同的模板
