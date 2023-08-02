@@ -1,20 +1,22 @@
 export default [
     {
-        name: "BillNumber",
-        width: 200,
+        name: "PartName",
+        width: 100,
         label: i18n.t("menu.Pm_Project"),
-        color: 'yellow'
+    },
+    {
+        name: 'ImageUrl',
+        width: 100,
+        label: i18n.t("Generality.Ge_PhotoUrl")
     },
     {
         name: "PlanStart",
-        width: 100,
+        width: 120,
         label: i18n.t("Generality.Ge_PlanStart"),
-        color: 'blue'
     },
     {
         name: "PlanEnd",
-        width: 100,
+        width: 120,
         label: i18n.t("Generality.Ge_PlanEnd"),
-        color: 'green'
     },
 ];
