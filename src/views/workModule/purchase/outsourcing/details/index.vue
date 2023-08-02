@@ -11,7 +11,18 @@
       ></el-tab-pane>
     </el-tabs>
 
-    <Action slot="sticky-extra" size="small" :actions="btnAction"></Action>
+    <Action
+      slot="sticky-extra"
+      size="small"
+      :actions="btnAction"
+      :dropDownActions="[
+        {
+          label: $t('Generality.Ge_Print') + '  ' + $t('menu.Pu_Order_PR'),
+          confirm: printPO,
+        }
+
+      ]"
+    ></Action>
     <!--单据信息-->
     <JvBlock :title="cur_billId" ref="first">
       <!---->
@@ -60,7 +71,7 @@ import {
   API as Outsourcing,
   successOutsourcing,
 } from "@/api/workApi/purchase/outsourcing";
-import { auditPlugin } from "@/jv_doc/utils/system/index";
+import { auditPlugin, printPlugin } from '@/jv_doc/utils/system/index'
 import { detailPageModel } from "@/jv_doc/utils/system/index";
 
 export default {
@@ -155,6 +166,12 @@ export default {
           confirm: this.successOutsourcing,
           disabled: this.detailObj.detailData.State !== "Approved",
         });
+      });
+    },
+    printPO(){
+      printPlugin({
+        ids: [this.$route.query.BillId],
+        category: "Pu_Order",
       });
     },
     tabClick(e) {

@@ -22,28 +22,36 @@ export default {
         return null;
       },
     },
-    data: {
+    datas: {
       type: Array,
       default() {
         return [];
       },
     },
   },
-  async mounted() {
-    await this.drawLine();
+  data() {
+    return {
+      myChart: {},
+    };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.drawLine();
+    });
   },
   watch: {
-    data() {
+    datas() {
+      echarts.dispose(document.getElementById(this.id));
       this.drawLine();
     },
   },
   methods: {
     drawLine() {
-      echarts.dispose(document.getElementById(this.id));
       // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById(this.id));
+      this.myChart = echarts.init(document.getElementById(this.id));
+
       // 绘制图表
-      myChart.setOption({
+      this.myChart.setOption({
         tooltip: {
           trigger: "item",
         },
@@ -56,7 +64,7 @@ export default {
             type: "pie",
             radius: ["40%", "70%"],
             avoidLabelOverlap: false,
-            data: this.data,
+            data: this.datas,
             itemStyle: {
               borderRadius: 10,
               borderColor: "#fff",
@@ -72,13 +80,13 @@ export default {
           },
         ],
       });
-      window.addEventListener("resize", function () {
-        myChart.resize();
+      window.addEventListener("resize", () => {
+        this.myChart.resize();
       });
-      myChart.resize();
-      this.$nextTick(() => {
-        myChart.resize(); // 图表自适应
-      });
+      // this.myChart.resize();
+      // this.$nextTick(() => {
+      //   this.myChart.resize(); // 图表自适应
+      // });
     },
   },
 };
