@@ -15,12 +15,12 @@ export const msgEnum = createEnumObject([
     value: MsgTypeEnum.MESSAGE,
   },
   {
-    label: "审核",
-    value: MsgTypeEnum.AUDIT,
-  },
-  {
     label: "通知",
     value: MsgTypeEnum.NOTICE,
+  },
+  {
+    label: "审核",
+    value: MsgTypeEnum.AUDIT,
   },
   {
     label: "任务",
