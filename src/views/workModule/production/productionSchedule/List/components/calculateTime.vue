@@ -7,7 +7,7 @@
 <template>
   <div>
     <jv-dialog
-      :title="$t('production.Pr_StartScheduleTime')"
+      :title="$t('production.Pr_DoAPS')"
       width="30%"
       :close-on-click-modal="true"
       :modal-append-to-body="false"
@@ -16,39 +16,54 @@
       v-on="$listeners"
       @confirm="confirmItem"
     >
-      <el-date-picker v-model="StartDate" type="date"> </el-date-picker>
+      <!-- <el-date-picker v-model="StartDate" type="date"> </el-date-picker> -->
+      <JvForm :formObj="formObj"> </JvForm>
     </jv-dialog>
   </div>
 </template>
 
 <script>
 import { do_aps } from "@/api/workApi/production/aps";
+import { formSchema } from "./formConfig";
+import { Form } from "@/jv_doc/class/form";
 export default {
   name: "calculateTime",
   data() {
     return {
       StartDate: new Date(),
+      formObj: {},
     };
+  },
+  created() {
+    this.formObj = new Form({
+      formSchema,
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
   },
   methods: {
     //点击计算排程
     confirmItem() {
-      do_aps({ StartDate: this.StartDate }).then((res) => {
-        console.log(res.ExpiredBills);
-        console.log(res.OverloadBills);
-        if (res.OverloadBills.length > 0) {
-          this.$router.push({
-            name: "ProductionScheduleCalculate",
-            params: {
-              data: res.OverloadBills,
-              time: this.StartDate,
-            },
-          });
-          this.$emit("cancel");
-        } else {
-          this.$emit("cancel");
-        }
-      });
+      // do_aps({ StartDate: this.StartDate }).then((res) => {
+      //   console.log(res.ExpiredBills);
+      //   console.log(res.OverloadBills);
+      //   if (res.OverloadBills.length > 0) {
+      //     this.$router.push({
+      //       name: "ProductionScheduleCalculate",
+      //       params: {
+      //         data: res.OverloadBills,
+      //         time: this.StartDate,
+      //       },
+      //     });
+      //     this.$emit("cancel");
+      //   } else {
+      //     this.$emit("cancel");
+      //   }
+      // });
+      console.log("formObj::: ", this.formObj);
     },
   },
 };

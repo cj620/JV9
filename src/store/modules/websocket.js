@@ -3,16 +3,8 @@
  * @Date: 2023-07-26 14:19:19
  */
 import { Ws } from "@/jv_doc/class/websocket";
-import { Notification } from "element-ui";
-export function receiveMessages(event) {
-  const msg = JSON.parse(event.data);
-  const { Content, Type, NotificationType, FromUser, SendTime } = msg;
-  console.log(msg, "接受消息");
-  Notification({
-    title: Type,
-    message: Content,
-  });
-}
+import { receiveMessages } from "@/jv_doc/utils/system/msgPlugin";
+
 const state = {
   socket: new Ws(),
   notifys: [],

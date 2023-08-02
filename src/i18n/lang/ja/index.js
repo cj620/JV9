@@ -597,7 +597,7 @@ const ja = {
     Ge_FinishSchedule: "終了スケジュール",
     Ge_CheckDetails: "詳細をチェックしてください",
     Ge_EditDeliveryDate: "納期の変更",
-    Ge_WhetherRelease: "発行するかどうか",
+    Ge_WhetherReleaseSchedulingResults: "スケジュール結果を発表するかどうか",
     Ge_CheckSameMoldDetails: "同じ金型の詳細をチェックしてください",
     Ge_SelectNextOne: "部品が選択されているので、次を選択してください",
     Ge_SheetIsAlreadyCreated:
@@ -800,6 +800,15 @@ const ja = {
     Pr_SwitchDevice: "スイッチングデバイス",
     Pr_PrintbyTooling: "型番号で印刷",
     Pr_SimulatedCalculate: "アナログ計算",
+    Pr_SimulatedAPS: "シミュレーションスケジュール",
+    Pr_SchedulingAlgorithmSelection: "スケジューリングアルゴリズムの選択",
+    Pr_ConventionalAlgorithm: "一般的なアルゴリズム",
+    Pr_CRValueScheduling: "CR値スケジューリング",
+    Pr_ShortestDurationAlgorithm: "最短工期アルゴリズム",
+    Pr_AlgorithmForEarliestDeliveryTime: "最早納期アルゴリズム",
+    Pr_DoAPS: "計算スケジュール",
+    Pr_PleaseSelectSchedulingAlgorithms:
+      "スケジュールアルゴリズムを選択してください",
   },
   quality: {
     Qc_CheckResult: "検査結果",

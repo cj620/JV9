@@ -2,7 +2,7 @@
  * @Author: C.
 import { ElButton } from "element-ui/types/button";
  * @Date: 2022-08-31 09:59:45
- * @LastEditTime: 2023-07-26 17:09:24
+ * @LastEditTime: 2023-08-01 11:44:00
  * @Description: file content
 -->
 <template>
@@ -13,7 +13,7 @@ import { ElButton } from "element-ui/types/button";
 </template>
 <script>
 import { mapActions } from "vuex";
-import { receiveMessages } from "@/store/modules/websocket";
+import { receiveMessages } from "@/jv_doc/utils/system/msgPlugin";
 export default {
   name: "Home",
   data() {
@@ -33,7 +33,7 @@ export default {
           FromUser: {
             UserId: "cj",
             UserName: "henry",
-            PhotoUrl: null,
+            PhotoUrl: "\\Files\\1480487782907379713.png",
             Department: "销售部",
           },
           Content: "xxx提交的单据等待审核",
@@ -41,6 +41,7 @@ export default {
             BillId: "SA230606001",
             BillKey: "Sa_Order",
           },
+          NotificationType: "info",
           SendTime: new Date(),
           Type: "Audit",
         }),
