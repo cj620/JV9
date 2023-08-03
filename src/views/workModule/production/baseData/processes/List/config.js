@@ -47,12 +47,12 @@ export const tableConfig = [
   },
   // 前置时间
   {
-    prop: "LeadTime",
+    prop: "LeadTimeOfProcess",
     label: i18n.t("Generality.Ge_LeadTime"),
   },
   // 后置时间
   {
-    prop: "PostTime",
+    prop: "PostTimeOfProcess",
     label: i18n.t("Generality.Ge_PostTime"),
   },
 ];
