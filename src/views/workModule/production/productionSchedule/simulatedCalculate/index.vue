@@ -88,9 +88,11 @@
               </el-col>
             </el-row>
           </el-tab-pane>
-          <el-tab-pane :label="$t('production.Pr_ConventionalAlgorithm')"
-            >经典算法</el-tab-pane
-          >
+          <el-tab-pane
+            :label="$t('production.Pr_ConventionalAlgorithm')"
+            class="ConventionalAlgorithm"
+            ><SimulatedResult
+          /></el-tab-pane>
           <el-tab-pane :label="$t('production.Pr_CRValueScheduling')"
             >CR值排程</el-tab-pane
           >
@@ -110,10 +112,12 @@
 <script>
 import ChartWrapper from "./components/chartWrapper.vue";
 import { pie_chart } from "@/api/workApi/production/aps";
+import SimulatedResult from "./components/simulatedResult.vue";
 export default {
   name: "index",
   components: {
     ChartWrapper,
+    SimulatedResult,
   },
   data() {
     return {
@@ -130,12 +134,15 @@ export default {
     };
   },
   created() {
-    pie_chart().then((res) => {
-      this.pieChartData = res;
-      this.loading = false;
-    });
+    this.getData();
   },
   methods: {
+    getData() {
+      pie_chart().then((res) => {
+        this.pieChartData = res;
+        this.loading = false;
+      });
+    },
     // 清空多选框与重置数据
     clear() {
       this.value = [];
@@ -160,12 +167,12 @@ export default {
 
 <style scoped>
 .el-form-item {
-  margin-bottom: 14px;
+  margin-bottom: 4px;
 }
 .simulatedCalculate-page {
   height: 100%;
   background-color: #ffffff;
-  padding: 10px;
+  padding: 6px 10px;
 }
 /* .simulatedCalculate-page-chartwrapper {
   padding: 0 20px;

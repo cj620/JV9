@@ -454,8 +454,8 @@ const cn = {
     Ge_CloseAll: "关闭全部",
     Ge_TaskType: "任务类别",
     Ge_CostType: "成本类别",
-    Ge_LeadTime: "前置时间",
-    Ge_PostTime: "后置时间",
+    Ge_LeadTimeOfProcess: "前置时间 / 分钟",
+    Ge_PostTimeOfProcess: "后置时间 / 分钟",
 
     Ge_Pending: "待处理",
     Ge_Processed: "已处理",

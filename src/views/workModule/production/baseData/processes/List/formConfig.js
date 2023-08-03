@@ -67,25 +67,11 @@ export const formSchema = [
   {
     prop: "LeadTimeOfProcess",
     cpn: "FormInput",
-    label: i18n.t("Generality.Ge_LeadTime"),
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["change", "blur"],
-      },
-    ],
+    label: i18n.t("Generality.Ge_LeadTimeOfProcess"),
   },
   {
     prop: "PostTimeOfProcess",
     cpn: "FormInput",
-    label: i18n.t("Generality.Ge_PostTime"),
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["change", "blur"],
-      },
-    ],
+    label: i18n.t("Generality.Ge_PostTimeOfProcess"),
   },
 ];

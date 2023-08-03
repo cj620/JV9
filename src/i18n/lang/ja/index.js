@@ -454,8 +454,8 @@ const ja = {
     Ge_CloseAll: "すべてを閉じる",
     Ge_TaskType: "タスクカテゴリ",
     Ge_CostType: "原価カテゴリ",
-    Ge_LeadTime: "プリタイム",
-    Ge_PostTime: "バックタイム",
+    Ge_LeadTimeOfProcess: "プリタイム / 分",
+    Ge_PostTimeOfProcess: "バックタイム / 分",
 
     Ge_Pending: "処理待ち",
     Ge_Processed: "処理済み",
