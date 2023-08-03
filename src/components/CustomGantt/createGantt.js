@@ -1,4 +1,3 @@
-import { timeFormat } from "@/jv_doc/utils/time";
 // 判断平年闰年 true为闰年29 false为平年28
 function isLeapYear(year) {
     return (year % 400 === 0) || (year % 100 !== 0 && year % 4 === 0);
@@ -11,18 +10,19 @@ export class CreateGantt {
         this.weekArr = []; // 周数组
         this.weekCellArr = []; // 周占的格子的数组，例如7.1是星期六，那么周六周日两天就得为1格，后面7天为1格，如果最后一个月是星期3，那么周一周二周三 三天为一格
         this.dayArr = []; // 天份数据
+        this.dayBelongToMonthArr = []; // 每天属于哪个月
         this.hourArr = []; // 小时数据
         this.hourCellArr = []; // 小时占的格子数组
         this.minuteArr = []; // 分钟数据
         this.stepSize = 0.05; // 根据当前单位计算每分钟占多少像素
         this.cellWidth = 72;
-        // this.setCellWidth(); // 根据当前单位设置一格宽度
+        this.setCellWidth(); // 根据当前单位设置一格宽度
         this.getCalendarData(); // 获取日历数据
         
 
         /** =============================此处用来定义默认值============================= **/
         this.tasksHeight = options.tasksHeight || 50; // 任务条高度
-        this.tasksPadding = options.tasksPadding || 4; // 任务条padding值
+        this.tasksPadding = (options.tasksPadding || options.tasksPadding == 0) ? options.tasksPadding : 4; // 任务条padding值
         this.tasksRadius = options.tasksRadius || 8; // 任务条圆角
         this.rollSpeed = options.rollSpeed || 20; // 鼠标滚动速度
         this.headerHeight = options.headerHeight || 50; // 设置表头高度
@@ -42,7 +42,6 @@ export class CreateGantt {
     // 初始化
     init(parentNode) {
         this.setCellWidth(); // 根据当前单位设置一格宽度
-        this.initTaskDate(); // 初始化任务条数据，计算位置和宽度
         let canvas = document.createElement('canvas')
         canvas.width = this.minuteArr.length * this.setCellWidth();
         canvas.height = 800;
@@ -55,57 +54,46 @@ export class CreateGantt {
         this.canvas.width = this.canvas.parentNode.clientWidth;
         // 根据表头配置结果获取表头的宽度
         this.tableHeaderWidth = this.columns.map(item => item.width).reduce((a, b) => { return a + b });
-        // 绘制任务条
-        this.drawTask(this.ctx);
+        // 初始化任务条数据，计算位置和宽度 => 绘制任务条
+        this.initTaskDate(this.ctx); 
         this.eventFunctions(); // 添加canvas的一些事件。
     }
     // 添加canvas的一些事件。
     eventFunctions() {
         // let ctx = this.canvas.getContext('2d');
-        this.canvas.addEventListener('mousewheel', (e) => {
+        // this.canvas.addEventListener('mousewheel', (e) => {
 
-        })
+        // })
 
-        this.canvas.addEventListener('click', (e) => {
-            this.isBetween(e, (item) => {
-                console.log('item::: ', item);
-            })
+        // this.canvas.addEventListener('click', (e) => {
+        //     this.isBetween(e, (item) => {
+        //         console.log('item::: ', item);
+        //     })
 
-        })
+        // })
 
-        this.canvas.addEventListener('mousemove', (e) => {
-            this.isBetween(e, (item) => {
-                console.log('item::: ', item.name);
-            })
-        })
-        this.canvas.addEventListener('mousedown', (e) => {
-            this.canvas.onmousemove = (e) => {
-                // this.
-            }
-        })
-        this.canvas.addEventListener('mouseup', (e) => {
-            // console.log(':鼠标松开:: ', );
-            this.canvas.onmousemove = null;
-        })
+        // this.canvas.addEventListener('mousemove', (e) => {
+        //     this.isBetween(e, (item) => {
+        //         console.log('item::: ', item.name);
+        //     })
+        // })
+        // this.canvas.addEventListener('mousedown', (e) => {
+        //     this.canvas.onmousemove = (e) => {
+        //         // this.
+        //     }
+        // })
+        // this.canvas.addEventListener('mouseup', (e) => {
+        //     // console.log(':鼠标松开:: ', );
+        //     this.canvas.onmousemove = null;
+        // })
     }
     // 绘制任务条
-    drawTask(ctx) {
-        if(!this.tasks.length) return
-        this.tasks.forEach((item, i) => {
-            let height = this.tasks.slice(0, i + 1).map(item => item.h = this.tasksHeight).reduce((a, b) => { return a + b });
-            this.tasks.map((jtem, j) => {
-                if (j == i) {
-                    jtem.top = height
-                }
-            });
-            item.data.forEach(jtem => {
-                ctx.beginPath();
-                ctx.fillStyle = jtem.color;
-                ctx.roundRect(jtem.start,height + this.tasksPadding, jtem.end - jtem.start, this.tasksHeight - this.tasksPadding*2, this.tasksRadius);
-                // ctx.stroke();
-                ctx.fill();
-            })
-        })
+    drawTask(ctx, startX, StartY, width, height) {
+        ctx.beginPath();
+        ctx.fillStyle = '#2a9bf1';
+        ctx.roundRect(startX,StartY, width, height, this.tasksRadius);
+        // ctx.stroke();
+        ctx.fill();
     }
     // 判断鼠标在tasks内的事件（点击或者移动等）
     isBetween(e, callback) {
@@ -114,7 +102,7 @@ export class CreateGantt {
         this.canvas.style.cursor = "default";
         if(!this.tasks.length) return
         this.tasks.forEach((item, i) => {
-            item.data.forEach((jtem, j) => {
+            item.Data.forEach((jtem, j) => {
                 if (
                     (
                         x > jtem.start
@@ -135,7 +123,7 @@ export class CreateGantt {
     }
     // 获取日历数据
     getCalendarData() {
-        const date = new Date('2023-08-20');
+        const date = new Date();
         const year = date.getFullYear();
         const thisMonth = date.getMonth() ? date.getMonth() + 1 : 1;
         const bigMonth = [1, 3, 5, 7, 8, 10, 12];
@@ -206,6 +194,13 @@ export class CreateGantt {
                     }
                 }
                 for (let i = 1; i <= days; i++) {
+                    // this.dayBelongToMonthArr.push({
+                    //     parent: item + '月',
+                    // })
+                    this.hourCellArr.push({
+                        text:item+'月' + ( i < 10 ? '0'+i : i),
+                        cell: 24
+                    })
                     this.dayArr.push(i);
                 }
             } else if (smallMonth.indexOf(item) !== -1) {
@@ -218,6 +213,13 @@ export class CreateGantt {
                     }
                 }
                 for (let i = 1; i <= days; i++) {
+                    // this.dayBelongToMonthArr.push({
+                    //     parent: item + '月',
+                    // })
+                    this.hourCellArr.push({
+                        text: item+'月' + ( i < 10 ? '0'+i : i),
+                        cell: 24
+                    })
                     this.dayArr.push(i);
                 }
             }
@@ -225,11 +227,12 @@ export class CreateGantt {
         // 小时的数据
         this.dayArr.forEach(item => {
             for (let i = 0; i < 24; i++) {
-                if (i < 10) {
-                    this.hourArr.push('0' + i);
-                } else {
-                    this.hourArr.push(i);
-                }
+                // if (i < 10) {
+                //     this.hourArr.push('0' + i);
+                // } else {
+                //     this.hourArr.push(i);
+                // }
+                this.hourArr.push(i);
             }
         })
         // 分钟的数据
@@ -247,7 +250,7 @@ export class CreateGantt {
 
     }
     setWeekDayCell(days) {
-        const date = new Date('2023-08-20');
+        const date = new Date();
         const year = date.getFullYear();
 
         days.forEach((item, i) => {
@@ -295,20 +298,24 @@ export class CreateGantt {
         }
     }
     // 初始化task数据
-    initTaskDate() {
-        // 起始日期到现在相差秒数
-        
-        // 相差天数
-        // let day = parseInt(second / 60 / 60 / 24); 
-        // 相差小时
-        // let hour = parseInt(second / 60 / 60); 
-        // 相差分钟数
-        
+    initTaskDate(ctx) {
+        if(!this.tasks.length) return
+        let year = new Date().getFullYear();
+        let month = new Date().getMonth();
+        let now = year +'-'+ (month < 10 ? '0'+(month+1) : month+1) +'-'+ '01 ' + '00:00:00'
         this.tasks.forEach((item, i) => {
-            item.data.forEach((jtem, j) => {
-                let second = parseInt(new Date().getTime() / 1000) - parseInt(new Date('2021-08-04').getTime() / 1000)
-                let minutes = parseInt(second / 60); 
-                console.log('minutes::: ',timeFormat(jtem.PlanStart) );
+            item.Data.forEach((jtem, j) => {
+                let distance = parseInt(new Date(jtem.PlanStart).getTime() / 1000) - parseInt(new Date(now).getTime() / 1000)
+                let startX = parseInt(distance / 60); // 距离
+                let width = parseInt(new Date(jtem.PlanEnd).getTime() / 1000) - parseInt(new Date(jtem.PlanStart).getTime() / 1000)
+                let widthRes = parseInt(width / 60); // 长度/宽度
+                let startY = (Number(item.Id)-1) * this.tasksHeight;
+                let height = this.tasksHeight - this.tasksPadding * 2;
+                this.drawTask(ctx,
+                    startX*this.stepSize,
+                    startY,
+                    widthRes*this.stepSize,
+                    height);
             })
         })
     }
