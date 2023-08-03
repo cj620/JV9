@@ -1,6 +1,5 @@
 <template>
     <PageWrapper :footer="false">
-        
         <CustomGantt :columns="columns"></CustomGantt>
     </PageWrapper>
 </template>

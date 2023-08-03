@@ -32,11 +32,22 @@
                     </div>
                 </div>
                 <div class="date-header-item" :style="{height: tableHeaderHeight/2+'px'}">
-                    <div class="date-header-cell" v-for="(item, i) in TableDateBottomList" :key="i"
-                    :style="{width: gannt.cellWidth+'px'}"
-                    >
-                        {{ item < 10 ? '0'+item : item }}
+                     <!-- <div v-for="index in Object.keys(deferList).length" style="display:flex" v-if="defer(index)">
+                        <div class="date-header-cell"
+                        v-for="(item, i) in TableDateBottomList.slice(deferList[index], deferList[index+1])" :key="i"
+                            :style="{width: gannt.cellWidth+'px'}"
+                            >
+                            {{ item < 10 ? '0'+item : item }}
+                        </div>
+                    </div> -->
+
+                    <div class="date-header-cell"
+                        v-for="(item, i) in TableDateBottomList" :key="i"
+                            :style="{width: gannt.cellWidth+'px'}"
+                            >
+                            {{ item < 10 ? '0'+item : item }}
                     </div>
+
                 </div>
             </div>
             <div class="header-table-top"
@@ -117,16 +128,14 @@ export default {
 				value: 'week',
 				label: '周'
 			}, {
-				value: 'day',
-				label: '日'
-			}, {
 				value: 'hour',
 				label: '时'
 			}, {
 				value: 'minute',
 				label: '分'
 			}],
-            unitOfTime: 'hour',
+            unitOfTime: 'week',
+            deferList: {}
             // dateList
         }
     },
@@ -141,41 +150,28 @@ export default {
             unitOfTime: this.unitOfTime,
         }
         this.gannt = new CreateGantt(options);
+        this.gannt.init();
         this.setTableDateList();
         // this.cellWidth = this.gannt.cellWidth * 7;
         this.tableHeaderWidth = this.columns.map(item => item.width).reduce((a, b) => { return a + b });
-        
+        this.setDeferList();
     },
     mounted() {
-        this.runDisplayPriority(); // 白屏优化 开启defer
-        let canvas_parent = document.getElementById('canvas_parent');
         setTimeout(() => {
             this.list = data.data.list;
             this.gannt.tasks = this.list;
-            this.gannt.init(canvas_parent);
-
+            let canvasParent = document.getElementById('canvas_parent')
+            this.gannt.initTaskDate(canvasParent);
 
         }, 1000);
         
-        if (this.unitOfTime === "week") {
-            this.cWidth = this.gannt.weekCellArr.length * this.gannt.cellWidth * 7;
-        } else if (this.unitOfTime === "day") {
-            this.cWidth = this.gannt.dayArr.length * this.gannt.cellWidth;
-        } else if (this.unitOfTime === "hour") {
-            this.cWidth = this.gannt.hourArr.length * 48 + 40;
-        } else if (this.unitOfTime === "minute") {
-            this.cWidth = this.gannt.minuteArr.length * 48 + 40;
-        }
     },
     methods: {
-        mouseDirectionChange(val) {
-            this.gannt.setMouseDirection(val); // 设置滚动方向
-        },
-        runDisplayPriority() {
+        runDisplayPriority(index) {
             const step = () => {
                 requestAnimationFrame(() => {
                     this.displayPriority++
-                    if (this.displayPriority < 50000) {
+                    if (this.displayPriority < Object.keys(this.deferList).length) {
                         step()
                     }
                 })
@@ -183,22 +179,49 @@ export default {
             step()
         },
 
-        defer(priority) {
-            return this.displayPriority >= priority
+        defer(index) {
+            return this.displayPriority > index
         },
         setTableDateList() {
-            if(this.unitOfTime === "week") { 
+            if (this.unitOfTime === "week") {
+                this.cWidth = this.gannt.weekCellArr.length * this.gannt.cellWidth * 7;
                 this.TableDateTopList = this.gannt.weekCellArr;
                 this.TableDateBottomList = this.gannt.dayArr;
-            } else if(this.unitOfTime === "hour") {
-                this.TableDateTopList = this.gannt.hourCellArr;
+            } else if (this.unitOfTime === "day") {
+                this.cWidth = this.gannt.dayArr.length * this.gannt.cellWidth;
+            } else if (this.unitOfTime === "hour") {
+                this.cWidth = this.gannt.hourArr.length * 48;
+                this.TableDateTopList = this.gannt.dayCellArr;
                 this.TableDateBottomList = this.gannt.hourArr;
+            } else if (this.unitOfTime === "minute") {
+                this.cWidth = this.gannt.minuteArr.length * 48;
+                this.TableDateTopList = this.gannt.hourCellArr;
+                this.TableDateBottomList = this.gannt.minuteArr;
             }
-           
+            this.displayPriority = 0;
+            
+            // this.runDisplayPriority(); 白屏优化
         },
-        setGanttZoom() {
-
+        setGanttZoom(val) {
+            this.setTableDateList();
+            this.gannt.setCellWidth(val);
+            let canvasParent = document.getElementById('canvas_parent');
+            this.gannt.removeTask(canvasParent);
+            this.gannt.createTask(canvasParent);
+        },
+        setDeferList() {
+            let len = this.TableDateBottomList.length;
+            let count = 0
+            for(let i = 0; i < len / 1000; i++) {
+                this.deferList[i] = count
+                count+=1000
+            }
+            let length = (len / 1000).toFixed(0) -0 + 1
+            this.deferList[length] = len % 1000 + this.deferList[length - 1]
         }
+    },
+    computed: {
+
     }
 }
 </script>
@@ -209,7 +232,7 @@ export default {
 }
 
 .ganttContainer {
-    width: 88vw;
+    width: 85vw;
     height: 80vh;
     background-color: #fff;
     border-radius: 4px;
@@ -295,5 +318,7 @@ export default {
 
     #canvas_parent {
         position: absolute;
+       
     }
-}</style>
+ }
+</style>

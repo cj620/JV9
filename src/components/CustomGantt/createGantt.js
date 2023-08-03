@@ -7,16 +7,21 @@ export class CreateGantt {
         /** ============================此处来定义数据=========================== **/
         this.maxMonthNumber = 3; // 最大显示月份
         this.monthArr = []; // 月份数组
+
         this.weekArr = []; // 周数组
         this.weekCellArr = []; // 周占的格子的数组，例如7.1是星期六，那么周六周日两天就得为1格，后面7天为1格，如果最后一个月是星期3，那么周一周二周三 三天为一格
+
         this.dayArr = []; // 天份数据
-        this.dayBelongToMonthArr = []; // 每天属于哪个月
+        this.dayCellArr = []; // 天占的格子数组
+
         this.hourArr = []; // 小时数据
-        this.hourCellArr = []; // 小时占的格子数组
+        this.hourCellArr = [] // 小时占的格子数组
+        
         this.minuteArr = []; // 分钟数据
+        // this.minuteCellArr = [];
         this.stepSize = 0.05; // 根据当前单位计算每分钟占多少像素
         this.cellWidth = 72;
-        this.setCellWidth(); // 根据当前单位设置一格宽度
+        // this.setCellWidth(); // 根据当前单位设置一格宽度
         this.getCalendarData(); // 获取日历数据
         
 
@@ -40,86 +45,10 @@ export class CreateGantt {
         
     };
     // 初始化
-    init(parentNode) {
-        this.setCellWidth(); // 根据当前单位设置一格宽度
-        let canvas = document.createElement('canvas')
-        canvas.width = this.minuteArr.length * this.setCellWidth();
-        canvas.height = 800;
-        canvas.innerHTML = "您的浏览器不支持 canvas，请升级您的浏览器。"
-        canvas = parentNode.appendChild(canvas);
-        /** @type {HTMLCanvasElement} */
-        this.canvas = canvas;
-        this.ctx = this.canvas.getContext('2d');
-        // 获取父元素宽度
-        this.canvas.width = this.canvas.parentNode.clientWidth;
+    init() {
+        // this.setCellWidth(); // 根据当前单位设置一格宽度
         // 根据表头配置结果获取表头的宽度
         this.tableHeaderWidth = this.columns.map(item => item.width).reduce((a, b) => { return a + b });
-        // 初始化任务条数据，计算位置和宽度 => 绘制任务条
-        this.initTaskDate(this.ctx); 
-        this.eventFunctions(); // 添加canvas的一些事件。
-    }
-    // 添加canvas的一些事件。
-    eventFunctions() {
-        // let ctx = this.canvas.getContext('2d');
-        // this.canvas.addEventListener('mousewheel', (e) => {
-
-        // })
-
-        // this.canvas.addEventListener('click', (e) => {
-        //     this.isBetween(e, (item) => {
-        //         console.log('item::: ', item);
-        //     })
-
-        // })
-
-        // this.canvas.addEventListener('mousemove', (e) => {
-        //     this.isBetween(e, (item) => {
-        //         console.log('item::: ', item.name);
-        //     })
-        // })
-        // this.canvas.addEventListener('mousedown', (e) => {
-        //     this.canvas.onmousemove = (e) => {
-        //         // this.
-        //     }
-        // })
-        // this.canvas.addEventListener('mouseup', (e) => {
-        //     // console.log(':鼠标松开:: ', );
-        //     this.canvas.onmousemove = null;
-        // })
-    }
-    // 绘制任务条
-    drawTask(ctx, startX, StartY, width, height) {
-        ctx.beginPath();
-        ctx.fillStyle = '#2a9bf1';
-        ctx.roundRect(startX,StartY, width, height, this.tasksRadius);
-        // ctx.stroke();
-        ctx.fill();
-    }
-    // 判断鼠标在tasks内的事件（点击或者移动等）
-    isBetween(e, callback) {
-        const x = e.offsetX;
-        const y = e.offsetY;
-        this.canvas.style.cursor = "default";
-        if(!this.tasks.length) return
-        this.tasks.forEach((item, i) => {
-            item.Data.forEach((jtem, j) => {
-                if (
-                    (
-                        x > jtem.start
-                        &&
-                        x < jtem.end
-                    )
-                    &&
-                    (
-                        y > item.top
-                        &&
-                        y < item.top + this.tasksHeight
-                    )) {
-                    this.canvas.style.cursor = "pointer";
-                    callback(jtem);
-                }
-            })
-        })
     }
     // 获取日历数据
     getCalendarData() {
@@ -197,7 +126,7 @@ export class CreateGantt {
                     // this.dayBelongToMonthArr.push({
                     //     parent: item + '月',
                     // })
-                    this.hourCellArr.push({
+                    this.dayCellArr.push({
                         text:item+'月' + ( i < 10 ? '0'+i : i),
                         cell: 24
                     })
@@ -216,7 +145,7 @@ export class CreateGantt {
                     // this.dayBelongToMonthArr.push({
                     //     parent: item + '月',
                     // })
-                    this.hourCellArr.push({
+                    this.dayCellArr.push({
                         text: item+'月' + ( i < 10 ? '0'+i : i),
                         cell: 24
                     })
@@ -225,13 +154,17 @@ export class CreateGantt {
             }
         });
         // 小时的数据
-        this.dayArr.forEach(item => {
+        this.dayArr.forEach((item, index) => {
             for (let i = 0; i < 24; i++) {
                 // if (i < 10) {
                 //     this.hourArr.push('0' + i);
                 // } else {
                 //     this.hourArr.push(i);
                 // }
+                this.hourCellArr.push({
+                    text: this.dayCellArr[index].text + '日 ' + (i < 10 ? '0'+i:i) + '时',
+                    cell: 6
+                })
                 this.hourArr.push(i);
             }
         })
@@ -239,7 +172,7 @@ export class CreateGantt {
         this.hourArr.forEach(item => {
             for (let i = 0; i < 60; i += 10) {
                 if (i === 0) {
-                    this.minuteArr.push('00');
+                    this.minuteArr.push(0);
                 } else {
                     this.minuteArr.push(i);
                 }
@@ -285,7 +218,9 @@ export class CreateGantt {
             }
         })
     }
-    setCellWidth() {
+    setCellWidth(unit) {
+        this.unitOfTime = unit;
+        console.log('this.unitOfTime::: ', this.unitOfTime);
         if (this.unitOfTime === "week" || this.unitOfTime === "day") {
             this.stepSize = 72/24/60
             this.cellWidth = 72
@@ -298,25 +233,36 @@ export class CreateGantt {
         }
     }
     // 初始化task数据
-    initTaskDate(ctx) {
+    initTaskDate(parent) {
         if(!this.tasks.length) return
-        let year = new Date().getFullYear();
-        let month = new Date().getMonth();
-        let now = year +'-'+ (month < 10 ? '0'+(month+1) : month+1) +'-'+ '01 ' + '00:00:00'
+        this.createTask(parent);
+    }
+    createTask(parent) {
         this.tasks.forEach((item, i) => {
             item.Data.forEach((jtem, j) => {
+                let year = new Date().getFullYear();
+                let month = new Date().getMonth();
+                let now = year +'-'+ (month < 10 ? '0'+(month+1) : month+1) +'-'+ '01 ' + '00:00:00'
                 let distance = parseInt(new Date(jtem.PlanStart).getTime() / 1000) - parseInt(new Date(now).getTime() / 1000)
                 let startX = parseInt(distance / 60); // 距离
                 let width = parseInt(new Date(jtem.PlanEnd).getTime() / 1000) - parseInt(new Date(jtem.PlanStart).getTime() / 1000)
                 let widthRes = parseInt(width / 60); // 长度/宽度
                 let startY = (Number(item.Id)-1) * this.tasksHeight;
                 let height = this.tasksHeight - this.tasksPadding * 2;
-                this.drawTask(ctx,
-                    startX*this.stepSize,
-                    startY,
-                    widthRes*this.stepSize,
-                    height);
+                let taskRef = document.createElement('div');
+                taskRef.id = 'custom-task-'+item.Id+'-'+j
+                taskRef.className = 'custom-task custom-task-'+item.Id+'-'+j
+                taskRef.style.left = startX*this.stepSize+'px';
+                taskRef.style.top = startY+'px';
+                taskRef.style.width = widthRes*this.stepSize+'px';
+                taskRef.style.height = height+'px';
+                taskRef.style.background = '#2a9bf1';
+                taskRef.style.position = 'absolute';
+                parent.appendChild(taskRef);
             })
         })
+    }
+    removeTask(parent) {
+        parent.innerHTML = ''
     }
 }
