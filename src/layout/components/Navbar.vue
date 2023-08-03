@@ -62,6 +62,7 @@
                   :name="item.value"
                   v-for="item in notifyObjs"
                   :key="item.value"
+                  :lazy="true"
                 >
                   <div
                     ref="listRef"
@@ -83,6 +84,20 @@
                   <el-empty description="无消息" v-else></el-empty>
                 </el-tab-pane>
               </el-tabs>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  border-top: 1px solid #eee;
+                  padding-top: 10px;
+                "
+              >
+                <div style="cursor: pointer" @click="toMarkAll">
+                  全部标记为已读
+                </div>
+                <div style="cursor: pointer">历史通知</div>
+              </div>
             </div>
             <span
               slot="reference"
@@ -296,6 +311,15 @@ export default {
     toMoldProgressKanban() {
       this.$router.push({
         name: "Se_MoldProgressKanban",
+      });
+    },
+    toMarkAll() {
+      this.$confirm("是否将该类型消息全部标记为已读?", "确认", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      }).then(() => {
+        this.currentNotifyObj.markAllRead();
       });
     },
   },

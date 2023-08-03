@@ -2,7 +2,10 @@
  * @Author: C.
  * @Date: 2023-08-02 11:48:36
  */
-import { user_notification_list } from "@/api/basicApi/systemSettings/notification";
+import {
+  user_notification_list,
+  mark_as_read,
+} from "@/api/basicApi/systemSettings/notification";
 import { msgEnum, MsgTypeEnum } from "@/enum/baseModule/msgEnum";
 export class Notifys {
   data = [];
@@ -49,5 +52,13 @@ export class Notifys {
   };
   changeSelectType = (type) => {
     this.SelectType = type;
+  };
+  // 一键全部已读
+  markAllRead = async () => {
+    await mark_as_read({
+      NotificationType: this.value,
+      OneClickRead: true,
+    });
+    this.getData();
   };
 }
