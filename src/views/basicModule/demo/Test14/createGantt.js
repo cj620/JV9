@@ -1,148 +1,78 @@
+import { timeFormat } from "@/jv_doc/utils/time";
 // 判断平年闰年 true为闰年29 false为平年28
 function isLeapYear(year) {
     return (year % 400 === 0) || (year % 100 !== 0 && year % 4 === 0);
 }
 export class CreateGantt {
-    constructor(el, options) {
-        /** @type {HTMLCanvasElement} */
-        this.canvas = el;
-        this.ctx = el.getContext('2d');
-        this.proxyScroll = this.watchScroll();
-        this.scrollX = 0;
-        this.scrollY = 0;
+    constructor(options) {
+        /** ============================此处来定义数据=========================== **/
+        this.maxMonthNumber = 3; // 最大显示月份
+        this.monthArr = []; // 月份数组
+        this.weekArr = []; // 周数组
+        this.weekCellArr = []; // 周占的格子的数组，例如7.1是星期六，那么周六周日两天就得为1格，后面7天为1格，如果最后一个月是星期3，那么周一周二周三 三天为一格
+        this.dayArr = []; // 天份数据
+        this.hourArr = []; // 小时数据
+        this.hourCellArr = []; // 小时占的格子数组
+        this.minuteArr = []; // 分钟数据
+        this.stepSize = 0.05; // 根据当前单位计算每分钟占多少像素
+        this.cellWidth = 72;
+        // this.setCellWidth(); // 根据当前单位设置一格宽度
+        this.getCalendarData(); // 获取日历数据
+        
+
+        /** =============================此处用来定义默认值============================= **/
+        this.tasksHeight = options.tasksHeight || 50; // 任务条高度
+        this.tasksPadding = options.tasksPadding || 4; // 任务条padding值
+        this.tasksRadius = options.tasksRadius || 8; // 任务条圆角
+        this.rollSpeed = options.rollSpeed || 20; // 鼠标滚动速度
+        this.headerHeight = options.headerHeight || 50; // 设置表头高度
+        this.unitOfTime = options.unitOfTime || 'week'; // 单位（甘特图以这个单位来显示）
 
         this.columns = options.columns; // 表头配置
 
-        this.cWidth = options.cWidth; // canvas宽度
-
-        this.cHeight = options.cHeight; // canvas高度
-
         this.tableHeaderWidth = 0; // 根据表头配置结果获取表头的宽度
 
-        this.tasks = options.tasks; // 获取数据
+        this.tasks = options.tasks || []; // 获取数据
 
-        this.monthArr = []; // 月份数组
-        this.dayArr = []; // 天份数据
-        this.hourArr = []; // 小时数据
-        this.minuteArr = []; // 分钟数据
+        this.displayPriority = 0; // 计数器，用来延迟渲染
 
-        this.rollSpeed = 20; // 鼠标滚动速度
-
-        this.mouseDirection = 'vertical' // across 鼠标横向滚动  vertical 鼠标竖向滚动
-
-        this.init(); // 初始化
-        this.eventFunctions(); // 添加canvas的一些事件。
+        // this.init(); // 初始化
+        
     };
     // 初始化
-    init() {
+    init(parentNode) {
+        this.setCellWidth(); // 根据当前单位设置一格宽度
+        this.initTaskDate(); // 初始化任务条数据，计算位置和宽度
+        let canvas = document.createElement('canvas')
+        canvas.width = this.minuteArr.length * this.setCellWidth();
+        canvas.height = 800;
+        canvas.innerHTML = "您的浏览器不支持 canvas，请升级您的浏览器。"
+        canvas = parentNode.appendChild(canvas);
+        /** @type {HTMLCanvasElement} */
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext('2d');
         // 获取父元素宽度
         this.canvas.width = this.canvas.parentNode.clientWidth;
-        this.cWidth = this.canvas.parentNode.clientWidth;
-        // 清空整个画布
-        this.ctx.clearRect(0, 0, this.cWidth, this.cHeight);
         // 根据表头配置结果获取表头的宽度
         this.tableHeaderWidth = this.columns.map(item => item.width).reduce((a, b) => { return a + b });
-        // 绘制表头
-        this.drawTableHeader();
-        // 获取日历数据
-        this.getCalendarData();
         // 绘制任务条
         this.drawTask(this.ctx);
-    }
-    watchScroll() {
-        return new Proxy(this, {
-            get: (target, propKey) => {
-                if (propKey in target) {
-                    return target[propKey];
-                } else {
-                    throw new ReferenceError("Prop name \"" + propKey + "\" does not exist.");
-                }
-            },
-            set: (obj, prop, value) => {
-                // console.log('::: ', obj, prop, value);
-                return true;
-            }
-        })
+        this.eventFunctions(); // 添加canvas的一些事件。
     }
     // 添加canvas的一些事件。
     eventFunctions() {
-        let ctx = this.canvas.getContext('2d');
-        // const canvasInfo = this.canvas.getBoundingClientRect();
+        // let ctx = this.canvas.getContext('2d');
         this.canvas.addEventListener('mousewheel', (e) => {
-            if (e.deltaY > 0) {
-                this.mouseDirection === "across" ? this.scrollX -= this.rollSpeed : this.scrollY -= this.rollSpeed;
-            } else if (e.deltaY < 0) {
-                this.mouseDirection === "across" ? this.scrollX += this.rollSpeed : this.scrollY += this.rollSpeed;
-            }
-
-            // this.proxyScroll.scrollX = this.scrollX; // 监听scrollX
-            // this.proxyScroll.scrollY = this.scrollY; // 监听scrollY
-
-            this.ctx.clearRect(this.tableHeaderWidth, 0, this.cWidth - this.tableHeaderWidth, this.cHeight); // 清空整个画布
-            // this.ctx.fillRect(500 + this.scrollX, this.scrollY, 100,100)
-
-            ctx.beginPath();
-            ctx.strokeStyle = '#fff';
-
-            this.drawTask(ctx)
-            this.drawTableHeader(); // 绘制表头
 
         })
-
-        // 确认是否点击到元素了
-        // const isBetween = (e,callback) => {
-        //     // const x = e.clientX - canvasInfo.left;
-        //     // const x = e.clientX - canvasInfo.left;
-        //     const x = e.offsetX;
-        //     const y = e.offsetY;
-        //     this.drawTask(ctx);
-        //     const res = ctx.isPointInPath(x, y);
-        //     if (res) {
-        //         if(x > this.tableHeaderWidth) {
-        //             callback(x, y);
-        //         } else {
-
-        //         }
-
-        //     }
-        // }
 
         this.canvas.addEventListener('click', (e) => {
             this.isBetween(e, (item) => {
                 console.log('item::: ', item);
             })
-            /*
-                this.drawTask(ctx);
-                isBetween(e,(x, y) => {
-                    this.tasks.forEach((item, i) => {
-                        item.data.forEach((jtem, j) => {
-                            if(jtem.name == 'a') {
-                                // console.log('::: ',  x + this.scrollX , jtem.start + this.scrollX);
-                                // console.log('::: ', x + this.scrollX , jtem.end + this.scrollX);
-                                console.log('::: ',x, jtem.end, this.scrollX);
-                            }
-                            if(
-                                (
-                                    x > jtem.start + this.scrollX
-                                    &&
-                                    x < jtem.end + this.scrollX
-                                )
-                                && 
-                                (
-                                    y > item.top + this.scrollY
-                                    &&
-                                    y < item.top + 50  + this.scrollY
-                                ))
-                            {
-                                console.log('这个数据在内::: ', jtem.name);
-                            }
-                        })
-                    })
-                })
-                this.drawTableHeader(); // 绘制表头
-            */
 
         })
+
         this.canvas.addEventListener('mousemove', (e) => {
             this.isBetween(e, (item) => {
                 console.log('item::: ', item.name);
@@ -158,109 +88,109 @@ export class CreateGantt {
             this.canvas.onmousemove = null;
         })
     }
-    // 绘制表头
-    drawTableHeader() {
-        let ctx = this.canvas.getContext('2d');
-        ctx.beginPath();
-        // ctx.shadowColor = '#eee';
-        // ctx.shadowBlur = 10;
-        // ctx.shadowOffsetY = -5;
-        ctx.fillStyle = "#ffffff"
-
-        ctx.fillRect(0, 0, this.tableHeaderWidth, this.cHeight);
-        // ctx.restore(); // 还原初始，避免污染下面
-
-        ctx.strokeStyle = '#ddd';
-        ctx.moveTo(0, 50);
-        ctx.lineTo(this.tableHeaderWidth, 50);
-
-        ctx.moveTo(this.tableHeaderWidth + 1, 0);
-        ctx.lineTo(this.tableHeaderWidth + 1, this.cHeight);
-
-        ctx.fill();
-        ctx.stroke();
-        this.columns.forEach((item, i) => {
-            ctx.fillStyle = '#ffffff'
-            ctx.font = '14px UNKNOW';
-            ctx.textAlign = 'center';
-            if (i > 0) {
-                const startPosition = this.columns.slice(0, i).map(item => item.width).reduce((a, b) => { return a + b })
-                ctx.fillRect(startPosition, 0, item.width, 50);
-                ctx.fillStyle = "#000000"
-                ctx.fillText(item.label, item.width / 2 + startPosition, 30);
-            } else {
-                ctx.fillRect(0, 0, item.width, 50);
-                ctx.fillStyle = "#000000"
-                ctx.fillText(item.label, item.width / 2, 30);
-            }
-        });
-
-
-    }
     // 绘制任务条
     drawTask(ctx) {
+        if(!this.tasks.length) return
         this.tasks.forEach((item, i) => {
-            let height = this.tasks.slice(0, i + 1).map(item => item.h = 50).reduce((a, b) => { return a + b });
+            let height = this.tasks.slice(0, i + 1).map(item => item.h = this.tasksHeight).reduce((a, b) => { return a + b });
             this.tasks.map((jtem, j) => {
                 if (j == i) {
                     jtem.top = height
                 }
             });
             item.data.forEach(jtem => {
-                // ctx.beginPath();
-                ctx.moveTo(jtem.start + this.scrollX, this.scrollY + height);
-                ctx.lineTo(jtem.start + this.scrollX, this.scrollY + height + 50);
-                ctx.lineTo(jtem.end + this.scrollX, this.scrollY + height + 50);
-                ctx.lineTo(jtem.end + this.scrollX, this.scrollY + height);
-                ctx.closePath();
+                ctx.beginPath();
+                ctx.fillStyle = jtem.color;
+                ctx.roundRect(jtem.start,height + this.tasksPadding, jtem.end - jtem.start, this.tasksHeight - this.tasksPadding*2, this.tasksRadius);
+                // ctx.stroke();
                 ctx.fill();
             })
         })
-
     }
     // 判断鼠标在tasks内的事件（点击或者移动等）
     isBetween(e, callback) {
         const x = e.offsetX;
         const y = e.offsetY;
+        this.canvas.style.cursor = "default";
+        if(!this.tasks.length) return
         this.tasks.forEach((item, i) => {
             item.data.forEach((jtem, j) => {
                 if (
                     (
-                        x > jtem.start + this.scrollX
+                        x > jtem.start
                         &&
-                        x < jtem.end + this.scrollX
+                        x < jtem.end
                     )
                     &&
                     (
-                        y > item.top + this.scrollY
+                        y > item.top
                         &&
-                        y < item.top + 50 + this.scrollY
+                        y < item.top + this.tasksHeight
                     )) {
+                    this.canvas.style.cursor = "pointer";
                     callback(jtem);
                 }
             })
         })
     }
-    // 设置滚动方向
-    setMouseDirection(direction) {
-        this.mouseDirection = direction;
-    }
-    // 绘制时间表头
-    drawDateHeader() {
-        
-    }
     // 获取日历数据
     getCalendarData() {
-        const date = new Date();
-
-        const thisMonth = date.getMonth() + 1;
+        const date = new Date('2023-08-20');
+        const year = date.getFullYear();
+        const thisMonth = date.getMonth() ? date.getMonth() + 1 : 1;
         const bigMonth = [1, 3, 5, 7, 8, 10, 12];
         const smallMonth = [2, 4, 6, 9, 11];
+        let monthDaysList = [];
 
-        this.monthArr.push(thisMonth - 1);
-        for (let i = thisMonth; i < thisMonth + 5; i++) {
-            this.monthArr.push(i);
+        for (let i = thisMonth; i < thisMonth + this.maxMonthNumber; i++) {
+            i > 12 ? this.monthArr.push(i - 12) : this.monthArr.push(i);
         }
+        // 周的数据
+        this.monthArr.forEach((item, i) => {
+            let days = 0;
+            // 判断是不是大月31天
+            if (bigMonth.indexOf(item) !== -1) {
+                days = 31;
+                // 判断是不是2月份
+                if (item == 2) {
+                    // 判断是平年闰年
+                    if (isLeapYear(this.monthArr[i] < this.monthArr[0] ? year + 1 : year)) {
+                        days = 29
+                    } else {
+                        days = 28
+                    }
+                }
+                for (let i = 1; i <= days; i++) {
+                    let wk = new Date(`${item < this.monthArr[0] ? year + 1 : year}-${item >= 10 ? item : '0' + item}-${i < 10 ? '0' + i : i}`).getUTCDay();
+                    this.weekArr.push(wk ? wk : 7);
+                }
+            } else if (smallMonth.indexOf(item) !== -1) {
+                days = 30;
+                if (item == 2) {
+                    if (isLeapYear(this.monthArr[i] < this.monthArr[0] ? year + 1 : year)) {
+                        days = 29
+                    } else {
+                        days = 28
+                    }
+                }
+                for (let i = 1; i <= days; i++) {
+                    let wk = new Date(`${item < this.monthArr[0] ? year + 1 : year}-${item >= 10 ? item : '0' + item}-${i < 10 ? '0' + i : i}`).getUTCDay();
+                    this.weekArr.push(wk ? wk : 7);
+                }
+            }
+            if (i) {
+                monthDaysList.push({
+                    total: days + monthDaysList[i - 1].total,
+                    day: days,
+                })
+            } else {
+                monthDaysList.push({
+                    total: days,
+                    day: days,
+                })
+            }
+        })
+        // 天的数据
         this.monthArr.forEach(item => {
             let days = 0;
             // 判断是不是大月31天
@@ -292,6 +222,7 @@ export class CreateGantt {
                 }
             }
         });
+        // 小时的数据
         this.dayArr.forEach(item => {
             for (let i = 0; i < 24; i++) {
                 if (i < 10) {
@@ -301,6 +232,7 @@ export class CreateGantt {
                 }
             }
         })
+        // 分钟的数据
         this.hourArr.forEach(item => {
             for (let i = 0; i < 60; i += 10) {
                 if (i === 0) {
@@ -311,6 +243,73 @@ export class CreateGantt {
 
             }
         });
+        this.setWeekDayCell(monthDaysList);
+
+    }
+    setWeekDayCell(days) {
+        const date = new Date('2023-08-20');
+        const year = date.getFullYear();
+
+        days.forEach((item, i) => {
+            let utcDay = new Date(`${this.monthArr[i] < this.monthArr[0] ? year + 1 : year}-${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}-01`).getUTCDay();
+            let res = utcDay !== 1 ? (7 - (utcDay ? utcDay : 7) + 1) : 0
+            let arr = this.dayArr.slice(days[i - 1] ? days[i - 1].total + res : res, item.total);
+            let newArr = arr.slice(0, arr.length - arr.length % 7);
+            let count = 0;
+            if (i === 0) {
+                this.weekCellArr.push({
+                    cell: res,
+                    text: `${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}月 01日 - ${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}月 ${res < 10 ? '0' + res : res}日`
+                })
+            }
+            newArr.forEach((item, j) => {
+                if (newArr[count]) {
+                    this.weekCellArr.push({
+                        cell: 7,
+                        text: `${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}月 ${newArr[count] < 10 ? '0' + newArr[count] : newArr[count]}日- ${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}月 ${newArr[count + 6] < 10 ? '0' + newArr[count + 6] : newArr[count + 6]}日`
+                    })
+                }
+                count += 7;
+            })
+            if (arr.length % 7 !== 0) {
+                this.weekCellArr.push({
+                    cell: 7,
+                    text: `${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}月 ` +
+                        `${arr[arr.length - arr.length % 7]}日` + ' - ' +
+                        `${this.monthArr[i] + 1 >= 10 ? (this.monthArr[i] + 1 > 12 ? '01' : this.monthArr[i] + 1) : '0' + (this.monthArr[i] + 1)}月 ` +
+                        `${(arr[arr.length - arr.length % 7] + 6 - item.day) < 10 ? '0' + (arr[arr.length - arr.length % 7] + 6 - item.day) : (arr[arr.length - arr.length % 7] + 6 - item.day)}日`
+                })
+            }
+        })
+    }
+    setCellWidth() {
+        if (this.unitOfTime === "week" || this.unitOfTime === "day") {
+            this.stepSize = 72/24/60
+            this.cellWidth = 72
+        } else if (this.unitOfTime === "hour") {
+            this.stepSize = 48/60
+            this.cellWidth = 48
+        } else if(this.unitOfTime === "minute") {
+            this.stepSize = 48/10
+            this.cellWidth = 48
+        }
+    }
+    // 初始化task数据
+    initTaskDate() {
+        // 起始日期到现在相差秒数
+        
+        // 相差天数
+        // let day = parseInt(second / 60 / 60 / 24); 
+        // 相差小时
+        // let hour = parseInt(second / 60 / 60); 
+        // 相差分钟数
+        
+        this.tasks.forEach((item, i) => {
+            item.data.forEach((jtem, j) => {
+                let second = parseInt(new Date().getTime() / 1000) - parseInt(new Date('2021-08-04').getTime() / 1000)
+                let minutes = parseInt(second / 60); 
+                console.log('minutes::: ',timeFormat(jtem.PlanStart) );
+            })
+        })
     }
 }
-[10, 10]

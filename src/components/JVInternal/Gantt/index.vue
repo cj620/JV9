@@ -190,7 +190,7 @@ export default {
 					task.end_date = new Date(this.oldDateList[new_item.$index].end_date);
 					task.progress = this.oldDateList[new_item.$index].progress
 					gantt.updateTask(id);
-					this.setLinks();
+					// this.setLinks();
 					this.$nextTick(() => {
 						this.isConfrim = false;
 					})
@@ -209,14 +209,14 @@ export default {
 				console.log('id::: ', id);
 			});
 			// 页面进来可能甘特图还未挂载完毕，定个延时器，延迟设置links
-			let timer = setTimeout(() => {
-				this.setLinks();
-				clearTimeout(timer);
-			}, 100);
+			// let timer = setTimeout(() => {
+			// 	this.setLinks();
+			// 	clearTimeout(timer);
+			// }, 100);
 			// 监听浏览器窗口变化，重新设置links
-			window.onresize = () => {
-				this.debounce(this.setLinks, 300)
-			}
+			// window.onresize = () => {
+			// 	this.debounce(this.setLinks, 300)
+			// }
 			gantt.attachEvent("onGanttScroll", (left, top) => {
 				this.debounce(this.setPreview, 200)
 			});
@@ -409,7 +409,7 @@ export default {
 		},
 		setGanttZoom(unit) { // 设置甘特图缩放级别（年月周 单位）
 			gantt.ext.zoom.setLevel(unit);
-			this.setLinks();
+			// this.setLinks();
 		},
 		setExpand() { // 设置全屏
 			gantt.ext.fullscreen.toggle();
@@ -455,7 +455,7 @@ export default {
 				// }
 				// //加载数据
 				// gantt.parse(tasks);
-				this.setLinks(); // 设置link
+				// this.setLinks(); // 设置link
 			});
 		},
 		setLinks() { // 设置link  gantt_task_link

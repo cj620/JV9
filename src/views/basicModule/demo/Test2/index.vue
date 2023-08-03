@@ -2,7 +2,7 @@
  * @Author: C.
 import { ElButton } from "element-ui/types/button";
  * @Date: 2022-08-31 09:59:45
- * @LastEditTime: 2023-08-01 11:44:00
+ * @LastEditTime: 2023-08-02 13:23:02
  * @Description: file content
 -->
 <template>
@@ -21,12 +21,13 @@ export default {
   },
   created() {
     // console.log(this.connect, "this.connect();");
-    this.connect();
+    // this.connect();
+    // this.getNotifys();
   },
   mounted: function () {},
   methods: {
     // ...mapMutations("websocket", ["HOLD_CONFIG", "RESET_CONFIG"]),
-    ...mapActions("websocket", ["sendNessage", "connect"]),
+    ...mapActions("websocket", ["sendNessage", "connect", "getNotifys"]),
     sendAudit() {
       receiveMessages({
         data: JSON.stringify({

@@ -8,6 +8,7 @@
  * @param {string} cFormat
  * @returns {string | null}
  */
+import { timeFormat } from "@/jv_doc/utils/time";
 export function parseTime(time, cFormat) {
   if (arguments.length === 0 || !time) {
     return null;
@@ -59,11 +60,11 @@ export function parseTime(time, cFormat) {
  * @returns {string}
  */
 export function formatTime(time, option) {
-  if (("" + time).length === 10) {
-    time = parseInt(time) * 1000;
-  } else {
-    time = +time;
-  }
+  // if (("" + time).length === 10) {
+  //   time = parseInt(time) * 1000;
+  // } else {
+  //   time = +time;
+  // }
   const d = new Date(time);
   const now = Date.now();
 
@@ -80,19 +81,9 @@ export function formatTime(time, option) {
     return "1天前";
   }
   if (option) {
-    return parseTime(time, option);
+    return timeFormat(time, option);
   } else {
-    return (
-      d.getMonth() +
-      1 +
-      i18n.t("Generality.Ge_Month") +
-      d.getDate() +
-      "日" +
-      d.getHours() +
-      "时" +
-      d.getMinutes() +
-      "分"
-    );
+    return timeFormat(time);
   }
 }
 

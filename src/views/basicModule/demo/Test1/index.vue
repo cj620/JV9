@@ -2602,7 +2602,7 @@ export default {
             "fatherId": 1
         },
     ]
-    list.forEach((item) => {
+    res.forEach((item) => {
           arr.push({
             id: item.Id, // 父节点id
             open: item.IsOpen, // 是否展开
