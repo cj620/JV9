@@ -48,23 +48,22 @@ export default {
   methods: {
     //点击计算排程
     confirmItem() {
-      // do_aps({ StartDate: this.StartDate }).then((res) => {
-      //   console.log(res.ExpiredBills);
-      //   console.log(res.OverloadBills);
-      //   if (res.OverloadBills.length > 0) {
-      //     this.$router.push({
-      //       name: "ProductionScheduleCalculate",
-      //       params: {
-      //         data: res.OverloadBills,
-      //         time: this.StartDate,
-      //       },
-      //     });
-      //     this.$emit("cancel");
-      //   } else {
-      //     this.$emit("cancel");
-      //   }
-      // });
-      console.log("formObj::: ", this.formObj);
+      do_aps({ StartDate: this.StartDate }).then((res) => {
+        console.log(res.ExpiredBills);
+        console.log(res.OverloadBills);
+        if (res.OverloadBills.length > 0) {
+          this.$router.push({
+            name: "ProductionScheduleCalculate",
+            params: {
+              data: res.OverloadBills,
+              time: this.StartDate,
+            },
+          });
+          this.$emit("cancel");
+        } else {
+          this.$emit("cancel");
+        }
+      });
     },
   },
 };

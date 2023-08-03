@@ -9,11 +9,6 @@
   <PageWrapper :footer="false">
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
-      <template #State="{ record }">
-        <!-- 状态标签 -->
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
-
       <!-- 表格操作行 -->
       <Action
         size="mini"
@@ -48,30 +43,30 @@
       v-if="calculateTimeDialogFormVisible"
       @cancel="cancel"
     ></calculateTime>
+    <!-- <jv-dialog
+      :title="$t('Generality.Ge_Remind')"
+      width="30%"
+      :visible.sync="dialogFormVisible"
+      v-if="dialogFormVisible"
+    >
+    </jv-dialog> -->
   </PageWrapper>
 </template>
 <script>
 // 引入表格类
 import { Table } from "./config";
-// 引入单据状态的枚举
-import { stateEnum } from "@/enum/workModule";
-// 单据状态组件
 import { do_publish } from "@/api/workApi/production/aps";
-import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
 export default {
   // 页面的标识
   name: "ProductionSchedule",
-  components: {
-    // 单据状态组件
-    BillStateTags,
-    calculateTime,
-  },
+  components: { calculateTime },
   data() {
     return {
       // 表格实例
       tableObj: {},
       calculateTimeDialogFormVisible: false,
+      // dialogFormVisible: false,
     };
   },
   created() {
@@ -96,20 +91,6 @@ export default {
     },
   },
   methods: {
-    //删除单据
-    deleteOrder(ids) {
-      this.tableObj.api.del({ BillIds: ids }).then((_) => {
-        this.tableObj.getData();
-      });
-    },
-    //新增
-    add() {
-      this.$router.push({
-        name: "Sa_SaleOrder_Add",
-        params: { type: "add", title: "addSaleOrder" },
-      });
-    },
-
     // 模拟计算
     simulatedCalculate() {
       this.$router.push({
@@ -130,11 +111,17 @@ export default {
         name: "ProductionDetailedLoad",
       });
     },
-
+    open() {
+      this.$alert("排程结果已发布，当前版本号为231321123", "提示", {
+        confirmButtonText: "确定",
+      });
+    },
     //发布APS结果
     release() {
       do_publish().then((res) => {
         console.log(res);
+        // this.dialogFormVisible = true;
+        this.open();
       });
     },
   },
