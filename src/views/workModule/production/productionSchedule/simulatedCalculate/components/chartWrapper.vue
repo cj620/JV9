@@ -5,7 +5,7 @@
       <div class="chart-description">
         {{ description }}
       </div>
-      <PieChart :id="id" :datas="datas"></PieChart>
+      <PieChart :id="id" :WorksheetNum="WorksheetNum"></PieChart>
     </div>
   </div>
 </template>
@@ -28,21 +28,16 @@ export default {
       },
     },
     datas: {
-      type: Array,
+      type: Object,
       default() {
         return [];
-      },
-    },
-    WorksheetNum: {
-      type: Array,
-      default() {
-        return null;
       },
     },
   },
   data() {
     return {
       description: "",
+      WorksheetNum: [],
     };
   },
   mounted() {
@@ -53,25 +48,31 @@ export default {
       this.load();
     },
   },
-  // methods: {
-  //   load() {
-  //     this.datas.length == 0
-  //       ? (this.description = `暂无数据，请进行模拟排程`)
-  //       : (this.description = `共对${this.WorksheetNum[0]}个工单进行了模拟排程，含${this.WorksheetNum[1]}个正常工单，${this.WorksheetNum[2]}个超交期工单，${this.WorksheetNum[3]}个超负荷工单`);
-  //   },
-  // },
   methods: {
+    // 提取信息
+    getCount() {
+      this.WorksheetNum = [
+        this.datas.TotalCount,
+        this.datas.TotalCount -
+          this.datas.OverdueCount -
+          this.datas.OverloadCount,
+        this.datas.OverdueCount,
+        this.datas.OverloadCount,
+      ];
+    },
     load() {
-      if (this.datas.length == 0) {
+      if (Object.keys(this.datas).length == 0) {
+        this.WorksheetNum = [];
         this.description = "暂无数据，请进行模拟排程";
       } else {
+        this.getCount();
         let description =
           "共对" + this.WorksheetNum[0] + "个工单进行了模拟排程，其中：";
         if (this.WorksheetNum[1] !== 0) {
-          description += this.WorksheetNum[1] + "个正常工单，";
+          description += this.WorksheetNum[1] + "个正常工单 ";
         }
         if (this.WorksheetNum[2] !== 0) {
-          description += this.WorksheetNum[2] + "个超交期工单，";
+          description += this.WorksheetNum[2] + "个超交期工单 ";
         }
         if (this.WorksheetNum[3] !== 0) {
           description += this.WorksheetNum[3] + "个超负荷工单";
