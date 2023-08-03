@@ -1,6 +1,6 @@
 <template>
   <PageWrapper ref="page" :footer="false">
-    <div class="simulatedCalculate-page">
+    <div class="simulatedCalculate-page" v-loading="loading">
       <el-form size="mini">
         <el-form-item :label="$t('production.Pr_SchedulingAlgorithmSelection')">
           <!-- 算法多选框 -->
@@ -125,11 +125,14 @@ export default {
       dataNum: [0, 1, 2, 3],
       // 接口获取到的饼状图数据
       pieChartData: [],
+      // 加载
+      loading: true,
     };
   },
   created() {
     pie_chart().then((res) => {
       this.pieChartData = res;
+      this.loading = false;
     });
   },
   methods: {
@@ -163,9 +166,9 @@ export default {
   height: 100%;
   background-color: #ffffff;
   padding: 10px;
-  .simulatedCalculate-page-chartwrapper {
-    padding: 0 20px;
-    height: 50%;
-  }
 }
+/* .simulatedCalculate-page-chartwrapper {
+  padding: 0 20px;
+  height: 50%;
+} */
 </style>

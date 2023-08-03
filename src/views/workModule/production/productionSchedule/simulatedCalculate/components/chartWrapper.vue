@@ -91,7 +91,7 @@ export default {
 }
 .simulatedCalculate-page-chart {
   border: 2px solid #d3d3d3;
-  margin: 0 10% 0 10%;
+  margin: 0 6% 0 6%;
 }
 .chart-description {
   font-size: 14px;

@@ -63,6 +63,7 @@ export function pie_chart(data) {
     url: "/simulation_scheduling/piec_hart",
     method: "post",
     data,
+    // loading: true,
   });
 }
 // 查询模拟排程甘特图数据
