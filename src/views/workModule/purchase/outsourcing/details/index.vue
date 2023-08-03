@@ -171,7 +171,7 @@ export default {
     printPO(){
       printPlugin({
         ids: [this.$route.query.BillId],
-        category: "Pu_Order",
+        category: "Pu_OutsourcingOrder",
       });
     },
     tabClick(e) {

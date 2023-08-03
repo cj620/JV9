@@ -100,6 +100,8 @@ export default {
         ProcessCode: "",
         Resource: "",
         ProcessContent: "",
+        LeadTimeOfProcess: "",
+        PostTimeOfProcess: "",
         Id: 0,
       };
       this.isEdit = false;

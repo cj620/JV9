@@ -74,6 +74,7 @@ export default {
             text: item.Title, // 父节点名字
             start_date: timeFormat(item.StartDate, "yyyy-MM-dd hh:mm:ss"), // 必须要字段 task 开始时间
             cap_plan_end: timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"),
+            end_date: item.EndDate ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"): '',
             parent: item.ParentId,
             color: item.Color,
             duration: item.Duration,
@@ -81,6 +82,7 @@ export default {
           });
         });
         this.tasks.data = result;
+        console.log('this.tasks.data::: ', this.tasks.data);
         this.$refs.ganttchart.GetData();
       });
     },

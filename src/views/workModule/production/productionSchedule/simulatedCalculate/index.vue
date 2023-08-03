@@ -1,6 +1,6 @@
 <template>
   <PageWrapper ref="page" :footer="false">
-    <div class="simulatedCalculate-page">
+    <div class="simulatedCalculate-page" v-loading="loading">
       <el-form size="mini">
         <el-form-item :label="$t('production.Pr_SchedulingAlgorithmSelection')">
           <!-- 算法多选框 -->
@@ -16,19 +16,19 @@
               :label="$t('production.Pr_ConventionalAlgorithm')"
               :value="0"
             ></el-option>
-            <!-- CR值排程 -->
-            <el-option
-              :label="$t('production.Pr_CRValueScheduling')"
-              :value="1"
-            ></el-option>
             <!-- 最短工期算法 -->
             <el-option
               :label="$t('production.Pr_ShortestDurationAlgorithm')"
-              :value="2"
+              :value="1"
             ></el-option>
             <!-- 最早交货期 -->
             <el-option
               :label="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
+              :value="2"
+            ></el-option>
+            <!-- CR值排程 -->
+            <el-option
+              :label="$t('production.Pr_CRValueScheduling')"
               :value="3"
             ></el-option>
           </el-select>
@@ -56,36 +56,33 @@
                 <ChartWrapper
                   :title="$t('production.Pr_ConventionalAlgorithm')"
                   :datas="calculatedData[0]"
-                  :WorksheetNum="WorksheetNum"
                   id="PieChart1"
                 ></ChartWrapper>
               </el-col>
-              <!-- CR值排程 -->
+              <!-- 最短工期 -->
               <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
-                  :title="$t('production.Pr_CRValueScheduling')"
+                  :title="$t('production.Pr_ShortestDurationAlgorithm')"
                   :datas="calculatedData[1]"
-                  :WorksheetNum="WorksheetNum"
                   id="PieChart2"
                 ></ChartWrapper>
               </el-col>
             </el-row>
             <el-row :gutter="20">
-              <!-- 最短工期 -->
-              <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
-                <ChartWrapper
-                  :title="$t('production.Pr_ShortestDurationAlgorithm')"
-                  :datas="calculatedData[2]"
-                  :WorksheetNum="WorksheetNum"
-                  id="PieChart3"
-                ></ChartWrapper>
-              </el-col>
               <!-- 最早交货期 -->
               <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   :title="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
+                  :datas="calculatedData[2]"
+                  id="PieChart3"
+                ></ChartWrapper>
+              </el-col>
+
+              <!-- CR值排程 -->
+              <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
+                <ChartWrapper
+                  :title="$t('production.Pr_CRValueScheduling')"
                   :datas="calculatedData[3]"
-                  :WorksheetNum="WorksheetNum"
                   id="PieChart4"
                 ></ChartWrapper>
               </el-col>
@@ -112,6 +109,7 @@
 
 <script>
 import ChartWrapper from "./components/chartWrapper.vue";
+import { pie_chart } from "@/api/workApi/production/aps";
 export default {
   name: "index",
   components: {
@@ -122,62 +120,39 @@ export default {
       // 多选值
       value: [],
       // chartWrapper接收数据
-      calculatedData: [[], [], [], []],
+      calculatedData: [{}, {}, {}, {}],
       // 算法个数
       dataNum: [0, 1, 2, 3],
-      // 传递给组件的（由接口获取）
-      WorksheetNum: [10, 0, 2, 3],
+      // 接口获取到的饼状图数据
+      pieChartData: [],
+      // 加载
+      loading: true,
     };
+  },
+  created() {
+    pie_chart().then((res) => {
+      this.pieChartData = res;
+      this.loading = false;
+    });
   },
   methods: {
     // 清空多选框与重置数据
     clear() {
       this.value = [];
-      this.calculatedData = [[], [], [], []];
+      this.calculatedData = [{}, {}, {}, {}];
       this.simulatedCalculate();
     },
-    // 获取接口数据并赋值
+    // 赋值
     simulatedCalculate() {
-      // let maps = {
-      //   0: first,
-      //   1: first,
-      //   2: first,
-      //   3: first,
-      // };
-      this.value.forEach((item, i) => {
-        // first().then(res => {
-        //   this.calculatedData.splice(item, 1, res);
-        // })
-        // setTimeout(() => {
-        //   let res = [
-        //     {
-        //       value: 1231,
-        //       name: "正常任务单",
-        //       itemStyle: { color: "#00FF00" },
-        //     },
-        //     { value: 987, name: "延迟任务单", itemStyle: { color: "red" } },
-        //   ];
-        //   this.calculatedData.splice(item, 1, res);
-        // }, 1000);
-        let res = [
-          // "NormalWorksheetNum":正常工单数
-          // "TimeoutWorksheetNum"：超交期工单数
-          // "OverloadWorksheetNum":超负荷工单数
-          {
-            value: 1231,
-            name: "正常工单",
-            itemStyle: { color: "#00FF00" },
-          },
-          { value: 987, name: "超交期工单", itemStyle: { color: "red" } },
-          { value: 987, name: "超负荷工单", itemStyle: { color: "yellow" } },
-        ];
-        this.calculatedData.splice(item, 1, res);
+      this.value.forEach((item) => {
+        this.calculatedData.splice(item, 1, this.pieChartData[item]);
       });
       // 获取未选中方法并重置其组件获取数据
       let list = this.dataNum.filter((num) => !this.value.includes(num));
       list.forEach((item) => {
-        this.calculatedData.splice(item, 1, []);
+        this.calculatedData.splice(item, 1, {});
       });
+      // console.log("this.calculatedData::: ", this.calculatedData);
     },
   },
 };
@@ -191,9 +166,9 @@ export default {
   height: 100%;
   background-color: #ffffff;
   padding: 10px;
-  .simulatedCalculate-page-chartwrapper {
-    padding: 0 20px;
-    height: 50%;
-  }
 }
+/* .simulatedCalculate-page-chartwrapper {
+  padding: 0 20px;
+  height: 50%;
+} */
 </style>

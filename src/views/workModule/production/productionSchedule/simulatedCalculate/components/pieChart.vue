@@ -22,7 +22,7 @@ export default {
         return null;
       },
     },
-    datas: {
+    WorksheetNum: {
       type: Array,
       default() {
         return [];
@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       myChart: {},
+      chartData: [],
     };
   },
   mounted() {
@@ -40,13 +41,39 @@ export default {
     });
   },
   watch: {
-    datas() {
-      echarts.dispose(document.getElementById(this.id));
+    WorksheetNum() {
+      // echarts.dispose(document.getElementById(this.id));
       this.drawLine();
     },
   },
   methods: {
+    // 将传入的数据转换为echarts使用的data
+    transData() {
+      if (this.WorksheetNum.length !== 0) {
+        this.chartData = [
+          {
+            value: this.WorksheetNum[1],
+            name: "正常工单",
+            itemStyle: { color: "#00FF00" },
+          },
+          {
+            value: this.WorksheetNum[2],
+            name: "超交期工单",
+            itemStyle: { color: "red" },
+          },
+          {
+            value: this.WorksheetNum[3],
+            name: "超负荷工单",
+            itemStyle: { color: "yellow" },
+          },
+        ];
+      } else {
+        this.chartData = [];
+      }
+    },
     drawLine() {
+      echarts.dispose(document.getElementById(this.id));
+      this.transData();
       // 基于准备好的dom，初始化echarts实例
       this.myChart = echarts.init(document.getElementById(this.id));
 
@@ -64,7 +91,7 @@ export default {
             type: "pie",
             radius: ["40%", "70%"],
             avoidLabelOverlap: false,
-            data: this.datas,
+            data: this.chartData,
             itemStyle: {
               borderRadius: 10,
               borderColor: "#fff",
