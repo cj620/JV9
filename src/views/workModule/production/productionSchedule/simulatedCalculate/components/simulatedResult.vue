@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper :footer="false" class="pageWrapper">
+  <div>
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
       <!-- operation操作列 -->
@@ -10,7 +10,7 @@
       <Action size="mini" slot="btn-list" :actions="getListTableBtnModel">
       </Action>
     </JvTable>
-  </PageWrapper>
+  </div>
 </template>
 <script>
 // 引入表格类
@@ -75,8 +75,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-.table-header {
-  padding: 0 10px;
-}
-</style>
+<style scoped></style>
