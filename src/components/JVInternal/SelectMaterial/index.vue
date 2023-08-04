@@ -101,7 +101,7 @@ export default {
   },
 
   methods: {
-    ConfigurationData() {王爱钦
+    ConfigurationData() {
       getAllItemType().then((res) => {
         this.ItemTypeList = res.Items;
         this.ItemTypeList.unshift({
