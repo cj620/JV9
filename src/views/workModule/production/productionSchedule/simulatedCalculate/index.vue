@@ -36,18 +36,18 @@
             plain
             size="small"
             style="margin-left: 10px"
-            @click="clear"
-            >{{ $t("Generality.Ge_Reset") }}</el-button
+            @click="simulatedCalculate"
+            >{{ $t("production.Pr_SimulatedCalculate") }}</el-button
           >
           <el-button
             plain
             size="small"
             style="margin-left: 10px"
-            @click="simulatedCalculate"
-            >{{ $t("production.Pr_SimulatedCalculate") }}</el-button
+            @click="Refresh"
+            >{{ $t("Generality.Ge_Refresh") }}</el-button
           >
         </el-form-item>
-        <el-tabs type="border-card">
+        <el-tabs type="border-card" @tab-click="handleTabClick">
           <!-- 模拟排程tabs -->
           <el-tab-pane :label="$t('production.Pr_SimulatedAPS')">
             <el-row :gutter="20">
@@ -88,21 +88,19 @@
               </el-col>
             </el-row>
           </el-tab-pane>
-          <el-tab-pane
-            :label="$t('production.Pr_ConventionalAlgorithm')"
-            class="ConventionalAlgorithm"
-            ><SimulatedResult
+          <el-tab-pane :label="$t('production.Pr_ConventionalAlgorithm')"
+            ><SimulatedResult :params="params[0]"
           /></el-tab-pane>
           <el-tab-pane :label="$t('production.Pr_CRValueScheduling')"
-            >CR值排程</el-tab-pane
-          >
+            ><SimulatedResult :params="params[1]"
+          /></el-tab-pane>
           <el-tab-pane :label="$t('production.Pr_ShortestDurationAlgorithm')"
-            >最短工期</el-tab-pane
-          >
+            ><SimulatedResult :params="params[2]"
+          /></el-tab-pane>
           <el-tab-pane
             :label="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
-            >最早交货期</el-tab-pane
-          >
+            ><SimulatedResult :params="params[3]"
+          /></el-tab-pane>
         </el-tabs>
       </el-form>
     </div>
@@ -131,41 +129,78 @@ export default {
       pieChartData: [],
       // 加载
       loading: true,
+      // 计算结果入参
+      params: [{}, {}, {}, {}],
+      //默认选中第一个标签页
+      currentTabName: "0",
+      // 测试数据
+      testData: {
+        AlgorithmType: "ClassicalAlgorithm",
+        OverdueCount: 2,
+        OverloadBills: [],
+        OverloadCount: 3,
+        TotalCount: 10,
+        CreationDate: "2023-08-04T12:00:35.2",
+      },
     };
   },
   created() {
     this.getData();
   },
+  // 监控标签页是否切换
+  watch: {
+    currentTabName(newVue, oldVue) {
+      newVue == 0 ? this.getData() : this.postParams(newVue);
+      // this.postParams(newVue);
+    },
+  },
   methods: {
+    handleTabClick(tab) {
+      this.currentTabName = tab.paneName;
+    },
+    // 给对应标签页接口传入参
+    postParams(name) {
+      const index = name - 1;
+      const algorithmType = index;
+      if (index != -1) {
+        this.params.splice(index, 1, {
+          Keyword: "",
+          AlgorithmType: algorithmType,
+        });
+      }
+    },
     getData() {
       pie_chart().then((res) => {
         this.pieChartData = res;
         this.loading = false;
+        this.calculatedData = res;
       });
     },
-    // 清空多选框与重置数据
-    clear() {
+    // 刷新
+    Refresh() {
+      this.getData();
       this.value = [];
-      this.calculatedData = [{}, {}, {}, {}];
-      this.simulatedCalculate();
     },
     // 赋值
     simulatedCalculate() {
       this.value.forEach((item) => {
-        this.calculatedData.splice(item, 1, this.pieChartData[item]);
+        // this.calculatedData.splice(item, 1, this.pieChartData[item]);
+        this.calculatedData.splice(item, 1, this.testData);
+        console.log(`第${item + 1}个发生了变化`);
       });
+      this.value = [];
+      console.log("this.calculatedData::: ", this.calculatedData);
       // 获取未选中方法并重置其组件获取数据
-      let list = this.dataNum.filter((num) => !this.value.includes(num));
-      list.forEach((item) => {
-        this.calculatedData.splice(item, 1, {});
-      });
-      // console.log("this.calculatedData::: ", this.calculatedData);
+      // let list = this.dataNum.filter((num) => !this.value.includes(num));
+      // list.forEach((item) => {
+      //   this.calculatedData.splice(item, 1, {});
+      // });
     },
   },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .el-form-item {
   margin-bottom: 4px;
 }
@@ -174,8 +209,7 @@ export default {
   background-color: #ffffff;
   padding: 6px 10px;
 }
-/* .simulatedCalculate-page-chartwrapper {
-  padding: 0 20px;
-  height: 50%;
-} */
+::v-deep .simulatedCalculate-page .el-tabs--border-card > .el-tabs__content {
+  padding: 0 !important;
+}
 </style>
