@@ -9,16 +9,20 @@
 		padding: 6px 10px;
 		border-radius: 4px;
 		align-items: center;">
-            <div>
-                单位：
+            <div style="display: flex; align-items: center;">
+                <span style="font-size: 14px;">单位：</span>
                 <el-select style="width: 66px;" @change="setGanttZoom" v-model="unitOfTime" placeholder="请选择单位">
 					<el-option v-for="item in unitOptions" :key="item.value" :label="item.label" :value="item.value">
 					</el-option>
 				</el-select>
+                <slot name="gatHeaderLeft"></slot>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <slot name="gntHeaderRight"></slot>
             </div>
         </div>
 
-        <div class="ganttContainer">
+        <div class="ganttContainer" v-loading="loading">
             <div class="date-header" :style="{
                 width: cWidth + 'px',
                 height: tableHeaderHeight+'px',
@@ -26,7 +30,7 @@
             }">
                 <div class="date-header-item" :style="{height: tableHeaderHeight/2+'px'}">
                     <div class="date-header-cell" v-for="(item, i) in TableDateTopList" :key="i"
-                    :style="{width: gannt.cellWidth * item.cell+'px'}"
+                    :style="{width: gantt.cellWidth * item.number+'px'}"
                     >
                         <span> {{ item.text }}</span>
                     </div>
@@ -35,7 +39,7 @@
                      <!-- <div v-for="index in Object.keys(deferList).length" style="display:flex" v-if="defer(index)">
                         <div class="date-header-cell"
                         v-for="(item, i) in TableDateBottomList.slice(deferList[index], deferList[index+1])" :key="i"
-                            :style="{width: gannt.cellWidth+'px'}"
+                            :style="{width: gantt.cellWidth+'px'}"
                             >
                             {{ item < 10 ? '0'+item : item }}
                         </div>
@@ -43,13 +47,14 @@
 
                     <div class="date-header-cell"
                         v-for="(item, i) in TableDateBottomList" :key="i"
-                            :style="{width: gannt.cellWidth+'px'}"
+                            :style="{width: gantt.cellWidth+'px'}"
                             >
                             {{ item < 10 ? '0'+item : item }}
                     </div>
 
                 </div>
             </div>
+
             <div class="header-table-top"
             :style="{
                 height: tableHeaderHeight+'px',
@@ -71,13 +76,18 @@
                     :style="{height: tasksHeight - tasksPadding*2+'px'}"
                     >
                         <div v-for="(jtem, j) in columns" :key="jtem.name"
-                        :style="{width: jtem.width+'px',height:tasksHeight - tasksPadding*2+'px'}"
+                        :style="{
+                            width: jtem.width+'px',
+                            height:tasksHeight - tasksPadding*2+'px'
+                        }"
                         >
                             <span v-if="jtem.name === 'ImageUrl'">
                                 <el-image
                                 :style="{height:tasksHeight - tasksPadding*2 - 4+'px'}"
+                                :preview-src-list="[item[jtem.name]]"
                                 :src="item[jtem.name]" lazy></el-image>
                             </span>
+                            <span v-else-if="isNaN(item[jtem.name]) && !isNaN(Date.parse(item[jtem.name]))">{{ timeFormat(item[jtem.name]) }}</span>
                             <span v-else>{{ item[jtem.name] }}</span>
                         </div>
                     </div>
@@ -92,10 +102,15 @@
 </template>
 
 <script>
-import data from './data';
+import { timeFormat } from "@/jv_doc/utils/time";
+import { getTimeRangeList } from "@/jv_doc/utils/time/getTimeRangeList";
 import { CreateGantt } from './createGantt';
 export default {
     props: {
+        result: {
+            type: Object,
+            default: {}
+        },
         columns: {
             type: Array,
             default: []
@@ -106,18 +121,26 @@ export default {
         },
         tasksHeight: { // 任务条高度
             type: Number,
-            default: 40,
+            default: 54,
         },
         tasksPadding: { // 任务条padding值
             type: Number,
-            default: 6,
+            default: 8,
         },
+        taskRadius: {
+            type: Number | String,
+            default: null,
+        },
+        loading: {
+            type: Boolean,
+            default: false,
+        }
     },
     data() {
         return {
             cWidth: 2000,
             cHeight: '82vh',
-            gannt: null,
+            gantt: null,
             displayPriority: 0,
             tableHeaderWidth: 0, // 表格头部的宽度
             TableDateTopList: [], // 时间表头列表
@@ -135,38 +158,33 @@ export default {
 				label: '分'
 			}],
             unitOfTime: 'week',
-            deferList: {}
-            // dateList
+            deferList: {},
+            TimeRangeList: [],
         }
     },
     created() {
-        
+        let radius = this.taskRadius !== null ? this.taskRadius : (this.tasksHeight - this.tasksPadding)/2
+
         const options = {
             columns: this.columns,
-            // cWidth: this.cWidth,
             cHeight: this.cHeight,
             tasksHeight: this.tasksHeight,
             tasksPadding: this.tasksPadding,
             unitOfTime: this.unitOfTime,
+            taskRadius: radius,
         }
-        this.gannt = new CreateGantt(options);
-        this.gannt.init();
-        this.setTableDateList();
-        // this.cellWidth = this.gannt.cellWidth * 7;
+        this.gantt = new CreateGantt(options);
+        
+        this.gantt.init();
+        // this.cellWidth = this.gantt.cellWidth * 7;
         this.tableHeaderWidth = this.columns.map(item => item.width).reduce((a, b) => { return a + b });
         this.setDeferList();
     },
     mounted() {
-        setTimeout(() => {
-            this.list = data.data.list;
-            this.gannt.tasks = this.list;
-            let canvasParent = document.getElementById('canvas_parent')
-            this.gannt.initTaskDate(canvasParent);
-
-        }, 1000);
         
     },
     methods: {
+        timeFormat,
         runDisplayPriority(index) {
             const step = () => {
                 requestAnimationFrame(() => {
@@ -184,30 +202,30 @@ export default {
         },
         setTableDateList() {
             if (this.unitOfTime === "week") {
-                this.cWidth = this.gannt.weekCellArr.length * this.gannt.cellWidth * 7;
-                this.TableDateTopList = this.gannt.weekCellArr;
-                this.TableDateBottomList = this.gannt.dayArr;
-            } else if (this.unitOfTime === "day") {
-                this.cWidth = this.gannt.dayArr.length * this.gannt.cellWidth;
+                this.cWidth = this.TimeRangeList.weekDetails * this.gantt.cellWidth * 7;
+                this.TableDateTopList = this.TimeRangeList.weekDetails;
+                this.TableDateBottomList = this.TimeRangeList.dayArr;
             } else if (this.unitOfTime === "hour") {
-                this.cWidth = this.gannt.hourArr.length * 48;
-                this.TableDateTopList = this.gannt.dayCellArr;
-                this.TableDateBottomList = this.gannt.hourArr;
+                this.cWidth = this.TimeRangeList.hourArr.length * 48;
+                this.TableDateTopList = this.TimeRangeList.dayDetails;
+                this.TableDateBottomList = this.TimeRangeList.hourArr;
             } else if (this.unitOfTime === "minute") {
-                this.cWidth = this.gannt.minuteArr.length * 48;
-                this.TableDateTopList = this.gannt.hourCellArr;
-                this.TableDateBottomList = this.gannt.minuteArr;
+                this.cWidth = this.TimeRangeList.minuteArr.length * 48;
+                console.log('this.TimeRangeList.minuteArr.length::: ', this.TimeRangeList.minuteArr.length);
+                console.log('this.cWidth::: ', this.cWidth);
+                this.TableDateTopList = this.TimeRangeList.hourDetails;
+                this.TableDateBottomList = this.TimeRangeList.minuteArr;
             }
             this.displayPriority = 0;
-            
+           
             // this.runDisplayPriority(); 白屏优化
         },
         setGanttZoom(val) {
-            this.setTableDateList();
-            this.gannt.setCellWidth(val);
+            this.gantt.setCellWidth(val); // 先计算cell多长
+            this.setTableDateList(); // 再计算datetable长度
             let canvasParent = document.getElementById('canvas_parent');
-            this.gannt.removeTask(canvasParent);
-            this.gannt.createTask(canvasParent);
+            this.gantt.removeTask(canvasParent);
+            this.gantt.createTask(canvasParent);
         },
         setDeferList() {
             let len = this.TableDateBottomList.length;
@@ -220,13 +238,29 @@ export default {
             this.deferList[length] = len % 1000 + this.deferList[length - 1]
         }
     },
-    computed: {
+    watch: {
+        result(val) {
+            this.gantt.MaximumTime = timeFormat(val.MaximumTime, 'yyyy-MM-dd hh:mm:ss'); // 赋值 最前面的时间 （起）
+            this.gantt.MinimumTime = timeFormat(val.MinimumTime, 'yyyy-MM-dd hh:mm:ss'); // 赋值 最后面的时间 （止）
+            this.gantt.getCalendarData(); // 获取日历数据
 
+            this.TimeRangeList = getTimeRangeList(val.MinimumTime, val.MaximumTime);
+
+            this.setTableDateList(); // 赋值日期列表和每一格的长度 用来渲染
+            this.list = val.Items; // 赋值表头列表
+            this.gantt.tasks = this.list; // 赋值task列表
+            this.$nextTick(() => {
+                let canvasParent = document.getElementById('canvas_parent')
+                this.gantt.initTaskDate(canvasParent);
+                this.setGanttZoom(this.unitOfTime);
+            })
+        }
     }
 }
 </script>
 
 <style scoped lang="scss">
+@import './custom-gantt.css';
 .c-page-wrapper {
     overflow: hidden;
 }

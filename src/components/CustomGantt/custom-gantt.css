@@ -1,0 +1,5 @@
+.custom-task:hover{
+    cursor: pointer;
+    filter:brightness(110%) contrast(105%);
+}
+

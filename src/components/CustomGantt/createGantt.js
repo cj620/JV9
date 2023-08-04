@@ -8,7 +8,7 @@ export class CreateGantt {
         this.maxMonthNumber = 3; // 最大显示月份
         this.monthArr = []; // 月份数组
 
-        this.weekArr = []; // 周数组
+        this.weekDetails = []; // 周数组
         this.weekCellArr = []; // 周占的格子的数组，例如7.1是星期六，那么周六周日两天就得为1格，后面7天为1格，如果最后一个月是星期3，那么周一周二周三 三天为一格
 
         this.dayArr = []; // 天份数据
@@ -21,9 +21,12 @@ export class CreateGantt {
         // this.minuteCellArr = [];
         this.stepSize = 0.05; // 根据当前单位计算每分钟占多少像素
         this.cellWidth = 72;
-        // this.setCellWidth(); // 根据当前单位设置一格宽度
-        this.getCalendarData(); // 获取日历数据
+
+        this.taskRadius = options.taskRadius;
+        this.MaximumTime = new Date(); // 最前面的时间 （起）
+        this.MinimumTime = new Date(); // 最后面的时间 （止）
         
+        // this.getCalendarData(); // 获取日历数据
 
         /** =============================此处用来定义默认值============================= **/
         this.tasksHeight = options.tasksHeight || 50; // 任务条高度
@@ -79,7 +82,7 @@ export class CreateGantt {
                 }
                 for (let i = 1; i <= days; i++) {
                     let wk = new Date(`${item < this.monthArr[0] ? year + 1 : year}-${item >= 10 ? item : '0' + item}-${i < 10 ? '0' + i : i}`).getUTCDay();
-                    this.weekArr.push(wk ? wk : 7);
+                    this.weekDetails.push(wk ? wk : 7);
                 }
             } else if (smallMonth.indexOf(item) !== -1) {
                 days = 30;
@@ -92,7 +95,7 @@ export class CreateGantt {
                 }
                 for (let i = 1; i <= days; i++) {
                     let wk = new Date(`${item < this.monthArr[0] ? year + 1 : year}-${item >= 10 ? item : '0' + item}-${i < 10 ? '0' + i : i}`).getUTCDay();
-                    this.weekArr.push(wk ? wk : 7);
+                    this.weekDetails.push(wk ? wk : 7);
                 }
             }
             if (i) {
@@ -220,7 +223,6 @@ export class CreateGantt {
     }
     setCellWidth(unit) {
         this.unitOfTime = unit;
-        console.log('this.unitOfTime::: ', this.unitOfTime);
         if (this.unitOfTime === "week" || this.unitOfTime === "day") {
             this.stepSize = 72/24/60
             this.cellWidth = 72
@@ -258,6 +260,7 @@ export class CreateGantt {
                 taskRef.style.height = height+'px';
                 taskRef.style.background = '#2a9bf1';
                 taskRef.style.position = 'absolute';
+                taskRef.style.borderRadius = this.taskRadius+'px';
                 parent.appendChild(taskRef);
             })
         })
@@ -265,4 +268,21 @@ export class CreateGantt {
     removeTask(parent) {
         parent.innerHTML = ''
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }
