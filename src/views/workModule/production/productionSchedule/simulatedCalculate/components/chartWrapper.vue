@@ -87,11 +87,11 @@ export default {
 .chart-title {
   font-size: 16px;
   font-weight: 500;
-  margin: 10px 10% 5px 10%;
+  margin: 2% 6% 1% 6%;
 }
 .simulatedCalculate-page-chart {
   border: 2px solid #d3d3d3;
-  margin: 0 6% 0 6%;
+  margin: 1% 6% 2% 6%;
 }
 .chart-description {
   font-size: 14px;

@@ -131,6 +131,14 @@ export default {
       pieChartData: [],
       // 加载
       loading: true,
+      // 测试数据
+      testData: {
+        AlgorithmType: "ClassicalAlgorithm",
+        OverdueCount: 2,
+        OverloadBills: [],
+        OverloadCount: 3,
+        TotalCount: 10,
+      },
     };
   },
   created() {
@@ -141,31 +149,33 @@ export default {
       pie_chart().then((res) => {
         this.pieChartData = res;
         this.loading = false;
+        this.calculatedData = res;
       });
     },
-    // 清空多选框与重置数据
+    // 重置
     clear() {
+      this.getData();
       this.value = [];
-      this.calculatedData = [{}, {}, {}, {}];
-      this.simulatedCalculate();
     },
     // 赋值
     simulatedCalculate() {
       this.value.forEach((item) => {
-        this.calculatedData.splice(item, 1, this.pieChartData[item]);
+        // this.calculatedData.splice(item, 1, this.pieChartData[item]);
+        this.calculatedData.splice(item, 1, this.testData);
+        console.log(`第${item + 1}个发生了变化`);
       });
+      console.log("this.calculatedData::: ", this.calculatedData);
       // 获取未选中方法并重置其组件获取数据
-      let list = this.dataNum.filter((num) => !this.value.includes(num));
-      list.forEach((item) => {
-        this.calculatedData.splice(item, 1, {});
-      });
-      // console.log("this.calculatedData::: ", this.calculatedData);
+      // let list = this.dataNum.filter((num) => !this.value.includes(num));
+      // list.forEach((item) => {
+      //   this.calculatedData.splice(item, 1, {});
+      // });
     },
   },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .el-form-item {
   margin-bottom: 4px;
 }
@@ -174,8 +184,7 @@ export default {
   background-color: #ffffff;
   padding: 6px 10px;
 }
-/* .simulatedCalculate-page-chartwrapper {
-  padding: 0 20px;
-  height: 50%;
-} */
+::v-deep .simulatedCalculate-page .el-tabs--border-card > .el-tabs__content {
+  padding: 0 !important;
+}
 </style>
