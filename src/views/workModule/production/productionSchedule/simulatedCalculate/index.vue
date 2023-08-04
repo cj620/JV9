@@ -36,15 +36,15 @@
             plain
             size="small"
             style="margin-left: 10px"
-            @click="clear"
-            >{{ $t("Generality.Ge_Reset") }}</el-button
+            @click="simulatedCalculate"
+            >{{ $t("production.Pr_SimulatedCalculate") }}</el-button
           >
           <el-button
             plain
             size="small"
             style="margin-left: 10px"
-            @click="simulatedCalculate"
-            >{{ $t("production.Pr_SimulatedCalculate") }}</el-button
+            @click="Refresh"
+            >{{ $t("Generality.Ge_Refresh") }}</el-button
           >
         </el-form-item>
         <el-tabs type="border-card" @tab-click="handleTabClick">
@@ -176,8 +176,8 @@ export default {
         this.calculatedData = res;
       });
     },
-    // 重置
-    clear() {
+    // 刷新
+    Refresh() {
       this.getData();
       this.value = [];
     },
@@ -188,6 +188,7 @@ export default {
         this.calculatedData.splice(item, 1, this.testData);
         console.log(`第${item + 1}个发生了变化`);
       });
+      this.value = [];
       console.log("this.calculatedData::: ", this.calculatedData);
       // 获取未选中方法并重置其组件获取数据
       // let list = this.dataNum.filter((num) => !this.value.includes(num));
