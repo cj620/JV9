@@ -132,7 +132,7 @@ export default {
       // 计算结果入参
       params: [{}, {}, {}, {}],
       //默认选中第一个标签页
-      currentTabName: 1,
+      currentTabName: "0",
       // 测试数据
       testData: {
         AlgorithmType: "ClassicalAlgorithm",
@@ -149,7 +149,8 @@ export default {
   // 监控标签页是否切换
   watch: {
     currentTabName(newVue, oldVue) {
-      this.postParams(newVue);
+      newVue == 0 ? this.getData() : this.postParams(newVue);
+      // this.postParams(newVue);
     },
   },
   methods: {
