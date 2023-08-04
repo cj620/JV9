@@ -62,10 +62,10 @@ export const tableConfig = [
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
   },
-  /*计划资源*/
+  /*计划设备*/
   {
-    prop: "ResourceGroup",
-    label: i18n.t("Generality.Ge_Resource"),
+    prop: "PlanDevice",
+    label: i18n.t("production.Pr_PlanningDevices"),
     // width: "95px",
   },
   /*计划开始*/

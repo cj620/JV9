@@ -27,8 +27,6 @@ export default {
   created() {
     // 创建表格实例
     this.tableObj = new Table();
-    // this.tableObj.getData({ Keyword: "", AlgorithmType: 0 });
-    console.log("this.params::: ", this.params);
   },
   watch: {
     params() {
