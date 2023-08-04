@@ -47,7 +47,7 @@
             >{{ $t("production.Pr_SimulatedCalculate") }}</el-button
           >
         </el-form-item>
-        <el-tabs type="border-card">
+        <el-tabs type="border-card" @tab-click="handleTabClick">
           <!-- 模拟排程tabs -->
           <el-tab-pane :label="$t('production.Pr_SimulatedAPS')">
             <el-row :gutter="20">
@@ -88,21 +88,19 @@
               </el-col>
             </el-row>
           </el-tab-pane>
-          <el-tab-pane
-            :label="$t('production.Pr_ConventionalAlgorithm')"
-            class="ConventionalAlgorithm"
-            ><SimulatedResult
+          <el-tab-pane :label="$t('production.Pr_ConventionalAlgorithm')"
+            ><SimulatedResult :params="params[0]"
           /></el-tab-pane>
           <el-tab-pane :label="$t('production.Pr_CRValueScheduling')"
-            >CR值排程</el-tab-pane
-          >
+            ><SimulatedResult :params="params[1]"
+          /></el-tab-pane>
           <el-tab-pane :label="$t('production.Pr_ShortestDurationAlgorithm')"
-            >最短工期</el-tab-pane
-          >
+            ><SimulatedResult :params="params[2]"
+          /></el-tab-pane>
           <el-tab-pane
             :label="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
-            >最早交货期</el-tab-pane
-          >
+            ><SimulatedResult :params="params[3]"
+          /></el-tab-pane>
         </el-tabs>
       </el-form>
     </div>
@@ -131,6 +129,10 @@ export default {
       pieChartData: [],
       // 加载
       loading: true,
+      // 计算结果入参
+      params: [{}, {}, {}, {}],
+      //默认选中第一个标签页
+      currentTabName: 1,
       // 测试数据
       testData: {
         AlgorithmType: "ClassicalAlgorithm",
@@ -144,7 +146,27 @@ export default {
   created() {
     this.getData();
   },
+  // 监控标签页是否切换
+  watch: {
+    currentTabName(newVue, oldVue) {
+      this.postParams(newVue);
+    },
+  },
   methods: {
+    handleTabClick(tab) {
+      this.currentTabName = tab.paneName;
+    },
+    // 给对应标签页接口传入参
+    postParams(name) {
+      const index = name - 1;
+      const algorithmType = index;
+      if (index != -1) {
+        this.params.splice(index, 1, {
+          Keyword: "",
+          AlgorithmType: algorithmType,
+        });
+      }
+    },
     getData() {
       pie_chart().then((res) => {
         this.pieChartData = res;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 表格 -->
-    <JvTable ref="BillTable" class="wrapper" :table-obj="tableObj"> </JvTable>
+    <JvTable class="wrapper" :table-obj="tableObj"> </JvTable>
   </div>
 </template>
 <script>
@@ -10,6 +10,14 @@ import { Table } from "./resultConfig";
 export default {
   // 页面的标识
   name: "Pr_ConventionalAlgorithm",
+  props: {
+    params: {
+      type: Object,
+      default() {
+        return null;
+      },
+    },
+  },
   data() {
     return {
       // 表格实例
@@ -19,7 +27,14 @@ export default {
   created() {
     // 创建表格实例
     this.tableObj = new Table();
-    this.tableObj.getData({ Keyword: "", AlgorithmType: 0 });
+    // this.tableObj.getData({ Keyword: "", AlgorithmType: 0 });
+    console.log("this.params::: ", this.params);
+  },
+  watch: {
+    params() {
+      console.log("this.params::: ", this.params);
+      this.tableObj.getData(this.params);
+    },
   },
   methods: {},
 };
