@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 100%;">
+    <div style="width: 100%;position: relative;">
         <div style="
 		margin-bottom: 10px;
 		width: 100%;
@@ -22,7 +22,7 @@
                 <slot name="gntHeaderRight"></slot>
             </div>
         </div>
-
+        <div class="custom-border-box" :style="{left: tableHeaderWidth+30+'px',height: ganttContainerHeight+'px'}"></div>
         <div class="ganttContainer" :style="{height: ganttContainerHeight+'px'}"  v-loading="loading">
             <div class="date-header" :style="{
                 width: cWidth + 'px',
@@ -69,7 +69,7 @@
                     {{ item.label }}
                 </div>
             </div>
-            <div class="header-table" :style="{ width: tableHeaderWidth + 40 +'px',height: ganttContainerHeight-tableHeaderHeight-7+'px' }">
+            <div class="header-table" :style="{ width: tableHeaderWidth + 40 +'px'}">
                 <div v-for="(item, i) in list" :key="item.Id"
                 class="header-table-item"
                 :style="{width: '100%', height: tasksHeight+'px'}"
@@ -140,6 +140,10 @@ export default {
         defaultUnitOfTime: { // 默认以小时单位呈现甘特图
             type: String,
             default: 'hour',
+        },
+        ganttContainerHeight: {
+            type: Number,
+            default: 800
         }
     },
     data() {
@@ -166,9 +170,6 @@ export default {
             unitOfTime: this._props.defaultUnitOfTime,
             deferList: {},
             TimeRangeList: [],
-            ganttContainerHeight: 800,
-            ganttContainerWidth: 1200,
-            timeout: null,
         }
     },
     created() {
@@ -190,16 +191,13 @@ export default {
         this.setDeferList();
     },
     mounted() {
-        let mainContent = document.querySelector('.main-content');
-        this.ganttContainerHeight = mainContent.clientHeight-80; // 甘特图盒子的高度
-        this.ganttContainerWidth = mainContent.clientWidth - 40; // 甘特图盒子的宽度
-        console.log('mainContent.clientWidth::: ', mainContent.clientWidth);
-        window.onresize = (e) => {
-            this.debounce(() => {
-                this.ganttContainerHeight = mainContent.clientHeight-80;
-                this.ganttContainerWidth = mainContent.clientWidth - 40;
-            },100)
-        }
+        // let mainContent = document.querySelector('.main-content');
+        // this.ganttContainerHeight = mainContent.clientHeight-80; // 甘特图盒子的高度
+        // window.onresize = (e) => {
+        //     this.debounce(() => {
+        //         this.ganttContainerHeight = mainContent.clientHeight-80;
+        //     },100)
+        // }
     },
     methods: {
         timeFormat,
@@ -253,12 +251,7 @@ export default {
             let length = (len / 1000).toFixed(0) -0 + 1
             this.deferList[length] = len % 1000 + this.deferList[length - 1]
         },
-        debounce(func, wait) {
-			if (this.timeout) {
-				clearTimeout(this.timeout);
-			}
-			this.timeout = setTimeout(func, wait);
-		},
+        
     },
     watch: {
         result(val) {
@@ -285,7 +278,12 @@ export default {
 .c-page-wrapper {
     overflow: hidden;
 }
-
+.custom-border-box{
+    position: absolute;
+    width: 10px;
+    box-shadow: 6px 0px 6px 0px #e0e0e0;
+    z-index: 30;
+}
 .ganttContainer {
     width: 100%;
     background-color: #fff;
@@ -299,7 +297,7 @@ export default {
         left: 0;
         // border-right: 1px solid #ddd;
         z-index: 10;
-        box-shadow: 2px 6px 6px 1px #e0e0e0;
+        // box-shadow: 2px 6px 6px 1px #e0e0e0;
         background-color: #fff;
         &-item{
             display: flex;
@@ -330,7 +328,7 @@ export default {
     }
     .header-table-top{
         // border-right: 1px solid #ddd;
-        box-shadow: 4px 0px 6px 1px #e0e0e0;
+        // box-shadow: 4px 0px 6px 1px #e0e0e0;
         background-color: #fff;
         position: sticky;
         left: 0;

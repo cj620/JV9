@@ -728,6 +728,14 @@ const en = {
   },
   //生产
   production: {
+    Pr_Unlabeled: "Unlabeled",
+    Pr_Tagged: "Tagged",
+    Pr_OldWorkOrderMark: "OldWorkOrderMark",
+    Pr_DaysOverdue: "DaysOverdue",
+    Pr_DaysNotReported: "DaysNotReported",
+    Pr_LastReportedDate: "LastReportedDate",
+    Pr_ProcessInformation: "ProcessInformation",
+    Pr_WorkOrderNumber: "WorkOrderNumber",
     Pr_LifeSetting: "Lifetime Setting",
     Pr_IntervalDays: "Interval Days",
     Pr_CreationDate: "Creation Date",

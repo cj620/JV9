@@ -716,6 +716,14 @@ const cn = {
   },
   //生产
   production: {
+    Pr_Unlabeled: "未标记",
+    Pr_Tagged: "已标记",
+    Pr_OldWorkOrderMark: "陈旧工单标记",
+    Pr_DaysOverdue: "超交期天数",
+    Pr_DaysNotReported: "未报工天数",
+    Pr_LastReportedDate: "最后报工日期",
+    Pr_ProcessInformation: "加工信息",
+    Pr_WorkOrderNumber: "工单编号",
     Pr_LifeSetting: "寿命设定",
     Pr_IntervalDays: "间隔天数",
     Pr_CreationDate: "创建日期",
