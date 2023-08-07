@@ -60,7 +60,7 @@
             </div>
             <div class="chart-row">
               <!-- 最早交货期 -->
-              <div :span="12" class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   :title="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
                   :datas="calculatedData[2]"
@@ -68,7 +68,7 @@
                 ></ChartWrapper>
               </div>
               <!-- CR值排程 -->
-              <div :span="12" class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   :title="$t('production.Pr_CRValueScheduling')"
                   :datas="calculatedData[3]"
