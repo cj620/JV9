@@ -70,7 +70,6 @@ export default {
         this.WorksheetNum[4],
         "yyyy-MM-dd hh:mm:ss"
       );
-      console.log(this.CreationDate);
     },
     load() {
       if (Object.keys(this.datas).length == 0) {

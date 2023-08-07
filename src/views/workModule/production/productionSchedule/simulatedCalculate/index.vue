@@ -110,6 +110,7 @@
 <script>
 import ChartWrapper from "./components/chartWrapper.vue";
 import { pie_chart } from "@/api/workApi/production/aps";
+import { simulation_calculate } from "@/api/workApi/production/aps";
 import SimulatedResult from "./components/simulatedResult.vue";
 export default {
   name: "index",
@@ -119,6 +120,8 @@ export default {
   },
   data() {
     return {
+      //
+      StartDate: new Date(),
       // 多选值
       value: [],
       // chartWrapper接收数据
@@ -183,18 +186,20 @@ export default {
     },
     // 赋值
     simulatedCalculate() {
+      this.loading = true;
+      let arr = [];
       this.value.forEach((item) => {
-        // this.calculatedData.splice(item, 1, this.pieChartData[item]);
-        this.calculatedData.splice(item, 1, this.testData);
-        console.log(`第${item + 1}个发生了变化`);
+        // this.calculatedData.splice(item, 1, this.testData);
+        arr.push(item);
       });
-      this.value = [];
-      console.log("this.calculatedData::: ", this.calculatedData);
-      // 获取未选中方法并重置其组件获取数据
-      // let list = this.dataNum.filter((num) => !this.value.includes(num));
-      // list.forEach((item) => {
-      //   this.calculatedData.splice(item, 1, {});
-      // });
+      simulation_calculate({
+        StartDate: this.StartDate,
+        AlgorithmType: arr,
+      }).then((res) => {
+        this.loading == false;
+        this.Refresh();
+      });
+      console.log("arr::: ", arr);
     },
   },
 };
