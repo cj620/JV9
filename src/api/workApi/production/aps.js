@@ -82,3 +82,11 @@ export function table_list(data) {
     data,
   });
 }
+// 计算模拟排程
+export function simulation_calculate(data) {
+  return request({
+    url: "/simulation_scheduling/calculate",
+    method: "post",
+    data,
+  });
+}
