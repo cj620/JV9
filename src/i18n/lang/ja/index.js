@@ -1083,7 +1083,6 @@ const ja = {
     Design: "せっけい",
     Project: "プロジェクト",
     Production: "せいさん",
-    Basics: "きそ",
     Auto_create_pr_on_NSM_name:
       "非標準品目の購買依頼を自動的に作成できるかどうか",
     Auto_create_pr_on_NSM_desc:
@@ -1107,8 +1106,6 @@ const ja = {
     Standard_employee_work_time_desc: "従業員の1日の勤務時間（時間単位）",
     User_station_name: "ユーザーサイト",
     User_station_desc: "ユーザーサイトの構成",
-    User_web_socket: "ユーザーメッセージ",
-    User_web_socket_desc: "ユーザーメッセージ構成",
     Ftp_file_management_admin_name: "プロジェクトファイル管理者ロールの設定",
     Ftp_file_management_admin_desc:
       "この役割は、プロジェクトファイルのルートディレクトリに読み書きアクセス権を持つことができます ",

@@ -1109,7 +1109,6 @@ const en = {
     Design: "Design",
     Project: "Project",
     Production: "Production",
-    Basics: "Basics",
     Auto_create_pr_on_NSM_name: "Auto create PR on non-standard material",
     Auto_create_pr_on_NSM_desc:
       "Auto create purchase application sheet on non-standard material",
@@ -1133,8 +1132,6 @@ const en = {
       "The daily working hours of employees, in hours",
     User_station_name: "User site",
     User_station_desc: "User site configuration",
-    User_web_socket: "User message",
-    User_web_socket_desc: "User message configuration",
     Ftp_file_management_admin_name: "project file manager  role setup",
     Ftp_file_management_admin_desc:
       "The role has read-write permission of root directory of project file",
