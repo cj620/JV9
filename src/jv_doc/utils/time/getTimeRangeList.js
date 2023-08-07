@@ -147,7 +147,7 @@ export function getTimeRangeList(MinimumTime, MaximumTime) {
     dayDetails.forEach((item, i) => {
         for(let j = 1; j < 7;j++) {
             // 时间结束的位置
-            if(item.week === 1 && !dayDetails[i+j]) {
+            if(item.week === 1 && !dayDetails[i+j] && dayDetails[i+j-1]) {
                 weekDetails.push({
                     startYear: item.year,
                     endYear: dayDetails[i+j-1].year,
@@ -160,8 +160,7 @@ export function getTimeRangeList(MinimumTime, MaximumTime) {
                     ${dayDetails[i+j-1].year}-${dayDetails[i+j-1].month<10 ? '0'+dayDetails[i+j-1].month : dayDetails[i+j-1].month}-${dayDetails[i+j-1].day<10? '0'+dayDetails[i+j-1].day: dayDetails[i+j-1].day}`
                 })
                 // 时间开始的位置
-            } else if(item.week === 7 && !dayDetails[i-j]) {
-                if(dayDetails[i-j+1]) {
+            } else if(item.week === 7 && !dayDetails[i-j] && dayDetails[i-j+1]) {
                     weekDetails.push({
                         startYear:  dayDetails[i-j+1].year,
                         endYear: item.year,
@@ -173,8 +172,6 @@ export function getTimeRangeList(MinimumTime, MaximumTime) {
                         text: `${dayDetails[i-j+1].year}-${dayDetails[i-j+1].month<10? '0'+dayDetails[i-j+1].month : dayDetails[i-j+1].month}-${dayDetails[i-j+1].day<10? '0'+dayDetails[i-j+1].day : dayDetails[i-j+1].day}  ~  
                         ${item.year}-${item.month<10?'0'+item.month:item.month}-${item.day<10 ? '0'+item.day : item.day}`
                     })
-                }
-                    
             }
         }
         // 中间部分
@@ -194,12 +191,13 @@ export function getTimeRangeList(MinimumTime, MaximumTime) {
         for (let idx = 0; idx < 24; idx++) {
             hourArr.push(idx);
             hourDetails.push({
+                number: 6,
                 year: item.year,
                 month: item.month,
                 day: item.day,
                 week: item.week,
                 hour: idx,
-                text: `${item.year}-${item.month<10?'0'+item.month: item.month}-${item.day<10?'0'+item.day:item.day}`
+                text: `${item.year}-${item.month<10?'0'+item.month: item.month}-${item.day<10?'0'+item.day:item.day} ${idx<10?'0'+idx:idx}时`
             })
         }
     })
