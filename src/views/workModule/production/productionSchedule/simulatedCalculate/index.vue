@@ -5,31 +5,17 @@
         <el-form-item :label="$t('production.Pr_SchedulingAlgorithmSelection')">
           <!-- 算法多选框 -->
           <el-select
-            v-model="value"
+            v-model="selectedType"
             multiple
             :placeholder="$t('production.Pr_PleaseSelectSchedulingAlgorithms')"
             size="small"
             style="width: 400px"
           >
-            <!-- 经典算法 -->
             <el-option
-              :label="$t('production.Pr_ConventionalAlgorithm')"
-              :value="0"
-            ></el-option>
-            <!-- 最短工期算法 -->
-            <el-option
-              :label="$t('production.Pr_ShortestDurationAlgorithm')"
-              :value="1"
-            ></el-option>
-            <!-- 最早交货期 -->
-            <el-option
-              :label="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
-              :value="2"
-            ></el-option>
-            <!-- CR值排程 -->
-            <el-option
-              :label="$t('production.Pr_CRValueScheduling')"
-              :value="3"
+              v-for="(option, index) in options"
+              :key="index"
+              :label="option.label"
+              :value="option.value"
             ></el-option>
           </el-select>
           <el-button
@@ -121,10 +107,23 @@ export default {
   },
   data() {
     return {
-      //
+      options: [
+        // 经典算法
+        { label: this.$t("production.Pr_ConventionalAlgorithm"), value: 0 },
+        // 最短工期
+        { label: this.$t("production.Pr_ShortestDurationAlgorithm"), value: 1 },
+        // 最早交货期
+        {
+          label: this.$t("production.Pr_AlgorithmForEarliestDeliveryTime"),
+          value: 2,
+        },
+        // CR值排程
+        { label: this.$t("production.Pr_CRValueScheduling"), value: 3 },
+      ],
+      // 当前时间
       StartDate: new Date(),
       // 多选值
-      value: [],
+      selectedType: [],
       // chartWrapper接收数据
       calculatedData: [{}, {}, {}, {}],
       // 算法个数
@@ -137,15 +136,6 @@ export default {
       params: [{}, {}, {}, {}],
       //默认选中第一个标签页
       currentTabName: "0",
-      // 测试数据
-      testData: {
-        AlgorithmType: "ClassicalAlgorithm",
-        OverdueCount: 2,
-        OverloadBills: [],
-        OverloadCount: 3,
-        TotalCount: 10,
-        CreationDate: "2023-08-04T12:00:35.2",
-      },
     };
   },
   created() {
@@ -155,12 +145,11 @@ export default {
   watch: {
     currentTabName(newVue, oldVue) {
       newVue == 0 ? this.getData() : this.postParams(newVue);
-      // this.postParams(newVue);
     },
   },
   computed: {
     isValueEmpty() {
-      return this.value.length === 0;
+      return this.selectedType.length === 0;
     },
   },
   methods: {
@@ -188,13 +177,13 @@ export default {
     // 刷新
     Refresh() {
       this.getData();
-      this.value = [];
+      this.selectedType = [];
     },
     // 赋值
     simulatedCalculate() {
       this.loading = true;
       let arr = [];
-      this.value.forEach((item) => {
+      this.selectedType.forEach((item) => {
         // this.calculatedData.splice(item, 1, this.testData);
         arr.push(item);
       });
