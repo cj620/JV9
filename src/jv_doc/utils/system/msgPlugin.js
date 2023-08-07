@@ -6,6 +6,8 @@ import { Notification } from "element-ui";
 import { msgEnum } from "@/enum/baseModule/msgEnum";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { timeFormat } from "@/jv_doc/utils/time";
+import { routeToDetail } from "@/jv_doc/utils/system/detailPlugin";
+
 // /** Title */
 // title: string
 
@@ -43,13 +45,14 @@ import { timeFormat } from "@/jv_doc/utils/time";
 // position?: NotificationPosition
 export function receiveMessages(event) {
   const msg = JSON.parse(event.data);
-  const { Content, Type, NotificationType, FromUser, SendTime } = msg;
+  const { Content, Type, NotificationType, FromUser, SendTime, DynamicData } =
+    msg;
   console.log(msg, "接受消息");
   Notification({
     title: msgEnum.getLabel(Type),
     dangerouslyUseHTMLString: true,
     type: NotificationType,
-    message: `<div style="margin:10px 0">${Content}</div>
+    message: `<div style="margin:10px 0 ;cursor: pointer;">${Content}</div>
     <div style="display:flex;align-items: center; justify-content: space-between;min-width:260px">
     <div style="display:flex;align-items: center;">
     <image src='${imgUrlPlugin(
@@ -59,6 +62,10 @@ export function receiveMessages(event) {
     }
     </div>
     <div>${timeFormat(SendTime, "yyyy-MM-dd hh:mm")}</div>
-    </div>`,
+    </div>
+    `,
+    onClick: () => {
+      routeToDetail(DynamicData);
+    },
   });
 }

@@ -88,11 +88,25 @@
 
       <template #titleBar>
         <Popover @confirm="getData" @reset="toolId = ''" style="margin: 0 10px">
-          <el-input
+<!--          <el-input
             v-model="toolId"
             :placeholder="$t('Generality.Ge_SearchByNumber')"
             size="mini"
-          ></el-input>
+          ></el-input>-->
+          <el-select
+            v-model="toolId"
+            filterable
+            remote
+            reserve-keyword
+            :remote-method="remoteMethod"
+            :loading="loading">
+            <el-option
+              v-for="item in MouldListData"
+              :key="item.ItemId"
+              :label="item.ItemId"
+              :value="item.ItemId">
+            </el-option>
+          </el-select>
         </Popover>
         <span>{{ $t("Generality.Ge_ToolingNo") }}：{{ ToolingNo }}</span>
       </template>
@@ -134,7 +148,7 @@
         {{ partLevelMap[record] && partLevelMap[record].name }}
       </template>
             <template #MaterialRequirementState="{ record }">
-              
+
         {{ demandStatusEnum[record] &&demandStatusEnum[record].name }}
       </template>
       <template #operation="{ row, row_index }">
@@ -201,13 +215,13 @@
         <JvEditTable
       :tableObj="importTableObj"
       highlight-current-row
-      
+
     >
-    
+
  <template #operation="{  row_index }">
         <TableAction
           :actions="[
-            
+
             {
               label: $t('Generality.Ge_Delete'),
               confirm: i_delete.bind(null, row_index),
@@ -215,7 +229,7 @@
           ]"
         />
       </template>
-          
+
         </JvEditTable>
        </jv-dialog>
   </PageWrapper>
@@ -246,6 +260,7 @@ import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
 import { format2source } from "@/jv_doc/class/utils/dataFormat";
 import ParseImg from "@/components/JVInternal/ParseImg";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
+import { itemList } from '@/api/basicApi/systemSettings/Item'
 
 export default {
   name: "ToolingBOM",
@@ -275,6 +290,7 @@ export default {
       currentRow: {},
       cur_toolId: "",
       importShow: false,
+      loading: false,
       searchItemDialogFormVisible: false,
       selectTaskDialogFormVisible: false,
       setLevelDialogFormVisible: false,
@@ -282,6 +298,7 @@ export default {
       GetData: [],
       taskData: [],
       setLevelData: [],
+      MouldListData: [],
       defaultImgUrl: window.global_config.ImgBase_Url,
       defaultUnit: "",
       saveData: {
@@ -347,6 +364,7 @@ export default {
     this.eTableObj = new EditTable();
     this.importTableObj = new importEditTable
     this.defaultConfig();
+    this.remoteMethod('');
   },
   computed: {
     IsDisabled() {
@@ -396,6 +414,35 @@ export default {
         this.saveData.Unit = this.defaultUnit;
       });
     },
+    remoteMethod(query) {
+      this.loading = true;
+      const str = {
+        Keyword: query,
+        ItemType: "",
+        ItemCategory: "Tooling",
+        PageSize: 20,
+        CurrentPage: 1,
+      };
+      itemList(str).then((res) => {
+
+        this.MouldListData = res.Items;
+        this.loading = false;
+      });
+    },
+/*    getToolData(){
+      const str = {
+        Keyword: query,
+        ItemType: "",
+        ItemCategory: "Tooling",
+        PageSize: 20,
+        CurrentPage: 1,
+      };
+      itemList(str).then((res) => {
+
+        this.MouldListData = res.Items;
+        this.loading = false;
+      });
+    },*/
     copy(row, index) {
      let str=JSON.parse(JSON.stringify(row))
        str.ItemId=''
@@ -456,11 +503,11 @@ var saveData ={
         });
 
     },
-    
+
     //批量复制一张单出来
     l_copy() {
       let arr = JSON.parse(JSON.stringify( this.eTableObj.selectData.datas))
-      
+
             arr.forEach(item=>{
         item.ItemId=''
       })
@@ -597,7 +644,7 @@ var saveData ={
 
     //导入数据
     importComplete(e) {
-     
+
       this.importShow = false;
       this.importDialogFormVisible = true
 
@@ -642,7 +689,7 @@ var saveData ={
     //确定导入的数据
     confirmImportData(){
 
-      
+
       if(this.importTableObj.selectData.datas.length>0){
        var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
      console.log(arr)
@@ -650,7 +697,7 @@ var saveData ={
         this.saveData,
         this.mixinToolId(arr)
       );
-       
+
 var saveData ={
   ToolingNo:this.toolId,
   Boms
@@ -660,7 +707,7 @@ var saveData ={
               this.getData();
               this.importDialogFormVisible = false
             });
-        
+
 
       }else{
         this.$message.error(this.$t("Generality.Ge_PleaseAddData"));

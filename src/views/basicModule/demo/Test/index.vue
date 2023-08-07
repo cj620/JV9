@@ -28,6 +28,7 @@
 </template>
 <script>
 import { getBarData } from "./utils";
+import { sales_order_test_list } from "@/api/workApi/sale/order";
 export default {
   name: "Home",
 
@@ -38,8 +39,23 @@ export default {
   },
   created() {
     this.machineData = getBarData();
+    this.getData()
   },
-  methods: {},
+  methods: {
+    getData(){
+      sales_order_test_list({
+        "CustomerId":"C001",
+        "BillId":"",
+        "CustomerName":"",
+        "State":"",
+        "PageSize":20,
+        "CurrentPage":1
+      }).then(res=>{
+        console.log(res)
+      })
+
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>

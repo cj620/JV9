@@ -18,3 +18,10 @@ export function getSaleOrderDetails(data) {
     data,
   });
 }
+export function sales_order_test_list(data) {
+  return request({
+    url: "/sales_order_test/list",
+    method: "post",
+    data,
+  });
+}

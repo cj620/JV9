@@ -2,11 +2,12 @@
  * @Author: C.
 import { ElButton } from "element-ui/types/button";
  * @Date: 2022-08-31 09:59:45
- * @LastEditTime: 2023-08-02 13:23:02
+ * @LastEditTime: 2023-08-04 16:20:11
  * @Description: file content
 -->
 <template>
   <div>
+    <el-input v-model="userId"></el-input>
     <el-button @click="sendAudit">sendAudit</el-button>
     <el-button @click="sendMsg">sendMsg</el-button>
   </div>
@@ -17,7 +18,9 @@ import { receiveMessages } from "@/jv_doc/utils/system/msgPlugin";
 export default {
   name: "Home",
   data() {
-    return {};
+    return {
+      userId: "cj",
+    };
   },
   created() {
     // console.log(this.connect, "this.connect();");
@@ -39,8 +42,8 @@ export default {
           },
           Content: "xxx提交的单据等待审核",
           DynamicData: {
-            BillId: "SA230606001",
-            BillKey: "Sa_Order",
+            BillId: "SA230804003",
+            BillKey: "Sa_SaleOrder",
           },
           NotificationType: "info",
           SendTime: new Date(),
@@ -52,7 +55,7 @@ export default {
       this.sendNessage({
         Content: "message",
         Type: "Message",
-        ToUserId: "cj",
+        ToUserId: this.userId,
       });
     },
   },

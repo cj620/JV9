@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-27 09:45:11
- * @LastEditTime: 2023-08-03 15:35:55
+ * @LastEditTime: 2023-08-04 09:59:51
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\layout\components\Sidebar\Logo.vue
@@ -44,6 +44,7 @@
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { formatTime } from "@/utils/index";
 import { mark_as_read } from "@/api/basicApi/systemSettings/notification";
+import { routeToDetail } from "@/jv_doc/utils/system/detailPlugin";
 export default {
   name: "NotifyItem",
   props: {
@@ -67,15 +68,7 @@ export default {
       // DynamicDataValue
       const { BillId, BillKey } = this.cdata.DynamicDataValue;
       // console.log(BillId, BillKey);
-      if (BillId && BillKey) {
-        const str = `${BillKey}_Detail`;
-        this.$router.push({
-          name: str,
-          query: {
-            BillId: BillId,
-          },
-        });
-      }
+      routeToDetail({ BillId, BillKey });
     },
   },
 };
