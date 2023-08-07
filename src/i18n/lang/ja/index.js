@@ -1106,8 +1106,6 @@ const ja = {
     Standard_employee_work_time_desc: "従業員の1日の勤務時間（時間単位）",
     User_station_name: "ユーザーサイト",
     User_station_desc: "ユーザーサイトの構成",
-    User_web_socket: "ユーザーメッセージ",
-    User_web_socket_desc: "ユーザーメッセージ構成",
     Ftp_file_management_admin_name: "プロジェクトファイル管理者ロールの設定",
     Ftp_file_management_admin_desc:
       "この役割は、プロジェクトファイルのルートディレクトリに読み書きアクセス権を持つことができます ",
@@ -1120,6 +1118,8 @@ const ja = {
       "プロジェクトファイルはこのパスに保存されます",
     Prohibit_skip_station_processes: "スキップ禁止プロセス",
     Create_purchase_request_below_safety_stock: "安全在庫下の購買要求の作成",
+    User_web_socket: "ユーザメッセージプッシュ構成",
+    User_web_socket_desc: "ユーザーがメッセージを受け入れるかどうか",
   },
 
   ...jaLocale,

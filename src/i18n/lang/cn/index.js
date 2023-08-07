@@ -1110,8 +1110,6 @@ const cn = {
     Standard_employee_work_time_desc: "员工每天的工作时间,单位为小时",
     User_station_name: "用户站点",
     User_station_desc: "用户站点配置",
-    User_web_socket: "用户消息",
-    User_web_socket_desc: "用户消息配置",
     Ftp_file_management_admin_name: "项目文件管理员角色配置",
     Ftp_file_management_admin_desc: "该角色可以对项目文件的根目录具有读写权限 ",
     Ftp_file_management_backup_path_name: "项目文件备份路径",
@@ -1120,6 +1118,8 @@ const cn = {
     Ftp_file_management_path_desc: "项目文件将保存到这个路径下",
     Prohibit_skip_station_processes: "禁止跳站工序",
     Create_purchase_request_below_safety_stock: "低于安全库存创建采购申请",
+    User_web_socket: "用户消息推送配置",
+    User_web_socket_desc: "用户是否接受消息",
   },
 
   ...zhLocale,

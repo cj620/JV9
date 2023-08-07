@@ -1132,8 +1132,6 @@ const en = {
       "The daily working hours of employees, in hours",
     User_station_name: "User site",
     User_station_desc: "User site configuration",
-    User_web_socket: "User message",
-    User_web_socket_desc: "User message configuration",
     Ftp_file_management_admin_name: "project file manager  role setup",
     Ftp_file_management_admin_desc:
       "The role has read-write permission of root directory of project file",
@@ -1146,6 +1144,8 @@ const en = {
     Prohibit_skip_station_processes: "Prohibit skip station processes",
     Create_purchase_request_below_safety_stock:
       "Create purchase request below safety stock",
+    User_web_socket: "User Message Push Configuration",
+    User_web_socket_desc: "Does the user accept messages",
   },
   ...enLocale,
 };
