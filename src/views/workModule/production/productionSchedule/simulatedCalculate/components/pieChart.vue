@@ -42,27 +42,25 @@ export default {
   },
   watch: {
     WorksheetNum() {
-      // echarts.dispose(document.getElementById(this.id));
       this.drawLine();
     },
   },
   methods: {
-    // 将传入的数据转换为echarts使用的data
     transData() {
       if (this.WorksheetNum.length !== 0) {
         this.chartData = [
           {
-            value: this.WorksheetNum[1],
+            value: this.WorksheetNum[0],
             name: "正常工单",
             itemStyle: { color: "#00FF00" },
           },
           {
-            value: this.WorksheetNum[2],
+            value: this.WorksheetNum[1],
             name: "超交期工单",
             itemStyle: { color: "red" },
           },
           {
-            value: this.WorksheetNum[3],
+            value: this.WorksheetNum[2],
             name: "超负荷工单",
             itemStyle: { color: "yellow" },
           },
@@ -110,10 +108,6 @@ export default {
       window.addEventListener("resize", () => {
         this.myChart.resize();
       });
-      // this.myChart.resize();
-      // this.$nextTick(() => {
-      //   this.myChart.resize(); // 图表自适应
-      // });
     },
   },
 };

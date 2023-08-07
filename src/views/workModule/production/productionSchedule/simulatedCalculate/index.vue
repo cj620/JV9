@@ -5,14 +5,14 @@
         <el-form-item :label="$t('production.Pr_SchedulingAlgorithmSelection')">
           <!-- 算法多选框 -->
           <el-select
-            v-model="selectedType"
+            v-model="selectedTypes"
             multiple
             :placeholder="$t('production.Pr_PleaseSelectSchedulingAlgorithms')"
             size="small"
             style="width: 400px"
           >
             <el-option
-              v-for="(option, index) in options"
+              v-for="(option, index) in types"
               :key="index"
               :label="option.label"
               :value="option.value"
@@ -23,14 +23,14 @@
             size="small"
             style="margin-left: 10px"
             @click="simulatedCalculate"
-            :disabled="isValueEmpty"
+            :disabled="isSelectedTypesEmpty"
             >{{ $t("production.Pr_SimulatedCalculate") }}</el-button
           >
           <el-button
             plain
             size="small"
             style="margin-left: 10px"
-            @click="Refresh"
+            @click="refresh"
             >{{ $t("Generality.Ge_Refresh") }}</el-button
           >
         </el-form-item>
@@ -107,7 +107,8 @@ export default {
   },
   data() {
     return {
-      options: [
+      // 可选算法：
+      types: [
         // 经典算法
         { label: this.$t("production.Pr_ConventionalAlgorithm"), value: 0 },
         // 最短工期
@@ -120,36 +121,31 @@ export default {
         // CR值排程
         { label: this.$t("production.Pr_CRValueScheduling"), value: 3 },
       ],
-      // 当前时间
-      StartDate: new Date(),
-      // 多选值
-      selectedType: [],
+      // 选中算法
+      selectedTypes: [],
       // chartWrapper接收数据
-      calculatedData: [{}, {}, {}, {}],
-      // 算法个数
-      dataNum: [0, 1, 2, 3],
-      // 接口获取到的饼状图数据
-      pieChartData: [],
+      calculatedData: [],
       // 加载
       loading: true,
       // 计算结果入参
       params: [{}, {}, {}, {}],
-      //默认选中第一个标签页
+      //默认选中标签页
       currentTabName: "0",
     };
   },
   created() {
     this.getData();
   },
-  // 监控标签页是否切换
   watch: {
+    // 监控标签页是否切换
     currentTabName(newVue, oldVue) {
       newVue == 0 ? this.getData() : this.postParams(newVue);
     },
   },
   computed: {
-    isValueEmpty() {
-      return this.selectedType.length === 0;
+    // 是否已选择模拟的方法
+    isSelectedTypesEmpty() {
+      return this.selectedTypes.length === 0;
     },
   },
   methods: {
@@ -169,32 +165,29 @@ export default {
     },
     getData() {
       pie_chart().then((res) => {
-        this.pieChartData = res;
         this.loading = false;
         this.calculatedData = res;
       });
     },
     // 刷新
-    Refresh() {
+    refresh() {
       this.getData();
-      this.selectedType = [];
+      this.selectedTypes = [];
     },
     // 赋值
     simulatedCalculate() {
       this.loading = true;
       let arr = [];
-      this.selectedType.forEach((item) => {
-        // this.calculatedData.splice(item, 1, this.testData);
+      this.selectedTypes.forEach((item) => {
         arr.push(item);
       });
       simulation_calculate({
-        StartDate: this.StartDate,
+        StartDate: new Date(),
         AlgorithmTypes: arr,
       }).then((res) => {
         this.loading == false;
-        this.Refresh();
+        this.refresh();
       });
-      console.log("arr::: ", arr);
     },
   },
 };
