@@ -37,6 +37,7 @@
             size="small"
             style="margin-left: 10px"
             @click="simulatedCalculate"
+            :disabled="isValueEmpty"
             >{{ $t("production.Pr_SimulatedCalculate") }}</el-button
           >
           <el-button
@@ -155,6 +156,11 @@ export default {
     currentTabName(newVue, oldVue) {
       newVue == 0 ? this.getData() : this.postParams(newVue);
       // this.postParams(newVue);
+    },
+  },
+  computed: {
+    isValueEmpty() {
+      return this.value.length === 0;
     },
   },
   methods: {
