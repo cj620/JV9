@@ -240,16 +240,18 @@ export class CreateGantt {
         this.createTask(parent);
     }
     createTask(parent) {
+        let count = 0; // 用于计算高度累加
         this.tasks.forEach((item, i) => {
             item.Data.forEach((jtem, j) => {
                 let year = new Date().getFullYear();
                 let month = new Date().getMonth();
-                let now = year +'-'+ (month < 10 ? '0'+(month+1) : month+1) +'-'+ '01 ' + '00:00:00'
+                let day = new Date().getDate();
+                let now = year +'-'+ (month < 10 ? '0'+(month+1) : month+1) +'-'+ (day<10?'0'+day:day) + ' 00:00:00'
                 let distance = parseInt(new Date(jtem.PlanStart).getTime() / 1000) - parseInt(new Date(now).getTime() / 1000)
-                let startX = parseInt(distance / 60); // 距离
+                let startX = parseInt(distance / 60); // 距离(分钟)
                 let width = parseInt(new Date(jtem.PlanEnd).getTime() / 1000) - parseInt(new Date(jtem.PlanStart).getTime() / 1000)
                 let widthRes = parseInt(width / 60); // 长度/宽度
-                let startY = (Number(item.Id)-1) * this.tasksHeight;
+                let startY = count * this.tasksHeight;
                 let height = this.tasksHeight - this.tasksPadding * 2;
                 let taskRef = document.createElement('div');
                 taskRef.id = 'custom-task-'+item.Id+'-'+j
@@ -263,6 +265,7 @@ export class CreateGantt {
                 taskRef.style.borderRadius = this.taskRadius+'px';
                 parent.appendChild(taskRef);
             })
+            count++;
         })
     }
     removeTask(parent) {

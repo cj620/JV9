@@ -2,4 +2,10 @@
     cursor: pointer;
     filter:brightness(110%) contrast(105%);
 }
+.beyond-hiding{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+}
 

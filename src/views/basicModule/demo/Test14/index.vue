@@ -60,7 +60,9 @@ export default {
         setAlgorithmType(val) {
             this.loading = true;
             simulation_scheduling_list({
-                AlgorithmType: this.AlgorithmType
+                AlgorithmType: this.AlgorithmType,
+                CurrentPage: 1,
+                PageSize: 10
             }).then(res => {
                 this.result = res
                 this.loading = false;
