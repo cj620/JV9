@@ -1110,6 +1110,7 @@ const en = {
     Design: "Design",
     Project: "Project",
     Production: "Production",
+    Basics: "Basics",
     Auto_create_pr_on_NSM_name: "Auto create PR on non-standard material",
     Auto_create_pr_on_NSM_desc:
       "Auto create purchase application sheet on non-standard material",
@@ -1145,6 +1146,8 @@ const en = {
     Prohibit_skip_station_processes: "Prohibit skip station processes",
     Create_purchase_request_below_safety_stock:
       "Create purchase request below safety stock",
+    User_web_socket: "User Message Push Configuration",
+    User_web_socket_desc: "Does the user accept messages",
   },
   ...enLocale,
 };

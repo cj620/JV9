@@ -1088,6 +1088,7 @@ const cn = {
     Design: "设计",
     Project: "项目",
     Production: "生产",
+    Basics: "基础",
     Auto_create_pr_on_NSM_name: "是否可以自动创建非标准物料的采购申请",
     Auto_create_pr_on_NSM_desc: "是否可以自动创建非标准物料的采购申请",
     Auto_create_pr_on_SM_name: "是否可以自动创建标准物料的采购申请",
@@ -1117,6 +1118,8 @@ const cn = {
     Ftp_file_management_path_desc: "项目文件将保存到这个路径下",
     Prohibit_skip_station_processes: "禁止跳站工序",
     Create_purchase_request_below_safety_stock: "低于安全库存创建采购申请",
+    User_web_socket: "用户消息推送配置",
+    User_web_socket_desc: "用户是否接受消息",
   },
 
   ...zhLocale,

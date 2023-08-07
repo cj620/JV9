@@ -1082,6 +1082,7 @@ const ja = {
     Design: "せっけい",
     Project: "プロジェクト",
     Production: "せいさん",
+    Basics: "きそ",
     Auto_create_pr_on_NSM_name:
       "非標準品目の購買依頼を自動的に作成できるかどうか",
     Auto_create_pr_on_NSM_desc:
@@ -1117,6 +1118,8 @@ const ja = {
       "プロジェクトファイルはこのパスに保存されます",
     Prohibit_skip_station_processes: "スキップ禁止プロセス",
     Create_purchase_request_below_safety_stock: "安全在庫下の購買要求の作成",
+    User_web_socket: "ユーザメッセージプッシュ構成",
+    User_web_socket_desc: "ユーザーがメッセージを受け入れるかどうか",
   },
 
   ...jaLocale,
