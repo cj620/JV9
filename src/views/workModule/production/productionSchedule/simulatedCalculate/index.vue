@@ -200,7 +200,7 @@ export default {
       });
       simulation_calculate({
         StartDate: this.StartDate,
-        AlgorithmType: arr,
+        AlgorithmTypes: arr,
       }).then((res) => {
         this.loading == false;
         this.Refresh();
