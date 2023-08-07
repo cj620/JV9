@@ -36,44 +36,46 @@
         </el-form-item>
         <el-tabs type="border-card" @tab-click="handleTabClick">
           <!-- 模拟排程tabs -->
-          <el-tab-pane :label="$t('production.Pr_SimulatedAPS')">
-            <el-row :gutter="20">
+          <el-tab-pane
+            :label="$t('production.Pr_SimulatedAPS')"
+            class="simulatedCalculate-page-chartwrapper-pane"
+          >
+            <div class="chart-row">
               <!-- 经典算法 -->
-              <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   :title="$t('production.Pr_ConventionalAlgorithm')"
                   :datas="calculatedData[0]"
                   id="PieChart1"
                 ></ChartWrapper>
-              </el-col>
+              </div>
               <!-- 最短工期 -->
-              <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   :title="$t('production.Pr_ShortestDurationAlgorithm')"
                   :datas="calculatedData[1]"
                   id="PieChart2"
                 ></ChartWrapper>
-              </el-col>
-            </el-row>
-            <el-row :gutter="20">
+              </div>
+            </div>
+            <div class="chart-row">
               <!-- 最早交货期 -->
-              <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
+              <div :span="12" class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   :title="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
                   :datas="calculatedData[2]"
                   id="PieChart3"
                 ></ChartWrapper>
-              </el-col>
-
+              </div>
               <!-- CR值排程 -->
-              <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
+              <div :span="12" class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   :title="$t('production.Pr_CRValueScheduling')"
                   :datas="calculatedData[3]"
                   id="PieChart4"
                 ></ChartWrapper>
-              </el-col>
-            </el-row>
+              </div>
+            </div>
           </el-tab-pane>
           <el-tab-pane :label="$t('production.Pr_ConventionalAlgorithm')"
             ><SimulatedResult :params="params[0]"
@@ -95,10 +97,11 @@
 </template>
 
 <script>
+import SimulatedResult from "./components/simulatedResult.vue";
 import ChartWrapper from "./components/chartWrapper.vue";
 import { pie_chart } from "@/api/workApi/production/aps";
 import { simulation_calculate } from "@/api/workApi/production/aps";
-import SimulatedResult from "./components/simulatedResult.vue";
+
 export default {
   name: "index",
   components: {
@@ -201,6 +204,14 @@ export default {
   height: 100%;
   background-color: #ffffff;
   padding: 6px 10px;
+}
+.chart-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.chart-row > div {
+  width: 50%;
+  // height: 50%;
 }
 ::v-deep .simulatedCalculate-page .el-tabs--border-card > .el-tabs__content {
   padding: 0 !important;

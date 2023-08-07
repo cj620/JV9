@@ -108,4 +108,7 @@ export default {
   margin-top: 12px;
   text-align: center;
 }
+.chart-description > div {
+  margin-top: 2px;
+}
 </style>
