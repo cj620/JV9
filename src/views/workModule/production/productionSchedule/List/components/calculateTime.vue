@@ -24,7 +24,7 @@
 
 <script>
 import { do_aps } from "@/api/workApi/production/aps";
-import { formSchema } from "./formConfig";
+import { formSchema } from "./calculateTimeTableConfig";
 import { Form } from "@/jv_doc/class/form";
 export default {
   name: "calculateTime",
@@ -48,7 +48,10 @@ export default {
   methods: {
     //点击计算排程
     confirmItem() {
-      do_aps({ StartDate: this.StartDate }).then((res) => {
+      do_aps({
+        StartDate: this.formObj.form.StartDate,
+        SchedulingType: this.formObj.form.SchedulingType,
+      }).then((res) => {
         console.log(res.ExpiredBills);
         console.log(res.OverloadBills);
         if (res.OverloadBills.length > 0) {
