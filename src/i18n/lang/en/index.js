@@ -998,8 +998,7 @@ const en = {
     P10108: "Cannot find the process' up-machine record!",
     P10109: "Cannot find the process!",
     P10110: "Cannot find the process information!",
-    P10111:
-      "Cannot find the process record which is available to down-machine!",
+    P10111: "Cannot find the process record which is available to down-machine!",
     P10112: "Cannot find the tooling information!",
     P10113: "Cannot find the tooling information!",
     P10114: "Cannot find the task process information!",
@@ -1042,8 +1041,7 @@ const en = {
     P10150: "The user name already exists!",
     P10151: "The user name or the password is wrong!",
     P10152: "Cannot chose parts of more than one tooling!",
-    P10153:
-      "Error:reaptedly down-machine or wrong process state or wrong device.",
+    P10153: "Error:reaptedly down-machine or wrong process state or wrong device.",
     P10154: "The resource group cannot be empty!",
     P10155: "The resource group already exists!",
     P10156: "The sum total ratio cannot be greater than 100%!",
@@ -1107,6 +1105,7 @@ const en = {
     Da_Workbench: "Workbench",
   },
   systemSetupData: {
+    Basics: "Basics",
     Design: "Design",
     Project: "Project",
     Production: "Production",
@@ -1134,6 +1133,8 @@ const en = {
       "The daily working hours of employees, in hours",
     User_station_name: "User site",
     User_station_desc: "User site configuration",
+    User_web_socket: "User message",
+    User_web_socket_desc: "User message configuration",
     Ftp_file_management_admin_name: "project file manager  role setup",
     Ftp_file_management_admin_desc:
       "The role has read-write permission of root directory of project file",
