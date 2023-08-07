@@ -96,7 +96,9 @@
                 <div style="cursor: pointer" @click="toMarkAll">
                   全部标记为已读
                 </div>
-                <div style="cursor: pointer">历史通知</div>
+                <div style="cursor: pointer" @click="historyDetail">
+                  历史通知
+                </div>
               </div>
             </div>
             <span
@@ -187,6 +189,60 @@
       </el-form>
       <!-- <JvForm :formObj="formObj"> </JvForm> -->
     </JvDialog>
+    <JvDialog
+      title="历史通知"
+      :visible.sync="notifyVisible"
+      width="60%"
+      @confirm="notifyVisible = false"
+    >
+      <div style="position: relative" class="notify-box">
+        <div
+          class="notify-box-select"
+          style="
+            position: absolute;
+            right: 0;
+            top: 7px;
+            z-index: 99;
+            width: 100px;
+          "
+        >
+          <el-select
+            v-model="notifyType"
+            placeholder="请选择"
+            size="mini"
+            @change="notifyTypeChange"
+          >
+            <el-option :value="0" label="全部消息"></el-option>
+            <el-option :value="1" label="未读消息"></el-option>
+          </el-select>
+        </div>
+        <el-tabs v-model="activeType" @tab-click="tabClick">
+          <!-- <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
+              <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane> -->
+          <el-tab-pane
+            :label="item.label"
+            :name="item.value"
+            v-for="item in notifyObjs"
+            :key="item.value"
+            :lazy="true"
+          >
+            <div
+              ref="listRef"
+              v-if="item.data.length !== 0"
+              v-infinite-scroll="getData"
+              style="overflow: auto; height: 300px; padding: 0 5px; margin: 0"
+            >
+              <NotifyItem
+                :cdata="item"
+                v-for="item in item.data"
+                :key="item.Id"
+              ></NotifyItem>
+            </div>
+            <el-empty description="无消息" v-else></el-empty>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </JvDialog>
   </div>
 </template>
 
@@ -234,6 +290,7 @@ export default {
       changePasswordDialogVisible: false,
       notifyType: 0,
       currentNotifyObj: null,
+      notifyVisible: false,
     };
   },
   created() {
@@ -321,6 +378,9 @@ export default {
       }).then(() => {
         this.currentNotifyObj.markAllRead();
       });
+    },
+    historyDetail() {
+      this.notifyVisible = true;
     },
   },
 };
