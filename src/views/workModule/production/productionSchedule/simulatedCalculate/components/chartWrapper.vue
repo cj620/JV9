@@ -2,11 +2,21 @@
   <div>
     <div class="chart-title">{{ title }}</div>
     <div class="simulatedCalculate-page-chart">
-      <div class="chart-description">
-        {{ description1 }}
+      <div
+        class="chart-description"
+        v-if="Object.keys(this.datas).length !== 0"
+      >
+        <div>该算法最近一次模拟时间为:{{ CreationDate }}</div>
+        <div>
+          共对{{ datas.TotalCount }}个工单进行了模拟排程，其中：
+          <span v-for="(item, index) in description" :key="index">
+            {{ WorksheetNum[index] !== 0 ? WorksheetNum[index] + item : "" }}
+          </span>
+        </div>
       </div>
-      <div class="chart-description">
-        {{ description2 }}
+      <div class="chart-description" v-else>
+        <div>暂无数据</div>
+        <div>请进行模拟排程</div>
       </div>
       <PieChart :id="id" :WorksheetNum="WorksheetNum"></PieChart>
     </div>
@@ -34,16 +44,16 @@ export default {
     datas: {
       type: Object,
       default() {
-        return [];
+        return {};
       },
     },
   },
   data() {
     return {
-      description1: "",
-      description2: "",
+      // 各类工单数
       WorksheetNum: [],
       CreationDate: "",
+      description: ["个正常工单 ", "个超交期工单 ", "个超负荷工单"],
     };
   },
   mounted() {
@@ -58,40 +68,25 @@ export default {
     // 提取信息
     getCount() {
       this.WorksheetNum = [
-        this.datas.TotalCount,
+        // 正常工单数
         this.datas.TotalCount -
           this.datas.OverdueCount -
           this.datas.OverloadCount,
+        // 超交期工单数
         this.datas.OverdueCount,
+        // 超负荷工单数
         this.datas.OverloadCount,
-        this.datas.CreationDate,
       ];
       this.CreationDate = timeFormat(
-        this.WorksheetNum[4],
+        this.datas.CreationDate,
         "yyyy-MM-dd hh:mm:ss"
       );
     },
     load() {
       if (Object.keys(this.datas).length == 0) {
         this.WorksheetNum = [];
-        this.description1 = "暂无数据";
-        this.description2 = "请进行模拟排程";
       } else {
         this.getCount();
-        let description1 = "该算法最近一次模拟时间为" + this.CreationDate;
-        let description2 =
-          "共对" + this.WorksheetNum[0] + "个工单进行了模拟排程，其中：";
-        if (this.WorksheetNum[1] !== 0) {
-          description2 += this.WorksheetNum[1] + "个正常工单 ";
-        }
-        if (this.WorksheetNum[2] !== 0) {
-          description2 += this.WorksheetNum[2] + "个超交期工单 ";
-        }
-        if (this.WorksheetNum[3] !== 0) {
-          description2 += this.WorksheetNum[3] + "个超负荷工单";
-        }
-        this.description1 = description1;
-        this.description2 = description2;
       }
     },
   },
@@ -112,5 +107,8 @@ export default {
   font-weight: 500;
   margin-top: 12px;
   text-align: center;
+}
+.chart-description > div {
+  margin-top: 2px;
 }
 </style>

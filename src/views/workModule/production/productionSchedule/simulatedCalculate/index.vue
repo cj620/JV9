@@ -5,31 +5,17 @@
         <el-form-item :label="$t('production.Pr_SchedulingAlgorithmSelection')">
           <!-- 算法多选框 -->
           <el-select
-            v-model="value"
+            v-model="selectedTypes"
             multiple
             :placeholder="$t('production.Pr_PleaseSelectSchedulingAlgorithms')"
             size="small"
             style="width: 400px"
           >
-            <!-- 经典算法 -->
             <el-option
-              :label="$t('production.Pr_ConventionalAlgorithm')"
-              :value="0"
-            ></el-option>
-            <!-- 最短工期算法 -->
-            <el-option
-              :label="$t('production.Pr_ShortestDurationAlgorithm')"
-              :value="1"
-            ></el-option>
-            <!-- 最早交货期 -->
-            <el-option
-              :label="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
-              :value="2"
-            ></el-option>
-            <!-- CR值排程 -->
-            <el-option
-              :label="$t('production.Pr_CRValueScheduling')"
-              :value="3"
+              v-for="(option, index) in types"
+              :key="index"
+              :label="option.label"
+              :value="option.value"
             ></el-option>
           </el-select>
           <el-button
@@ -37,57 +23,59 @@
             size="small"
             style="margin-left: 10px"
             @click="simulatedCalculate"
-            :disabled="isValueEmpty"
+            :disabled="isSelectedTypesEmpty"
             >{{ $t("production.Pr_SimulatedCalculate") }}</el-button
           >
           <el-button
             plain
             size="small"
             style="margin-left: 10px"
-            @click="Refresh"
+            @click="refresh"
             >{{ $t("Generality.Ge_Refresh") }}</el-button
           >
         </el-form-item>
         <el-tabs type="border-card" @tab-click="handleTabClick">
           <!-- 模拟排程tabs -->
-          <el-tab-pane :label="$t('production.Pr_SimulatedAPS')">
-            <el-row :gutter="20">
+          <el-tab-pane
+            :label="$t('production.Pr_SimulatedAPS')"
+            class="simulatedCalculate-page-chartwrapper-pane"
+          >
+            <div class="chart-row">
               <!-- 经典算法 -->
-              <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   :title="$t('production.Pr_ConventionalAlgorithm')"
                   :datas="calculatedData[0]"
                   id="PieChart1"
                 ></ChartWrapper>
-              </el-col>
+              </div>
               <!-- 最短工期 -->
-              <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   :title="$t('production.Pr_ShortestDurationAlgorithm')"
                   :datas="calculatedData[1]"
                   id="PieChart2"
                 ></ChartWrapper>
-              </el-col>
-            </el-row>
-            <el-row :gutter="20">
+              </div>
+            </div>
+            <div class="chart-row">
               <!-- 最早交货期 -->
-              <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   :title="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
                   :datas="calculatedData[2]"
                   id="PieChart3"
                 ></ChartWrapper>
-              </el-col>
-
+              </div>
               <!-- CR值排程 -->
-              <el-col :span="12" class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
                   :title="$t('production.Pr_CRValueScheduling')"
                   :datas="calculatedData[3]"
                   id="PieChart4"
                 ></ChartWrapper>
-              </el-col>
-            </el-row>
+              </div>
+            </div>
           </el-tab-pane>
           <el-tab-pane :label="$t('production.Pr_ConventionalAlgorithm')"
             ><SimulatedResult :params="params[0]"
@@ -109,10 +97,11 @@
 </template>
 
 <script>
+import SimulatedResult from "./components/simulatedResult.vue";
 import ChartWrapper from "./components/chartWrapper.vue";
 import { pie_chart } from "@/api/workApi/production/aps";
 import { simulation_calculate } from "@/api/workApi/production/aps";
-import SimulatedResult from "./components/simulatedResult.vue";
+
 export default {
   name: "index",
   components: {
@@ -121,46 +110,45 @@ export default {
   },
   data() {
     return {
-      //
-      StartDate: new Date(),
-      // 多选值
-      value: [],
+      // 可选算法：
+      types: [
+        // 经典算法
+        { label: this.$t("production.Pr_ConventionalAlgorithm"), value: 0 },
+        // 最短工期
+        { label: this.$t("production.Pr_ShortestDurationAlgorithm"), value: 1 },
+        // 最早交货期
+        {
+          label: this.$t("production.Pr_AlgorithmForEarliestDeliveryTime"),
+          value: 2,
+        },
+        // CR值排程
+        { label: this.$t("production.Pr_CRValueScheduling"), value: 3 },
+      ],
+      // 选中算法
+      selectedTypes: [],
       // chartWrapper接收数据
-      calculatedData: [{}, {}, {}, {}],
-      // 算法个数
-      dataNum: [0, 1, 2, 3],
-      // 接口获取到的饼状图数据
-      pieChartData: [],
+      calculatedData: [],
       // 加载
       loading: true,
       // 计算结果入参
       params: [{}, {}, {}, {}],
-      //默认选中第一个标签页
+      //默认选中标签页
       currentTabName: "0",
-      // 测试数据
-      testData: {
-        AlgorithmType: "ClassicalAlgorithm",
-        OverdueCount: 2,
-        OverloadBills: [],
-        OverloadCount: 3,
-        TotalCount: 10,
-        CreationDate: "2023-08-04T12:00:35.2",
-      },
     };
   },
   created() {
     this.getData();
   },
-  // 监控标签页是否切换
   watch: {
+    // 监控标签页是否切换
     currentTabName(newVue, oldVue) {
       newVue == 0 ? this.getData() : this.postParams(newVue);
-      // this.postParams(newVue);
     },
   },
   computed: {
-    isValueEmpty() {
-      return this.value.length === 0;
+    // 是否已选择模拟的方法
+    isSelectedTypesEmpty() {
+      return this.selectedTypes.length === 0;
     },
   },
   methods: {
@@ -180,32 +168,29 @@ export default {
     },
     getData() {
       pie_chart().then((res) => {
-        this.pieChartData = res;
         this.loading = false;
         this.calculatedData = res;
       });
     },
     // 刷新
-    Refresh() {
+    refresh() {
       this.getData();
-      this.value = [];
+      this.selectedTypes = [];
     },
     // 赋值
     simulatedCalculate() {
       this.loading = true;
       let arr = [];
-      this.value.forEach((item) => {
-        // this.calculatedData.splice(item, 1, this.testData);
+      this.selectedTypes.forEach((item) => {
         arr.push(item);
       });
       simulation_calculate({
-        StartDate: this.StartDate,
+        StartDate: new Date(),
         AlgorithmTypes: arr,
       }).then((res) => {
         this.loading == false;
-        this.Refresh();
+        this.refresh();
       });
-      console.log("arr::: ", arr);
     },
   },
 };
@@ -219,6 +204,14 @@ export default {
   height: 100%;
   background-color: #ffffff;
   padding: 6px 10px;
+}
+.chart-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.chart-row > div {
+  width: 50%;
+  // height: 50%;
 }
 ::v-deep .simulatedCalculate-page .el-tabs--border-card > .el-tabs__content {
   padding: 0 !important;
