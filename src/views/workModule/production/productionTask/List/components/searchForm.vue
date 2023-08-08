@@ -32,6 +32,7 @@
 
 <script>
 import { Form } from "@/jv_doc/class/form";
+import { itemList } from "@/api/basicApi/systemSettings/Item";
 export default {
   name: "searchForm",
   data() {
@@ -49,10 +50,25 @@ export default {
     this.formObj = new Form({
       formSchema: [
         {
+          // 关键字
+          prop: "Keyword",
+          cpn: "FormInput",
+          label: "关键字",
+        },
+        {
           // 模具编号
           prop: "ToolingNo",
-          cpn: "FormInput",
           label: this.$t("Generality.Ge_ToolingNo"),
+          cpn: "AsyncSearch",
+          api: itemList,
+          apiOptions: {
+            keyName: "ItemName",
+            showValue: true,
+            valueName: "ItemId",
+            params: {
+              ItemCategory: "Tooling",
+            },
+          },
         },
         {
           // 模具编号
@@ -66,13 +82,16 @@ export default {
       },
     });
     this.formObj.form.ToolingNo = this.searchFormData.ToolingNo;
+    this.formObj.form.Keyword = this.searchFormData.Keyword;
     this.formObj.form.Remarks = this.searchFormData.Remarks;
   },
   methods: {
     reset() {
-      this.formObj.form.ToolingNo = "";
-      this.formObj.form.Remarks = "";
-      this.$emit("search", this.formObj.form);
+      for (let key in this.formObj.form){
+        this.formObj.form[key] = ''
+      }
+
+      this.$emit("search", this.formObj);
     },
     search() {
       this.$emit("search", this.formObj.form);
