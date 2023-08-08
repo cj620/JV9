@@ -144,10 +144,9 @@ export default {
     // 赋值
     simulatedCalculate() {
       this.loading = true;
-      let arr = [...this.selectedTypes];
       simulation_calculate({
         StartDate: new Date(),
-        AlgorithmTypes: arr,
+        AlgorithmTypes: [...this.selectedTypes],
       }).then(() => {
         this.loading == false;
         this.refresh();
