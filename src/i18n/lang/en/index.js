@@ -1105,6 +1105,7 @@ const en = {
     Da_Workbench: "Workbench",
   },
   systemSetupData: {
+    JV_APS: "Automatic scheduling",
     Basics: "Basics",
     Design: "Design",
     Project: "Project",
@@ -1144,8 +1145,13 @@ const en = {
     Ftp_file_management_path_desc:
       "root folder where project files are stored in",
     Prohibit_skip_station_processes: "Prohibit skip station processes",
-    Create_purchase_request_below_safety_stock:
-      "Create purchase request below safety stock",
+    Create_purchase_request_below_safety_stock:"Create purchase request below safety stock",
+    Aps_ordinary_bill_process_post_time_coefficient: "Aps ordinary bill process post time coefficient",
+    Aps_urgent_bill_process_post_time_coefficient: "Aps urgent bill process post time coefficient",
+    Aps_extra_urgent_bill_process_post_time_coefficient: "Aps extra urgent bill process post time coefficient",
+    Aps_ordinary_bill_process_lead_time_coefficient: "Aps ordinary bill process lead time coefficient",
+    Aps_urgent_bill_process_lead_time_coefficient: "Aps urgent bill process lead time coefficient",
+    Aps_extra_urgent_bill_process_lead_time_coefficient: "Aps extra urgent bill process lead time coefficient",
   },
   ...enLocale,
 };

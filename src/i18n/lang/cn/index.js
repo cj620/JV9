@@ -1085,6 +1085,7 @@ const cn = {
   },
 
   systemSetupData: {
+    JV_APS: "自动排程",
     Basics: "基础",
     Design: "设计",
     Project: "项目",
@@ -1120,6 +1121,12 @@ const cn = {
     Ftp_file_management_path_desc: "项目文件将保存到这个路径下",
     Prohibit_skip_station_processes: "禁止跳站工序",
     Create_purchase_request_below_safety_stock: "低于安全库存创建采购申请",
+    Aps_ordinary_bill_process_post_time_coefficient: "自动排程普通工单工序后置时间系数",
+    Aps_urgent_bill_process_post_time_coefficient: "自动排程紧急工单工序后置时间系数 ",
+    Aps_extra_urgent_bill_process_post_time_coefficient: "自动排程特急工单工序后置时间系数",
+    Aps_ordinary_bill_process_lead_time_coefficient: "自动排程普通工单工序前置时间系数",
+    Aps_urgent_bill_process_lead_time_coefficient: "自动排程紧急工单工序前置时间系数",
+    Aps_extra_urgent_bill_process_lead_time_coefficient: "自动排程特急工单工序前置时间系数",
   },
 
   ...zhLocale,
