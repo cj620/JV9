@@ -282,7 +282,7 @@ export default {
     position: absolute;
     width: 10px;
     box-shadow: 6px 0px 6px 0px #e0e0e0;
-    z-index: 30;
+    z-index: 8;
 }
 .ganttContainer {
     width: 100%;
@@ -296,7 +296,7 @@ export default {
         position: sticky;
         left: 0;
         // border-right: 1px solid #ddd;
-        z-index: 10;
+        z-index: 4;
         // box-shadow: 2px 6px 6px 1px #e0e0e0;
         background-color: #fff;
         &-item{
@@ -336,7 +336,7 @@ export default {
         height: 50px;
         border-bottom: 1px solid #ccc;
         display: flex;
-        z-index: 20;
+        z-index: 8;
         padding-right: 20px;
         padding-left: 20px;
         div{
@@ -350,7 +350,7 @@ export default {
     .date-header {
         position: sticky;
         top: 0px;
-        z-index: 10;
+        z-index: 4;
         display: flex;
         flex-direction: column;
         background-color: #fff;
