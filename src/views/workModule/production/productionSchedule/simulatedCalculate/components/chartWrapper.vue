@@ -53,7 +53,8 @@ export default {
     };
   },
   mounted() {
-    this.load();
+    Object.keys(this.title).length !== 0 ? this.load() : "";
+    // this.load();
   },
   watch: {
     datas() {
