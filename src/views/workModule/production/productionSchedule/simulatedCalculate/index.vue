@@ -15,7 +15,7 @@
             style="width: 400px"
           >
             <el-option
-              v-for="(option, index) in types"
+              v-for="(option, index) in AlgorithmTypeEnum.getEnums()"
               :key="index"
               :label="option.label"
               :value="option.value"
@@ -37,67 +37,59 @@
             >{{ $t("Generality.Ge_Refresh") }}</el-button
           >
         </el-form-item>
-        <el-tabs type="border-card" @tab-click="handleTabClick">
-          <!-- 模拟排程tabs -->
-          <el-tab-pane
-            :label="$t('production.Pr_SimulatedAPS')"
-            class="simulatedCalculate-page-chartwrapper-pane"
-          >
-            <div class="chart-row">
-              <!-- 经典算法 -->
-              <div class="simulatedCalculate-page-charter">
-                <ChartWrapper
-                  :datas="calculatedData[0]"
-                  id="PieChart1"
-                ></ChartWrapper>
-              </div>
-              <!-- 最短工期 -->
-              <div class="simulatedCalculate-page-charter">
-                <ChartWrapper
-                  :datas="calculatedData[1]"
-                  id="PieChart2"
-                ></ChartWrapper>
-              </div>
-            </div>
-            <div class="chart-row">
-              <!-- 最早交货期 -->
-              <div class="simulatedCalculate-page-charter">
-                <ChartWrapper
-                  :datas="calculatedData[2]"
-                  id="PieChart3"
-                ></ChartWrapper>
-              </div>
-              <!-- CR值排程 -->
-              <div class="simulatedCalculate-page-charter">
-                <ChartWrapper
-                  :datas="calculatedData[3]"
-                  id="PieChart4"
-                ></ChartWrapper>
-              </div>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane
-            class="simulatedCalculate-page-chartwrapper-pane"
-            :label="$t('production.Pr_ClassicalAlgorithm')"
-            ><SimulatedResult :params="params[0]"
-          /></el-tab-pane>
-          <el-tab-pane
-            class="simulatedCalculate-page-chartwrapper-pane"
-            :label="$t('production.Pr_CR')"
-            ><SimulatedResult :params="params[1]"
-          /></el-tab-pane>
-          <el-tab-pane
-            class="simulatedCalculate-page-chartwrapper-pane"
-            :label="$t('production.Pr_MinimumWorkingPeriod')"
-            ><SimulatedResult :params="params[2]"
-          /></el-tab-pane>
-          <el-tab-pane
-            class="simulatedCalculate-page-chartwrapper-pane"
-            :label="$t('production.Pr_EarliestDeliveryDate')"
-            ><SimulatedResult :params="params[3]"
-          /></el-tab-pane>
-        </el-tabs>
       </el-form>
+      <el-tabs type="border-card" @tab-click="handleTabClick">
+        <!-- 模拟排程tabs -->
+        <el-tab-pane
+          :label="$t('production.Pr_SimulatedAPS')"
+          class="simulatedCalculate-page-chartwrapper-pane"
+          name="0"
+        >
+          <div class="chart-row">
+            <!-- 经典算法 -->
+            <div class="simulatedCalculate-page-charter">
+              <ChartWrapper
+                :datas="calculatedData[0]"
+                id="PieChart1"
+              ></ChartWrapper>
+            </div>
+            <!-- 最短工期 -->
+            <div class="simulatedCalculate-page-charter">
+              <ChartWrapper
+                :datas="calculatedData[1]"
+                id="PieChart2"
+              ></ChartWrapper>
+            </div>
+          </div>
+          <div class="chart-row">
+            <!-- 最早交货期 -->
+            <div class="simulatedCalculate-page-charter">
+              <ChartWrapper
+                :datas="calculatedData[2]"
+                id="PieChart3"
+              ></ChartWrapper>
+            </div>
+            <!-- CR值排程 -->
+            <div class="simulatedCalculate-page-charter">
+              <ChartWrapper
+                :datas="calculatedData[3]"
+                id="PieChart4"
+              ></ChartWrapper>
+            </div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane
+          v-for="item in AlgorithmTypeEnum.getEnums()"
+          :key="item.value"
+          class="simulatedCalculate-page-chartwrapper-pane"
+          :label="item.label"
+          :name="item.name"
+        >
+          <div class="tabs-wrapper">
+            <SimulatedResult :params="params[item.value]" />
+          </div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </PageWrapper>
 </template>
@@ -107,7 +99,7 @@ import SimulatedResult from "./components/simulatedResult.vue";
 import ChartWrapper from "./components/chartWrapper.vue";
 import { pie_chart } from "@/api/workApi/production/aps";
 import { simulation_calculate } from "@/api/workApi/production/aps";
-
+import { AlgorithmTypeEnum } from "@/enum/workModule/production/AlgorithmTypeEnum";
 export default {
   name: "index",
   components: {
@@ -116,20 +108,7 @@ export default {
   },
   data() {
     return {
-      // 可选算法：
-      types: [
-        // 经典算法
-        { label: this.$t("production.Pr_ClassicalAlgorithm"), value: 0 },
-        // 最短工期
-        { label: this.$t("production.Pr_MinimumWorkingPeriod"), value: 1 },
-        // 最早交货期
-        {
-          label: this.$t("production.Pr_EarliestDeliveryDate"),
-          value: 2,
-        },
-        // CR值排程
-        { label: this.$t("production.Pr_CR"), value: 3 },
-      ],
+      AlgorithmTypeEnum,
       // 选中算法
       selectedTypes: [],
       // chartWrapper接收数据
@@ -138,8 +117,9 @@ export default {
       loading: true,
       // 计算结果入参
       params: [{}, {}, {}, {}],
+      // params: {},
       //默认选中标签页
-      currentTabName: "0",
+      currentTabName: 0,
     };
   },
   mounted() {
@@ -200,11 +180,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// .simulatedCalculate-page {
-//   height: 100%;
-//   background-color: #ffffff;
-//   padding: 6px 10px;
-// }
 .chart-row {
   display: flex;
   flex-wrap: wrap;
@@ -215,4 +190,8 @@ export default {
 ::v-deep .simulatedCalculate-page .el-tabs--border-card > .el-tabs__content {
   padding: 0 !important;
 }
+// .tabs-wrapper {
+//   // height: calc(100vh - 200px);
+//   height: 600px;
+// }
 </style>
