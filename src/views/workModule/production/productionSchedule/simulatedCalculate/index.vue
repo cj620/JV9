@@ -38,55 +38,37 @@
           >
         </el-form-item>
       </el-form>
-      <el-tabs type="border-card" @tab-click="handleTabClick">
-        <!-- 模拟排程tabs -->
+      <el-tabs
+        v-model="currentTabName"
+        type="border-card"
+        @tab-click="handleTabClick"
+      >
+        <!-- 排程图表 -->
         <el-tab-pane
           :label="$t('production.Pr_SimulatedAPS')"
           class="simulatedCalculate-page-chartwrapper-pane"
-          name="0"
+          name="SimulatedAPS"
         >
-          <div class="chart-row">
-            <!-- 经典算法 -->
-            <div class="simulatedCalculate-page-charter">
-              <ChartWrapper
-                :datas="calculatedData[0]"
-                id="PieChart1"
-              ></ChartWrapper>
-            </div>
-            <!-- 最短工期 -->
-            <div class="simulatedCalculate-page-charter">
-              <ChartWrapper
-                :datas="calculatedData[1]"
-                id="PieChart2"
-              ></ChartWrapper>
-            </div>
-          </div>
-          <div class="chart-row">
-            <!-- 最早交货期 -->
-            <div class="simulatedCalculate-page-charter">
-              <ChartWrapper
-                :datas="calculatedData[2]"
-                id="PieChart3"
-              ></ChartWrapper>
-            </div>
-            <!-- CR值排程 -->
-            <div class="simulatedCalculate-page-charter">
-              <ChartWrapper
-                :datas="calculatedData[3]"
-                id="PieChart4"
-              ></ChartWrapper>
-            </div>
+          <div class="simulatedCalculate-page-charter">
+            <ChartWrapper
+              v-for="item in AlgorithmTypeEnum.getEnums()"
+              :key="item.value"
+              :datas="calculatedData[item.value]"
+              :id="item.label"
+            ></ChartWrapper>
           </div>
         </el-tab-pane>
+
+        <!-- 排程结果 -->
         <el-tab-pane
           v-for="item in AlgorithmTypeEnum.getEnums()"
-          :key="item.value"
+          :key="item.name"
           class="simulatedCalculate-page-chartwrapper-pane"
           :label="item.label"
           :name="item.name"
         >
           <div class="tabs-wrapper">
-            <SimulatedResult :params="params[item.value]" />
+            <JvTable :table-obj="tableObj"> </JvTable>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -95,19 +77,20 @@
 </template>
 
 <script>
-import SimulatedResult from "./components/simulatedResult.vue";
 import ChartWrapper from "./components/chartWrapper.vue";
+import { Table } from "./components/resultConfig";
 import { pie_chart } from "@/api/workApi/production/aps";
 import { simulation_calculate } from "@/api/workApi/production/aps";
 import { AlgorithmTypeEnum } from "@/enum/workModule/production/AlgorithmTypeEnum";
+
 export default {
   name: "index",
   components: {
     ChartWrapper,
-    SimulatedResult,
   },
   data() {
     return {
+      // 算法枚举
       AlgorithmTypeEnum,
       // 选中算法
       selectedTypes: [],
@@ -115,21 +98,18 @@ export default {
       calculatedData: [],
       // 加载
       loading: true,
-      // 计算结果入参
-      params: [{}, {}, {}, {}],
-      // params: {},
+      // 表格实例
+      tableObj: {},
       //默认选中标签页
-      currentTabName: 0,
+      currentTabName: "SimulatedAPS",
     };
+  },
+  created() {
+    // 创建表格实例
+    this.tableObj = new Table();
   },
   mounted() {
     this.getData();
-  },
-  watch: {
-    // 监控标签页是否切换
-    currentTabName(newVue, oldVue) {
-      newVue == 0 ? this.getData() : this.postParams(newVue);
-    },
   },
   computed: {
     // 是否已选择模拟的方法
@@ -138,19 +118,17 @@ export default {
     },
   },
   methods: {
-    handleTabClick(tab) {
-      this.currentTabName = tab.paneName;
+    handleTabClick() {
+      this.currentTabName == "SimulatedAPS"
+        ? this.getData()
+        : this.postParams(this.currentTabName);
     },
     // 给对应标签页接口传入参
     postParams(name) {
-      const index = name - 1;
-      const algorithmType = index;
-      if (index != -1) {
-        this.params.splice(index, 1, {
-          Keyword: "",
-          AlgorithmType: algorithmType,
-        });
-      }
+      this.tableObj.getData({
+        Keyword: "",
+        AlgorithmType: name,
+      });
     },
     getData() {
       pie_chart().then((res) => {
@@ -166,10 +144,9 @@ export default {
     // 赋值
     simulatedCalculate() {
       this.loading = true;
-      let arr = [...this.selectedTypes];
       simulation_calculate({
         StartDate: new Date(),
-        AlgorithmTypes: arr,
+        AlgorithmTypes: [...this.selectedTypes],
       }).then(() => {
         this.loading == false;
         this.refresh();

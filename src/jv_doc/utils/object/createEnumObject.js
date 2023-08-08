@@ -45,14 +45,7 @@ export function createEnumObject(enums) {
     },
     // 获取原始枚举 如果enums的子项中存在引用类型 回造成无限循环
     getEnums() {
-      return enums.map((item) => {
-        return {
-          value: item.value,
-          label: item.label,
-          color: item.color,
-          icon: item.icon,
-        };
-      });
+      return enums;
     },
     // 获取首个默认值
     getDefaultValue(key = "value", index = 0) {
