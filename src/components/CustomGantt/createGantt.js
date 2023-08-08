@@ -54,173 +54,6 @@ export class CreateGantt {
         this.tableHeaderWidth = this.columns.map(item => item.width).reduce((a, b) => { return a + b });
     }
     // 获取日历数据
-    getCalendarData() {
-        const date = new Date();
-        const year = date.getFullYear();
-        const thisMonth = date.getMonth() ? date.getMonth() + 1 : 1;
-        const bigMonth = [1, 3, 5, 7, 8, 10, 12];
-        const smallMonth = [2, 4, 6, 9, 11];
-        let monthDaysList = [];
-
-        for (let i = thisMonth; i < thisMonth + this.maxMonthNumber; i++) {
-            i > 12 ? this.monthArr.push(i - 12) : this.monthArr.push(i);
-        }
-        // 周的数据
-        this.monthArr.forEach((item, i) => {
-            let days = 0;
-            // 判断是不是大月31天
-            if (bigMonth.indexOf(item) !== -1) {
-                days = 31;
-                // 判断是不是2月份
-                if (item == 2) {
-                    // 判断是平年闰年
-                    if (isLeapYear(this.monthArr[i] < this.monthArr[0] ? year + 1 : year)) {
-                        days = 29
-                    } else {
-                        days = 28
-                    }
-                }
-                for (let i = 1; i <= days; i++) {
-                    let wk = new Date(`${item < this.monthArr[0] ? year + 1 : year}-${item >= 10 ? item : '0' + item}-${i < 10 ? '0' + i : i}`).getUTCDay();
-                    this.weekDetails.push(wk ? wk : 7);
-                }
-            } else if (smallMonth.indexOf(item) !== -1) {
-                days = 30;
-                if (item == 2) {
-                    if (isLeapYear(this.monthArr[i] < this.monthArr[0] ? year + 1 : year)) {
-                        days = 29
-                    } else {
-                        days = 28
-                    }
-                }
-                for (let i = 1; i <= days; i++) {
-                    let wk = new Date(`${item < this.monthArr[0] ? year + 1 : year}-${item >= 10 ? item : '0' + item}-${i < 10 ? '0' + i : i}`).getUTCDay();
-                    this.weekDetails.push(wk ? wk : 7);
-                }
-            }
-            if (i) {
-                monthDaysList.push({
-                    total: days + monthDaysList[i - 1].total,
-                    day: days,
-                })
-            } else {
-                monthDaysList.push({
-                    total: days,
-                    day: days,
-                })
-            }
-        })
-        // 天的数据
-        this.monthArr.forEach(item => {
-            let days = 0;
-            // 判断是不是大月31天
-            if (bigMonth.indexOf(item) !== -1) {
-                days = 31;
-                // 判断是不是2月份
-                if (item == 2) {
-                    // 判断是平年闰年
-                    if (isLeapYear(date.getFullYear())) {
-                        days = 29
-                    } else {
-                        days = 28
-                    }
-                }
-                for (let i = 1; i <= days; i++) {
-                    // this.dayBelongToMonthArr.push({
-                    //     parent: item + '月',
-                    // })
-                    this.dayCellArr.push({
-                        text:item+'月' + ( i < 10 ? '0'+i : i),
-                        cell: 24
-                    })
-                    this.dayArr.push(i);
-                }
-            } else if (smallMonth.indexOf(item) !== -1) {
-                days = 30;
-                if (item == 2) {
-                    if (isLeapYear(date.getFullYear())) {
-                        days = 29
-                    } else {
-                        days = 28
-                    }
-                }
-                for (let i = 1; i <= days; i++) {
-                    // this.dayBelongToMonthArr.push({
-                    //     parent: item + '月',
-                    // })
-                    this.dayCellArr.push({
-                        text: item+'月' + ( i < 10 ? '0'+i : i),
-                        cell: 24
-                    })
-                    this.dayArr.push(i);
-                }
-            }
-        });
-        // 小时的数据
-        this.dayArr.forEach((item, index) => {
-            for (let i = 0; i < 24; i++) {
-                // if (i < 10) {
-                //     this.hourArr.push('0' + i);
-                // } else {
-                //     this.hourArr.push(i);
-                // }
-                this.hourCellArr.push({
-                    text: this.dayCellArr[index].text + '日 ' + (i < 10 ? '0'+i:i) + '时',
-                    cell: 6
-                })
-                this.hourArr.push(i);
-            }
-        })
-        // 分钟的数据
-        this.hourArr.forEach(item => {
-            for (let i = 0; i < 60; i += 10) {
-                if (i === 0) {
-                    this.minuteArr.push(0);
-                } else {
-                    this.minuteArr.push(i);
-                }
-
-            }
-        });
-        this.setWeekDayCell(monthDaysList);
-
-    }
-    setWeekDayCell(days) {
-        const date = new Date();
-        const year = date.getFullYear();
-
-        days.forEach((item, i) => {
-            let utcDay = new Date(`${this.monthArr[i] < this.monthArr[0] ? year + 1 : year}-${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}-01`).getUTCDay();
-            let res = utcDay !== 1 ? (7 - (utcDay ? utcDay : 7) + 1) : 0
-            let arr = this.dayArr.slice(days[i - 1] ? days[i - 1].total + res : res, item.total);
-            let newArr = arr.slice(0, arr.length - arr.length % 7);
-            let count = 0;
-            if (i === 0) {
-                this.weekCellArr.push({
-                    cell: res,
-                    text: `${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}月 01日 - ${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}月 ${res < 10 ? '0' + res : res}日`
-                })
-            }
-            newArr.forEach((item, j) => {
-                if (newArr[count]) {
-                    this.weekCellArr.push({
-                        cell: 7,
-                        text: `${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}月 ${newArr[count] < 10 ? '0' + newArr[count] : newArr[count]}日- ${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}月 ${newArr[count + 6] < 10 ? '0' + newArr[count + 6] : newArr[count + 6]}日`
-                    })
-                }
-                count += 7;
-            })
-            if (arr.length % 7 !== 0) {
-                this.weekCellArr.push({
-                    cell: 7,
-                    text: `${this.monthArr[i] >= 10 ? this.monthArr[i] : '0' + this.monthArr[i]}月 ` +
-                        `${arr[arr.length - arr.length % 7]}日` + ' - ' +
-                        `${this.monthArr[i] + 1 >= 10 ? (this.monthArr[i] + 1 > 12 ? '01' : this.monthArr[i] + 1) : '0' + (this.monthArr[i] + 1)}月 ` +
-                        `${(arr[arr.length - arr.length % 7] + 6 - item.day) < 10 ? '0' + (arr[arr.length - arr.length % 7] + 6 - item.day) : (arr[arr.length - arr.length % 7] + 6 - item.day)}日`
-                })
-            }
-        })
-    }
     setCellWidth(unit) {
         this.unitOfTime = unit;
         if (this.unitOfTime === "week" || this.unitOfTime === "day") {
@@ -267,9 +100,20 @@ export class CreateGantt {
             })
             count++;
         })
+        // let taskHint = document.createElement('div'); // 用于鼠标悬浮任务条高亮
+        // let height = this.tasksHeight;
+        // taskHint.style.height = height+'px';
+        // taskHint.className = 'task-hint';
+        // parent.appendChild(taskHint);
     }
     removeTask(parent) {
-        parent.innerHTML = ''
+        if(parent.children.length) {
+            let list = [...parent.children]
+            list.forEach((item, i) => {
+                if(i) parent.removeChild(item)
+            })
+        }
+        // parent.innerHTML = ''
     }
 
 

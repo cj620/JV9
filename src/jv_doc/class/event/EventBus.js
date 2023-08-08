@@ -29,3 +29,5 @@ export class EventBus {
     this.eventMap = {};
   };
 }
+console.log('::: ', EventBus);
+export const Bus = new EventBus();
