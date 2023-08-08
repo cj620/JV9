@@ -1,7 +1,7 @@
 <template>
   <PageWrapper ref="page" :footer="false">
     <div class="simulatedCalculate-page" v-loading="loading">
-      <el-form size="mini">
+      <el-form size="mini" class="simulatedCalculate-page-form">
         <el-form-item :label="$t('production.Pr_SchedulingAlgorithmSelection')">
           <!-- 算法多选框 -->
           <el-select
@@ -44,7 +44,6 @@
               <!-- 经典算法 -->
               <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
-                  :title="$t('production.Pr_ConventionalAlgorithm')"
                   :datas="calculatedData[0]"
                   id="PieChart1"
                 ></ChartWrapper>
@@ -52,7 +51,6 @@
               <!-- 最短工期 -->
               <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
-                  :title="$t('production.Pr_ShortestDurationAlgorithm')"
                   :datas="calculatedData[1]"
                   id="PieChart2"
                 ></ChartWrapper>
@@ -62,7 +60,6 @@
               <!-- 最早交货期 -->
               <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
-                  :title="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
                   :datas="calculatedData[2]"
                   id="PieChart3"
                 ></ChartWrapper>
@@ -70,7 +67,6 @@
               <!-- CR值排程 -->
               <div class="simulatedCalculate-page-chartwrapper">
                 <ChartWrapper
-                  :title="$t('production.Pr_CRValueScheduling')"
                   :datas="calculatedData[3]"
                   id="PieChart4"
                 ></ChartWrapper>
@@ -136,7 +132,7 @@ export default {
       currentTabName: "0",
     };
   },
-  created() {
+  mounted() {
     this.getData();
   },
   watch: {
@@ -180,14 +176,11 @@ export default {
     // 赋值
     simulatedCalculate() {
       this.loading = true;
-      let arr = [];
-      this.selectedTypes.forEach((item) => {
-        arr.push(item);
-      });
+      let arr = [...this.selectedTypes];
       simulation_calculate({
         StartDate: new Date(),
         AlgorithmTypes: arr,
-      }).then((res) => {
+      }).then(() => {
         this.loading == false;
         this.refresh();
       });
@@ -198,7 +191,7 @@ export default {
 
 <style scoped lang="scss">
 .el-form-item {
-  margin-bottom: 4px;
+  margin-bottom: 2%;
 }
 .simulatedCalculate-page {
   height: 100%;
@@ -211,7 +204,6 @@ export default {
 }
 .chart-row > div {
   width: 50%;
-  // height: 50%;
 }
 ::v-deep .simulatedCalculate-page .el-tabs--border-card > .el-tabs__content {
   padding: 0 !important;
