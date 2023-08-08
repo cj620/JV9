@@ -7,7 +7,7 @@ import { msgEnum } from "@/enum/baseModule/msgEnum";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { timeFormat } from "@/jv_doc/utils/time";
 import { routeToDetail } from "@/jv_doc/utils/system/detailPlugin";
-
+import store from "@/store";
 // /** Title */
 // title: string
 
@@ -47,7 +47,8 @@ export function receiveMessages(event) {
   const msg = JSON.parse(event.data);
   const { Content, Type, NotificationType, FromUser, SendTime, DynamicData } =
     msg;
-  console.log(msg, "接受消息");
+  // console.log(msg, "接受消息");
+  store.commit('websocket/SET_COUNTS','new');
   Notification({
     title: msgEnum.getLabel(Type),
     dangerouslyUseHTMLString: true,
