@@ -52,7 +52,7 @@
 </template>
 <script>
 // 引入表格类
-import { Table } from "./config";
+import { Table } from "./config1";
 // 引入单据状态的枚举
 import { stateEnum } from "@/enum/workModule";
 // 单据状态组件
