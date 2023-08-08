@@ -1,5 +1,5 @@
 <template>
-    <PageWrapper :footer="false">
+    <div style="width: 100%;position: relative;">
         <div style="
 		margin-bottom: 10px;
 		width: 100%;
@@ -7,6 +7,7 @@
 		justify-content: space-between;
 		background-color: #fff;
 		padding: 6px 10px;
+        height: 48px;
 		border-radius: 4px;
 		align-items: center;">
             <div style="display: flex; align-items: center;">
@@ -21,18 +22,19 @@
                 <slot name="gntHeaderRight"></slot>
             </div>
         </div>
-
-        <div class="ganttContainer" v-loading="loading">
+        <div class="custom-border-box" :style="{left: tableHeaderWidth+30+'px',height: ganttContainerHeight+'px'}"></div>
+        <div class="ganttContainer" :style="{height: ganttContainerHeight+'px'}"  v-loading="loading">
             <div class="date-header" :style="{
                 width: cWidth + 'px',
                 height: tableHeaderHeight+'px',
-                marginLeft: tableHeaderWidth+46+'px',
+                marginLeft: tableHeaderWidth+40+'px',
             }">
                 <div class="date-header-item" :style="{height: tableHeaderHeight/2+'px'}">
                     <div class="date-header-cell" v-for="(item, i) in TableDateTopList" :key="i"
                     :style="{width: gantt.cellWidth * item.number+'px'}"
                     >
-                        <span> {{ item.text }}</span>
+                        <span class="beyond-hiding"
+                        :style="{width: gantt.cellWidth * item.number+'px'}">{{ item.text }}</span>
                     </div>
                 </div>
                 <div class="date-header-item" :style="{height: tableHeaderHeight/2+'px'}">
@@ -67,7 +69,7 @@
                     {{ item.label }}
                 </div>
             </div>
-            <div class="header-table" :style="{ height: '2000px',width: tableHeaderWidth + 40 +'px' }">
+            <div class="header-table" :style="{ width: tableHeaderWidth + 40 +'px'}">
                 <div v-for="(item, i) in list" :key="item.Id"
                 class="header-table-item"
                 :style="{width: '100%', height: tasksHeight+'px'}"
@@ -98,7 +100,7 @@
                 <!-- <canvas></canvas> -->
             </div>
         </div>
-    </PageWrapper>
+    </div>
 </template>
 
 <script>
@@ -127,13 +129,21 @@ export default {
             type: Number,
             default: 8,
         },
-        taskRadius: {
+        taskRadius: { // task任务条圆角
             type: Number | String,
             default: null,
         },
-        loading: {
+        loading: { // loading加载状态
             type: Boolean,
             default: false,
+        },
+        defaultUnitOfTime: { // 默认以小时单位呈现甘特图
+            type: String,
+            default: 'hour',
+        },
+        ganttContainerHeight: {
+            type: Number,
+            default: 800
         }
     },
     data() {
@@ -157,7 +167,7 @@ export default {
 				value: 'minute',
 				label: '分'
 			}],
-            unitOfTime: 'week',
+            unitOfTime: this._props.defaultUnitOfTime,
             deferList: {},
             TimeRangeList: [],
         }
@@ -181,7 +191,13 @@ export default {
         this.setDeferList();
     },
     mounted() {
-        
+        // let mainContent = document.querySelector('.main-content');
+        // this.ganttContainerHeight = mainContent.clientHeight-80; // 甘特图盒子的高度
+        // window.onresize = (e) => {
+        //     this.debounce(() => {
+        //         this.ganttContainerHeight = mainContent.clientHeight-80;
+        //     },100)
+        // }
     },
     methods: {
         timeFormat,
@@ -202,7 +218,7 @@ export default {
         },
         setTableDateList() {
             if (this.unitOfTime === "week") {
-                this.cWidth = this.TimeRangeList.weekDetails * this.gantt.cellWidth * 7;
+                this.cWidth = this.TimeRangeList.dayArr.length * 72;
                 this.TableDateTopList = this.TimeRangeList.weekDetails;
                 this.TableDateBottomList = this.TimeRangeList.dayArr;
             } else if (this.unitOfTime === "hour") {
@@ -211,8 +227,6 @@ export default {
                 this.TableDateBottomList = this.TimeRangeList.hourArr;
             } else if (this.unitOfTime === "minute") {
                 this.cWidth = this.TimeRangeList.minuteArr.length * 48;
-                console.log('this.TimeRangeList.minuteArr.length::: ', this.TimeRangeList.minuteArr.length);
-                console.log('this.cWidth::: ', this.cWidth);
                 this.TableDateTopList = this.TimeRangeList.hourDetails;
                 this.TableDateBottomList = this.TimeRangeList.minuteArr;
             }
@@ -236,16 +250,16 @@ export default {
             }
             let length = (len / 1000).toFixed(0) -0 + 1
             this.deferList[length] = len % 1000 + this.deferList[length - 1]
-        }
+        },
+        
     },
     watch: {
         result(val) {
+            
             this.gantt.MaximumTime = timeFormat(val.MaximumTime, 'yyyy-MM-dd hh:mm:ss'); // 赋值 最前面的时间 （起）
             this.gantt.MinimumTime = timeFormat(val.MinimumTime, 'yyyy-MM-dd hh:mm:ss'); // 赋值 最后面的时间 （止）
             this.gantt.getCalendarData(); // 获取日历数据
-
             this.TimeRangeList = getTimeRangeList(val.MinimumTime, val.MaximumTime);
-
             this.setTableDateList(); // 赋值日期列表和每一格的长度 用来渲染
             this.list = val.Items; // 赋值表头列表
             this.gantt.tasks = this.list; // 赋值task列表
@@ -264,10 +278,14 @@ export default {
 .c-page-wrapper {
     overflow: hidden;
 }
-
+.custom-border-box{
+    position: absolute;
+    width: 10px;
+    box-shadow: 6px 0px 6px 0px #e0e0e0;
+    z-index: 30;
+}
 .ganttContainer {
-    width: 85vw;
-    height: 80vh;
+    width: 100%;
     background-color: #fff;
     border-radius: 4px;
     overflow-y: auto;
@@ -275,12 +293,11 @@ export default {
     font-size: 14px;
 
     .header-table {
-        height: 1050px;
         position: sticky;
         left: 0;
         // border-right: 1px solid #ddd;
         z-index: 10;
-        box-shadow: 2px 6px 6px 1px #e0e0e0;
+        // box-shadow: 2px 6px 6px 1px #e0e0e0;
         background-color: #fff;
         &-item{
             display: flex;
@@ -311,7 +328,7 @@ export default {
     }
     .header-table-top{
         // border-right: 1px solid #ddd;
-        box-shadow: 4px 0px 6px 1px #e0e0e0;
+        // box-shadow: 4px 0px 6px 1px #e0e0e0;
         background-color: #fff;
         position: sticky;
         left: 0;

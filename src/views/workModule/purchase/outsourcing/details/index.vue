@@ -17,7 +17,7 @@
       :actions="btnAction"
       :dropDownActions="[
         {
-          label: $t('Generality.Ge_Print') + '  ' + $t('menu.Pu_Order_PR'),
+          label: $t('Generality.Ge_Print') + '  ' + $t('menu.Pu_Purchase'),
           confirm: printPO,
         }
 

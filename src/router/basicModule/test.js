@@ -9,42 +9,42 @@ const test = window.global_config.showTestTab
         redirect: "/table",
         meta: { title: "高级组件", icon: "design" },
         children: [
-          // {
-          //   path: "list",
-          //   component: () => import("@/views/basicModule/demo/Table"),
-          //   name: "list",
-          //   meta: { title: "list", icon: "design" },
-          // },
-          // {
-          //   path: "form",
-          //   component: () => import("@/views/basicModule/demo/Form"),
-          //   name: "form",
-          //   meta: { title: "form", icon: "dashboard" },
-          // },
-          // {
-          //   path: "detail",
-          //   component: () => import("@/views/basicModule/demo/Detail"),
-          //   name: "detail",
-          //   meta: { title: "detail", icon: "dashboard" },
-          // },
-          // {
-          //   path: "editTable",
-          //   component: () => import("@/views/basicModule/demo/EditTable"),
-          //   name: "editTable",
-          //   meta: { title: "editTable", icon: "dashboard" },
-          // },
-          // {
-          //   path: "treeTable",
-          //   component: () => import("@/views/basicModule/demo/TreeTable"),
-          //   name: "treeTable",
-          //   meta: { title: "treeTable", icon: "dashboard" },
-          // },
-          // {
-          //   path: "ProjectAnalyze",
-          //   component: () => import("@/views/basicModule/demo/ProjectAnalyze"),
-          //   name: "ProjectAnalyze",
-          //   meta: { title: "ProjectAnalyze", icon: "dashboard" },
-          // },
+          {
+            path: "list",
+            component: () => import("@/views/basicModule/demo/Table"),
+            name: "list",
+            meta: { title: "list", icon: "design" },
+          },
+          {
+            path: "form",
+            component: () => import("@/views/basicModule/demo/Form"),
+            name: "form",
+            meta: { title: "form", icon: "dashboard" },
+          },
+          {
+            path: "detail",
+            component: () => import("@/views/basicModule/demo/Detail"),
+            name: "detail",
+            meta: { title: "detail", icon: "dashboard" },
+          },
+          {
+            path: "editTable",
+            component: () => import("@/views/basicModule/demo/EditTable"),
+            name: "editTable",
+            meta: { title: "editTable", icon: "dashboard" },
+          },
+          {
+            path: "treeTable",
+            component: () => import("@/views/basicModule/demo/TreeTable"),
+            name: "treeTable",
+            meta: { title: "treeTable", icon: "dashboard" },
+          },
+          {
+            path: "ProjectAnalyze",
+            component: () => import("@/views/basicModule/demo/ProjectAnalyze"),
+            name: "ProjectAnalyze",
+            meta: { title: "ProjectAnalyze", icon: "dashboard" },
+          },
           {
             path: "test",
             component: () => import("@/views/basicModule/demo/Test"),

@@ -13,7 +13,7 @@ export const formSchema = [
   },
   {
     // prop/value待确定
-    prop: "CalculateMethods",
+    prop: "SchedulingType",
     label: i18n.t("production.Pr_SchedulingAlgorithmSelection"),
     cpn: "FormRadio",
     default: 0,
