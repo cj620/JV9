@@ -22,9 +22,9 @@ export class Table extends BaseTable {
       // 数据
       api,
       // 表格标题
-      // title: i18n.t("production.Pr_ConventionalAlgorithm"),
+      // title: i18n.t("production.Pr_ClassicalAlgorithm"),
       // 打印模块标识（需更改）
-      printMod: "Pr_ConventionalAlgorithm",
+      printMod: "Pr_ClassicalAlgorithm",
       operationCol: false,
       sortCol: false,
       chooseCol: false,

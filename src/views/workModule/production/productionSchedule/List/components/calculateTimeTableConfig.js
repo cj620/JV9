@@ -21,19 +21,19 @@ export const formSchema = [
       list: [
         {
           value: 0,
-          label: i18n.t("production.Pr_ConventionalAlgorithm"),
+          label: i18n.t("production.Pr_ClassicalAlgorithm"),
         },
         {
           value: 1,
-          label: i18n.t("production.Pr_CRValueScheduling"),
+          label: i18n.t("production.Pr_CR"),
         },
         {
           value: 2,
-          label: i18n.t("production.Pr_ShortestDurationAlgorithm"),
+          label: i18n.t("production.Pr_MinimumWorkingPeriod"),
         },
         {
           value: 3,
-          label: i18n.t("production.Pr_AlgorithmForEarliestDeliveryTime"),
+          label: i18n.t("production.Pr_EarliestDeliveryDate"),
         },
       ],
     },

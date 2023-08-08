@@ -2,7 +2,10 @@
   <PageWrapper ref="page" :footer="false">
     <div class="simulatedCalculate-page" v-loading="loading">
       <el-form size="mini" class="simulatedCalculate-page-form">
-        <el-form-item :label="$t('production.Pr_SchedulingAlgorithmSelection')">
+        <el-form-item
+          class="simulatedCalculate-page-form-item"
+          :label="$t('production.Pr_SchedulingAlgorithmSelection')"
+        >
           <!-- 算法多选框 -->
           <el-select
             v-model="selectedTypes"
@@ -42,14 +45,14 @@
           >
             <div class="chart-row">
               <!-- 经典算法 -->
-              <div class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-charter">
                 <ChartWrapper
                   :datas="calculatedData[0]"
                   id="PieChart1"
                 ></ChartWrapper>
               </div>
               <!-- 最短工期 -->
-              <div class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-charter">
                 <ChartWrapper
                   :datas="calculatedData[1]"
                   id="PieChart2"
@@ -58,14 +61,14 @@
             </div>
             <div class="chart-row">
               <!-- 最早交货期 -->
-              <div class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-charter">
                 <ChartWrapper
                   :datas="calculatedData[2]"
                   id="PieChart3"
                 ></ChartWrapper>
               </div>
               <!-- CR值排程 -->
-              <div class="simulatedCalculate-page-chartwrapper">
+              <div class="simulatedCalculate-page-charter">
                 <ChartWrapper
                   :datas="calculatedData[3]"
                   id="PieChart4"
@@ -73,17 +76,24 @@
               </div>
             </div>
           </el-tab-pane>
-          <el-tab-pane :label="$t('production.Pr_ConventionalAlgorithm')"
+          <el-tab-pane
+            class="simulatedCalculate-page-chartwrapper-pane"
+            :label="$t('production.Pr_ClassicalAlgorithm')"
             ><SimulatedResult :params="params[0]"
           /></el-tab-pane>
-          <el-tab-pane :label="$t('production.Pr_CRValueScheduling')"
+          <el-tab-pane
+            class="simulatedCalculate-page-chartwrapper-pane"
+            :label="$t('production.Pr_CR')"
             ><SimulatedResult :params="params[1]"
           /></el-tab-pane>
-          <el-tab-pane :label="$t('production.Pr_ShortestDurationAlgorithm')"
+          <el-tab-pane
+            class="simulatedCalculate-page-chartwrapper-pane"
+            :label="$t('production.Pr_MinimumWorkingPeriod')"
             ><SimulatedResult :params="params[2]"
           /></el-tab-pane>
           <el-tab-pane
-            :label="$t('production.Pr_AlgorithmForEarliestDeliveryTime')"
+            class="simulatedCalculate-page-chartwrapper-pane"
+            :label="$t('production.Pr_EarliestDeliveryDate')"
             ><SimulatedResult :params="params[3]"
           /></el-tab-pane>
         </el-tabs>
@@ -109,16 +119,16 @@ export default {
       // 可选算法：
       types: [
         // 经典算法
-        { label: this.$t("production.Pr_ConventionalAlgorithm"), value: 0 },
+        { label: this.$t("production.Pr_ClassicalAlgorithm"), value: 0 },
         // 最短工期
-        { label: this.$t("production.Pr_ShortestDurationAlgorithm"), value: 1 },
+        { label: this.$t("production.Pr_MinimumWorkingPeriod"), value: 1 },
         // 最早交货期
         {
-          label: this.$t("production.Pr_AlgorithmForEarliestDeliveryTime"),
+          label: this.$t("production.Pr_EarliestDeliveryDate"),
           value: 2,
         },
         // CR值排程
-        { label: this.$t("production.Pr_CRValueScheduling"), value: 3 },
+        { label: this.$t("production.Pr_CR"), value: 3 },
       ],
       // 选中算法
       selectedTypes: [],
@@ -190,14 +200,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.el-form-item {
-  margin-bottom: 2%;
-}
-.simulatedCalculate-page {
-  height: 100%;
-  background-color: #ffffff;
-  padding: 6px 10px;
-}
+// .simulatedCalculate-page {
+//   height: 100%;
+//   background-color: #ffffff;
+//   padding: 6px 10px;
+// }
 .chart-row {
   display: flex;
   flex-wrap: wrap;

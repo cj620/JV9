@@ -9,7 +9,7 @@
 import { Table } from "./resultConfig";
 export default {
   // 页面的标识
-  name: "Pr_ConventionalAlgorithm",
+  name: "",
   props: {
     params: {
       type: Object,
