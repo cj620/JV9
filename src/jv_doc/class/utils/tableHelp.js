@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2022-01-17 09:18:51
- * @LastEditTime: 2023-07-21 08:57:07
+ * @LastEditTime: 2023-08-08 13:19:32
  * @Description: file content
  */
 import { Form } from "../form";
@@ -113,12 +113,13 @@ function _setTableSchema(tableId, schema) {
     true
   );
 }
-export function setPageSize(tableId, size) {
+export function setPageSize(tableId, size, tableSchema) {
   let cacheKey = getCacheId(tableId);
   let tableCache = getLocalStorage(cacheKey);
+  console.log(tableCache);
   setLocalStorage(cacheKey, {
     pageSize: size,
-    tableSchema: tableCache.tableSchema,
+    tableSchema: tableCache?.tableSchema ?? tableSchema,
   });
 }
 export function resetCache(tableId) {

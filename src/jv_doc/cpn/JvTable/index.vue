@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-07-14 08:59:00
- * @LastEditTime: 2023-07-13 16:01:43
+ * @LastEditTime: 2023-08-08 13:18:58
  * @Description: file content
 -->
 <template>
@@ -369,7 +369,11 @@ export default {
     },
     tablePageSizeChange(size) {
       this.tableObj.pager.sizeChange(size);
-      setPageSize(this.tableObj.props.printMod, size);
+      setPageSize(
+        this.tableObj.props.printMod,
+        size,
+        this.tableObj.props.tableSchema
+      );
     },
     selectInit(row, index) {
       return this.tableObj.selectable(row, index);
