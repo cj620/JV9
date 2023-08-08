@@ -26,7 +26,11 @@
           ></div>
         </div>
         <!-- el-icon-message-solid -->
-        <div class="right-menu-item hover-effect" style="padding-top: 2px">
+        <!-- <el-badge is-dot class="item">数据查询</el-badge> -->
+        <span
+          class="right-menu-item hover-effect"
+          style="padding-top: 9px; line-height: 35px"
+        >
           <el-popover
             placement="bottom"
             width="400"
@@ -101,13 +105,16 @@
                 </div>
               </div>
             </div>
-            <span
-              slot="reference"
-              class="el-icon-message-solid"
-              style="font-size: 25px"
-            ></span>
+            <span slot="reference">
+              <el-badge :value="notifysCounts">
+                <span
+                  class="el-icon-message-solid"
+                  style="font-size: 25px"
+                ></span>
+              </el-badge>
+            </span>
           </el-popover>
-        </div>
+        </span>
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
         <el-tooltip content="Global Size" effect="dark" placement="bottom">
@@ -247,7 +254,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from "vuex";
+import { mapGetters, mapActions, mapState, mapMutations } from "vuex";
 import { changePassword } from "@/api/basicApi/systemSettings/user";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
@@ -314,10 +321,11 @@ export default {
   },
   computed: {
     ...mapGetters(["userId", "sidebar", "avatar", "device", "name"]),
-    ...mapState("websocket", ["notifyObjs"]),
+    ...mapState("websocket", ["notifyObjs", "notifysCounts"]),
   },
   methods: {
     ...mapActions("websocket", ["sendNessage", "connect", "changeSelectType"]),
+    ...mapMutations("websocket", ["SET_COUNTS"]),
     getData() {
       // console.log(this.currentNotifyObj, "444notifyObjs");
       this.currentNotifyObj.nextPage();
@@ -339,6 +347,8 @@ export default {
       });
     },
     popoverInit() {
+      // notifysCounts = "";
+      this.SET_COUNTS("");
       this.tabClick({
         name: this.activeType,
       });
