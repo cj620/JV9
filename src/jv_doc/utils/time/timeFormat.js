@@ -7,6 +7,7 @@
 // 通用日期处理
  function timeFormat(date, fmt = 'yyyy-MM-dd') {
   if (!date) return '--'
+  // if(!(isNaN(date) && !isNaN(Date.parse(date)))) return '--'
   var currentDate = new Date(date)
   var o = {
     'M+': currentDate.getMonth() + 1, // 月份

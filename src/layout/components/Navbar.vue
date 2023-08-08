@@ -26,7 +26,11 @@
           ></div>
         </div>
         <!-- el-icon-message-solid -->
-        <div class="right-menu-item hover-effect" style="padding-top: 2px">
+        <!-- <el-badge is-dot class="item">数据查询</el-badge> -->
+        <span
+          class="right-menu-item hover-effect"
+          style="padding-top: 9px; line-height: 35px"
+        >
           <el-popover
             placement="bottom"
             width="400"
@@ -96,16 +100,21 @@
                 <div style="cursor: pointer" @click="toMarkAll">
                   全部标记为已读
                 </div>
-                <div style="cursor: pointer">历史通知</div>
+                <div style="cursor: pointer" @click="historyDetail">
+                  历史通知
+                </div>
               </div>
             </div>
-            <span
-              slot="reference"
-              class="el-icon-message-solid"
-              style="font-size: 25px"
-            ></span>
+            <span slot="reference">
+              <el-badge :value="notifysCounts">
+                <span
+                  class="el-icon-message-solid"
+                  style="font-size: 25px"
+                ></span>
+              </el-badge>
+            </span>
           </el-popover>
-        </div>
+        </span>
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
         <el-tooltip content="Global Size" effect="dark" placement="bottom">
@@ -187,11 +196,65 @@
       </el-form>
       <!-- <JvForm :formObj="formObj"> </JvForm> -->
     </JvDialog>
+    <JvDialog
+      title="历史通知"
+      :visible.sync="notifyVisible"
+      width="60%"
+      @confirm="notifyVisible = false"
+    >
+      <div style="position: relative" class="notify-box">
+        <div
+          class="notify-box-select"
+          style="
+            position: absolute;
+            right: 0;
+            top: 7px;
+            z-index: 99;
+            width: 100px;
+          "
+        >
+          <el-select
+            v-model="notifyType"
+            placeholder="请选择"
+            size="mini"
+            @change="notifyTypeChange"
+          >
+            <el-option :value="0" label="全部消息"></el-option>
+            <el-option :value="1" label="未读消息"></el-option>
+          </el-select>
+        </div>
+        <el-tabs v-model="activeType" @tab-click="tabClick">
+          <!-- <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
+              <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane> -->
+          <el-tab-pane
+            :label="item.label"
+            :name="item.value"
+            v-for="item in notifyObjs"
+            :key="item.value"
+            :lazy="true"
+          >
+            <div
+              ref="listRef"
+              v-if="item.data.length !== 0"
+              v-infinite-scroll="getData"
+              style="overflow: auto; height: 300px; padding: 0 5px; margin: 0"
+            >
+              <NotifyItem
+                :cdata="item"
+                v-for="item in item.data"
+                :key="item.Id"
+              ></NotifyItem>
+            </div>
+            <el-empty description="无消息" v-else></el-empty>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </JvDialog>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from "vuex";
+import { mapGetters, mapActions, mapState, mapMutations } from "vuex";
 import { changePassword } from "@/api/basicApi/systemSettings/user";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
@@ -234,6 +297,7 @@ export default {
       changePasswordDialogVisible: false,
       notifyType: 0,
       currentNotifyObj: null,
+      notifyVisible: false,
     };
   },
   created() {
@@ -257,10 +321,11 @@ export default {
   },
   computed: {
     ...mapGetters(["userId", "sidebar", "avatar", "device", "name"]),
-    ...mapState("websocket", ["notifyObjs"]),
+    ...mapState("websocket", ["notifyObjs", "notifysCounts"]),
   },
   methods: {
     ...mapActions("websocket", ["sendNessage", "connect", "changeSelectType"]),
+    ...mapMutations("websocket", ["SET_COUNTS"]),
     getData() {
       // console.log(this.currentNotifyObj, "444notifyObjs");
       this.currentNotifyObj.nextPage();
@@ -282,6 +347,8 @@ export default {
       });
     },
     popoverInit() {
+      // notifysCounts = "";
+      this.SET_COUNTS("");
       this.tabClick({
         name: this.activeType,
       });
@@ -321,6 +388,9 @@ export default {
       }).then(() => {
         this.currentNotifyObj.markAllRead();
       });
+    },
+    historyDetail() {
+      this.notifyVisible = true;
     },
   },
 };
