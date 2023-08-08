@@ -26,8 +26,6 @@ export class Table extends BaseTable {
       // 打印模块标识（需更改）
       printMod: "Pr_ClassicalAlgorithm",
       operationCol: false,
-      sortCol: false,
-      chooseCol: false,
       height: 675,
     });
   }
@@ -49,13 +47,11 @@ export const tableConfig = [
   {
     prop: "PartNo",
     label: i18n.t("Generality.Ge_PartNo"),
-    // width: "90px",
   },
   /*工序*/
   {
     prop: "ProcessName",
     label: i18n.t("Generality.Ge_Process"),
-    // width: "110px",
   },
   /*预计工时*/
   {
@@ -66,29 +62,26 @@ export const tableConfig = [
   {
     prop: "PlanDevice",
     label: i18n.t("production.Pr_PlanningDevices"),
-    // width: "95px",
   },
   /*计划开始*/
   {
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     filter: "time",
-    // width: "150px",
   },
   /*计划结束*/
   {
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
     filter: "time",
-    // width: "150px",
   },
 ];
 // 表单配置
 export const formSchema = [
-  //单号搜索
+  //关键字
   {
-    prop: "BillId",
-    label: i18n.t("Generality.Ge_BillId"),
+    prop: "Keyword",
+    label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
   },
 ];
