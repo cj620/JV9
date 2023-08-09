@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 50%">
+  <div style="width: 50%; height: 50%">
     <div class="chart-title">{{ title }}</div>
     <div class="chart-wrapper">
       <div
