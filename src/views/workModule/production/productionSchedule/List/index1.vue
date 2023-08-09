@@ -39,6 +39,10 @@
               confirm: release.bind(null),
             },
           },
+          {
+            label: $t('production.Pr_APSLog'),
+            confirm: release.bind(null),
+          },
         ]"
       >
       </Action>
@@ -50,6 +54,7 @@
       @cancel="cancel"
       @completed="completed"
     ></calculateTime>
+    <!-- 排程日志弹窗 -->
     <!-- 发布提醒弹窗 -->
     <jv-dialog
       :title="$t('Generality.Ge_Remind')"
@@ -57,6 +62,7 @@
       :visible.sync="releaseDialogFormVisible"
       v-if="releaseDialogFormVisible"
       @confirm="release"
+      @cancel="cancelRelease"
     >
       生产排程完成，无超负荷工单、超交期工单，是否进行发布？当前版本号：{{
         ApsVersionNo
@@ -103,10 +109,14 @@ export default {
       versionDialogFormVisible: false,
       // 路由跳转前是否提醒发布
       needOpen: false,
+      // 路由信息
+      toRouteName: null,
     };
   },
   // 路由切换
   beforeRouteLeave(to, from, next) {
+    this.toRouteName = to.name;
+    console.log("this.toRouteName::: ", this.toRouteName);
     // 判断是否需要弹出发布提醒
     if (this.needOpen) {
       this.releaseDialogFormVisible = true;
@@ -189,6 +199,15 @@ export default {
         this.versionDialogFormVisible = true;
         this.needOpen = false;
       });
+    },
+    // 发布弹窗取消
+    cancelRelease() {
+      this.toRouteName
+        ? this.$router.push({
+            name: this.toRouteName,
+          })
+        : console.log("无需跳转");
+      this.toRouteName = null;
     },
     // 关闭版本号弹窗
     closeVersion() {
