@@ -47,7 +47,17 @@
       :visible.sync="calculateTimeDialogFormVisible"
       v-if="calculateTimeDialogFormVisible"
       @cancel="cancel"
+      @completed="completed"
     ></calculateTime>
+    <jv-dialog
+      :title="$t('Generality.Ge_Remind')"
+      width="30%"
+      :visible.sync="releaseDialogFormVisible"
+      v-if="releaseDialogFormVisible"
+      @confirm="release"
+    >
+      排程结果无超负荷/超交期单据，是否进行发布?
+    </jv-dialog>
   </PageWrapper>
 </template>
 <script>
@@ -72,6 +82,7 @@ export default {
       // 表格实例
       tableObj: {},
       calculateTimeDialogFormVisible: false,
+      releaseDialogFormVisible: false,
     };
   },
   created() {
@@ -124,6 +135,14 @@ export default {
     cancel() {
       this.calculateTimeDialogFormVisible = false;
     },
+    // 计算得无超交期超负荷提醒发布
+    completed() {
+      this.calculateTimeDialogFormVisible = false;
+      this.tableObj.getData();
+      this.tableObj.setCallBack(() => {
+        this.releaseDialogFormVisible = true;
+      });
+    },
     //查看设备负荷
     equipmentLoad() {
       this.$router.push({
@@ -135,6 +154,7 @@ export default {
     release() {
       do_publish().then((res) => {
         console.log(res);
+        this.releaseDialogFormVisible = false;
       });
     },
   },

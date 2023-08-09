@@ -171,6 +171,9 @@ export default {
   height: 32px;
   margin-bottom: 8px;
 }
+.simulatedCalculate-page-pane {
+  height: 100%;
+}
 .simulatedCalculate-page-charter {
   display: flex;
   flex-direction: row;
@@ -178,14 +181,11 @@ export default {
   justify-content: center;
   align-content: space-around;
 }
-.el-tabs__content {
-  background-color: red;
+::v-deep .el-tabs--border-card > .el-tabs__content {
+  padding-top: 0 !important;
 }
-// ::v-deep .simulatedCalculate-page .el-tabs--border-card > .el-tabs_content {
-//   padding-top: 0 !important;
-// }
-// .simulatedCalculate-page-pane-form {
-//   // height: calc(100vh - 200px);
-//   height: 600px;
+// .simulatedCalculate-page-pane {
+//   height: calc(100vh - 240px);
+//   // height: 600px;
 // }
 </style>
