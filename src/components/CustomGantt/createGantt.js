@@ -51,7 +51,8 @@ export class CreateGantt {
         let count = 0; // 用于计算高度累加
         const popover = document.createElement('div');
         popover.className = 'custom-popover';
-        popover.popover = "auto";
+        popover.setAttribute("popover", "auto");
+        // popover.popover = "auto";
         parent.appendChild(popover);
         this.tasks.forEach((item, i) => {
             item.Data.forEach((jtem, j) => {
