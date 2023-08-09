@@ -53,13 +53,18 @@ function abb(e){
     name: `Sa_SaleQuote_Add`,
   })*/
 }
-
+window.customObj = {
+  count: 0,
+  list: []
+}
 window.a=abb
 export function receiveMessages(event) {
 
   const msg = JSON.parse(event.data);
   const { Content, Type, NotificationType, FromUser, SendTime, DynamicData } =
     msg;
+  customObj.list.push(msg)
+  customObj.count++;
   // console.log(window.a(), "接受消息");
   store.commit('websocket/SET_COUNTS','new');
   Notification({
@@ -77,14 +82,14 @@ export function receiveMessages(event) {
     }
     </div>
     <div>${timeFormat(SendTime, "yyyy-MM-dd hh:mm")}</div>
-   <!-- <div onclick="(()=>{
-      console.log(this)
+    <div onclick="(()=>{
+     console.log(customObj.list[customObj.count])
     })()">1</div>
 
-    </div>-->
+    </div>
     `,
     onClick: () => {
-      console.log(this)
+      // console.log(this)
       // routeToDetail(DynamicData);
     },
   });

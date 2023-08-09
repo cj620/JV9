@@ -1,5 +1,6 @@
 <template>
     <PageWrapper :footer="false">
+
         <CustomGantt
             :columns="columns"
             taskRadius="6"
