@@ -1113,6 +1113,7 @@ const en = {
     Da_Workbench: "Workbench",
   },
   systemSetupData: {
+    JV_APS: "Automatic scheduling",
     Basics: "Basics",
     Design: "Design",
     Project: "Project",
@@ -1154,6 +1155,13 @@ const en = {
       "Create purchase request below safety stock",
     User_web_socket: "User Message Push Configuration",
     User_web_socket_desc: "Does the user accept messages",
+    Create_purchase_request_below_safety_stock:"Create purchase request below safety stock",
+    Aps_ordinary_bill_process_post_time_coefficient: "Aps ordinary bill process post time coefficient",
+    Aps_urgent_bill_process_post_time_coefficient: "Aps urgent bill process post time coefficient",
+    Aps_extra_urgent_bill_process_post_time_coefficient: "Aps extra urgent bill process post time coefficient",
+    Aps_ordinary_bill_process_lead_time_coefficient: "Aps ordinary bill process lead time coefficient",
+    Aps_urgent_bill_process_lead_time_coefficient: "Aps urgent bill process lead time coefficient",
+    Aps_extra_urgent_bill_process_lead_time_coefficient: "Aps extra urgent bill process lead time coefficient",
   },
   ...enLocale,
 };
