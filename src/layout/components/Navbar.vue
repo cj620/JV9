@@ -365,10 +365,11 @@ export default {
       if (this.isFirstVisible) {
         this.getAllNotify();
         this.isFirstVisible = false;
+      } else {
+        this.tabClick({
+          name: this.activeType,
+        });
       }
-      // this.tabClick({
-      //   name: this.activeType,
-      // });
     },
     notifyTypeChange(type) {
       this.changeSelectType(type);
