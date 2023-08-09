@@ -91,16 +91,16 @@ export class CreateGantt {
                     }
 
                     if(top+popover.clientHeight > document.body.clientHeight) {
-                        popover.style.top = top-popover.clientHeight+'px'; 
+                        popover.style.top = top-popover.clientHeight+'px';
                     } else {
-                        popover.style.top = top+'px'; 
+                        popover.style.top = top+'px';
                     }
                     popover.innerHTML = `
                         <div>${i18n.t('Generality.Ge_ProcessName')}：${jtem.Process}</div>
                         <div>${i18n.t('Generality.Ge_PlanStart')}：${timeFormat(jtem.PlanStart, 'yyyy-MM-dd hh:mm:ss')}</div>
                         <div>${i18n.t('Generality.Ge_PlanEnd')}：${timeFormat(jtem.PlanEnd, 'yyyy-MM-dd hh:mm:ss')}</div>
                     `
-                     
+
                     popover.showPopover()
                 })
                 taskRef.addEventListener('click', () => {
