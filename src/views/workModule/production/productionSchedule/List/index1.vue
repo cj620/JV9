@@ -43,12 +43,14 @@
       >
       </Action>
     </JvTable>
+    <!-- 计算弹窗 -->
     <calculateTime
       :visible.sync="calculateTimeDialogFormVisible"
       v-if="calculateTimeDialogFormVisible"
       @cancel="cancel"
       @completed="completed"
     ></calculateTime>
+    <!-- 发布提醒弹窗 -->
     <jv-dialog
       :title="$t('Generality.Ge_Remind')"
       width="30%"
@@ -57,6 +59,17 @@
       @confirm="release"
     >
       排程结果无超负荷/超交期单据，是否进行发布?
+    </jv-dialog>
+    <!-- 版本号弹窗 -->
+    <jv-dialog
+      :title="$t('Generality.Ge_Remind')"
+      width="30%"
+      :visible.sync="versionDialogFormVisible"
+      :IsShowCancelFooterBtn="false"
+      @confirm="closeVersion"
+      v-if="versionDialogFormVisible"
+    >
+      排程结果已发布，版本号：{{ ApsVersionNo }}
     </jv-dialog>
   </PageWrapper>
 </template>
@@ -81,8 +94,11 @@ export default {
     return {
       // 表格实例
       tableObj: {},
+      // 最新发布版本号
+      ApsVersionNo: "",
       calculateTimeDialogFormVisible: false,
       releaseDialogFormVisible: false,
+      versionDialogFormVisible: false,
     };
   },
   created() {
@@ -152,10 +168,15 @@ export default {
 
     //发布APS结果
     release() {
-      do_publish().then((res) => {
-        console.log(res);
+      this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
+      do_publish().then(() => {
         this.releaseDialogFormVisible = false;
+        this.versionDialogFormVisible = true;
       });
+    },
+    // 关闭版本号弹窗
+    closeVersion() {
+      this.versionDialogFormVisible = false;
     },
   },
 };
