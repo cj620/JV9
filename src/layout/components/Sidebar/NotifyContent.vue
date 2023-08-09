@@ -7,10 +7,10 @@
     <div class="text-content">{{ Content }}</div>
     <div class="notify-msg">
       <div class="user-msg">
-        <image
+        <el-image
           :src="imgUrlPlugin(FromUser.PhotoUrl)"
           class="user-avatar"
-        ></image
+        ></el-image
         >{{ FromUser.UserName }}
       </div>
       <div>{{ timeFormat(SendTime, "yyyy-MM-dd hh:mm") }}</div>

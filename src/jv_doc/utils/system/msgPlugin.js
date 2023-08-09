@@ -4,8 +4,6 @@
  */
 import { Notification } from "element-ui";
 import { msgEnum } from "@/enum/baseModule/msgEnum";
-import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import { timeFormat } from "@/jv_doc/utils/time";
 import { routeToDetail } from "@/jv_doc/utils/system/detailPlugin";
 import { mark_as_read } from "@/api/basicApi/systemSettings/notification";
 import store from "@/store";
@@ -13,7 +11,6 @@ import Vue from "vue";
 import NotifyContent from "@/layout/components/Sidebar/NotifyContent.vue";
 export function receiveMessages(event) {
   let vue = new Vue();
-  // console.log(vue.$createElement("div", "666"), "hhhhhhhhhh");
   const msg = JSON.parse(event.data);
   const {
     Content,
