@@ -69,10 +69,13 @@
               <DxColumn :caption="$t('Generality.Ge_TaskType')" data-field="TaskType"  />
               <DxColumn :caption="$t('Generality.Ge_CostType')" data-field="CostType"  />
               <DxColumn :caption="$t('Generality.Ge_Quantity')" data-field="Quantity"/>
+              <DxColumn :caption="$t('Generality.Ge_Quantity')" data-field="Quantity"/>
+              <DxColumn caption="计划数量" data-field="PlanQuantity"/>
               <DxColumn :caption="$t('Generality.Ge_Amount')"  data-field="Amount" data-type="number" />
+              <DxColumn caption="计划金额"  data-field="PlanAmount" data-type="number" />
               <DxColumn :caption="$t('Generality.Ge_Remarks')"  data-field="Remarks"  />
 
-      </DxDataGrid> 
+      </DxDataGrid>
   </jv-dialog>
   </PageWrapper>
 </template>
@@ -189,7 +192,7 @@ export default {
                   item.TaskType=taskTypeEnum[item.TaskType].name
 
                   }
-          
+
         });
         this.dataSource = new PivotGridDataSource( {
           fields: config,
@@ -203,16 +206,16 @@ export default {
     },
     onCellClick(e){
       console.log(11);
-       
+
             if (e.area === 'data') {
                       this.popupVisible=!this.popupVisible
 
              const pivotGridDataSource = e.component.getDataSource();
         this.drillDownDataSource = pivotGridDataSource.createDrillDownDataSource(e.cell);
-        
-      
+
+
             }
-      
+
     },
     //格式化
       customizeTooltip(pointInfo) {
@@ -224,7 +227,7 @@ export default {
       };
     },
 
-   
+
     onExporting(e) {
       const workbook = new Workbook();
       const worksheet = workbook.addWorksheet('Sales');

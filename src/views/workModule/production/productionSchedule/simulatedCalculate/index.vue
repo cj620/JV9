@@ -45,6 +45,7 @@
         type="border-card"
         @tab-click="handleTabClick"
       >
+
         <!-- 排程图表 -->
         <el-tab-pane
           :label="$t('production.Pr_SimulatedAPS')"
