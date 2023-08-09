@@ -21,23 +21,6 @@
             :value="option.value"
           ></el-option>
         </el-select>
-
-        <!-- <el-button
-            plain
-            size="small"
-            style="margin-left: 10px"
-            @click="simulatedCalculate"
-            :disabled="isSelectedTypesEmpty"
-            >{{ $t("production.Pr_SimulatedCalculate") }}</el-button
-          >
-          <el-button
-            plain
-            size="small"
-            style="margin-left: 10px"
-            @click="refresh"
-            >{{ $t("Generality.Ge_Refresh") }}</el-button
-          > -->
-
         <Action
           class="action-line"
           size="mini"
@@ -45,6 +28,7 @@
             {
               label: $t('production.Pr_SimulatedCalculate'),
               confirm: simulatedCalculate.bind(null),
+              disabled: isSelectedTypesEmpty,
             },
             {
               label: $t('Generality.Ge_Refresh'),
@@ -189,7 +173,7 @@ export default {
   align-items: center;
 }
 .pleaseSelect {
-  margin-right: 6px;
+  margin-right: 8px;
   font-size: 16px;
   font-weight: 500;
 }
