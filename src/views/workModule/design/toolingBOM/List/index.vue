@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-06-03 11:26:56
+ * @LastEditTime: 2023-08-09 09:14:42
  * @Description: 模具BOM
 -->
 
@@ -88,23 +88,20 @@
 
       <template #titleBar>
         <Popover @confirm="getData" @reset="toolId = ''" style="margin: 0 10px">
-<!--          <el-input
-            v-model="toolId"
-            :placeholder="$t('Generality.Ge_SearchByNumber')"
-            size="mini"
-          ></el-input>-->
           <el-select
             v-model="toolId"
             filterable
             remote
             reserve-keyword
             :remote-method="remoteMethod"
-            :loading="loading">
+            :loading="loading"
+          >
             <el-option
               v-for="item in MouldListData"
               :key="item.ItemId"
               :label="item.ItemId"
-              :value="item.ItemId">
+              :value="item.ItemId"
+            >
             </el-option>
           </el-select>
         </Popover>
@@ -135,7 +132,7 @@
               <i class="el-icon-plus avatar-uploader-icon1"></i>
             </el-upload>
           </el-button>
-<!--@handlePasteData="handlePasteData"-->
+          <!--@handlePasteData="handlePasteData"-->
           <parse-img
             @handlePasteData="handlePasteData"
             class="edit-partRes-uploadIcons"
@@ -147,9 +144,8 @@
       <template #PartLevel="{ record }">
         {{ partLevelMap[record] && partLevelMap[record].name }}
       </template>
-            <template #MaterialRequirementState="{ record }">
-
-        {{ demandStatusEnum[record] &&demandStatusEnum[record].name }}
+      <template #MaterialRequirementState="{ record }">
+        {{ demandStatusEnum[record] && demandStatusEnum[record].name }}
       </template>
       <template #operation="{ row, row_index }">
         <TableAction
@@ -201,37 +197,30 @@
 
     <!-- 导入数据 -->
 
-       <jv-dialog
-       :title="$t('Generality.Ge_Import')"
+    <jv-dialog
+      :title="$t('Generality.Ge_Import')"
       width="60%"
       :close-on-click-modal="true"
       :modal-append-to-body="false"
       :append-to-body="false"
-     :visible.sync="importDialogFormVisible"
+      :visible.sync="importDialogFormVisible"
       v-if="importDialogFormVisible"
       @confirm="confirmImportData"
       :autoFocus="true"
     >
-        <JvEditTable
-      :tableObj="importTableObj"
-      highlight-current-row
-
-    >
-
- <template #operation="{  row_index }">
-        <TableAction
-          :actions="[
-
-            {
-              label: $t('Generality.Ge_Delete'),
-              confirm: i_delete.bind(null, row_index),
-            },
-          ]"
-        />
-      </template>
-
-        </JvEditTable>
-       </jv-dialog>
+      <JvEditTable :tableObj="importTableObj" highlight-current-row>
+        <template #operation="{ row_index }">
+          <TableAction
+            :actions="[
+              {
+                label: $t('Generality.Ge_Delete'),
+                confirm: i_delete.bind(null, row_index),
+              },
+            ]"
+          />
+        </template>
+      </JvEditTable>
+    </jv-dialog>
   </PageWrapper>
 </template>
 
@@ -252,7 +241,7 @@ import {
 } from "@/api/workApi/design/toolingBOM";
 // 获取系统配置接口
 import { batch_get } from "@/api/basicApi/systemSettings/sysSettings";
-import {  demandStatusEnum } from "@/enum/workModule";
+import { demandStatusEnum } from "@/enum/workModule";
 
 import { uploadImage } from "@/api/workApi/materials/fileUpload";
 import Popover from "@/jv_doc/cpn/JvTable/cpn/Popover.vue";
@@ -260,7 +249,7 @@ import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
 import { format2source } from "@/jv_doc/class/utils/dataFormat";
 import ParseImg from "@/components/JVInternal/ParseImg";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
-import { itemList } from '@/api/basicApi/systemSettings/Item'
+import { itemList } from "@/api/basicApi/systemSettings/Item";
 
 export default {
   name: "ToolingBOM",
@@ -284,7 +273,7 @@ export default {
         },
       },
       eTableObj: {},
-      importTableObj:{},
+      importTableObj: {},
       toolId: "",
       ToolingNo: "",
       currentRow: {},
@@ -294,7 +283,7 @@ export default {
       searchItemDialogFormVisible: false,
       selectTaskDialogFormVisible: false,
       setLevelDialogFormVisible: false,
-      importDialogFormVisible:false,
+      importDialogFormVisible: false,
       GetData: [],
       taskData: [],
       setLevelData: [],
@@ -312,7 +301,7 @@ export default {
         PhotoUrl: "",
         Unit: "",
         ToolingNo: "",
-        MaterialRequirementState:'',
+        MaterialRequirementState: "",
         Creator: "",
         CreationDate: "",
         Remarks: "",
@@ -362,9 +351,9 @@ export default {
   },
   created() {
     this.eTableObj = new EditTable();
-    this.importTableObj = new importEditTable
+    this.importTableObj = new importEditTable();
     this.defaultConfig();
-    this.remoteMethod('');
+    this.remoteMethod("");
   },
   computed: {
     IsDisabled() {
@@ -397,6 +386,7 @@ export default {
 
   methods: {
     getData() {
+      this.closeTooltip();
       if (!this.toolId) return;
       getPartBomById({ ToolingNo: this.toolId }).then((res) => {
         this.GetData = res.Items;
@@ -406,6 +396,12 @@ export default {
           this.eTableObj.doLayout();
         }, 200);
       });
+    },
+    closeTooltip() {
+      let list = document.getElementsByClassName("el-select-dropdown");
+      if (list.length > 0) {
+        list[list.length - 1].style.display = "none";
+      }
     },
     //获取默认配置
     defaultConfig() {
@@ -424,12 +420,11 @@ export default {
         CurrentPage: 1,
       };
       itemList(str).then((res) => {
-
         this.MouldListData = res.Items;
         this.loading = false;
       });
     },
-/*    getToolData(){
+    /*    getToolData(){
       const str = {
         Keyword: query,
         ItemType: "",
@@ -444,8 +439,8 @@ export default {
       });
     },*/
     copy(row, index) {
-     let str=JSON.parse(JSON.stringify(row))
-       str.ItemId=''
+      let str = JSON.parse(JSON.stringify(row));
+      str.ItemId = "";
       this.eTableObj.insert(index, format2source([str]));
     },
 
@@ -480,7 +475,7 @@ export default {
     l_delete(index) {
       this.eTableObj.delItem(index);
     },
-      i_delete(row, index) {
+    i_delete(row, index) {
       this.importTableObj.delItem(index);
     },
     l_save() {
@@ -488,39 +483,45 @@ export default {
         this.saveData,
         this.mixinToolId(this.eTableObj.getTableData())
       );
-var saveData ={
-  ToolingNo:this.toolId,
-  Boms
-}
-        this.eTableObj.validate((valid) => {
-          if (valid) {
-            savePartBom(saveData).then((res) => {
-              this.getData();
-            });
-          } else {
-            // alert("fail");
-          }
-        });
-
+      var saveData = {
+        ToolingNo: this.toolId,
+        Boms,
+      };
+      this.eTableObj.validate((valid) => {
+        if (valid) {
+          savePartBom(saveData).then((res) => {
+            this.getData();
+          });
+        } else {
+          // alert("fail");
+        }
+      });
     },
 
     //批量复制一张单出来
     l_copy() {
-      let arr = JSON.parse(JSON.stringify( this.eTableObj.selectData.datas))
+      let arr = JSON.parse(JSON.stringify(this.eTableObj.selectData.datas));
 
-            arr.forEach(item=>{
-        item.ItemId=''
-      })
+      arr.forEach((item) => {
+        item.ItemId = "";
+      });
       this.eTableObj.push(format2source(arr));
     },
 
     //批量删除
     l_del() {
-        this.eTableObj.setData(format2source(this.getNweArr(this.eTableObj.selectData.datas, this.eTableObj.tableData)));
+      this.eTableObj.setData(
+        format2source(
+          this.getNweArr(
+            this.eTableObj.selectData.datas,
+            this.eTableObj.tableData
+          )
+        )
+      );
     },
-    getNweArr(a,b){
-      const arr = [...a,...b];
-      const newArr = arr.filter(item => {
+    getNweArr(a, b) {
+      const arr = [...a, ...b];
+      const newArr = arr.filter((item) => {
         return !(a.includes(item) && b.includes(item));
       });
       return newArr;
@@ -644,11 +645,10 @@ var saveData ={
 
     //导入数据
     importComplete(e) {
-
       this.importShow = false;
-      this.importDialogFormVisible = true
+      this.importDialogFormVisible = true;
 
-       var arr = [];
+      var arr = [];
       e.forEach((Titem) => {
         var str = {};
         this.exportTemplate.forEach((item) => {
@@ -687,35 +687,27 @@ var saveData ={
       });
     },
     //确定导入的数据
-    confirmImportData(){
+    confirmImportData() {
+      if (this.importTableObj.selectData.datas.length > 0) {
+        var arr = this.eTableObj
+          .getTableData()
+          .concat(format2source(this.importTableObj.selectData.datas));
+        console.log(arr);
+        var Boms = temMerge(this.saveData, this.mixinToolId(arr));
 
-
-      if(this.importTableObj.selectData.datas.length>0){
-       var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
-     console.log(arr)
- var Boms = temMerge(
-        this.saveData,
-        this.mixinToolId(arr)
-      );
-
-var saveData ={
-  ToolingNo:this.toolId,
-  Boms
-}
-     console.log(saveData)
-            savePartBom(saveData).then((res) => {
-              this.getData();
-              this.importDialogFormVisible = false
-            });
-
-
-      }else{
+        var saveData = {
+          ToolingNo: this.toolId,
+          Boms,
+        };
+        console.log(saveData);
+        savePartBom(saveData).then((res) => {
+          this.getData();
+          this.importDialogFormVisible = false;
+        });
+      } else {
         this.$message.error(this.$t("Generality.Ge_PleaseAddData"));
-
       }
-
-
-    }
+    },
   },
 };
 </script>
