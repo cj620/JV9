@@ -22,12 +22,14 @@
                 <slot name="gntHeaderRight"></slot>
             </div>
         </div>
-        <div class="custom-border-box" :style="{ left: tableHeaderWidth + 30 + 'px', height: ganttContainerHeight - 14 + 'px' }"></div>
+        <div class="custom-border-box"
+            :style="{ left: tableHeaderWidth + 30 + (detailShow ? detailIconWidth : 0) + 'px', height: ganttContainerHeight - 14 + 'px' }">
+        </div>
         <div class="ganttContainer" :style="{ height: ganttContainerHeight + 'px' }" v-loading="loading">
             <div class="date-header" :style="{
                 width: cWidth + 'px',
                 height: tableHeaderHeight + 'px',
-                marginLeft: tableHeaderWidth + 40 + 'px',
+                marginLeft: tableHeaderWidth + 40 + (detailShow ? detailIconWidth : 0) + 'px',
             }">
                 <div class="date-header-item" :style="{ height: tableHeaderHeight / 2 + 'px' }">
                     <div class="date-header-cell" v-for="(item, i) in TableDateTopList" :key="i"
@@ -49,24 +51,41 @@
                     <div class="date-header-cell" v-for="(item, i) in TableDateBottomList" :key="i"
                         :style="{ width: gantt.cellWidth + 'px' }">
                         {{ item < 10 ? '0' + item : item }} </div>
-
                     </div>
                 </div>
 
                 <div class="header-table-top" :style="{
                     height: tableHeaderHeight + 'px',
-                    width: tableHeaderWidth + 40 + 'px',
+                    width: tableHeaderWidth + 40 + (detailShow ? detailIconWidth : 0) + 'px',
                     marginTop: -tableHeaderHeight + 'px',
                 }">
+                    <div :style="{ width: detailIconWidth + 'px' }">
+                        <!-- <i class="el-icon-s-grid"></i> -->
+                    </div>
                     <div v-for="(item, i) in columns" :key="item.name" :style="{ width: item.width + 'px' }">
                         {{ item.label }}
                     </div>
                 </div>
-                <div class="header-table" :style="{ width: tableHeaderWidth + 40 + 'px' }">
+                <div class="header-table"
+                    :style="{ width: tableHeaderWidth + 40 + (detailShow ? detailIconWidth : 0) + 'px' }">
                     <div v-for="(item, i) in list" :key="item.Id" class="header-table-item"
                         :style="{ width: '100%', height: tasksHeight + 'px' }" @mouseenter="hoverHeaderTable(item, i)"
                         @mouseleave="leaveHeaderTable" @click="clickHeaderTable(item, i)">
                         <div class="header-table-item-box" :style="{ height: tasksHeight - tasksPadding * 2 + 'px' }">
+
+                            <el-popover placement="right" width="470" trigger="hover">
+                                <el-table :data="item.Data" height="400">
+                                    <el-table-column v-for="(column, column_idx) in detailColumn" :key="column_idx"
+                                        :width="column.width" :property="column.property"
+                                        :label="column.label"></el-table-column>
+                                </el-table>
+                                <div slot="reference" class="detail-style" :style="{ width: detailIconWidth + 'px' }"
+                                    v-if="detailShow">
+                                    <i class="el-icon-s-grid"></i>
+                                </div>
+                            </el-popover>
+
+
                             <div v-for="(jtem, j) in columns" :key="jtem.name" :style="{
                                 width: jtem.width + 'px',
                                 height: tasksHeight - tasksPadding * 2 + 'px'
@@ -88,9 +107,10 @@
                     </div>
                 </div>
                 <div id="canvas_parent"
-                    :style="{ width: cWidth + 'px', left: tableHeaderWidth + 40 + 'px', top: tableHeaderHeight + tasksPadding + 'px' }">
+                    :style="{ width: cWidth + 'px', left: tableHeaderWidth + 40 + (detailShow ? detailIconWidth : 0) + 'px', top: tableHeaderHeight + tasksPadding + 'px' }">
                     <!-- <canvas></canvas> -->
-                    <div v-show="taskHint" class="task-hint" :style="{ height: tasksHeight + 'px', top: taskHint_Top + 'px' }">
+                    <div v-show="taskHint" class="task-hint"
+                        :style="{ height: tasksHeight + 'px', top: taskHint_Top + 'px' }">
                     </div>
                 </div>
             </div>
@@ -105,14 +125,22 @@
                     </el-pagination>
                 </div>
             </div>
+            <JvDialog
+            @confirm="confirm"
+            :title="dialogTitle" width="35%" :visible.sync="dialogVisible">
+                <JvForm :formObj="formObj">
+                </JvForm>
+		    </JvDialog>
         </div>
+        
 </template>
 
 <script>
 import { timeFormat } from "@/jv_doc/utils/time";
 import { getTimeRangeList } from "@/jv_doc/utils/time/getTimeRangeList";
 import { CreateGantt } from './createGantt';
-import protogenesis from './protogenesis.js'
+import { Form } from "@/jv_doc/class/form";
+import protogenesis from './protogenesis.js'; // 引入排序方法，不可以删
 import { Bus } from '@/jv_doc/class/event/EventBus';
 export default {
     props: {
@@ -155,10 +183,71 @@ export default {
         hideOnSinglePage: { // 控制分页器的显示隐藏
             type: Boolean,
             default: false,
-        }
+        },
+        detailShow: { // 是否显示表格每一项的详情展示图标
+            type: Boolean,
+            default: true,
+        },
+        detailColumn: { // 表格每一项详情表格的column配置
+            type: Array,
+            default: () => {
+                return [
+                    {
+                        width: null,
+                        property: 'Process',
+                        label: i18n.t('Generality.Ge_ProcessName')
+                    },
+                    {
+                        width: 170,
+                        property: '_PlanStart',
+                        label: i18n.t('Generality.Ge_PlanStart')
+                    },
+                    {
+                        width: 170,
+                        property: '_PlanEnd',
+                        label: i18n.t('Generality.Ge_PlanEnd')
+                    },
+                ]
+            }
+        },
+        formSchema: {
+			type: Array,
+			default() {
+				return [
+                    {
+                        prop: "PlanStart",
+                        cpn: "SingleDateTime",
+                        label: i18n.t('Generality.Ge_PlanStart'),
+                        rules: [
+                        {
+                            required: true,
+                            message: i18n.t("Generality.Ge_PleaseEnter"),
+                            trigger: ["change", "blur"],
+                        },
+                        ],
+                    },
+                    {
+                        prop: "PlanEnd",
+                        cpn: "SingleDateTime",
+                        label: i18n.t('Generality.Ge_PlanEnd'),
+                        rules: [
+                        {
+                            required: true,
+                            message: i18n.t("Generality.Ge_PleaseEnter"),
+                            trigger: ["change", "blur"],
+                        },
+                        ],
+                    },
+                ];
+			},
+		},
     },
     data() {
         return {
+            dialogTitle: '',
+            formObj: '',
+            dialogVisible: false,
+            detailIconWidth: 30,
             cWidth: 2000,
             cHeight: '82vh',
             gantt: null,
@@ -192,35 +281,45 @@ export default {
         }
     },
     created() {
+        this.formObj = new Form({
+			formSchema: this.formSchema,
+			baseColProps: {
+				span: 24,
+			},
+			// gutter: 30,
+			labelWidth: "80px",
+		});
+
         this.eventBus = Bus;
+        // 设置task圆角
         let radius = this.taskRadius !== null ? this.taskRadius : (this.tasksHeight - this.tasksPadding) / 2
+        this.tableHeaderWidth = this.columns.map(item => item.width).reduce((a, b) => { return a + b });
 
         const options = {
             columns: this.columns,
-            cHeight: this.cHeight,
             tasksHeight: this.tasksHeight,
             tasksPadding: this.tasksPadding,
             unitOfTime: this.unitOfTime,
             taskRadius: radius,
+            tableHeaderWidth: this.tableHeaderWidth
         }
         this.gantt = new CreateGantt(options);
+        this.gantt.setDialogVisible = this.setDialogVisible;
 
-        this.gantt.init();
-        // this.cellWidth = this.gantt.cellWidth * 7;
-        this.tableHeaderWidth = this.columns.map(item => item.width).reduce((a, b) => { return a + b });
-        this.setDeferList();
     },
-    mounted() {
-        // let mainContent = document.querySelector('.main-content');
-        // this.ganttContainerHeight = mainContent.clientHeight-80; // 甘特图盒子的高度
-        // window.onresize = (e) => {
-        //     this.debounce(() => {
-        //         this.ganttContainerHeight = mainContent.clientHeight-80;
-        //     },100)
-        // }
-    },
+    mounted() { },
     methods: {
         timeFormat,
+        confirm() { // 确认
+            console.log(':点击了确认:: ', );
+        },
+        setDialogVisible(data) { // 设置表单弹窗
+            this.dialogTitle = data.Process
+            Object.keys(this.formObj.form).forEach(item => {
+				this.formObj.form[item] = data[item]
+			})
+            this.dialogVisible = true;
+        },
         runDisplayPriority(index) {
             const step = () => {
                 requestAnimationFrame(() => {
@@ -239,7 +338,6 @@ export default {
         setTableDateList() {
             if (this.unitOfTime === "week") {
                 this.cWidth = this.TimeRangeList.dayArr.length * 72;
-                console.log('this.cWidth::: ', this.cWidth);
                 this.TableDateTopList = this.TimeRangeList.weekDetails;
                 this.TableDateBottomList = this.TimeRangeList.dayArr;
             } else if (this.unitOfTime === "hour") {
@@ -255,22 +353,17 @@ export default {
 
             // this.runDisplayPriority(); 白屏优化
         },
+        // 切换时间单位
         setGanttZoom(val) {
             this.gantt.setCellWidth(val); // 先计算cell多长
             this.setTableDateList(); // 再计算datetable长度
             let canvasParent = document.getElementById('canvas_parent');
             this.gantt.removeTask(canvasParent);
             this.gantt.createTask(canvasParent);
-        },
-        setDeferList() {
-            let len = this.TableDateBottomList.length;
-            let count = 0
-            for (let i = 0; i < len / 1000; i++) {
-                this.deferList[i] = count
-                count += 1000
-            }
-            let length = (len / 1000).toFixed(0) - 0 + 1
-            this.deferList[length] = len % 1000 + this.deferList[length - 1]
+
+            // 设置滚动条滚动到当前单位task列表最前面task的位置
+            let left = this.getMaxAndMinTime(this.result.Items, true).firstNode.offsetLeft;
+            this.setScrollToLeft(left)
         },
         handleSizeChange(pageSize) { // 总条数切换
             this.pageSize = pageSize;
@@ -294,10 +387,11 @@ export default {
             this.setScrollToLeft(firstTask.offsetLeft)
             this.clickState = true;
         },
+        // 设置滚动条滚动到当前行第一个task
         setScrollToLeft(offsetLeft) {
             const ganttContainer = document.querySelector('.ganttContainer');
             let top = ganttContainer.scrollTop
-            ganttContainer.scrollTo(offsetLeft-10, top)
+            ganttContainer.scrollTo(offsetLeft - 10, top)
             // const left = ganttContainer.scrollLeft
             // console.log('left::: ', left);
             // if (left < this.scrollOffsetLeft - 10) {
@@ -305,10 +399,11 @@ export default {
             //     ganttContainer.scrollTo(left + 100, top)
             // }
         },
-        getMaxAndMinTime(data) {
+        // 根据后端返回的数据列表取出时间范围
+        getMaxAndMinTime(data, isNode) {
             let startlist = [];
             let endlist = [];
-            let TimeResult = {MaximumTime:'',MinimumTime:""}
+            let TimeResult = { MaximumTime: '', MinimumTime: "", firstNode: null, lastNode: null }
             function formatt(time) {
                 return new Date(timeFormat(time, 'yyyy-MM-dd hh:mm:ss')).getTime()
             }
@@ -324,11 +419,17 @@ export default {
             endlist.bubbleSort(true);
 
             data.forEach(item => {
-                item.Data.forEach(jtem => {
-                    if(formatt(jtem.PlanStart) === startlist[0]) {
+                item.Data.forEach((jtem, j) => {
+                    if (formatt(jtem.PlanStart) === startlist[0]) {
+                        if (isNode) {
+                            TimeResult.firstNode = document.getElementById(`custom-task-${item.Id}-${j}`);
+                        }
                         TimeResult.MinimumTime = timeFormat(jtem.PlanStart, 'yyyy-MM-dd hh:mm:ss');
                     }
-                    if(formatt(jtem.PlanEnd) === endlist[0]) {
+                    if (formatt(jtem.PlanEnd) === endlist[0]) {
+                        if (isNode) {
+                            TimeResult.lastNode = document.getElementById(`custom-task-${item.Id}-${j}`);
+                        }
                         TimeResult.MaximumTime = timeFormat(jtem.PlanEnd, 'yyyy-MM-dd hh:mm:ss');
                     }
                 })
@@ -337,6 +438,7 @@ export default {
         },
     },
     watch: {
+        // 监听接口返回成功
         result(val) {
             let MaximumTime = this.getMaxAndMinTime(val.Items).MaximumTime;
             let MinimumTime = this.getMaxAndMinTime(val.Items).MinimumTime;
@@ -349,12 +451,12 @@ export default {
             this.TimeRangeList = getTimeRangeList(MinimumTime, MaximumTime);
 
             this.setTableDateList(); // 赋值日期列表和每一格的长度 用来渲染
-            this.list = val.Items; // 赋值表头列表
+            // 赋值表头列表
+            this.list = val.Items;
             this.gantt.tasks = this.list; // 赋值task列表
             this.totalCount = val.Count; // 赋值总数
             this.$nextTick(() => {
                 // let canvasParent = document.getElementById('canvas_parent')
-                // this.gantt.initTaskDate(canvasParent);
                 this.setGanttZoom(this.unitOfTime);
             })
         }
@@ -429,7 +531,7 @@ export default {
     }
 
     .header-table-item-box:hover {
-        transform: scale(1.05);
+        transform: scale(1.02);
     }
 
     .header-table-top {
@@ -493,5 +595,12 @@ export default {
 
 .image-slot {
     background-color: #f5f7fa;
+}
+
+.detail-style {
+    height: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }
 </style>
