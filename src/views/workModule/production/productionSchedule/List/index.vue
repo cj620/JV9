@@ -55,6 +55,7 @@
 
 <script>
 import columns from './columns';
+import { timeFormat } from "@/jv_doc/utils/time";
 import {Bus} from '@/jv_doc/class/event/EventBus';
 // 引入表格类
 import { Table, Table1 } from "./config";
@@ -126,7 +127,20 @@ export default {
                 CurrentPage: page,
                 PageSize: size
             }).then(res => {
-                this.result = res
+                res.Items = res.Items.map(item => {
+                    return {
+                        ...item,
+                        Data: item.Data.map(jtem => {
+                            return {
+                                ...jtem,
+                                _PlanStart: timeFormat(jtem.PlanStart, 'yyyy-MM-dd hh:mm:ss'),
+                                _PlanEnd: timeFormat(jtem.PlanEnd, 'yyyy-MM-dd hh:mm:ss'),
+                            }
+                        })
+
+                    }
+                })
+                this.result = res;
                 this.loading = false;
             })
         },

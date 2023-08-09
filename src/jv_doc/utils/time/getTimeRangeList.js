@@ -13,7 +13,6 @@ export function getTimeRangeList(MinimumTime, MaximumTime) {
 
     const startDay = startDate.getDate();
     const endDay = endDate.getDate();
-    console.log('endDay::: ', endDay);
 
     const bigMonth = [1, 3, 5, 7, 8, 10, 12];
     const smallMonth = [2, 4, 6, 9, 11];
