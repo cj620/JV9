@@ -2,6 +2,18 @@
     cursor: pointer;
     filter:brightness(110%) contrast(105%);
 }
+.custom-task{
+    z-index: 3;
+}
+.task-hint{
+    width: 100%;
+    background-color: #2a9bf1;
+    opacity: .2;
+    /* color: #2a9bf1; */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 .beyond-hiding{
     overflow: hidden;
     text-overflow: ellipsis;
