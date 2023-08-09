@@ -2,27 +2,27 @@
   <PageWrapper :footer="false">
     <div class="simulatedCalculate-page" v-loading="loading">
       <!-- 操作行 -->
-      <el-form size="mini" class="simulatedCalculate-page-form">
-        <el-form-item
-          class="simulatedCalculate-page-form-item"
-          :label="$t('production.Pr_SchedulingAlgorithmSelection')"
+      <div class="simulatedCalculate-page-form">
+        <!-- 算法多选框 -->
+        <div class="pleaseSelect">
+          {{ $t("production.Pr_PleaseSelectSchedulingAlgorithms") }}
+        </div>
+        <el-select
+          class="multiple-select"
+          v-model="selectedTypes"
+          multiple
+          size="small"
+          style="width: 400px"
         >
-          <!-- 算法多选框 -->
-          <el-select
-            v-model="selectedTypes"
-            multiple
-            :placeholder="$t('production.Pr_PleaseSelectSchedulingAlgorithms')"
-            size="small"
-            style="width: 400px"
-          >
-            <el-option
-              v-for="(option, index) in AlgorithmTypeEnum.getEnums()"
-              :key="index"
-              :label="option.label"
-              :value="option.value"
-            ></el-option>
-          </el-select>
-          <el-button
+          <el-option
+            v-for="(option, index) in AlgorithmTypeEnum.getEnums()"
+            :key="index"
+            :label="option.label"
+            :value="option.value"
+          ></el-option>
+        </el-select>
+
+        <!-- <el-button
             plain
             size="small"
             style="margin-left: 10px"
@@ -36,9 +36,24 @@
             style="margin-left: 10px"
             @click="refresh"
             >{{ $t("Generality.Ge_Refresh") }}</el-button
-          >
-        </el-form-item>
-      </el-form>
+          > -->
+
+        <Action
+          class="action-line"
+          size="mini"
+          :actions="[
+            {
+              label: $t('production.Pr_SimulatedCalculate'),
+              confirm: simulatedCalculate.bind(null),
+            },
+            {
+              label: $t('Generality.Ge_Refresh'),
+              confirm: refresh.bind(null),
+            },
+          ]"
+        >
+        </Action>
+      </div>
       <!-- tab标签 -->
       <el-tabs
         v-model="currentTabName"
@@ -170,6 +185,16 @@ export default {
 .simulatedCalculate-page-form {
   height: 32px;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+.pleaseSelect {
+  margin-right: 6px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.action-line {
+  margin-left: 20px;
 }
 .simulatedCalculate-page-pane {
   height: 100%;

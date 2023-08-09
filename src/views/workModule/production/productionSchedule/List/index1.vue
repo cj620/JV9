@@ -39,10 +39,10 @@
               confirm: release.bind(null),
             },
           },
-          {
-            label: $t('production.Pr_APSLog'),
-            confirm: release.bind(null),
-          },
+          // {
+          //   label: $t('production.Pr_APSLog'),
+          //   confirm: apsLogTable.bind(null),
+          // },
         ]"
       >
       </Action>
@@ -55,6 +55,7 @@
       @completed="completed"
     ></calculateTime>
     <!-- 排程日志弹窗 -->
+    <apsLog :visible.sync="apsLogVisible" v-if="apsLogVisible"></apsLog>
     <!-- 发布提醒弹窗 -->
     <jv-dialog
       :title="$t('Generality.Ge_Remind')"
@@ -90,6 +91,7 @@ import { stateEnum } from "@/enum/workModule";
 import { do_publish } from "@/api/workApi/production/aps";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
+import apsLog from "./components/apsLog";
 export default {
   // 页面的标识
   name: "ProductionSchedule",
@@ -97,6 +99,7 @@ export default {
     // 单据状态组件
     BillStateTags,
     calculateTime,
+    apsLog,
   },
   data() {
     return {
@@ -105,6 +108,7 @@ export default {
       // 最新发布版本号
       ApsVersionNo: "",
       calculateTimeDialogFormVisible: false,
+      apsLogVisible: false,
       releaseDialogFormVisible: false,
       versionDialogFormVisible: false,
       // 路由跳转前是否提醒发布
@@ -191,8 +195,12 @@ export default {
         name: "ProductionDetailedLoad",
       });
     },
+    // 查看排程日志
+    // apsLogTable() {
+    //   this.apsLogVisible = true;
+    // },
 
-    //发布APS结果
+    // 发布APS结果
     release() {
       do_publish().then(() => {
         this.releaseDialogFormVisible = false;
@@ -206,7 +214,7 @@ export default {
         ? this.$router.push({
             name: this.toRouteName,
           })
-        : console.log("无需跳转");
+        : {};
       this.toRouteName = null;
     },
     // 关闭版本号弹窗
