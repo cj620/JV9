@@ -68,6 +68,13 @@
                   :key="item.value"
                   :lazy="true"
                 >
+                  <span slot="label">
+                    <span style="padding-top: 9px; line-height: 24px">
+                      <el-badge :is-dot="item.hasUnreadMsg">
+                        {{ item.label }}
+                      </el-badge>
+                    </span>
+                  </span>
                   <div
                     ref="listRef"
                     v-if="item.data.length !== 0"
@@ -298,6 +305,7 @@ export default {
       notifyType: 0,
       currentNotifyObj: null,
       notifyVisible: false,
+      isFirstVisible: true,
     };
   },
   created() {
@@ -324,7 +332,12 @@ export default {
     ...mapState("websocket", ["notifyObjs", "notifysCounts"]),
   },
   methods: {
-    ...mapActions("websocket", ["sendNessage", "connect", "changeSelectType"]),
+    ...mapActions("websocket", [
+      "sendNessage",
+      "connect",
+      "changeSelectType",
+      "getAllNotify",
+    ]),
     ...mapMutations("websocket", ["SET_COUNTS"]),
     getData() {
       // console.log(this.currentNotifyObj, "444notifyObjs");
@@ -349,13 +362,20 @@ export default {
     popoverInit() {
       // notifysCounts = "";
       this.SET_COUNTS("");
-      this.tabClick({
-        name: this.activeType,
-      });
+      if (this.isFirstVisible) {
+        this.getAllNotify();
+        this.isFirstVisible = false;
+      }
+      // this.tabClick({
+      //   name: this.activeType,
+      // });
     },
     notifyTypeChange(type) {
       this.changeSelectType(type);
-      this.popoverInit();
+      // this.popoverInit();
+      this.tabClick({
+        name: this.activeType,
+      });
     },
     imgUrlPlugin,
     toggleSideBar() {
