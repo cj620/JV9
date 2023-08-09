@@ -805,10 +805,10 @@ const ja = {
     Pr_SimulatedCalculate: "アナログ計算",
     Pr_SimulatedAPS: "シミュレーションスケジュール",
     Pr_SchedulingAlgorithmSelection: "スケジューリングアルゴリズムの選択",
-    Pr_ConventionalAlgorithm: "一般的なアルゴリズム",
-    Pr_CRValueScheduling: "CR値スケジューリング",
-    Pr_ShortestDurationAlgorithm: "最短工期アルゴリズム",
-    Pr_AlgorithmForEarliestDeliveryTime: "最早納期アルゴリズム",
+    Pr_ClassicalAlgorithm: "一般的なアルゴリズム",
+    Pr_CR: "CR値スケジューリング",
+    Pr_MinimumWorkingPeriod: "最短工期アルゴリズム",
+    Pr_EarliestDeliveryDate: "最早納期アルゴリズム",
     Pr_DoAPS: "計算スケジュール",
     Pr_PleaseSelectSchedulingAlgorithms:
       "スケジュールアルゴリズムを選択してください",
@@ -1079,6 +1079,7 @@ const ja = {
   },
 
   systemSetupData: {
+    JV_APS: "じどうはいち",
     Basics: "基礎知識",
     Design: "せっけい",
     Project: "プロジェクト",
@@ -1120,6 +1121,12 @@ const ja = {
     Create_purchase_request_below_safety_stock: "安全在庫下の購買要求の作成",
     User_web_socket: "ユーザメッセージプッシュ構成",
     User_web_socket_desc: "ユーザーがメッセージを受け入れるかどうか",
+    Aps_ordinary_bill_process_post_time_coefficient: "Aps普通手形処理後時間係数",
+    Aps_urgent_bill_process_post_time_coefficient: "Aps緊急手形処理後時間係数",
+    Aps_extra_urgent_bill_process_post_time_coefficient: "Aps超急手形処理後時間係数",
+    Aps_ordinary_bill_process_lead_time_coefficient: "Aps普通手形処理リードタイム係数",
+    Aps_urgent_bill_process_lead_time_coefficient: "Aps緊急手形処理リードタイム係数",
+    Aps_extra_urgent_bill_process_lead_time_coefficient: "Aps超緊急手形処理リードタイム係数",
   },
 
   ...jaLocale,

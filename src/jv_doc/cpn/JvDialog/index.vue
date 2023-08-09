@@ -148,6 +148,6 @@ export default {
 .jv-dialog-content {
   max-height: 60vh;
    overflow: auto;
-  padding: 30px 20px;
+  padding: 20px 20px;
 }
 </style>
