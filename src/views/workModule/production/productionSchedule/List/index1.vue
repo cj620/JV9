@@ -58,7 +58,9 @@
       v-if="releaseDialogFormVisible"
       @confirm="release"
     >
-      排程结果无超负荷/超交期单据，是否进行发布?
+      生产排程完成，无超负荷工单、超交期工单，是否进行发布？当前版本号：{{
+        ApsVersionNo
+      }}
     </jv-dialog>
     <!-- 版本号弹窗 -->
     <jv-dialog
@@ -99,7 +101,19 @@ export default {
       calculateTimeDialogFormVisible: false,
       releaseDialogFormVisible: false,
       versionDialogFormVisible: false,
+      // 路由跳转前是否提醒发布
+      needOpen: false,
     };
+  },
+  // 路由切换
+  beforeRouteLeave(to, from, next) {
+    // 判断是否需要弹出发布提醒
+    if (this.needOpen) {
+      this.releaseDialogFormVisible = true;
+      this.needOpen = false;
+      return;
+    }
+    next();
   },
   created() {
     // 创建表格实例
@@ -151,12 +165,14 @@ export default {
     cancel() {
       this.calculateTimeDialogFormVisible = false;
     },
-    // 计算得无超交期超负荷提醒发布
+    // 计算结果无超交期超负荷时提醒发布
     completed() {
       this.calculateTimeDialogFormVisible = false;
       this.tableObj.getData();
       this.tableObj.setCallBack(() => {
+        this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
         this.releaseDialogFormVisible = true;
+        this.needOpen = true;
       });
     },
     //查看设备负荷
@@ -168,10 +184,10 @@ export default {
 
     //发布APS结果
     release() {
-      this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
       do_publish().then(() => {
         this.releaseDialogFormVisible = false;
         this.versionDialogFormVisible = true;
+        this.needOpen = false;
       });
     },
     // 关闭版本号弹窗
