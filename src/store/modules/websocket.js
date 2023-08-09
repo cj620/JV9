@@ -30,6 +30,11 @@ const actions = {
       item.changeSelectType(type);
     });
   },
+  async getAllNotify({ state }) {
+    state.notifyObjs.forEach((item) => {
+      item.getData();
+    });
+  },
   connect({ state, dispatch }) {
     console.log(state.socket, "this.socket");
     state.socket.init(receiveMessages);

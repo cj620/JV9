@@ -16,9 +16,11 @@ export class Notifys {
   // 当前页
   CurrentPage = 1;
   Total = 0;
+  hasUnreadMsg = false;
   constructor(NotificationType = MsgTypeEnum.NOTICE) {
     this.value = NotificationType;
     this.label = msgEnum.getLabel(NotificationType);
+    // this.getData();
   }
   getData = async () => {
     this.CurrentPage = 1;
@@ -32,6 +34,9 @@ export class Notifys {
     });
     this.data = data.Items;
     this.Total = data.Count;
+    this.hasUnreadMsg = this.data.some((item) => {
+      return !item.IsRead;
+    });
   };
   nextPage = async () => {
     if (this.isLast()) return;
