@@ -3,9 +3,6 @@
     filter:brightness(110%) contrast(105%);
 }
 .custom-popover{
-    
-}
-[popover]{
     padding: 10px;
     line-height: 30px;
     position: absolute;
@@ -14,6 +11,19 @@
     border: 0;
     box-shadow: 3px 3px 10px 3px #ccc;
     border-radius: 8px;
+    z-index: 10;
+    background-color: #fff;
+    pointer-events: none; /* 鼠标穿透 */
+}
+[popover]{
+    /* padding: 10px;
+    line-height: 30px;
+    position: absolute;
+    margin: 0;
+    transition: .3s;
+    border: 0;
+    box-shadow: 3px 3px 10px 3px #ccc;
+    border-radius: 8px; */
 }
 .custom-task{
     z-index: 3;

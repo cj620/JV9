@@ -1,6 +1,5 @@
 <template>
     <PageWrapper :footer="false">
-
         <CustomGantt
             :columns="columns"
             taskRadius="6"
@@ -28,6 +27,7 @@
             <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
                 <el-tab-pane label="陈旧工单" name="overdue">
                     <div :style="{height: ganttContainerHeight+40+'px'}">
+                        <div class="padding-value"></div>
                         <JvTable ref="BillTable" :table-obj="oldTableObj">
                         <!-- <Action size="mini" slot="btn-list" :actions="getListTableBtnModel"></Action> -->
                         </JvTable>
@@ -35,6 +35,7 @@
                 </el-tab-pane>
                 <el-tab-pane label="超期工单" name="obsolete">
                     <div :style="{height: ganttContainerHeight+40+'px'}">
+                        <div class="padding-value"></div>
                         <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
                             <template #operation="{ row }">
                                 <TableAction :actions="[
@@ -178,9 +179,9 @@ export default {
 		},
         handleClick(tab) {
             if(tab.index == "0") {
-                this.oldTableObj.doLayout();
+                this.oldTableObj.reset();
             } else {
-                this.ObsoleteTableObj.doLayout();
+                this.ObsoleteTableObj.reset();
             }
         },
         obsoleteEdit(val) {
@@ -208,5 +209,8 @@ export default {
     align-items: center;
     margin-left: 20px;
     cursor: pointer;
+}
+.padding-value{
+    height: 10px;
 }
 </style>

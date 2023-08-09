@@ -8,6 +8,8 @@ export class CreateGantt {
 
         this.taskRadius = options.taskRadius;
 
+        this.popoverShow = false;
+
         /** =============================此处用来定义默认值============================= **/
         this.tasksHeight = options.tasksHeight || 50; // 任务条高度
         this.tasksPadding = (options.tasksPadding || options.tasksPadding == 0) ? options.tasksPadding : 4; // 任务条padding值
@@ -51,9 +53,10 @@ export class CreateGantt {
         let count = 0; // 用于计算高度累加
         const popover = document.createElement('div');
         popover.className = 'custom-popover';
-        popover.setAttribute("popover", "auto");
+        popover.style.opacity = 0;
+        // popover.setAttribute("popover", "auto");
         // popover.popover = "auto";
-        parent.appendChild(popover);
+        document.body.appendChild(popover);
         this.tasks.forEach((item, i) => {
             item.Data.forEach((jtem, j) => {
                 let year = new Date().getFullYear();
@@ -67,7 +70,7 @@ export class CreateGantt {
                 let startY = count * this.tasksHeight;
                 let height = this.tasksHeight - this.tasksPadding * 2;
                 let taskRef = document.createElement('div');
-                taskRef.innerText = jtem.Process;
+                taskRef.innerText = jtem.Process + `(${jtem.PlanTime}H) ${jtem.PlanDevice}`;
                 taskRef.id = 'custom-task-' + item.Id + '-' + j
                 taskRef.className = 'custom-task custom-task-' + item.Id + '-' + j
                 taskRef.style.left = startX * this.stepSize + 'px';
@@ -81,6 +84,8 @@ export class CreateGantt {
                 parent.appendChild(taskRef);
 
                 taskRef.addEventListener('mouseenter', (e) => {
+                    this.popoverShow = true;
+                    popover.style.opacity = 1;
                     let left = e.clientX;
                     let top = e.clientY + 20;
                     // 获取鼠标位置，根据鼠标位置动; 判断位置是否超出视口
@@ -97,18 +102,25 @@ export class CreateGantt {
                     }
                     popover.innerHTML = `
                         <div>${i18n.t('Generality.Ge_ProcessName')}：${jtem.Process}</div>
+                        <div>${i18n.t('Generality.Ge_PlanTime')}：${jtem.PlanTime}H</div>
+                        <div>${i18n.t('production.Pr_PlanningDevices')}：${jtem.PlanDevice}</div>
                         <div>${i18n.t('Generality.Ge_PlanStart')}：${timeFormat(jtem.PlanStart, 'yyyy-MM-dd hh:mm:ss')}</div>
                         <div>${i18n.t('Generality.Ge_PlanEnd')}：${timeFormat(jtem.PlanEnd, 'yyyy-MM-dd hh:mm:ss')}</div>
                     `
 
-                    popover.showPopover()
+                    // popover.showPopover()
                 })
                 taskRef.addEventListener('click', () => {
                     this.setDialogVisible(jtem);
                 })
-                // taskRef.addEventListener('mouseleave', () => {
-                //     popover.hidePopover()
-                // })
+                taskRef.addEventListener('mouseleave', () => {
+                    this.popoverShow = false;
+                    let timer = setTimeout(() => {
+                        if(!this.popoverShow) popover.style.opacity = 0;
+                        clearTimeout(timer)
+                    },500);
+                    // popover.hidePopover()
+                })
             })
             count++;
         })
