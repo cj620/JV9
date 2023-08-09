@@ -1,6 +1,7 @@
 <template>
-  <PageWrapper ref="page" :footer="false">
+  <PageWrapper :footer="false">
     <div class="simulatedCalculate-page" v-loading="loading">
+      <!-- 操作行 -->
       <el-form size="mini" class="simulatedCalculate-page-form">
         <el-form-item
           class="simulatedCalculate-page-form-item"
@@ -38,6 +39,7 @@
           >
         </el-form-item>
       </el-form>
+      <!-- tab标签 -->
       <el-tabs
         v-model="currentTabName"
         type="border-card"
@@ -46,7 +48,7 @@
         <!-- 排程图表 -->
         <el-tab-pane
           :label="$t('production.Pr_SimulatedAPS')"
-          class="simulatedCalculate-page-chartwrapper-pane"
+          class="simulatedCalculate-page-pane"
           name="SimulatedAPS"
         >
           <div class="simulatedCalculate-page-charter">
@@ -63,11 +65,11 @@
         <el-tab-pane
           v-for="item in AlgorithmTypeEnum.getEnums()"
           :key="item.name"
-          class="simulatedCalculate-page-chartwrapper-pane"
+          class="simulatedCalculate-page-pane"
           :label="item.label"
           :name="item.name"
         >
-          <div class="tabs-wrapper">
+          <div class="simulatedCalculate-page-pane-form">
             <JvTable :table-obj="tableObj"> </JvTable>
           </div>
         </el-tab-pane>
@@ -131,10 +133,14 @@ export default {
       });
     },
     getData() {
-      pie_chart().then((res) => {
-        this.loading = false;
-        this.calculatedData = res;
-      });
+      pie_chart()
+        .then((res) => {
+          this.loading = false;
+          this.calculatedData = res;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
     // 刷新
     refresh() {
@@ -147,27 +153,38 @@ export default {
       simulation_calculate({
         StartDate: new Date(),
         AlgorithmTypes: [...this.selectedTypes],
-      }).then(() => {
-        this.loading == false;
-        this.refresh();
-      });
+      })
+        .then(() => {
+          this.loading = false;
+          this.refresh();
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.chart-row {
+.simulatedCalculate-page-form {
+  height: 32px;
+  margin-bottom: 8px;
+}
+.simulatedCalculate-page-charter {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-around;
 }
-.chart-row > div {
-  width: 50%;
+.el-tabs__content {
+  background-color: red;
 }
-::v-deep .simulatedCalculate-page .el-tabs--border-card > .el-tabs__content {
-  padding: 0 !important;
-}
-// .tabs-wrapper {
+// ::v-deep .simulatedCalculate-page .el-tabs--border-card > .el-tabs_content {
+//   padding-top: 0 !important;
+// }
+// .simulatedCalculate-page-pane-form {
 //   // height: calc(100vh - 200px);
 //   height: 600px;
 // }
