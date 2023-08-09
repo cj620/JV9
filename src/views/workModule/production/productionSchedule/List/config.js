@@ -46,6 +46,7 @@ export class Table extends BaseTable {
       title: i18n.t("menu.Pr_ProductionSchedule"),
       // 接口类
       api,
+      tableHeaderShow: false,
       // 操作列宽度
       operationWidth: 0,
       operationCol: false,
@@ -67,6 +68,7 @@ export class Table1 extends BaseTable {
       title: i18n.t("menu.Pr_ProductionSchedule"),
       // 接口类
       api,
+      tableHeaderShow: false,
       // 操作列宽度
       operationWidth: 150,
       // 打印模块标识

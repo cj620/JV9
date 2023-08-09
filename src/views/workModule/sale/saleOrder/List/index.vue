@@ -47,6 +47,7 @@ export default {
     // 创建表格实例
     this.tableObj = new Table();
     this.tableObj.getData();
+    console.log(this)
   },
   computed: {
     // 表格操作模块

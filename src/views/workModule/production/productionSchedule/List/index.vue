@@ -8,27 +8,34 @@
             :ganttContainerHeight="ganttContainerHeight"
             >
             <template #gntHeaderRight>
-                <span>
+                <!-- <span>
                     <span style="font-size: 14px;">算法类型：</span>
                     <el-select style="width: 120px;" @change="setAlgorithmType" v-model="AlgorithmType" placeholder="请选择类型">
                         <el-option v-for="item in selectTypes" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
-                    </el-select></span>
+                    </el-select></span> -->
+            </template>
+            <template #pagination>
+                <div class="custom-unfold" @click="setFold">
+                    <i :class="unfold_icon"></i>
+                </div>
             </template>
         </CustomGantt>
-        <button @click="setFold">展开/收起</button>
+
 
         <div class="overdueOrObsolete">
             <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
                 <el-tab-pane label="陈旧工单" name="overdue">
-                    <div :style="{height: ganttContainerHeight+'px'}">
+                    <div :style="{height: ganttContainerHeight+40+'px'}">
+                        <div class="padding-value"></div>
                         <JvTable ref="BillTable" :table-obj="oldTableObj">
                         <!-- <Action size="mini" slot="btn-list" :actions="getListTableBtnModel"></Action> -->
                         </JvTable>
                     </div>
                 </el-tab-pane>
                 <el-tab-pane label="超期工单" name="obsolete">
-                    <div :style="{height: ganttContainerHeight+'px'}">
+                    <div :style="{height: ganttContainerHeight+40+'px'}">
+                        <div class="padding-value"></div>
                         <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
                             <template #operation="{ row }">
                                 <TableAction :actions="[
@@ -49,9 +56,11 @@
 
 <script>
 import columns from './columns';
+import { timeFormat } from "@/jv_doc/utils/time";
+import {Bus} from '@/jv_doc/class/event/EventBus';
 // 引入表格类
 import { Table, Table1 } from "./config";
-import {simulation_scheduling_list, overdue_and_obsolete_list} from '@/api/workApi/production/productionSchedule';
+import {simulation_scheduling_list} from '@/api/workApi/production/productionSchedule';
 import  CustomGantt  from '@/components/CustomGantt/index.vue'
 export default {
     components: { CustomGantt },
@@ -86,9 +95,12 @@ export default {
             ObsoleteTableObj: {  }, // 超期表格
             isFold: false, // 是否展开
             ganttContainerHeight: 800, //甘特图盒子的高度
+            unfold_icon: 'el-icon-arrow-down',
+            eventBus: null,
         }
     },
     created() {
+        this.eventBus = Bus;
         // 创建表格实例
         this.oldTableObj = new Table();
         this.oldTableObj.getData({SelectType: 'Normal'});
@@ -100,17 +112,36 @@ export default {
     },
     mounted() {
         this.setGanttContainer();
+        this.eventBus.$on('handleSizeChange', (pageSize, current) => {
+            this.setAlgorithmType(pageSize, current);
+        })
+        this.eventBus.$on('handleCurrentChange', (pageSize, current) => {
+            this.setAlgorithmType(pageSize, current);
+        })
     },
     methods: {
         // 获取排程结果
-        setAlgorithmType(val) {
+        setAlgorithmType(size = 10, page = 1 ) {
             this.loading = true;
             simulation_scheduling_list({
                 AlgorithmType: this.AlgorithmType,
-                CurrentPage: 1,
-                PageSize: 10
+                CurrentPage: page,
+                PageSize: size
             }).then(res => {
-                this.result = res
+                res.Items = res.Items.map(item => {
+                    return {
+                        ...item,
+                        Data: item.Data.map(jtem => {
+                            return {
+                                ...jtem,
+                                _PlanStart: timeFormat(jtem.PlanStart, 'yyyy-MM-dd hh:mm:ss'),
+                                _PlanEnd: timeFormat(jtem.PlanEnd, 'yyyy-MM-dd hh:mm:ss'),
+                            }
+                        })
+
+                    }
+                })
+                this.result = res;
                 this.loading = false;
             })
         },
@@ -127,16 +158,17 @@ export default {
         // },
         setGanttContainer() {
             let mainContent = document.querySelector('.main-content');
-            this.ganttContainerHeight = this.isFold ? mainContent.clientHeight-80 : mainContent.clientHeight/2 -80; // 甘特图盒子的高度
+            this.ganttContainerHeight = this.isFold ? mainContent.clientHeight-110 : mainContent.clientHeight/2 -110; // 甘特图盒子的高度
             window.onresize = (e) => {
                 this.debounce(() => {
-                    this.ganttContainerHeight = this.isFold ? mainContent.clientHeight-80 : mainContent.clientHeight/2 -80; // 甘特图盒子的高度
+                    this.ganttContainerHeight = this.isFold ? mainContent.clientHeight-110 : mainContent.clientHeight/2 -110; // 甘特图盒子的高度
                 },100)
             }
         },
         // 展开表格
         setFold() {
             this.isFold = !this.isFold;
+            this.unfold_icon = this.isFold ? "el-icon-arrow-up" : "el-icon-arrow-down"
             this.setGanttContainer();
         },
         debounce(func, wait) {
@@ -147,15 +179,18 @@ export default {
 		},
         handleClick(tab) {
             if(tab.index == "0") {
-                this.oldTableObj.doLayout();
+                this.oldTableObj.reset();
             } else {
-                this.ObsoleteTableObj.doLayout();
+                this.ObsoleteTableObj.reset();
             }
         },
         obsoleteEdit(val) {
             console.log('val::: ', val);
-
-        }
+        },
+    },
+    beforeDestroy(){
+        this.eventBus.$off("handleSizeChange");
+        this.eventBus.$off("handleCurrentChange");
     }
 }
 </script>
@@ -163,9 +198,19 @@ export default {
 <style scoped lang="scss">
 .overdueOrObsolete{
     background-color: #fff;
+    margin-top: 10px;
     ::v-deep .el-tabs__header{
         margin: 0;
     }
 }
-
+.custom-unfold{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.padding-value{
+    height: 10px;
+}
 </style>

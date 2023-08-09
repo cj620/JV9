@@ -41,12 +41,24 @@ export const config = [ {
     area: 'row',
   },
   {
+    caption:'计划数量',
+    dataField: 'PlanQuantity',
+    dataType: 'number',
+    summaryType: 'sum',
+    width: 80,
+    customizeText: function (cellInfo) {
+      console.log(cellInfo);
+      // Your code goes here
+      return amountFormat(cellInfo.value?cellInfo.value:0)
+    }
+  },
+  {
     caption:i18n.t("Generality.Ge_Quantity"),
     dataField: 'Quantity',
     dataType: 'number',
     summaryType: 'sum',
     area: 'data',
-
+    width: 80,
     customizeText: function (cellInfo) {
       console.log(cellInfo);
       // Your code goes here
@@ -58,10 +70,23 @@ export const config = [ {
     dataField: 'ToolingName',
     width: 150,
   },
+
+  {
+    caption:'计划金额',
+    dataField: 'PlanAmount',
+    dataType: 'number',
+    summaryType: 'sum',
+    width: 80,
+    customizeText: function (cellInfo) {
+      console.log(cellInfo);
+      // Your code goes here
+      return amountFormat(cellInfo.value?cellInfo.value:0)
+    }
+  },
   {
     caption:i18n.t("Generality.Ge_Process"),
     dataField: 'Process',
-    width: 150,
+    width: 80,
     area: 'column',
   },
   {
@@ -70,7 +95,7 @@ export const config = [ {
     dataType: 'number',
     summaryType: 'sum',
     area: 'data',
-
+    width: 80,
     customizeText: function (cellInfo) {
       console.log(cellInfo);
       // Your code goes here

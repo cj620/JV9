@@ -1094,6 +1094,7 @@ const cn = {
   },
 
   systemSetupData: {
+    JV_APS: "自动排程",
     Basics: "基础",
     Design: "设计",
     Project: "项目",
@@ -1129,6 +1130,12 @@ const cn = {
     Create_purchase_request_below_safety_stock: "低于安全库存创建采购申请",
     User_web_socket: "用户消息推送配置",
     User_web_socket_desc: "用户是否接受消息",
+    Aps_ordinary_bill_process_post_time_coefficient: "自动排程普通工单工序后置时间系数",
+    Aps_urgent_bill_process_post_time_coefficient: "自动排程紧急工单工序后置时间系数 ",
+    Aps_extra_urgent_bill_process_post_time_coefficient: "自动排程特急工单工序后置时间系数",
+    Aps_ordinary_bill_process_lead_time_coefficient: "自动排程普通工单工序前置时间系数",
+    Aps_urgent_bill_process_lead_time_coefficient: "自动排程紧急工单工序前置时间系数",
+    Aps_extra_urgent_bill_process_lead_time_coefficient: "自动排程特急工单工序前置时间系数",
   },
 
   ...zhLocale,
