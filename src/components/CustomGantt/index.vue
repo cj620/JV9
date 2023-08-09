@@ -73,8 +73,15 @@
                         @mouseleave="leaveHeaderTable" @click="clickHeaderTable(item, i)">
                         <div class="header-table-item-box" :style="{ height: tasksHeight - tasksPadding * 2 + 'px' }">
 
-                            <el-popover placement="right" width="470" trigger="hover">
-                                <el-table :data="item.Data" height="400">
+                            <el-popover placement="right" width="570" trigger="hover">
+                                <h3 style="text-align: center;">{{ item.PartNo }}</h3>
+                                <div style="width: 100%;display: flex;justify-content: center;">
+                                    <el-image
+                                    :src="imgUrlPlugin(item.PhotoUrl)" style="height: 60px;"
+                                    :preview-src-list="[imgUrlPlugin(item.PhotoUrl)]"
+                                    ></el-image>
+                                </div>
+                                <el-table :data="item.Data" height="350">
                                     <el-table-column v-for="(column, column_idx) in detailColumn" :key="column_idx"
                                         :width="column.width" :property="column.property"
                                         :label="column.label"></el-table-column>
@@ -90,17 +97,21 @@
                                 width: jtem.width + 'px',
                                 height: tasksHeight - tasksPadding * 2 + 'px'
                             }">
-                                <span v-if="jtem.name === 'ImageUrl'">
+                                <span v-if="jtem.name === 'PhotoUrl'">
                                     <el-image :style="{ height: tasksHeight - tasksPadding * 2 - 4 + 'px' }"
-                                        :preview-src-list="[item[jtem.name]]" :src="item[jtem.name]" lazy>
+                                        :preview-src-list="[imgUrlPlugin(item[jtem.name])]" :src="imgUrlPlugin(item[jtem.name])" lazy>
                                         <div slot="error" class="image-slot">
                                             <i class="el-icon-picture-outline"></i>
                                         </div>
                                     </el-image>
                                 </span>
-                                <span v-else-if="isNaN(item[jtem.name]) && !isNaN(Date.parse(item[jtem.name]))">{{
+                                <span
+                                class="beyond-hiding"
+                                v-else-if="isNaN(item[jtem.name]) && !isNaN(Date.parse(item[jtem.name]))">{{
                                     timeFormat(item[jtem.name]) }}</span>
-                                <span v-else>{{ item[jtem.name] }}</span>
+                                <span
+                                class="beyond-hiding"
+                                v-else>{{ item[jtem.name] }}</span>
                             </div>
                         </div>
 
@@ -136,6 +147,7 @@
 </template>
 
 <script>
+import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { timeFormat } from "@/jv_doc/utils/time";
 import { getTimeRangeList } from "@/jv_doc/utils/time/getTimeRangeList";
 import { CreateGantt } from './createGantt';
@@ -193,17 +205,19 @@ export default {
             default: () => {
                 return [
                     {
-                        width: null,
                         property: 'Process',
                         label: i18n.t('Generality.Ge_ProcessName')
                     },
                     {
-                        width: 170,
+                        width: 80,
+                        property: 'PlanTime',
+                        label: i18n.t('Generality.Ge_PlanTime')
+                    },
+                    {
                         property: '_PlanStart',
                         label: i18n.t('Generality.Ge_PlanStart')
                     },
                     {
-                        width: 170,
                         property: '_PlanEnd',
                         label: i18n.t('Generality.Ge_PlanEnd')
                     },
@@ -310,6 +324,7 @@ export default {
     mounted() { },
     methods: {
         timeFormat,
+        imgUrlPlugin,
         confirm() { // 确认
             console.log(':点击了确认:: ', );
         },

@@ -26,7 +26,7 @@
       <slot name="btn-list" />
     </TableHeader>
     <!-- 表格主题 -->
-    <div class="table-wrapper">
+    <div class="table-wrapper" :style="{height: tableObj.props.tableHeaderShow ? 'calc(100% - 78px)' : 'calc(100% - 42px)'}">
       <el-Table
         ref="multipleTable"
         v-loading="tableObj.loading"
@@ -417,7 +417,6 @@ export default {
     background-color: rgba(0, 0, 0, 0.1);
   }
   .table-wrapper {
-    height: calc(100% - 78px);
     padding: 0 10px;
     background: #fff;
     @import "../../style/cpn/table.scss";
