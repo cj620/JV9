@@ -825,6 +825,7 @@ const en = {
     Pr_MinimumWorkingPeriod: "Shortest duration algorithm",
     Pr_EarliestDeliveryDate: "Algorithm for earliest delivery time",
     Pr_DoAPS: "Do aps",
+    Pr_APSLog: "APS log",
     Pr_PleaseSelectSchedulingAlgorithms: "Please select scheduling algorithms",
   },
   quality: {
@@ -1006,7 +1007,8 @@ const en = {
     P10108: "Cannot find the process' up-machine record!",
     P10109: "Cannot find the process!",
     P10110: "Cannot find the process information!",
-    P10111: "Cannot find the process record which is available to down-machine!",
+    P10111:
+      "Cannot find the process record which is available to down-machine!",
     P10112: "Cannot find the tooling information!",
     P10113: "Cannot find the tooling information!",
     P10114: "Cannot find the task process information!",
@@ -1049,7 +1051,8 @@ const en = {
     P10150: "The user name already exists!",
     P10151: "The user name or the password is wrong!",
     P10152: "Cannot chose parts of more than one tooling!",
-    P10153: "Error:reaptedly down-machine or wrong process state or wrong device.",
+    P10153:
+      "Error:reaptedly down-machine or wrong process state or wrong device.",
     P10154: "The resource group cannot be empty!",
     P10155: "The resource group already exists!",
     P10156: "The sum total ratio cannot be greater than 100%!",

@@ -52,7 +52,6 @@ export default {
         StartDate: this.formObj.form.StartDate,
         SchedulingType: this.formObj.form.SchedulingType,
       }).then((res) => {
-        console.log(res.OverloadBills);
         if (res.OverloadBills.length > 0) {
           this.$router.push({
             name: "ProductionScheduleCalculate",
