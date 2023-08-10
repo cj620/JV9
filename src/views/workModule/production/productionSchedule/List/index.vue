@@ -1,20 +1,18 @@
 <template>
     <PageWrapper :footer="false">
+        <span style="font-size: 14px;">单位：</span>
+                <el-select style="width: 66px;" @change="setGanttZoom" v-model="unitOfTime" placeholder="请选择单位">
+                    <el-option v-for="item in unitOptions" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
         <CustomGantt
             :columns="columns"
             taskRadius="6"
             :result="result"
             :loading="loading"
             :ganttContainerHeight="ganttContainerHeight"
+            ref="CustomGantt"
             >
-            <template #gntHeaderRight>
-                <!-- <span>
-                    <span style="font-size: 14px;">算法类型：</span>
-                    <el-select style="width: 120px;" @change="setAlgorithmType" v-model="AlgorithmType" placeholder="请选择类型">
-                        <el-option v-for="item in selectTypes" :key="item.value" :label="item.label" :value="item.value">
-                        </el-option>
-                    </el-select></span> -->
-            </template>
             <template #pagination>
                 <div class="custom-unfold" @click="setFold">
                     <i :class="unfold_icon"></i>
@@ -69,24 +67,6 @@ export default {
             columns: columns,
             result: {},
             AlgorithmType: 'ClassicalAlgorithm',
-            selectTypes: [
-                {
-                    label: i18n.t('production.Pr_ConventionalAlgorithm'),
-                    value: 'ClassicalAlgorithm',
-                },
-                {
-                    label: i18n.t('production.Pr_ShortestDurationAlgorithm'),
-                    value: 'MinimumWorkingPeriod',
-                },
-                {
-                    label: i18n.t('production.Pr_AlgorithmForEarliestDeliveryTime'),
-                    value: 'EarliestDeliveryDate',
-                },
-                {
-                    label: i18n.t('production.Pr_CRValueScheduling'),
-                    value: 'CR',
-                },
-            ],
             // overdueOrObsoleteType: 'Normal',
             loading: false,
             timeout: null,
@@ -97,6 +77,17 @@ export default {
             ganttContainerHeight: 800, //甘特图盒子的高度
             unfold_icon: 'el-icon-arrow-down',
             eventBus: null,
+            unitOptions: [{
+                value: 'week',
+                label: '周'
+            }, {
+                value: 'hour',
+                label: '时'
+            }, {
+                value: 'minute',
+                label: '分'
+            }],
+            unitOfTime: 'hour',
         }
     },
     created() {
@@ -120,6 +111,10 @@ export default {
         })
     },
     methods: {
+        // 切换时间
+        setGanttZoom(val) {
+            this.$refs.CustomGantt.setGanttZoom(val);
+        },
         // 获取排程结果
         setAlgorithmType(size = 10, page = 1 ) {
             this.loading = true;

@@ -6,6 +6,9 @@
 -->
 <template>
   <div class="jv-pagination">
+    <div>
+      <slot></slot>
+    </div>
     <el-pagination v-bind="$attrs" v-on="$listeners" />
   </div>
 </template>
@@ -22,7 +25,9 @@ export default {
 .jv-pagination {
   background-color: #fff;
   width: 100%;
-  @include flexBox($jc: flex-end);
+  display: flex;
+  justify-content: space-between;
+  // @include flexBox($jc: flex-end);
   // padding-bottom: 10px;
 }
 </style>
