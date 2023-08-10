@@ -94,7 +94,7 @@ export class ObsoleteTable extends BaseTable {
       api: api1,
       // tableHeaderShow: false,
       // 操作列宽度
-      operationCol: false,
+      // operationCol: false,
       operationWidth: 150,
       // 打印模块标识
       printMod: "Pr_ProductionSchedule",
@@ -185,9 +185,19 @@ export const OldTableConfig = [
     },
   },
   /*加工信息*/
+  // {
+  //   prop: "PartInfo",
+  //   label: i18n.t("production.Pr_ProcessInformation"),
+  // },
+  /*零件名称*/
   {
-    prop: "PartInfo",
-    label: i18n.t("production.Pr_ProcessInformation"),
+    prop: "PartName",
+    label: i18n.t("Generality.Ge_PartName"),
+  },
+  /*零件编号*/
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
   },
   /*计划开始*/
   {

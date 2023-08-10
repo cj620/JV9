@@ -10,32 +10,67 @@
     <!-- 顶部操作行 -->
     <div class="action-header">
       <div class="action-header-left">
-        <el-input v-show="tableChangeGantt" placeholder="请输入零件编号..." prefix-icon="el-icon-search" size="mini"
-          v-model="partNumberValue">
+        <el-input
+          v-show="tableChangeGantt"
+          v-model="partNumberValue"
+          placeholder="请输入零件编号..."
+          prefix-icon="el-icon-search"
+          size="mini"
+        >
         </el-input>
       </div>
       <div class="action-header-right">
         <el-button-group>
-          <el-button size="mini" @click="simulatedCalculate">{{ $t('production.Pr_SimulatedCalculate') }}</el-button>
-          <el-button size="mini" @click="calculate">{{ $t('production.Pr_Calculate') }}</el-button>
-          <el-button size="mini" @click="equipmentLoad">{{ $t('production.Pr_CheckLoad') }}</el-button>
-          <el-button size="mini" @click="SchedulingResultsVisible = true">{{ $t('production.Pr_Release') }}</el-button>
-          <el-button size="mini">{{ $t('production.Pr_APSLog') }}</el-button>
-          <el-button size="mini" icon="el-icon-view" @click="tableChangeGantt = !tableChangeGantt">{{ tableChangeGantt ?
-            $t('Generality.Ge_TabularShow') : $t('Generality.Ge_GanttShow') }}</el-button>
+          <el-button size="mini" @click="simulatedCalculate">{{
+            $t("production.Pr_SimulatedCalculate")
+          }}</el-button>
+          <el-button size="mini" @click="calculate">{{
+            $t("production.Pr_Calculate")
+          }}</el-button>
+          <el-button size="mini" @click="equipmentLoad">{{
+            $t("production.Pr_CheckLoad")
+          }}</el-button>
+          <el-button size="mini" @click="SchedulingResultsVisible = true">{{
+            $t("production.Pr_Release")
+          }}</el-button>
+          <el-button size="mini">{{ $t("production.Pr_APSLog") }}</el-button>
+          <el-button
+            icon="el-icon-view"
+            size="mini"
+            @click="tableChangeGantt = !tableChangeGantt"
+            >{{
+              tableChangeGantt
+                ? $t("Generality.Ge_TabularShow")
+                : $t("Generality.Ge_GanttShow")
+            }}
+          </el-button>
         </el-button-group>
-        <span v-show="tableChangeGantt" style="margin-left: 20px;">
-          <span style="font-size: 12px;">单位：</span>
-          <el-select size="mini" style="width: 66px;" @change="setGanttZoom" v-model="unitOfTime" placeholder="请选择单位">
-              <el-option v-for="item in unitOptions" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
+        <span v-show="tableChangeGantt" style="margin-left: 20px">
+          <span style="font-size: 12px">单位：</span>
+          <el-select
+            v-model="unitOfTime"
+            placeholder="请选择单位"
+            size="mini"
+            style="width: 66px"
+            @change="setGanttZoom"
+          >
+            <el-option
+              v-for="item in unitOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
           </el-select>
         </span>
       </div>
     </div>
 
     <!-- 表格 -->
-    <div v-show="!tableChangeGantt" :style="{ height: ganttContainerHeight + 40 + 'px' }">
+    <div
+      v-show="!tableChangeGantt"
+      :style="{ height: ganttContainerHeight + 40 + 'px' }"
+    >
       <JvTable ref="BillTable" :table-obj="tableObj">
         <template #State="{ record }">
           <!-- 状态标签 -->
@@ -49,9 +84,16 @@
       </JvTable>
     </div>
 
+    <!--甘特图-->
     <div v-show="tableChangeGantt">
-      <CustomGantt :columns="GanttColumns" taskRadius="6" :result="result" :loading="loading"
-        :ganttContainerHeight="ganttContainerHeight" ref="CustomGantt">
+      <CustomGantt
+        ref="CustomGantt"
+        :columns="GanttColumns"
+        :ganttContainerHeight="ganttContainerHeight"
+        :loading="loading"
+        :result="result"
+        taskRadius="6"
+      >
         <template #pagination>
           <div class="custom-unfold" @click="setFold">
             <i :class="unfold_icon"></i>
@@ -62,61 +104,109 @@
 
     <div class="overdueOrObsolete">
       <!-- 陈旧工单 -->
-      <div :style="{ height: ganttContainerHeight + 86 + 'px' }" v-show="!tableChangeShow">
+      <div
+        v-show="!tableChangeShow"
+        :style="{ height: ganttContainerHeight + 86 + 'px' }"
+      >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
           <Action slot="btn-list">
-            <el-select size="mini" style="width: 100px;" v-model="tableChangeShow">
-                <el-option v-for="item in tableChangeOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
+            <el-select
+              v-model="tableChangeShow"
+              size="mini"
+              style="width: 100px"
+            >
+              <el-option
+                v-for="item in tableChangeOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
             </el-select>
           </Action>
         </JvTable>
       </div>
       <!-- 超期工单 -->
-      <div :style="{ height: ganttContainerHeight + 86 + 'px' }" v-show="tableChangeShow">
+      <div
+        v-show="tableChangeShow"
+        :style="{ height: ganttContainerHeight + 86 + 'px' }"
+      >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
           <template #operation="{ row }">
-            <TableAction :actions="[
-              {
-                label: '编辑',
-                confirm: obsoleteEdit.bind(null, row)
-              }]" />
+            <TableAction
+              :actions="[
+                {
+                  label: '编辑',
+                  confirm: obsoleteEdit.bind(null, row),
+                },
+              ]"
+            />
           </template>
-          <Action slot="btn-list">
-            <el-select size="mini" style="width: 100px;" v-model="tableChangeShow">
-                <el-option v-for="item in tableChangeOptions" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
+          <Action #btn-list>
+            <el-select
+              v-model="tableChangeShow"
+              size="mini"
+              style="width: 100px"
+            >
+              <el-option
+                v-for="item in tableChangeOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
             </el-select>
           </Action>
         </JvTable>
       </div>
-
     </div>
 
     <!-- 计算弹窗 -->
-    <calculateTime :visible.sync="calculateTimeDialogFormVisible" v-if="calculateTimeDialogFormVisible" @cancel="cancel"
-      @completed="completed"></calculateTime>
+    <calculateTime
+      v-if="calculateTimeDialogFormVisible"
+      :visible.sync="calculateTimeDialogFormVisible"
+      @cancel="cancel"
+      @completed="completed"
+    ></calculateTime>
     <!-- 排程日志弹窗 -->
     <!-- 发布提醒弹窗 -->
-    <jv-dialog :title="$t('Generality.Ge_Remind')" width="30%" :visible.sync="releaseDialogFormVisible"
-      v-if="releaseDialogFormVisible" @confirm="release" @cancel="cancelRelease">
+    <jv-dialog
+      v-if="releaseDialogFormVisible"
+      :title="$t('Generality.Ge_Remind')"
+      :visible.sync="releaseDialogFormVisible"
+      width="30%"
+      @cancel="cancelRelease"
+      @confirm="release"
+    >
       生产排程完成，无超负荷工单、超交期工单，是否进行发布？当前版本号：{{
         ApsVersionNo
       }}
     </jv-dialog>
     <!-- 版本号弹窗 -->
-    <jv-dialog :title="$t('Generality.Ge_Remind')" width="30%" :visible.sync="versionDialogFormVisible"
-      :IsShowCancelFooterBtn="false" @confirm="closeVersion" v-if="versionDialogFormVisible">
+    <jv-dialog
+      v-if="versionDialogFormVisible"
+      :IsShowCancelFooterBtn="false"
+      :title="$t('Generality.Ge_Remind')"
+      :visible.sync="versionDialogFormVisible"
+      width="30%"
+      @confirm="closeVersion"
+    >
       排程结果已发布，版本号：{{ ApsVersionNo }}
     </jv-dialog>
 
     <!-- 发布排程结果弹窗 -->
-    <JvDialog :visible.sync="SchedulingResultsVisible" :title="$t('Generality.Ge_Remind')" @confirm="release" width="30%">
-      <span style="font-size: 16px">{{ $t('Generality.Ge_WhetherReleaseSchedulingResults') }}</span>
+    <JvDialog
+      :title="$t('Generality.Ge_Remind')"
+      :visible.sync="SchedulingResultsVisible"
+      width="30%"
+      @confirm="release"
+    >
+      <span style="font-size: 16px">{{
+        $t("Generality.Ge_WhetherReleaseSchedulingResults")
+      }}</span>
     </JvDialog>
-
   </PageWrapper>
 </template>
 <script>
@@ -127,11 +217,12 @@ import { stateEnum } from "@/enum/workModule";
 // 单据状态组件
 import { do_publish } from "@/api/workApi/production/aps";
 import { timeFormat } from "@/jv_doc/utils/time";
-import { Bus } from '@/jv_doc/class/event/EventBus';
-import { simulation_scheduling_list } from '@/api/workApi/production/productionSchedule';
+import { Bus } from "@/jv_doc/class/event/EventBus";
+import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
-import CustomGantt from '@/components/CustomGantt/index.vue';
+import CustomGantt from "@/components/CustomGantt/index.vue";
+
 export default {
   // 页面的标识
   name: "ProductionSchedule",
@@ -143,7 +234,7 @@ export default {
   },
   data() {
     return {
-      partNumberValue: '', // 零件编号查询输入框
+      partNumberValue: "", // 零件编号查询输入框
       // 表格实例
       tableObj: {},
       // 最新发布版本号
@@ -160,7 +251,7 @@ export default {
       // =================================================
       GanttColumns: GanttColumns,
       result: {},
-      AlgorithmType: 'ClassicalAlgorithm',
+      AlgorithmType: "ClassicalAlgorithm",
       // overdueOrObsoleteType: 'Normal',
       loading: false,
       timeout: null,
@@ -169,24 +260,28 @@ export default {
       ObsoleteTableObj: {}, // 超期表格
       isFold: false, // 是否展开
       ganttContainerHeight: 0, //甘特图盒子的高度
-      unfold_icon: 'el-icon-arrow-down',
+      unfold_icon: "el-icon-arrow-down",
       eventBus: null,
-      unitOptions: [{
-        value: 'week',
-        label: '周'
-      }, {
-        value: 'hour',
-        label: '时'
-      }, {
-        value: 'minute',
-        label: '分'
-      }],
-      unitOfTime: 'hour',
+      unitOptions: [
+        {
+          value: "week",
+          label: "周",
+        },
+        {
+          value: "hour",
+          label: "时",
+        },
+        {
+          value: "minute",
+          label: "分",
+        },
+      ],
+      unitOfTime: "hour",
       tableChangeShow: false,
       tableChangeOptions: [
         { value: false, label: i18n.t("production.Pr_StaleWorkOrder") },
         { value: true, label: i18n.t("production.Pr_OverdueWorkOrder") },
-      ]
+      ],
     };
   },
   // 路由切换
@@ -209,20 +304,20 @@ export default {
     this.eventBus = Bus;
     // 创建表格实例
     this.oldTableObj = new OldTable();
-    this.oldTableObj.getData({ SelectType: 'Normal' });
+    this.oldTableObj.getData({ SelectType: "Normal" });
     this.ObsoleteTableObj = new ObsoleteTable();
-    this.ObsoleteTableObj.getData({ SelectType: 'ObsoleteWorkOrder' });
+    this.ObsoleteTableObj.getData({ SelectType: "ObsoleteWorkOrder" });
 
     this.setAlgorithmType();
   },
   mounted() {
     this.setGanttContainer();
-    this.eventBus.$on('handleSizeChange', (pageSize, current) => {
+    this.eventBus.$on("handleSizeChange", (pageSize, current) => {
       this.setAlgorithmType(pageSize, current);
-    })
-    this.eventBus.$on('handleCurrentChange', (pageSize, current) => {
+    });
+    this.eventBus.$on("handleCurrentChange", (pageSize, current) => {
       this.setAlgorithmType(pageSize, current);
-    })
+    });
   },
   computed: {
     // 是否可以批量删除
@@ -298,8 +393,8 @@ export default {
     cancelRelease() {
       this.toRouteName
         ? this.$router.push({
-          name: this.toRouteName,
-        })
+            name: this.toRouteName,
+          })
         : console.log("无需跳转");
       this.toRouteName = null;
     },
@@ -318,40 +413,45 @@ export default {
       simulation_scheduling_list({
         AlgorithmType: this.AlgorithmType,
         CurrentPage: page,
-        PageSize: size
-      }).then(res => {
-        res.Items = res.Items.map(item => {
+        PageSize: size,
+      }).then((res) => {
+        res.Items = res.Items.map((item) => {
           return {
             ...item,
-            Data: item.Data.map(jtem => {
+            Data: item.Data.map((jtem) => {
               return {
                 ...jtem,
-                _PlanStart: timeFormat(jtem.PlanStart, 'yyyy-MM-dd hh:mm:ss'),
-                _PlanEnd: timeFormat(jtem.PlanEnd, 'yyyy-MM-dd hh:mm:ss'),
-              }
-            })
-
-          }
-        })
+                _PlanStart: timeFormat(jtem.PlanStart, "yyyy-MM-dd hh:mm:ss"),
+                _PlanEnd: timeFormat(jtem.PlanEnd, "yyyy-MM-dd hh:mm:ss"),
+              };
+            }),
+          };
+        });
         this.result = res;
         this.loading = false;
-      })
+      });
     },
     // 自适应高度
     setGanttContainer() {
-      let mainContent = document.querySelector('.main-content');
-      this.ganttContainerHeight = this.isFold ? mainContent.clientHeight - 110 : mainContent.clientHeight / 2 - 110; // 甘特图盒子的高度
-      console.log('ganttContainerHeight::: ', this.ganttContainerHeight);
+      let mainContent = document.querySelector(".main-content");
+      this.ganttContainerHeight = this.isFold
+        ? mainContent.clientHeight - 110
+        : mainContent.clientHeight / 2 - 110; // 甘特图盒子的高度
+      console.log("ganttContainerHeight::: ", this.ganttContainerHeight);
       window.onresize = (e) => {
         this.debounce(() => {
-          this.ganttContainerHeight = this.isFold ? mainContent.clientHeight - 110 : mainContent.clientHeight / 2 - 110; // 甘特图盒子的高度
-        }, 100)
-      }
+          this.ganttContainerHeight = this.isFold
+            ? mainContent.clientHeight - 110
+            : mainContent.clientHeight / 2 - 110; // 甘特图盒子的高度
+        }, 100);
+      };
     },
     // 展开表格
     setFold() {
       this.isFold = !this.isFold;
-      this.unfold_icon = this.isFold ? "el-icon-arrow-up" : "el-icon-arrow-down"
+      this.unfold_icon = this.isFold
+        ? "el-icon-arrow-up"
+        : "el-icon-arrow-down";
       this.setGanttContainer();
     },
     debounce(func, wait) {
@@ -361,7 +461,7 @@ export default {
       this.timeout = setTimeout(func, wait);
     },
     obsoleteEdit(val) {
-      console.log('val::: ', val);
+      console.log("val::: ", val);
     },
   },
   beforeDestroy() {
@@ -370,17 +470,17 @@ export default {
   },
   watch: {
     tableChangeShow(val) {
-      if(!val) {
-          this.oldTableObj.reset();
+      if (!val) {
+        this.oldTableObj.reset();
       } else {
-          this.ObsoleteTableObj.reset();
+        this.ObsoleteTableObj.reset();
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .c-page-wrapper {
   // overflow: hidden;
 }
@@ -422,4 +522,5 @@ export default {
 
 .padding-value {
   height: 10px;
-}</style>
+}
+</style>
