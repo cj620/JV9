@@ -8,23 +8,21 @@
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 // 获取列表接口
 import { query_latest_aps_result } from "@/api/workApi/production/aps";
-import {overdue_and_obsolete_list} from '@/api/workApi/production/productionSchedule';
-import {
-  enumFilter,
-} from "@/enum/workModule";
+import { overdue_and_obsolete_list } from "@/api/workApi/production/productionSchedule";
+import { enumFilter } from "@/enum/workModule";
 
 const IsPartakeAPS = {
-  "Normal": {
-    name: i18n.t('production.Pr_Tagged'),
-    value: 'Normal',
-    color: 'red',
+  Normal: {
+    name: i18n.t("production.Pr_Tagged"),
+    value: "Normal",
+    color: "red",
   },
-  "ObsoleteWorkOrder": {
-    name: i18n.t('production.Pr_Unlabeled'),
-    value: 'ObsoleteWorkOrder',
-    color: 'red',
-  }
-}
+  ObsoleteWorkOrder: {
+    name: i18n.t("production.Pr_Unlabeled"),
+    value: "ObsoleteWorkOrder",
+    color: "red",
+  },
+};
 export class api1 extends TableAPI {
   // 获取列表
   getData = overdue_and_obsolete_list;
@@ -122,7 +120,7 @@ export const tableConfig = [
   {
     prop: "ProcessName",
     label: i18n.t("Generality.Ge_Process"),
-    width:100
+    width: 100,
   },
 
   /*预计工时*/
@@ -130,27 +128,27 @@ export const tableConfig = [
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
     align: "right",
-    width:100
+    width: 100,
   },
   /*预定资源*/
   {
     prop: "PlanDevice",
     label: i18n.t("Generality.Ge_Resource"),
-    width:120
+    width: 120,
   },
   /*计划开始*/
   {
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     filter: "time",
-    width:140
+    width: 140,
   },
   /*计划结束*/
   {
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
     filter: "time",
-    width:140
+    width: 140,
   },
 ];
 // 陈旧表格配置
@@ -176,12 +174,12 @@ export const OldTableConfig = [
       // 传参的键名，值为当前数据
       parameterKey: "BillId",
       // 补充动态参数
-    //   moreDynamicParameters: [
-    //     {
-    //       keyName: "ItemId",
-    //       valueName: "ItemId",
-    //     },
-    //   ],
+      //   moreDynamicParameters: [
+      //     {
+      //       keyName: "ItemId",
+      //       valueName: "ItemId",
+      //     },
+      //   ],
     },
   },
   /*加工信息*/
@@ -226,7 +224,7 @@ export const OldTableConfig = [
   {
     prop: "IsPartakeAPS",
     label: i18n.t("production.Pr_OldWorkOrderMark"),
-    customFilter: (value, row) => enumFilter(value, IsPartakeAPS),
+    customFilter: (value) => enumFilter(value, IsPartakeAPS),
   },
 ];
 // 超期表格配置
@@ -276,8 +274,6 @@ export const ObsoleteTableConfig = [
   },
 ];
 
-
-
 // 表单配置
 export const formSchema = [
   //单号搜索
@@ -301,7 +297,7 @@ export const formSchema1 = [
     prop: "PartInfo",
     label: i18n.t("production.Pr_ProcessInformation"),
     cpn: "FormInput",
-  }
+  },
   // // 模具编号
   // {
   //   prop: "ToolingNo",
@@ -316,7 +312,6 @@ export const formSchema1 = [
   // },
 ];
 
-
 // 甘特图表格配置
 export const GanttColumns = [
   {
@@ -325,18 +320,18 @@ export const GanttColumns = [
     label: i18n.t("Generality.Ge_PartNo"),
   },
   {
-      name: 'PhotoUrl',
-      width: 100,
-      label: i18n.t("Generality.Ge_PhotoUrl")
+    name: "PhotoUrl",
+    width: 100,
+    label: i18n.t("Generality.Ge_PhotoUrl"),
   },
   {
-      name: "PlanStart",
-      width: 120,
-      label: i18n.t("Generality.Ge_PlanStart"),
+    name: "PlanStart",
+    width: 120,
+    label: i18n.t("Generality.Ge_PlanStart"),
   },
   {
-      name: "PlanEnd",
-      width: 120,
-      label: i18n.t("Generality.Ge_PlanEnd"),
+    name: "PlanEnd",
+    width: 120,
+    label: i18n.t("Generality.Ge_PlanEnd"),
   },
-]
+];
