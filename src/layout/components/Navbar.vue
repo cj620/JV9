@@ -240,6 +240,13 @@
             :key="item.value"
             :lazy="true"
           >
+            <span slot="label">
+              <span style="padding-top: 9px; line-height: 24px">
+                <el-badge :is-dot="item.hasUnreadMsg">
+                  {{ item.label }}
+                </el-badge>
+              </span>
+            </span>
             <div
               ref="listRef"
               v-if="item.data.length !== 0"
