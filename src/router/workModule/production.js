@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-09 10:10:13
- * @LastEditTime: 2022-02-16 13:56:45
+ * @LastEditTime: 2023-08-10 11:11:17
  * @Description:生产模块
  */
 
@@ -217,6 +217,16 @@ const production = [
     name: "EmployeesChart",
     path: "employeesChart",
     title: i18n.t("menu.Pr_EmployeesChart"),
+  },
+  // 工时汇总
+  {
+    key: "Pr_PersonnelHoursSummary",
+    component: () =>
+      import("@/views/workModule/production/report/personnelHoursSummary"),
+    Parent: "Pr_Report",
+    name: "Pr_PersonnelHoursSummary",
+    path: "Pr_PersonnelHoursSummary",
+    title: "员工工时汇总",
   },
   // 零件生产报表
   {

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-06 11:04:05
- * @LastEditTime: 2021-12-07 14:54:09
+ * @LastEditTime: 2023-08-10 11:18:49
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\api\workApi\production\dataReport.js
@@ -65,6 +65,22 @@ export function getPartWork(data) {
 export function partProcessingPlan(data) {
   return request({
     url: "/data_report/part_processing_plan",
+    method: "post",
+    data,
+  });
+}
+// 工时汇总
+export function data_report_personnel_hours_summary(data) {
+  return request({
+    url: "/data_report/personnel_hours_summary",
+    method: "post",
+    data,
+  });
+}
+// 人员工时明细
+export function personnel_hours_details(data) {
+  return request({
+    url: "/data_report/personnel_hours_details",
     method: "post",
     data,
   });
