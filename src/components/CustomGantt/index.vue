@@ -1,6 +1,6 @@
 <template>
     <div style="width: 100%;position: relative;">
-        <div style="
+        <!-- <div style="
 		margin-bottom: 10px;
 		width: 100%;
 		display: flex;
@@ -21,11 +21,15 @@
             <div style="display: flex; align-items: center;">
                 <slot name="gntHeaderRight"></slot>
             </div>
-        </div>
+        </div> -->
+        <!-- 边框线 -->
         <div class="custom-border-box"
             :style="{ left: tableHeaderWidth + 30 + (detailShow ? detailIconWidth : 0) + 'px', height: ganttContainerHeight - 14 + 'px' }">
         </div>
+        <!-- 最外层的盒子 -->
         <div class="ganttContainer" :style="{ height: ganttContainerHeight + 'px' }" v-loading="loading">
+
+            <!-- 时间表头列表 -->
             <div class="date-header" :style="{
                 width: cWidth + 'px',
                 height: tableHeaderHeight + 'px',
@@ -50,82 +54,87 @@
 
                     <div class="date-header-cell" v-for="(item, i) in TableDateBottomList" :key="i"
                         :style="{ width: gantt.cellWidth + 'px' }">
-                        {{ item < 10 ? '0' + item : item }} </div>
-                    </div>
-                </div>
-
-                <div class="header-table-top" :style="{
-                    height: tableHeaderHeight + 'px',
-                    width: tableHeaderWidth + 40 + (detailShow ? detailIconWidth : 0) + 'px',
-                    marginTop: -tableHeaderHeight + 'px',
-                }">
-                    <div :style="{ width: detailIconWidth + 'px' }">
-                        <!-- <i class="el-icon-s-grid"></i> -->
-                    </div>
-                    <div v-for="(item, i) in columns" :key="item.name" :style="{ width: item.width + 'px' }">
-                        {{ item.label }}
-                    </div>
-                </div>
-                <div class="header-table"
-                    :style="{ width: tableHeaderWidth + 40 + (detailShow ? detailIconWidth : 0) + 'px' }">
-                    <div v-for="(item, i) in list" :key="item.Id" class="header-table-item"
-                        :style="{ width: '100%', height: tasksHeight + 'px' }" @mouseenter="hoverHeaderTable(item, i)"
-                        @mouseleave="leaveHeaderTable" @click="clickHeaderTable(item, i)">
-                        <div class="header-table-item-box" :style="{ height: tasksHeight - tasksPadding * 2 + 'px' }">
-
-                            <el-popover placement="right" width="570" trigger="hover">
-                                <h3 style="text-align: center;">{{ item.PartNo }}</h3>
-                                <div style="width: 100%;display: flex;justify-content: center;">
-                                    <el-image
-                                    :src="imgUrlPlugin(item.PhotoUrl)" style="height: 60px;"
-                                    :preview-src-list="[imgUrlPlugin(item.PhotoUrl)]"
-                                    ></el-image>
-                                </div>
-                                <el-table :data="item.Data" height="350">
-                                    <el-table-column v-for="(column, column_idx) in detailColumn" :key="column_idx"
-                                        :width="column.width" :property="column.property"
-                                        :label="column.label"></el-table-column>
-                                </el-table>
-                                <div slot="reference" class="detail-style" :style="{ width: detailIconWidth + 'px' }"
-                                    v-if="detailShow">
-                                    <i class="el-icon-s-grid"></i>
-                                </div>
-                            </el-popover>
-
-
-                            <div v-for="(jtem, j) in columns" :key="jtem.name" :style="{
-                                width: jtem.width + 'px',
-                                height: tasksHeight - tasksPadding * 2 + 'px'
-                            }">
-                                <span v-if="jtem.name === 'PhotoUrl'">
-                                    <el-image :style="{ height: tasksHeight - tasksPadding * 2 - 4 + 'px' }"
-                                        :preview-src-list="[imgUrlPlugin(item[jtem.name])]" :src="imgUrlPlugin(item[jtem.name])" lazy>
-                                        <div slot="error" class="image-slot">
-                                            <i class="el-icon-picture-outline"></i>
-                                        </div>
-                                    </el-image>
-                                </span>
-                                <span
-                                class="beyond-hiding"
-                                v-else-if="isNaN(item[jtem.name]) && !isNaN(Date.parse(item[jtem.name]))">{{
-                                    timeFormat(item[jtem.name]) }}</span>
-                                <span
-                                class="beyond-hiding"
-                                v-else>{{ item[jtem.name] }}</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div id="canvas_parent"
-                    :style="{ width: cWidth + 'px', left: tableHeaderWidth + 40 + (detailShow ? detailIconWidth : 0) + 'px', top: tableHeaderHeight + tasksPadding + 'px' }">
-                    <!-- <canvas></canvas> -->
-                    <div v-show="taskHint" class="task-hint"
-                        :style="{ height: tasksHeight + 'px', top: taskHint_Top + 'px' }">
+                        {{ item < 10 ? '0' + item : item }}
                     </div>
                 </div>
             </div>
-            <div class="custom-pagination">
+
+            <!-- 左侧表格表头 -->
+            <div class="header-table-top" :style="{
+                height: tableHeaderHeight + 'px',
+                width: tableHeaderWidth + 40 + (detailShow ? detailIconWidth : 0) + 'px',
+                marginTop: -tableHeaderHeight + 'px',
+            }">
+                <div :style="{ width: detailIconWidth + 'px' }">
+                    <!-- <i class="el-icon-s-grid"></i> -->
+                </div>
+                <div v-for="(item, i) in columns" :key="item.name" :style="{ width: item.width + 'px' }">
+                    {{ item.label }}
+                </div>
+            </div>
+            <!-- 左侧表格内容 -->
+            <div class="header-table"
+                :style="{ width: tableHeaderWidth + 40 + (detailShow ? detailIconWidth : 0) + 'px' }">
+                <div v-for="(item, i) in list" :key="item.Id" class="header-table-item"
+                    :style="{ width: '100%', height: tasksHeight + 'px' }" @mouseenter="hoverHeaderTable(item, i)"
+                    @mouseleave="leaveHeaderTable" @click="clickHeaderTable(item, i)">
+                    <div class="header-table-item-box" :style="{ height: tasksHeight - tasksPadding * 2 + 'px' }">
+
+                        <el-popover placement="right" width="570" trigger="hover">
+                            <h3 style="text-align: center;">{{ item.PartNo }}</h3>
+                            <div style="width: 100%;display: flex;justify-content: center;">
+                                <el-image
+                                :src="imgUrlPlugin(item.PhotoUrl)" style="height: 60px;"
+                                :preview-src-list="[imgUrlPlugin(item.PhotoUrl)]"
+                                ></el-image>
+                            </div>
+                            <el-table :data="item.Data" height="350">
+                                <el-table-column v-for="(column, column_idx) in detailColumn" :key="column_idx"
+                                    :width="column.width" :property="column.property"
+                                    :label="column.label"></el-table-column>
+                            </el-table>
+                            <div slot="reference" class="detail-style" :style="{ width: detailIconWidth + 'px' }"
+                                v-if="detailShow">
+                                <i class="el-icon-s-grid"></i>
+                            </div>
+                        </el-popover>
+
+
+                        <div v-for="(jtem, j) in columns" :key="jtem.name" :style="{
+                            width: jtem.width + 'px',
+                            height: tasksHeight - tasksPadding * 2 + 'px'
+                        }">
+                            <span v-if="jtem.name === 'PhotoUrl'">
+                                <el-image :style="{ height: tasksHeight - tasksPadding * 2 - 4 + 'px' }"
+                                    :preview-src-list="[imgUrlPlugin(item[jtem.name])]" :src="imgUrlPlugin(item[jtem.name])" lazy>
+                                    <div slot="error" class="image-slot">
+                                        <i class="el-icon-picture-outline"></i>
+                                    </div>
+                                </el-image>
+                            </span>
+                            <span
+                            class="beyond-hiding"
+                            v-else-if="isNaN(item[jtem.name]) && !isNaN(Date.parse(item[jtem.name]))">{{
+                                timeFormat(item[jtem.name]) }}</span>
+                            <span
+                            class="beyond-hiding"
+                            v-else>{{ item[jtem.name] }}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- task任务条盒子 -->
+            <div id="canvas_parent"
+                :style="{ width: cWidth + 'px', left: tableHeaderWidth + 40 + (detailShow ? detailIconWidth : 0) + 'px', top: tableHeaderHeight + tasksPadding + 'px' }">
+                <!-- <canvas></canvas> -->
+                <div v-show="taskHint" class="task-hint"
+                    :style="{ height: tasksHeight + 'px', top: taskHint_Top + 'px' }">
+                </div>
+            </div>
+        </div>
+        <!-- 分页器 -->
+        <div class="custom-pagination">
                 <div>
                     <slot name="pagination"></slot>
                 </div>
@@ -135,15 +144,16 @@
                         :page-sizes="[5, 10, 15, 20, 30, 50, 100]" :page-size="10" :total="totalCount">
                     </el-pagination>
                 </div>
-            </div>
-            <JvDialog
+        </div>
+
+        <!-- 点击task的表单弹窗 -->
+        <JvDialog
             @confirm="confirm"
             :title="dialogTitle" width="35%" :visible.sync="dialogVisible">
-                <JvForm :formObj="formObj">
-                </JvForm>
-		    </JvDialog>
-        </div>
-        
+            <JvForm :formObj="formObj">
+            </JvForm>
+		</JvDialog>
+    </div>
 </template>
 
 <script>
@@ -321,7 +331,9 @@ export default {
         this.gantt.setDialogVisible = this.setDialogVisible;
 
     },
-    mounted() { },
+    mounted() { 
+
+    },
     methods: {
         timeFormat,
         imgUrlPlugin,
@@ -370,6 +382,7 @@ export default {
         },
         // 切换时间单位
         setGanttZoom(val) {
+            this.unitOfTime = val;
             this.gantt.setCellWidth(val); // 先计算cell多长
             this.setTableDateList(); // 再计算datetable长度
             let canvasParent = document.getElementById('canvas_parent');
@@ -504,7 +517,7 @@ export default {
     overflow-y: auto;
     position: relative;
     font-size: 14px;
-    transition: .3s;
+    transition: .1s;
 
     .header-table {
         position: sticky;
@@ -604,6 +617,7 @@ export default {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     &-box {}
 }

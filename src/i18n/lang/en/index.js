@@ -341,6 +341,8 @@ const en = {
   },
   //通用
   Generality: {
+    Ge_GanttShow: "Gantt Chart Shows",
+    Ge_TabularShow: "Tabular Display",
     Ge_New: "New",
     Ge_Add: "Add",
     Ge_Refresh: "Refresh",
@@ -728,6 +730,9 @@ const en = {
   },
   //生产
   production: {
+    Pr_StaleWorkOrder : "Stale Work Order",
+    Pr_OverdueWorkOrder : "Overdue Work Order",
+    Pr_PleaseEnterPartNumber: "PleaseEnterPartNumber...",
     Pr_Unlabeled: "Unlabeled",
     Pr_Tagged: "Tagged",
     Pr_OldWorkOrderMark: "OldWorkOrderMark",
