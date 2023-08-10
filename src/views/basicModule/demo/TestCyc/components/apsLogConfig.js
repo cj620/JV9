@@ -41,6 +41,7 @@ export const tableConfig = [
   {
     prop: "CreationDate",
     label: "计算时间",
+    filter: "time",
   },
   /*计算人员*/
   {
@@ -51,6 +52,7 @@ export const tableConfig = [
   {
     prop: "ReleasedDate",
     label: "发布时间",
+    filter: "time",
   },
 
   /*发布人员*/

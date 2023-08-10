@@ -88,7 +88,6 @@ export default {
     // 查看排程日志
     openApsLog(){
       this.apsDialogFormVisible = true;
-      console.log('触发了弹出日志',this.apsDialogFormVisible);
     }
   },
 };
