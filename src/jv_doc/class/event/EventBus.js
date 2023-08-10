@@ -29,3 +29,4 @@ export class EventBus {
     this.eventMap = {};
   };
 }
+export const Bus = new EventBus();

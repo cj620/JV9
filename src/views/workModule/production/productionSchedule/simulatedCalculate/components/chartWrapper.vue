@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div style="width: 50%; height: 50%">
     <div class="chart-title">{{ title }}</div>
-    <div class="simulatedCalculate-page-chart">
+    <div class="chart-wrapper">
       <div
         class="chart-description"
         v-if="Object.keys(this.datas).length !== 0"
@@ -96,7 +96,7 @@ export default {
   font-weight: 500;
   margin: 2% 6% 1% 6%;
 }
-.simulatedCalculate-page-chart {
+.chart-wrapper {
   border: 2px solid #d3d3d3;
   margin: 1% 6% 2% 6%;
 }

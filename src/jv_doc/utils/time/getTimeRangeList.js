@@ -80,7 +80,6 @@ export function getTimeRangeList(MinimumTime, MaximumTime) {
             })
         }
     }
-
     // 添加日列表
     monthArr.forEach((item,i) => {
         let days = 0;
@@ -97,7 +96,8 @@ export function getTimeRangeList(MinimumTime, MaximumTime) {
             days = 30;
         }
         if(i === 0) {
-            for (let j = startDay; j <= days; j++) {
+            let num = monthArr.length > 1 ? days : endDay
+            for (let j = startDay; j <= num; j++) {
                 let wk = new Date(startYear+'-'+ (startMonth<10?'0'+startMonth:startMonth)+ '-' +( j<10?'0'+j:j)).getUTCDay();
                 dayArr.push(j);
                 dayDetails.push({
@@ -155,7 +155,7 @@ export function getTimeRangeList(MinimumTime, MaximumTime) {
                     endMonth: dayDetails[i+j-1].month,
                     startDay: item.day,
                     endDay: dayDetails[i+j-1].day,
-                    number: 7 - item.week,
+                    number: dayDetails[i+j-1].day-item.day+1,
                     text: `${item.year}-${item.month<10 ? '0'+item.month : item.month}-${item.day<10 ? '0'+item.day : item.day}  ~  
                     ${dayDetails[i+j-1].year}-${dayDetails[i+j-1].month<10 ? '0'+dayDetails[i+j-1].month : dayDetails[i+j-1].month}-${dayDetails[i+j-1].day<10? '0'+dayDetails[i+j-1].day: dayDetails[i+j-1].day}`
                 })
@@ -208,7 +208,6 @@ export function getTimeRangeList(MinimumTime, MaximumTime) {
             minuteArr.push(i)
         }
     });
-    // console.log('::: ', dayDetails);
     return {
         monthArr,
         monthDetails,

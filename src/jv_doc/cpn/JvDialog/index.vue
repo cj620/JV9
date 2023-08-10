@@ -29,7 +29,7 @@
           :loading="loading"
           >{{ $t("Generality.Ge_OK") }}</el-button
         >
-        <el-button size="mini" @click="cancel">{{
+        <el-button size="mini" @click="cancel" v-if="IsShowCancelFooterBtn">{{
           $t("Generality.Ge_Cancel")
         }}</el-button>
       </span>
@@ -66,6 +66,10 @@ export default {
       default: true,
     },
     appendToBody: {
+      type: Boolean,
+      default: true,
+    },
+    IsShowCancelFooterBtn: {
       type: Boolean,
       default: true,
     },
@@ -131,8 +135,8 @@ export default {
   background-color: #efefef;
   padding: 7px 10px;
 }
-.el-dialog__body{
-  padding:  0px;
+.el-dialog__body {
+  padding: 0px;
 }
 .el-dialog .el-dialog__header .el-dialog__headerbtn {
   top: 12px;
@@ -147,7 +151,7 @@ export default {
 }
 .jv-dialog-content {
   max-height: 60vh;
-   overflow: auto;
-  padding: 20px 20px;
+  overflow: auto;
+  padding: 30px 20px;
 }
 </style>

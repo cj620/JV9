@@ -39,15 +39,47 @@
               confirm: release.bind(null),
             },
           },
+          // {
+          //   label: $t('production.Pr_APSLog'),
+          //   confirm: apsLogTable.bind(null),
+          // },
         ]"
       >
       </Action>
     </JvTable>
+    <!-- 计算弹窗 -->
     <calculateTime
       :visible.sync="calculateTimeDialogFormVisible"
       v-if="calculateTimeDialogFormVisible"
       @cancel="cancel"
+      @completed="completed"
     ></calculateTime>
+    <!-- 排程日志弹窗 -->
+    <apsLog :visible.sync="apsLogVisible" v-if="apsLogVisible"></apsLog>
+    <!-- 发布提醒弹窗 -->
+    <jv-dialog
+      :title="$t('Generality.Ge_Remind')"
+      width="30%"
+      :visible.sync="releaseDialogFormVisible"
+      v-if="releaseDialogFormVisible"
+      @confirm="release"
+      @cancel="cancelRelease"
+    >
+      生产排程完成，无超负荷工单、超交期工单，是否进行发布？当前版本号：{{
+        ApsVersionNo
+      }}
+    </jv-dialog>
+    <!-- 版本号弹窗 -->
+    <jv-dialog
+      :title="$t('Generality.Ge_Remind')"
+      width="30%"
+      :visible.sync="versionDialogFormVisible"
+      :IsShowCancelFooterBtn="false"
+      @confirm="closeVersion"
+      v-if="versionDialogFormVisible"
+    >
+      排程结果已发布，版本号：{{ ApsVersionNo }}
+    </jv-dialog>
   </PageWrapper>
 </template>
 <script>
@@ -59,6 +91,7 @@ import { stateEnum } from "@/enum/workModule";
 import { do_publish } from "@/api/workApi/production/aps";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
+import apsLog from "./components/apsLog";
 export default {
   // 页面的标识
   name: "ProductionSchedule",
@@ -66,13 +99,35 @@ export default {
     // 单据状态组件
     BillStateTags,
     calculateTime,
+    apsLog,
   },
   data() {
     return {
       // 表格实例
       tableObj: {},
+      // 最新发布版本号
+      ApsVersionNo: "",
       calculateTimeDialogFormVisible: false,
+      apsLogVisible: false,
+      releaseDialogFormVisible: false,
+      versionDialogFormVisible: false,
+      // 路由跳转前是否提醒发布
+      needOpen: false,
+      // 路由信息
+      toRouteName: null,
     };
+  },
+  // 路由切换
+  beforeRouteLeave(to, from, next) {
+    this.toRouteName = to.name;
+    console.log("this.toRouteName::: ", this.toRouteName);
+    // 判断是否需要弹出发布提醒
+    if (this.needOpen) {
+      this.releaseDialogFormVisible = true;
+      this.needOpen = false;
+      return;
+    }
+    next();
   },
   created() {
     // 创建表格实例
@@ -124,18 +179,47 @@ export default {
     cancel() {
       this.calculateTimeDialogFormVisible = false;
     },
+    // 计算结果无超交期超负荷时提醒发布
+    completed() {
+      this.calculateTimeDialogFormVisible = false;
+      this.tableObj.getData();
+      this.tableObj.setCallBack(() => {
+        this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
+        this.releaseDialogFormVisible = true;
+        this.needOpen = true;
+      });
+    },
     //查看设备负荷
     equipmentLoad() {
       this.$router.push({
         name: "ProductionDetailedLoad",
       });
     },
+    // 查看排程日志
+    // apsLogTable() {
+    //   this.apsLogVisible = true;
+    // },
 
-    //发布APS结果
+    // 发布APS结果
     release() {
-      do_publish().then((res) => {
-        console.log(res);
+      do_publish().then(() => {
+        this.releaseDialogFormVisible = false;
+        this.versionDialogFormVisible = true;
+        this.needOpen = false;
       });
+    },
+    // 发布弹窗取消
+    cancelRelease() {
+      this.toRouteName
+        ? this.$router.push({
+            name: this.toRouteName,
+          })
+        : {};
+      this.toRouteName = null;
+    },
+    // 关闭版本号弹窗
+    closeVersion() {
+      this.versionDialogFormVisible = false;
     },
   },
 };

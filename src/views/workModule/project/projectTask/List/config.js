@@ -9,6 +9,7 @@ import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { taskTypeEnum, enumToList } from "@/enum/workModule";
 // 单据接口
 import { API } from "@/api/workApi/project/projectTask";
+import { itemList } from '@/api/basicApi/systemSettings/Item'
 let { api_list, api_delete } = API;
 class api extends TableAPI {
   // 获取列表
@@ -133,7 +134,16 @@ export const formSchema = [
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
-    cpn: "FormInput",
+    cpn: "AsyncSearch",
+    api: itemList,
+    apiOptions: {
+      keyName: "ItemName",
+      showValue: true,
+      valueName: "ItemId",
+      params: {
+        ItemCategory: "Tooling",
+      },
+    },
   },
   {
     prop: "StartDate",

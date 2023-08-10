@@ -2,6 +2,47 @@
     cursor: pointer;
     filter:brightness(110%) contrast(105%);
 }
+.custom-popover{
+    padding: 10px;
+    line-height: 30px;
+    position: absolute;
+    margin: 0;
+    transition: .3s;
+    border: 0;
+    box-shadow: 3px 3px 10px 3px #ccc;
+    border-radius: 8px;
+    z-index: 10;
+    background-color: #fff;
+    pointer-events: none; /* 鼠标穿透 */
+}
+[popover]{
+    /* padding: 10px;
+    line-height: 30px;
+    position: absolute;
+    margin: 0;
+    transition: .3s;
+    border: 0;
+    box-shadow: 3px 3px 10px 3px #ccc;
+    border-radius: 8px; */
+}
+.custom-task{
+    z-index: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 12px;
+    color: #f1f1f1;
+}
+.task-hint{
+    width: 100%;
+    background-color: #2a9bf1;
+    opacity: .2;
+    /* color: #2a9bf1; */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 .beyond-hiding{
     overflow: hidden;
     text-overflow: ellipsis;

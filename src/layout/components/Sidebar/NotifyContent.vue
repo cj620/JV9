@@ -16,13 +16,13 @@
       <div>{{ timeFormat(SendTime, "yyyy-MM-dd hh:mm") }}</div>
     </div>
     <div class="user-action">
-      <el-button size="mini" @click="setRead">设置为已读</el-button>
+      <el-button size="mini" @click="setRead">标记为已读</el-button>
       <el-button
         size="mini"
         type="primary"
         @click="toDetail"
         v-if="DynamicData && DynamicData.BillId && DynamicData.BillKey"
-        >详情</el-button
+        >处理</el-button
       >
     </div>
   </div>
