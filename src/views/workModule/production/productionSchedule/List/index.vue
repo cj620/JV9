@@ -167,6 +167,7 @@
     <calculateTime
       v-if="calculateTimeDialogFormVisible"
       :visible.sync="calculateTimeDialogFormVisible"
+      @loading="handleLoading"
       @cancel="cancel"
       @completed="completed"
     ></calculateTime>
@@ -336,7 +337,10 @@ export default {
         params: { type: "add", title: "addSaleOrder" },
       });
     },
-
+    // 监听计算loading
+    handleLoading(loading) {
+      this.loading = loading;
+    },
     // 模拟计算
     simulatedCalculate() {
       this.$router.push({
@@ -370,10 +374,12 @@ export default {
 
     //发布APS结果
     release() {
+      this.loading = true;
       do_publish().then(() => {
         this.releaseDialogFormVisible = false;
         this.SchedulingResultsVisible = false
         this.needOpen = false;
+        this.loading = false;
         this.tableObj.getData();
       });
     },
