@@ -125,9 +125,11 @@ export default {
       if (state) {
         if (isLast) return;
         this.M_tableObj.pager.currentChange(page + 1);
+		  this.M_tableObj.pager.currentChange(page + 1);
       } else {
         if (page <= 1) return;
         this.M_tableObj.pager.currentChange(page - 1);
+		  this.M_tableObj.pager.currentChange(page + 1);
       }
     },
     formSubmit(type) {

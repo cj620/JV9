@@ -39,8 +39,8 @@
             size="mini"
           >
           </el-input>
-          <div class="apsVersionNo">发布版本号：{{ ApsVersionNo }}</div>
         </div>
+        <div class="apsVersionNo">发布版本号：{{ApsVersionNo}}</div>
       </div>
       <div class="action-header-right">
         <el-button-group>
