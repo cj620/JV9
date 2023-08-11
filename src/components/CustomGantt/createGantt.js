@@ -18,10 +18,14 @@ export class CreateGantt {
 
     this.Components = options.Component;
 
+    this.popoverInnerHtml = options.popoverInnerHtml;
+
+    this.Vue = null;
+
     /** =============================此处用来定义默认值============================= **/
     this.tasksHeight = options.tasksHeight || 50; // 任务条高度
     this.tasksPadding =
-      options.tasksPadding || options.tasksPadding == 0
+      options.tasksPadding || options.tasksPadding === 0
         ? options.tasksPadding
         : 4; // 任务条padding值
     this.tasksRadius = options.tasksRadius || 8; // 任务条圆角
@@ -105,6 +109,9 @@ export class CreateGantt {
         parent.appendChild(taskRef);
 
         taskRef.addEventListener("mouseenter", (e) => {
+          if (this.Components && !this.popoverInnerHtml) {
+            this.Vue.$children[0].item = jtem;
+          }
           this.popoverShow = true;
           popover.style.opacity = 1;
           let left = e.clientX;
@@ -121,19 +128,10 @@ export class CreateGantt {
           } else {
             popover.style.top = top + "px";
           }
-          // popover.innerHTML = `
-          //               <div>${i18n.t("Generality.Ge_ProcessName")}：${
-          //   jtem.Process
-          // }</div>
-          //               <div>${i18n.t("Generality.Ge_PlanTime")}：${
-          //   jtem.PlanTime
-          // }H</div>
-          // <div>${i18n.t("production.Pr_PlanningDevices")}：${
-          //   jtem.PlanDevice
-          // }</div>
-          // <div>${i18n.t("Generality.Ge_PlanStart")}：${jtem._PlanStart}</div>
-          // <div>${i18n.t("Generality.Ge_PlanEnd")}：${jtem._PlanEnd}</div>
-          // `;
+          if (this.popoverInnerHtml && !this.Components) {
+            popover.innerHTML = this.popoverInnerHtml;
+          }
+
           // popover.showPopover()
         });
         taskRef.addEventListener("click", () => {
@@ -150,14 +148,18 @@ export class CreateGantt {
       });
       count++;
     });
+
     parent.appendChild(popover);
-    const popoverChildren = document.createElement("div");
-    popoverChildren.id = "custom-popover";
-    popover.appendChild(popoverChildren);
-    let vue = new Vue({
-      el: "#custom-popover",
-      render: (h) => h(this.Components),
-    });
+    if (this.Components && !this.popoverInnerHtml) {
+      const popoverChildren = document.createElement("div");
+      popoverChildren.id = "custom-popover";
+      popover.appendChild(popoverChildren);
+      this.Vue = new Vue({
+        el: "#custom-popover",
+        render: (h) => h(this.Components),
+      });
+    }
+
     // let taskHint = document.createElement('div'); // 用于鼠标悬浮任务条高亮
     // let height = this.tasksHeight;
     // taskHint.style.height = height+'px';
@@ -175,4 +177,5 @@ export class CreateGantt {
     }
     // parent.innerHTML = ''
   }
+  getTaskDetail(item) {}
 }

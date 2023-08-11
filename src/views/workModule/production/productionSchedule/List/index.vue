@@ -102,6 +102,7 @@
         :padding="10"
         :detailShow="true"
         :popoverOptions="popoverOptions"
+        :floatingWindow="floatingWindow"
         taskRadius="25"
       >
         <template #popover="{ item }">
@@ -249,7 +250,7 @@ import calculateTime from "./components/calculateTime";
 import apsLog from "./components/apsLog";
 import CustomGantt from "@/components/CustomGantt/index.vue";
 import GanttPopover from "./components/gantt-popover.vue";
-
+import floatingWindow from "./components/floatingWindow.vue";
 export default {
   // 页面的标识
   name: "ProductionSchedule",
@@ -263,6 +264,7 @@ export default {
   },
   data() {
     return {
+      floatingWindow: floatingWindow,
       partNumberValue: "", // 零件编号查询输入框
       // 表格实例
       tableObj: {},
