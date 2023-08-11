@@ -81,7 +81,7 @@ export default {
     },
     load() {
       this.title = i18n.t(`production.Pr_${this.datas.AlgorithmType}`);
-      if (Object.keys(this.datas).length == 0) {
+      if (Object.keys(this.datas).length === 0) {
         this.WorksheetNum = [];
       } else {
         this.getCount();
