@@ -88,14 +88,6 @@ export default {
     this.tableObj.getData()
   },
   computed: {
-    // 是否可以批量删除
-    canIsDel() {
-      let { datas } = this.tableObj.selectData
-      if (datas.length === 0) return true
-      return datas.some((item) => {
-        return !['Rejected', 'Unsubmitted'].includes(item.State)
-      })
-    },
     // 获取按钮状态
     getActionState() {
       return (state, type) => {
