@@ -1,4 +1,8 @@
-import { timeFormat } from "@/jv_doc/utils/time";
+import Vue from "vue";
+import i18n from "@/i18n/i18n";
+import router from "@/router";
+import store from "@/store";
+import App from "@/App.vue";
 export class CreateGantt {
   constructor(options) {
     /** ============================此处来定义数据=========================== **/
@@ -9,6 +13,10 @@ export class CreateGantt {
     this.taskRadius = options.taskRadius;
 
     this.popoverShow = false;
+
+    this.setDialogVisible = null;
+
+    this.Components = options.Component;
 
     /** =============================此处用来定义默认值============================= **/
     this.tasksHeight = options.tasksHeight || 50; // 任务条高度
@@ -113,26 +121,20 @@ export class CreateGantt {
           } else {
             popover.style.top = top + "px";
           }
-          popover.innerHTML = `
-                        <div>${i18n.t("Generality.Ge_ProcessName")}：${
-            jtem.Process
-          }</div>
-                        <div>${i18n.t("Generality.Ge_PlanTime")}：${
-            jtem.PlanTime
-          }H</div>
-                        <div>${i18n.t("production.Pr_PlanningDevices")}：${
-            jtem.PlanDevice
-          }</div>
-                        <div>${i18n.t("Generality.Ge_PlanStart")}：${timeFormat(
-            jtem.PlanStart,
-            "yyyy-MM-dd hh:mm:ss"
-          )}</div>
-                        <div>${i18n.t("Generality.Ge_PlanEnd")}：${timeFormat(
-            jtem.PlanEnd,
-            "yyyy-MM-dd hh:mm:ss"
-          )}</div>
-                    `;
-
+          // popover.innerHTML = `
+          //               <div>${i18n.t("Generality.Ge_ProcessName")}：${
+          //   jtem.Process
+          // }</div>
+          //               <div>${i18n.t("Generality.Ge_PlanTime")}：${
+          //   jtem.PlanTime
+          // }H</div>
+          // <div>${i18n.t("production.Pr_PlanningDevices")}：${
+          //   jtem.PlanDevice
+          // }</div>
+          // <div>${i18n.t("Generality.Ge_PlanStart")}：${jtem._PlanStart}</div>
+          // <div>${i18n.t("Generality.Ge_PlanEnd")}：${jtem._PlanEnd}</div>
+          // `;
+          popover.innerHTML = "<div id='custom-popover'></div>";
           // popover.showPopover()
         });
         taskRef.addEventListener("click", () => {
@@ -150,6 +152,11 @@ export class CreateGantt {
       count++;
     });
     parent.appendChild(popover);
+    let p = document.querySelector("#custom-popover");
+    new Vue({
+      el: "#custom-popover",
+      render: (h) => h(this.Components),
+    });
     // let taskHint = document.createElement('div'); // 用于鼠标悬浮任务条高亮
     // let height = this.tasksHeight;
     // taskHint.style.height = height+'px';

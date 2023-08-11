@@ -40,7 +40,7 @@
 <script>
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import Detail from "@/jv_doc/class/detail/Detail";
-import { detailConfig } from "./ganntPopoverConfig";
+import { detailConfig } from "./ganttPopoverConfig";
 export default {
   name: "gannt-popover",
   props: {
