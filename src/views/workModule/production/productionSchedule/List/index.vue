@@ -371,9 +371,9 @@ export default {
     tableChangeFn(val) {
       // 创建表格实例
       if (val) {
-        this.ObsoleteTableObj.getData({ SelectType: "ObsoleteWorkOrder" });
+        this.ObsoleteTableObj.getData({ SelectType: 1 });
       } else {
-        this.oldTableObj.getData({ SelectType: "Normal" });
+        this.oldTableObj.getData({ SelectType: 0 });
       }
     },
     //删除单据

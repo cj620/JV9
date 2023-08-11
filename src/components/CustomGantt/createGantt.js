@@ -134,7 +134,6 @@ export class CreateGantt {
           // <div>${i18n.t("Generality.Ge_PlanStart")}：${jtem._PlanStart}</div>
           // <div>${i18n.t("Generality.Ge_PlanEnd")}：${jtem._PlanEnd}</div>
           // `;
-          popover.innerHTML = "<div id='custom-popover'></div>";
           // popover.showPopover()
         });
         taskRef.addEventListener("click", () => {
@@ -152,8 +151,10 @@ export class CreateGantt {
       count++;
     });
     parent.appendChild(popover);
-    let p = document.querySelector("#custom-popover");
-    new Vue({
+    const popoverChildren = document.createElement("div");
+    popoverChildren.id = "custom-popover";
+    popover.appendChild(popoverChildren);
+    let vue = new Vue({
       el: "#custom-popover",
       render: (h) => h(this.Components),
     });
