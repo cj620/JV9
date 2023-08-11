@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-09 14:06:15
- * @LastEditTime: 2023-08-11 13:32:01
+ * @LastEditTime: 2023-08-11 14:16:23
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\design\designTask\List\index.vue
@@ -82,6 +82,7 @@ import {
   production_dispatching_change_device,
 } from "@/api/workApi/production/productionDispatch";
 import { getResourceMember } from "@/api/workApi/production/baseData";
+import debounce from "@/jv_doc/utils/optimization/debounce";
 export default {
   name: "ProductionDispatch",
   components: {
@@ -103,6 +104,7 @@ export default {
       dropVisible: false,
       toggleMachineObj: {},
       isAllproceeList: false,
+      currentProcessPage: 1,
     };
   },
   created() {
@@ -144,9 +146,12 @@ export default {
       let scrollBottom =
         e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight;
       if (scrollBottom < 100) {
-        if (this.isAllproceeList) return;
-
-        this.P_tableObj.pager.currentChange(this.P_tableObj.pager.page + 1);
+        // if (this.isAllproceeList) return;
+        // this.P_tableObj.pager.page
+        console.log(this.currentProcessPage, this.P_tableObj.pager.page);
+        if (this.currentProcessPage - this.P_tableObj.pager.page == 1) {
+          this.P_tableObj.pager.currentChange(this.currentProcessPage);
+        }
       }
     },
     getProcessData(data, flash) {
@@ -161,14 +166,16 @@ export default {
     },
     setProcessData(data, flash) {
       if (flash) {
-        this.isAllproceeList = false;
+        // this.isAllproceeList = false;
+        this.currentProcessPage = 1;
         this.processData = data;
       } else {
-        this.isAllproceeList = true;
-        this.isAllproceeList = !data.some((item) => item.length !== 0);
         this.processData = this.processData.map((item, index) => {
           return [...item, ...data[index]];
         });
+      }
+      if (data.some((item) => item.length == 5)) {
+        this.currentProcessPage += 1;
       }
     },
     cardClick(e, s, r, a) {
