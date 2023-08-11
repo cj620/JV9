@@ -831,6 +831,7 @@ const en = {
     Pr_EarliestDeliveryDate: "Algorithm for earliest delivery time",
     Pr_DoAPS: "Do aps",
     Pr_APSLog: "APS log",
+    Pr_OneClickProcessing: "One click processing",
     Pr_PleaseSelectSchedulingAlgorithms: "Please select scheduling algorithms",
   },
   quality: {

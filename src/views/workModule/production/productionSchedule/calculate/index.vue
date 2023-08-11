@@ -8,8 +8,12 @@
         <el-button size="mini" @click="endSchedule">{{
           $t("Generality.Ge_FinishSchedule")
         }}</el-button>
-                <el-button size="mini" @click="editDeliveryDate">编辑交期</el-button>
-
+        <el-button size="mini" @click="editDeliveryDate">{{
+          $t("production.Pr_EditDeliveryDate")
+        }}</el-button>
+        <el-button size="mini" @click="oneClick">{{
+          $t("production.Pr_OneClickProcessing")
+        }}</el-button>
       </div>
 
       <!-- 表格 -->
@@ -175,7 +179,7 @@ import closeTag from "@/utils/closeTag";
 import { LevelEnum, ProcessState } from "@/enum/workModule";
 import editDelivery from "./components/editDelivery";
 import editOverload from "./components/editOverload";
-import { do_aps } from "@/api/workApi/production/aps";
+import { do_aps ,one_click_processing } from "@/api/workApi/production/aps";
 import { mapState } from "vuex";
 export default {
   name: "ProductionScheduleCalculate",
@@ -251,6 +255,14 @@ export default {
     //取消修改交期弹窗
     cancel() {
       this.editDeliveryDialogFormVisible = false;
+    },
+    //一键处理
+    oneClick(){
+		  one_click_processing(this.$route.params.data).then(()=>{
+		    this.$router.push({
+			    name: "ProductionSchedule",
+		    });
+		  })
     },
     //编辑负荷
     editOverload(index, row) {

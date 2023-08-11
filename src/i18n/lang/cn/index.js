@@ -818,6 +818,7 @@ const cn = {
     Pr_EarliestDeliveryDate: "最早交货期",
     Pr_DoAPS: "计算排程",
     Pr_APSLog: "排程日志",
+    Pr_OneClickProcessing: "一键处理",
     Pr_PleaseSelectSchedulingAlgorithms: "请选择排程算法",
   },
   quality: {

@@ -811,6 +811,7 @@ const ja = {
     Pr_EarliestDeliveryDate: "最早納期アルゴリズム",
     Pr_DoAPS: "計算スケジュール",
     Pr_APSLog: "スケジュールログ",
+    Pr_OneClickProcessing: "ワンクリック処理",
     Pr_PleaseSelectSchedulingAlgorithms:
       "スケジュールアルゴリズムを選択してください",
   },

@@ -6,7 +6,7 @@
         class="chart-description"
         v-if="Object.keys(this.datas).length !== 0"
       >
-        <div>该算法最近一次模拟时间为:{{ CreationDate }}</div>
+        <div>该算法最近一次模拟计算时间为:{{ CreationDate }}</div>
         <div>
           共对{{ datas.TotalCount }}个工单进行了模拟排程，其中：
           <span v-for="(item, index) in description" :key="index">
