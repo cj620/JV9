@@ -259,9 +259,10 @@ export default {
     //一键处理
     oneClick(){
 		  one_click_processing(this.$route.params.data).then(()=>{
-		    this.$router.push({
+        this.$store.dispatch("tagsView/delView", this.$route);
+        this.$router.replace({
 			    name: "ProductionSchedule",
-		    });
+        });
 		  })
     },
     //编辑负荷
