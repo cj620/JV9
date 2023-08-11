@@ -21,11 +21,11 @@
       </div>
       <div class="action-header-right">
         <el-button-group>
-          <el-button size="mini" @click="simulatedCalculate">{{
-            $t("production.Pr_SimulatedCalculate")
-          }}</el-button>
           <el-button size="mini" @click="calculate">{{
             $t("production.Pr_Calculate")
+          }}</el-button>
+          <el-button size="mini" @click="simulatedCalculate">{{
+            $t("production.Pr_SimulatedAPS")
           }}</el-button>
           <el-button size="mini" @click="equipmentLoad">{{
             $t("production.Pr_CheckLoad")
@@ -366,9 +366,11 @@ export default {
     },
     // 计算结果无超交期超负荷时提醒发布
     completed() {
+      console.log("123");
       this.calculateTimeDialogFormVisible = false;
       this.tableObj.getData();
       this.tableObj.setCallBack(() => {
+        console.log("123");
         this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
         this.releaseDialogFormVisible = true;
         this.needOpen = true;
@@ -386,6 +388,7 @@ export default {
       do_publish().then(() => {
         this.releaseDialogFormVisible = false;
         this.versionDialogFormVisible = true;
+        this.SchedulingResultsVisible = false;
         this.needOpen = false;
       });
     },
