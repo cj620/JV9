@@ -56,107 +56,108 @@
 </template>
 <script>
 // 引入表格类
-import { Table } from "./config";
+import { Table } from './config'
 // 引入单据状态的枚举
-import { stateEnum } from "@/enum/workModule";
+import { stateEnum } from '@/enum/workModule'
 // 单据状态组件
-import { do_publish } from "@/api/workApi/production/aps";
-import BillStateTags from "@/components/WorkModule/BillStateTags";
-import editDelivery from "../components/editDelivery";
-import calculateTime from "../components/calculateTime";
+import { do_publish } from '@/api/workApi/production/aps'
+import BillStateTags from '@/components/WorkModule/BillStateTags'
+import editDelivery from '../components/editDelivery'
+import calculateTime from '../components/calculateTime'
+
 export default {
   // 页面的标识
-  name: "ProductionSchedule",
+  name: 'ProductionSchedule',
   components: {
     // 单据状态组件
     BillStateTags,
     editDelivery,
-    calculateTime,
+    calculateTime
   },
   data() {
     return {
       // 表格实例
       tableObj: {},
       editDeliveryDialogFormVisible: false,
-      calculateTimeDialogFormVisible: false,
-    };
+      calculateTimeDialogFormVisible: false
+    }
   },
   created() {
     // 创建表格实例
-    this.tableObj = new Table();
-    this.tableObj.getData();
+    this.tableObj = new Table()
+    this.tableObj.getData()
   },
   computed: {
     // 是否可以批量删除
     canIsDel() {
-      let { datas } = this.tableObj.selectData;
-      if (datas.length === 0) return true;
+      let { datas } = this.tableObj.selectData
+      if (datas.length === 0) return true
       return datas.some((item) => {
-        return !["Rejected", "Unsubmitted"].includes(item.State);
-      });
+        return !['Rejected', 'Unsubmitted'].includes(item.State)
+      })
     },
     // 获取按钮状态
     getActionState() {
       return (state, type) => {
-        return !stateEnum[state]?.operation?.[type];
-      };
-    },
+        return !stateEnum[state]?.operation?.[type]
+      }
+    }
   },
   methods: {
     //删除单据
     deleteOrder(ids) {
       this.tableObj.api.del({ BillIds: ids }).then((_) => {
-        this.tableObj.getData();
-      });
+        this.tableObj.getData()
+      })
     },
     //新增
     add() {
       this.$router.push({
-        name: "Sa_SaleOrder_Add",
-        params: { type: "add", title: "addSaleOrder" },
-      });
+        name: 'Sa_SaleOrder_Add',
+        params: { type: 'add', title: 'addSaleOrder' }
+      })
     },
 
     //编辑
     editBill(row) {
-      let { BillId } = row;
+      let { BillId } = row
       this.tableObj.api.editLock({ BillId }).then((res) => {
         this.$router.push({
-          name: "Sa_SaleOrder_Edit",
-          query: { BillId },
-        });
-      });
+          name: 'Sa_SaleOrder_Edit',
+          query: { BillId }
+        })
+      })
     },
     //批量删除单据
     delBills() {
-      this.deleteOrder(this.tableObj.selectData.keys);
+      this.deleteOrder(this.tableObj.selectData.keys)
     },
     //加载数据
     load() {
-      this.tableObj.getData();
+      this.tableObj.getData()
     },
 
     //计算
     calculate() {
-      this.calculateTimeDialogFormVisible = true;
+      this.calculateTimeDialogFormVisible = true
     },
     //关闭计算
     cancel() {
-      this.calculateTimeDialogFormVisible = false;
+      this.calculateTimeDialogFormVisible = false
     },
     //查看设备负荷
     equipmentLoad() {
       this.$router.push({
-        name: "ProductionDetailedLoad",
-      });
+        name: 'ProductionDetailedLoad'
+      })
     },
 
     //发布APS结果
     release() {
       do_publish().then((res) => {
-        console.log(res);
-      });
-    },
-  },
-};
+        console.log(res)
+      })
+    }
+  }
+}
 </script>
