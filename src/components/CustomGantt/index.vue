@@ -236,7 +236,6 @@ import { getTimeRangeList } from "@/jv_doc/utils/time/getTimeRangeList";
 import { CreateGantt } from "./createGantt";
 import { Form } from "@/jv_doc/class/form";
 import { setBubbleSort } from "./protogenesis.js"; // 引入排序方法
-import test from "./test.vue";
 export default {
   props: {
     // 数据
@@ -302,6 +301,10 @@ export default {
     padding: {
       type: Number,
       default: 0,
+    },
+    floatingWindow: {
+      type: Object,
+      default: {},
     },
     formSchema: {
       type: Array,
@@ -398,13 +401,28 @@ export default {
         return a + b;
       });
 
+    // `
+    //                       <div>${i18n.t("Generality.Ge_ProcessName")}：${
+    //   jtem.Process
+    // }</div>
+    //                       <div>${i18n.t("Generality.Ge_PlanTime")}：${
+    //   jtem.PlanTime
+    // }H</div>
+    //         <div>${i18n.t("production.Pr_PlanningDevices")}：${
+    //   jtem.PlanDevice
+    // }</div>
+    //         <div>${i18n.t("Generality.Ge_PlanStart")}：${jtem._PlanStart}</div>
+    //         <div>${i18n.t("Generality.Ge_PlanEnd")}：${jtem._PlanEnd}</div>
+    //         `
+
     const options = {
       tasksHeight: this.tasksHeight,
       tasksPadding: this.tasksPadding,
       unitOfTime: this.unitOfTime,
       taskRadius: radius,
       tableHeaderWidth: this.tableHeaderWidth,
-      Component: test,
+      // popoverInnerHtml: `你好`,
+      Component: this.floatingWindow,
     };
     this.gantt = new CreateGantt(options);
     this.gantt.setDialogVisible = this.setDialogVisible;
