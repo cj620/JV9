@@ -6,17 +6,17 @@
         class="chart-description"
         v-if="Object.keys(this.datas).length !== 0"
       >
-        <div>该算法最近一次模拟计算时间为:{{ CreationDate }}</div>
+
         <div>
-          共对{{ datas.TotalCount }}个工单进行了模拟排程，其中：
+         总计{{ datas.TotalCount }}
           <span v-for="(item, index) in description" :key="index">
             {{ WorksheetNum[index] !== 0 ? WorksheetNum[index] + item : "" }}
           </span>
+            <span>计算时间:{{ CreationDate }}</span>
         </div>
       </div>
       <div class="chart-description" v-else>
         <div>暂无数据</div>
-        <div>请进行模拟排程</div>
       </div>
       <PieChart :id="id" :WorksheetNum="WorksheetNum"></PieChart>
     </div>
@@ -102,7 +102,7 @@ export default {
 }
 .chart-description {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   margin-top: 12px;
   text-align: center;
 }

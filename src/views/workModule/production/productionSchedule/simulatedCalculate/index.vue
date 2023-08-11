@@ -117,7 +117,7 @@ export default {
   },
   methods: {
     handleTabClick() {
-      this.currentTabName == "SimulatedAPS"
+      this.currentTabName === "SimulatedAPS"
         ? this.getData()
         : this.postParams(this.currentTabName);
     },
