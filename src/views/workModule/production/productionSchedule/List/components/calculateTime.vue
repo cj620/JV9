@@ -66,6 +66,8 @@ export default {
           this.$emit("completed");
         }
         this.$emit("loading", false);
+      }).catch(() => {
+        this.$emit("loading", false);
       });
     },
   },

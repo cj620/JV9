@@ -219,6 +219,7 @@ export const OldTableConfig = [
   {
     prop: "LastReportingDays",
     label: i18n.t("production.Pr_DaysNotReported"),
+    custom: true,
   },
   // 陈旧工单标记
   {
@@ -276,6 +277,7 @@ export const ObsoleteTableConfig = [
   {
     prop: "LastReportingDays",
     label: i18n.t("production.Pr_DaysOverdue"),
+    custom: true,
   },
 ];
 

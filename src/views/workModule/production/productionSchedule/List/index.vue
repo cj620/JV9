@@ -138,6 +138,11 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
+          <template #LastReportingDays="{ record }">
+            <div style="color: red; font-size: 14px; font-weight: bold">
+              {{ record }}
+            </div></template
+          >
           <template #btn-list>
             <Action>
               <el-select
@@ -165,6 +170,11 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
+          <template #LastReportingDays="{ record }">
+            <div style="color: red; font-size: 14px; font-weight: bold">
+              {{ record }}
+            </div></template
+          >
           <template #operation="{ row }">
             <TableAction
               :actions="[
@@ -437,6 +447,8 @@ export default {
         this.needOpen = false;
         this.loading = false;
         this.tableObj.getData();
+      }).catch(() => {
+        this.loading = false;
       });
     },
     // 发布弹窗取消
