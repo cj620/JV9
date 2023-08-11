@@ -39,6 +39,8 @@
             size="mini"
           >
           </el-input>
+            <div class="apsVersionNo">发布版本号：{{ApsVersionNo}}</div>
+
         </div>
       </div>
       <div class="action-header-right">
@@ -106,25 +108,25 @@
         </template>
       </CustomGantt>
       <!-- 分页器 -->
-      <div class="custom-pagination">
-        <div>
-          <div class="custom-unfold" @click="setFold">
-            <i :class="unfold_icon"></i>
-          </div>
-        </div>
-        <div class="custom-pagination-box">
-          <el-pagination
-            background
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            layout="total, sizes, prev, pager, next"
-            :page-sizes="[5, 10, 15, 20, 30, 50, 100]"
-            :page-size="10"
-            :total="result.Count"
-          >
-          </el-pagination>
-        </div>
-      </div>
+        <div class="custom-pagination">
+            <div>
+                <div class="custom-unfold" @click="setFold">
+                    <i :class="unfold_icon"></i>
+                </div>
+            </div>
+            <div class="custom-pagination-box">
+                <el-pagination
+                    background
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    layout="total, sizes, prev, pager, next"
+                    :page-sizes="[5, 10, 15, 20, 30, 50, 100]"
+                    :page-size="10"
+                    :total="result.Count"
+                >
+                </el-pagination>
+            </div>
+    </div>
     </div>
 
     <div class="overdueOrObsolete">
@@ -327,7 +329,9 @@ export default {
     // 创建表格实例
     this.tableObj = new Table();
     this.tableObj.getData();
-
+    this.tableObj.setCallBack(() => {
+      this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
+    });
     this.eventBus = Bus;
     // 创建表格实例
     this.oldTableObj = new OldTable();
@@ -535,6 +539,12 @@ export default {
     display: flex;
     align-items: center;
   }
+}
+.apsVersionNo{
+  font-size: 12px;
+  display: flex;
+  margin-left: 10px;
+  white-space: nowrap; /* 取消换行 */
 }
 
 .overdueOrObsolete {
