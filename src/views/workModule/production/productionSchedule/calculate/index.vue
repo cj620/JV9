@@ -1,20 +1,29 @@
 <template>
   <PageWrapper :footer="false">
     <div class="calculate-result">
-      <div class="calculate-result-btn">
-        <el-button size="mini" @click="recalculate">{{
-          $t("production.Pr_Calculate")
-        }}</el-button>
-        <el-button size="mini" @click="endSchedule">{{
-          $t("Generality.Ge_FinishSchedule")
-        }}</el-button>
-        <el-button size="mini" @click="editDeliveryDate">{{
-          $t("production.Pr_EditDeliveryDate")
-        }}</el-button>
-        <el-button size="mini" @click="oneClick">{{
-          $t("production.Pr_OneClickProcessing")
-        }}</el-button>
-      </div>
+      <Action
+          class="calculate-result-btn"
+          size="mini"
+          :actions="[
+            {
+              label: $t('production.Pr_Calculate'),
+              confirm: recalculate.bind(null),
+            },
+            {
+              label: $t('Generality.Ge_FinishSchedule'),
+              confirm: endSchedule.bind(null),
+            },
+            {
+              label: $t('production.Pr_EditDeliveryDate'),
+              confirm: editDeliveryDate.bind(null),
+            },
+            {
+              label: $t('production.Pr_OneClickProcessing'),
+              confirm: oneClick.bind(null),
+            },
+          ]"
+      >
+      </Action>
 
       <!-- 表格 -->
       <div class="calculate-result-table">
@@ -259,10 +268,10 @@ export default {
     //一键处理
     oneClick(){
 		  one_click_processing(this.$route.params.data).then(()=>{
-        this.$store.dispatch("tagsView/delView", this.$route);
-        this.$router.replace({
-			    name: "ProductionSchedule",
-        });
+        let TagName = {
+          name: "ProductionSchedule",
+        };
+        closeTag(this.current, TagName);
 		  })
     },
     //编辑负荷
