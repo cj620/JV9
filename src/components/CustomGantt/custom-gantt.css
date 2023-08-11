@@ -3,6 +3,8 @@
     filter:brightness(110%) contrast(105%);
 }
 .custom-popover{
+    min-width: 100px;
+    min-height: 100px;
     padding: 10px;
     line-height: 30px;
     position: fixed;

@@ -236,6 +236,7 @@ import { getTimeRangeList } from "@/jv_doc/utils/time/getTimeRangeList";
 import { CreateGantt } from "./createGantt";
 import { Form } from "@/jv_doc/class/form";
 import { setBubbleSort } from "./protogenesis.js"; // 引入排序方法
+import test from "./test.vue";
 export default {
   props: {
     // 数据
@@ -403,6 +404,7 @@ export default {
       unitOfTime: this.unitOfTime,
       taskRadius: radius,
       tableHeaderWidth: this.tableHeaderWidth,
+      Component: test,
     };
     this.gantt = new CreateGantt(options);
     this.gantt.setDialogVisible = this.setDialogVisible;
@@ -568,7 +570,19 @@ export default {
 
       this.setTableDateList(); // 赋值日期列表和每一格的长度 用来渲染
       // 赋值表头列表
-      this.list = val.Items;
+      this.list = val.Items.map((item) => {
+        return {
+          ...item,
+          Data: item.Data.map((jtem) => {
+            return {
+              ...jtem,
+              _PlanStart: timeFormat(jtem.PlanStart, "yyyy-MM-dd hh:mm:ss"),
+              _PlanEnd: timeFormat(jtem.PlanEnd, "yyyy-MM-dd hh:mm:ss"),
+            };
+          }),
+        };
+      });
+      console.log(this.list);
       this.gantt.tasks = this.list; // 赋值task列表
       this.$nextTick(() => {
         // let canvasParent = document.getElementById('canvas_parent')

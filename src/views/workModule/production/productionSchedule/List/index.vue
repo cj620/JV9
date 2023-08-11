@@ -6,7 +6,7 @@
 -->
 
 <template>
-  <PageWrapper :footer="false" >
+  <PageWrapper :footer="false">
     <!-- 顶部操作行 -->
     <div class="action-header">
       <div class="action-header-left">
@@ -56,11 +56,13 @@
           <el-button size="mini" @click="SchedulingResultsVisible = true">{{
             $t("production.Pr_Release")
           }}</el-button>
-          <el-button size="mini" @click="openApsLog">{{ $t("production.Pr_APSLog") }}</el-button>
+          <el-button size="mini" @click="openApsLog">{{
+            $t("production.Pr_APSLog")
+          }}</el-button>
           <el-button
             icon="el-icon-view"
             size="mini"
-            @click="tableChangeGantt = !tableChangeGantt"
+            @click="setTableChangeGantt"
             >{{
               tableChangeGantt
                 ? $t("Generality.Ge_TabularShow")
@@ -103,29 +105,29 @@
         taskRadius="25"
       >
         <template #popover="{ item }">
-          <gannt-popover :item="item"></gannt-popover>
+          <gantt-popover :item="item"></gantt-popover>
         </template>
       </CustomGantt>
       <!-- 分页器 -->
-        <div class="custom-pagination">
-            <div>
-                <div class="custom-unfold" @click="setFold">
-                    <i :class="unfold_icon"></i>
-                </div>
-            </div>
-            <div class="custom-pagination-box">
-                <el-pagination
-                    background
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    layout="total, sizes, prev, pager, next"
-                    :page-sizes="[5, 10, 15, 20, 30, 50, 100]"
-                    :page-size="10"
-                    :total="result.Count"
-                >
-                </el-pagination>
-            </div>
-    </div>
+      <div class="custom-pagination">
+        <div>
+          <div class="custom-unfold" @click="setFold">
+            <i :class="unfold_icon"></i>
+          </div>
+        </div>
+        <div class="custom-pagination-box">
+          <el-pagination
+            background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            layout="total, sizes, prev, pager, next"
+            :page-sizes="[5, 10, 15, 20, 30, 50, 100]"
+            :page-size="10"
+            :total="result.Count"
+          >
+          </el-pagination>
+        </div>
+      </div>
     </div>
 
     <div class="overdueOrObsolete">
@@ -136,21 +138,24 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
-          <Action slot="btn-list">
-            <el-select
-              v-model="tableChangeShow"
-              size="mini"
-              style="width: 100px"
-            >
-              <el-option
-                v-for="item in tableChangeOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+          <template #btn-list>
+            <Action>
+              <el-select
+                v-model="tableChangeShow"
+                size="mini"
+                style="width: 100px"
+                @change="tableChangeFn"
               >
-              </el-option>
-            </el-select>
-          </Action>
+                <el-option
+                  v-for="item in tableChangeOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </Action>
+          </template>
         </JvTable>
       </div>
       <!-- 超期工单 -->
@@ -170,21 +175,24 @@
               ]"
             />
           </template>
-          <Action #btn-list>
-            <el-select
-              v-model="tableChangeShow"
-              size="mini"
-              style="width: 100px"
-            >
-              <el-option
-                v-for="item in tableChangeOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+          <template #btn-list>
+            <Action>
+              <el-select
+                v-model="tableChangeShow"
+                size="mini"
+                style="width: 100px"
+                @change="tableChangeFn"
               >
-              </el-option>
-            </el-select>
-          </Action>
+                <el-option
+                  v-for="item in tableChangeOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+            </Action>
+          </template>
         </JvTable>
       </div>
     </div>
@@ -199,8 +207,8 @@
     ></calculateTime>
     <!-- 排程日志弹窗 -->
     <apsLog
-        v-if="apsDialogFormVisible"
-        :visible.sync="apsDialogFormVisible"
+      v-if="apsDialogFormVisible"
+      :visible.sync="apsDialogFormVisible"
     ></apsLog>
     <!-- 发布提醒弹窗 -->
     <jv-dialog
@@ -235,21 +243,19 @@ import { Table, GanttColumns, OldTable, ObsoleteTable } from "./config";
 import { stateEnum } from "@/enum/workModule";
 // 单据状态组件
 import { do_publish } from "@/api/workApi/production/aps";
-import { timeFormat } from "@/jv_doc/utils/time";
-import { Bus } from "@/jv_doc/class/event/EventBus";
 import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
 import apsLog from "./components/apsLog";
 import CustomGantt from "@/components/CustomGantt/index.vue";
-import GanntPopover from "@/views/workModule/production/productionSchedule/List/components/gannt-popover.vue";
+import GanttPopover from "./components/gantt-popover.vue";
 
 export default {
   // 页面的标识
   name: "ProductionSchedule",
   components: {
-	  apsLog,
-    GanntPopover,
+    apsLog,
+    GanttPopover,
     // 单据状态组件
     BillStateTags,
     calculateTime,
@@ -264,13 +270,13 @@ export default {
       ApsVersionNo: "",
       calculateTimeDialogFormVisible: false,
       releaseDialogFormVisible: false,
-      apsDialogFormVisible:false,
+      apsDialogFormVisible: false,
       SchedulingResultsVisible: false, // 发布排程结果弹窗
       // 路由跳转前是否提醒发布
       needOpen: false,
       // 路由信息
       toRouteName: null,
-      tableChangeGantt: true, // 甘特图和表格切换显示隐藏
+      tableChangeGantt: false, // 甘特图和表格切换显示隐藏
       // =================================================
       GanttColumns: GanttColumns,
       result: {},
@@ -284,7 +290,6 @@ export default {
       isFold: false, // 是否展开
       ganttContainerHeight: 0, //甘特图盒子的高度
       unfold_icon: "el-icon-arrow-down",
-      eventBus: null,
       unitOptions: [
         {
           value: "week",
@@ -315,7 +320,6 @@ export default {
   // 路由切换
   beforeRouteLeave(to, from, next) {
     this.toRouteName = to.name;
-    console.log("this.toRouteName::: ", this.toRouteName);
     // 判断是否需要弹出发布提醒
     if (this.needOpen) {
       this.releaseDialogFormVisible = true;
@@ -327,18 +331,11 @@ export default {
   created() {
     // 创建表格实例
     this.tableObj = new Table();
-    this.tableObj.getData();
-    this.tableObj.setCallBack(() => {
-      this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
-    });
-    this.eventBus = Bus;
-    // 创建表格实例
-    this.oldTableObj = new OldTable();
-    this.oldTableObj.getData({ SelectType: "Normal" });
     this.ObsoleteTableObj = new ObsoleteTable();
-    this.ObsoleteTableObj.getData({ SelectType: "ObsoleteWorkOrder" });
+    this.oldTableObj = new OldTable();
+    this.setTableChangeGantt(); // 调生产排程接口
 
-    this.setAlgorithmType();
+    this.tableChangeFn(false); // 调陈旧工单接口
   },
   mounted() {
     this.setGanttContainer();
@@ -360,6 +357,25 @@ export default {
     },
   },
   methods: {
+    setTableChangeGantt() {
+      this.tableChangeGantt = !this.tableChangeGantt;
+      if (this.tableChangeGantt) {
+        this.setAlgorithmType(); // 调甘特图获取排程结果接口
+      } else {
+        this.tableObj.getData();
+        this.tableObj.setCallBack(() => {
+          this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
+        });
+      }
+    },
+    tableChangeFn(val) {
+      // 创建表格实例
+      if (val) {
+        this.ObsoleteTableObj.getData({ SelectType: "ObsoleteWorkOrder" });
+      } else {
+        this.oldTableObj.getData({ SelectType: "Normal" });
+      }
+    },
     //删除单据
     deleteOrder(ids) {
       this.tableObj.api.del({ BillIds: ids }).then((_) => {
@@ -408,7 +424,7 @@ export default {
       });
     },
     // 查看排程日志
-    openApsLog(){
+    openApsLog() {
       this.apsDialogFormVisible = true;
     },
 
@@ -417,7 +433,7 @@ export default {
       this.loading = true;
       do_publish().then(() => {
         this.releaseDialogFormVisible = false;
-        this.SchedulingResultsVisible = false
+        this.SchedulingResultsVisible = false;
         this.needOpen = false;
         this.loading = false;
         this.tableObj.getData();
@@ -444,18 +460,6 @@ export default {
         CurrentPage: page,
         PageSize: size,
       }).then((res) => {
-        res.Items = res.Items.map((item) => {
-          return {
-            ...item,
-            Data: item.Data.map((jtem) => {
-              return {
-                ...jtem,
-                _PlanStart: timeFormat(jtem.PlanStart, "yyyy-MM-dd hh:mm:ss"),
-                _PlanEnd: timeFormat(jtem.PlanEnd, "yyyy-MM-dd hh:mm:ss"),
-              };
-            }),
-          };
-        });
         this.result = res;
         this.loading = false;
       });
@@ -539,7 +543,7 @@ export default {
     align-items: center;
   }
 }
-.apsVersionNo{
+.apsVersionNo {
   font-size: 12px;
   display: flex;
   margin-left: 10px;
