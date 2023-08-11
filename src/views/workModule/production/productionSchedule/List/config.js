@@ -250,10 +250,15 @@ export const ObsoleteTableConfig = [
       parameterKey: "BillId",
     },
   },
-  /*加工信息*/
+  /*零件名称*/
   {
-    prop: "PartInfo",
-    label: i18n.t("production.Pr_ProcessInformation"),
+    prop: "PartName",
+    label: i18n.t("Generality.Ge_PartName"),
+  },
+  /*零件编号*/
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
   },
   /*计划开始*/
   {

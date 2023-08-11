@@ -462,6 +462,7 @@ export default {
       }).then((res) => {
         this.result = res;
         this.loading = false;
+        this.ApsVersionNo = res.VersionNo
       });
     },
     // 自适应高度
