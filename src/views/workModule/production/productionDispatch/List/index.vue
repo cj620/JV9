@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-11-09 14:06:15
- * @LastEditTime: 2022-01-21 17:36:30
+ * @LastEditTime: 2023-08-11 13:32:01
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\design\designTask\List\index.vue
@@ -102,6 +102,7 @@ export default {
       // 切换机床
       dropVisible: false,
       toggleMachineObj: {},
+      isAllproceeList: false,
     };
   },
   created() {
@@ -110,8 +111,8 @@ export default {
 
     this.M_tableObj.setCallBack((res) => this.getProcessData(res));
     this.M_tableObj.pager.sizeChange(5);
-    this.M_tableObj.formObj.form.ShowInProdSchedule = true
-    console.log(this.M_tableObj.formObj.form.ShowInProdSchedule,4545)
+    this.M_tableObj.formObj.form.ShowInProdSchedule = true;
+    // console.log(this.M_tableObj.formObj.form.ShowInProdSchedule, 4545);
   },
 
   computed: {},
@@ -143,7 +144,7 @@ export default {
       let scrollBottom =
         e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight;
       if (scrollBottom < 100) {
-        if (this.P_tableObj.pager.isLast()) return;
+        if (this.isAllproceeList) return;
 
         this.P_tableObj.pager.currentChange(this.P_tableObj.pager.page + 1);
       }
@@ -160,19 +161,22 @@ export default {
     },
     setProcessData(data, flash) {
       if (flash) {
+        this.isAllproceeList = false;
         this.processData = data;
       } else {
+        this.isAllproceeList = true;
+        this.isAllproceeList = !data.some((item) => item.length !== 0);
         this.processData = this.processData.map((item, index) => {
           return [...item, ...data[index]];
         });
       }
     },
     cardClick(e, s, r, a) {
-      console.log(5684848, e, s, r, a);
+      // console.log(5684848, e, s, r, a);
     },
     dropCommand(e) {
       if (e.Type == "toggle") {
-        console.log(e.Resource, 9999999999);
+        // console.log(e.Resource, 9999999999);
         this.dropVisible = true;
         // 切换机床表单
         this.toggleMachineObj = new Form({
