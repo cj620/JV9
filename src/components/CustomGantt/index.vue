@@ -302,9 +302,14 @@ export default {
       type: Number,
       default: 0,
     },
+    // task悬浮窗组件
     floatingWindow: {
       type: Object,
-      default: {},
+      default: null,
+    },
+    popoverInnerHtml: {
+      type: Function,
+      default: null,
     },
     formSchema: {
       type: Array,
@@ -421,7 +426,8 @@ export default {
       unitOfTime: this.unitOfTime,
       taskRadius: radius,
       tableHeaderWidth: this.tableHeaderWidth,
-      // popoverInnerHtml: `你好`,
+      popoverShow: !!(this.popoverInnerHtml || this.floatingWindow),
+      popoverInnerHtml: this.popoverInnerHtml,
       Component: this.floatingWindow,
     };
     this.gantt = new CreateGantt(options);

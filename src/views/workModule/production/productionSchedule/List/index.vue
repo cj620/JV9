@@ -40,7 +40,7 @@
           >
           </el-input>
         </div>
-        <div class="apsVersionNo">发布版本号：{{ApsVersionNo}}</div>
+        <div class="apsVersionNo">发布版本号：{{ ApsVersionNo }}</div>
       </div>
       <div class="action-header-right">
         <el-button-group>
@@ -93,6 +93,8 @@
 
     <!--甘特图-->
     <div v-show="tableChangeGantt">
+      <!--      :popoverInnerHtml="setPopoverInnerHtml"-->
+      <!--      :floatingWindow="floatingWindow"-->
       <CustomGantt
         ref="CustomGantt"
         :columns="GanttColumns"
@@ -102,7 +104,6 @@
         :padding="10"
         :detailShow="true"
         :popoverOptions="popoverOptions"
-        :floatingWindow="floatingWindow"
         taskRadius="25"
       >
         <template #popover="{ item }">
@@ -359,6 +360,19 @@ export default {
     },
   },
   methods: {
+    // task悬浮窗的innerHtml
+    setPopoverInnerHtml(item) {
+      return `
+        <div>${i18n.t("Generality.Ge_ProcessName")}：${item.Process}</div>
+        <div>${i18n.t("Generality.Ge_PlanTime")}：${item.PlanTime}H</div>
+        <div>${i18n.t("production.Pr_PlanningDevices")}：${
+        item.PlanDevice
+      }</div>
+              <div>${i18n.t("Generality.Ge_PlanStart")}：${
+        item._PlanStart
+      }</div>
+              <div>${i18n.t("Generality.Ge_PlanEnd")}：${item._PlanEnd}</div>`;
+    },
     setTableChangeGantt() {
       this.tableChangeGantt = !this.tableChangeGantt;
       if (this.tableChangeGantt) {
