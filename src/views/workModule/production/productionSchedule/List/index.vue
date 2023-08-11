@@ -10,22 +10,44 @@
     <!-- 顶部操作行 -->
     <div class="action-header">
       <div class="action-header-left">
-        <el-input
-          v-show="tableChangeGantt"
-          v-model="partNumberValue"
-          placeholder="请输入零件编号..."
-          prefix-icon="el-icon-search"
-          size="mini"
-        >
-        </el-input>
+        <div v-show="tableChangeGantt" style="font-size: 12px; line-height: 0">
+          单位：
+        </div>
+        <div v-show="tableChangeGantt" style="margin-right: 20px">
+          <el-select
+            v-model="unitOfTime"
+            placeholder="请选择单位"
+            size="mini"
+            style="width: 66px"
+            @change="setGanttZoom"
+          >
+            <el-option
+              v-for="item in unitOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </div>
+        <div>
+          <el-input
+            v-show="tableChangeGantt"
+            v-model="partNumberValue"
+            placeholder="请输入零件编号..."
+            prefix-icon="el-icon-search"
+            size="mini"
+          >
+          </el-input>
+        </div>
       </div>
       <div class="action-header-right">
         <el-button-group>
-          <el-button size="mini" @click="simulatedCalculate">{{
-            $t("production.Pr_SimulatedCalculate")
-          }}</el-button>
           <el-button size="mini" @click="calculate">{{
             $t("production.Pr_Calculate")
+          }}</el-button>
+          <el-button size="mini" @click="simulatedCalculate">{{
+            $t("production.Pr_SimulatedAPS")
           }}</el-button>
           <el-button size="mini" @click="equipmentLoad">{{
             $t("production.Pr_CheckLoad")
@@ -45,24 +67,6 @@
             }}
           </el-button>
         </el-button-group>
-        <span v-show="tableChangeGantt" style="margin-left: 20px">
-          <span style="font-size: 12px">单位：</span>
-          <el-select
-            v-model="unitOfTime"
-            placeholder="请选择单位"
-            size="mini"
-            style="width: 66px"
-            @change="setGanttZoom"
-          >
-            <el-option
-              v-for="item in unitOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            >
-            </el-option>
-          </el-select>
-        </span>
       </div>
     </div>
 
@@ -92,14 +96,35 @@
         :ganttContainerHeight="ganttContainerHeight"
         :loading="loading"
         :result="result"
-        taskRadius="6"
+        :padding="10"
+        :detailShow="true"
+        :popoverOptions="popoverOptions"
+        taskRadius="25"
       >
-        <template #pagination>
+        <template #popover="{ item }">
+          <gannt-popover :item="item"></gannt-popover>
+        </template>
+      </CustomGantt>
+      <!-- 分页器 -->
+      <div class="custom-pagination">
+        <div>
           <div class="custom-unfold" @click="setFold">
             <i :class="unfold_icon"></i>
           </div>
-        </template>
-      </CustomGantt>
+        </div>
+        <div class="custom-pagination-box">
+          <el-pagination
+            background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            layout="total, sizes, prev, pager, next"
+            :page-sizes="[5, 10, 15, 20, 30, 50, 100]"
+            :page-size="10"
+            :total="result.Count"
+          >
+          </el-pagination>
+        </div>
+      </div>
     </div>
 
     <div class="overdueOrObsolete">
@@ -216,12 +241,14 @@ import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
 import apsLog from "./components/apsLog";
 import CustomGantt from "@/components/CustomGantt/index.vue";
+import GanntPopover from "@/views/workModule/production/productionSchedule/List/components/gannt-popover.vue";
 
 export default {
   // 页面的标识
   name: "ProductionSchedule",
   components: {
-    apsLog,
+	  apsLog,
+    GanntPopover,
     // 单据状态组件
     BillStateTags,
     calculateTime,
@@ -277,6 +304,11 @@ export default {
         { value: false, label: i18n.t("production.Pr_StaleWorkOrder") },
         { value: true, label: i18n.t("production.Pr_OverdueWorkOrder") },
       ],
+      popoverOptions: {
+        placement: "right",
+        width: 570,
+        trigger: "hover",
+      },
     };
   },
   // 路由切换
@@ -307,12 +339,6 @@ export default {
   },
   mounted() {
     this.setGanttContainer();
-    this.eventBus.$on("handleSizeChange", (pageSize, current) => {
-      this.setAlgorithmType(pageSize, current);
-    });
-    this.eventBus.$on("handleCurrentChange", (pageSize, current) => {
-      this.setAlgorithmType(pageSize, current);
-    });
   },
   computed: {
     // 是否可以批量删除
@@ -360,7 +386,6 @@ export default {
     },
     //关闭计算
     cancel() {
-      console.log('关闭计算');
       this.calculateTimeDialogFormVisible = false;
     },
     // 计算结果无超交期超负荷时提醒发布
@@ -455,19 +480,27 @@ export default {
         : "el-icon-arrow-down";
       this.setGanttContainer();
     },
+    // 防抖函数
     debounce(func, wait) {
       if (this.timeout) {
         clearTimeout(this.timeout);
       }
       this.timeout = setTimeout(func, wait);
     },
+    // 编辑
     obsoleteEdit(val) {
       console.log("val::: ", val);
     },
-  },
-  beforeDestroy() {
-    this.eventBus.$off("handleSizeChange");
-    this.eventBus.$off("handleCurrentChange");
+    // 总条数切换
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize;
+      this.setAlgorithmType(this.pageSize, this.current);
+    },
+    // 分页切换
+    handleCurrentChange(current) {
+      this.current = current;
+      this.setAlgorithmType(this.pageSize, this.current);
+    },
   },
   watch: {
     tableChangeShow(val) {
@@ -523,5 +556,16 @@ export default {
 
 .padding-value {
   height: 10px;
+}
+.custom-pagination {
+  height: 40px;
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &-box {
+  }
 }
 </style>
