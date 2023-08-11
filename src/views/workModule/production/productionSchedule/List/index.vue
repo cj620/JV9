@@ -6,7 +6,7 @@
 -->
 
 <template>
-  <PageWrapper :footer="false">
+  <PageWrapper :footer="false" >
     <!-- 顶部操作行 -->
     <div class="action-header">
       <div class="action-header-left">
@@ -33,7 +33,7 @@
           <el-button size="mini" @click="SchedulingResultsVisible = true">{{
             $t("production.Pr_Release")
           }}</el-button>
-          <el-button size="mini">{{ $t("production.Pr_APSLog") }}</el-button>
+          <el-button size="mini" @click="openApsLog">{{ $t("production.Pr_APSLog") }}</el-button>
           <el-button
             icon="el-icon-view"
             size="mini"
@@ -167,10 +167,15 @@
     <calculateTime
       v-if="calculateTimeDialogFormVisible"
       :visible.sync="calculateTimeDialogFormVisible"
+      @loading="handleLoading"
       @cancel="cancel"
       @completed="completed"
     ></calculateTime>
     <!-- 排程日志弹窗 -->
+    <apsLog
+        v-if="apsDialogFormVisible"
+        :visible.sync="apsDialogFormVisible"
+    ></apsLog>
     <!-- 发布提醒弹窗 -->
     <jv-dialog
       v-if="releaseDialogFormVisible"
@@ -184,19 +189,7 @@
         ApsVersionNo
       }}
     </jv-dialog>
-    <!-- 版本号弹窗 -->
-    <jv-dialog
-      v-if="versionDialogFormVisible"
-      :IsShowCancelFooterBtn="false"
-      :title="$t('Generality.Ge_Remind')"
-      :visible.sync="versionDialogFormVisible"
-      width="30%"
-      @confirm="closeVersion"
-    >
-      排程结果已发布，版本号：{{ ApsVersionNo }}
-    </jv-dialog>
-
-    <!-- 发布排程结果弹窗 -->
+    <!-- 发布按钮提醒 -->
     <JvDialog
       :title="$t('Generality.Ge_Remind')"
       :visible.sync="SchedulingResultsVisible"
@@ -221,12 +214,14 @@ import { Bus } from "@/jv_doc/class/event/EventBus";
 import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
+import apsLog from "./components/apsLog";
 import CustomGantt from "@/components/CustomGantt/index.vue";
 
 export default {
   // 页面的标识
   name: "ProductionSchedule",
   components: {
+    apsLog,
     // 单据状态组件
     BillStateTags,
     calculateTime,
@@ -241,7 +236,7 @@ export default {
       ApsVersionNo: "",
       calculateTimeDialogFormVisible: false,
       releaseDialogFormVisible: false,
-      versionDialogFormVisible: false,
+      apsDialogFormVisible:false,
       SchedulingResultsVisible: false, // 发布排程结果弹窗
       // 路由跳转前是否提醒发布
       needOpen: false,
@@ -349,7 +344,10 @@ export default {
         params: { type: "add", title: "addSaleOrder" },
       });
     },
-
+    // 监听计算loading
+    handleLoading(loading) {
+      this.loading = loading;
+    },
     // 模拟计算
     simulatedCalculate() {
       this.$router.push({
@@ -362,6 +360,7 @@ export default {
     },
     //关闭计算
     cancel() {
+      console.log('关闭计算');
       this.calculateTimeDialogFormVisible = false;
     },
     // 计算结果无超交期超负荷时提醒发布
@@ -380,13 +379,20 @@ export default {
         name: "ProductionDetailedLoad",
       });
     },
+    // 查看排程日志
+    openApsLog(){
+      this.apsDialogFormVisible = true;
+    },
 
     //发布APS结果
     release() {
+      this.loading = true;
       do_publish().then(() => {
         this.releaseDialogFormVisible = false;
-        this.versionDialogFormVisible = true;
+        this.SchedulingResultsVisible = false
         this.needOpen = false;
+        this.loading = false;
+        this.tableObj.getData();
       });
     },
     // 发布弹窗取消
@@ -398,11 +404,6 @@ export default {
         : console.log("无需跳转");
       this.toRouteName = null;
     },
-    // 关闭版本号弹窗
-    closeVersion() {
-      this.versionDialogFormVisible = false;
-    },
-    // ===========================================
     // 切换时间
     setGanttZoom(val) {
       this.$refs.CustomGantt.setGanttZoom(val);

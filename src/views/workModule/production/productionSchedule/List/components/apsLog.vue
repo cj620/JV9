@@ -1,8 +1,17 @@
 <!-- 排程日志弹窗 -->
 <template>
-  <div>
-    <JvTable :table-obj="tableObj"> </JvTable>
-  </div>
+  <JvDialog
+      width="60%"
+      :title="$t('production.Pr_APSLog')"
+      :close-on-click-modal="true"
+      :modal-append-to-body="false"
+      :append-to-body="false"
+      v-bind="$attrs"
+      v-on="$listeners"
+      :IsShowFooterBtn="false"
+  >
+    <JvTable :tableObj="tableObj"></JvTable>
+  </JvDialog>
 </template>
 <script>
 import { Table } from "./apsLogConfig";
