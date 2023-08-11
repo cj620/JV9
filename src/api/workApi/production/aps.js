@@ -56,6 +56,14 @@ export function do_publish(data) {
     data,
   });
 }
+// 一键处理APS结果
+export function one_click_processing(data) {
+  return request({
+    url: "/aps/one_click_processing",
+    method: "post",
+    data,
+  });
+}
 
 // 查询模拟排程饼状图数据
 export function pie_chart(data) {
@@ -90,3 +98,4 @@ export function simulation_calculate(data) {
     data,
   });
 }
+

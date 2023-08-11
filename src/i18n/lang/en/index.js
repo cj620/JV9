@@ -341,6 +341,8 @@ const en = {
   },
   //通用
   Generality: {
+    Ge_GanttShow: "Gantt Chart Shows",
+    Ge_TabularShow: "Tabular Display",
     Ge_New: "New",
     Ge_Add: "Add",
     Ge_Refresh: "Refresh",
@@ -728,6 +730,9 @@ const en = {
   },
   //生产
   production: {
+    Pr_StaleWorkOrder : "Stale Work Order",
+    Pr_OverdueWorkOrder : "Overdue Work Order",
+    Pr_PleaseEnterPartNumber: "PleaseEnterPartNumber...",
     Pr_Unlabeled: "Unlabeled",
     Pr_Tagged: "Tagged",
     Pr_OldWorkOrderMark: "OldWorkOrderMark",
@@ -826,6 +831,7 @@ const en = {
     Pr_EarliestDeliveryDate: "Algorithm for earliest delivery time",
     Pr_DoAPS: "Do aps",
     Pr_APSLog: "APS log",
+    Pr_OneClickProcessing: "One click processing",
     Pr_PleaseSelectSchedulingAlgorithms: "Please select scheduling algorithms",
   },
   quality: {
@@ -1154,8 +1160,6 @@ const en = {
     Ftp_file_management_path_desc:
       "root folder where project files are stored in",
     Prohibit_skip_station_processes: "Prohibit skip station processes",
-    Create_purchase_request_below_safety_stock:
-      "Create purchase request below safety stock",
     User_web_socket: "User Message Push Configuration",
     User_web_socket_desc: "Does the user accept messages",
     Create_purchase_request_below_safety_stock:"Create purchase request below safety stock",

@@ -15,10 +15,6 @@ export class Table extends BaseTable {
       tableSchema: tableConfig,
       // 表单配置
       formSchema,
-      // 表头显示
-      tableHeaderShow:false,
-      chooseCol: false,
-
       // 行标识
       rowId: "Id",
       // 表格标题
@@ -29,7 +25,7 @@ export class Table extends BaseTable {
       operationCol: false,
       // 打印模块标识
       printMod: "Pr_ProductionSchedule",
-      height:400,
+      height: null,
     });
   }
 }

@@ -48,7 +48,6 @@ export default {
   methods: {
     //点击计算排程
     confirmItem() {
-      this.$emit("loading", true);
       do_aps({
         StartDate: this.formObj.form.StartDate,
         SchedulingType: this.formObj.form.SchedulingType,
@@ -65,7 +64,6 @@ export default {
         } else {
           this.$emit("completed");
         }
-        this.$emit("loading", false);
       });
     },
   },

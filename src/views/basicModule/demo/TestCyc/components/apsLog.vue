@@ -1,14 +1,13 @@
 <!-- 排程日志弹窗 -->
 <template>
   <JvDialog
-      width="60%"
-      :title="$t('production.Pr_APSLog')"
-      :close-on-click-modal="true"
-      :modal-append-to-body="false"
-      :append-to-body="false"
-      v-bind="$attrs"
-      v-on="$listeners"
-      :IsShowFooterBtn="false"
+    width="60%"
+    :close-on-click-modal="true"
+    :modal-append-to-body="false"
+    :append-to-body="false"
+    v-bind="$attrs"
+    v-on="$listeners"
+    :IsShowFooterBtn="false"
   >
     <JvTable :tableObj="tableObj"></JvTable>
   </JvDialog>
@@ -29,3 +28,4 @@ export default {
   },
 };
 </script>
+

@@ -8,7 +8,7 @@
         <TableAction :actions="getListTableColBtnModel(row)" />
       </template>
       <!-- 表格操作行 -->
-      <Action size="mini" slot="btn-list" :actions="getListTableBtnModel">
+      <Action slot="btn-list" :actions="getListTableBtnModel" size="mini">
       </Action>
     </JvTable>
   </PageWrapper>
@@ -22,6 +22,7 @@ import {
   listTableBtnModel,
   listTableColBtnModel,
 } from "@/jv_doc/utils/system/pagePlugin";
+
 export default {
   // 页面的标识
   name: "Sa_SaleOrder",
@@ -47,7 +48,7 @@ export default {
     // 创建表格实例
     this.tableObj = new Table();
     this.tableObj.getData();
-    console.log(this)
+    console.log(this);
   },
   computed: {
     // 表格操作模块

@@ -160,7 +160,9 @@
       @size-change="tablePageSizeChange"
       @current-change="tableObj.pager.currentChange"
       background
-    />
+    >
+      <slot name="PaginationLeft"></slot>
+    </JvPagination>
     <!-- 表单搜索抽屉 -->
     <SearchForm
       v-if="tableObj.props.searchBar"

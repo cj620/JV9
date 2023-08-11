@@ -175,10 +175,9 @@
                     placement="top-start"
                   >
                     <span @mouseenter="visibilityChange($event)">
-
-                  <svg-icon icon-class="remarks" />
-                  {{ item.Remarks }}
-                        </span>
+                      <svg-icon icon-class="remarks" />
+                      {{ item.Remarks }}
+                    </span>
                   </el-tooltip>
                 </div>
               </div>

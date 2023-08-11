@@ -337,6 +337,8 @@ const cn = {
   },
   //通用
   Generality: {
+    Ge_GanttShow: "甘特图显示",
+    Ge_TabularShow: "表格显示",
     Ge_New: "新增",
     Ge_Add: "添加",
     Ge_Refresh: "刷新",
@@ -716,6 +718,9 @@ const cn = {
   },
   //生产
   production: {
+    Pr_StaleWorkOrder : "陈旧工单",
+    Pr_OverdueWorkOrder : "超期工单",
+    Pr_PleaseEnterPartNumber: "请输入零件编号...",
     Pr_Unlabeled: "未标记",
     Pr_Tagged: "已标记",
     Pr_OldWorkOrderMark: "陈旧工单标记",
@@ -813,6 +818,7 @@ const cn = {
     Pr_EarliestDeliveryDate: "最早交货期",
     Pr_DoAPS: "计算排程",
     Pr_APSLog: "排程日志",
+    Pr_OneClickProcessing: "一键处理",
     Pr_PleaseSelectSchedulingAlgorithms: "请选择排程算法",
   },
   quality: {

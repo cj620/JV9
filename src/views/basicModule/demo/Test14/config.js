@@ -7,16 +7,31 @@
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 // 获取客户接口
-import { getAllSalesCustomer } from "@/api/workApi/sale/customer";
+import {overdue_and_obsolete_list} from '@/api/workApi/production/productionSchedule';
+import {
+  enumFilter,
+} from "@/enum/workModule";
 // 引入模块API接口
-import { API } from "@/api/workApi/sale/order";
+// import { API } from "@/api/workApi/sale/order";
 // 结构
-let { api_list, api_delete } = API;
+// let { overdue_and_obsolete_list } = API;
+const IsPartakeAPS = {
+  "Normal": {
+    name: i18n.t('production.Pr_Tagged'),
+    value: 'Normal',
+    color: 'red',
+  },
+  "ObsoleteWorkOrder": {
+    name: i18n.t('production.Pr_Unlabeled'),
+    value: 'ObsoleteWorkOrder',
+    color: 'red',
+  }
+}
 export class api extends TableAPI {
   // 获取列表
-  getData = api_list;
+  getData = overdue_and_obsolete_list;
   // 删除单据
-  del = api_delete;
+  // del = api_delete;
 }
 export class Table extends BaseTable {
   constructor() {
@@ -28,13 +43,36 @@ export class Table extends BaseTable {
       // 行标识
       rowId: "BillId",
       // 表格标题
-      title: i18n.t("menu.Sa_SaleOrder"),
+      title: i18n.t("menu.Pr_ProductionSchedule"),
       // 接口类
       api,
+      tableHeaderShow: false,
+      // 操作列宽度
+      operationWidth: 0,
+      operationCol: false,
+      // 打印模块标识
+      printMod: "Pr_ProductionSchedule",
+    });
+  }
+}
+export class Table1 extends BaseTable {
+  constructor() {
+    super({
+      // 表格配置
+      tableSchema: tableConfig1,
+      // 表单配置
+      formSchema,
+      // 行标识
+      rowId: "BillId",
+      // 表格标题
+      title: i18n.t("menu.Pr_ProductionSchedule"),
+      // 接口类
+      api,
+      tableHeaderShow: false,
       // 操作列宽度
       operationWidth: 150,
       // 打印模块标识
-      printMod: "Sa_SaleOrder",
+      printMod: "Pr_ProductionSchedule",
     });
   }
 }
@@ -42,17 +80,17 @@ export class Table extends BaseTable {
 export const tableConfig = [
   {
     prop: "BillId",
-    label: i18n.t("Generality.Ge_BillId"),
+    label: i18n.t("production.Pr_WorkOrderNumber"),
     align: "center",
     cpn: "Link",
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
-      label: i18n.t("Generality.Ge_BillId"),
+      label: i18n.t("production.Pr_WorkOrderNumber"),
     },
     cpnProps: {
       // 路由名称
-      routeName: "Sa_SaleOrder_Detail",
+      routeName: "Pr_ProductionSchedule",
       // 路由路径（名称和路径二选一）
       // routePath:'/dashboard',
       // 路由传参方式 默认query
@@ -67,6 +105,86 @@ export const tableConfig = [
     //     },
     //   ],
     },
+  },
+  /*加工信息*/
+  {
+    prop: "PartInfo",
+    label: i18n.t("production.Pr_ProcessInformation"),
+  },
+  /*计划开始*/
+  {
+    prop: "PlanStart",
+    label: i18n.t("Generality.Ge_PlanStart"),
+    filter: "time",
+  },
+  /*计划结束*/
+  {
+    prop: "PlanEnd",
+    label: i18n.t("Generality.Ge_PlanEnd"),
+    filter: "time",
+  },
+  /*最后报工日期*/
+  {
+    prop: "LastReportingDate",
+    label: i18n.t("production.Pr_LastReportedDate"),
+    filter: "time",
+  },
+  /*未报工天数*/
+  {
+    prop: "LastReportingDays",
+    label: i18n.t("production.Pr_DaysNotReported"),
+  },
+  // 陈旧工单标记
+  {
+    prop: "IsPartakeAPS",
+    label: i18n.t("production.Pr_OldWorkOrderMark"),
+    customFilter: (value, row) => enumFilter(value, IsPartakeAPS),
+  },
+];
+//  表格配置
+export const tableConfig1 = [
+  {
+    prop: "BillId",
+    label: i18n.t("production.Pr_WorkOrderNumber"),
+    align: "center",
+    cpn: "Link",
+    innerSearch: {
+      prop: "BillId",
+      cpn: "FormInput",
+      label: i18n.t("production.Pr_WorkOrderNumber"),
+    },
+    cpnProps: {
+      // 路由名称
+      routeName: "Pr_ProductionSchedule",
+      // 路由路径（名称和路径二选一）
+      // routePath:'/dashboard',
+      // 路由传参方式 默认query
+      methods: "query",
+      // 传参的键名，值为当前数据
+      parameterKey: "BillId",
+    },
+  },
+  /*加工信息*/
+  {
+    prop: "PartInfo",
+    label: i18n.t("production.Pr_ProcessInformation"),
+  },
+  /*计划开始*/
+  {
+    prop: "PlanStart",
+    label: i18n.t("Generality.Ge_PlanStart"),
+    filter: "time",
+  },
+  /*计划结束*/
+  {
+    prop: "PlanEnd",
+    label: i18n.t("Generality.Ge_PlanEnd"),
+    filter: "time",
+  },
+  /*超交期天数*/
+  {
+    prop: "LastReportingDays",
+    label: i18n.t("production.Pr_DaysOverdue"),
   },
 ];
 // 表单配置

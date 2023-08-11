@@ -1,11 +1,11 @@
 export default [
     {
-        name: "PartName",
+        name: "PartNo",
         width: 100,
-        label: i18n.t("menu.Pm_Project"),
+        label: i18n.t("Generality.Ge_PartNo"),
     },
     {
-        name: 'ImageUrl',
+        name: 'PhotoUrl',
         width: 100,
         label: i18n.t("Generality.Ge_PhotoUrl")
     },

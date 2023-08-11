@@ -139,7 +139,7 @@
             </template>
           </JvTable>
         </el-tab-pane>
-      <el-tab-pane :label="$t('production.Pr_PartDetail')" name="third">
+        <el-tab-pane :label="$t('production.Pr_PartDetail')" name="third">
           <JvTable :table-obj="tableObj1"> </JvTable>
         </el-tab-pane>
         <el-tab-pane
@@ -148,10 +148,9 @@
         >
           <JvTable :table-obj="tableObj2" ref="BillTable2">
             <template #ActualTime="{ row }">
-        <span>{{ row.ActualTime.toFixed(2) }}</span>
-      </template>
+              <span>{{ row.ActualTime.toFixed(2) }}</span>
+            </template>
             <template #operation="{ row }">
-
               <TableAction
                 :actions="[
                   {
@@ -164,12 +163,12 @@
           </JvTable>
         </el-tab-pane>
 
- <el-tab-pane label="过程检验" name="Qc_ProcessCheckList">
-           <JvTable :table-obj="Qc_ProcessCheckTableObj"> </JvTable>
-         </el-tab-pane>
-             <el-tab-pane label="成品检验" name="Qc_FinishedProductList">
-     <JvTable :table-obj="Qc_FinishedProductTableObj"> </JvTable>
-   </el-tab-pane>
+        <el-tab-pane label="过程检验" name="Qc_ProcessCheckList">
+          <JvTable :table-obj="Qc_ProcessCheckTableObj"> </JvTable>
+        </el-tab-pane>
+        <el-tab-pane label="成品检验" name="Qc_FinishedProductList">
+          <JvTable :table-obj="Qc_FinishedProductTableObj"> </JvTable>
+        </el-tab-pane>
 
         <el-tab-pane :label="$t('Generality.Ge_Dynamic')" name="fifth">
           <DynamicList
@@ -213,7 +212,7 @@ import {
   detailConfig,
   Qc_ProcessCheckTable,
   Qc_FinishedProductTable,
-} from './config'
+} from "./config";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import {

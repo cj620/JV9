@@ -30,10 +30,6 @@
               confirm: simulatedCalculate.bind(null),
               disabled: isSelectedTypesEmpty,
             },
-            {
-              label: $t('Generality.Ge_Refresh'),
-              confirm: refresh.bind(null),
-            },
           ]"
         >
         </Action>
