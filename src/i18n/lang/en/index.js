@@ -1159,8 +1159,6 @@ const en = {
     Ftp_file_management_path_desc:
       "root folder where project files are stored in",
     Prohibit_skip_station_processes: "Prohibit skip station processes",
-    Create_purchase_request_below_safety_stock:
-      "Create purchase request below safety stock",
     User_web_socket: "User Message Push Configuration",
     User_web_socket_desc: "Does the user accept messages",
     Create_purchase_request_below_safety_stock:"Create purchase request below safety stock",
