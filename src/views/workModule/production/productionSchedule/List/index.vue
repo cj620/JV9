@@ -11,7 +11,7 @@
     <div class="action-header">
       <div class="action-header-left">
         <div v-show="tableChangeGantt" style="font-size: 12px; line-height: 0">
-          单位：
+          {{$t("Generality.Ge_Unit")}}：
         </div>
         <div v-show="tableChangeGantt" style="margin-right: 20px">
           <el-select
@@ -40,7 +40,7 @@
           >
           </el-input>
         </div>
-        <div class="apsVersionNo">发布版本号：{{ ApsVersionNo }}</div>
+        <div class="apsVersionNo">{{$t("production.Pr_ReleaseVersionNumber")}}：{{ ApsVersionNo }}</div>
       </div>
       <div class="action-header-right">
         <el-button-group>
@@ -325,7 +325,7 @@ export default {
         },
         {
           value: "hour",
-          label: i18n.t('Generality.Ge_Hour'),
+          label: i18n.t('Generality.Ge__Hour'),
         },
         {
           value: "minute",

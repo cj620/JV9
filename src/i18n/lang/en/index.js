@@ -659,6 +659,7 @@ const en = {
     Ge_InsertImg: "Insert picture",
     Ge_Day: "Day",
     Ge_Hour: "Hour",
+    Ge__Hour: "Hour",
     Ge_Minute: "Minute",
     Ge_Second: "Second",
     Ge_Quarter: "Quarter",
@@ -834,6 +835,7 @@ const en = {
     Pr_OneClickProcessing: "One click processing",
     Pr_PleaseSelectSchedulingAlgorithms: "Please select scheduling algorithms",
     Pr_MarkAsNormal: "Mark as normal",
+    Pr_ReleaseVersionNumber: "Release version number",
   },
   quality: {
     Qc_CheckResult: "Check result",
