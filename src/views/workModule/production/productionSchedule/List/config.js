@@ -219,6 +219,7 @@ export const OldTableConfig = [
   {
     prop: "LastReportingDays",
     label: i18n.t("production.Pr_DaysNotReported"),
+    custom: true,
   },
   // 陈旧工单标记
   {
@@ -250,10 +251,15 @@ export const ObsoleteTableConfig = [
       parameterKey: "BillId",
     },
   },
-  /*加工信息*/
+  /*零件名称*/
   {
-    prop: "PartInfo",
-    label: i18n.t("production.Pr_ProcessInformation"),
+    prop: "PartName",
+    label: i18n.t("Generality.Ge_PartName"),
+  },
+  /*零件编号*/
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
   },
   /*计划开始*/
   {
@@ -271,6 +277,7 @@ export const ObsoleteTableConfig = [
   {
     prop: "LastReportingDays",
     label: i18n.t("production.Pr_DaysOverdue"),
+    custom: true,
   },
 ];
 
