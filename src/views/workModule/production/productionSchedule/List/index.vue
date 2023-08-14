@@ -146,7 +146,16 @@
             </div></template
           >
           <template #btn-list>
-            <Action>
+            <Action
+              size="mini"
+              slot="btn-list"
+              :actions="[
+                {
+                  label: $t('production.Pr_MarkAsNormal'),
+                  confirm: mark.bind(null),
+                  disabled: canMark
+                }]"
+            >
               <el-select
                 v-model="tableChangeShow"
                 size="mini"
@@ -181,7 +190,7 @@
             <TableAction
               :actions="[
                 {
-                  label: '编辑',
+                  label: $t('Generality.Ge_Edit'),
                   confirm: obsoleteEdit.bind(null, row),
                 },
               ]"
@@ -222,7 +231,7 @@
       v-if="apsDialogFormVisible"
       :visible.sync="apsDialogFormVisible"
     ></apsLog>
-    <!-- 发布提醒弹窗 -->
+    <!-- 提醒是否发布弹窗 -->
     <jv-dialog
       v-if="releaseDialogFormVisible"
       :title="$t('Generality.Ge_Remind')"
@@ -235,7 +244,7 @@
         ApsVersionNo
       }}
     </jv-dialog>
-    <!-- 发布按钮提醒 -->
+    <!-- 发布弹窗 -->
     <JvDialog
       :title="$t('Generality.Ge_Remind')"
       :visible.sync="SchedulingResultsVisible"
@@ -256,12 +265,14 @@ import { stateEnum } from "@/enum/workModule";
 // 单据状态组件
 import { do_publish } from "@/api/workApi/production/aps";
 import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
+import { update_is_partake_aps } from "@/api/workApi/production/productionTask"
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
 import apsLog from "./components/apsLog";
 import CustomGantt from "@/components/CustomGantt/index.vue";
 import GanttPopover from "./components/gantt-popover.vue";
 import floatingWindow from "./components/floatingWindow.vue";
+import item from "@/layout/components/Sidebar/Item.vue";
 export default {
   // 页面的标识
   name: "ProductionSchedule",
@@ -281,10 +292,14 @@ export default {
       tableObj: {},
       // 最新发布版本号
       ApsVersionNo: "",
+      // 计算弹窗
       calculateTimeDialogFormVisible: false,
+      // 提醒是否进行发布弹窗
       releaseDialogFormVisible: false,
+      // 发布日志弹窗
       apsDialogFormVisible: false,
-      SchedulingResultsVisible: false, // 发布排程结果弹窗
+      // 发布弹窗
+      SchedulingResultsVisible: false,
       // 路由跳转前是否提醒发布
       needOpen: false,
       // 路由信息
@@ -306,15 +321,15 @@ export default {
       unitOptions: [
         {
           value: "week",
-          label: "周",
+          label: i18n.t('Generality.Ge_Week'),
         },
         {
           value: "hour",
-          label: "时",
+          label: i18n.t('Generality.Ge_Hour'),
         },
         {
           value: "minute",
-          label: "分",
+          label: i18n.t('Generality.Ge_Minute'),
         },
       ],
       unitOfTime: "hour",
@@ -362,6 +377,10 @@ export default {
         return !["Rejected", "Unsubmitted"].includes(item.State);
       });
     },
+    // 是否可以批量标记
+	  canMark() {
+		  return this.oldTableObj.selectData.datas.length === 0;
+	  },
     // 获取按钮状态
     getActionState() {
       return (state, type) => {
@@ -467,7 +486,7 @@ export default {
         this.loading = false;
       });
     },
-    // 发布弹窗取消
+    // 发布弹窗取消，若需跳转其它页面进行跳转
     cancelRelease() {
       this.toRouteName
         ? this.$router.push({
@@ -537,6 +556,20 @@ export default {
       this.current = current;
       this.setAlgorithmType(this.pageSize, this.current);
     },
+    // 批量标记陈旧工单为正常
+    mark(){
+		  this.loading = true;
+      let { datas } = this.oldTableObj.selectData;
+      let BillIds = [];
+      datas.forEach((item)=>{
+        BillIds.push(item.BillId)
+      })
+      update_is_partake_aps({ BillIds } ).then(()=>{
+        this.oldTableObj.getData()
+		  }).catch(() => {
+			this.loading = false;
+		  });
+    }
   },
   watch: {
     tableChangeShow(val) {

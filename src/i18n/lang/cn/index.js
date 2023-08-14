@@ -820,6 +820,7 @@ const cn = {
     Pr_APSLog: "排程日志",
     Pr_OneClickProcessing: "一键处理",
     Pr_PleaseSelectSchedulingAlgorithms: "请选择排程算法",
+    Pr_MarkAsNormal: "标记为正常",
   },
   quality: {
     Qc_CheckResult: "检验结果",

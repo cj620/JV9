@@ -81,3 +81,11 @@ export function production_task_copy(data) {
     data,
   });
 }
+// 修改加工任务单是否排程字段
+export function update_is_partake_aps(data){
+  return request({
+    url:"/production_task/update_is_partake_aps",
+    method:"post",
+    data,
+  })
+}

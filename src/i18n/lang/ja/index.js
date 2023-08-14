@@ -814,6 +814,7 @@ const ja = {
     Pr_OneClickProcessing: "ワンクリック処理",
     Pr_PleaseSelectSchedulingAlgorithms:
       "スケジュールアルゴリズムを選択してください",
+    Pr_MarkAsNormal: "標準としてマーク",
   },
   quality: {
     Qc_CheckResult: "検査結果",

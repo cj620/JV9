@@ -833,6 +833,7 @@ const en = {
     Pr_APSLog: "APS log",
     Pr_OneClickProcessing: "One click processing",
     Pr_PleaseSelectSchedulingAlgorithms: "Please select scheduling algorithms",
+    Pr_MarkAsNormal: "Mark as normal",
   },
   quality: {
     Qc_CheckResult: "Check result",
