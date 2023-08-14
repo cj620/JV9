@@ -83,7 +83,16 @@ export class ObsoleteTable extends BaseTable {
       // 表格配置
       tableSchema: ObsoleteTableConfig,
       // 表单配置
-      formSchema: formSchema1,
+      formSchema: formSchema1.map(item=>{
+        if(item.prop==='SelectType'){
+          return{
+            ...item,
+            default:1
+          }
+        }else{
+          return  item
+        }
+      }),
       // 行标识
       rowId: "BillId",
       // 表格标题
@@ -166,7 +175,7 @@ export const OldTableConfig = [
     },
     cpnProps: {
       // 路由名称
-      routeName: "Pr_ProductionSchedule",
+      routeName: "ProductionTaskDetails",
       // 路由路径（名称和路径二选一）
       // routePath:'/dashboard',
       // 路由传参方式 默认query
@@ -242,7 +251,7 @@ export const ObsoleteTableConfig = [
     },
     cpnProps: {
       // 路由名称
-      routeName: "Pr_ProductionSchedule",
+      routeName: "ProductionTaskDetails",
       // 路由路径（名称和路径二选一）
       // routePath:'/dashboard',
       // 路由传参方式 默认query
@@ -305,6 +314,11 @@ export const formSchema1 = [
     label: i18n.t("production.Pr_ProcessInformation"),
     cpn: "FormInput",
   },
+  {
+    prop: "SelectType",
+    hidden: true,
+    default:0,
+  }
   // // 模具编号
   // {
   //   prop: "ToolingNo",

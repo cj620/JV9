@@ -255,6 +255,19 @@
         $t("Generality.Ge_WhetherReleaseSchedulingResults")
       }}</span>
     </JvDialog>
+    <!-- 修改超期工单计划结束时间 -->
+    <JvDialog
+      :title="$t('production.Pr_ModifyPlanEndTime')"
+      :visible.sync="UpdatePlanEndFormVisible"
+      width="30%"
+      @confirm="updatePlanEnd"
+    >
+      <el-date-picker
+          v-model="planData.planEnd"
+          type="date"
+          placeholder="选择日期时间">
+      </el-date-picker>
+    </JvDialog>
   </PageWrapper>
 </template>
 <script>
@@ -265,7 +278,7 @@ import { stateEnum } from "@/enum/workModule";
 // 单据状态组件
 import { do_publish } from "@/api/workApi/production/aps";
 import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
-import { update_is_partake_aps } from "@/api/workApi/production/productionTask"
+import { update_is_partake_aps , update_plan_end } from "@/api/workApi/production/productionTask"
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
 import apsLog from "./components/apsLog";
@@ -292,14 +305,16 @@ export default {
       tableObj: {},
       // 最新发布版本号
       ApsVersionNo: "",
-      // 计算弹窗
+      // 计算
       calculateTimeDialogFormVisible: false,
-      // 提醒是否进行发布弹窗
+      // 计算完成时或离开页面提醒是否进行发布
       releaseDialogFormVisible: false,
-      // 发布日志弹窗
+      // 发布日志
       apsDialogFormVisible: false,
-      // 发布弹窗
+      // 发布
       SchedulingResultsVisible: false,
+      // 超期编辑计划结束时间
+      UpdatePlanEndFormVisible: false,
       // 路由跳转前是否提醒发布
       needOpen: false,
       // 路由信息
@@ -343,6 +358,12 @@ export default {
         width: 570,
         trigger: "hover",
       },
+      // PlanEnd:null,
+      // BillId:null
+      planData: {
+        planEnd:null,
+        billId:null
+      }
     };
   },
   // 路由切换
@@ -545,7 +566,25 @@ export default {
     // 编辑
     obsoleteEdit(val) {
       console.log("val::: ", val);
+	    this.UpdatePlanEndFormVisible = true;
+		  this.planData.planEnd = val.PlanEnd;
+		  this.planData.billId = val.BillId;
     },
+	  // 修改超交期工单计划结束日期
+	  updatePlanEnd(){
+		  this.loading = true;
+		  console.log(this.planData.planEnd ,this.planData.billId);
+		  update_plan_end({BillIds:[this.planData.billId],PlanEnd:this.planData.planEnd }).then(() => {
+			  this.loading = false;
+		  }).catch(() => {
+		    this.loading = false;
+	    });
+		  this.UpdatePlanEndFormVisible = false;
+      this.planData = {
+        planEnd:null,
+        billId:null
+      }
+	  },
     // 总条数切换
     handleSizeChange(pageSize) {
       this.pageSize = pageSize;
@@ -569,7 +608,7 @@ export default {
 		  }).catch(() => {
 			this.loading = false;
 		  });
-    }
+    },
   },
   watch: {
     tableChangeShow(val) {

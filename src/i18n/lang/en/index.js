@@ -836,6 +836,7 @@ const en = {
     Pr_PleaseSelectSchedulingAlgorithms: "Please select scheduling algorithms",
     Pr_MarkAsNormal: "Mark as normal",
     Pr_ReleaseVersionNumber: "Release version number",
+    Pr_ModifyPlanEndTime: "Modify plan end time",
   },
   quality: {
     Qc_CheckResult: "Check result",

@@ -823,6 +823,7 @@ const cn = {
     Pr_PleaseSelectSchedulingAlgorithms: "请选择排程算法",
     Pr_MarkAsNormal: "标记为正常",
     Pr_ReleaseVersionNumber: "发布版本号",
+    Pr_ModifyPlanEndTime: "修改计划结束时间",
   },
   quality: {
     Qc_CheckResult: "检验结果",
