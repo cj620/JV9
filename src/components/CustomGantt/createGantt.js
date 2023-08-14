@@ -20,6 +20,8 @@ export class CreateGantt {
 
     this.popoverInnerHtml = options.popoverInnerHtml;
 
+    this.popoverShow = options.popoverShow;
+
     this.Vue = null;
 
     /** =============================此处用来定义默认值============================= **/
@@ -109,6 +111,7 @@ export class CreateGantt {
         parent.appendChild(taskRef);
 
         taskRef.addEventListener("mouseenter", (e) => {
+          if (!this.popoverShow) return;
           if (this.Components && !this.popoverInnerHtml) {
             this.Vue.$children[0].item = jtem;
           }
@@ -129,7 +132,7 @@ export class CreateGantt {
             popover.style.top = top + "px";
           }
           if (this.popoverInnerHtml && !this.Components) {
-            popover.innerHTML = this.popoverInnerHtml;
+            popover.innerHTML = this.popoverInnerHtml(jtem);
           }
 
           // popover.showPopover()
