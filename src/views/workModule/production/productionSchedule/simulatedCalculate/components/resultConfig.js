@@ -26,7 +26,6 @@ export class Table extends BaseTable {
       // 打印模块标识（需更改）
       printMod: "Pr_ClassicalAlgorithm",
       operationCol: false,
-      height: 675,
     });
   }
 }

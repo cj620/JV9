@@ -10,9 +10,9 @@ export default {
   },
   created() {},
   watch: {
-    item(val) {
-      console.log(val);
-    },
+    // item(val) {
+    //   console.log(val);
+    // },
   },
 };
 </script>

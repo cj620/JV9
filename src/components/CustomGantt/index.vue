@@ -3,28 +3,6 @@
     :style="{ padding: padding + 'px', paddingBottom: 0 }"
     style="width: 100%; position: relative; background: #fff"
   >
-    <!-- <div style="
-		margin-bottom: 10px;
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-		background-color: #fff;
-		padding: 6px 10px;
-        height: 48px;
-		border-radius: 4px;
-		align-items: center;">
-            <div style="display: flex; align-items: center;">
-                <span style="font-size: 14px;">单位：</span>
-                <el-select style="width: 66px;" @change="setGanttZoom" v-model="unitOfTime" placeholder="请选择单位">
-                    <el-option v-for="item in unitOptions" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                </el-select>
-                <slot name="gatHeaderLeft"></slot>
-            </div>
-            <div style="display: flex; align-items: center;">
-                <slot name="gntHeaderRight"></slot>
-            </div>
-        </div> -->
     <!-- 边框线 -->
     <div
       class="custom-border-box"
@@ -90,15 +68,6 @@
           class="date-header-item"
           :style="{ height: tableHeaderHeight / 2 + 'px' }"
         >
-          <!-- <div v-for="index in Object.keys(deferList).length" style="display:flex" v-if="defer(index)">
-                        <div class="date-header-cell"
-                        v-for="(item, i) in TableDateBottomList.slice(deferList[index], deferList[index+1])" :key="i"
-                            :style="{width: gantt.cellWidth+'px'}"
-                            >
-                            {{ item < 10 ? '0'+item : item }}
-                        </div>
-                    </div> -->
-
           <div
             class="date-header-cell"
             v-for="(item, i) in TableDateBottomList"
@@ -219,12 +188,12 @@
 
     <!-- 点击task的表单弹窗 -->
     <JvDialog
-      @confirm="confirm"
+      @confirm="confirm(taskDetail)"
       :title="dialogTitle"
       width="35%"
       :visible.sync="dialogVisible"
     >
-      <JvForm :formObj="formObj"> </JvForm>
+      <slot name="taskDialogSlot" :item="taskDetail"></slot>
     </JvDialog>
   </div>
 </template>
@@ -234,7 +203,6 @@ import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { timeFormat } from "@/jv_doc/utils/time";
 import { getTimeRangeList } from "@/jv_doc/utils/time/getTimeRangeList";
 import { CreateGantt } from "./createGantt";
-import { Form } from "@/jv_doc/class/form";
 import { setBubbleSort } from "./protogenesis.js"; // 引入排序方法
 export default {
   props: {
@@ -302,49 +270,30 @@ export default {
       type: Number,
       default: 0,
     },
+    // task条上的文字
+    taskInnerHtml: {
+      type: Function,
+      default: null,
+    },
     // task悬浮窗组件
     floatingWindow: {
       type: Object,
       default: null,
     },
+    // task悬浮窗字符串模板
     popoverInnerHtml: {
       type: Function,
       default: null,
     },
-    formSchema: {
-      type: Array,
-      default() {
-        return [
-          {
-            prop: "PlanStart",
-            cpn: "SingleDateTime",
-            label: i18n.t("Generality.Ge_PlanStart"),
-            rules: [
-              {
-                required: true,
-                message: i18n.t("Generality.Ge_PleaseEnter"),
-                trigger: ["change", "blur"],
-              },
-            ],
-          },
-          {
-            prop: "PlanEnd",
-            cpn: "SingleDateTime",
-            label: i18n.t("Generality.Ge_PlanEnd"),
-            rules: [
-              {
-                required: true,
-                message: i18n.t("Generality.Ge_PleaseEnter"),
-                trigger: ["change", "blur"],
-              },
-            ],
-          },
-        ];
-      },
+    // taskDialog标题
+    taskDialogTitle: {
+      type: String,
+      default: "Id",
     },
   },
   data() {
     return {
+      taskDetail: null,
       dialogTitle: "",
       formObj: "",
       dialogVisible: false,
@@ -385,15 +334,6 @@ export default {
   },
   created() {
     setBubbleSort(); // 挂载排序方法
-    this.formObj = new Form({
-      formSchema: this.formSchema,
-      baseColProps: {
-        span: 24,
-      },
-      // gutter: 30,
-      labelWidth: "80px",
-    });
-
     // 设置task圆角
     let radius =
       this.taskRadius !== null
@@ -406,20 +346,6 @@ export default {
         return a + b;
       });
 
-    // `
-    //                       <div>${i18n.t("Generality.Ge_ProcessName")}：${
-    //   jtem.Process
-    // }</div>
-    //                       <div>${i18n.t("Generality.Ge_PlanTime")}：${
-    //   jtem.PlanTime
-    // }H</div>
-    //         <div>${i18n.t("production.Pr_PlanningDevices")}：${
-    //   jtem.PlanDevice
-    // }</div>
-    //         <div>${i18n.t("Generality.Ge_PlanStart")}：${jtem._PlanStart}</div>
-    //         <div>${i18n.t("Generality.Ge_PlanEnd")}：${jtem._PlanEnd}</div>
-    //         `
-
     const options = {
       tasksHeight: this.tasksHeight,
       tasksPadding: this.tasksPadding,
@@ -429,6 +355,7 @@ export default {
       popoverShow: !!(this.popoverInnerHtml || this.floatingWindow),
       popoverInnerHtml: this.popoverInnerHtml,
       Component: this.floatingWindow,
+      taskInnerHtml: this.taskInnerHtml,
     };
     this.gantt = new CreateGantt(options);
     this.gantt.setDialogVisible = this.setDialogVisible;
@@ -437,41 +364,26 @@ export default {
   methods: {
     timeFormat,
     imgUrlPlugin,
-    confirm() {
+    confirm(taskDetail) {
+      this.$emit("taskDialogConfrim", taskDetail);
       // 确认
-      console.log(":点击了确认:: ");
     },
+    // 设置task弹窗
     setDialogVisible(data) {
+      this.taskDetail = data;
       // 设置表单弹窗
-      this.dialogTitle = data.Process;
-      Object.keys(this.formObj.form).forEach((item) => {
-        this.formObj.form[item] = data[item];
-      });
+      this.dialogTitle = data[this.taskDialogTitle] || "提示";
+      this.$emit("taskClick", data);
       this.dialogVisible = true;
     },
-
-    // runDisplayPriority(index) {
-    //   const step = () => {
-    //     requestAnimationFrame(() => {
-    //       this.displayPriority++;
-    //       if (this.displayPriority < Object.keys(this.deferList).length) {
-    //         step();
-    //       }
-    //     });
-    //   };
-    //   step();
-    // },
-    //
-    // defer(index) {
-    //   return this.displayPriority > index;
-    // },
+    // 设置时间表头
     setTableDateList() {
       if (this.unitOfTime === "week") {
-        this.cWidth = this.TimeRangeList.dayArr.length * 72;
+        this.cWidth = this.TimeRangeList.dayArr.length * 120;
         this.TableDateTopList = this.TimeRangeList.weekDetails;
         this.TableDateBottomList = this.TimeRangeList.dayArr;
       } else if (this.unitOfTime === "hour") {
-        this.cWidth = this.TimeRangeList.hourArr.length * 48;
+        this.cWidth = this.TimeRangeList.hourArr.length * 72;
         this.TableDateTopList = this.TimeRangeList.dayDetails;
         this.TableDateBottomList = this.TimeRangeList.hourArr;
       } else if (this.unitOfTime === "minute") {
@@ -479,36 +391,38 @@ export default {
         this.TableDateTopList = this.TimeRangeList.hourDetails;
         this.TableDateBottomList = this.TimeRangeList.minuteArr;
       }
-
-      // this.displayPriority = 0;
-      // this.runDisplayPriority(); 白屏优化
     },
     // 切换时间单位
     setGanttZoom(val) {
       this.unitOfTime = val;
       this.gantt.setCellWidth(val); // 先计算cell多长
-      this.setTableDateList(); // 再计算datetable长度
+
       let canvasParent = document.getElementById("canvas_parent");
       this.gantt.removeTask(canvasParent);
       this.gantt.createTask(canvasParent);
 
       // 设置滚动条滚动到当前单位task列表最前面task的位置
-      let left = this.getMaxAndMinTime(this.result.Items, true).firstNode
-        .offsetLeft;
+      let timeObj = this.getMaxAndMinTime(this.result.Items, true);
+      let left = timeObj.firstNode.offsetLeft;
+      this.TimeRangeList = getTimeRangeList(
+        timeObj.MinimumTime,
+        timeObj.MaximumTime
+      );
+      this.setTableDateList(); // 再计算datetable长度
       this.setScrollToLeft(left);
     },
+    // 鼠标悬浮事件（显示task提示高亮）
     hoverHeaderTable(item, idx) {
-      // 鼠标悬浮事件（显示task提示高亮）
       this.clickState = false;
       this.taskHint_Top = this.tasksHeight * idx - this.tasksPadding;
       this.taskHint = true;
     },
+    // 鼠标离开事件
     leaveHeaderTable() {
-      // 鼠标离开事件
       if (!this.clickState) this.taskHint = false;
     },
+    // 鼠标点击事件
     clickHeaderTable(item, idx) {
-      // 鼠标点击事件
       let firstTask = document.getElementById(`custom-task-${item.Id}-0`);
       // this.scrollOffsetLeft = firstTask.offsetLeft;
       this.setScrollToLeft(firstTask.offsetLeft);
@@ -576,6 +490,23 @@ export default {
           }
         });
       });
+      // 判断是否小于14天，如果小于14天 就增加到14天
+      console.log(this.unitOfTime);
+      if (this.unitOfTime === "week") {
+        let rangeDay =
+          (new Date(TimeResult.MaximumTime).getTime() -
+            new Date(TimeResult.MinimumTime).getTime()) /
+          1000 /
+          60 /
+          60 /
+          24;
+        if (Math.round(rangeDay) < 14) {
+          let day = (14 - Math.round(rangeDay)) * 86400000;
+          let res = new Date(TimeResult.MaximumTime).getTime() + day;
+          TimeResult.MaximumTime = timeFormat(res, "yyyy-MM-dd hh:mm:ss");
+        }
+      }
+      console.log(TimeResult.MaximumTime);
       return TimeResult;
     },
   },
@@ -584,7 +515,7 @@ export default {
     result(val) {
       let MaximumTime = this.getMaxAndMinTime(val.Items).MaximumTime;
       let MinimumTime = this.getMaxAndMinTime(val.Items).MinimumTime;
-
+      this.gantt.MinimumTime = MinimumTime;
       // this.gantt.MaximumTime = timeFormat(MaximumTime, 'yyyy-MM-dd hh:mm:ss'); // 赋值 最前面的时间 （起）
       // this.gantt.MinimumTime = timeFormat(MinimumTime, 'yyyy-MM-dd hh:mm:ss'); // 赋值 最后面的时间 （止）
 
@@ -606,7 +537,7 @@ export default {
           }),
         };
       });
-      console.log(this.list);
+      // console.log(this.list);
       this.gantt.tasks = this.list; // 赋值task列表
       this.$nextTick(() => {
         // let canvasParent = document.getElementById('canvas_parent')
