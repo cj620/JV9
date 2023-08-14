@@ -111,7 +111,7 @@ export class CreateGantt {
         parent.appendChild(taskRef);
 
         taskRef.addEventListener("mouseenter", (e) => {
-          if (!this.popoverShow) return;
+          // if (!this.popoverShow) return;
           if (this.Components && !this.popoverInnerHtml) {
             this.Vue.$children[0].item = jtem;
           }

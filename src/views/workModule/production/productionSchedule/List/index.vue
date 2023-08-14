@@ -94,7 +94,6 @@
     <!--甘特图-->
     <div v-show="tableChangeGantt">
       <!--      :popoverInnerHtml="setPopoverInnerHtml"-->
-      <!--      :floatingWindow="floatingWindow"-->
       <CustomGantt
         ref="CustomGantt"
         :columns="GanttColumns"
@@ -102,6 +101,7 @@
         :loading="loading"
         :result="result"
         :padding="10"
+        :floatingWindow="floatingWindow"
         :detailShow="true"
         :popoverOptions="popoverOptions"
         taskRadius="25"
