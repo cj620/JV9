@@ -141,7 +141,7 @@
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
           <template #LastReportingDays="{ record }">
-            <div style="color: red; font-size: 14px; font-weight: bold">
+            <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
             </div></template
           >
@@ -173,7 +173,7 @@
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
           <template #LastReportingDays="{ record }">
-            <div style="color: red; font-size: 14px; font-weight: bold">
+            <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
             </div></template
           >
