@@ -816,7 +816,7 @@ const ja = {
     Pr_PleaseSelectSchedulingAlgorithms:
       "スケジュールアルゴリズムを選択してください",
     Pr_MarkAsNormal: "標準としてマーク",
-    Pr_ReleaseVersionNumber: "リリースバージョン番号",
+    Pr_Version: "バージョン",
     Pr_ModifyPlanEndTime: "計画終了時刻の変更",
   },
   quality: {

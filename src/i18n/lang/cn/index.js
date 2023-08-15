@@ -824,7 +824,7 @@ const cn = {
     Pr_OneClickProcessing: "一键处理",
     Pr_PleaseSelectSchedulingAlgorithms: "请选择排程算法",
     Pr_MarkAsNormal: "标记为正常",
-    Pr_ReleaseVersionNumber: "发布版本号",
+    Pr_Version: "版本",
     Pr_ModifyPlanEndTime: "修改计划结束时间",
   },
   quality: {

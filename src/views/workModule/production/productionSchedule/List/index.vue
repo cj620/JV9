@@ -47,7 +47,7 @@
           }}</el-button>
         </div>
         <div class="apsVersionNo">
-          {{ $t("production.Pr_ReleaseVersionNumber") }}：{{ ApsVersionNo }}
+          {{ $t("production.Pr_Version") }}：{{ ApsVersionNo }}
         </div>
       </div>
       <div class="action-header-right">
@@ -390,7 +390,6 @@ export default {
       },
     };
   },
-  // 路由切换
   beforeRouteLeave(to, from, next) {
     this.toRouteName = to.name;
     // 判断是否需要弹出发布提醒
@@ -479,9 +478,6 @@ export default {
         this.setAlgorithmType(); // 调甘特图获取排程结果接口
       } else {
         this.tableObj.getData();
-        this.tableObj.setCallBack(() => {
-          this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
-        });
       }
     },
     tableChangeFn(val) {
@@ -528,7 +524,6 @@ export default {
       this.calculateTimeDialogFormVisible = false;
       this.tableObj.getData();
       this.tableObj.setCallBack(() => {
-        this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
         this.releaseDialogFormVisible = true;
         this.needOpen = true;
       });
@@ -680,6 +675,11 @@ export default {
         this.ObsoleteTableObj.reset();
       }
     },
+    '$route'(to, from) {
+      if (to.path === '/production/productionSchedule') {
+        this.tableChangeShow ? this.ObsoleteTableObj.reset() : this.oldTableObj.reset()
+      }
+    }
   },
 };
 </script>
