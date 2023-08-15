@@ -30,19 +30,22 @@
             </el-option>
           </el-select>
         </div>
-        <div>
+        <div v-show="tableChangeGantt">
           <el-input
-            v-show="tableChangeGantt"
+            @change="searchChange"
             v-model="partNumberValue"
-            placeholder="请输入零件编号..."
+            :placeholder="$t('Generality.Ge_PleaseEnterkey')"
             prefix-icon="el-icon-search"
             size="mini"
+            clearable
           >
           </el-input>
         </div>
+        <div v-show="tableChangeGantt">
           <el-button size="mini" style="margin-left: 10px" type="primary"
-          >搜索</el-button
+            >搜索</el-button
           >
+        </div>
         <div class="apsVersionNo">{{$t("production.Pr_ReleaseVersionNumber")}}：{{ ApsVersionNo }}</div>
       </div>
       <div class="action-header-right">
@@ -337,8 +340,7 @@ export default {
       apsDialogFormVisible: false,
       // 发布
       SchedulingResultsVisible: false,
-      // 超期编辑计划结束时间
-      UpdatePlanEndFormVisible: false,
+      UpdatePlanEndFormVisible: false,// 超期编辑计划结束时间
       // 路由跳转前是否提醒发布
       needOpen: false,
       // 路由信息
@@ -446,6 +448,9 @@ export default {
     },
   },
   methods: {
+    searchChange() {
+      this.setAlgorithmType();
+    },
     // task弹窗确认事件
     taskDialogConfrim(taskDetail) {
       console.log(taskDetail);
@@ -578,6 +583,7 @@ export default {
         AlgorithmType: this.AlgorithmType,
         CurrentPage: page,
         PageSize: size,
+        Keyword: this.partNumberValue,
         // SortColumn: "PartNo,PlanStart",
         // SortOrder: 1,
       }).then((res) => {
@@ -623,21 +629,6 @@ export default {
 		  this.planData.planEnd = val.PlanEnd;
 		  this.planData.billId = val.BillId;
     },
-	  // 修改超交期工单计划结束日期
-	  updatePlanEnd(){
-		  this.loading = true;
-		  console.log(this.planData.planEnd ,this.planData.billId);
-		  update_plan_end({BillIds:[this.planData.billId],PlanEnd:this.planData.planEnd }).then(() => {
-			  this.loading = false;
-		  }).catch(() => {
-		    this.loading = false;
-	    });
-		  this.UpdatePlanEndFormVisible = false;
-      this.planData = {
-        planEnd:null,
-        billId:null
-      }
-	  },
     // 总条数切换
     handleSizeChange(pageSize) {
       this.pageSize = pageSize;
