@@ -11,7 +11,7 @@
           class="multiple-select"
           v-model="selectedTypes"
           multiple
-          size="small"
+          size="mini"
           style="width: 400px"
         >
           <el-option
@@ -68,8 +68,7 @@
           :name="item.name"
         >
           <div
-            class="simulatedCalculate-page-pane-form"
-            :style="{ height: boxHeight + 'px' }"
+            :style="{ height: boxHeight - 4 + 'px' }"
           >
             <JvTable :table-obj="tableObj"> </JvTable>
           </div>
@@ -195,14 +194,15 @@ export default {
   padding: 6px 10px;
   font-size: 12px;
   background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12),0 0 6px 0 rgba(0, 0, 0, 0.04);
 }
 .pleaseSelect {
   margin-right: 8px;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 800;
 }
 .action-line {
-  margin-left: 20px;
+  margin-left: 8px;
 }
 .simulatedCalculate-page-pane {
   height: 100%;
@@ -217,8 +217,4 @@ export default {
 ::v-deep .el-tabs--border-card > .el-tabs__content {
   padding-top: 0 !important;
 }
-// .simulatedCalculate-page-pane {
-//   height: calc(100vh - 240px);
-//   // height: 600px;
-// }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div style="width: 50%; height: 50%">
     <div class="chart-title">{{ title }}</div>
-    <div class="chart-wrapper">
+    <div class="chart-wrapper" style="height: 90%;border: 2px solid #d3d3d3;">
       <div
         class="chart-description"
         v-if="Object.keys(this.datas).length !== 0"
@@ -93,10 +93,7 @@ export default {
 .chart-title {
   font-size: 16px;
   font-weight: 500;
-}
-.chart-wrapper {
-  height: 100%;
-  border: 2px solid #d3d3d3;
+  margin: 5px 0;
 }
 .chart-description {
   font-size: 14px;

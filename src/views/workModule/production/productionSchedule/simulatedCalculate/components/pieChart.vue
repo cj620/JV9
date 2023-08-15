@@ -95,13 +95,6 @@ export default {
               borderColor: "#fff",
               borderWidth: 2,
             },
-            label: {
-              show: false,
-              position: "center",
-            },
-            labelLine: {
-              show: false,
-            },
           },
         ],
       });
