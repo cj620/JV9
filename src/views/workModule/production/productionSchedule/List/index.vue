@@ -30,19 +30,22 @@
             </el-option>
           </el-select>
         </div>
-        <div>
+        <div v-show="tableChangeGantt">
           <el-input
-            v-show="tableChangeGantt"
+            @change="searchChange"
             v-model="partNumberValue"
-            placeholder="请输入零件编号..."
+            :placeholder="$t('Generality.Ge_PleaseEnterkey')"
             prefix-icon="el-icon-search"
             size="mini"
+            clearable
           >
           </el-input>
         </div>
-        <el-button size="mini" style="margin-left: 10px" type="primary"
-          >搜索</el-button
-        >
+        <div v-show="tableChangeGantt">
+          <el-button size="mini" style="margin-left: 10px" type="primary"
+            >搜索</el-button
+          >
+        </div>
         <div class="apsVersionNo">发布版本号：{{ ApsVersionNo }}</div>
       </div>
       <div class="action-header-right">
@@ -406,6 +409,9 @@ export default {
     },
   },
   methods: {
+    searchChange() {
+      this.setAlgorithmType();
+    },
     // task弹窗确认事件
     taskDialogConfrim(taskDetail) {
       console.log(taskDetail);
@@ -538,6 +544,7 @@ export default {
         AlgorithmType: this.AlgorithmType,
         CurrentPage: page,
         PageSize: size,
+        Keyword: this.partNumberValue,
         // SortColumn: "PartNo,PlanStart",
         // SortOrder: 1,
       }).then((res) => {
