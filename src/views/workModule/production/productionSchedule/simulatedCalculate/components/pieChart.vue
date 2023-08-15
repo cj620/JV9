@@ -1,7 +1,7 @@
 <!--饼图-->
 <template>
-  <div>
-    <div :id="id" :style="{ height: '100%', minHeight: height + 'px' }"></div>
+  <div style="height: 100%">
+    <div :id="id" style="height: 100%"></div>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
     height: {
       type: Number,
       default() {
-        return 260;
+        return 100;
       },
     },
     id: {
