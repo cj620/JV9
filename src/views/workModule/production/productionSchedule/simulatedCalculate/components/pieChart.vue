@@ -1,7 +1,7 @@
 <!--饼图-->
 <template>
-  <div style="height: 100%">
-    <div :id="id" style="height: 100%"></div>
+  <div>
+    <div :id="id" :style="{ height: height + 'px' }"></div>
   </div>
 </template>
 
@@ -99,7 +99,9 @@ export default {
         ],
       });
       window.addEventListener("resize", () => {
-        this.myChart.resize();
+        setTimeout(() => {
+          this.myChart.resize();
+        },101)
       });
     },
   },

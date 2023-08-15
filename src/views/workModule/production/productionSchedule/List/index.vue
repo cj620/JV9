@@ -167,23 +167,28 @@
             </div></template
           >
           <template #btn-list>
-              <el-button size="mini" :disabled="canMark" @click="mark" style="margin-right: 5px">
-                  {{$t('production.Pr_MarkAsNormal')}}
-              </el-button>
-              <el-select
-                  v-model="tableChangeShow"
-                  size="mini"
-                  style="width: 100px"
-                  @change="tableChangeFn"
+            <el-button
+              size="mini"
+              :disabled="canMark"
+              @click="mark"
+              style="margin-right: 5px"
+            >
+              {{ $t("production.Pr_MarkAsNormal") }}
+            </el-button>
+            <el-select
+              v-model="tableChangeShow"
+              size="mini"
+              style="width: 100px"
+              @change="tableChangeFn"
+            >
+              <el-option
+                v-for="item in tableChangeOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
               >
-                  <el-option
-                      v-for="item in tableChangeOptions"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                  >
-                  </el-option>
-              </el-select>
+              </el-option>
+            </el-select>
           </template>
         </JvTable>
       </div>
@@ -340,7 +345,7 @@ export default {
       apsDialogFormVisible: false,
       // 发布
       SchedulingResultsVisible: false,
-      UpdatePlanEndFormVisible: false,// 超期编辑计划结束时间
+      UpdatePlanEndFormVisible: false, // 超期编辑计划结束时间
       // 路由跳转前是否提醒发布
       needOpen: false,
       // 路由信息
@@ -473,7 +478,7 @@ export default {
               <div>${i18n.t("Generality.Ge_PlanEnd")}：${item._PlanEnd}</div>`;
     },
     setTaskInnerHtml(item) {
-      return `${item.Process} + (${item.PlanTime}H) ${item.PlanDevice}`;
+      return `${item.Process}(${item.PlanTime}H) ${item.PlanDevice}`;
     },
     setTableChangeGantt() {
       this.tableChangeGantt = !this.tableChangeGantt;
@@ -634,7 +639,7 @@ export default {
 		  this.loading = true;
 		  update_plan_end({BillIds:[this.planData.billId],PlanEnd:this.planData.planEnd }).then(() => {
 			  this.loading = false;
-        this.tableChangeFn(true)
+		  this.tableChangeFn(true)
 		  }).catch(() => {
 		    this.loading = false;
 	    });

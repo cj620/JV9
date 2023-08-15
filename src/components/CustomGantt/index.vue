@@ -214,7 +214,9 @@ export default {
     // 表头配置
     columns: {
       type: Array,
-      default: [],
+      default: () => {
+        return []
+      },
     },
     // 表格头部的高度
     tableHeaderHeight: {
@@ -249,7 +251,7 @@ export default {
     // 甘特图盒子的高度
     ganttContainerHeight: {
       type: Number,
-      default: 800,
+      default: 650,
     },
     // 是否显示表格每一项的详情展示图标
     detailShow: {
@@ -259,11 +261,13 @@ export default {
     // 详情popover的配置
     popoverOptions: {
       type: Object,
-      default: {
-        placement: "right", // 显示的方位
-        width: 200, // 宽度
-        trigger: "click", // 触发方式
-      },
+      default: () => {
+        return {
+          placement: "right", // 显示的方位
+          width: 200, // 宽度
+          trigger: "click", // 触发方式
+        }
+      }
     },
     // 甘特图盒子的padding值
     padding: {
@@ -340,11 +344,14 @@ export default {
         ? this.taskRadius
         : (this.tasksHeight - this.tasksPadding) / 2;
     // 获取表头宽度
-    this.tableHeaderWidth = this.columns
-      .map((item) => item.width)
-      .reduce((a, b) => {
-        return a + b;
-      });
+    if(this.columns.length) {
+      this.tableHeaderWidth = this.columns
+        .map((item) => item.width)
+        .reduce((a, b) => {
+          return a + b;
+        });
+    }
+
 
     const options = {
       tasksHeight: this.tasksHeight,
@@ -372,7 +379,7 @@ export default {
     setDialogVisible(data) {
       this.taskDetail = data;
       // 设置表单弹窗
-      this.dialogTitle = data[this.taskDialogTitle] || "提示";
+      this.dialogTitle = data[this.taskDialogTitle] + '' || "提示";
       this.$emit("taskClick", data);
       this.dialogVisible = true;
     },
@@ -491,7 +498,6 @@ export default {
         });
       });
       // 判断是否小于14天，如果小于14天 就增加到14天
-      console.log(this.unitOfTime);
       if (this.unitOfTime === "week") {
         let rangeDay =
           (new Date(TimeResult.MaximumTime).getTime() -
@@ -506,7 +512,6 @@ export default {
           TimeResult.MaximumTime = timeFormat(res, "yyyy-MM-dd hh:mm:ss");
         }
       }
-      console.log(TimeResult.MaximumTime);
       return TimeResult;
     },
   },
