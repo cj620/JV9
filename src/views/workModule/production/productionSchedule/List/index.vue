@@ -47,7 +47,7 @@
           }}</el-button>
         </div>
         <div class="apsVersionNo">
-          {{ $t("production.Pr_ReleaseVersionNumber") }}：{{ ApsVersionNo }}
+          {{ $t("production.Pr_Version") }}：{{ ApsVersionNo }}
         </div>
       </div>
       <div class="action-header-right">
@@ -160,6 +160,7 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
+          <template #titleBar><span class="subTitle">总计:{{itemCount}}</span></template>
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -193,6 +194,7 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
+          <template #titleBar><div class="subTitle">总计：{{itemCount}}</div></template>
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -388,9 +390,9 @@ export default {
         planEnd: null,
         billId: null,
       },
+      itemCount:null,
     };
   },
-  // 路由切换
   beforeRouteLeave(to, from, next) {
     this.toRouteName = to.name;
     // 判断是否需要弹出发布提醒
@@ -479,17 +481,20 @@ export default {
         this.setAlgorithmType(); // 调甘特图获取排程结果接口
       } else {
         this.tableObj.getData();
-        this.tableObj.setCallBack(() => {
-          this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
-        });
       }
     },
     tableChangeFn(val) {
       // 创建表格实例
       if (val) {
         this.ObsoleteTableObj.getData();
+        this.ObsoleteTableObj.setCallBack(() => {
+          this.itemCount = this.ObsoleteTableObj.tableData.length
+        });
       } else {
         this.oldTableObj.getData();
+        this.oldTableObj.setCallBack(() => {
+          this.itemCount = this.oldTableObj.tableData.length
+        });
       }
     },
     //删除单据
@@ -528,7 +533,6 @@ export default {
       this.calculateTimeDialogFormVisible = false;
       this.tableObj.getData();
       this.tableObj.setCallBack(() => {
-        this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
         this.releaseDialogFormVisible = true;
         this.needOpen = true;
       });
@@ -621,7 +625,6 @@ export default {
     },
     // 编辑
     obsoleteEdit(val) {
-      console.log("val::: ", val);
       this.UpdatePlanEndFormVisible = true;
       this.planData.planEnd = val.PlanEnd;
       this.planData.billId = val.BillId;
@@ -629,10 +632,9 @@ export default {
 	  // 修改超交期工单计划结束日期
 	  updatePlanEnd(){
 		  this.loading = true;
-		  console.log(this.planData.planEnd ,this.planData.billId);
 		  update_plan_end({BillIds:[this.planData.billId],PlanEnd:this.planData.planEnd }).then(() => {
 			  this.loading = false;
-        this.ObsoleteTableObj.getData()
+        this.tableChangeFn(true)
 		  }).catch(() => {
 		    this.loading = false;
 	    });
@@ -665,7 +667,7 @@ export default {
         BillIds.push(item.BillId)
       })
       update_is_partake_aps({ BillIds } ).then(()=>{
-        this.oldTableObj.getData()
+        this.tableChangeFn(false)
 		  this.loading = false;
 		  }).catch(() => {
 			this.loading = false;
@@ -680,13 +682,24 @@ export default {
         this.ObsoleteTableObj.reset();
       }
     },
+    '$route'(to, from) {
+      if (to.path === '/production/productionSchedule') {
+        console.log('触发');
+        this.tableChangeShow ? this.ObsoleteTableObj.reset() : this.oldTableObj.reset()
+      }
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.subTitle{
+  color: red;
+  text-align: center;
+  margin-left: 10px;
+}
 .c-page-wrapper {
-  // overflow: hidden;
+   overflow: hidden;
 }
 
 .action-header {

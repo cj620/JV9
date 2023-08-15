@@ -95,7 +95,7 @@ const production = [
     Parent: "Pr_Production",
     name: "ProductionSimulatedCalculate",
     path: "productionSimulatedCalculate",
-    title: i18n.t("production.Pr_SimulatedCalculate"),
+    title: i18n.t("production.Pr_SimulatedAPS"),
   },
   // 排程结果
   {
