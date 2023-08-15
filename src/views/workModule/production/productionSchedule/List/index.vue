@@ -166,23 +166,28 @@
             </div></template
           >
           <template #btn-list>
-              <el-button size="mini" :disabled="canMark" @click="mark" style="margin-right: 5px">
-                  {{$t('production.Pr_MarkAsNormal')}}
-              </el-button>
-              <el-select
-                  v-model="tableChangeShow"
-                  size="mini"
-                  style="width: 100px"
-                  @change="tableChangeFn"
+            <el-button
+              size="mini"
+              :disabled="canMark"
+              @click="mark"
+              style="margin-right: 5px"
+            >
+              {{ $t("production.Pr_MarkAsNormal") }}
+            </el-button>
+            <el-select
+              v-model="tableChangeShow"
+              size="mini"
+              style="width: 100px"
+              @change="tableChangeFn"
+            >
+              <el-option
+                v-for="item in tableChangeOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
               >
-                  <el-option
-                      v-for="item in tableChangeOptions"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                  >
-                  </el-option>
-              </el-select>
+              </el-option>
+            </el-select>
           </template>
         </JvTable>
       </div>
@@ -338,7 +343,7 @@ export default {
       apsDialogFormVisible: false,
       // 发布
       SchedulingResultsVisible: false,
-      UpdatePlanEndFormVisible: false,// 超期编辑计划结束时间
+      UpdatePlanEndFormVisible: false, // 超期编辑计划结束时间
       // 路由跳转前是否提醒发布
       needOpen: false,
       // 路由信息
@@ -471,7 +476,7 @@ export default {
               <div>${i18n.t("Generality.Ge_PlanEnd")}：${item._PlanEnd}</div>`;
     },
     setTaskInnerHtml(item) {
-      return `${item.Process} + (${item.PlanTime}H) ${item.PlanDevice}`;
+      return `${item.Process}(${item.PlanTime}H) ${item.PlanDevice}`;
     },
     setTableChangeGantt() {
       this.tableChangeGantt = !this.tableChangeGantt;
@@ -626,17 +631,22 @@ export default {
       this.planData.planEnd = val.PlanEnd;
       this.planData.billId = val.BillId;
     },
-	  // 修改超交期工单计划结束日期
-	  updatePlanEnd(){
-		  this.loading = true;
-		  console.log(this.planData.planEnd ,this.planData.billId);
-		  update_plan_end({BillIds:[this.planData.billId],PlanEnd:this.planData.planEnd }).then(() => {
-			  this.loading = false;
-        this.ObsoleteTableObj.getData()
-		  }).catch(() => {
-		    this.loading = false;
-	    });
-		  this.UpdatePlanEndFormVisible = false;
+    // 修改超交期工单计划结束日期
+    updatePlanEnd() {
+      this.loading = true;
+      console.log(this.planData.planEnd, this.planData.billId);
+      update_plan_end({
+        BillIds: [this.planData.billId],
+        PlanEnd: this.planData.planEnd,
+      })
+        .then(() => {
+          this.loading = false;
+          this.ObsoleteTableObj.getData();
+        })
+        .catch(() => {
+          this.loading = false;
+        });
+      this.UpdatePlanEndFormVisible = false;
       this.planData = {
         planEnd: null,
         billId: null,
@@ -661,15 +671,17 @@ export default {
       this.loading = true;
       let { datas } = this.oldTableObj.selectData;
       let BillIds = [];
-      datas.forEach((item)=>{
-        BillIds.push(item.BillId)
-      })
-      update_is_partake_aps({ BillIds } ).then(()=>{
-        this.oldTableObj.getData()
-		  this.loading = false;
-		  }).catch(() => {
-			this.loading = false;
-		  });
+      datas.forEach((item) => {
+        BillIds.push(item.BillId);
+      });
+      update_is_partake_aps({ BillIds })
+        .then(() => {
+          this.oldTableObj.getData();
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
   },
   watch: {

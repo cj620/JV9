@@ -38,8 +38,8 @@ export default {
   name: "gannt-popover",
   props: {
     item: {
-      type: Array,
-      default: [],
+      type: Object,
+      default: {},
     },
   },
   data() {

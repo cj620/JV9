@@ -98,4 +98,3 @@ export function simulation_calculate(data) {
     data,
   });
 }
-
