@@ -161,16 +161,34 @@
             </div></template
           >
           <template #btn-list>
-            <Action
-              size="mini"
-              slot="btn-list"
-              :actions="[
-                {
-                  label: $t('production.Pr_MarkAsNormal'),
-                  confirm: mark.bind(null),
-                  disabled: canMark
-                }]"
-            >
+            <!--<Action-->
+            <!--  size="mini"-->
+            <!--  slot="btn-list"-->
+            <!--  :actions="[-->
+            <!--    {-->
+            <!--      label: $t('production.Pr_MarkAsNormal'),-->
+            <!--      confirm: mark.bind(null),-->
+            <!--      disabled: canMark-->
+            <!--    }]"-->
+            <!--&gt;-->
+            <!--  <el-select-->
+            <!--    v-model="tableChangeShow"-->
+            <!--    size="mini"-->
+            <!--    style="width: 100px"-->
+            <!--    @change="tableChangeFn"-->
+            <!--  >-->
+            <!--    <el-option-->
+            <!--      v-for="item in tableChangeOptions"-->
+            <!--      :key="item.value"-->
+            <!--      :label="item.label"-->
+            <!--      :value="item.value"-->
+            <!--    >-->
+            <!--    </el-option>-->
+            <!--  </el-select>-->
+            <!--</Action>-->
+              <el-button size="mini" :disabled="canMark" @click="mark" style="margin-right: 5px">
+                {{$t('production.Pr_MarkAsNormal')}}
+              </el-button>
               <el-select
                 v-model="tableChangeShow"
                 size="mini"
@@ -185,7 +203,6 @@
                 >
                 </el-option>
               </el-select>
-            </Action>
           </template>
         </JvTable>
       </div>
@@ -384,8 +401,6 @@ export default {
         width: 570,
         trigger: "hover",
       },
-      // PlanEnd:null,
-      // BillId:null
       planData: {
         planEnd:null,
         billId:null
@@ -486,9 +501,9 @@ export default {
     tableChangeFn(val) {
       // 创建表格实例
       if (val) {
-        this.ObsoleteTableObj.getData({ SelectType: 1 });
+        this.ObsoleteTableObj.getData();
       } else {
-        this.oldTableObj.getData({ SelectType: 0 });
+        this.oldTableObj.getData();
       }
     },
     //删除单据
@@ -599,6 +614,7 @@ export default {
             ? mainContent.clientHeight - 110
             : mainContent.clientHeight / 2 - 110; // 甘特图盒子的高度
         }, 100);
+        this.eTableObj.doLayout();
       };
     },
     // 展开表格
@@ -629,6 +645,7 @@ export default {
 		  console.log(this.planData.planEnd ,this.planData.billId);
 		  update_plan_end({BillIds:[this.planData.billId],PlanEnd:this.planData.planEnd }).then(() => {
 			  this.loading = false;
+        this.ObsoleteTableObj.getData()
 		  }).catch(() => {
 		    this.loading = false;
 	    });
@@ -662,8 +679,9 @@ export default {
       })
       update_is_partake_aps({ BillIds } ).then(()=>{
         this.oldTableObj.getData()
+        this.loading = false;
 		  }).catch(() => {
-			this.loading = false;
+			  this.loading = false;
 		  });
     },
   },

@@ -551,9 +551,9 @@ export default {
 <style scoped lang="scss">
 @import "./custom-gantt.css";
 
-.c-page-wrapper {
-  overflow: hidden;
-}
+//.c-page-wrapper {
+//  overflow: hidden;
+//}
 
 .custom-border-box {
   position: absolute;
