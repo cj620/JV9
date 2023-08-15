@@ -42,7 +42,7 @@ export default {
       return (item) => {
         return (
           item._label &&
-          ![undefined, null].includes(this.formObj.form[item.prop]) &&
+          ![undefined, null, ""].includes(this.formObj.form[item.prop]) &&
           !item.hidden
         );
       };
