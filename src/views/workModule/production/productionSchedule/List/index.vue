@@ -11,7 +11,7 @@
     <div class="action-header">
       <div class="action-header-left">
         <div v-show="tableChangeGantt" style="font-size: 12px; line-height: 0">
-          单位：
+          {{$t("Generality.Ge_Unit")}}：
         </div>
         <div v-show="tableChangeGantt" style="margin-right: 20px">
           <el-select
@@ -46,7 +46,7 @@
             >搜索</el-button
           >
         </div>
-        <div class="apsVersionNo">发布版本号：{{ ApsVersionNo }}</div>
+        <div class="apsVersionNo">{{$t("production.Pr_ReleaseVersionNumber")}}：{{ ApsVersionNo }}</div>
       </div>
       <div class="action-header-right">
         <Action
@@ -159,12 +159,21 @@
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
           <template #LastReportingDays="{ record }">
-            <div style="color: red; font-size: 14px; font-weight: bold">
+            <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
             </div></template
           >
           <template #btn-list>
-            <Action>
+            <Action
+              size="mini"
+              slot="btn-list"
+              :actions="[
+                {
+                  label: $t('production.Pr_MarkAsNormal'),
+                  confirm: mark.bind(null),
+                  disabled: canMark
+                }]"
+            >
               <el-select
                 v-model="tableChangeShow"
                 size="mini"
@@ -191,7 +200,7 @@
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
           <template #LastReportingDays="{ record }">
-            <div style="color: red; font-size: 14px; font-weight: bold">
+            <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
             </div></template
           >
@@ -199,7 +208,7 @@
             <TableAction
               :actions="[
                 {
-                  label: '编辑',
+                  label: $t('Generality.Ge_Edit'),
                   confirm: obsoleteEdit.bind(null, row),
                 },
               ]"
@@ -240,7 +249,7 @@
       v-if="apsDialogFormVisible"
       :visible.sync="apsDialogFormVisible"
     ></apsLog>
-    <!-- 发布提醒弹窗 -->
+    <!-- 提醒是否发布弹窗 -->
     <jv-dialog
       v-if="releaseDialogFormVisible"
       :title="$t('Generality.Ge_Remind')"
@@ -253,7 +262,7 @@
         ApsVersionNo
       }}
     </jv-dialog>
-    <!-- 发布按钮提醒 -->
+    <!-- 发布弹窗 -->
     <JvDialog
       :title="$t('Generality.Ge_Remind')"
       :visible.sync="SchedulingResultsVisible"
@@ -265,6 +274,19 @@
       }}</span>
     </JvDialog>
     <el-backtop target=".c-page-wrapper"></el-backtop>
+      <!-- 修改超期工单计划结束时间 -->
+      <JvDialog
+          :title="$t('production.Pr_ModifyPlanEndTime')"
+          :visible.sync="UpdatePlanEndFormVisible"
+          width="30%"
+          @confirm="updatePlanEnd"
+      >
+          <el-date-picker
+              v-model="planData.planEnd"
+              type="date"
+              placeholder="选择日期时间">
+          </el-date-picker>
+      </JvDialog>
   </PageWrapper>
 </template>
 <script>
@@ -277,12 +299,14 @@ import { stateEnum } from "@/enum/workModule";
 // 单据状态组件
 import { do_publish } from "@/api/workApi/production/aps";
 import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
+import { update_is_partake_aps , update_plan_end } from "@/api/workApi/production/productionTask"
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
 import apsLog from "./components/apsLog";
 import CustomGantt from "@/components/CustomGantt/index.vue";
 import GanttPopover from "./components/gantt-popover.vue";
 import floatingWindow from "./components/floatingWindow.vue";
+import item from "@/layout/components/Sidebar/Item.vue";
 import { Form } from "@/jv_doc/class/form";
 import Action from "~/cpn/JvAction/index.vue";
 export default {
@@ -308,10 +332,16 @@ export default {
       formObj: "",
       // 最新发布版本号
       ApsVersionNo: "",
+      // 计算
       calculateTimeDialogFormVisible: false,
+      // 计算完成时或离开页面提醒是否进行发布
       releaseDialogFormVisible: false,
+      // 发布日志
       apsDialogFormVisible: false,
-      SchedulingResultsVisible: false, // 发布排程结果弹窗
+      // 发布
+      SchedulingResultsVisible: false,
+      // 超期编辑计划结束时间
+      UpdatePlanEndFormVisible: false,
       // 路由跳转前是否提醒发布
       needOpen: false,
       // 路由信息
@@ -333,15 +363,15 @@ export default {
       unitOptions: [
         {
           value: "week",
-          label: "周",
+          label: i18n.t('Generality.Ge_Week'),
         },
         {
           value: "hour",
-          label: "时",
+          label: i18n.t('Generality.Ge__Hour'),
         },
         {
           value: "minute",
-          label: "分",
+          label: i18n.t('Generality.Ge_Minute'),
         },
       ],
       // 默认时间单位
@@ -357,6 +387,12 @@ export default {
         width: 570,
         trigger: "hover",
       },
+      // PlanEnd:null,
+      // BillId:null
+      planData: {
+        planEnd:null,
+        billId:null
+      }
     };
   },
   // 路由切换
@@ -401,6 +437,10 @@ export default {
         return !["Rejected", "Unsubmitted"].includes(item.State);
       });
     },
+    // 是否可以批量标记
+	  canMark() {
+		  return this.oldTableObj.selectData.datas.length === 0;
+	  },
     // 获取按钮状态
     getActionState() {
       return (state, type) => {
@@ -524,7 +564,7 @@ export default {
           this.loading = false;
         });
     },
-    // 发布弹窗取消
+    // 发布弹窗取消，若需跳转其它页面进行跳转
     cancelRelease() {
       this.toRouteName
         ? this.$router.push({
@@ -586,7 +626,25 @@ export default {
     // 编辑
     obsoleteEdit(val) {
       console.log("val::: ", val);
+	    this.UpdatePlanEndFormVisible = true;
+		  this.planData.planEnd = val.PlanEnd;
+		  this.planData.billId = val.BillId;
     },
+	  // 修改超交期工单计划结束日期
+	  updatePlanEnd(){
+		  this.loading = true;
+		  console.log(this.planData.planEnd ,this.planData.billId);
+		  update_plan_end({BillIds:[this.planData.billId],PlanEnd:this.planData.planEnd }).then(() => {
+			  this.loading = false;
+		  }).catch(() => {
+		    this.loading = false;
+	    });
+		  this.UpdatePlanEndFormVisible = false;
+      this.planData = {
+        planEnd:null,
+        billId:null
+      }
+	  },
     // 总条数切换
     handleSizeChange(pageSize) {
       this.pageSize = pageSize;
@@ -600,6 +658,20 @@ export default {
     // 是否发布排程结果
     setSchedulingResultsVisible() {
       this.SchedulingResultsVisible = true;
+    },
+    // 批量标记陈旧工单为正常
+    mark(){
+		  this.loading = true;
+      let { datas } = this.oldTableObj.selectData;
+      let BillIds = [];
+      datas.forEach((item)=>{
+        BillIds.push(item.BillId)
+      })
+      update_is_partake_aps({ BillIds } ).then(()=>{
+        this.oldTableObj.getData()
+		  }).catch(() => {
+			this.loading = false;
+		  });
     },
   },
   watch: {

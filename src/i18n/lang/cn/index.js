@@ -655,6 +655,7 @@ const cn = {
     Ge_InsertImg: "插图",
     Ge_Day: "天",
     Ge_Hour: "小时",
+    Ge__Hour: "时",
     Ge_Minute: "分",
     Ge_Second: "秒",
     Ge_Quarter: "季度",
@@ -820,6 +821,9 @@ const cn = {
     Pr_APSLog: "排程日志",
     Pr_OneClickProcessing: "一键处理",
     Pr_PleaseSelectSchedulingAlgorithms: "请选择排程算法",
+    Pr_MarkAsNormal: "标记为正常",
+    Pr_ReleaseVersionNumber: "发布版本号",
+    Pr_ModifyPlanEndTime: "修改计划结束时间",
   },
   quality: {
     Qc_CheckResult: "检验结果",

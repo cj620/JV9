@@ -656,6 +656,7 @@ const ja = {
     Ge_InsertImg: "さしえ",
     Ge_Day: "日",
     Ge_Hour: "時間",
+    Ge__Hour: "時間",
     Ge_Minute: "分",
     Ge_Second: "秒",
     Ge_Quarter: "四半期",
@@ -814,6 +815,9 @@ const ja = {
     Pr_OneClickProcessing: "ワンクリック処理",
     Pr_PleaseSelectSchedulingAlgorithms:
       "スケジュールアルゴリズムを選択してください",
+    Pr_MarkAsNormal: "標準としてマーク",
+    Pr_ReleaseVersionNumber: "リリースバージョン番号",
+    Pr_ModifyPlanEndTime: "計画終了時刻の変更",
   },
   quality: {
     Qc_CheckResult: "検査結果",
