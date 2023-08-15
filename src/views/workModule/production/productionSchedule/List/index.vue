@@ -702,7 +702,6 @@ export default {
   }
 }
 .apsVersionNo {
-  font-size: 12px;
   display: flex;
   margin-left: 10px;
   white-space: nowrap; /* 取消换行 */

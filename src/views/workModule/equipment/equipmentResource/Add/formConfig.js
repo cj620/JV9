@@ -13,7 +13,7 @@ import {
   enumToList,
 } from "@/enum/workModule";
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
-import { i18n } from "element-ui/lib/locale";
+
 
 // 引入模块API接口
 // import { API as Maintenance_tpl } from "@/api/workApi/equipment/maintenance_tpl";
