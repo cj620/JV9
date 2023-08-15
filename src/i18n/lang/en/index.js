@@ -453,6 +453,8 @@ const en = {
     Ge_ActualTime: "Actual time",
     Ge_PlanTime: "Plan time",
     Ge_OverTime: "Over time",
+    Ge_PlannedTime: "Planned Time",
+    Ge_ActualHour: "Actual Hour",
     Ge_PlanStart: "Plan Start",
     Ge_PlanEnd: "Plan End",
     Ge_Level: "Level",
@@ -731,8 +733,8 @@ const en = {
   },
   //生产
   production: {
-    Pr_StaleWorkOrder : "Stale Work Order",
-    Pr_OverdueWorkOrder : "Overdue Work Order",
+    Pr_StaleWorkOrder: "Stale Work Order",
+    Pr_OverdueWorkOrder: "Overdue Work Order",
     Pr_PleaseEnterPartNumber: "PleaseEnterPartNumber...",
     Pr_Unlabeled: "Unlabeled",
     Pr_Tagged: "Tagged",
@@ -1166,13 +1168,20 @@ const en = {
     Prohibit_skip_station_processes: "Prohibit skip station processes",
     User_web_socket: "User Message Push Configuration",
     User_web_socket_desc: "Does the user accept messages",
-    Create_purchase_request_below_safety_stock:"Create purchase request below safety stock",
-    Aps_ordinary_bill_process_post_time_coefficient: "Aps ordinary bill process post time coefficient",
-    Aps_urgent_bill_process_post_time_coefficient: "Aps urgent bill process post time coefficient",
-    Aps_extra_urgent_bill_process_post_time_coefficient: "Aps extra urgent bill process post time coefficient",
-    Aps_ordinary_bill_process_lead_time_coefficient: "Aps ordinary bill process lead time coefficient",
-    Aps_urgent_bill_process_lead_time_coefficient: "Aps urgent bill process lead time coefficient",
-    Aps_extra_urgent_bill_process_lead_time_coefficient: "Aps extra urgent bill process lead time coefficient",
+    Create_purchase_request_below_safety_stock:
+      "Create purchase request below safety stock",
+    Aps_ordinary_bill_process_post_time_coefficient:
+      "Aps ordinary bill process post time coefficient",
+    Aps_urgent_bill_process_post_time_coefficient:
+      "Aps urgent bill process post time coefficient",
+    Aps_extra_urgent_bill_process_post_time_coefficient:
+      "Aps extra urgent bill process post time coefficient",
+    Aps_ordinary_bill_process_lead_time_coefficient:
+      "Aps ordinary bill process lead time coefficient",
+    Aps_urgent_bill_process_lead_time_coefficient:
+      "Aps urgent bill process lead time coefficient",
+    Aps_extra_urgent_bill_process_lead_time_coefficient:
+      "Aps extra urgent bill process lead time coefficient",
   },
   ...enLocale,
 };
