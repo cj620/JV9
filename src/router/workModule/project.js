@@ -108,7 +108,7 @@ const project = [
     Parent: "Pm_Project",
     name: "ProjectManage_skill_req",
     path: "projectManage_skill_req",
-    title: i18n.t("project.Pro_MoldSpecicication"),
+    title: i18n.t("project.Pro_MoldSpecification"),
     hidden: true,
   },
   // 项目人员和进度

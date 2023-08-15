@@ -184,7 +184,7 @@ const en = {
     Pro_MoldDetails: "Mold details",
     Pro_Task: "Task",
     Pro_FileManagement: "File management",
-    Pro_MoldSpecicication: "Mold specicication",
+    Pro_MoldSpecification: "Mold specicication",
     Pro_ProjectTaskRecord: "Project task record",
     Pro_TheSumOfTheCurrentMonthSettlementProportionAndTheSettledProportionCannotBeGreaterThan1:
       "The sum of the current month's settlement proportion and the settled proportion cannot be greater than 1",
@@ -231,7 +231,7 @@ const en = {
     Active: "Active",
     Deactive: "Deactive",
     PleaseInputNumbers: "Please input numbers",
-    PleaseInputPhoneNumblerWithCorrectFormat:
+    PleaseInputPhoneNumberWithCorrectFormat:
       "Please input phone numbler with correct format",
     SheetToBeAudited: "Sheet to be audited",
     ResultOfAuditing: "Result of auditing",
@@ -423,7 +423,7 @@ const en = {
     Ge_Setup: "Setup",
     Ge_Upload: "Upload",
     Ge_RemarksIsNull: "Remarks is null",
-    Ge_Unsubmitted: "Unsubmitted",
+    Ge_UnSubmitted: "Unsubmitted",
     Ge_Submitted: "Submitted",
     Ge_Approving: "Approving",
     Ge_Approved: "Approved",
@@ -628,7 +628,7 @@ const en = {
     Ge_End: "End",
     Ge_SearchByNumber: "Search by number",
     Ge_FileType: "File type",
-    Ge_SlectFile: "Slect file",
+    Ge_SelectFile: "Slect file",
     Ge_FileSize: "File size",
     Ge_KeyWords: "Key words",
     Ge_PleaseCompleteTheFormAsRequired: "Please complete the form as required",
@@ -824,7 +824,7 @@ const en = {
     Pr_Outside: "Outside",
     Pr_Top: "Top",
     Pr_SwitchDevice: "Change",
-    Pr_PrintbyTooling: "Print By Tooling",
+    Pr_PrintByTooling: "Print By Tooling",
     Pr_SimulatedCalculate: "Simulated Calculation",
     Pr_SimulatedAPS: "Simulated APS",
     Pr_SchedulingAlgorithmSelection: "Scheduling algorithm selection",
@@ -880,7 +880,7 @@ const en = {
     Qc_NormalCheck: "Normal check",
     Qc_FirstInspection: "First inspection",
     Qc_InspectionExemption: "Inspection exemption",
-    Qc_Unreturn: "Unreturn",
+    Qc_UnReturn: "Unreturn",
     Qc_Return: "Return",
   },
   device: {

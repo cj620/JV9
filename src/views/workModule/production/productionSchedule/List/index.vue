@@ -421,7 +421,7 @@ export default {
     this.tableChangeFn(false); // 调陈旧工单接口
   },
   mounted() {
-    this.setGanttContainer();
+    this.setGanttContainer()
   },
   computed: {
     // 是否可以批量删除
@@ -503,7 +503,7 @@ export default {
       this.$router.push({
         name: "Sa_SaleOrder_Add",
         params: { type: "add", title: "addSaleOrder" },
-      });
+      })
     },
     // 监听计算loading
     handleLoading(loading) {

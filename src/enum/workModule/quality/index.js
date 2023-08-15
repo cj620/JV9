@@ -105,7 +105,7 @@ export const CheckResulteEnum = {
 
 export const gageStateEnum = {
   Unreturn: {
-    name: i18n.t("quality.Qc_Unreturn"),
+    name: i18n.t("quality.Qc_UnReturn"),
     value: "Unreturn",
   },
   // 返工

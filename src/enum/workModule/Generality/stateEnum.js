@@ -13,7 +13,7 @@ export default {
   /// 未提交
   /// </summary>
   Unsubmitted: {
-    name: i18n.t("Generality.Ge_Unsubmitted"),
+    name: i18n.t("Generality.Ge_UnSubmitted"),
     value: "Unsubmitted",
     color: "#909399",
     fcolor: "#fff",

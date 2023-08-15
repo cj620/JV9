@@ -41,7 +41,7 @@
                 size="mini"
                 @click="printbyTooling"
                 :disabled="!form.ToolingNo"
-                >{{ $t("production.Pr_PrintbyTooling") }}</el-button
+                >{{ $t("production.Pr_PrintByTooling") }}</el-button
               >
               <el-button size="mini" @click="outsourcingPart">{{
                 $t("production.Pr_PartOutsourcing")

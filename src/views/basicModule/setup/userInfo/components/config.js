@@ -101,7 +101,7 @@ var checkPhone = (rule, value, callback) => {
         callback();
       } else {
         callback(
-          new Error(i18n.t("setup.PleaseInputPhoneNumblerWithCorrectFormat"))
+          new Error(i18n.t("setup.PleaseInputPhoneNumberWithCorrectFormat"))
         );
       }
     }
