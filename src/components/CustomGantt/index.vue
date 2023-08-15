@@ -698,4 +698,15 @@ export default {
   justify-content: end;
   align-items: center;
 }
+::v-deep .el-image {
+  .image-slot {
+    min-width: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e7e7e7;
+    color: #a1a1a1;
+  }
+}
 </style>

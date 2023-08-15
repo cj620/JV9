@@ -448,6 +448,8 @@ const cn = {
     Ge_ActualTime: "实际用时",
     Ge_PlanTime: "预计工时",
     Ge_OverTime: "超时",
+    Ge_PlannedTime: "计划工时",
+    Ge_ActualHour: "实际工时",
     Ge_PlanStart: "计划开始",
     Ge_PlanEnd: "计划结束",
     Ge_Level: "级别",
@@ -719,8 +721,8 @@ const cn = {
   },
   //生产
   production: {
-    Pr_StaleWorkOrder : "陈旧工单",
-    Pr_OverdueWorkOrder : "超期工单",
+    Pr_StaleWorkOrder: "陈旧工单",
+    Pr_OverdueWorkOrder: "超期工单",
     Pr_PleaseEnterPartNumber: "请输入零件编号...",
     Pr_Unlabeled: "未标记",
     Pr_Tagged: "已标记",
@@ -1140,12 +1142,18 @@ const cn = {
     Create_purchase_request_below_safety_stock: "低于安全库存创建采购申请",
     User_web_socket: "用户消息推送配置",
     User_web_socket_desc: "用户是否接受消息",
-    Aps_ordinary_bill_process_post_time_coefficient: "自动排程普通工单工序后置时间系数",
-    Aps_urgent_bill_process_post_time_coefficient: "自动排程紧急工单工序后置时间系数 ",
-    Aps_extra_urgent_bill_process_post_time_coefficient: "自动排程特急工单工序后置时间系数",
-    Aps_ordinary_bill_process_lead_time_coefficient: "自动排程普通工单工序前置时间系数",
-    Aps_urgent_bill_process_lead_time_coefficient: "自动排程紧急工单工序前置时间系数",
-    Aps_extra_urgent_bill_process_lead_time_coefficient: "自动排程特急工单工序前置时间系数",
+    Aps_ordinary_bill_process_post_time_coefficient:
+      "自动排程普通工单工序后置时间系数",
+    Aps_urgent_bill_process_post_time_coefficient:
+      "自动排程紧急工单工序后置时间系数 ",
+    Aps_extra_urgent_bill_process_post_time_coefficient:
+      "自动排程特急工单工序后置时间系数",
+    Aps_ordinary_bill_process_lead_time_coefficient:
+      "自动排程普通工单工序前置时间系数",
+    Aps_urgent_bill_process_lead_time_coefficient:
+      "自动排程紧急工单工序前置时间系数",
+    Aps_extra_urgent_bill_process_lead_time_coefficient:
+      "自动排程特急工单工序前置时间系数",
   },
 
   ...zhLocale,
