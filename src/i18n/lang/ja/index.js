@@ -814,7 +814,7 @@ const ja = {
     Pr_APSLog: "スケジュールログ",
     Pr_OneClickProcessing: "ワンクリック処理",
     Pr_PleaseSelectSchedulingAlgorithms:
-      "スケジュールアルゴリズムを選択してください",
+      "アルゴリズムの選択",
     Pr_MarkAsNormal: "標準としてマーク",
     Pr_Version: "バージョン",
     Pr_ModifyPlanEndTime: "計画終了時刻の変更",

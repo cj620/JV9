@@ -835,7 +835,7 @@ const en = {
     Pr_DoAPS: "Do aps",
     Pr_APSLog: "APS log",
     Pr_OneClickProcessing: "One click processing",
-    Pr_PleaseSelectSchedulingAlgorithms: "Please select scheduling algorithms",
+    Pr_PleaseSelectSchedulingAlgorithms: "Select algorithms",
     Pr_MarkAsNormal: "Mark as normal",
     Pr_Version: "Version",
     Pr_ModifyPlanEndTime: "Modify plan end time",
