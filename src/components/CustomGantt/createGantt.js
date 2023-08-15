@@ -8,7 +8,7 @@ export class CreateGantt {
     /** ============================此处来定义数据=========================== **/
     this.stepSize = 0.05; // 根据当前单位计算每分钟占多少像素
 
-    this.cellWidth = 72;
+    this.cellWidth = 120;
 
     this.taskRadius = options.taskRadius;
 
@@ -16,11 +16,15 @@ export class CreateGantt {
 
     this.setDialogVisible = null;
 
+    this.taskInnerHtml = options.taskInnerHtml;
+
     this.Components = options.Component;
 
     this.popoverInnerHtml = options.popoverInnerHtml;
 
     this.popoverShow = options.popoverShow;
+
+    this.MinimumTime = null;
 
     this.Vue = null;
 
@@ -41,14 +45,14 @@ export class CreateGantt {
   setCellWidth(unit) {
     this.unitOfTime = unit;
     if (this.unitOfTime === "week" || this.unitOfTime === "day") {
-      this.stepSize = 72 / 24 / 60;
-      this.cellWidth = 72;
+      this.cellWidth = 120;
+      this.stepSize = this.cellWidth / 24 / 60;
     } else if (this.unitOfTime === "hour") {
-      this.stepSize = 48 / 60;
-      this.cellWidth = 48;
+      this.cellWidth = 72;
+      this.stepSize = this.cellWidth / 60;
     } else if (this.unitOfTime === "minute") {
-      this.stepSize = 48 / 10;
       this.cellWidth = 48;
+      this.stepSize = this.cellWidth / 10;
     }
   }
   getElementLeft(element) {
@@ -73,11 +77,12 @@ export class CreateGantt {
     popover.style.opacity = 0;
     // popover.setAttribute("popover", "auto");
     // popover.popover = "auto";
+
     this.tasks.forEach((item, i) => {
       item.Data.forEach((jtem, j) => {
-        let year = new Date().getFullYear();
-        let month = new Date().getMonth();
-        let day = new Date().getDate();
+        let year = new Date(this.MinimumTime).getFullYear();
+        let month = new Date(this.MinimumTime).getMonth();
+        let day = new Date(this.MinimumTime).getDate();
         let now =
           year +
           "-" +
@@ -96,8 +101,7 @@ export class CreateGantt {
         let startY = count * this.tasksHeight;
         let height = this.tasksHeight - this.tasksPadding * 2;
         let taskRef = document.createElement("div");
-        taskRef.innerText =
-          jtem.Process + `(${jtem.PlanTime}H) ${jtem.PlanDevice}`;
+        taskRef.innerHTML = this.taskInnerHtml ? this.taskInnerHtml(jtem) : "";
         taskRef.id = "custom-task-" + item.Id + "-" + j;
         taskRef.className = "custom-task custom-task-" + item.Id + "-" + j;
         taskRef.style.left = startX * this.stepSize + "px";
@@ -111,7 +115,7 @@ export class CreateGantt {
         parent.appendChild(taskRef);
 
         taskRef.addEventListener("mouseenter", (e) => {
-          if (!this.popoverShow) return;
+          // if (!this.popoverShow) return;
           if (this.Components && !this.popoverInnerHtml) {
             this.Vue.$children[0].item = jtem;
           }
@@ -180,5 +184,5 @@ export class CreateGantt {
     }
     // parent.innerHTML = ''
   }
-  getTaskDetail(item) {}
+  // getTaskDetail(item) {}
 }

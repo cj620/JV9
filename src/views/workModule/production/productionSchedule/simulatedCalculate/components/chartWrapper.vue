@@ -6,13 +6,12 @@
         class="chart-description"
         v-if="Object.keys(this.datas).length !== 0"
       >
-
         <div>
-         总计{{ datas.TotalCount }}
+          总计{{ datas.TotalCount }}
           <span v-for="(item, index) in description" :key="index">
             {{ WorksheetNum[index] !== 0 ? WorksheetNum[index] + item : "" }}
           </span>
-            <span>计算时间:{{ CreationDate }}</span>
+          <span>计算时间:{{ CreationDate }}</span>
         </div>
       </div>
       <div class="chart-description" v-else>
@@ -94,11 +93,10 @@ export default {
 .chart-title {
   font-size: 16px;
   font-weight: 500;
-  margin: 2% 6% 1% 6%;
 }
 .chart-wrapper {
+  height: 100%;
   border: 2px solid #d3d3d3;
-  margin: 1% 6% 2% 6%;
 }
 .chart-description {
   font-size: 14px;

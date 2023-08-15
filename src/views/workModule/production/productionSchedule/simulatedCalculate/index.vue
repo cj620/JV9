@@ -40,14 +40,16 @@
         type="border-card"
         @tab-click="handleTabClick"
       >
-
         <!-- 排程图表 -->
         <el-tab-pane
           :label="$t('production.Pr_SimulatedAPS')"
           class="simulatedCalculate-page-pane"
           name="SimulatedAPS"
         >
-          <div class="simulatedCalculate-page-charter">
+          <div
+            class="simulatedCalculate-page-charter"
+            :style="{ height: boxHeight + 'px' }"
+          >
             <ChartWrapper
               v-for="item in AlgorithmTypeEnum.getEnums()"
               :key="item.value"
@@ -65,7 +67,10 @@
           :label="item.label"
           :name="item.name"
         >
-          <div class="simulatedCalculate-page-pane-form">
+          <div
+            class="simulatedCalculate-page-pane-form"
+            :style="{ height: boxHeight + 'px' }"
+          >
             <JvTable :table-obj="tableObj"> </JvTable>
           </div>
         </el-tab-pane>
@@ -100,6 +105,7 @@ export default {
       tableObj: {},
       //默认选中标签页
       currentTabName: "SimulatedAPS",
+      boxHeight: 0,
     };
   },
   created() {
@@ -108,6 +114,13 @@ export default {
   },
   mounted() {
     this.getData();
+    let mainContent = document.querySelector(".main-content");
+    this.boxHeight = mainContent.clientHeight - 100;
+    window.onresize = (e) => {
+      this.debounce(() => {
+        this.boxHeight = mainContent.clientHeight - 100;
+      }, 100);
+    };
   },
   computed: {
     // 是否已选择模拟的方法
@@ -116,6 +129,13 @@ export default {
     },
   },
   methods: {
+    // 防抖函数
+    debounce(func, wait) {
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
+      this.timeout = setTimeout(func, wait);
+    },
     handleTabClick() {
       this.currentTabName === "SimulatedAPS"
         ? this.getData()
@@ -163,11 +183,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.c-page-wrapper {
+  overflow: hidden;
+}
 .simulatedCalculate-page-form {
-  height: 32px;
+  height: 40px;
+  box-sizing: border-box;
   margin-bottom: 8px;
   display: flex;
   align-items: center;
+  padding: 6px 10px;
+  font-size: 12px;
+  background: #fff;
 }
 .pleaseSelect {
   margin-right: 8px;
