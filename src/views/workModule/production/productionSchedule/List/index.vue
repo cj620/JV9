@@ -161,31 +161,6 @@
             </div></template
           >
           <template #btn-list>
-            <!--<Action-->
-            <!--  size="mini"-->
-            <!--  slot="btn-list"-->
-            <!--  :actions="[-->
-            <!--    {-->
-            <!--      label: $t('production.Pr_MarkAsNormal'),-->
-            <!--      confirm: mark.bind(null),-->
-            <!--      disabled: canMark-->
-            <!--    }]"-->
-            <!--&gt;-->
-            <!--  <el-select-->
-            <!--    v-model="tableChangeShow"-->
-            <!--    size="mini"-->
-            <!--    style="width: 100px"-->
-            <!--    @change="tableChangeFn"-->
-            <!--  >-->
-            <!--    <el-option-->
-            <!--      v-for="item in tableChangeOptions"-->
-            <!--      :key="item.value"-->
-            <!--      :label="item.label"-->
-            <!--      :value="item.value"-->
-            <!--    >-->
-            <!--    </el-option>-->
-            <!--  </el-select>-->
-            <!--</Action>-->
               <el-button size="mini" :disabled="canMark" @click="mark" style="margin-right: 5px">
                 {{$t('production.Pr_MarkAsNormal')}}
               </el-button>
