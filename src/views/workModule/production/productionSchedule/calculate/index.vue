@@ -127,6 +127,11 @@
           </el-table-column>
           <el-table-column :label="$t('Generality.Ge_BillId')" prop="BillId">
           </el-table-column>
+          <el-table-column :label="$t('Generality.Ge_PhotoUrl')" prop="PhotoUrl">
+              <template slot-scope="scope">
+                  <img :src="imgUrlPlugin(scope.row.PhotoUrl)" class="image">
+              </template>
+          </el-table-column>
           <el-table-column :label="$t('Generality.Ge_PartNo')" prop="PartNo">
           </el-table-column>
           <el-table-column
@@ -184,6 +189,7 @@
 </template>
 
 <script>
+import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import closeTag from "@/utils/closeTag";
 import { LevelEnum, ProcessState } from "@/enum/workModule";
 import editDelivery from "./components/editDelivery";
@@ -240,10 +246,11 @@ export default {
     },
   },
   created() {
-    console.log(this.$route.params.data);
+    console.log(this.$route.params.data,this.$route.params.SchedulingType);
     this.tableData = this.$route.params.data;
   },
   methods: {
+	  imgUrlPlugin,
     add() {},
         //批量修改交期
         editDeliveryDate(){
@@ -288,6 +295,7 @@ export default {
       if (this.multipleSelection.length > 0) {
         const str = {
           StartDate: this.$route.params.time,
+			    SchedulingType: this.$route.params.SchedulingType,
           Append: true,
           BillIds: this.multipleSelection.map((x) => x.BillId),
         };
@@ -322,6 +330,9 @@ export default {
 </script>
 
 <style lang="scss">
+.image{
+  width: 50px;
+}
 .calculate-result {
   background: #fff;
   height: 95%;

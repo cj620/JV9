@@ -612,7 +612,7 @@ export default {
             ? mainContent.clientHeight - 110
             : mainContent.clientHeight / 2 - 110; // 甘特图盒子的高度
         }, 100);
-        this.eTableObj.doLayout();
+        this.tableChangeShow ? this.ObsoleteTableObj.doLayout() : this.oldTableObj.doLayout()
       };
     },
     // 展开表格
@@ -681,6 +681,12 @@ export default {
 		  });
     },
   },
+	activated(){
+	  setTimeout(()=>{
+		this.ObsoleteTableObj.doLayout()
+		this.oldTableObj.doLayout()
+    },100)
+  },
   watch: {
     tableChangeShow(val) {
       if (!val) {
@@ -689,12 +695,6 @@ export default {
         this.ObsoleteTableObj.reset();
       }
     },
-    '$route'(to, from) {
-      if (to.path === '/production/productionSchedule') {
-        console.log('触发');
-        this.tableChangeShow ? this.ObsoleteTableObj.reset() : this.oldTableObj.reset()
-      }
-    }
   },
 };
 </script>
