@@ -184,7 +184,7 @@ const en = {
     Pro_MoldDetails: "Mold details",
     Pro_Task: "Task",
     Pro_FileManagement: "File management",
-    Pro_MoldSpecicication: "Mold specicication",
+    Pro_MoldSpecification: "Mold specicication",
     Pro_ProjectTaskRecord: "Project task record",
     Pro_TheSumOfTheCurrentMonthSettlementProportionAndTheSettledProportionCannotBeGreaterThan1:
       "The sum of the current month's settlement proportion and the settled proportion cannot be greater than 1",
@@ -231,7 +231,7 @@ const en = {
     Active: "Active",
     Deactive: "Deactive",
     PleaseInputNumbers: "Please input numbers",
-    PleaseInputPhoneNumblerWithCorrectFormat:
+    PleaseInputPhoneNumberWithCorrectFormat:
       "Please input phone numbler with correct format",
     SheetToBeAudited: "Sheet to be audited",
     ResultOfAuditing: "Result of auditing",
@@ -423,7 +423,7 @@ const en = {
     Ge_Setup: "Setup",
     Ge_Upload: "Upload",
     Ge_RemarksIsNull: "Remarks is null",
-    Ge_Unsubmitted: "Unsubmitted",
+    Ge_UnSubmitted: "Unsubmitted",
     Ge_Submitted: "Submitted",
     Ge_Approving: "Approving",
     Ge_Approved: "Approved",
@@ -453,6 +453,8 @@ const en = {
     Ge_ActualTime: "Actual time",
     Ge_PlanTime: "Plan time",
     Ge_OverTime: "Over time",
+    Ge_PlannedTime: "Planned Time",
+    Ge_ActualHour: "Actual Hour",
     Ge_PlanStart: "Plan Start",
     Ge_PlanEnd: "Plan End",
     Ge_Level: "Level",
@@ -626,7 +628,7 @@ const en = {
     Ge_End: "End",
     Ge_SearchByNumber: "Search by number",
     Ge_FileType: "File type",
-    Ge_SlectFile: "Slect file",
+    Ge_SelectFile: "Slect file",
     Ge_FileSize: "File size",
     Ge_KeyWords: "Key words",
     Ge_PleaseCompleteTheFormAsRequired: "Please complete the form as required",
@@ -731,8 +733,8 @@ const en = {
   },
   //生产
   production: {
-    Pr_StaleWorkOrder : "Stale Work Order",
-    Pr_OverdueWorkOrder : "Overdue Work Order",
+    Pr_StaleWorkOrder: "Stale Work Order",
+    Pr_OverdueWorkOrder: "Overdue Work Order",
     Pr_PleaseEnterPartNumber: "PleaseEnterPartNumber...",
     Pr_Unlabeled: "Unlabeled",
     Pr_Tagged: "Tagged",
@@ -822,7 +824,7 @@ const en = {
     Pr_Outside: "Outside",
     Pr_Top: "Top",
     Pr_SwitchDevice: "Change",
-    Pr_PrintbyTooling: "Print By Tooling",
+    Pr_PrintByTooling: "Print By Tooling",
     Pr_SimulatedCalculate: "Simulated Calculation",
     Pr_SimulatedAPS: "Simulated APS",
     Pr_SchedulingAlgorithmSelection: "Scheduling algorithm selection",
@@ -833,9 +835,9 @@ const en = {
     Pr_DoAPS: "Do aps",
     Pr_APSLog: "APS log",
     Pr_OneClickProcessing: "One click processing",
-    Pr_PleaseSelectSchedulingAlgorithms: "Please select scheduling algorithms",
+    Pr_PleaseSelectSchedulingAlgorithms: "Select algorithms",
     Pr_MarkAsNormal: "Mark as normal",
-    Pr_ReleaseVersionNumber: "Release version number",
+    Pr_Version: "Version",
     Pr_ModifyPlanEndTime: "Modify plan end time",
   },
   quality: {
@@ -878,7 +880,7 @@ const en = {
     Qc_NormalCheck: "Normal check",
     Qc_FirstInspection: "First inspection",
     Qc_InspectionExemption: "Inspection exemption",
-    Qc_Unreturn: "Unreturn",
+    Qc_UnReturn: "Unreturn",
     Qc_Return: "Return",
   },
   device: {
@@ -1166,13 +1168,20 @@ const en = {
     Prohibit_skip_station_processes: "Prohibit skip station processes",
     User_web_socket: "User Message Push Configuration",
     User_web_socket_desc: "Does the user accept messages",
-    Create_purchase_request_below_safety_stock:"Create purchase request below safety stock",
-    Aps_ordinary_bill_process_post_time_coefficient: "Aps ordinary bill process post time coefficient",
-    Aps_urgent_bill_process_post_time_coefficient: "Aps urgent bill process post time coefficient",
-    Aps_extra_urgent_bill_process_post_time_coefficient: "Aps extra urgent bill process post time coefficient",
-    Aps_ordinary_bill_process_lead_time_coefficient: "Aps ordinary bill process lead time coefficient",
-    Aps_urgent_bill_process_lead_time_coefficient: "Aps urgent bill process lead time coefficient",
-    Aps_extra_urgent_bill_process_lead_time_coefficient: "Aps extra urgent bill process lead time coefficient",
+    Create_purchase_request_below_safety_stock:
+      "Create purchase request below safety stock",
+    Aps_ordinary_bill_process_post_time_coefficient:
+      "Aps ordinary bill process post time coefficient",
+    Aps_urgent_bill_process_post_time_coefficient:
+      "Aps urgent bill process post time coefficient",
+    Aps_extra_urgent_bill_process_post_time_coefficient:
+      "Aps extra urgent bill process post time coefficient",
+    Aps_ordinary_bill_process_lead_time_coefficient:
+      "Aps ordinary bill process lead time coefficient",
+    Aps_urgent_bill_process_lead_time_coefficient:
+      "Aps urgent bill process lead time coefficient",
+    Aps_extra_urgent_bill_process_lead_time_coefficient:
+      "Aps extra urgent bill process lead time coefficient",
   },
   ...enLocale,
 };

@@ -41,7 +41,7 @@
                 size="mini"
                 @click="printbyTooling"
                 :disabled="!form.ToolingNo"
-                >{{ $t("production.Pr_PrintbyTooling") }}</el-button
+                >{{ $t("production.Pr_PrintByTooling") }}</el-button
               >
               <el-button size="mini" @click="outsourcingPart">{{
                 $t("production.Pr_PartOutsourcing")
@@ -322,6 +322,7 @@ export default {
         ToolingNo: "",
         Remarks: "",
         Keyword: "",
+        States: [],
         CustomerName: "",
         StartDate: "",
         EndDate: "",
@@ -384,6 +385,7 @@ export default {
       this.form.ToolingNo = e.ToolingNo;
       this.form.Remarks = e.Remarks;
       this.form.Keyword = e.Keyword;
+      this.form.States = e.States;
       this.form.CurrentPage = 1;
       this.GetData();
     },

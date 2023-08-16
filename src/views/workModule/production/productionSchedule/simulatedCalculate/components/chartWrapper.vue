@@ -1,7 +1,7 @@
 <template>
   <div style="width: 50%; height: 50%">
     <div class="chart-title">{{ title }}</div>
-    <div class="chart-wrapper">
+    <div class="chart-wrapper" :style="{height: boxHeight / 2 - 58.3 + 'px'}">
       <div
         class="chart-description"
         v-if="Object.keys(this.datas).length !== 0"
@@ -17,7 +17,7 @@
       <div class="chart-description" v-else>
         <div>暂无数据</div>
       </div>
-      <PieChart :id="id" :WorksheetNum="WorksheetNum"></PieChart>
+      <PieChart :id="id" :WorksheetNum="WorksheetNum" :height="boxHeight / 2 - 58.3 - 54.2"></PieChart>
     </div>
   </div>
 </template>
@@ -33,6 +33,10 @@ export default {
       default() {
         return null;
       },
+    },
+    boxHeight: {
+      type: Number,
+      default: 0
     },
     datas: {
       type: Object,
@@ -72,6 +76,8 @@ export default {
         this.datas.OverdueCount,
         // 超负荷工单数
         this.datas.OverloadCount,
+        // 异常工单详情
+        this.datas.OverloadBills
       ];
       this.CreationDate = timeFormat(
         this.datas.CreationDate,
@@ -92,19 +98,22 @@ export default {
 <style scoped>
 .chart-title {
   font-size: 16px;
-  font-weight: 500;
-}
-.chart-wrapper {
-  height: 100%;
-  border: 2px solid #d3d3d3;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px 0;
 }
 .chart-description {
   font-size: 14px;
   font-weight: 600;
-  margin-top: 12px;
+  //margin-top: 12px;
   text-align: center;
+  padding: 10px 0;
 }
 .chart-description > div {
   margin-top: 2px;
+}
+.chart-wrapper{
+  border: 1px solid #eee;
+  min-height: 200px;
 }
 </style>

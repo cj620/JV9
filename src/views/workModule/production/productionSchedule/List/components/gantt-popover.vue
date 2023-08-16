@@ -25,22 +25,15 @@
         <JvDetail :detailObj="detailObj"></JvDetail>
       </div>
     </div>
-    <el-table :data="item.Data" height="350">
-      <el-table-column
-        v-for="(column, column_idx) in detailColumn"
-        :key="column_idx"
-        :width="column.width"
-        :property="column.property"
-        :label="column.label"
-      ></el-table-column>
-    </el-table>
+    <JvTable :table-obj="tableObj"> </JvTable>
   </div>
 </template>
 
 <script>
+import { Table } from "@/jv_doc/class/table";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import Detail from "@/jv_doc/class/detail/Detail";
-import { detailConfig } from "./ganttPopoverConfig";
+import { detailConfig, tableConfig } from "./ganttPopoverConfig";
 export default {
   name: "gannt-popover",
   props: {
@@ -51,26 +44,7 @@ export default {
   },
   data() {
     return {
-      // 表格每一项详情表格的column配置
-      detailColumn: [
-        {
-          property: "Process",
-          label: i18n.t("Generality.Ge_ProcessName"),
-        },
-        {
-          width: 80,
-          property: "PlanTime",
-          label: i18n.t("Generality.Ge_PlanTime"),
-        },
-        {
-          property: "_PlanStart",
-          label: i18n.t("Generality.Ge_PlanStart"),
-        },
-        {
-          property: "_PlanEnd",
-          label: i18n.t("Generality.Ge_PlanEnd"),
-        },
-      ],
+      tableObj: {},
     };
   },
   created() {
@@ -80,6 +54,19 @@ export default {
       column: 2,
     });
     this.detailObj.detailData = this.item;
+    console.log(this.item)
+    this.tableObj = new Table({
+      tableSchema: tableConfig,
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: false,
+      height: 500,
+    });
+    this.tableObj.setData(this.item.TaskProcesses);
   },
   methods: {
     imgUrlPlugin,

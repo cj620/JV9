@@ -16,7 +16,7 @@
       <el-form ref="form" label-width="100px" size="mini">
         <el-form-item :label="$t('Generality.Ge_FileName')">
           <div v-if="!fileName" @click="chooseFile" class="choose-file">
-            {{ $t("Generality.Ge_SlectFile") }}
+            {{ $t("Generality.Ge_SelectFile") }}
           </div>
           <div v-else class="file-del">
             {{ fileName }}
@@ -92,8 +92,8 @@ export default {
         const reader = new FileReader();
         reader.onload = (e) => {
 
-         
-          
+
+
           const data = e.target.result;
            console.log(data,69696)
           const workbook = XLSX.read(data, { type: "array" });

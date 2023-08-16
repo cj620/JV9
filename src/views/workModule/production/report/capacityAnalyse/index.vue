@@ -77,7 +77,8 @@ export default {
     init() {
       this.tableObj = new Table();
       this.tableObj.getData();
-    },
+		console.log(this.tableObj)
+	},
     imgUrlPlugin,
     headerClass(e) {
       if (e.columnIndex == 0) return;

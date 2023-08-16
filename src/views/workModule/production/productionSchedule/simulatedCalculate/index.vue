@@ -5,14 +5,14 @@
       <div class="simulatedCalculate-page-form">
         <!-- 算法多选框 -->
         <div class="pleaseSelect">
-          {{ $t("production.Pr_PleaseSelectSchedulingAlgorithms") }}
+          {{ $t("production.Pr_PleaseSelectSchedulingAlgorithms") }}:
         </div>
         <el-select
           class="multiple-select"
           v-model="selectedTypes"
           multiple
-          size="small"
-          style="width: 400px"
+          size="mini"
+          collapse-tags
         >
           <el-option
             v-for="(option, index) in AlgorithmTypeEnum.getEnums()"
@@ -33,48 +33,143 @@
           ]"
         >
         </Action>
+        <el-button icon="el-icon-view" size="mini" @click="setTableChangeGantt">
+          {{GanttView
+          ? $t('Generality.Ge_TabularShow')
+          : $t('Generality.Ge_GanttShow')}}
+        </el-button>
       </div>
       <!-- tab标签 -->
-      <el-tabs
-        v-model="currentTabName"
-        type="border-card"
-        @tab-click="handleTabClick"
-      >
-        <!-- 排程图表 -->
-        <el-tab-pane
-          :label="$t('production.Pr_SimulatedAPS')"
-          class="simulatedCalculate-page-pane"
-          name="SimulatedAPS"
+      <div style="background: #fff">
+        <el-tabs
+          v-model="currentTabName"
+          type="card"
+          @tab-click="handleTabClick"
         >
-          <div
-            class="simulatedCalculate-page-charter"
-            :style="{ height: boxHeight + 'px' }"
+          <!-- 排程图表 -->
+          <el-tab-pane
+            :label="$t('production.Pr_SimulatedAPS')"
+            class="simulatedCalculate-page-pane"
+            name="SimulatedAPS"
           >
-            <ChartWrapper
-              v-for="item in AlgorithmTypeEnum.getEnums()"
-              :key="item.value"
-              :datas="calculatedData[item.value]"
-              :id="item.label"
-            ></ChartWrapper>
-          </div>
-        </el-tab-pane>
+            <div
+              class="simulatedCalculate-page-charter"
+              :style="{ height: boxHeight + 'px' }"
+              v-show="currentTabName === 'SimulatedAPS'"
+            >
+              <ChartWrapper
+                v-for="item in AlgorithmTypeEnum.getEnums()"
+                :key="item.value"
+                :datas="calculatedData[item.value]"
+                :id="item.label"
+                :boxHeight="boxHeight"
+              ></ChartWrapper>
+            </div>
+          </el-tab-pane>
+          <!-- 排程结果 -->
+          <el-tab-pane
+            v-for="(item, i) in AlgorithmTypeEnum.getEnums()"
+            :key="item.name"
+            class="simulatedCalculate-page-pane"
+            :label="item.label"
+            :name="item.name"
+          >
+            <div
+              :style="{ height: boxHeight + 'px' }"
+              style=""
+              v-show="currentTabName !== 'SimulatedAPS'"
+            >
+              <JvTable :table-obj="tableObj" v-show="!GanttView"  v-if="currentTabName === item.name"></JvTable>
+              <div v-if="currentTabName === item.name">
+                <!-- 顶部操作行 -->
+                <div class="action-header">
+                  <div class="action-header-left">
+                    <div
+                      style="font-size: 12px; line-height: 0"
+                    >
+                      {{ $t("Generality.Ge_Unit") }}：
+                    </div>
+                    <div style="margin-right: 20px">
+                      <el-select
+                        v-model="unitOfTime"
+                        placeholder="请选择单位"
+                        size="mini"
+                        style="width: 66px"
+                        @change="setGanttZoom"
+                      >
+                        <el-option
+                          v-for="item in unitOptions"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                        >
+                        </el-option>
+                      </el-select>
+                    </div>
+                    <div>
+                      <el-input
+                        @change="searchChange"
+                        v-model="partNumberValue"
+                        :placeholder="$t('Generality.Ge_PleaseEnterkey')"
+                        prefix-icon="el-icon-search"
+                        size="mini"
+                        clearable
+                      >
+                      </el-input>
+                    </div>
+                    <div>
+                      <el-button size="mini" style="margin-left: 10px" type="primary">{{
+                          $t("Generality.Ge_Search")
+                        }}</el-button>
+                    </div>
+                  </div>
+                  <div class="action-header-right">
+                  </div>
+                </div>
+                <div style="padding: 0 10px">
+                  <CustomGantt
+                    ref="CustomGantt"
+                    v-show="GanttView"
+                    isTaskHover
+                    detailShow
+                    :columns="GanttColumns"
+                    :gantt-container-height="boxHeight-88"
+                    :loading="loading"
+                    :result="result"
+                    :taskInnerHtml="setTaskInnerHtml"
+                    :popoverInnerHtml="setPopoverInnerHtml"
+                    :popoverOptions="{placement: 'right', width: 670, trigger: 'hover',}"
+                  >
+                    <template #popover="{ item }">
+                      <gantt-popover :item="item"></gantt-popover>
+                    </template>
+                  </CustomGantt>
+                  <!-- 分页器 -->
+                  <div class="custom-pagination">
 
-        <!-- 排程结果 -->
-        <el-tab-pane
-          v-for="item in AlgorithmTypeEnum.getEnums()"
-          :key="item.name"
-          class="simulatedCalculate-page-pane"
-          :label="item.label"
-          :name="item.name"
-        >
-          <div
-            class="simulatedCalculate-page-pane-form"
-            :style="{ height: boxHeight + 'px' }"
-          >
-            <JvTable :table-obj="tableObj"> </JvTable>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
+                    <div>
+                    </div>
+
+                    <div class="custom-pagination-box">
+                      <el-pagination
+                        background
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        layout="total, sizes, prev, pager, next"
+                        :page-sizes="[5, 10, 15, 20, 30, 50, 100]"
+                        :page-size="10"
+                        :total="result.Count"
+                      >
+                      </el-pagination>
+                    </div>
+                  </div>
+
+                  </div>
+                </div>
+              </div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
     </div>
   </PageWrapper>
 </template>
@@ -82,30 +177,56 @@
 <script>
 import ChartWrapper from "./components/chartWrapper.vue";
 import { Table } from "./components/resultConfig";
+import {GanttColumns} from './config';
 import { pie_chart } from "@/api/workApi/production/aps";
-import { simulation_calculate } from "@/api/workApi/production/aps";
+import {
+  simulation_calculate,
+  gantt_chart,
+} from "@/api/workApi/production/aps";
 import { AlgorithmTypeEnum } from "@/enum/workModule/production/AlgorithmTypeEnum";
+import GanttPopover from "@/views/workModule/production/productionSchedule/List/components/gantt-popover.vue";
+import CustomGantt from "@/components/CustomGantt/index.vue";
+import Action from "~/cpn/JvAction/index.vue";
 
 export default {
   name: "index",
   components: {
+    Action,
+    CustomGantt,
+    GanttPopover,
     ChartWrapper,
   },
   data() {
     return {
-      // 算法枚举
-      AlgorithmTypeEnum,
-      // 选中算法
-      selectedTypes: [],
-      // chartWrapper接收数据
-      calculatedData: [],
-      // 加载
-      loading: true,
-      // 表格实例
-      tableObj: {},
-      //默认选中标签页
-      currentTabName: "SimulatedAPS",
+      GanttColumns,
+      AlgorithmTypeEnum, // 算法枚举
+      selectedTypes: [], // 选中算法
+      calculatedData: [], // chartWrapper接收数据
+      loading: true, // 加载
+      tableObj: {}, // 表格实例
+      currentTabName: "SimulatedAPS", //默认选中标签页
       boxHeight: 0,
+      tableChangeGantt: false, // 甘特图和表格切换显示隐藏
+      GanttView: true, // 切换甘特图表格显示
+      result: {}, // GANTT
+      unitOptions: [
+        {
+          value: "week",
+          label: i18n.t("Generality.Ge_Week"),
+        },
+        {
+          value: "hour",
+          label: i18n.t("Generality.Ge__Hour"),
+        },
+        {
+          value: "minute",
+          label: i18n.t("Generality.Ge_Minute"),
+        },
+      ],
+      unitOfTime: "hour", // 默认时间单位
+      partNumberValue: '', // 甘特图搜索框
+      pageSize: 10,
+      current: 1,
     };
   },
   created() {
@@ -117,8 +238,16 @@ export default {
     let mainContent = document.querySelector(".main-content");
     this.boxHeight = mainContent.clientHeight - 100;
     window.onresize = (e) => {
+      console.log(e);
       this.debounce(() => {
-        this.boxHeight = mainContent.clientHeight - 100;
+        if(this.currentTabName === "SimulatedAPS") {
+          this.boxHeight = mainContent.clientHeight - 100;
+          this.boxHeight < 400 ? this.boxHeight = 400 : this.boxHeight;
+          mainContent.style.overflowY = 'auto';
+        } else {
+          this.boxHeight = mainContent.clientHeight - 100;
+          mainContent.style.overflowY = 'none';
+        }
       }, 100);
     };
   },
@@ -129,6 +258,65 @@ export default {
     },
   },
   methods: {
+    // 总条数切换
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize;
+      this.setAlgorithmType(this.pageSize, this.current);
+    },
+    // 分页切换
+    handleCurrentChange(current) {
+      this.current = current;
+      this.setAlgorithmType(this.pageSize, this.current);
+    },
+    // task任务条的文本
+    setTaskInnerHtml(item) {
+      return `${item.Process}(${item.PlanTime}H) ${item.PlanDevice}`;
+    },
+    // task悬浮窗的innerHtml
+    setPopoverInnerHtml(item) {
+      return `
+        <div>${i18n.t("Generality.Ge_ProcessName")}：${item.Process}</div>
+        <div>${i18n.t("Generality.Ge_PlanTime")}：${item.PlanTime}H</div>
+        <div>${i18n.t("production.Pr_PlanningDevices")}：${
+        item.PlanDevice
+      }</div>
+              <div>${i18n.t("Generality.Ge_PlanStart")}：${
+        item._PlanStart
+      }</div>
+              <div>${i18n.t("Generality.Ge_PlanEnd")}：${item._PlanEnd}</div>`;
+    },
+    searchChange() { // 搜索
+      this.setAlgorithmType();
+    },
+    // 切换时间
+    setGanttZoom(val) {
+      this.$refs.CustomGantt[0].setGanttZoom(val);
+    },
+    setTableChangeGantt() {
+      this.GanttView = !this.GanttView;
+      if (this.GanttView) {
+        this.setAlgorithmType(); // 调甘特图获取排程结果接口
+      } else {
+        this.postParams();
+      }
+    },
+    // 获取gantt接口
+    setAlgorithmType(size = 10, page = 1) {
+      this.loading = true;
+      gantt_chart({
+        AlgorithmType: this.currentTabName,
+        CurrentPage: page,
+        PageSize: size,
+        Keyword: this.partNumberValue,
+        // SortColumn: "PartNo,PlanStart",
+        // SortOrder: 1,
+      }).then((res) => {
+        this.result = res;
+        this.loading = false;
+      }).catch(err => {
+        this.loading = false;
+      })
+    },
     // 防抖函数
     debounce(func, wait) {
       if (this.timeout) {
@@ -136,16 +324,21 @@ export default {
       }
       this.timeout = setTimeout(func, wait);
     },
-    handleTabClick() {
-      this.currentTabName === "SimulatedAPS"
-        ? this.getData()
-        : this.postParams(this.currentTabName);
+    handleTabClick(tab) {
+      if (this.currentTabName === "SimulatedAPS") {
+        this.getData();
+      } else {
+        if (this.GanttView) {
+          this.setAlgorithmType(); // 调甘特图获取排程结果接口
+        } else {
+          this.postParams();
+        }
+      }
     },
     // 给对应标签页接口传入参
-    postParams(name) {
+    postParams() {
       this.tableObj.getData({
-        Keyword: "",
-        AlgorithmType: name,
+        AlgorithmType: this.currentTabName,
       });
     },
     getData() {
@@ -189,7 +382,6 @@ export default {
 .simulatedCalculate-page-form {
   height: 40px;
   box-sizing: border-box;
-  margin-bottom: 8px;
   display: flex;
   align-items: center;
   padding: 6px 10px;
@@ -198,11 +390,11 @@ export default {
 }
 .pleaseSelect {
   margin-right: 8px;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
+  //font-weight: 800;
 }
 .action-line {
-  margin-left: 20px;
+  margin-left: 8px;
 }
 .simulatedCalculate-page-pane {
   height: 100%;
@@ -213,12 +405,36 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   align-content: space-around;
+  background: #fff;
 }
 ::v-deep .el-tabs--border-card > .el-tabs__content {
-  padding-top: 0 !important;
+  padding: 0;
 }
-// .simulatedCalculate-page-pane {
-//   height: calc(100vh - 240px);
-//   // height: 600px;
-// }
+::v-deep .el-tabs__header{
+  margin: 0;
+}
+.action-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 6px 10px;
+  height: 48px;
+  border-radius: 4px;
+  align-items: center;
+
+  &-left,
+  &-right {
+    display: flex;
+    align-items: center;
+  }
+}
+.custom-pagination {
+  height: 40px;
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 </style>

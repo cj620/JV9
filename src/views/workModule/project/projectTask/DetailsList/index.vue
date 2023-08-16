@@ -40,10 +40,7 @@
             label: $t('Generality.Ge_New'),
             confirm: add,
           },
-          {
-            label: '延期明细',
-            confirm: DelayRecord,
-          },
+
         ]"
       >
       </Action>
@@ -130,12 +127,6 @@ export default {
       getJobRecord({ ItemId: row.Id }).then((res) => {
         this.dialogVisible = true;
         this.jobRecordTableObj.setData(res.Items);
-      });
-    },
-    //延期明细
-    DelayRecord() {
-      this.$router.push({
-        name: "Pm_ProjectTask_DelayDetailList",
       });
     },
     dialogConfirm() {

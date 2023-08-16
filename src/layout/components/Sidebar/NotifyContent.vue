@@ -31,8 +31,6 @@
 <script>
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { timeFormat } from "@/jv_doc/utils/time";
-import { routeToDetail } from "@/jv_doc/utils/system/detailPlugin";
-import { mark_as_read } from "@/api/basicApi/systemSettings/notification";
 export default {
   name: "NotifyContent",
   props: ["FromUser", "SendTime", "Content", "Type", "DynamicData", "Id"],
@@ -74,7 +72,7 @@ export default {
   .user-action {
     margin-top: 5px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
   }
 }

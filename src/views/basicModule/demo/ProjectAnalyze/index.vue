@@ -29,7 +29,7 @@
 import { Table } from "./config";
 import { setCpn, delCpn } from "@/jv_doc/maps/cpnMaps";
 import ColProgress from "./cpns/ColProgress";
-import { imgUrlPlugin } from "@/jv_doc/utils/system/imgUrlPlugin";
+import imgUrlPlugin  from "@/jv_doc/utils/system/imgUrlPlugin";
 import { timeFormat } from "@/jv_doc/utils/time";
 export default {
   name: "list",

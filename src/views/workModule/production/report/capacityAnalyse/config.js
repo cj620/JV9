@@ -68,7 +68,6 @@ export const tableConfig = {
   rowId: "Id",
   title: i18n.t("menu.Pr_CapacityAnalyse"),
   importBar: true,
-  printMod: "sales",
   fullScreenBar: true,
   // 序号列
   sortCol: false,
@@ -90,4 +89,3 @@ export class Table extends BaseTable {
     super(tableConfig);
   }
 }
-

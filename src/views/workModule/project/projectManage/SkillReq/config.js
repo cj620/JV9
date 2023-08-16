@@ -11,7 +11,7 @@ export class EditTable extends BaseTable {
   constructor() {
     super({
       tableSchema: tableConfig,
-      title: i18n.t("project.Pro_MoldSpecicication"),
+      title: i18n.t("project.Pro_MoldSpecification"),
       data: [],
     });
   }

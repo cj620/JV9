@@ -11,7 +11,7 @@
     <div class="action-header">
       <div class="action-header-left">
         <div v-show="tableChangeGantt" style="font-size: 12px; line-height: 0">
-          {{$t("Generality.Ge_Unit")}}：
+          {{ $t("Generality.Ge_Unit") }}：
         </div>
         <div v-show="tableChangeGantt" style="margin-right: 20px">
           <el-select
@@ -30,20 +30,25 @@
             </el-option>
           </el-select>
         </div>
-        <div>
+        <div v-show="tableChangeGantt">
           <el-input
-            v-show="tableChangeGantt"
+            @change="searchChange"
             v-model="partNumberValue"
-            placeholder="请输入零件编号..."
+            :placeholder="$t('Generality.Ge_PleaseEnterkey')"
             prefix-icon="el-icon-search"
             size="mini"
+            clearable
           >
           </el-input>
         </div>
-          <el-button size="mini" style="margin-left: 10px" type="primary"
-          >搜索</el-button
-          >
-        <div class="apsVersionNo">{{$t("production.Pr_ReleaseVersionNumber")}}：{{ ApsVersionNo }}</div>
+        <div v-show="tableChangeGantt">
+          <el-button size="mini" style="margin-left: 10px" type="primary">{{
+            $t("Generality.Ge_Search")
+          }}</el-button>
+        </div>
+        <div class="apsVersionNo">
+          {{ $t("production.Pr_Version") }}：{{ ApsVersionNo }}
+        </div>
       </div>
       <div class="action-header-right">
         <Action
@@ -104,13 +109,15 @@
       <!--      :popoverInnerHtml="setPopoverInnerHtml"-->
       <CustomGantt
         ref="CustomGantt"
+        isTaskClick
+        isTaskHover
+        detailShow
         :columns="GanttColumns"
         :ganttContainerHeight="ganttContainerHeight"
         :loading="loading"
         :result="result"
         :padding="10"
         :floatingWindow="floatingWindow"
-        :detailShow="true"
         :popoverOptions="popoverOptions"
         :taskInnerHtml="setTaskInnerHtml"
         taskDialogTitle="Process"
@@ -155,37 +162,35 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
+          <template #titleBar><span class="subTitle">总计:{{itemCount}}</span></template>
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
             </div></template
           >
           <template #btn-list>
-            <Action
+            <el-button
               size="mini"
-              slot="btn-list"
-              :actions="[
-                {
-                  label: $t('production.Pr_MarkAsNormal'),
-                  confirm: mark.bind(null),
-                  disabled: canMark
-                }]"
+              :disabled="canMark"
+              @click="mark"
+              style="margin-right: 5px"
             >
-              <el-select
-                v-model="tableChangeShow"
-                size="mini"
-                style="width: 100px"
-                @change="tableChangeFn"
+              {{ $t("production.Pr_MarkAsNormal") }}
+            </el-button>
+            <el-select
+              v-model="tableChangeShow"
+              size="mini"
+              style="width: 100px"
+              @change="tableChangeFn"
+            >
+              <el-option
+                v-for="item in tableChangeOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
               >
-                <el-option
-                  v-for="item in tableChangeOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                >
-                </el-option>
-              </el-select>
-            </Action>
+              </el-option>
+            </el-select>
           </template>
         </JvTable>
       </div>
@@ -196,6 +201,7 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
+          <template #titleBar><div class="subTitle">总计：{{itemCount}}</div></template>
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -271,19 +277,20 @@
       }}</span>
     </JvDialog>
     <el-backtop target=".c-page-wrapper"></el-backtop>
-      <!-- 修改超期工单计划结束时间 -->
-      <JvDialog
-          :title="$t('production.Pr_ModifyPlanEndTime')"
-          :visible.sync="UpdatePlanEndFormVisible"
-          width="30%"
-          @confirm="updatePlanEnd"
+    <!-- 修改超期工单计划结束时间 -->
+    <JvDialog
+      :title="$t('production.Pr_ModifyPlanEndTime')"
+      :visible.sync="UpdatePlanEndFormVisible"
+      width="30%"
+      @confirm="updatePlanEnd"
+    >
+      <el-date-picker
+        v-model="planData.planEnd"
+        type="date"
+        placeholder="选择日期时间"
       >
-          <el-date-picker
-              v-model="planData.planEnd"
-              type="date"
-              placeholder="选择日期时间">
-          </el-date-picker>
-      </JvDialog>
+      </el-date-picker>
+    </JvDialog>
   </PageWrapper>
 </template>
 <script>
@@ -296,7 +303,10 @@ import { stateEnum } from "@/enum/workModule";
 // 单据状态组件
 import { do_publish } from "@/api/workApi/production/aps";
 import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
-import { update_is_partake_aps , update_plan_end } from "@/api/workApi/production/productionTask"
+import {
+  update_is_partake_aps,
+  update_plan_end,
+} from "@/api/workApi/production/productionTask";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
 import apsLog from "./components/apsLog";
@@ -337,8 +347,7 @@ export default {
       apsDialogFormVisible: false,
       // 发布
       SchedulingResultsVisible: false,
-      // 超期编辑计划结束时间
-      UpdatePlanEndFormVisible: false,
+      UpdatePlanEndFormVisible: false, // 超期编辑计划结束时间
       // 路由跳转前是否提醒发布
       needOpen: false,
       // 路由信息
@@ -360,15 +369,15 @@ export default {
       unitOptions: [
         {
           value: "week",
-          label: i18n.t('Generality.Ge_Week'),
+          label: i18n.t("Generality.Ge_Week"),
         },
         {
           value: "hour",
-          label: i18n.t('Generality.Ge__Hour'),
+          label: i18n.t("Generality.Ge__Hour"),
         },
         {
           value: "minute",
-          label: i18n.t('Generality.Ge_Minute'),
+          label: i18n.t("Generality.Ge_Minute"),
         },
       ],
       // 默认时间单位
@@ -381,18 +390,16 @@ export default {
       ],
       popoverOptions: {
         placement: "right",
-        width: 570,
+        width: 670,
         trigger: "hover",
       },
-      // PlanEnd:null,
-      // BillId:null
       planData: {
-        planEnd:null,
-        billId:null
-      }
+        planEnd: null,
+        billId: null,
+      },
+      itemCount:null,
     };
   },
-  // 路由切换
   beforeRouteLeave(to, from, next) {
     this.toRouteName = to.name;
     // 判断是否需要弹出发布提醒
@@ -423,7 +430,7 @@ export default {
     this.tableChangeFn(false); // 调陈旧工单接口
   },
   mounted() {
-    this.setGanttContainer();
+    this.setGanttContainer()
   },
   computed: {
     // 是否可以批量删除
@@ -435,9 +442,9 @@ export default {
       });
     },
     // 是否可以批量标记
-	  canMark() {
-		  return this.oldTableObj.selectData.datas.length === 0;
-	  },
+    canMark() {
+      return this.oldTableObj.selectData.datas.length === 0;
+    },
     // 获取按钮状态
     getActionState() {
       return (state, type) => {
@@ -446,6 +453,9 @@ export default {
     },
   },
   methods: {
+    searchChange() {
+      this.setAlgorithmType();
+    },
     // task弹窗确认事件
     taskDialogConfrim(taskDetail) {
       console.log(taskDetail);
@@ -470,7 +480,7 @@ export default {
               <div>${i18n.t("Generality.Ge_PlanEnd")}：${item._PlanEnd}</div>`;
     },
     setTaskInnerHtml(item) {
-      return `${item.Process} + (${item.PlanTime}H) ${item.PlanDevice}`;
+      return `${item.Process}(${item.PlanTime}H) ${item.PlanDevice}`;
     },
     setTableChangeGantt() {
       this.tableChangeGantt = !this.tableChangeGantt;
@@ -478,17 +488,20 @@ export default {
         this.setAlgorithmType(); // 调甘特图获取排程结果接口
       } else {
         this.tableObj.getData();
-        this.tableObj.setCallBack(() => {
-          this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
-        });
       }
     },
     tableChangeFn(val) {
       // 创建表格实例
       if (val) {
-        this.ObsoleteTableObj.getData({ SelectType: 1 });
+        this.ObsoleteTableObj.getData();
+        this.ObsoleteTableObj.setCallBack(() => {
+          this.itemCount = this.ObsoleteTableObj.tableData.length
+        });
       } else {
-        this.oldTableObj.getData({ SelectType: 0 });
+        this.oldTableObj.getData();
+        this.oldTableObj.setCallBack(() => {
+          this.itemCount = this.oldTableObj.tableData.length
+        });
       }
     },
     //删除单据
@@ -502,7 +515,7 @@ export default {
       this.$router.push({
         name: "Sa_SaleOrder_Add",
         params: { type: "add", title: "addSaleOrder" },
-      });
+      })
     },
     // 监听计算loading
     handleLoading(loading) {
@@ -527,7 +540,6 @@ export default {
       this.calculateTimeDialogFormVisible = false;
       this.tableObj.getData();
       this.tableObj.setCallBack(() => {
-        this.ApsVersionNo = this.tableObj.tableData[0].ApsVersionNo;
         this.releaseDialogFormVisible = true;
         this.needOpen = true;
       });
@@ -578,6 +590,7 @@ export default {
         AlgorithmType: this.AlgorithmType,
         CurrentPage: page,
         PageSize: size,
+        Keyword: this.partNumberValue,
         // SortColumn: "PartNo,PlanStart",
         // SortOrder: 1,
       }).then((res) => {
@@ -599,6 +612,7 @@ export default {
             ? mainContent.clientHeight - 110
             : mainContent.clientHeight / 2 - 110; // 甘特图盒子的高度
         }, 100);
+        this.tableChangeShow ? this.ObsoleteTableObj.doLayout() : this.oldTableObj.doLayout()
       };
     },
     // 展开表格
@@ -618,26 +632,25 @@ export default {
     },
     // 编辑
     obsoleteEdit(val) {
-      console.log("val::: ", val);
-	    this.UpdatePlanEndFormVisible = true;
-		  this.planData.planEnd = val.PlanEnd;
-		  this.planData.billId = val.BillId;
+      this.UpdatePlanEndFormVisible = true;
+      this.planData.planEnd = val.PlanEnd;
+      this.planData.billId = val.BillId;
     },
 	  // 修改超交期工单计划结束日期
 	  updatePlanEnd(){
 		  this.loading = true;
-		  console.log(this.planData.planEnd ,this.planData.billId);
 		  update_plan_end({BillIds:[this.planData.billId],PlanEnd:this.planData.planEnd }).then(() => {
 			  this.loading = false;
+		  this.tableChangeFn(true)
 		  }).catch(() => {
 		    this.loading = false;
 	    });
 		  this.UpdatePlanEndFormVisible = false;
       this.planData = {
-        planEnd:null,
-        billId:null
-      }
-	  },
+        planEnd: null,
+        billId: null,
+      };
+    },
     // 总条数切换
     handleSizeChange(pageSize) {
       this.pageSize = pageSize;
@@ -653,19 +666,26 @@ export default {
       this.SchedulingResultsVisible = true;
     },
     // 批量标记陈旧工单为正常
-    mark(){
-		  this.loading = true;
+    mark() {
+      this.loading = true;
       let { datas } = this.oldTableObj.selectData;
       let BillIds = [];
       datas.forEach((item)=>{
         BillIds.push(item.BillId)
       })
       update_is_partake_aps({ BillIds } ).then(()=>{
-        this.oldTableObj.getData()
+        this.tableChangeFn(false)
+		  this.loading = false;
 		  }).catch(() => {
 			this.loading = false;
 		  });
     },
+  },
+	activated(){
+	  setTimeout(()=>{
+		this.ObsoleteTableObj.doLayout()
+		this.oldTableObj.doLayout()
+    },100)
   },
   watch: {
     tableChangeShow(val) {
@@ -680,8 +700,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.subTitle{
+  color: red;
+  text-align: center;
+  margin-left: 10px;
+}
 .c-page-wrapper {
-  // overflow: hidden;
+   //overflow: hidden;
 }
 
 .action-header {
@@ -702,7 +727,6 @@ export default {
   }
 }
 .apsVersionNo {
-  font-size: 12px;
   display: flex;
   margin-left: 10px;
   white-space: nowrap; /* 取消换行 */

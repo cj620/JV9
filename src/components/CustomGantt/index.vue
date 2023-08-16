@@ -110,16 +110,16 @@
       >
         <div
           v-for="(item, i) in list"
-          :key="item.Id"
+          :key="item.BillId"
           class="header-table-item"
-          :style="{ width: '100%', height: tasksHeight + 'px' }"
+          :style="{ width: '100%', height: tableItemHeight + 'px',background: headerTableIdx === i ? 'rgba(42, 155, 241,.2)': '' }"
           @mouseenter="hoverHeaderTable(item, i)"
           @mouseleave="leaveHeaderTable"
           @click="clickHeaderTable(item, i)"
         >
           <div
             class="header-table-item-box"
-            :style="{ height: tasksHeight - tasksPadding * 2 + 'px' }"
+            :style="{ height: tableItemHeight - tableItemPadding * 2 + 'px' }"
           >
             <el-popover
               :placement="popoverOptions.placement"
@@ -141,12 +141,12 @@
               :key="jtem.name"
               :style="{
                 width: jtem.width + 'px',
-                height: tasksHeight - tasksPadding * 2 + 'px',
+                height: tableItemHeight - tableItemPadding * 2 + 'px',
               }"
             >
               <span v-if="jtem.name === 'PhotoUrl'">
                 <el-image
-                  :style="{ height: tasksHeight - tasksPadding * 2 - 4 + 'px' }"
+                  :style="{ height: tableItemHeight - tableItemPadding * 2 - 4 + 'px' }"
                   :preview-src-list="[imgUrlPlugin(item[jtem.name])]"
                   :src="imgUrlPlugin(item[jtem.name])"
                 >
@@ -174,14 +174,19 @@
           width: cWidth + 'px',
           left:
             tableHeaderWidth + 40 + (detailShow ? detailIconWidth : 0) + 'px',
-          top: tableHeaderHeight + tasksPadding + 'px',
+          top: tableHeaderHeight + tableItemPadding + 'px',
         }"
       >
         <!-- <canvas></canvas> -->
         <div
           v-show="taskHint"
           class="task-hint"
-          :style="{ height: tasksHeight + 'px', top: taskHint_Top + 'px' }"
+          :style="{ height: tableItemHeight + 'px', top: taskHint_Top + 'px' }"
+        ></div>
+        <div
+          v-show="clickTaskHint"
+          class="task-hint"
+          :style="{ height: tableItemHeight + 'px', top: clickTaskHint_Top + 'px' }"
         ></div>
       </div>
     </div>
@@ -214,20 +219,27 @@ export default {
     // 表头配置
     columns: {
       type: Array,
-      default: [],
+      default: () => {
+        return []
+      },
     },
     // 表格头部的高度
     tableHeaderHeight: {
       type: Number,
       default: 50,
     },
-    // 任务条高度
-    tasksHeight: {
+    // table每一项的高度
+    tableItemHeight: {
       type: Number,
       default: 54,
     },
-    // 任务条padding值
-    tasksPadding: {
+    // 任务条高度
+    taskHeight: {
+      type: Number,
+      default: 30,
+    },
+    // 表格每一项的padding值
+    tableItemPadding: {
       type: Number,
       default: 8,
     },
@@ -249,7 +261,7 @@ export default {
     // 甘特图盒子的高度
     ganttContainerHeight: {
       type: Number,
-      default: 800,
+      default: 650,
     },
     // 是否显示表格每一项的详情展示图标
     detailShow: {
@@ -259,11 +271,13 @@ export default {
     // 详情popover的配置
     popoverOptions: {
       type: Object,
-      default: {
-        placement: "right", // 显示的方位
-        width: 200, // 宽度
-        trigger: "click", // 触发方式
-      },
+      default: () => {
+        return {
+          placement: "right", // 显示的方位
+          width: 200, // 宽度
+          trigger: "click", // 触发方式
+        }
+      }
     },
     // 甘特图盒子的padding值
     padding: {
@@ -274,6 +288,16 @@ export default {
     taskInnerHtml: {
       type: Function,
       default: null,
+    },
+    // task是否可以hover
+    isTaskHover: {
+      type: Boolean,
+      default: false,
+    },
+    // task是否可以被点击
+    isTaskClick: {
+      type: Boolean,
+      default: false,
     },
     // task悬浮窗组件
     floatingWindow: {
@@ -327,7 +351,10 @@ export default {
       pageSize: 10,
       current: 1,
       taskHint: false, // 显示鼠标悬浮table时候task高亮
+      clickTaskHint: false, // 点击之后
       taskHint_Top: 0, // 计算哪一行task高亮
+      headerTableIdx: null,
+      clickTaskHint_Top: 0,
       clickState: false, // 鼠标是否点击table的状态，如果点击了 鼠标移开的时候 不隐藏task高亮。 只有当鼠标悬浮到别的item上面才会重置状态
       // scrollOffsetLeft: 0,
     };
@@ -338,17 +365,22 @@ export default {
     let radius =
       this.taskRadius !== null
         ? this.taskRadius
-        : (this.tasksHeight - this.tasksPadding) / 2;
+        : this.taskHeight / 2;
     // 获取表头宽度
-    this.tableHeaderWidth = this.columns
-      .map((item) => item.width)
-      .reduce((a, b) => {
-        return a + b;
-      });
+    if(this.columns.length) {
+      this.tableHeaderWidth = this.columns
+        .map((item) => item.width)
+        .reduce((a, b) => {
+          return a + b;
+        });
+    }
+
 
     const options = {
-      tasksHeight: this.tasksHeight,
-      tasksPadding: this.tasksPadding,
+      isTaskHover: this.isTaskHover,
+      tableItemHeight: this.tableItemHeight,
+      taskHeight: this.taskHeight,
+      tableItemPadding: this.tableItemPadding,
       unitOfTime: this.unitOfTime,
       taskRadius: radius,
       tableHeaderWidth: this.tableHeaderWidth,
@@ -370,9 +402,10 @@ export default {
     },
     // 设置task弹窗
     setDialogVisible(data) {
+      if(!this.isTaskClick) return
       this.taskDetail = data;
       // 设置表单弹窗
-      this.dialogTitle = data[this.taskDialogTitle] || "提示";
+      this.dialogTitle = data[this.taskDialogTitle] + '' || "提示";
       this.$emit("taskClick", data);
       this.dialogVisible = true;
     },
@@ -413,20 +446,24 @@ export default {
     },
     // 鼠标悬浮事件（显示task提示高亮）
     hoverHeaderTable(item, idx) {
-      this.clickState = false;
-      this.taskHint_Top = this.tasksHeight * idx - this.tasksPadding;
+      // this.clickState = false;
+      this.taskHint_Top = this.tableItemHeight * idx - this.tableItemPadding;
       this.taskHint = true;
     },
     // 鼠标离开事件
     leaveHeaderTable() {
-      if (!this.clickState) this.taskHint = false;
+      this.taskHint = false;
     },
     // 鼠标点击事件
     clickHeaderTable(item, idx) {
+      this.headerTableIdx = idx;
+      this.clickTaskHint_Top = this.tableItemHeight * idx - this.tableItemPadding;
+      this.clickTaskHint = true; // task提示高亮显示
       let firstTask = document.getElementById(`custom-task-${item.Id}-0`);
+
       // this.scrollOffsetLeft = firstTask.offsetLeft;
       this.setScrollToLeft(firstTask.offsetLeft);
-      this.clickState = true;
+      // this.clickState = true;
     },
     // 设置滚动条滚动到当前行第一个task
     setScrollToLeft(offsetLeft) {
@@ -491,7 +528,6 @@ export default {
         });
       });
       // 判断是否小于14天，如果小于14天 就增加到14天
-      console.log(this.unitOfTime);
       if (this.unitOfTime === "week") {
         let rangeDay =
           (new Date(TimeResult.MaximumTime).getTime() -
@@ -506,7 +542,6 @@ export default {
           TimeResult.MaximumTime = timeFormat(res, "yyyy-MM-dd hh:mm:ss");
         }
       }
-      console.log(TimeResult.MaximumTime);
       return TimeResult;
     },
   },
@@ -551,9 +586,9 @@ export default {
 <style scoped lang="scss">
 @import "./custom-gantt.css";
 
-.c-page-wrapper {
-  overflow: hidden;
-}
+//.c-page-wrapper {
+//  overflow: hidden;
+//}
 
 .custom-border-box {
   position: absolute;
@@ -695,7 +730,18 @@ export default {
 .detail-style {
   height: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
+}
+::v-deep .el-image {
+  .image-slot {
+    min-width: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e7e7e7;
+    color: #a1a1a1;
+  }
 }
 </style>

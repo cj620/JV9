@@ -102,7 +102,7 @@ export const formSchema = [
       list: [
         {
           value: "Unsubmitted",
-          label: i18n.t("Generality.Ge_Unsubmitted"),
+          label: i18n.t("Generality.Ge_UnSubmitted"),
         },
         {
           value: "Submitted",

@@ -93,6 +93,6 @@ export default {
 <style scoped lang="scss">
 .tab-wrapper {
   background-color: #f4f4f4;
-  min-height: calc(100vh - 170px);
+  height: calc(100vh - 170px);
 }
 </style>

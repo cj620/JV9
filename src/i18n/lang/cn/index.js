@@ -170,7 +170,7 @@ const cn = {
     Pro_MoldDetails: "模具明细",
     Pro_Task: "任务",
     Pro_FileManagement: "文件管理",
-    Pro_MoldSpecicication: "模具技术要求",
+    Pro_MoldSpecification: "模具技术要求",
     Pro_ProjectTaskRecord: "项目任务记录",
     Pro_TheSumOfTheCurrentMonthSettlementProportionAndTheSettledProportionCannotBeGreaterThan1:
       "本月结算比例与已结算比例的和不能大于1",
@@ -218,7 +218,7 @@ const cn = {
     Active: "已激活",
     Deactive: "未激活",
     PleaseInputNumbers: "请输入数字值",
-    PleaseInputPhoneNumblerWithCorrectFormat: "请输入正确的手机号码",
+    PleaseInputPhoneNumberWithCorrectFormat: "请输入正确的手机号码",
     SheetToBeAudited: "待审单据",
     ResultOfAuditing: "审核结果",
     AuditTime: "审核时间",
@@ -417,7 +417,7 @@ const cn = {
     Ge_Setup: "配置",
     Ge_Upload: "上传",
     Ge_RemarksIsNull: "暂无备注",
-    Ge_Unsubmitted: "未提交",
+    Ge_UnSubmitted: "未提交",
     Ge_Submitted: "已提交",
     Ge_Approving: "审核中",
     Ge_Approved: "已审核 ",
@@ -448,6 +448,8 @@ const cn = {
     Ge_ActualTime: "实际用时",
     Ge_PlanTime: "预计工时",
     Ge_OverTime: "超时",
+    Ge_PlannedTime: "计划工时",
+    Ge_ActualHour: "实际工时",
     Ge_PlanStart: "计划开始",
     Ge_PlanEnd: "计划结束",
     Ge_Level: "级别",
@@ -622,7 +624,7 @@ const cn = {
     Ge_End: "结束",
     Ge_SearchByNumber: "根据编号搜索",
     Ge_FileType: "文件类型",
-    Ge_SlectFile: "选择文件",
+    Ge_SelectFile: "选择文件",
     Ge_FileSize: "文件大小",
     Ge_KeyWords: "关键字",
     Ge_PleaseCompleteTheFormAsRequired: "请按要求完成表单",
@@ -719,8 +721,8 @@ const cn = {
   },
   //生产
   production: {
-    Pr_StaleWorkOrder : "陈旧工单",
-    Pr_OverdueWorkOrder : "超期工单",
+    Pr_StaleWorkOrder: "陈旧工单",
+    Pr_OverdueWorkOrder: "超期工单",
     Pr_PleaseEnterPartNumber: "请输入零件编号...",
     Pr_Unlabeled: "未标记",
     Pr_Tagged: "已标记",
@@ -809,7 +811,7 @@ const cn = {
     Pr_Outside: "厂外",
     Pr_Top: "置顶",
     Pr_SwitchDevice: "切换设备",
-    Pr_PrintbyTooling: "按模号打印",
+    Pr_PrintByTooling: "按模号打印",
     Pr_SimulatedCalculate: "模拟计算",
     Pr_SimulatedAPS: "模拟排程",
     Pr_SchedulingAlgorithmSelection: "排程算法选择",
@@ -820,9 +822,9 @@ const cn = {
     Pr_DoAPS: "计算排程",
     Pr_APSLog: "排程日志",
     Pr_OneClickProcessing: "一键处理",
-    Pr_PleaseSelectSchedulingAlgorithms: "请选择排程算法",
+    Pr_PleaseSelectSchedulingAlgorithms: "选择算法",
     Pr_MarkAsNormal: "标记为正常",
-    Pr_ReleaseVersionNumber: "发布版本号",
+    Pr_Version: "版本",
     Pr_ModifyPlanEndTime: "修改计划结束时间",
   },
   quality: {
@@ -863,7 +865,7 @@ const cn = {
     Qc_NormalCheck: "巡检",
     Qc_FirstInspection: "首检",
     Qc_InspectionExemption: "免检",
-    Qc_Unreturn: "未归还",
+    Qc_UnReturn: "未归还",
     Qc_Return: "归还",
   },
   device: {
@@ -1140,12 +1142,18 @@ const cn = {
     Create_purchase_request_below_safety_stock: "低于安全库存创建采购申请",
     User_web_socket: "用户消息推送配置",
     User_web_socket_desc: "用户是否接受消息",
-    Aps_ordinary_bill_process_post_time_coefficient: "自动排程普通工单工序后置时间系数",
-    Aps_urgent_bill_process_post_time_coefficient: "自动排程紧急工单工序后置时间系数 ",
-    Aps_extra_urgent_bill_process_post_time_coefficient: "自动排程特急工单工序后置时间系数",
-    Aps_ordinary_bill_process_lead_time_coefficient: "自动排程普通工单工序前置时间系数",
-    Aps_urgent_bill_process_lead_time_coefficient: "自动排程紧急工单工序前置时间系数",
-    Aps_extra_urgent_bill_process_lead_time_coefficient: "自动排程特急工单工序前置时间系数",
+    Aps_ordinary_bill_process_post_time_coefficient:
+      "自动排程普通工单工序后置时间系数",
+    Aps_urgent_bill_process_post_time_coefficient:
+      "自动排程紧急工单工序后置时间系数 ",
+    Aps_extra_urgent_bill_process_post_time_coefficient:
+      "自动排程特急工单工序后置时间系数",
+    Aps_ordinary_bill_process_lead_time_coefficient:
+      "自动排程普通工单工序前置时间系数",
+    Aps_urgent_bill_process_lead_time_coefficient:
+      "自动排程紧急工单工序前置时间系数",
+    Aps_extra_urgent_bill_process_lead_time_coefficient:
+      "自动排程特急工单工序前置时间系数",
   },
 
   ...zhLocale,

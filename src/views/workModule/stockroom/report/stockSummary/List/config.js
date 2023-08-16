@@ -7,6 +7,8 @@
 
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getStockRecord } from "@/api/workApi/stockroom/stockSummary";
+import { itemList } from '@/api/basicApi/systemSettings/Item'
+import { getStockroomList } from '@/api/workApi/stockroom/stockroomInfo'
 
 export class api extends TableAPI {
   getData = getStockRecord;
@@ -20,6 +22,7 @@ export class Table extends BaseTable {
       title: i18n.t("menu.St_StockSummary"),
       api,
       operationCol: false,
+      printMod: "stockSummary",
     });
   }
 }
@@ -91,11 +94,6 @@ export const tableConfig = [
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
   },
-  /*单据明细编号*/
-  {
-    prop: "BillItemId",
-    label: i18n.t("Generality.Ge_DocumentDetailNo"),
-  },
   /*摘要*/
   {
     prop: "Summary",
@@ -121,9 +119,28 @@ export const tableConfig = [
 ];
 
 export const formSchema = [
+  //模号搜索 Ge_ToolingName
   {
-    prop: "BillId",
-    cpn: "FormInput",
-    label: i18n.t("Generality.Ge_BillId"),
+    prop: "ItemId",
+    label: i18n.t("Generality.Ge_ItemId"),
+    cpn: "AsyncSearch",
+    api: itemList,
+    apiOptions: {
+      keyName: "ItemName",
+      showValue:true,
+      valueName: "ItemId",
+    },
+  },
+  {
+    // 仓库
+    prop: 'Stockroom',
+    cpn: "SyncSelect",
+    label: i18n.t("setup.Stockroom"),
+    api: getStockroomList,
+    apiOptions: {
+      immediate: true,
+      keyName: "Stockroom",
+      valueName: "Stockroom"
+    },
   },
 ];

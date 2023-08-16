@@ -167,7 +167,7 @@ const ja = {
     Pro_MoldDetails: "金型詳細",
     Pro_Task: "タスク",
     Pro_FileManagement: "ファイル管理",
-    Pro_MoldSpecicication: "金型技術要件",
+    Pro_MoldSpecification: "金型技術要件",
     Pro_ProjectTaskRecord: "プロジェクトタスクレコード",
     Pro_TheSumOfTheCurrentMonthSettlementProportionAndTheSettledProportionCannotBeGreaterThan1:
       "今月の決済比率と決済比率の和は1より大きくすることはできません",
@@ -215,7 +215,7 @@ const ja = {
     Active: "アクティブ化済み",
     Deactive: "非アクティブ",
     PleaseInputNumbers: "数値を入力してください",
-    PleaseInputPhoneNumblerWithCorrectFormat:
+    PleaseInputPhoneNumberWithCorrectFormat:
       "正しい携帯番号を入力してください",
     SheetToBeAudited: "保留中の文書",
     ResultOfAuditing: "レビュー結果",
@@ -415,7 +415,7 @@ const ja = {
     Ge_Setup: "構成",
     Ge_Upload: "アップロード",
     Ge_RemarksIsNull: "しばらくコメントがありません",
-    Ge_Unsubmitted: "コミットされていません",
+    Ge_UnSubmitted: "コミットされていません",
     Ge_Submitted: "送信済み",
     Ge_Approving: "レビュー中",
     Ge_Approved: "レビュー済み ",
@@ -623,7 +623,7 @@ const ja = {
     Ge_End: "終了",
     Ge_SearchByNumber: "番号による検索",
     Ge_FileType: "ファイルの種類",
-    Ge_SlectFile: "ファイルを選択",
+    Ge_SelectFile: "ファイルを選択",
     Ge_FileSize: "ファイルサイズ",
     Ge_KeyWords: "キーワード",
     Ge_PleaseCompleteTheFormAsRequired: "要求通りにフォームを完成してください",
@@ -802,7 +802,7 @@ const ja = {
     Pr_Outside: "工場外",
     Pr_Top: "の頂部をおおう",
     Pr_SwitchDevice: "スイッチングデバイス",
-    Pr_PrintbyTooling: "型番号で印刷",
+    Pr_PrintByTooling: "型番号で印刷",
     Pr_SimulatedCalculate: "アナログ計算",
     Pr_SimulatedAPS: "シミュレーションスケジュール",
     Pr_SchedulingAlgorithmSelection: "スケジューリングアルゴリズムの選択",
@@ -814,9 +814,9 @@ const ja = {
     Pr_APSLog: "スケジュールログ",
     Pr_OneClickProcessing: "ワンクリック処理",
     Pr_PleaseSelectSchedulingAlgorithms:
-      "スケジュールアルゴリズムを選択してください",
+      "アルゴリズムの選択",
     Pr_MarkAsNormal: "標準としてマーク",
-    Pr_ReleaseVersionNumber: "リリースバージョン番号",
+    Pr_Version: "バージョン",
     Pr_ModifyPlanEndTime: "計画終了時刻の変更",
   },
   quality: {
@@ -857,7 +857,7 @@ const ja = {
     Qc_NormalCheck: "巡回検査",
     Qc_FirstInspection: "最初のチェック",
     Qc_InspectionExemption: "検査免除",
-    Qc_Unreturn: "未返却",
+    Qc_UnReturn: "未返却",
     Qc_Return: "リターンマッチ",
   },
   // 后端提示

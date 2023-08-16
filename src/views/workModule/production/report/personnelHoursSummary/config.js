@@ -156,18 +156,11 @@ const workRecordDetailTableConfig = [
 
   { label: "任务单编号", prop: "BillId", width: 120 },
 
-  { label: "任务单工序编号", prop: "TaskProcessId", width: 120 },
-
-  { label: "产品编号", prop: "ToolingNo", width: 120 },
+  { label: "模具编号", prop: "ToolingNo", width: 120 },
 
   { label: "零件编号", prop: "PartNo", width: 120 },
 
   { label: "零件名称", prop: "PartName", width: 120 },
-  {
-    prop: "ProductionType",
-    label: "加工类型",
-    customFilter: (value) => enumFilter(value, ProductionType),
-  },
 
   { label: "任务工序", prop: "Process" },
 
@@ -185,28 +178,7 @@ const workRecordDetailTableConfig = [
 
   { label: "部门", prop: "Department" },
 
-  {
-    label: "工序加工类型",
-    prop: "OperationProcessingType",
-    customFilter: (value) => enumFilter(value, ProcessingResult),
-  },
-
-  { label: "机床采集时间", prop: "DeviceCollectedTime" },
-
   { label: "预计工时 ", prop: "PlanTime" },
 
   { label: "是否超出时间段", prop: "IsOverstep" },
-  {
-    label: "实际有效开始时间",
-    prop: "ActualEffectiveStart",
-    filter: "time",
-    width: "150px",
-  },
-  {
-    label: "实际有效结束时间",
-    prop: "ActualEffectiveEnd",
-    filter: "time",
-    width: "150px",
-  },
-  { label: "实际有效工时", prop: "ActualEffectiveTime" },
 ];
