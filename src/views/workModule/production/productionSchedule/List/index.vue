@@ -704,7 +704,7 @@ export default {
   margin-left: 10px;
 }
 .c-page-wrapper {
-   overflow: hidden;
+   //overflow: hidden;
 }
 
 .action-header {
