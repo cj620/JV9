@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 50%; height: 50%">
+  <div style="width: 48%; height: 50%">
     <div class="chart-title">{{ title }}</div>
     <div class="chart-wrapper" :style="{height: boxHeight / 2 - 58.3 + 'px'}">
       <div
