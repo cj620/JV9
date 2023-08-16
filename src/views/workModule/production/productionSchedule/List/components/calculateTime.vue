@@ -59,6 +59,7 @@ export default {
             params: {
               data: res.OverloadBills,
               time: this.StartDate,
+              SchedulingType: this.formObj.form.SchedulingType,
             },
           });
           this.$emit("cancel");

@@ -679,6 +679,12 @@ export default {
 		  });
     },
   },
+	activated(){
+	  setTimeout(()=>{
+		this.ObsoleteTableObj.doLayout()
+		this.oldTableObj.doLayout()
+    },100)
+  },
   watch: {
     tableChangeShow(val) {
       if (!val) {
@@ -687,11 +693,6 @@ export default {
         this.ObsoleteTableObj.reset();
       }
     },
-    '$route'(to, from) {
-      if (to.path === '/production/productionSchedule') {
-        this.tableChangeShow ? this.ObsoleteTableObj.doLayout() : this.oldTableObj.doLayout()
-      }
-    }
   },
 };
 </script>
