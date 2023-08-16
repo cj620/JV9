@@ -79,7 +79,7 @@
               style=""
               v-show="currentTabName !== 'SimulatedAPS'"
             >
-              <JvTable :table-obj="tableObj" v-show="!GanttView"></JvTable>
+              <JvTable :table-obj="tableObj" v-show="!GanttView"  v-if="currentTabName === item.name"></JvTable>
               <div v-if="currentTabName === item.name">
                 <!-- 顶部操作行 -->
                 <div class="action-header">
@@ -128,19 +128,20 @@
                 </div>
                 <div style="padding: 0 10px">
                   <CustomGantt
-                    :columns="GanttColumns"
                     ref="CustomGantt"
+                    v-show="GanttView"
+                    :columns="GanttColumns"
                     :gantt-container-height="boxHeight-48"
                     :loading="loading"
                     :result="result"
-                    v-show="GanttView"
+                    :detailShow="true"
+                    :taskInnerHtml="setTaskInnerHtml"
+                    :popoverInnerHtml="setPopoverInnerHtml"
+                    :popoverOptions="{placement: 'right', width: 670, trigger: 'hover',}"
                   >
-                    <!--              <template #popover="{ item }">-->
-                    <!--                <gantt-popover :item="item"></gantt-popover>-->
-                    <!--              </template>-->
-                    <!--              <template #taskDialogSlot="{ item }">-->
-                    <!--                <JvForm :formObj="formObj"> </JvForm>-->
-                    <!--              </template>-->
+                    <template #popover="{ item }">
+                      <gantt-popover :item="item"></gantt-popover>
+                    </template>
                   </CustomGantt>
                 </div>
               </div>
@@ -234,7 +235,23 @@ export default {
     },
   },
   methods: {
-    searchChange() {
+    setTaskInnerHtml(item) {
+      return `${item.Process}(${item.PlanTime}H) ${item.PlanDevice}`;
+    },
+    // task悬浮窗的innerHtml
+    setPopoverInnerHtml(item) {
+      return `
+        <div>${i18n.t("Generality.Ge_ProcessName")}：${item.Process}</div>
+        <div>${i18n.t("Generality.Ge_PlanTime")}：${item.PlanTime}H</div>
+        <div>${i18n.t("production.Pr_PlanningDevices")}：${
+        item.PlanDevice
+      }</div>
+              <div>${i18n.t("Generality.Ge_PlanStart")}：${
+        item._PlanStart
+      }</div>
+              <div>${i18n.t("Generality.Ge_PlanEnd")}：${item._PlanEnd}</div>`;
+    },
+    searchChange() { // 搜索
       this.setAlgorithmType();
     },
     // 切换时间
@@ -256,7 +273,7 @@ export default {
         AlgorithmType: this.currentTabName,
         CurrentPage: page,
         PageSize: size,
-        // Keyword: this.partNumberValue,
+        Keyword: this.partNumberValue,
         // SortColumn: "PartNo,PlanStart",
         // SortOrder: 1,
       }).then((res) => {
@@ -282,7 +299,6 @@ export default {
         } else {
           this.postParams();
         }
-        console.log(mainContent.style)
       }
     },
     // 给对应标签页接口传入参
