@@ -33,13 +33,13 @@ export class Ws {
     //   createMessage.log('websocket认证失败');
     //   return null;
     // }
-    const linkToken = store.getters.userId ?? undefined;
+    const linkToken = store.getters.token ?? undefined;
     if (!linkToken) {
       this.close();
       return;
     }
     const wsUrl = `${window.global_config.WebSocket_Url}/${linkToken}`;
-    this.websocket = new WebSocket(wsUrl);
+    this.websocket = new WebSocket(wsUrl, ["PC"]);
     this.websocket.onmessage = (e) => {
       if (e.data == echoMsg.PONG) return;
       if (receiveMessage) {
