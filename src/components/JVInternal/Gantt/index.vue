@@ -113,25 +113,25 @@ export default {
 			isConfrim: false, // 如果用户刚拖动了任务条，做出了是否更新操作后，阻止再次触发监听
 			unitOptions: [{
 				value: 'year',
-				label: '年'
+				label: i18n.t('Generality.Ge_Year')
 			}, {
 				value: 'quarter',
-				label: '季'
+				label: i18n.t('Generality.Ge_Quarter')
 			}, {
 				value: 'month',
-				label: '月'
+				label: i18n.t('Generality.Ge_Month')
 			}, {
 				value: 'week',
-				label: '周'
+				label: i18n.t('Generality.Ge_Week')
 			}, {
 				value: 'day',
-				label: '日'
+				label: i18n.t('Generality.Ge_Day')
 			}, {
 				value: 'hour',
-				label: '时'
+				label: i18n.t('Generality.Ge__Hour')
 			}, {
 				value: 'minute',
-				label: '分'
+				label: i18n.t('Generality.Ge_Minute')
 			}],
 			unitValue: 'quarter'
 		}
