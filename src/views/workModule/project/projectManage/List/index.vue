@@ -28,7 +28,7 @@
       </template>
       <template #Progress="{ record, row }">
         <el-progress
-
+          v-if="row.Flag != 0"
           :percentage="record"
           :color="getProceeType(row.Flag)"
         ></el-progress>
@@ -102,8 +102,8 @@ import { imgUrlPlugin } from "@/jv_doc/utils/system";
 import { ToolTable } from "./tool.share";
 import {
   getProjectBillList,
-  getProjectBillListDefault
-} from '@/api/workApi/project/projectManage'
+  getProjectBillListDefault,
+} from "@/api/workApi/project/projectManage";
 const Image = getCpn("Image");
 import {
   listTableColBtnModel,
@@ -134,13 +134,11 @@ export default {
       toolingShareVisible: false,
       shareTableObj: {},
       shareList: [],
-      tableCache:null
+      tableCache: null,
     };
   },
   created() {
     this.init();
-
-
   },
   methods: {
     imgUrlPlugin,
@@ -149,42 +147,42 @@ export default {
       this.tableObj = new Table();
       // this.tableObj.getData();
       this.shareTableObj = new ToolTable();
-      this.tableObj.setCallBack(()=>{
-        this.tableCache=JSON.stringify(this.tableObj.tableData)
-        this.tableObj.tableRef?.clearSort()
-      })
+      this.tableObj.setCallBack(() => {
+        this.tableCache = JSON.stringify(this.tableObj.tableData);
+        this.tableObj.tableRef?.clearSort();
+      });
       this.getData();
     },
-    getData(){
-      getProjectBillListDefault().then((res=>{
-        this.tableObj.setData(res.Items)
-         this.tableObj.setCallBack(()=>{
-        this.tableCache=JSON.stringify(this.tableObj.tableData)
-        this.tableObj.tableRef?.clearSort()
-      })
-      }))
+    getData() {
+      getProjectBillListDefault().then((res) => {
+        this.tableObj.setData(res.Items);
+        this.tableObj.setCallBack(() => {
+          this.tableCache = JSON.stringify(this.tableObj.tableData);
+          this.tableObj.tableRef?.clearSort();
+        });
+      });
     },
-    sortChange(sortMsg,b,c){
-      if(sortMsg.order=="ascending"){
-        this.tableObj.tableData.map(item=>{
-          return{
+    sortChange(sortMsg, b, c) {
+      if (sortMsg.order == "ascending") {
+        this.tableObj.tableData.map((item) => {
+          return {
             ...item,
-            Children:item.Children.sort((a,b)=>{
-              return a.Progress-b.Progress
-            })
-          }
-        })
-      }else if(sortMsg.order=="descending"){
-         this.tableObj.tableData.map(item=>{
-          return{
+            Children: item.Children.sort((a, b) => {
+              return a.Progress - b.Progress;
+            }),
+          };
+        });
+      } else if (sortMsg.order == "descending") {
+        this.tableObj.tableData.map((item) => {
+          return {
             ...item,
-            Children:item.Children.sort((a,b)=>{
-              return b.Progress- a.Progress
-            })
-          }
-        })
-      }else{
-        this.tableObj.tableData=JSON.parse(this.tableCache)
+            Children: item.Children.sort((a, b) => {
+              return b.Progress - a.Progress;
+            }),
+          };
+        });
+      } else {
+        this.tableObj.tableData = JSON.parse(this.tableCache);
       }
     },
     // 跳转项目进度
@@ -213,14 +211,14 @@ export default {
     //     query: { Project: row.Project },
     //   });
     // },
-    toProjrctCost(row,flag) {
-      console.log(row,flag,111);
-      let ProjectId ;
-     flag?ProjectId=row.Project:ProjectId=row.Id
-           console.log(ProjectId,111);
+    toProjrctCost(row, flag) {
+      console.log(row, flag, 111);
+      let ProjectId;
+      flag ? (ProjectId = row.Project) : (ProjectId = row.Id);
+      console.log(ProjectId, 111);
       this.$router.push({
-        name:'Pm_PivotTable',
-        query: { ProjectId: ProjectId,Typ: flag},
+        name: "Pm_PivotTable",
+        query: { ProjectId: ProjectId, Typ: flag },
       });
     },
     toShare(row) {
@@ -287,7 +285,7 @@ export default {
             },
             {
               label: this.$t("project.Pro_Cost"),
-              confirm: this.toProjrctCost.bind(null, row,true),
+              confirm: this.toProjrctCost.bind(null, row, true),
             },
             // {
             //   label: this.$t("project.Pro_Share"),
@@ -302,7 +300,7 @@ export default {
             },
             {
               label: this.$t("project.Pro_Cost"),
-              confirm: this.toProjrctCost.bind(null, row,false),
+              confirm: this.toProjrctCost.bind(null, row, false),
             },
           ];
         } else if (flag == "2") {

@@ -74,7 +74,10 @@ export default {
       default: () => {},
     },
   },
-  methods: {
+    create() {
+		console.log(this.tableProps)
+	},
+	methods: {
     saveChange() {
       setTableSchema(this.tableProps.printMod, this.tableProps.tableSchema);
     },

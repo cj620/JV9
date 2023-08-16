@@ -7,7 +7,7 @@
  * @FilePath: \JvMmsV9Front\src\views\workModule\production\productionSchedule\detailedLoad\index.vue
 -->
 <template>
-  <PageWrapper>
+  <PageWrapper :footer="false">
     <div class="detailed-load">
       <div class="detailed-load-left">
         <JvTable

@@ -32,6 +32,7 @@
 
 <script>
 import { Form } from "@/jv_doc/class/form";
+import { enumToList, ProductionTaskState } from "@/enum/workModule";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 export default {
   name: "searchForm",
@@ -71,6 +72,16 @@ export default {
           },
         },
         {
+          // 状态
+          prop: "States",
+          label: "状态",
+          cpn: "FormSelect",
+          type: "multiple",
+          options: {
+            list: enumToList(ProductionTaskState),
+          },
+        },
+        {
           // 模具编号
           prop: "Remarks",
           cpn: "FormInput",
@@ -84,13 +95,14 @@ export default {
     this.formObj.form.ToolingNo = this.searchFormData.ToolingNo;
     this.formObj.form.Keyword = this.searchFormData.Keyword;
     this.formObj.form.Remarks = this.searchFormData.Remarks;
+    this.formObj.form.States = this.searchFormData.States;
   },
   methods: {
     reset() {
-      for (let key in this.formObj.form){
-        this.formObj.form[key] = ''
+      for (let key in this.formObj.form) {
+        this.formObj.form[key] = "";
       }
-
+      this.formObj.form.States = [];
       this.$emit("search", this.formObj);
     },
     search() {
