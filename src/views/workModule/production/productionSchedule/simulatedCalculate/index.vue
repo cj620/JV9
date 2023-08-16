@@ -337,7 +337,6 @@ export default {
   padding: 6px 10px;
   font-size: 12px;
   background: #fff;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
 }
 .pleaseSelect {
   margin-right: 8px;

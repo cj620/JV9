@@ -2,13 +2,21 @@
 <template>
   <div>
     <div :id="id" :style="{ height: height + 'px' }"></div>
+    <!-- 异常工单详情 -->
+    <billsDetail
+        v-if="billsDetailVisible"
+        :visible.sync="billsDetailVisible"
+        :billData="billData"
+    ></billsDetail>
   </div>
 </template>
 
 <script>
 import * as echarts from "echarts";
+import billsDetail from "./billsDetail.vue"
 export default {
   name: "pieChart",
+  components: { billsDetail },
   props: {
     height: {
       type: Number,
@@ -33,6 +41,8 @@ export default {
     return {
       myChart: {},
       chartData: [],
+      billsDetailVisible:false,
+      billData: [],
     };
   },
   mounted() {
@@ -50,24 +60,31 @@ export default {
       if (this.WorksheetNum.length !== 0) {
         this.chartData = [
           {
+            type: "Normal",
             value: this.WorksheetNum[0],
             name: "正常工单",
-            itemStyle: { color: "#00FF00" },
+            itemStyle: { color: "#33ff99" },
           },
           {
+            type: "Overdue",
             value: this.WorksheetNum[1],
             name: "超交期工单",
-            itemStyle: { color: "red" },
+            itemStyle: { color: "#ff3300" },
           },
           {
+            type: "Overload",
             value: this.WorksheetNum[2],
             name: "超负荷工单",
-            itemStyle: { color: "yellow" },
+            itemStyle: { color: "#ffcc33" },
           },
         ];
       } else {
         this.chartData = [];
       }
+    },
+    getDetail(params){
+      this.billData = this.WorksheetNum[3].filter(item => item.ApsRemarks === params.data.type);
+      this.billData.length !== 0 ? this.billsDetailVisible = true : ""
     },
     drawLine() {
       echarts.dispose(document.getElementById(this.id));
@@ -82,23 +99,28 @@ export default {
         },
         legend: {
           orient: 'vertical',
-          top:'middle',
+          top:'15%',
           right:'15%',
         },
         series: [
           {
             type: "pie",
             radius: ["40%", "70%"],
-            avoidLabelOverlap: false,
+            avoidLabelOverlap: true,
             data: this.chartData,
             itemStyle: {
-              borderRadius: 10,
               borderColor: "#fff",
               borderWidth: 2,
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)",
+              },
             },
           },
         ],
       });
+      this.myChart.on('click',this.getDetail)
       window.addEventListener("resize", () => {
         setTimeout(() => {
           this.myChart.resize();

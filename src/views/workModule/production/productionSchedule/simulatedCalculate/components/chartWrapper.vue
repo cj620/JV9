@@ -76,6 +76,8 @@ export default {
         this.datas.OverdueCount,
         // 超负荷工单数
         this.datas.OverloadCount,
+        // 异常工单详情
+        this.datas.OverloadBills
       ];
       this.CreationDate = timeFormat(
         this.datas.CreationDate,
