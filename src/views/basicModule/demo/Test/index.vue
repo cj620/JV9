@@ -3,6 +3,7 @@
  * @Date: 2022-08-31 09:59:45
 -->
 <template>
+    <PageWrapper :footer="false">
   <jv-block title="机床运行状态">
     <div class="state-bar">
       <el-tooltip
@@ -25,6 +26,7 @@
     </div>
 
   </jv-block>
+    </PageWrapper>
 </template>
 <script>
 import { getBarData } from "./utils";
@@ -65,7 +67,7 @@ export default {
   border: 1px solid #ccc;
   background-color: #ccc;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   .state-item {
     height: 100%;
     &:hover {

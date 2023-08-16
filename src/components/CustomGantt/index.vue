@@ -700,7 +700,7 @@ export default {
 .detail-style {
   height: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 ::v-deep .el-image {
