@@ -259,9 +259,7 @@
       @cancel="cancelRelease"
       @confirm="release"
     >
-      生产排程完成，无超负荷工单、超交期工单，是否进行发布？当前版本号：{{
-        ApsVersionNo
-      }}
+      生产排程完成，无超负荷工单、超交期工单，是否进行发布？
     </jv-dialog>
     <!-- 发布弹窗 -->
     <JvDialog
@@ -537,10 +535,8 @@ export default {
     completed() {
       this.calculateTimeDialogFormVisible = false;
       this.tableObj.getData();
-      this.tableObj.setCallBack(() => {
-        this.releaseDialogFormVisible = true;
-        this.needOpen = true;
-      });
+      this.releaseDialogFormVisible = true;
+      this.needOpen = true;
     },
     //查看设备负荷
     equipmentLoad() {
