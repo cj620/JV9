@@ -130,11 +130,12 @@
                   <CustomGantt
                     ref="CustomGantt"
                     v-show="GanttView"
+                    isTaskHover
+                    detailShow
                     :columns="GanttColumns"
-                    :gantt-container-height="boxHeight-48"
+                    :gantt-container-height="boxHeight-88"
                     :loading="loading"
                     :result="result"
-                    :detailShow="true"
                     :taskInnerHtml="setTaskInnerHtml"
                     :popoverInnerHtml="setPopoverInnerHtml"
                     :popoverOptions="{placement: 'right', width: 670, trigger: 'hover',}"
@@ -143,9 +144,29 @@
                       <gantt-popover :item="item"></gantt-popover>
                     </template>
                   </CustomGantt>
+                  <!-- 分页器 -->
+                  <div class="custom-pagination">
+
+                    <div>
+                    </div>
+
+                    <div class="custom-pagination-box">
+                      <el-pagination
+                        background
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        layout="total, sizes, prev, pager, next"
+                        :page-sizes="[5, 10, 15, 20, 30, 50, 100]"
+                        :page-size="10"
+                        :total="result.Count"
+                      >
+                      </el-pagination>
+                    </div>
+                  </div>
+
+                  </div>
                 </div>
               </div>
-            </div>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -204,6 +225,8 @@ export default {
       ],
       unitOfTime: "hour", // 默认时间单位
       partNumberValue: '', // 甘特图搜索框
+      pageSize: 10,
+      current: 1,
     };
   },
   created() {
@@ -235,6 +258,17 @@ export default {
     },
   },
   methods: {
+    // 总条数切换
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize;
+      this.setAlgorithmType(this.pageSize, this.current);
+    },
+    // 分页切换
+    handleCurrentChange(current) {
+      this.current = current;
+      this.setAlgorithmType(this.pageSize, this.current);
+    },
+    // task任务条的文本
     setTaskInnerHtml(item) {
       return `${item.Process}(${item.PlanTime}H) ${item.PlanDevice}`;
     },
@@ -395,5 +429,13 @@ export default {
     display: flex;
     align-items: center;
   }
+}
+.custom-pagination {
+  height: 40px;
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

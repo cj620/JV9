@@ -6,9 +6,7 @@ import App from "@/App.vue";
 export class CreateGantt {
   constructor(options) {
     /** ============================此处来定义数据=========================== **/
-    this.stepSize = 0.05; // 根据当前单位计算每分钟占多少像素
-
-    this.cellWidth = 120;
+    this.isTaskHover = options.isTaskHover;
 
     this.taskRadius = options.taskRadius;
 
@@ -29,11 +27,19 @@ export class CreateGantt {
     this.Vue = null;
 
     /** =============================此处用来定义默认值============================= **/
-    this.tasksHeight = options.tasksHeight || 50; // 任务条高度
-    this.tasksPadding =
-      options.tasksPadding || options.tasksPadding === 0
-        ? options.tasksPadding
+    this.stepSize = 0.05; // 根据当前单位计算每分钟占多少像素
+
+    this.cellWidth = 120;
+
+    this.tableItemHeight = options.tableItemHeight || 50; // table每一项的高度
+
+    this.taskHeight = options.taskHeight || 50; // table每一项的高度
+
+    this.tableItemPadding =
+      options.tableItemPadding || options.tableItemPadding === 0
+        ? options.tableItemPadding
         : 4; // 任务条padding值
+
     this.tasksRadius = options.tasksRadius || 8; // 任务条圆角
     this.unitOfTime = options.unitOfTime || "week"; // 单位（甘特图以这个单位来显示）
 
@@ -98,8 +104,8 @@ export class CreateGantt {
           parseInt(new Date(jtem.PlanEnd).getTime() / 1000) -
           parseInt(new Date(jtem.PlanStart).getTime() / 1000);
         let widthRes = parseInt(width / 60); // 长度/宽度
-        let startY = count * this.tasksHeight;
-        let height = this.tasksHeight - this.tasksPadding * 2;
+        let startY = count * this.tableItemHeight + (this.tableItemHeight - this.tableItemPadding*2 - this.taskHeight) / 2;
+        let height = this.taskHeight;
         let taskRef = document.createElement("div");
         taskRef.innerHTML = this.taskInnerHtml ? this.taskInnerHtml(jtem) : "";
         taskRef.id = "custom-task-" + item.Id + "-" + j;
@@ -115,6 +121,7 @@ export class CreateGantt {
         parent.appendChild(taskRef);
 
         taskRef.addEventListener("mouseenter", (e) => {
+          if(!this.isTaskHover) return
           // if (!this.popoverShow) return;
           if (this.Components && !this.popoverInnerHtml) {
             this.Vue.$children[0].item = jtem;
@@ -168,7 +175,7 @@ export class CreateGantt {
     }
 
     // let taskHint = document.createElement('div'); // 用于鼠标悬浮任务条高亮
-    // let height = this.tasksHeight;
+    // let height = this.tableItemHeight;
     // taskHint.style.height = height+'px';
     // taskHint.className = 'task-hint';
     // parent.appendChild(taskHint);
@@ -179,7 +186,7 @@ export class CreateGantt {
       let list = [...parent.children];
       // popover节点好像不会被删掉，后期出bug了在这里改
       list.forEach((item, i) => {
-        if (i) parent.removeChild(item);
+        if (i > 1) parent.removeChild(item);
       });
     }
     // parent.innerHTML = ''

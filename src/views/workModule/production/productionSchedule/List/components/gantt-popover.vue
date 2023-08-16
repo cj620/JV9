@@ -54,6 +54,7 @@ export default {
       column: 2,
     });
     this.detailObj.detailData = this.item;
+    console.log(this.item)
     this.tableObj = new Table({
       tableSchema: tableConfig,
       pagination: false,

@@ -109,13 +109,15 @@
       <!--      :popoverInnerHtml="setPopoverInnerHtml"-->
       <CustomGantt
         ref="CustomGantt"
+        isTaskClick
+        isTaskHover
+        detailShow
         :columns="GanttColumns"
         :ganttContainerHeight="ganttContainerHeight"
         :loading="loading"
         :result="result"
         :padding="10"
         :floatingWindow="floatingWindow"
-        :detailShow="true"
         :popoverOptions="popoverOptions"
         :taskInnerHtml="setTaskInnerHtml"
         taskDialogTitle="Process"
