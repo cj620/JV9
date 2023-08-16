@@ -1,49 +1,51 @@
 <template>
   <PageWrapper :footer="false">
     <div class="simulatedCalculate-page" v-loading="loading">
-      <!-- 操作行 -->
-      <div class="simulatedCalculate-page-form">
-        <!-- 算法多选框 -->
-        <div class="pleaseSelect">
-          {{ $t("production.Pr_PleaseSelectSchedulingAlgorithms") }}:
-        </div>
-        <el-select
-          class="multiple-select"
-          v-model="selectedTypes"
-          multiple
-          size="mini"
-          collapse-tags
-        >
-          <el-option
-            v-for="(option, index) in AlgorithmTypeEnum.getEnums()"
-            :key="index"
-            :label="option.label"
-            :value="option.value"
-          ></el-option>
-        </el-select>
-        <Action
-          class="action-line"
-          size="mini"
-          :actions="[
+      <!-- tab标签 -->
+      <div style="background: #fff;box-sizing: border-box;padding: 10px;position:relative;">
+
+        <!-- 操作行 -->
+        <div class="simulatedCalculate-page-form">
+          <!-- 算法多选框 -->
+          <div class="pleaseSelect">
+            {{ $t("production.Pr_PleaseSelectSchedulingAlgorithms") }}:
+          </div>
+          <el-select
+            class="multiple-select"
+            v-model="selectedTypes"
+            multiple
+            size="mini"
+            collapse-tags
+          >
+            <el-option
+              v-for="(option, index) in AlgorithmTypeEnum.getEnums()"
+              :key="index"
+              :label="option.label"
+              :value="option.value"
+            ></el-option>
+          </el-select>
+          <Action
+            class="action-line"
+            size="mini"
+            :actions="[
             {
               label: $t('production.Pr_SimulatedCalculate'),
               confirm: simulatedCalculate.bind(null),
               disabled: isSelectedTypesEmpty,
             },
           ]"
-        >
-        </Action>
-        <el-button icon="el-icon-view" size="mini" @click="setTableChangeGantt">
-          {{GanttView
-          ? $t('Generality.Ge_TabularShow')
-          : $t('Generality.Ge_GanttShow')}}
-        </el-button>
-      </div>
-      <!-- tab标签 -->
-      <div style="background: #fff">
+          >
+          </Action>
+          <el-button icon="el-icon-view" size="mini" @click="setTableChangeGantt">
+            {{GanttView
+            ? $t('Generality.Ge_TabularShow')
+            : $t('Generality.Ge_GanttShow')}}
+          </el-button>
+        </div>
+
         <el-tabs
           v-model="currentTabName"
-          type="card"
+          type="border-card"
           @tab-click="handleTabClick"
         >
           <!-- 排程图表 -->
@@ -126,12 +128,14 @@
                   <div class="action-header-right">
                   </div>
                 </div>
-                <div style="padding: 0 10px">
+                <div>
                   <CustomGantt
                     ref="CustomGantt"
                     v-show="GanttView"
                     isTaskHover
                     detailShow
+                    padding="6"
+                    taskColor="#0960bd"
                     :columns="GanttColumns"
                     :gantt-container-height="boxHeight-88"
                     :loading="loading"
@@ -386,7 +390,10 @@ export default {
   align-items: center;
   padding: 6px 10px;
   font-size: 12px;
-  background: #fff;
+  //background: #fff;
+  position: absolute;
+  right: 10px;
+  z-index: 10;
 }
 .pleaseSelect {
   margin-right: 8px;
@@ -401,9 +408,8 @@ export default {
 }
 .simulatedCalculate-page-charter {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
   align-content: space-around;
   background: #fff;
 }
@@ -420,7 +426,7 @@ export default {
   background-color: #fff;
   padding: 6px 10px;
   height: 48px;
-  border-radius: 4px;
+  //border-radius: 4px;
   align-items: center;
 
   &-left,

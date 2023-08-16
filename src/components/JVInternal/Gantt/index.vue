@@ -9,26 +9,22 @@
 <template>
 	<div style="height: 100%;">
 		<div style="
-		margin-bottom: 10px;
 		width: 100%;
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		background-color: #fff;
-		padding: 6px 10px;
-		border-radius: 4px;
+		/*padding: 6px 10px;*/
 		align-items: center;">
 			<div>
-				单位：
-				<!-- <el-button size="mini" onclick="gantt.ext.zoom.zoomIn()">{{
-				$t("Generality.Ge_ZoomOut")
-			}}</el-button>
-			<el-button size="mini" onclick="gantt.ext.zoom.zoomOut()">{{
-				$t("Generality.Ge_ZoomIn")
-			}}</el-button> -->
-				<el-select style="width: 66px;" @change="setGanttZoom" v-model="unitValue" placeholder="请选择单位">
-					<el-option v-for="item in unitOptions" :key="item.value" :label="item.label" :value="item.value">
-					</el-option>
-				</el-select>
+        <el-dropdown @command="setGanttZoom">
+          <el-button type="text">
+            <i class="el-icon-setting" style="font-size: 26px;color: #555"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item v-for="item in unitOptions" :key="item.value" :command="item.value"
+            >{{item.label}}</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
 			</div>
 		</div>
 
@@ -60,6 +56,12 @@ import { timeFormat } from "@/jv_doc/utils/time";
 export default {
 	name: "index",
 	props: {
+    columns: {
+      type: Array,
+      default() {
+        return headerColumns
+      }
+    },
 		tasks: {
 			type: Object,
 			default() {
@@ -111,25 +113,25 @@ export default {
 			isConfrim: false, // 如果用户刚拖动了任务条，做出了是否更新操作后，阻止再次触发监听
 			unitOptions: [{
 				value: 'year',
-				label: '年'
+				label: i18n.t('Generality.Ge_Year')
 			}, {
 				value: 'quarter',
-				label: '季'
+				label: i18n.t('Generality.Ge_Quarter')
 			}, {
 				value: 'month',
-				label: '月'
+				label: i18n.t('Generality.Ge_Month')
 			}, {
 				value: 'week',
-				label: '周'
+				label: i18n.t('Generality.Ge_Week')
 			}, {
 				value: 'day',
-				label: '日'
+				label: i18n.t('Generality.Ge_Day')
 			}, {
 				value: 'hour',
-				label: '时'
+				label: i18n.t('Generality.Ge__Hour')
 			}, {
 				value: 'minute',
-				label: '分'
+				label: i18n.t('Generality.Ge_Minute')
 			}],
 			unitValue: 'quarter'
 		}
@@ -408,7 +410,8 @@ export default {
 			})
 		},
 		setGanttZoom(unit) { // 设置甘特图缩放级别（年月周 单位）
-			gantt.ext.zoom.setLevel(unit);
+      console.log(unit);
+      gantt.ext.zoom.setLevel(unit);
 			// this.setLinks();
 		},
 		setExpand() { // 设置全屏
@@ -503,7 +506,7 @@ export default {
 			// gantt.config.duration_unit = "minute";
 
 			// 表头配置显示列   //name:绑定数据的名称  align：对其方式  label显示在表头的名称
-			gantt.config.columns = headerColumns;
+			gantt.config.columns = this.columns;
 			// task 任务条文本
 			gantt.templates.task_text = function (start, end, task) {
 				if (task.start_date !== undefined) {

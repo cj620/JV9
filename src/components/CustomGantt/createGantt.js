@@ -22,6 +22,8 @@ export class CreateGantt {
 
     this.popoverShow = options.popoverShow;
 
+    this.taskColor = options.taskColor || '#2a9bf1';
+
     this.MinimumTime = null;
 
     this.Vue = null;
@@ -115,7 +117,7 @@ export class CreateGantt {
         taskRef.style.width = widthRes * this.stepSize + "px";
         taskRef.style.height = height + "px";
         taskRef.style.lineHeight = height + "px";
-        taskRef.style.background = "#2a9bf1";
+        taskRef.style.background = this.taskColor;
         taskRef.style.position = "absolute";
         taskRef.style.borderRadius = this.taskRadius + "px";
         parent.appendChild(taskRef);

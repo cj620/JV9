@@ -11,7 +11,7 @@
           tableHeaderWidth +
           30 +
           (detailShow ? detailIconWidth : 0) +
-          padding +
+          Number(padding) +
           'px',
         height: ganttContainerHeight - 14 + 'px',
       }"
@@ -26,14 +26,14 @@
       class="custom-border-box-right"
       :style="{
         height: ganttContainerHeight - 14 + 'px',
-        right: padding + 'px',
+        right: Number(padding) + 'px',
       }"
     ></div>
     <!-- 最外层的盒子 -->
     <div
       class="ganttContainer"
       :style="{
-        height: ganttContainerHeight - padding + 'px',
+        height: ganttContainerHeight - Number(padding) + 'px',
       }"
       v-loading="loading"
     >
@@ -281,7 +281,7 @@ export default {
     },
     // 甘特图盒子的padding值
     padding: {
-      type: Number,
+      type: Number | String,
       default: 0,
     },
     // task条上的文字
@@ -314,6 +314,11 @@ export default {
       type: String,
       default: "Id",
     },
+    // 任务条背景颜色
+    taskColor: {
+      type: String,
+      default: "#2a9bf1"
+    }
   },
   data() {
     return {
@@ -377,6 +382,7 @@ export default {
 
 
     const options = {
+      taskColor: this.taskColor,
       isTaskHover: this.isTaskHover,
       tableItemHeight: this.tableItemHeight,
       taskHeight: this.taskHeight,
