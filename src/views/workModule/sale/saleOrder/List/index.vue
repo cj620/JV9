@@ -1,6 +1,7 @@
 <!--销售订单-->
 <template>
   <PageWrapper :footer="false">
+
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
       <!-- operation操作列 -->
@@ -42,6 +43,7 @@ export default {
       // 新增路由
       AddRoute: "Sa_SaleOrder_Add",
       IsState: false,
+
     };
   },
   created() {
