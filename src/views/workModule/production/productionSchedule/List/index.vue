@@ -172,10 +172,18 @@
             <el-button
               size="mini"
               :disabled="canMark"
-              @click="mark"
-              style="margin-right: 5px"
+              @click="markNormal"
+              style="margin:0 5px 0 0"
             >
               {{ $t("production.Pr_MarkAsNormal") }}
+            </el-button>
+            <el-button
+                size="mini"
+                :disabled="canMark"
+                @click="markCompleted"
+                style="margin:0 5px 0 0"
+            >
+              {{ $t("production.Pr_MarkAsCompleted") }}
             </el-button>
             <el-select
               v-model="tableChangeShow"
@@ -304,6 +312,7 @@ import { simulation_scheduling_list } from "@/api/workApi/production/productionS
 import {
   update_is_partake_aps,
   update_plan_end,
+  update_state
 } from "@/api/workApi/production/productionTask";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
@@ -661,7 +670,7 @@ export default {
       this.SchedulingResultsVisible = true;
     },
     // 批量标记陈旧工单为正常
-    mark() {
+    markNormal() {
       this.loading = true;
       const { datas } = this.oldTableObj.selectData;
       let BillIds = datas.map(item => item.BillId);
@@ -671,6 +680,19 @@ export default {
 		  }).catch(() => {
 			  this.loading = false;
 		  });
+    },
+    // 批量标记陈旧工单为已完成
+    markCompleted() {
+      this.loading = true;
+      const { datas } = this.oldTableObj.selectData;
+      const state = "Processed";
+      let BillIds = datas.map(item => item.BillId);
+      update_state({ BillIds , state} ).then(()=>{
+        this.tableChangeFn(false)
+        this.loading = false;
+      }).catch(() => {
+        this.loading = false;
+      });
     },
   },
 	activated(){

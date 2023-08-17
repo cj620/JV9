@@ -837,6 +837,7 @@ const en = {
     Pr_OneClickProcessing: "One click processing",
     Pr_PleaseSelectSchedulingAlgorithms: "Select algorithms",
     Pr_MarkAsNormal: "Mark as normal",
+    Pr_MarkAsCompleted: "Mark as completed",
     Pr_Version: "Version",
     Pr_ModifyPlanEndTime: "Modify plan end time",
   },

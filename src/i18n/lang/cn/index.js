@@ -824,6 +824,7 @@ const cn = {
     Pr_OneClickProcessing: "一键处理",
     Pr_PleaseSelectSchedulingAlgorithms: "选择算法",
     Pr_MarkAsNormal: "标记为正常",
+    Pr_MarkAsCompleted: "标记为已完成",
     Pr_Version: "版本",
     Pr_ModifyPlanEndTime: "修改计划结束时间",
   },
