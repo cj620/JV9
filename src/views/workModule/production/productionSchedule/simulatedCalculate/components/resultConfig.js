@@ -23,8 +23,8 @@ export class Table extends BaseTable {
       api,
       // 表格标题
       // title: i18n.t("production.Pr_ClassicalAlgorithm"),
-      // 打印模块标识（需更改）
-      printMod: "Pr_ClassicalAlgorithm",
+      // 打印模块标识
+      printBar: false,
       operationCol: false,
     });
   }
