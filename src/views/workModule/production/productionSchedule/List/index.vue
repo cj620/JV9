@@ -120,6 +120,7 @@
         :floatingWindow="floatingWindow"
         :popoverOptions="popoverOptions"
         :taskInnerHtml="setTaskInnerHtml"
+        :setTaskBackground="setTaskBackground"
         taskDialogTitle="Process"
         taskRadius="25"
         @taskClick="taskClick"
@@ -428,7 +429,7 @@ export default {
     this.tableChangeFn(false); // 调陈旧工单接口
   },
   mounted() {
-    this.setGanttContainer()
+    this.setGanttContainer();
   },
   computed: {
     // 是否可以批量删除
@@ -451,6 +452,14 @@ export default {
     },
   },
   methods: {
+    setTaskBackground(item) {
+      if(item) {
+        return {
+          is: item.PlanDevice.indexOf('[Overload]') !== -1,
+          color: "#ffcc33"
+        }
+      }
+    },
     searchChange() {
       this.setAlgorithmType();
     },
@@ -499,6 +508,9 @@ export default {
         this.oldTableObj.getData();
         this.oldTableObj.setCallBack(() => {
           this.itemCount = this.oldTableObj.tableData.length
+          if(!this.itemCount) {
+            this.setFold();
+          }
         });
       }
     },

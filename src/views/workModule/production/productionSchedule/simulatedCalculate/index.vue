@@ -140,9 +140,10 @@
                     :gantt-container-height="boxHeight-88"
                     :loading="loading"
                     :result="result"
+                    :popoverOptions="{placement: 'right', width: 670, trigger: 'hover',}"
                     :taskInnerHtml="setTaskInnerHtml"
                     :popoverInnerHtml="setPopoverInnerHtml"
-                    :popoverOptions="{placement: 'right', width: 670, trigger: 'hover',}"
+                    :setTaskBackground="setTaskBackground"
                   >
                     <template #popover="{ item }">
                       <gantt-popover :item="item"></gantt-popover>
@@ -262,6 +263,15 @@ export default {
     },
   },
   methods: {
+    // 设置任务条颜色
+    setTaskBackground(item) {
+      if(item) {
+        return {
+          is: item.PlanDevice.indexOf('[Overload]') !== -1,
+          color: "#ffcc33"
+        }
+      }
+    },
     // 总条数切换
     handleSizeChange(pageSize) {
       this.pageSize = pageSize;
