@@ -60,12 +60,12 @@ export default {
             color: item.Color,
             duration: item.Duration,
             progress: item.ProcessRate,
-            // row_height: 50, 
+            // row_height: 50,
             // bar_height: 40
           });
         });
         this.tasks.data = [...arr];
-        
+
         this.tasks.links = [
             // { id:1, source:2, target:2, type:1},
             { id:1, source:1, target:2, type:1, info: '这是第一条link'},
@@ -82,7 +82,7 @@ export default {
 <style lang="scss" scoped>
 .project-container {
   height: 100%;
-  padding: 10px;
+  padding: 0 10px;
   min-height: calc(100vh - 120px);
   .left-container {
     overflow: hidden;
