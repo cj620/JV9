@@ -24,6 +24,8 @@ export class CreateGantt {
 
     this.taskColor = options.taskColor || '#2a9bf1';
 
+    this.setTaskBackground = options.setTaskBackground || function () {return {is: false, color: "#2a9bf1"}}
+
     this.MinimumTime = null;
 
     this.Vue = null;
@@ -117,9 +119,14 @@ export class CreateGantt {
         taskRef.style.width = widthRes * this.stepSize + "px";
         taskRef.style.height = height + "px";
         taskRef.style.lineHeight = height + "px";
-        taskRef.style.background = this.taskColor;
         taskRef.style.position = "absolute";
         taskRef.style.borderRadius = this.taskRadius + "px";
+        let bgObj = this.setTaskBackground(jtem);
+        if(bgObj.is) {
+          taskRef.style.background = bgObj.color;
+        } else {
+          taskRef.style.background = this.taskColor;
+        }
         parent.appendChild(taskRef);
 
         taskRef.addEventListener("mouseenter", (e) => {
