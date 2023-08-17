@@ -7,7 +7,7 @@
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 // 获取列表接口
-import { query_latest_aps_result } from "@/api/workApi/production/aps";
+import { query_aps_result } from "@/api/workApi/production/aps";
 import { overdue_and_obsolete_list } from "@/api/workApi/production/productionSchedule";
 import { enumFilter } from "@/enum/workModule";
 
@@ -31,7 +31,7 @@ export class api1 extends TableAPI {
 }
 export class api extends TableAPI {
   // 获取列表
-  getData = query_latest_aps_result;
+  getData = query_aps_result;
 }
 export class Table extends BaseTable {
   constructor() {

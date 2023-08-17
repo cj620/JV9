@@ -636,7 +636,7 @@ export default {
 		  this.loading = true;
 		  update_plan_end({BillIds:[this.planData.billId],PlanEnd:this.planData.planEnd }).then(() => {
 			  this.loading = false;
-		  this.tableChangeFn(true)
+		    this.tableChangeFn(true)
 		  }).catch(() => {
 		    this.loading = false;
 	    });
@@ -663,23 +663,20 @@ export default {
     // 批量标记陈旧工单为正常
     mark() {
       this.loading = true;
-      let { datas } = this.oldTableObj.selectData;
-      let BillIds = [];
-      datas.forEach((item)=>{
-        BillIds.push(item.BillId)
-      })
+      const { datas } = this.oldTableObj.selectData;
+      let BillIds = datas.map(item => item.BillId);
       update_is_partake_aps({ BillIds } ).then(()=>{
         this.tableChangeFn(false)
-		  this.loading = false;
+		    this.loading = false;
 		  }).catch(() => {
-			this.loading = false;
+			  this.loading = false;
 		  });
     },
   },
 	activated(){
 	  setTimeout(()=>{
-		this.ObsoleteTableObj.doLayout()
-		this.oldTableObj.doLayout()
+		  this.ObsoleteTableObj.doLayout()
+		  this.oldTableObj.doLayout()
     },100)
   },
   watch: {
