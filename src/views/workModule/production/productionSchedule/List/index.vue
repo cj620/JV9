@@ -162,7 +162,7 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
-          <template #titleBar><span class="subTitle">总计:{{itemCount}}</span></template>
+          <template #titleBar><span class="subTitle">总计：{{oldCount}}</span></template>
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -209,7 +209,7 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
-          <template #titleBar><div class="subTitle">总计：{{itemCount}}</div></template>
+          <template #titleBar><div class="subTitle">总计：{{obsCount}}</div></template>
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -308,7 +308,7 @@ import { formSchema } from "./formConfig";
 import { stateEnum } from "@/enum/workModule";
 // 单据状态组件
 import { do_publish } from "@/api/workApi/production/aps";
-import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
+import { simulation_scheduling_list , overdue_and_obsolete_list } from "@/api/workApi/production/productionSchedule";
 import {
   update_is_partake_aps,
   update_plan_end,
@@ -404,7 +404,8 @@ export default {
         planEnd: null,
         billId: null,
       },
-      itemCount:null,
+      obsCount:null,
+      oldCount:null,
     };
   },
   beforeRouteLeave(to, from, next) {
@@ -418,10 +419,7 @@ export default {
     next();
   },
   created() {
-    // 创建表格实例
-    this.tableObj = new Table();
-    this.ObsoleteTableObj = new ObsoleteTable();
-    this.oldTableObj = new OldTable();
+    this.createTableClass(); // 创建表格实例
     // 创建表单实例
     this.formObj = new Form({
       formSchema: formSchema,
@@ -431,10 +429,10 @@ export default {
       // gutter: 30,
       labelWidth: "80px",
     });
-
     this.setTableChangeGantt(); // 调生产排程接口
 
     this.tableChangeFn(false); // 调陈旧工单接口
+
   },
   mounted() {
     this.setGanttContainer()
@@ -460,6 +458,27 @@ export default {
     },
   },
   methods: {
+    // 创建表格实例
+    createTableClass() {
+      this.tableObj = new Table();
+      this.ObsoleteTableObj = new ObsoleteTable();
+      this.oldTableObj = new OldTable();
+      this.ObsoleteTableObj.getData();
+      this.oldTableObj.getData();
+
+      this.ObsoleteTableObj.setCallBack(() => {
+        this.obsCount = this.ObsoleteTableObj.tableData.length
+      });
+      this.oldTableObj.setCallBack(() => {
+        this.oldCount = this.oldTableObj.tableData.length
+      });
+      let timer = setInterval(() => {
+        if((this.oldCount || this.obsCount === 0) && (this.obsCount || this.obsCount === 0)) {
+          this.notification();
+          clearInterval(timer)
+        }
+      },100)
+    },
     searchChange() {
       this.setAlgorithmType();
     },
@@ -501,28 +520,9 @@ export default {
       // 创建表格实例
       if (val) {
         this.ObsoleteTableObj.getData();
-        this.ObsoleteTableObj.setCallBack(() => {
-          this.itemCount = this.ObsoleteTableObj.tableData.length
-        });
       } else {
         this.oldTableObj.getData();
-        this.oldTableObj.setCallBack(() => {
-          this.itemCount = this.oldTableObj.tableData.length
-        });
       }
-    },
-    //删除单据
-    deleteOrder(ids) {
-      this.tableObj.api.del({ BillIds: ids }).then((_) => {
-        this.tableObj.getData();
-      });
-    },
-    //新增
-    add() {
-      this.$router.push({
-        name: "Sa_SaleOrder_Add",
-        params: { type: "add", title: "addSaleOrder" },
-      })
     },
     // 监听计算loading
     handleLoading(loading) {
@@ -569,6 +569,7 @@ export default {
           this.needOpen = false;
           this.loading = false;
           this.tableObj.getData();
+          this.setAlgorithmType();
         })
         .catch(() => {
           this.loading = false;
@@ -615,8 +616,8 @@ export default {
           this.ganttContainerHeight = this.isFold
             ? mainContent.clientHeight - 110
             : mainContent.clientHeight / 2 - 110; // 甘特图盒子的高度
+          this.tableChangeShow ? this.ObsoleteTableObj.doLayout() : this.oldTableObj.doLayout()
         }, 100);
-        this.tableChangeShow ? this.ObsoleteTableObj.doLayout() : this.oldTableObj.doLayout()
       };
     },
     // 展开表格
@@ -694,12 +695,21 @@ export default {
         this.loading = false;
       });
     },
+    // 异常工单通知
+    notification(){
+      this.$notify({
+        title: '工单信息',
+        message: `陈旧工单：${this.oldCount}，超期工单：${this.obsCount}`,
+        type: 'warning'
+      });
+    }
   },
 	activated(){
 	  setTimeout(()=>{
+      this.setAlgorithmType()
 		  this.ObsoleteTableObj.doLayout()
 		  this.oldTableObj.doLayout()
-    },100)
+    },50)
   },
   watch: {
     tableChangeShow(val) {
