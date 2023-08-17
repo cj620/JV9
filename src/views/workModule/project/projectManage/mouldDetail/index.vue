@@ -43,8 +43,14 @@
         <el-image
           style="width: 100%; height: 100%"
           :src="imgUrlPlugin(this.detailObj.detailData.PhotoUrl)"
+          class="productionTask-details-img"
           :preview-src-list="[imgUrlPlugin(this.detailObj.detailData.PhotoUrl)]"
-        ></el-image>
+        >
+            <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline error-icon"></i>
+            </div>
+
+        </el-image>
       </div>
       <JvDetail :detailObj="detailObj"> </JvDetail>
     </JvBlock>
@@ -315,5 +321,20 @@ export default {
   margin-bottom: 10px;
 }
 .mould-detail {
+}
+.productionTask-details-img {
+  background-color: rgb(231, 231, 231);
+  .image-slot {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // color: rgb(161, 161, 161);
+    .error-icon {
+      color: rgb(161, 161, 161);
+      font-size: 19px;
+    }
+  }
 }
 </style>

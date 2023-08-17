@@ -8,7 +8,12 @@
 -->
 <template>
   <div style="padding: 15px; background: #fff">
-    <el-tabs v-model="activeName">
+      <ProjectTab
+          :cdata="item"
+          v-for="(item, index) in PeopleDetail"
+          :key="index"
+      ></ProjectTab>
+<!--    <el-tabs v-model="activeName">
       <el-tab-pane :label="$t('project.Pro_ProjectSchedule')" name="first">
         <div class="tab-wrapper">
           <Gantt ref="ganttchart" :tasks="tasks" />
@@ -27,7 +32,7 @@
           ></el-empty>
         </div>
       </el-tab-pane>
-    </el-tabs>
+    </el-tabs>-->
   </div>
 </template>
 <script>

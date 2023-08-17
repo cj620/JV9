@@ -12,20 +12,25 @@
     <div class="img-style">
       <el-image
         style="width: 105px; height: 105px"
+        class="productionTask-details-img"
         :src="imgUrlPlugin(cdata.PhotoUrl)"
         :preview-src-list="[imgUrlPlugin(cdata.PhotoUrl)]"
-      ></el-image>
+      >
+          <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline error-icon"></i>
+          </div>
+
+      </el-image>
     </div>
     <!-- 项目 -->
 
     <el-tooltip
       effect="dark"
-      :content="'项目编号：' + cdata.Project"
+      :content="$t('Generality.Ge_ToolingNo') + ':' + cdata.ToolingNo"
       placement="top-start"
     >
       <div class="card-text">
-        <i class="el-icon-s-fold"></i>
-        <span>{{ cdata.Project }}</span>
+        <span>{{ cdata.ToolingNo }}</span>
       </div>
     </el-tooltip>
 
@@ -37,7 +42,7 @@
       placement="top-start"
     >
       <div class="card-text link-type">
-        <i class="el-icon-setting"></i>
+<!--        <i class="el-icon-setting"></i>-->
         <span class="link-type" @click="toMouldDetail">{{
           cdata.ToolingNo
         }}</span>
@@ -93,6 +98,21 @@ export default {
   .link-type {
     &:hover {
       text-decoration: underline;
+    }
+  }
+}
+.productionTask-details-img {
+  background-color: rgb(231, 231, 231);
+  .image-slot {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // color: rgb(161, 161, 161);
+    .error-icon {
+      color: rgb(161, 161, 161);
+      font-size: 19px;
     }
   }
 }
