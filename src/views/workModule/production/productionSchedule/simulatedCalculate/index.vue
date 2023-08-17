@@ -317,6 +317,7 @@ export default {
       }).then((res) => {
         this.result = res;
         this.loading = false;
+        this.$refs.CustomGantt[0].setGanttZoom(this.unitOfTime);
       }).catch(err => {
         this.loading = false;
       })
@@ -334,6 +335,7 @@ export default {
       } else {
         if (this.GanttView) {
           this.setAlgorithmType(); // 调甘特图获取排程结果接口
+
         } else {
           this.postParams();
         }

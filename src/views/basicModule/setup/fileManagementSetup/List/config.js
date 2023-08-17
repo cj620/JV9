@@ -58,5 +58,13 @@ export const tableConfig = [
     align: "center",
     filter: "default",
   },
+  {
+    id: "6654875451",
+    prop: "ApproveName",
+    label: i18n.t("Generality.Ge_AuditAuthority"),
+    fixed: false,
+    align: "center",
+    filter: "default",
+  },
 ];
 export const formSchema = [];

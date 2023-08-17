@@ -342,17 +342,17 @@ export const GanttColumns = [
   },
   {
     name: "PhotoUrl",
-    width: 100,
+    width: 80,
     label: i18n.t("Generality.Ge_PhotoUrl"),
   },
   {
     name: "PlanStart",
-    width: 120,
+    width: 100,
     label: i18n.t("Generality.Ge_PlanStart"),
   },
   {
     name: "PlanEnd",
-    width: 120,
+    width: 100,
     label: i18n.t("Generality.Ge_PlanEnd"),
   },
 ];

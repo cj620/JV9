@@ -539,6 +539,7 @@ const en = {
     Ge_MarkAsPending: "Mark as pending",
     Ge_IsDisabled: "Is it disabled? ",
     Ge_Remind: "Remind",
+    Ge_AuditAuthority: "Audit Authority",
     Ge_PleaseFillIn: "Please fill in",
     Ge_Yes: "Yes",
     Ge_No: "No",
@@ -733,6 +734,7 @@ const en = {
   },
   //生产
   production: {
+    Pr_DeletedData: "Deleted Data",
     Pr_StaleWorkOrder: "Stale Work Order",
     Pr_OverdueWorkOrder: "Overdue Work Order",
     Pr_PleaseEnterPartNumber: "PleaseEnterPartNumber...",

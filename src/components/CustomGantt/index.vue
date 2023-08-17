@@ -547,6 +547,8 @@ export default {
           let res = new Date(TimeResult.MaximumTime).getTime() + day;
           TimeResult.MaximumTime = timeFormat(res, "yyyy-MM-dd hh:mm:ss");
         }
+        // let minTime = new Date(TimeResult.MinimumTime).getTime() - 86400000;
+        // TimeResult.MinimumTime = timeFormat(minTime, "yyyy-MM-dd hh:mm:ss")
       }
       return TimeResult;
     },

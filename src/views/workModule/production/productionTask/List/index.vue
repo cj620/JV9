@@ -46,6 +46,9 @@
               <el-button size="mini" @click="outsourcingPart">{{
                 $t("production.Pr_PartOutsourcing")
               }}</el-button>
+              <el-button size="mini" @click="deletedData" v-if="IsShow">
+                {{ $t("production.Pr_DeletedData") }}
+              </el-button>
             </el-button-group>
           </div>
         </div>
@@ -283,6 +286,12 @@
       @confirmCopyOrder="confirmCopyOrder"
     >
     </copyOrder>
+    <deleted-data-list
+      :visible.sync="deletedDataListDialogFormVisible"
+      v-if="deletedDataListDialogFormVisible"
+      @confirmDeletedDataList="confirmDeletedDataList"
+    >
+    </deleted-data-list>
   </PageWrapper>
 </template>
 
@@ -296,6 +305,7 @@ import outsourcingProcess from "./components/outsourcingProcess";
 import outsourcingPart from "./components/outsourcingPart";
 import searchForm from "./components/searchForm";
 import copyOrder from "./components/copyOrder";
+import deletedDataList from "./components/deletedDataList";
 import {
   LevelEnum,
   ProcessState,
@@ -333,10 +343,12 @@ export default {
       drawer: false,
       Checked: false,
       tooltipFlag: false,
+      IsShow: true, //判断是生产任务子页还是主页
 
       CheckedData: 1,
       IsFlag: false, //判断选择框是否全部选中
       isIndeterminate: false, //判断选择框里面的状态
+      deletedDataListDialogFormVisible: false, //查看删除列表的弹窗
       outsourcingProcessDialogFormVisible: false, //选择委外工序的弹窗
       outsourcingPartDialogFormVisible: false, //选择委外零件的弹窗
       copyOrderDialogFormVisible: false, //复制工单的弹窗
@@ -351,6 +363,10 @@ export default {
   },
   methods: {
     imgUrlPlugin,
+    //已删除数据
+    deletedData() {
+      this.deletedDataListDialogFormVisible = true;
+    },
     async GetData() {
       this.loading = true;
       await productionTaskList(this.form).then((res) => {
@@ -613,6 +629,9 @@ export default {
       await this.GetData();
       await this.IsAllSelect();
     },
+    confirmDeletedDataList() {
+      this.deletedDataListDialogFormVisible = false;
+    },
   },
   computed: {
     LevelMap() {
@@ -631,6 +650,7 @@ export default {
     outsourcingPart,
     searchForm,
     copyOrder,
+    deletedDataList,
   },
 };
 </script>

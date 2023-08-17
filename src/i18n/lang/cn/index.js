@@ -539,6 +539,7 @@ const cn = {
     Ge_No: "否",
     Ge_Menu: "菜单",
     Ge_Authority: "权限",
+    Ge_AuditAuthority: "审核权限",
     Ge_NoAuthority: "无权",
     Ge_Readable: "可读",
     Ge_ReadWrite: "可读写",
@@ -721,6 +722,7 @@ const cn = {
   },
   //生产
   production: {
+    Pr_DeletedData: "已删除数据",
     Pr_StaleWorkOrder: "陈旧工单",
     Pr_OverdueWorkOrder: "超期工单",
     Pr_PleaseEnterPartNumber: "请输入零件编号...",
