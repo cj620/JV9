@@ -284,7 +284,7 @@ export default {
     },
     //一键处理
     oneClick(){
-		  one_click_processing(this.$route.params.data).then(()=>{
+		  one_click_processing(this.tableData).then(()=>{
         let TagName = {
           name: "ProductionSchedule",
         };

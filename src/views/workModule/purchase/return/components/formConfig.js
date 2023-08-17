@@ -26,14 +26,11 @@ export const formSchema = [
   {
     // 币种
     prop: "Currency",
-    cpn: "SyncSelect",
-    label: i18n.t("Generality.Ge_Currency"),
-    api: getAll,
-    apiOptions: {
-      immediate: true,
-      keyName: "Currency",
-      valueName: "Currency",
+    cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
     },
+    label: i18n.t("Generality.Ge_Currency"),
     rules: [
       {
         required: true,
