@@ -38,8 +38,8 @@ export class Ws {
       this.close();
       return;
     }
-    const wsUrl = `${window.global_config.WebSocket_Url}/${linkToken}`;
-    this.websocket = new WebSocket(wsUrl, ["PC"]);
+    const wsUrl = `${window.global_config.WebSocket_Url}/PC_${linkToken}`;
+    this.websocket = new WebSocket(wsUrl);
     this.websocket.onmessage = (e) => {
       if (e.data == echoMsg.PONG) return;
       if (receiveMessage) {
