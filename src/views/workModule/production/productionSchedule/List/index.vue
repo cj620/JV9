@@ -309,7 +309,7 @@ import { formSchema } from "./formConfig";
 import { stateEnum } from "@/enum/workModule";
 // 单据状态组件
 import { do_publish } from "@/api/workApi/production/aps";
-import { simulation_scheduling_list , overdue_and_obsolete_list } from "@/api/workApi/production/productionSchedule";
+import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
 import {
   update_is_partake_aps,
   update_plan_end,
@@ -472,12 +472,16 @@ export default {
 		  this.oldTableObj.setCallBack(() => {
 			  this.oldCount = this.oldTableObj.tableData.length
 		  });
-		  let timer = setInterval(() => {
-			  if((this.oldCount || this.obsCount === 0) && (this.obsCount || this.obsCount === 0)) {
-				  this.notification();
-				  clearInterval(timer)
-			  }
-		  },100)
+      let timer = setInterval(() => {
+        if (typeof this.oldCount !== 'number' || typeof this.obsCount !== 'number') {
+          return;
+        }
+        if (this.oldCount === 0) {
+          this.setFold();
+        }
+        this.notification();
+        clearInterval(timer);
+      }, 100);
 	  },
     setTaskBackground(item) {
       if(item) {
@@ -530,12 +534,6 @@ export default {
         this.ObsoleteTableObj.getData();
       } else {
         this.oldTableObj.getData();
-        this.oldTableObj.setCallBack(() => {
-          this.itemCount = this.oldTableObj.tableData.length
-          if(!this.itemCount) {
-            this.setFold();
-          }
-        });
       }
     },
     // 监听计算loading
