@@ -261,7 +261,7 @@
       @cancel="cancelRelease"
       @confirm="release"
     >
-      生产排程完成，无超负荷工单、超交期工单，是否进行发布？
+      生产排程完成，是否进行发布？
     </jv-dialog>
     <!-- 发布弹窗 -->
     <JvDialog
@@ -311,7 +311,6 @@ import apsLog from "./components/apsLog";
 import CustomGantt from "@/components/CustomGantt/index.vue";
 import GanttPopover from "./components/gantt-popover.vue";
 import floatingWindow from "./components/floatingWindow.vue";
-import item from "@/layout/components/Sidebar/Item.vue";
 import { Form } from "@/jv_doc/class/form";
 import Action from "~/cpn/JvAction/index.vue";
 export default {

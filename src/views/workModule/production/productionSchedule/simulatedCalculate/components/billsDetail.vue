@@ -1,54 +1,46 @@
 <!-- 排程日志弹窗 -->
 <template>
   <JvDialog
-      width="90%"
-      :title="title"
-      :close-on-click-modal="true"
-      :modal-append-to-body="false"
-      :append-to-body="false"
-      v-bind="$attrs"
-      v-on="$listeners"
-      :IsShowFooterBtn="false"
+    width="90%"
+    :title="title"
+    :close-on-click-modal="true"
+    :modal-append-to-body="false"
+    :append-to-body="false"
+    v-bind="$attrs"
+    v-on="$listeners"
+    :IsShowFooterBtn="false"
   >
-    <el-table
-        ref="BillTable"
-        :data="billData"
-        border
-    >
+    <el-table ref="BillTable" :data="billData" border>
       <el-table-column type="expand">
         <template slot-scope="props">
           <div style="padding: 0 40px">
             <el-table :data="props.row.Process" style="width: 100%" border>
               <el-table-column
-                  :label="$t('Generality.Ge_Process')"
-                  prop="Process"
+                :label="$t('Generality.Ge_Process')"
+                prop="Process"
               >
               </el-table-column>
               <el-table-column
-                  :label="$t('Generality.Ge_PlanTime')"
-                  prop="PlanTime"
+                :label="$t('Generality.Ge_PlanTime')"
+                prop="PlanTime"
               >
               </el-table-column>
               <el-table-column
-                  :label="$t('Generality.Ge_PlanStart')"
-                  prop="PlanStart"
-                  width="160"
+                :label="$t('Generality.Ge_PlanStart')"
+                prop="PlanStart"
+                width="160"
               >
                 <template slot-scope="scope">
-                  {{
-                    scope.row.PlanStart | timeFormat("yyyy-MM-dd hh:mm:ss")
-                  }}
+                  {{ scope.row.PlanStart | timeFormat("yyyy-MM-dd hh:mm:ss") }}
                 </template>
               </el-table-column>
               <el-table-column
-                  :label="$t('Generality.Ge_PlanEnd')"
-                  prop="PlanEnd"
-                  width="160"
+                :label="$t('Generality.Ge_PlanEnd')"
+                prop="PlanEnd"
+                width="160"
               >
                 <template slot-scope="scope">
-                  {{
-                    scope.row.PlanEnd | timeFormat("yyyy-MM-dd hh:mm:ss")
-                  }}
+                  {{ scope.row.PlanEnd | timeFormat("yyyy-MM-dd hh:mm:ss") }}
                 </template>
               </el-table-column>
               <el-table-column label="状态" prop="State">
@@ -60,8 +52,8 @@
                 </template>
               </el-table-column>
               <el-table-column
-                  :label="$t('production.Pr_SchedulingResults')"
-                  prop="ApsState"
+                :label="$t('production.Pr_SchedulingResults')"
+                prop="ApsState"
               >
                 <template slot-scope="scope">
                   {{
@@ -71,8 +63,8 @@
                 </template>
               </el-table-column>
               <el-table-column
-                  :label="$t('production.Pr_PlanSource')"
-                  prop="ApsSource"
+                :label="$t('production.Pr_PlanSource')"
+                prop="ApsSource"
               >
                 <template slot-scope="scope">
                   {{
@@ -82,8 +74,8 @@
                 </template>
               </el-table-column>
               <el-table-column
-                  :label="$t('production.Pr_PlanningDevices')"
-                  prop="PlanDevice"
+                :label="$t('production.Pr_PlanningDevices')"
+                prop="PlanDevice"
               >
               </el-table-column>
             </el-table>
@@ -95,11 +87,11 @@
       <el-table-column :label="$t('Generality.Ge_PhotoUrl')" prop="PhotoUrl">
         <template slot-scope="scope">
           <el-image
-              :src="imgUrlPlugin(scope.row.PhotoUrl)"
-              style="height: 38px;width: 38px;"
-              :preview-src-list="[imgUrlPlugin(scope.row.PhotoUrl)]"
-              fit="cover"
-              class="items-details-Img-error"
+            :src="imgUrlPlugin(scope.row.PhotoUrl)"
+            style="height: 38px; width: 38px"
+            :preview-src-list="[imgUrlPlugin(scope.row.PhotoUrl)]"
+            fit="cover"
+            class="items-details-Img-error"
           >
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
@@ -109,10 +101,7 @@
       </el-table-column>
       <el-table-column :label="$t('Generality.Ge_PartNo')" prop="PartNo">
       </el-table-column>
-      <el-table-column
-          :label="$t('Generality.Ge_PlanStart')"
-          prop="PlanStart"
-      >
+      <el-table-column :label="$t('Generality.Ge_PlanStart')" prop="PlanStart">
         <template slot-scope="scope">
           {{ scope.row.PlanStart | timeFormat("yyyy-MM-dd hh:mm:ss") }}
         </template>
@@ -138,17 +127,17 @@ import { ProcessState } from "@/enum/workModule";
 import { imgUrlPlugin } from "~/utils/system";
 
 export default {
-  props:{
-    billData:{
-      type:Array,
+  props: {
+    billData: {
+      type: Array,
       default() {
         return null;
       },
-    }
+    },
   },
   data() {
     return {
-      title:"",
+      title: "",
       ApsRemarksMap: {
         Overdue: {
           name: this.$t("production.Pr_OverDeliveryDate"),
@@ -176,16 +165,16 @@ export default {
     };
   },
   created() {
-    this.title = this.ApsRemarksMap[this.billData[0].ApsRemarks].name
+    this.title = this.ApsRemarksMap[this.billData[0].ApsRemarks].name;
   },
-  computed:{
+  computed: {
     ProcessStateMap() {
       return ProcessState;
     },
   },
-  methods:{
+  methods: {
     imgUrlPlugin,
-  }
+  },
 };
 </script>
 <style lang="scss">
