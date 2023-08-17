@@ -49,7 +49,7 @@ export class Table extends BaseTable {
       // 操作列宽度
       operationCol: false,
       // 打印模块标识
-      printMod: "Pr_ProductionSchedule",
+      printBar: false,
     });
   }
 }
@@ -72,7 +72,7 @@ export class OldTable extends BaseTable {
       operationWidth: 0,
       operationCol: false,
       // 打印模块标识
-      printMod: "Pr_StaleWorkOrder",
+      printBar: false,
     });
   }
 }
@@ -104,7 +104,7 @@ export class ObsoleteTable extends BaseTable {
       // operationCol: false,
       operationWidth: 150,
       // 打印模块标识
-      printMod: "Pr_OverdueWorkOrder",
+      printBar: false,
     });
   }
 }

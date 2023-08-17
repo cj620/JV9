@@ -536,7 +536,6 @@ export default {
     // 计算结果无超交期超负荷时提醒发布
     completed() {
       this.calculateTimeDialogFormVisible = false;
-      this.tableObj.getData();
       this.releaseDialogFormVisible = true;
       this.needOpen = true;
     },
