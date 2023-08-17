@@ -257,6 +257,7 @@
                 :cdata="item"
                 v-for="item in item.data"
                 :key="item.Id"
+                @toDetail="notifyVisible = false"
               ></NotifyItem>
             </div>
             <el-empty description="无消息" v-else></el-empty>
