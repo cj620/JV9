@@ -94,7 +94,17 @@
       </el-table-column>
       <el-table-column :label="$t('Generality.Ge_PhotoUrl')" prop="PhotoUrl">
         <template slot-scope="scope">
-          <img :src="imgUrlPlugin(scope.row.PhotoUrl)" class="image">
+          <el-image
+              :src="imgUrlPlugin(scope.row.PhotoUrl)"
+              style="height: 38px;width: 38px;"
+              :preview-src-list="[imgUrlPlugin(scope.row.PhotoUrl)]"
+              fit="cover"
+              class="items-details-Img-error"
+          >
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-image>
         </template>
       </el-table-column>
       <el-table-column :label="$t('Generality.Ge_PartNo')" prop="PartNo">
@@ -179,7 +189,18 @@ export default {
 };
 </script>
 <style lang="scss">
-.image{
-  width: 50px;
+.items-details-Img-error {
+  display: flex;
+  background-color: rgb(231, 231, 231);
+  .image-slot {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .error-icon {
+      font-size: 19px;
+    }
+  }
 }
 </style>
