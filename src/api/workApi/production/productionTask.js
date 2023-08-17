@@ -105,3 +105,11 @@ export function production_task_list_has_been_deleted(data) {
     data
   });
 }
+// 修改加工任务单状态
+export function update_state(data){
+  return request({
+    url:"/production_task/update_state",
+    method:"post",
+    data,
+  })
+}
