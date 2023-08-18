@@ -16,13 +16,15 @@
       <div>{{ timeFormat(SendTime, "yyyy-MM-dd hh:mm") }}</div>
     </div>
     <div class="user-action">
-      <el-button size="mini" @click="setRead">标记为已读</el-button>
+      <el-button size="mini" @click="setRead">{{
+        $t("Generality.Ge_RemarkToRead")
+      }}</el-button>
       <el-button
         size="mini"
         type="primary"
         @click="toDetail"
         v-if="DynamicData && DynamicData.BillId && DynamicData.BillKey"
-        >处理</el-button
+        >{{ $t("Generality.Ge_Handle") }}</el-button
       >
     </div>
   </div>

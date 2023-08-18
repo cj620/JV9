@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:34:11
- * @LastEditTime: 2023-06-02 13:55:06
- * @LastEditors: 勿忘 208760845@qq.com
+ * @LastEditTime: 2023-08-18 10:55:32
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\i18n\lang\cn\index.js
  */
@@ -718,6 +718,20 @@ const cn = {
     Ge_NoData: "暂无数据",
     Ge_DeliveryCompleted: "已完成发货，是否继续进行操作？",
     Ge_StockInCompleted: "已完成入库，是否继续进行操作？",
+    Ge_Message: "消息",
+    Ge_Audit: "审核",
+    Ge_Notice: "通知",
+    Ge_Task: "任务",
+    Ge_AllMsg: "全部消息",
+    Ge_UnreadMsg: "未读消息",
+    Ge_AllRemarkToRead: "全部标记为已读",
+    Ge_HistoryMsg: "历史消息",
+    Ge_Handle: "处理",
+    Ge_RemarkToRead: "标记为已读",
+    Ge_JustNow: "刚刚",
+    Ge_MinutesAgo: "分钟前",
+    Ge_HoursAgo: "小时前",
+    Ge_1DayAgo: "1天前",
   },
   //生产
   production: {

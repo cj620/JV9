@@ -8,6 +8,7 @@
  * @param {string} cFormat
  * @returns {string | null}
  */
+import i18n from "@/i18n/i18n.js";
 import { timeFormat } from "@/jv_doc/utils/time";
 export function parseTime(time, cFormat) {
   if (arguments.length === 0 || !time) {
@@ -71,14 +72,14 @@ export function formatTime(time, option) {
   const diff = (now - d) / 1000;
 
   if (diff < 30) {
-    return "刚刚";
+    return i18n.t("Generality.Ge_JustNow");
   } else if (diff < 3600) {
     // less 1 hour
-    return Math.ceil(diff / 60) + "分钟前";
+    return Math.ceil(diff / 60) + i18n.t("Generality.Ge_MinutesAgo");
   } else if (diff < 3600 * 24) {
-    return Math.ceil(diff / 3600) + "小时前";
+    return Math.ceil(diff / 3600) + i18n.t("Generality.Ge_HoursAgo");
   } else if (diff < 3600 * 24 * 2) {
-    return "1天前";
+    return i18n.t("Generality.Ge_1DayAgo");
   }
   if (option) {
     return timeFormat(time, option);
