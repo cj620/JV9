@@ -163,7 +163,9 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
-          <template #titleBar><span class="subTitle">总计：{{oldCount}}</span></template>
+          <template #titleBar
+            ><span class="subTitle">总计：{{ oldCount }}</span></template
+          >
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -174,15 +176,15 @@
               size="mini"
               :disabled="canMark"
               @click="markNormal"
-              style="margin:0 5px 0 0"
+              style="margin: 0 5px 0 0"
             >
               {{ $t("production.Pr_MarkAsNormal") }}
             </el-button>
             <el-button
-                size="mini"
-                :disabled="canMark"
-                @click="markCompleted"
-                style="margin:0 5px 0 0"
+              size="mini"
+              :disabled="canMark"
+              @click="markCompleted"
+              style="margin: 0 5px 0 0"
             >
               {{ $t("production.Pr_MarkAsCompleted") }}
             </el-button>
@@ -210,7 +212,9 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
-          <template #titleBar><div class="subTitle">总计：{{obsCount}}</div></template>
+          <template #titleBar
+            ><div class="subTitle">总计：{{ obsCount }}</div></template
+          >
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -313,7 +317,7 @@ import { simulation_scheduling_list } from "@/api/workApi/production/productionS
 import {
   update_is_partake_aps,
   update_plan_end,
-  update_state
+  update_state,
 } from "@/api/workApi/production/productionTask";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
@@ -404,8 +408,8 @@ export default {
         planEnd: null,
         billId: null,
       },
-      obsCount:null,
-      oldCount:null,
+      obsCount: null,
+      oldCount: null,
     };
   },
   beforeRouteLeave(to, from, next) {
@@ -432,7 +436,6 @@ export default {
     this.setTableChangeGantt(); // 调生产排程接口
 
     this.tableChangeFn(false); // 调陈旧工单接口
-
   },
   mounted() {
     this.setGanttContainer();
@@ -458,22 +461,27 @@ export default {
     },
   },
   methods: {
-	  // 创建表格实例
-	  createTableClass() {
-		  this.tableObj = new Table();
-		  this.ObsoleteTableObj = new ObsoleteTable();
-		  this.oldTableObj = new OldTable();
-		  this.ObsoleteTableObj.getData();
-		  this.oldTableObj.getData();
+    // 创建表格实例
+    createTableClass() {
+      this.tableObj = new Table();
+      this.ObsoleteTableObj = new ObsoleteTable();
+      this.oldTableObj = new OldTable();
+      this.ObsoleteTableObj.getData();
+      this.oldTableObj.getData();
 
-		  this.ObsoleteTableObj.setCallBack(() => {
-			  this.obsCount = this.ObsoleteTableObj.tableData.length
-		  });
-		  this.oldTableObj.setCallBack(() => {
-			  this.oldCount = this.oldTableObj.tableData.length
-		  });
+      this.ObsoleteTableObj.setCallBack(() => {
+        this.obsCount = this.ObsoleteTableObj.tableData.length;
+      });
+      this.oldTableObj.setCallBack(() => {
+        this.oldCount = this.oldTableObj.tableData.length;
+      });
+      console.log(this.ObsoleteTableObj.pager);
+      console.log(this.oldTableObj.pager);
       let timer = setInterval(() => {
-        if (typeof this.oldCount !== 'number' || typeof this.obsCount !== 'number') {
+        if (
+          typeof this.oldCount !== "number" ||
+          typeof this.obsCount !== "number"
+        ) {
           return;
         }
         if (this.oldCount === 0) {
@@ -482,13 +490,13 @@ export default {
         this.notification();
         clearInterval(timer);
       }, 100);
-	  },
+    },
     setTaskBackground(item) {
-      if(item) {
+      if (item) {
         return {
-          is: item.PlanDevice.indexOf('[Overload]') !== -1,
-          color: "#ffcc33"
-        }
+          is: item.PlanDevice.indexOf("[Overload]") !== -1,
+          color: "#ffcc33",
+        };
       }
     },
     searchChange() {
@@ -628,7 +636,9 @@ export default {
           this.ganttContainerHeight = this.isFold
             ? mainContent.clientHeight - 110
             : mainContent.clientHeight / 2 - 110; // 甘特图盒子的高度
-          this.tableChangeShow ? this.ObsoleteTableObj.doLayout() : this.oldTableObj.doLayout()
+          this.tableChangeShow
+            ? this.ObsoleteTableObj.doLayout()
+            : this.oldTableObj.doLayout();
         }, 100);
       };
     },
@@ -653,16 +663,21 @@ export default {
       this.planData.planEnd = val.PlanEnd;
       this.planData.billId = val.BillId;
     },
-	  // 修改超交期工单计划结束日期
-	  updatePlanEnd(){
-		  this.loading = true;
-		  update_plan_end({BillIds:[this.planData.billId],PlanEnd:this.planData.planEnd }).then(() => {
-			  this.loading = false;
-		    this.tableChangeFn(true)
-		  }).catch(() => {
-		    this.loading = false;
-	    });
-		  this.UpdatePlanEndFormVisible = false;
+    // 修改超交期工单计划结束日期
+    updatePlanEnd() {
+      this.loading = true;
+      update_plan_end({
+        BillIds: [this.planData.billId],
+        PlanEnd: this.planData.planEnd,
+      })
+        .then(() => {
+          this.loading = false;
+          this.tableChangeFn(true);
+        })
+        .catch(() => {
+          this.loading = false;
+        });
+      this.UpdatePlanEndFormVisible = false;
       this.planData = {
         planEnd: null,
         billId: null,
@@ -686,42 +701,46 @@ export default {
     markNormal() {
       this.loading = true;
       const { datas } = this.oldTableObj.selectData;
-      let BillIds = datas.map(item => item.BillId);
-      update_is_partake_aps({ BillIds } ).then(()=>{
-        this.tableChangeFn(false)
-		    this.loading = false;
-		  }).catch(() => {
-			  this.loading = false;
-		  });
+      let BillIds = datas.map((item) => item.BillId);
+      update_is_partake_aps({ BillIds })
+        .then(() => {
+          this.tableChangeFn(false);
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
     // 批量标记陈旧工单为已完成
     markCompleted() {
       this.loading = true;
       const { datas } = this.oldTableObj.selectData;
       const state = "Processed";
-      let BillIds = datas.map(item => item.BillId);
-      update_state({ BillIds , state} ).then(()=>{
-        this.tableChangeFn(false)
-        this.loading = false;
-      }).catch(() => {
-        this.loading = false;
-      });
+      let BillIds = datas.map((item) => item.BillId);
+      update_state({ BillIds, state })
+        .then(() => {
+          this.tableChangeFn(false);
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
     // 异常工单通知
-    notification(){
+    notification() {
       this.$notify({
-        title: '工单信息',
+        title: "工单信息",
         message: `陈旧工单：${this.oldCount}，超期工单：${this.obsCount}`,
-        type: 'warning'
+        type: "warning",
       });
-    }
+    },
   },
-	activated(){
-	  setTimeout(()=>{
-      this.setAlgorithmType()
-		  this.ObsoleteTableObj.doLayout()
-		  this.oldTableObj.doLayout()
-    },50)
+  activated() {
+    setTimeout(() => {
+      this.setAlgorithmType();
+      this.ObsoleteTableObj.doLayout();
+      this.oldTableObj.doLayout();
+    }, 50);
   },
   watch: {
     tableChangeShow(val) {
@@ -736,13 +755,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.subTitle{
+.subTitle {
   color: red;
   text-align: center;
   margin-left: 10px;
 }
 .c-page-wrapper {
-   //overflow: hidden;
+  //overflow: hidden;
 }
 
 .action-header {

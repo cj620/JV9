@@ -60,7 +60,8 @@ export default {
     imgUrlPlugin,
     formatTime,
     async toDetail() {
-      this.$emit("toDetail");
+		console.log(this.cdata)
+		this.$emit("toDetail");
       await mark_as_read({
         Id: this.cdata.MsgUserId,
         NotificationType: this.cdata.Type,

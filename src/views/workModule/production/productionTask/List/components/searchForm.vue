@@ -54,7 +54,7 @@ export default {
           // 关键字
           prop: "Keyword",
           cpn: "FormInput",
-          label: "关键字",
+          label: this.$t("Generality.Ge_KeyWords"),
         },
         {
           // 模具编号
@@ -74,7 +74,7 @@ export default {
         {
           // 状态
           prop: "States",
-          label: "状态",
+          label: this.$t("Generality.Ge_State"),
           cpn: "FormSelect",
           type: "multiple",
           options: {
