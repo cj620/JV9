@@ -836,6 +836,8 @@ const en = {
     Pr_SelectDate: "Select date",
     Pr_Processed: "Processed",
     Pr_ToBeProcessed: "Waiting",
+    Pr_DeliveryDate: "Delivery Date",
+    Pr_ProofDate: "Proof Date",
     Pr_Inside: "Inside",
     Pr_Outside: "Outside",
     Pr_Top: "Top",
