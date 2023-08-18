@@ -8,26 +8,6 @@
 -->
 <template>
 	<div style="height: 100%;">
-		<div style="
-		width: 100%;
-		display: flex;
-		justify-content: flex-end;
-		background-color: #fff;
-		/*padding: 6px 10px;*/
-		align-items: center;">
-			<div>
-        <el-dropdown @command="setGanttZoom">
-          <el-button type="text">
-            <i class="el-icon-setting" style="font-size: 26px;color: #555"></i>
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="item in unitOptions" :key="item.value" :command="item.value"
-            >{{item.label}}</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-			</div>
-		</div>
-
 		<div ref="gantt" style="height: 100%;min-height: calc(100vh - 180px);" />
 		<JvDialog :title="dialogTitle" @confirm="confirm" width="35%" :visible.sync="dialogVisible">
 			<JvForm :formObj="formObj">
@@ -410,7 +390,6 @@ export default {
 			})
 		},
 		setGanttZoom(unit) { // 设置甘特图缩放级别（年月周 单位）
-      console.log(unit);
       gantt.ext.zoom.setLevel(unit);
 			// this.setLinks();
 		},
