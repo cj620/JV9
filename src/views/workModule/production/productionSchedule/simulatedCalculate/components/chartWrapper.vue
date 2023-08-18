@@ -7,15 +7,15 @@
         v-if="Object.keys(this.datas).length !== 0"
       >
         <div>
-          总计{{ datas.TotalCount }}
+          {{$t("production.Pr_Total")}}:{{ datas.TotalCount }}
           <span v-for="(item, index) in description" :key="index">
-            {{ WorksheetNum[index] !== 0 ? WorksheetNum[index] + item : "" }}
+            {{ WorksheetNum[index] !== 0 ? item + WorksheetNum[index] : "" }}
           </span>
-          <span>计算时间:{{ CreationDate }}</span>
+          <span>{{$t("production.Pr_ComputingTime")}}:{{ CreationDate }}</span>
         </div>
       </div>
       <div class="chart-description" v-else>
-        <div>暂无数据</div>
+        <div>{{$t("Generality.Ge_NoData")}}</div>
       </div>
       <PieChart :id="id" :WorksheetNum="WorksheetNum" :height="boxHeight / 2 - 58.3 - 54.2"></PieChart>
     </div>
@@ -52,7 +52,11 @@ export default {
       // 各类工单数
       WorksheetNum: [],
       CreationDate: "",
-      description: ["个正常工单 ", "个超交期工单 ", "个超负荷工单"],
+      description: [
+        `${i18n.t("production.Pr_NormalWorkSheet")}:`,
+        `${i18n.t("production.Pr_OverdueWorkSheet")}:`,
+        `${i18n.t("production.Pr_OverloadWorkSheet")}:`,
+      ],
     };
   },
   mounted() {

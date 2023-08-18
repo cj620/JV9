@@ -836,6 +836,10 @@ const ja = {
     Pr_SelectUnit: "単位を選択してください",
     Pr_WhetherToPublish: "生産スケジュールが完了しました。リリースしますか？",
     Pr_WorkSheetInfo: "製造オーダ情報",
+    Pr_NormalWorkSheet: "通常のシート",
+    Pr_OverdueWorkSheet: "期限切れのシート",
+    Pr_OverloadWorkSheet: "過負荷製造オーダ",
+    Pr_ComputingTime: "計算時間",
   },
   quality: {
     Qc_CheckResult: "検査結果",

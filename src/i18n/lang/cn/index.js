@@ -833,6 +833,10 @@ const cn = {
     Pr_SelectUnit: "请选择单位",
     Pr_WhetherToPublish: "生产排程完成，是否进行发布？",
     Pr_WorkSheetInfo: "工单信息",
+    Pr_NormalWorkSheet: "正常工单",
+    Pr_OverdueWorkSheet: "超交期工单",
+    Pr_OverloadWorkSheet: "超负荷工单",
+    Pr_ComputingTime: "计算时间",
   },
   quality: {
     Qc_CheckResult: "检验结果",
