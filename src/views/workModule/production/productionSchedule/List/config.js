@@ -7,9 +7,9 @@
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 // 获取列表接口
-import { query_latest_aps_result } from "@/api/workApi/production/aps";
+import { query_aps_result } from "@/api/workApi/production/aps";
 import { overdue_and_obsolete_list } from "@/api/workApi/production/productionSchedule";
-import { enumFilter } from "@/enum/workModule";
+import { enumFilter , ProcessState } from "@/enum/workModule";
 
 const IsPartakeAPS = {
   Normal: {
@@ -31,7 +31,7 @@ export class api1 extends TableAPI {
 }
 export class api extends TableAPI {
   // 获取列表
-  getData = query_latest_aps_result;
+  getData = query_aps_result;
 }
 export class Table extends BaseTable {
   constructor() {
@@ -49,7 +49,7 @@ export class Table extends BaseTable {
       // 操作列宽度
       operationCol: false,
       // 打印模块标识
-      printMod: "Pr_ProductionSchedule",
+      printBar: false,
     });
   }
 }
@@ -72,7 +72,7 @@ export class OldTable extends BaseTable {
       operationWidth: 0,
       operationCol: false,
       // 打印模块标识
-      printMod: "Pr_StaleWorkOrder",
+      printBar: false,
     });
   }
 }
@@ -104,7 +104,7 @@ export class ObsoleteTable extends BaseTable {
       // operationCol: false,
       operationWidth: 150,
       // 打印模块标识
-      printMod: "Pr_OverdueWorkOrder",
+      printBar: false,
     });
   }
 }
@@ -236,6 +236,12 @@ export const OldTableConfig = [
     label: i18n.t("production.Pr_OldWorkOrderMark"),
     customFilter: (value) => enumFilter(value, IsPartakeAPS),
   },
+  //单据状态
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    customFilter: (value) => enumFilter(value, ProcessState),
+  }
 ];
 // 超期表格配置
 export const ObsoleteTableConfig = [
@@ -342,17 +348,17 @@ export const GanttColumns = [
   },
   {
     name: "PhotoUrl",
-    width: 100,
+    width: 80,
     label: i18n.t("Generality.Ge_PhotoUrl"),
   },
   {
     name: "PlanStart",
-    width: 120,
+    width: 100,
     label: i18n.t("Generality.Ge_PlanStart"),
   },
   {
     name: "PlanEnd",
-    width: 120,
+    width: 100,
     label: i18n.t("Generality.Ge_PlanEnd"),
   },
 ];

@@ -255,6 +255,7 @@ export default {
     //选择供应商确定税率
     changeSupplierId(e) {
       getSupplierDetails({ SupplierId: e }).then((res) => {
+        this.formObj.form.Currency = res.Currency;
         this.ruleForm.SupplierName = res.ShortName;
         this.BillItems.Tax = res.Tax;
         this.changeTax(res.Tax);

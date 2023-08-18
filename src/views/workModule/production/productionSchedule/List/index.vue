@@ -120,6 +120,7 @@
         :floatingWindow="floatingWindow"
         :popoverOptions="popoverOptions"
         :taskInnerHtml="setTaskInnerHtml"
+        :setTaskBackground="setTaskBackground"
         taskDialogTitle="Process"
         taskRadius="25"
         @taskClick="taskClick"
@@ -162,7 +163,7 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
-          <template #titleBar><span class="subTitle">总计:{{itemCount}}</span></template>
+          <template #titleBar><span class="subTitle">总计：{{oldCount}}</span></template>
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -172,10 +173,18 @@
             <el-button
               size="mini"
               :disabled="canMark"
-              @click="mark"
-              style="margin-right: 5px"
+              @click="markNormal"
+              style="margin:0 5px 0 0"
             >
               {{ $t("production.Pr_MarkAsNormal") }}
+            </el-button>
+            <el-button
+                size="mini"
+                :disabled="canMark"
+                @click="markCompleted"
+                style="margin:0 5px 0 0"
+            >
+              {{ $t("production.Pr_MarkAsCompleted") }}
             </el-button>
             <el-select
               v-model="tableChangeShow"
@@ -201,7 +210,7 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
-          <template #titleBar><div class="subTitle">总计：{{itemCount}}</div></template>
+          <template #titleBar><div class="subTitle">总计：{{obsCount}}</div></template>
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -261,7 +270,7 @@
       @cancel="cancelRelease"
       @confirm="release"
     >
-      生产排程完成，无超负荷工单、超交期工单，是否进行发布？
+      生产排程完成，是否进行发布？
     </jv-dialog>
     <!-- 发布弹窗 -->
     <JvDialog
@@ -300,10 +309,11 @@ import { formSchema } from "./formConfig";
 import { stateEnum } from "@/enum/workModule";
 // 单据状态组件
 import { do_publish } from "@/api/workApi/production/aps";
-import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
+import { simulation_scheduling_list , overdue_and_obsolete_list } from "@/api/workApi/production/productionSchedule";
 import {
   update_is_partake_aps,
   update_plan_end,
+  update_state
 } from "@/api/workApi/production/productionTask";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import calculateTime from "./components/calculateTime";
@@ -311,7 +321,6 @@ import apsLog from "./components/apsLog";
 import CustomGantt from "@/components/CustomGantt/index.vue";
 import GanttPopover from "./components/gantt-popover.vue";
 import floatingWindow from "./components/floatingWindow.vue";
-import item from "@/layout/components/Sidebar/Item.vue";
 import { Form } from "@/jv_doc/class/form";
 import Action from "~/cpn/JvAction/index.vue";
 export default {
@@ -395,7 +404,8 @@ export default {
         planEnd: null,
         billId: null,
       },
-      itemCount:null,
+      obsCount:null,
+      oldCount:null,
     };
   },
   beforeRouteLeave(to, from, next) {
@@ -409,10 +419,7 @@ export default {
     next();
   },
   created() {
-    // 创建表格实例
-    this.tableObj = new Table();
-    this.ObsoleteTableObj = new ObsoleteTable();
-    this.oldTableObj = new OldTable();
+    this.createTableClass(); // 创建表格实例
     // 创建表单实例
     this.formObj = new Form({
       formSchema: formSchema,
@@ -422,13 +429,13 @@ export default {
       // gutter: 30,
       labelWidth: "80px",
     });
-
     this.setTableChangeGantt(); // 调生产排程接口
 
     this.tableChangeFn(false); // 调陈旧工单接口
+
   },
   mounted() {
-    this.setGanttContainer()
+    this.setGanttContainer();
   },
   computed: {
     // 是否可以批量删除
@@ -451,6 +458,35 @@ export default {
     },
   },
   methods: {
+	  // 创建表格实例
+	  createTableClass() {
+		  this.tableObj = new Table();
+		  this.ObsoleteTableObj = new ObsoleteTable();
+		  this.oldTableObj = new OldTable();
+		  this.ObsoleteTableObj.getData();
+		  this.oldTableObj.getData();
+
+		  this.ObsoleteTableObj.setCallBack(() => {
+			  this.obsCount = this.ObsoleteTableObj.tableData.length
+		  });
+		  this.oldTableObj.setCallBack(() => {
+			  this.oldCount = this.oldTableObj.tableData.length
+		  });
+		  let timer = setInterval(() => {
+			  if((this.oldCount || this.obsCount === 0) && (this.obsCount || this.obsCount === 0)) {
+				  this.notification();
+				  clearInterval(timer)
+			  }
+		  },100)
+	  },
+    setTaskBackground(item) {
+      if(item) {
+        return {
+          is: item.PlanDevice.indexOf('[Overload]') !== -1,
+          color: "#ffcc33"
+        }
+      }
+    },
     searchChange() {
       this.setAlgorithmType();
     },
@@ -492,28 +528,15 @@ export default {
       // 创建表格实例
       if (val) {
         this.ObsoleteTableObj.getData();
-        this.ObsoleteTableObj.setCallBack(() => {
-          this.itemCount = this.ObsoleteTableObj.tableData.length
-        });
       } else {
         this.oldTableObj.getData();
         this.oldTableObj.setCallBack(() => {
           this.itemCount = this.oldTableObj.tableData.length
+          if(!this.itemCount) {
+            this.setFold();
+          }
         });
       }
-    },
-    //删除单据
-    deleteOrder(ids) {
-      this.tableObj.api.del({ BillIds: ids }).then((_) => {
-        this.tableObj.getData();
-      });
-    },
-    //新增
-    add() {
-      this.$router.push({
-        name: "Sa_SaleOrder_Add",
-        params: { type: "add", title: "addSaleOrder" },
-      })
     },
     // 监听计算loading
     handleLoading(loading) {
@@ -536,7 +559,6 @@ export default {
     // 计算结果无超交期超负荷时提醒发布
     completed() {
       this.calculateTimeDialogFormVisible = false;
-      this.tableObj.getData();
       this.releaseDialogFormVisible = true;
       this.needOpen = true;
     },
@@ -561,6 +583,7 @@ export default {
           this.needOpen = false;
           this.loading = false;
           this.tableObj.getData();
+          this.setAlgorithmType();
         })
         .catch(() => {
           this.loading = false;
@@ -607,8 +630,8 @@ export default {
           this.ganttContainerHeight = this.isFold
             ? mainContent.clientHeight - 110
             : mainContent.clientHeight / 2 - 110; // 甘特图盒子的高度
+          this.tableChangeShow ? this.ObsoleteTableObj.doLayout() : this.oldTableObj.doLayout()
         }, 100);
-        this.tableChangeShow ? this.ObsoleteTableObj.doLayout() : this.oldTableObj.doLayout()
       };
     },
     // 展开表格
@@ -637,7 +660,7 @@ export default {
 		  this.loading = true;
 		  update_plan_end({BillIds:[this.planData.billId],PlanEnd:this.planData.planEnd }).then(() => {
 			  this.loading = false;
-		  this.tableChangeFn(true)
+		    this.tableChangeFn(true)
 		  }).catch(() => {
 		    this.loading = false;
 	    });
@@ -662,26 +685,45 @@ export default {
       this.SchedulingResultsVisible = true;
     },
     // 批量标记陈旧工单为正常
-    mark() {
+    markNormal() {
       this.loading = true;
-      let { datas } = this.oldTableObj.selectData;
-      let BillIds = [];
-      datas.forEach((item)=>{
-        BillIds.push(item.BillId)
-      })
+      const { datas } = this.oldTableObj.selectData;
+      let BillIds = datas.map(item => item.BillId);
       update_is_partake_aps({ BillIds } ).then(()=>{
         this.tableChangeFn(false)
-		  this.loading = false;
+		    this.loading = false;
 		  }).catch(() => {
-			this.loading = false;
+			  this.loading = false;
 		  });
     },
+    // 批量标记陈旧工单为已完成
+    markCompleted() {
+      this.loading = true;
+      const { datas } = this.oldTableObj.selectData;
+      const state = "Processed";
+      let BillIds = datas.map(item => item.BillId);
+      update_state({ BillIds , state} ).then(()=>{
+        this.tableChangeFn(false)
+        this.loading = false;
+      }).catch(() => {
+        this.loading = false;
+      });
+    },
+    // 异常工单通知
+    notification(){
+      this.$notify({
+        title: '工单信息',
+        message: `陈旧工单：${this.oldCount}，超期工单：${this.obsCount}`,
+        type: 'warning'
+      });
+    }
   },
 	activated(){
 	  setTimeout(()=>{
-		this.ObsoleteTableObj.doLayout()
-		this.oldTableObj.doLayout()
-    },100)
+      this.setAlgorithmType()
+		  this.ObsoleteTableObj.doLayout()
+		  this.oldTableObj.doLayout()
+    },50)
   },
   watch: {
     tableChangeShow(val) {

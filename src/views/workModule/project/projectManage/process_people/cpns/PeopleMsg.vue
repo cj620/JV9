@@ -13,8 +13,14 @@
       <el-image
         style="width: 80px; height: 80px"
         :src="imgUrlPlugin(cdata.PhotoUrl)"
+        class="productionTask-details-img"
         :preview-src-list="[imgUrlPlugin(cdata.PhotoUrl)]"
-      ></el-image>
+      >
+          <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline error-icon"></i>
+          </div>
+
+      </el-image>
     </div>
     <!-- 时间 -->
     <div class="card-text">
@@ -80,6 +86,21 @@ export default {
   }
   .el-progress-bar__innerText {
     color: #000;
+  }
+}
+.productionTask-details-img {
+  background-color: rgb(231, 231, 231);
+  .image-slot {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // color: rgb(161, 161, 161);
+    .error-icon {
+      color: rgb(161, 161, 161);
+      font-size: 19px;
+    }
   }
 }
 </style>

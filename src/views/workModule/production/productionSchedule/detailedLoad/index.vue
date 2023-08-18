@@ -80,7 +80,6 @@ export default {
     //单击明细表格
     handleCurrentChange(val) {
       this.tableObj2.setData(val.ApsResultItems);
-
     },
   },
 };

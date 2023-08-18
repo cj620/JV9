@@ -318,6 +318,11 @@ export default {
     taskColor: {
       type: String,
       default: "#2a9bf1"
+    },
+    // 设置任务条背景颜色的方法
+    setTaskBackground: {
+      type: Function,
+      default: null,
     }
   },
   data() {
@@ -382,6 +387,7 @@ export default {
 
 
     const options = {
+      setTaskBackground: this.setTaskBackground,
       taskColor: this.taskColor,
       isTaskHover: this.isTaskHover,
       tableItemHeight: this.tableItemHeight,
@@ -398,7 +404,9 @@ export default {
     this.gantt = new CreateGantt(options);
     this.gantt.setDialogVisible = this.setDialogVisible;
   },
-  mounted() {},
+  mounted() {
+    this.setTaskBackground();
+  },
   methods: {
     timeFormat,
     imgUrlPlugin,
@@ -547,6 +555,8 @@ export default {
           let res = new Date(TimeResult.MaximumTime).getTime() + day;
           TimeResult.MaximumTime = timeFormat(res, "yyyy-MM-dd hh:mm:ss");
         }
+        // let minTime = new Date(TimeResult.MinimumTime).getTime() - 86400000;
+        // TimeResult.MinimumTime = timeFormat(minTime, "yyyy-MM-dd hh:mm:ss")
       }
       return TimeResult;
     },
@@ -554,6 +564,8 @@ export default {
   watch: {
     // 监听接口返回成功
     result(val) {
+      this.clickTaskHint = false;
+      this.headerTableIdx = null;
       let MaximumTime = this.getMaxAndMinTime(val.Items).MaximumTime;
       let MinimumTime = this.getMaxAndMinTime(val.Items).MinimumTime;
       this.gantt.MinimumTime = MinimumTime;

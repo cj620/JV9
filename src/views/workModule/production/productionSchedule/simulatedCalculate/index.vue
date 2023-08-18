@@ -2,8 +2,14 @@
   <PageWrapper :footer="false">
     <div class="simulatedCalculate-page" v-loading="loading">
       <!-- tab标签 -->
-      <div style="background: #fff;box-sizing: border-box;padding: 10px;position:relative;">
-
+      <div
+        style="
+          background: #fff;
+          box-sizing: border-box;
+          padding: 10px;
+          position: relative;
+        "
+      >
         <!-- 操作行 -->
         <div class="simulatedCalculate-page-form">
           <!-- 算法多选框 -->
@@ -28,18 +34,24 @@
             class="action-line"
             size="mini"
             :actions="[
-            {
-              label: $t('production.Pr_SimulatedCalculate'),
-              confirm: simulatedCalculate.bind(null),
-              disabled: isSelectedTypesEmpty,
-            },
-          ]"
+              {
+                label: $t('production.Pr_SimulatedCalculate'),
+                confirm: simulatedCalculate.bind(null),
+                disabled: isSelectedTypesEmpty,
+              },
+            ]"
           >
           </Action>
-          <el-button icon="el-icon-view" size="mini" @click="setTableChangeGantt">
-            {{GanttView
-            ? $t('Generality.Ge_TabularShow')
-            : $t('Generality.Ge_GanttShow')}}
+          <el-button
+            icon="el-icon-view"
+            size="mini"
+            @click="setTableChangeGantt"
+          >
+            {{
+              GanttView
+                ? $t("Generality.Ge_TabularShow")
+                : $t("Generality.Ge_GanttShow")
+            }}
           </el-button>
         </div>
 
@@ -81,14 +93,16 @@
               style=""
               v-show="currentTabName !== 'SimulatedAPS'"
             >
-              <JvTable :table-obj="tableObj" v-show="!GanttView"  v-if="currentTabName === item.name"></JvTable>
+              <JvTable
+                :table-obj="tableObj"
+                v-show="!GanttView"
+                v-if="currentTabName === item.name"
+              ></JvTable>
               <div v-if="currentTabName === item.name">
                 <!-- 顶部操作行 -->
                 <div class="action-header">
                   <div class="action-header-left">
-                    <div
-                      style="font-size: 12px; line-height: 0"
-                    >
+                    <div style="font-size: 12px; line-height: 0">
                       {{ $t("Generality.Ge_Unit") }}：
                     </div>
                     <div style="margin-right: 20px">
@@ -120,13 +134,15 @@
                       </el-input>
                     </div>
                     <div>
-                      <el-button size="mini" style="margin-left: 10px" type="primary">{{
-                          $t("Generality.Ge_Search")
-                        }}</el-button>
+                      <el-button
+                        size="mini"
+                        style="margin-left: 10px"
+                        type="primary"
+                        >{{ $t("Generality.Ge_Search") }}</el-button
+                      >
                     </div>
                   </div>
-                  <div class="action-header-right">
-                  </div>
+                  <div class="action-header-right"></div>
                 </div>
                 <div>
                   <CustomGantt
@@ -140,9 +156,10 @@
                     :gantt-container-height="boxHeight-88"
                     :loading="loading"
                     :result="result"
+                    :popoverOptions="{placement: 'right', width: 670, trigger: 'hover',}"
                     :taskInnerHtml="setTaskInnerHtml"
                     :popoverInnerHtml="setPopoverInnerHtml"
-                    :popoverOptions="{placement: 'right', width: 670, trigger: 'hover',}"
+                    :setTaskBackground="setTaskBackground"
                   >
                     <template #popover="{ item }">
                       <gantt-popover :item="item"></gantt-popover>
@@ -150,9 +167,7 @@
                   </CustomGantt>
                   <!-- 分页器 -->
                   <div class="custom-pagination">
-
-                    <div>
-                    </div>
+                    <div></div>
 
                     <div class="custom-pagination-box">
                       <el-pagination
@@ -167,10 +182,9 @@
                       </el-pagination>
                     </div>
                   </div>
-
-                  </div>
                 </div>
               </div>
+            </div>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -181,7 +195,7 @@
 <script>
 import ChartWrapper from "./components/chartWrapper.vue";
 import { Table } from "./components/resultConfig";
-import {GanttColumns} from './config';
+import { GanttColumns } from "./config";
 import { pie_chart } from "@/api/workApi/production/aps";
 import {
   simulation_calculate,
@@ -228,7 +242,7 @@ export default {
         },
       ],
       unitOfTime: "hour", // 默认时间单位
-      partNumberValue: '', // 甘特图搜索框
+      partNumberValue: "", // 甘特图搜索框
       pageSize: 10,
       current: 1,
     };
@@ -244,13 +258,13 @@ export default {
     window.onresize = (e) => {
       console.log(e);
       this.debounce(() => {
-        if(this.currentTabName === "SimulatedAPS") {
+        if (this.currentTabName === "SimulatedAPS") {
           this.boxHeight = mainContent.clientHeight - 100;
-          this.boxHeight < 400 ? this.boxHeight = 400 : this.boxHeight;
-          mainContent.style.overflowY = 'auto';
+          this.boxHeight < 400 ? (this.boxHeight = 400) : this.boxHeight;
+          mainContent.style.overflowY = "auto";
         } else {
           this.boxHeight = mainContent.clientHeight - 100;
-          mainContent.style.overflowY = 'none';
+          mainContent.style.overflowY = "none";
         }
       }, 100);
     };
@@ -262,6 +276,15 @@ export default {
     },
   },
   methods: {
+    // 设置任务条颜色
+    setTaskBackground(item) {
+      if(item) {
+        return {
+          is: item.PlanDevice.indexOf('[Overload]') !== -1,
+          color: "#ffcc33"
+        }
+      }
+    },
     // 总条数切换
     handleSizeChange(pageSize) {
       this.pageSize = pageSize;
@@ -289,7 +312,8 @@ export default {
       }</div>
               <div>${i18n.t("Generality.Ge_PlanEnd")}：${item._PlanEnd}</div>`;
     },
-    searchChange() { // 搜索
+    searchChange() {
+      // 搜索
       this.setAlgorithmType();
     },
     // 切换时间
@@ -314,12 +338,15 @@ export default {
         Keyword: this.partNumberValue,
         // SortColumn: "PartNo,PlanStart",
         // SortOrder: 1,
-      }).then((res) => {
-        this.result = res;
-        this.loading = false;
-      }).catch(err => {
-        this.loading = false;
       })
+        .then((res) => {
+          this.result = res;
+          this.loading = false;
+          this.$refs.CustomGantt[0].setGanttZoom(this.unitOfTime);
+        })
+        .catch((err) => {
+          this.loading = false;
+        });
     },
     // 防抖函数
     debounce(func, wait) {
@@ -416,7 +443,7 @@ export default {
 ::v-deep .el-tabs--border-card > .el-tabs__content {
   padding: 0;
 }
-::v-deep .el-tabs__header{
+::v-deep .el-tabs__header {
   margin: 0;
 }
 .action-header {
