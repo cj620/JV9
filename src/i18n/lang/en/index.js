@@ -129,6 +129,7 @@ const en = {
     As_DeviceMaintain: "Device Maintenance",
     As_DeviceScrap: "Device Scrap",
     As_DeviceRepair: "Device Repair",
+    As_MaintenanceTPL: "Maintenance TPL",
   },
   login: {
     l_LogIn: "Log in",
@@ -909,6 +910,8 @@ const en = {
     Qc_Return: "Return",
   },
   device: {
+    De_Repair: "Repair",
+    De_Maintenance: "Maintenance",
     De_MaintenanceDate: "Maintenance Date",
     De_MaintenanceMode: "Maintenance Mode",
     De_LastMaintenanceDate: "Last Maintenance date",
@@ -928,6 +931,8 @@ const en = {
     De_Interval: "Interval days/Cumulative hours/Cumulative times",
     De_StorageStatus: "Storage Status",
     De_Handlers: "Handlers",
+    De_ToBeMaintained: "To Be Maintained",
+    De_DataToBeMaintained: "Viewing data to be maintained",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

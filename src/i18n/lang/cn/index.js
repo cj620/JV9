@@ -123,11 +123,12 @@ const cn = {
     Qc_Error: "质检异常",
     Pr_LabelPrint: "标签打印",
     Se_DeleteItemList: "已删除物料",
-    As_AssetsManage: "设备",
+    As_AssetsManage: "资产管理",
     As_DeviceList: "设备列表",
     As_DeviceMaintain: "设备保养",
     As_DeviceScrap: "设备报废",
     As_DeviceRepair: "设备报修",
+    As_MaintenanceTPL: "保养模板",
   },
   login: {
     l_LogIn: "登录",
@@ -894,6 +895,8 @@ const cn = {
     Qc_Return: "归还",
   },
   device: {
+    De_Repair: "报修",
+    De_Maintenance: "保养",
     De_MaintenanceDate: "保养日期",
     De_MaintenanceMode: "保养方式",
     De_LastMaintenanceDate: "上次保养日期",
@@ -913,6 +916,8 @@ const cn = {
     De_Interval: "间隔天数/累计小时/累计次数",
     De_StorageStatus: "出入库状态",
     De_Handlers: "操作者",
+    De_ToBeMaintained: "待保养",
+    De_DataToBeMaintained: "查看待保养的数据",
   },
   // 后端提示
   backendMessage: {

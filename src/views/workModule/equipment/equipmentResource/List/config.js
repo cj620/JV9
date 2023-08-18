@@ -28,7 +28,7 @@ export class Table extends BaseTable {
       // 行标识
       rowId: 'BillId',
       // 表格标题
-      title: '',
+      title: i18n.t("menu.As_DeviceList"),
       // 接口类
       api,
       // 操作列宽度
@@ -105,7 +105,7 @@ export const tableConfig = [
     /*使用部门*/
     {
       prop: "UserDepartment",
-      label: '使用部门',
+      label: i18n.t("device.De_UserDepartment"),
     },
   /*保养方式*/
   {
@@ -128,7 +128,7 @@ export const tableConfig = [
   //出入库状态
   {
     prop: "InventoryState",
-    label: '出入库状态',
+    label: i18n.t("device.De_StorageStatus"),
     customFilter: (value) => {
       if (!value) return "";
       return inventoryStateEnum[value].name;
@@ -183,14 +183,14 @@ export const tableConfig = [
   /*备注*/
   {
     prop: "Remarks",
-    label:'备注',
+    label: i18n.t("Generality.Ge_Remarks"),
   },
 ]
 // 表单配置
 export const formSchema = [
   {
     prop: "Keyword",
-    label: '关键字',
+    label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
   },
   //报修类型
@@ -212,7 +212,7 @@ export const formSchema = [
       list: [
         {
           value: true,
-          label: "查看待保养的数据",
+          label: i18n.t("device.De_DataToBeMaintained"),
         },
 
       ],

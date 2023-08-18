@@ -39,23 +39,25 @@
             confirm: add,
           },
           {
-            label: '报修',
+            label: $t('device.De_Repair'),
             confirm: toRepair,
             disabled: canIsDel,
           },
           {
-            label: '保养',
+            label: $t('device.De_Maintenance'),
             confirm: toMaintenance,
             disabled: canIsDel,
           },
           {
-            label: '保养模板',
+            label: $t('menu.As_MaintenanceTPL'),
             confirm: toMaintenanceTPL,
           },
         ]"
       >
        <el-badge :value="pageCount"  >
-  <el-button  @click="viewToBeMaintained"   size="mini">待保养</el-button>
+  <el-button  @click="viewToBeMaintained"   size="mini">
+    {{$t('device.De_ToBeMaintained')
+  }}</el-button>
 </el-badge>
       </Action>
 
@@ -83,7 +85,6 @@ export default {
     return {
       // 表格实例
       tableObj: {},
-      tableTitle: "设备列表",
       machineCategory: 'Machine',
       editRouterName: "As_DeviceEdit",
       addRouterName: "As_DeviceAdd",
@@ -102,7 +103,6 @@ export default {
   created() {
     // 创建表格实例
     this.tableObj = new Table();
-    this.tableObj.props.title = this.tableTitle;
     this.tableObj.formObj.form.DeviceCategory=this.machineCategory
     this.tableObj.getData();
     this.getPageCountList()
