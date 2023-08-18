@@ -2,6 +2,7 @@
  * @Author: C.
  * @Date: 2023-08-01 09:07:24
  */
+import i18n from "@/i18n/i18n.js";
 import { createEnumObject } from "@/jv_doc/utils/object/createEnumObject";
 export const MsgTypeEnum = {
   MESSAGE: "Message",
@@ -9,21 +10,22 @@ export const MsgTypeEnum = {
   NOTICE: "Notice",
   TASK: "Task",
 };
+// i18n.t("Generality.Ge_Pending")
 export const msgEnum = createEnumObject([
   {
-    label: "消息",
+    label: i18n.t("Generality.Ge_Message"),
     value: MsgTypeEnum.MESSAGE,
   },
   {
-    label: "通知",
+    label: i18n.t("Generality.Ge_Notice"),
     value: MsgTypeEnum.NOTICE,
   },
   {
-    label: "审核",
+    label: i18n.t("Generality.Ge_Audit"),
     value: MsgTypeEnum.AUDIT,
   },
   {
-    label: "任务",
+    label: i18n.t("Generality.Ge_Task"),
     value: MsgTypeEnum.TASK,
   },
 ]);

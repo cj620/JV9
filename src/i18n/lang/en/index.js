@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-11-12 10:35:07
- * @LastEditTime: 2022-11-30 15:38:32
- * @LastEditors: 勿忘 208760845@qq.com
+ * @LastEditTime: 2023-08-18 10:58:02
+ * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \JvMmsV9Front\src\i18n\lang\en\index.js
  */
@@ -731,6 +731,20 @@ const en = {
       "has been completed. Do you want to continue with the operation?",
     Ge_StockInCompleted:
       "has been completed. Do you want to continue with the operation?",
+    Ge_Message: "Message",
+    Ge_Audit: "Audit",
+    Ge_Notice: "Notice",
+    Ge_Task: "Task",
+    Ge_AllMsg: "All messages",
+    Ge_UnreadMsg: "Unread messages",
+    Ge_AllRemarkToRead: "Mark all as read",
+    Ge_HistoryMsg: "History messages",
+    Ge_Handle: "Handle",
+    Ge_RemarkToRead: "Mark as read",
+    Ge_JustNow: "Just now",
+    Ge_MinutesAgo: " minutes ago",
+    Ge_HoursAgo: " hours ago",
+    Ge_1DayAgo: "1 day ago",
   },
   //生产
   production: {

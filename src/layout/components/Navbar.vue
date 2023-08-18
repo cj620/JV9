@@ -33,7 +33,7 @@
         >
           <el-popover
             placement="bottom"
-            width="400"
+            width="450"
             trigger="click"
             @show="popoverInit"
           >
@@ -50,12 +50,18 @@
               >
                 <el-select
                   v-model="notifyType"
-                  placeholder="请选择"
+                  :placeholder="$t('Generality.Ge_PleaseSelect')"
                   size="mini"
                   @change="notifyTypeChange"
                 >
-                  <el-option :value="0" label="全部消息"></el-option>
-                  <el-option :value="1" label="未读消息"></el-option>
+                  <el-option
+                    :value="0"
+                    :label="$t('Generality.Ge_AllMsg')"
+                  ></el-option>
+                  <el-option
+                    :value="1"
+                    :label="$t('Generality.Ge_UnreadMsg')"
+                  ></el-option>
                 </el-select>
               </div>
               <el-tabs v-model="activeType" @tab-click="tabClick">
@@ -92,7 +98,7 @@
                       :key="item.Id"
                     ></NotifyItem>
                   </div>
-                  <el-empty description="无消息" v-else></el-empty>
+                  <el-empty v-else></el-empty>
                 </el-tab-pane>
               </el-tabs>
               <div
@@ -105,10 +111,10 @@
                 "
               >
                 <div style="cursor: pointer" @click="toMarkAll">
-                  全部标记为已读
+                  {{ $t("Generality.Ge_AllRemarkToRead") }}
                 </div>
                 <div style="cursor: pointer" @click="historyDetail">
-                  历史通知
+                  {{ $t("Generality.Ge_HistoryMsg") }}
                 </div>
               </div>
             </div>
@@ -134,6 +140,11 @@
         trigger="click"
       >
         <div class="avatar-wrapper">
+          <div
+            class="socket-state"
+            :style="{ background: socket.socket_open ? '#0f0' : '#f00' }"
+            @click.stop="reconnect"
+          ></div>
           <div class="userName" v-if="!avatar">
             {{ name.slice(0, 1) }}
           </div>
@@ -145,7 +156,7 @@
             :src="imgUrlPlugin(avatar)"
             class="user-avatar"
           />
-          <span class="userAllName">{{ name }}</span>
+          <span class="userAllName"> {{ name }}</span>
           <i class="el-icon-caret-bottom" />
         </div>
 
@@ -222,12 +233,18 @@
         >
           <el-select
             v-model="notifyType"
-            placeholder="请选择"
+            :placeholder="$t('Generality.Ge_PleaseSelect')"
             size="mini"
             @change="notifyTypeChange"
           >
-            <el-option :value="0" label="全部消息"></el-option>
-            <el-option :value="1" label="未读消息"></el-option>
+            <el-option
+              :value="0"
+              :label="$t('Generality.Ge_AllMsg')"
+            ></el-option>
+            <el-option
+              :value="1"
+              :label="$t('Generality.Ge_UnreadMsg')"
+            ></el-option>
           </el-select>
         </div>
         <el-tabs v-model="activeType" @tab-click="tabClick">
@@ -260,7 +277,7 @@
                 @toDetail="notifyVisible = false"
               ></NotifyItem>
             </div>
-            <el-empty description="无消息" v-else></el-empty>
+            <el-empty v-else></el-empty>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -337,7 +354,7 @@ export default {
   },
   computed: {
     ...mapGetters(["userId", "sidebar", "avatar", "device", "name"]),
-    ...mapState("websocket", ["notifyObjs", "notifysCounts"]),
+    ...mapState("websocket", ["notifyObjs", "notifysCounts", "socket"]),
   },
   methods: {
     ...mapActions("websocket", [
@@ -350,6 +367,9 @@ export default {
     getData() {
       // console.log(this.currentNotifyObj, "444notifyObjs");
       this.currentNotifyObj.nextPage();
+    },
+    reconnect() {
+      this.socket.reconnect();
     },
     tabClick(tab) {
       this.notifyObjs.forEach((item) => {
@@ -422,6 +442,12 @@ export default {
       this.notifyVisible = true;
     },
   },
+  watch: {
+    $route() {
+      // console.log("55555");
+      this.notifyVisible = false;
+    },
+  },
 };
 </script>
 
@@ -487,6 +513,17 @@ export default {
         position: relative;
         display: flex;
         align-items: center;
+        position: relative;
+        .socket-state {
+          position: absolute;
+          border-radius: 100%;
+          background-color: #0f0;
+          width: 10px;
+          height: 10px;
+          left: 31px;
+          bottom: 5px;
+          /* border: 5px solid #fff; */
+        }
         .userAllName {
           margin: 0 10px;
         }
