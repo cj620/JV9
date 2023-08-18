@@ -74,7 +74,7 @@
               <div></div>
               <div>
                 {{ $t("Generality.Ge_ToolingNo") }}:
-                {{ item.ToolingInfo.ToolingNo }}12312312312312312312312321312
+                {{ item.ToolingInfo.ToolingNo }}
               </div>
               <div>
                 {{ $t("Generality.Ge_ToolingName") }}:
@@ -228,12 +228,18 @@ export default {
   },
   mounted() {
     this.unitOptions = this.$refs.ganttchart.unitOptions;
-    const chartBox = document.querySelector(".chart-box");
-    this.chartBoxWidth = chartBox.clientWidth;
+    this.getChartBoxWidth();
+    window.onresize = () => {
+      this.debounce(this.getChartBoxWidth,100)
+    }
   },
   methods: {
     imgUrlPlugin,
     timeFormat,
+    getChartBoxWidth() {
+      const chartBox = document.querySelector(".chart-box");
+      this.chartBoxWidth = chartBox.clientWidth;
+    },
     setBgColor(item) {
       const res = this.stateList.filter((children) => {
         return children.value === item.State;
@@ -245,6 +251,13 @@ export default {
     },
     searchValueChange(value) {
       console.log(value);
+    },
+    // 防抖函数
+    debounce(func, wait) {
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
+      this.timeout = setTimeout(func, wait);
     },
     GetData() {
       partProcessingPlan({}).then((res) => {
