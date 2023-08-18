@@ -19,21 +19,25 @@ export const formSchema = [
     default: 0,
     options: {
       list: [
+        // 经典算法
         {
           value: 0,
           label: i18n.t("production.Pr_ClassicalAlgorithm"),
         },
+        // 最短工期
         {
           value: 1,
-          label: i18n.t("production.Pr_CR"),
-        },
-        {
-          value: 2,
           label: i18n.t("production.Pr_MinimumWorkingPeriod"),
         },
+        // 最早交货期
+        {
+          value: 2,
+          label: i18n.t("production.Pr_EarliestDeliveryDate"),
+        },
+        // CR值排程
         {
           value: 3,
-          label: i18n.t("production.Pr_EarliestDeliveryDate"),
+          label: i18n.t("production.Pr_CR"),
         },
       ],
     },
