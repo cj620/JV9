@@ -16,7 +16,7 @@
         <div v-show="tableChangeGantt" style="margin-right: 20px">
           <el-select
             v-model="unitOfTime"
-            placeholder="请选择单位"
+            :placeholder="$t('production.Pr_SelectUnit')"
             size="mini"
             style="width: 66px"
             @change="setGanttZoom"
@@ -163,7 +163,7 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
-          <template #titleBar><span class="subTitle">总计：{{oldCount}}</span></template>
+          <template #titleBar><span class="subTitle">{{$t("production.Pr_Total")}}：{{oldCount}}</span></template>
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -270,7 +270,7 @@
       @cancel="cancelRelease"
       @confirm="release"
     >
-      生产排程完成，是否进行发布？
+      {{$t("production.Pr_WhetherToPublish")}}
     </jv-dialog>
     <!-- 发布弹窗 -->
     <JvDialog
@@ -294,7 +294,7 @@
       <el-date-picker
         v-model="planData.planEnd"
         type="date"
-        placeholder="选择日期时间"
+        :placeholder="$t('production.Pr_SelectDate')"
       >
       </el-date-picker>
     </JvDialog>
@@ -574,11 +574,11 @@ export default {
     },
     // 发布弹窗取消，若需跳转其它页面进行跳转
     cancelRelease() {
-      this.toRouteName
-        ? this.$router.push({
-            name: this.toRouteName,
-          })
-        : console.log("无需跳转");
+      if(this.toRouteName){
+        this.$router.push({
+          name: this.toRouteName,
+        });
+      }
       this.toRouteName = null;
     },
     // 切换时间
@@ -696,8 +696,11 @@ export default {
     notification(){
       if(this.IsFlag){
         this.$notify({
-          title: '工单信息',
-          message: `陈旧工单：${this.oldCount}，超期工单：${this.obsCount}`,
+          title: i18n.t("production.Pr_WorkSheetInfo"),
+          message: `
+            ${i18n.t("production.Pr_StaleWorkOrder")}：${this.oldCount}，
+            ${i18n.t("production.Pr_OverdueWorkOrder")}：${this.obsCount}
+          `,
           type: 'warning'
         });
         this.oldCount === 0 ? this.setFold() : "" ;

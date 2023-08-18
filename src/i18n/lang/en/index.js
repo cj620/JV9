@@ -341,7 +341,7 @@ const en = {
   },
   //通用
   Generality: {
-    Ge_GanttShow: "Gantt Chart Shows",
+    Ge_GanttShow: "Gantt Display",
     Ge_TabularShow: "Tabular Display",
     Ge_New: "New",
     Ge_Add: "Add",
@@ -735,8 +735,8 @@ const en = {
   //生产
   production: {
     Pr_DeletedData: "Deleted Data",
-    Pr_StaleWorkOrder: "Stale Work Order",
-    Pr_OverdueWorkOrder: "Overdue Work Order",
+    Pr_StaleWorkOrder: "Stale Order",
+    Pr_OverdueWorkOrder: "Overdue Order",
     Pr_PleaseEnterPartNumber: "PleaseEnterPartNumber...",
     Pr_Unlabeled: "Unlabeled",
     Pr_Tagged: "Tagged",
@@ -837,11 +837,15 @@ const en = {
     Pr_DoAPS: "Do aps",
     Pr_APSLog: "APS log",
     Pr_OneClickProcessing: "One click processing",
-    Pr_PleaseSelectSchedulingAlgorithms: "Select algorithms",
+    Pr_Algorithms: "Algorithms",
     Pr_MarkAsNormal: "Mark as normal",
     Pr_MarkAsCompleted: "Mark as completed",
     Pr_Version: "Version",
     Pr_ModifyPlanEndTime: "Modify plan end time",
+    Pr_Total: "Total",
+    Pr_SelectUnit: "Please select a unit",
+    Pr_WhetherToPublish: "Production schedule completed, will it be released?",
+    Pr_WorkSheetInfo: "Work sheet info",
   },
   quality: {
     Qc_CheckResult: "Check result",
