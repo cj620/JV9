@@ -14,7 +14,7 @@
         <div class="simulatedCalculate-page-form">
           <!-- 算法多选框 -->
           <div class="pleaseSelect">
-            {{ $t("production.Pr_PleaseSelectSchedulingAlgorithms") }}:
+            {{ $t("production.Pr_Algorithms") }}:
           </div>
           <el-select
             class="multiple-select"
@@ -108,7 +108,7 @@
                     <div style="margin-right: 20px">
                       <el-select
                         v-model="unitOfTime"
-                        placeholder="请选择单位"
+                        :placeholder="$t('production.Pr_SelectUnit')"
                         size="mini"
                         style="width: 66px"
                         @change="setGanttZoom"

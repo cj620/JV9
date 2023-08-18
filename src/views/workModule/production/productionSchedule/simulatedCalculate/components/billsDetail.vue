@@ -111,14 +111,6 @@
           {{ scope.row.PlanEnd | timeFormat("yyyy-MM-dd hh:mm:ss") }}
         </template>
       </el-table-column>
-      <!--<el-table-column-->
-      <!--    :label="$t('Generality.Ge_ResultDescription')"-->
-      <!--    prop="ApsRemarks"-->
-      <!--&gt;-->
-      <!--  <template slot-scope="scope">-->
-      <!--    {{ ApsRemarksMap[scope.row.ApsRemarks].name }}-->
-      <!--  </template>-->
-      <!--</el-table-column>-->
     </el-table>
   </JvDialog>
 </template>
@@ -138,12 +130,12 @@ export default {
   data() {
     return {
       title: "",
-      ApsRemarksMap: {
+      ApsSheetsMap: {
         Overdue: {
-          name: this.$t("production.Pr_OverDeliveryDate"),
+          name: this.$t("production.Pr_OverdueWorkSheet"),
         },
         Overload: {
-          name: this.$t("production.Pr_Overload"),
+          name: this.$t("production.Pr_OverloadWorkSheet"),
         },
       },
       ApsSourceMap: {
@@ -165,7 +157,7 @@ export default {
     };
   },
   created() {
-    this.title = this.ApsRemarksMap[this.billData[0].ApsRemarks].name;
+    this.title = this.ApsSheetsMap[this.billData[0].ApsRemarks].name;
   },
   computed: {
     ProcessStateMap() {

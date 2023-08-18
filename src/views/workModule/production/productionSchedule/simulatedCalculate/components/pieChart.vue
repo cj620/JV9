@@ -62,19 +62,19 @@ export default {
           {
             type: "Normal",
             value: this.WorksheetNum[0],
-            name: "正常工单",
+            name: `${i18n.t("production.Pr_NormalWorkSheet")}`,
             itemStyle: { color: "#33ff99" },
           },
           {
             type: "Overdue",
             value: this.WorksheetNum[1],
-            name: "超交期工单",
+            name: `${i18n.t("production.Pr_OverdueWorkSheet")}`,
             itemStyle: { color: "#ff3300" },
           },
           {
             type: "Overload",
             value: this.WorksheetNum[2],
-            name: "超负荷工单",
+            name: `${i18n.t("production.Pr_OverloadWorkSheet")}`,
             itemStyle: { color: "#ffcc33" },
           },
         ];

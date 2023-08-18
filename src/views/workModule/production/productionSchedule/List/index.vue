@@ -16,7 +16,7 @@
         <div v-show="tableChangeGantt" style="margin-right: 20px">
           <el-select
             v-model="unitOfTime"
-            placeholder="请选择单位"
+            :placeholder="$t('production.Pr_SelectUnit')"
             size="mini"
             style="width: 66px"
             @change="setGanttZoom"
@@ -163,9 +163,7 @@
       >
         <div class="padding-value"></div>
         <JvTable ref="BillTable" :table-obj="oldTableObj">
-          <template #titleBar
-            ><span class="subTitle">总计：{{ oldCount }}</span></template
-          >
+          <template #titleBar><span class="subTitle">{{$t("production.Pr_Total")}}：{{oldCount}}</span></template>
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -211,10 +209,8 @@
         :style="{ height: ganttContainerHeight + 86 + 'px' }"
       >
         <div class="padding-value"></div>
-        <JvTable ref="BillTable" :table-obj="ObsoleteTableObj">
-          <template #titleBar
-            ><div class="subTitle">总计：{{ obsCount }}</div></template
-          >
+        <JvTable ref="BillTable" :table-obj="obsoleteTableObj">
+          <template #titleBar><div class="subTitle">总计：{{obsCount}}</div></template>
           <template #LastReportingDays="{ record }">
             <div style="color: red; font-size: 20px; font-weight: bold">
               {{ record }}
@@ -274,7 +270,7 @@
       @cancel="cancelRelease"
       @confirm="release"
     >
-      生产排程完成，是否进行发布？
+      {{$t("production.Pr_WhetherToPublish")}}
     </jv-dialog>
     <!-- 发布弹窗 -->
     <JvDialog
@@ -298,7 +294,7 @@
       <el-date-picker
         v-model="planData.planEnd"
         type="date"
-        placeholder="选择日期时间"
+        :placeholder="$t('production.Pr_SelectDate')"
       >
       </el-date-picker>
     </JvDialog>
@@ -341,28 +337,19 @@ export default {
   },
   data() {
     return {
-      // 组件
-      floatingWindow: floatingWindow,
+      floatingWindow: floatingWindow, // 组件
       partNumberValue: "", // 零件编号查询输入框
-      // 表格实例
-      tableObj: {},
-      // 表单实例
-      formObj: "",
-      // 最新发布版本号
-      ApsVersionNo: "",
-      // 计算
-      calculateTimeDialogFormVisible: false,
-      // 计算完成时或离开页面提醒是否进行发布
-      releaseDialogFormVisible: false,
-      // 发布日志
-      apsDialogFormVisible: false,
-      // 发布
-      SchedulingResultsVisible: false,
+      tableObj: {}, // 表格实例
+      formObj: "", // 表单实例
+      ApsVersionNo: "", // 最新发布版本号
+      calculateTimeDialogFormVisible: false, // 计算
+      releaseDialogFormVisible: false, // 计算完成时或离开页面提醒是否进行发布
+      apsDialogFormVisible: false, // 发布日志
+      SchedulingResultsVisible: false, // 发布
       UpdatePlanEndFormVisible: false, // 超期编辑计划结束时间
-      // 路由跳转前是否提醒发布
-      needOpen: false,
-      // 路由信息
-      toRouteName: null,
+      needOpen: false, // 路由跳转前是否提醒发布
+      toRouteName: null, // 路由信息
+      IsFlag:true, //定义一个临时变量来控制弹窗消息的
       tableChangeGantt: false, // 甘特图和表格切换显示隐藏
       // =================================================
       GanttColumns: GanttColumns,
@@ -373,7 +360,7 @@ export default {
       timeout: null,
       // activeName: 'overdue',
       oldTableObj: {}, // 陈旧表格
-      ObsoleteTableObj: {}, // 超期表格
+      obsoleteTableObj: {}, // 超期表格
       isFold: false, // 是否展开
       ganttContainerHeight: 0, //甘特图盒子的高度
       unfold_icon: "el-icon-arrow-down",
@@ -391,10 +378,8 @@ export default {
           label: i18n.t("Generality.Ge_Minute"),
         },
       ],
-      // 默认时间单位
-      unitOfTime: "hour",
-      // 表格切换显示隐藏
-      tableChangeShow: false,
+      unitOfTime: "hour", // 默认时间单位
+      tableChangeShow: false, // 表格切换显示隐藏
       tableChangeOptions: [
         { value: false, label: i18n.t("production.Pr_StaleWorkOrder") },
         { value: true, label: i18n.t("production.Pr_OverdueWorkOrder") },
@@ -408,8 +393,8 @@ export default {
         planEnd: null,
         billId: null,
       },
-      obsCount: null,
-      oldCount: null,
+      obsCount:0,
+      oldCount:0,
     };
   },
   beforeRouteLeave(to, from, next) {
@@ -423,7 +408,12 @@ export default {
     next();
   },
   created() {
-    this.createTableClass(); // 创建表格实例
+    // 创建表格实例
+    this.tableObj = new Table();
+    this.obsoleteTableObj = new ObsoleteTable();
+    this.oldTableObj = new OldTable();
+    // 获取数据弹出通知
+    this.createTableClass();
     // 创建表单实例
     this.formObj = new Form({
       formSchema: formSchema,
@@ -433,9 +423,8 @@ export default {
       // gutter: 30,
       labelWidth: "80px",
     });
-    this.setTableChangeGantt(); // 调生产排程接口
-
-    this.tableChangeFn(false); // 调陈旧工单接口
+    // 调生产排程接口
+    this.setTableChangeGantt();
   },
   mounted() {
     this.setGanttContainer();
@@ -461,35 +450,23 @@ export default {
     },
   },
   methods: {
-    // 创建表格实例
-    createTableClass() {
-      this.tableObj = new Table();
-      this.ObsoleteTableObj = new ObsoleteTable();
-      this.oldTableObj = new OldTable();
-      this.ObsoleteTableObj.getData();
-      this.oldTableObj.getData();
-
-      this.ObsoleteTableObj.setCallBack(() => {
-        this.obsCount = this.ObsoleteTableObj.tableData.length;
-      });
-      this.oldTableObj.setCallBack(() => {
-        this.oldCount = this.oldTableObj.tableData.length;
-      });
-      console.log(this.ObsoleteTableObj.pager);
-      console.log(this.oldTableObj.pager);
-      let timer = setInterval(() => {
-        if (
-          typeof this.oldCount !== "number" ||
-          typeof this.obsCount !== "number"
-        ) {
-          return;
-        }
-        if (this.oldCount === 0) {
-          this.setFold();
-        }
-        this.notification();
-        clearInterval(timer);
-      }, 100);
+    // 获取数据弹出通知
+    async createTableClass() {
+        await this.obsoleteTableObj.getData();
+        await this.oldTableObj.getData();
+        let isHas1 = false;
+        let isHas2 = false;
+        this.obsoleteTableObj.setCallBack((e) => {
+          this.obsCount = e.Count;
+          isHas1 = true;
+        })
+        this.oldTableObj.setCallBack((e) => {
+          this.oldCount = e.Count;
+          isHas2 = true;
+          if (isHas1 && isHas2) {
+            this.notification();
+          }
+        })
     },
     setTaskBackground(item) {
       if (item) {
@@ -539,7 +516,7 @@ export default {
     tableChangeFn(val) {
       // 创建表格实例
       if (val) {
-        this.ObsoleteTableObj.getData();
+        this.obsoleteTableObj.getData();
       } else {
         this.oldTableObj.getData();
       }
@@ -597,11 +574,11 @@ export default {
     },
     // 发布弹窗取消，若需跳转其它页面进行跳转
     cancelRelease() {
-      this.toRouteName
-        ? this.$router.push({
-            name: this.toRouteName,
-          })
-        : console.log("无需跳转");
+      if(this.toRouteName){
+        this.$router.push({
+          name: this.toRouteName,
+        });
+      }
       this.toRouteName = null;
     },
     // 切换时间
@@ -727,27 +704,34 @@ export default {
         });
     },
     // 异常工单通知
-    notification() {
-      this.$notify({
-        title: "工单信息",
-        message: `陈旧工单：${this.oldCount}，超期工单：${this.obsCount}`,
-        type: "warning",
-      });
-    },
+    notification(){
+      if(this.IsFlag){
+        this.$notify({
+          title: i18n.t("production.Pr_WorkSheetInfo"),
+          message: `
+            ${i18n.t("production.Pr_StaleWorkOrder")}：${this.oldCount}，
+            ${i18n.t("production.Pr_OverdueWorkOrder")}：${this.obsCount}
+          `,
+          type: 'warning'
+        });
+        this.oldCount === 0 ? this.setFold() : "" ;
+        this.IsFlag = false;
+      }
+    }
   },
-  activated() {
-    setTimeout(() => {
-      this.setAlgorithmType();
-      this.ObsoleteTableObj.doLayout();
-      this.oldTableObj.doLayout();
-    }, 50);
+	activated(){
+	  setTimeout(()=>{
+      this.setAlgorithmType()
+		  this.obsoleteTableObj.doLayout()
+		  this.oldTableObj.doLayout()
+    },50)
   },
   watch: {
     tableChangeShow(val) {
       if (!val) {
         this.oldTableObj.reset();
       } else {
-        this.ObsoleteTableObj.reset();
+        this.obsoleteTableObj.reset();
       }
     },
   },
