@@ -304,6 +304,7 @@ const cn = {
     Pu_RequiredCategory: "需要类别",
     Pu_SupplierInformation: "供应商信息",
     Pu_EnterStorage: "入库",
+    Pu_OutStorage: "出库",
     Pu_PleaseSelectTheOutsourcingRequirements: "请选择委外需求",
     Pu_RequirementType: "需求类别",
     Pu_PleaseChooseTheNeededSheetFirst: "请先勾选需要添加的单据",
@@ -734,6 +735,8 @@ const cn = {
     Ge_MinutesAgo: "分钟前",
     Ge_HoursAgo: "小时前",
     Ge_1DayAgo: "1天前",
+    Ge_MeasuringTool: "量具",
+    Ge_Fixture: "夹具",
   },
   //生产
   production: {
@@ -918,6 +921,12 @@ const cn = {
     De_Handlers: "操作者",
     De_ToBeMaintained: "待保养",
     De_DataToBeMaintained: "查看待保养的数据",
+    De_RegularMaintenance: "定时保养",
+    De_QuantitativeMaintenance: "定量保养",
+    De_FaultRepair: "故障维修",
+    De_PrecisionRepair: "精度调准",
+    De_Type1: "类别一",
+    De_Type2: "类别二"
   },
   // 后端提示
   backendMessage: {

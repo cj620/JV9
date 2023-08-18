@@ -11,25 +11,27 @@
 // 模具(Tooling)，
 // 量具(MeasuringTool)，
 // 夹具(Fixture)
+import i18n from "@/i18n/i18n";
+
 export const machineCategoryEnum = {
     // 设备
     Machine: {
-      name: '设备',
+      name: i18n.t("production.Pr_Equipment"),
       value: "Machine",
     },
     // 模具
     Tooling: {
-        name: '模具',
+        name: i18n.t("Generality.Ge_Tooling"),
         value: "Tooling",
       },
       // 量具
     MeasuringTool: {
-        name: '量具',
+        name: i18n.t("Generality.Ge_MeasuringTool"),
         value: "MeasuringTool",
       },
       // 夹具
       Fixture: {
-        name: '夹具',
+        name: i18n.t("Generality.Ge_Fixture"),
         value: "Fixture",
       },
   };
@@ -41,12 +43,12 @@ export const machineCategoryEnum = {
 export const maintenanceEnum = {
     // 定时保养
     FixedDate: {
-      name: '定时保养',
+      name: i18n.t("device.De_RegularMaintenance"),
       value: "FixedDate",
     },
     // 定量保养
     FixedUsedTime: {
-        name: '定量保养',
+        name: i18n.t("device.De_QuantitativeMaintenance"),
         value: "FixedUsedTime",
       },
   };
@@ -54,12 +56,12 @@ export const maintenanceEnum = {
   export const deviceStateEnum = {
     // 正常
     Normal: {
-      name: '正常',
+      name: i18n.t("production.Pr_Normal"),
       value: "Normal",
     },
     // 报废
     Scrap: {
-        name: '报废',
+        name: i18n.t("quality.Qc_Scrapped"),
         value: "Scrap",
       },
   };
@@ -69,12 +71,12 @@ export const maintenanceEnum = {
 export const repairEnum = {
   // 故障维修
   FaultRepair: {
-    name: '故障维修',
+    name: i18n.t("device.De_FaultRepair"),
     value: "FaultRepair",
   },
   // 精度校准
   PrecisionRepair: {
-      name: '精度校准',
+      name: i18n.t("device.De_PrecisionRepair"),
       value: "PrecisionRepair",
     },
 };
@@ -83,12 +85,12 @@ export const repairEnum = {
 export const scrapEnum = {
   // 故障维修
   scrap1: {
-    name: '类别一',
+    name: i18n.t("device.De_Type1"),
     value: "scrap1",
   },
   // 精度校准
   scrap2: {
-      name: '类别二',
+      name: i18n.t("device.De_Type2"),
       value: "scrap2",
     },
 };
@@ -100,12 +102,12 @@ export const scrapEnum = {
 export const inventoryStateEnum = {
   // 入库
   InPut: {
-    name: '入库',
+    name: i18n.t("purchase.Pu_EnterStorage"),
     value: "InPut",
   },
   // 出库
   OutPut: {
-    name: '出库',
+    name: i18n.t("purchase.Pu_OutStorage"),
     value: "OutPut",
   },
 };

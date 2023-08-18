@@ -320,6 +320,7 @@ const en = {
     Pu_RequiredCategory: "Required category",
     Pu_SupplierInformation: "Supplier information",
     Pu_EnterStorage: "Enter storage",
+    Pu_OutStorage: "Out Storage",
     Pu_PleaseSelectTheOutsourcingRequirements:
       "Please select the outsourcing requirements",
     Pu_RequirementType: "Requirement Type",
@@ -746,6 +747,8 @@ const en = {
     Ge_MinutesAgo: " minutes ago",
     Ge_HoursAgo: " hours ago",
     Ge_1DayAgo: "1 day ago",
+    Ge_MeasuringTool: "MeasuringTool",
+    Ge_Fixture: "Fixture",
   },
   //生产
   production: {
@@ -933,6 +936,12 @@ const en = {
     De_Handlers: "Handlers",
     De_ToBeMaintained: "To Be Maintained",
     De_DataToBeMaintained: "Viewing data to be maintained",
+    De_RegularMaintenance: "Regular Maintenance",
+    De_QuantitativeMaintenance: "Quantitative Maintenance",
+    De_FaultRepair: "Fault Repair",
+    De_PrecisionRepair: "Precision Repair",
+    De_Type1: "Type1",
+    De_Type2: "Type2"
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

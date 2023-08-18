@@ -13,7 +13,7 @@
       ></el-tab-pane>
     </el-tabs>
     <JvBlock
-      title="设备信息"
+      :title="$t('menu.Pr_Devices')"
       ref="first"
       :contentStyle="{
         paddingLeft: '150px',
@@ -137,7 +137,7 @@ export default {
       },
       tabPanes: [
         {
-          label: "设备信息",
+          label: this.$t("menu.Pr_Devices"),
           name: "first",
         },
         {

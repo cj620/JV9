@@ -303,6 +303,7 @@ const ja = {
     Pu_RequiredCategory: "必須カテゴリ",
     Pu_SupplierInformation: "ベンダー情報",
     Pu_EnterStorage: "入庫",
+    Pu_OutStorage: "出庫",
     Pu_PleaseSelectTheOutsourcingRequirements: "外部需要を選択してください",
     Pu_RequirementType: "需要カテゴリ",
     Pu_PleaseChooseTheNeededSheetFirst:
@@ -722,6 +723,8 @@ const ja = {
     Ge_NoData: "データが一時的にありません",
     Ge_DeliveryCompleted: "出荷が完了しました。続行しますか？",
     Ge_StockInCompleted: "入庫が完了しました。続行しますか？",
+    Ge_MeasuringTool: "ゲージ台",
+    Ge_Fixture: "つかみ具",
   },
   //生产
   production: {
@@ -907,6 +910,12 @@ const ja = {
     De_Handlers: "オペレータ",
     De_ToBeMaintained: "メンテナンス待ち",
     De_DataToBeMaintained: "保守対象データの表示",
+    De_RegularMaintenance: "タイミングメンテナンス",
+    De_QuantitativeMaintenance: "ていりょうほしゅ",
+    De_FaultRepair: "こしょうほしゅ",
+    De_PrecisionRepair: "せいどちょうせい",
+    De_Type1: "カテゴリ1",
+    De_Type2: "カテゴリ2"
   },
   // 后端提示
   backendMessage: {
