@@ -1,4 +1,5 @@
 import Layout from "@/layout";
+import i18n from "@/i18n/i18n";
 
 const equipment = [
   {
@@ -7,7 +8,7 @@ const equipment = [
     name: "AssetsManage",
     path: "assetsManage",
     component: Layout,
-    title:'资产管理',
+    title: i18n.t("menu.As_AssetsManage"),
     icon: 'sales',
   },
   // 设备
@@ -30,7 +31,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceList",
     path: "as_DeviceList",
-    title: '设备管理',
+    title: i18n.t("menu.As_DeviceList"),
   },
   // 设备保养
   {
@@ -40,7 +41,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceMaintain",
     path: "as_DeviceMaintain",
-    title: '设备保养',
+    title: i18n.t("menu.As_DeviceMaintain"),
   },
   // 设备报废
   {
@@ -50,7 +51,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceScrap",
     path: "as_DeviceScrap",
-    title: '设备报废',
+    title: i18n.t("menu.As_DeviceScrap"),
   },
   // 设备报修
   {
@@ -60,7 +61,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceRepair",
     path: "as_DeviceRepair",
-    title: '设备报修',
+    title: i18n.t("menu.As_DeviceRepair"),
   },
   // 新增设备
   {
@@ -70,7 +71,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceAdd",
     path: "as_DeviceAdd",
-    title: '新增设备',
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_DeviceList"),
   },
   // 保养模板
   {
@@ -80,7 +81,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_MaintenanceTPL",
     path: "as_MaintenanceTPL",
-    title: '保养模板',
+    title: i18n.t("menu.As_MaintenanceTPL"),
   },
   // 设备详情
   {
@@ -90,7 +91,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceDetail",
     path: "as_DeviceDetail",
-    title: '设备详情',
+    title: i18n.t("menu.As_DeviceList") + "  " + i18n.t("Generality.Ge_Details"),
   },
   // 编辑设备
   {
@@ -100,9 +101,9 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceEdit",
     path: "as_DeviceEdit",
-    title: '编辑设备',
+    title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.As_DeviceList"),
   },
-  // 新增报修信息
+  // 新增保养模板
   {
     key: "As_MaintenanceTPLAdd",
     component: () =>
@@ -110,9 +111,9 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_MaintenanceTPLAdd",
     path: "as_MaintenanceTPLAdd",
-    title: '新增保养模板',
+    title:  i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_MaintenanceTPL"),
   },
-  // 编辑报修信息
+  // 编辑保养模板
   {
     key: "As_MaintenanceTPLEdit",
     component: () =>
@@ -120,7 +121,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_MaintenanceTPLEdit",
     path: "as_MaintenanceTPLEdit",
-    title: '编辑保养模板',
+    title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.As_MaintenanceTPL"),
   },
   // 保养模板详情
   {
@@ -130,7 +131,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_MaintenanceTPLDetail",
     path: "as_MaintenanceTPLDetail",
-    title: '保养模板详情',
+    title: i18n.t("menu.As_MaintenanceTPL") + "  " + i18n.t("Generality.Ge_Details"),
   },
   // 保养类别，报废类别
   {
@@ -140,7 +141,7 @@ const equipment = [
     Parent: "As_AssetsManage",
     name: "As_DeviceMaintenanceType",
     path: "As_DeviceMaintenanceType",
-    title: '类别',
+    title: i18n.t("Generality.Ge_Category"),
   },
   // 新增保养信息
   {
@@ -150,7 +151,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceMaintainAdd",
     path: "as_DeviceMaintenanceAdd",
-    title: '新增保养信息',
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_DeviceMaintain"),
   },
   // 保养信息详情
   {
@@ -160,7 +161,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceMaintenanceDetail",
     path: "as_DeviceMaintenanceDetail",
-    title: '设备保养详情',
+    title: i18n.t("menu.As_DeviceMaintain") + "  " + i18n.t("Generality.Ge_Details"),
   },
   // 新增报修信息
   {
@@ -170,7 +171,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceRepairAdd",
     path: "as_DeviceRepairAdd",
-    title: '新增报修信息',
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_DeviceRepair"),
   },
   // 报修信息详情
   {
@@ -180,7 +181,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceRepairDetail",
     path: "as_DeviceRepairDetail",
-    title: '设备报修详情',
+    title: i18n.t("menu.As_DeviceRepair") + "  " + i18n.t("Generality.Ge_Details"),
   },
   // 新增报废信息
   {
@@ -190,7 +191,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceScrapAdd",
     path: "as_DeviceScrapAdd",
-    title: '新增报废信息',
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_DeviceScrap"),
   },
   // 报废信息详情
   {
@@ -200,7 +201,7 @@ const equipment = [
       Parent: "As_AssetsManage",
     name: "As_DeviceScrapDetail",
     path: "as_DeviceScrapDetail",
-    title: '设备报废详情',
+    title: i18n.t("menu.As_DeviceScrap") + "  " + i18n.t("Generality.Ge_Details"),
   },
 ];
 

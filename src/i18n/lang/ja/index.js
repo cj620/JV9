@@ -125,6 +125,7 @@ const ja = {
     As_DeviceMaintain: "設備の保守",
     As_DeviceScrap: "設備廃棄",
     As_DeviceRepair: "設備修理",
+    As_MaintenanceTPL: "メンテナンステンプレート",
   },
   login: {
     l_LogIn: "ログイン",
@@ -302,6 +303,7 @@ const ja = {
     Pu_RequiredCategory: "必須カテゴリ",
     Pu_SupplierInformation: "ベンダー情報",
     Pu_EnterStorage: "入庫",
+    Pu_OutStorage: "出庫",
     Pu_PleaseSelectTheOutsourcingRequirements: "外部需要を選択してください",
     Pu_RequirementType: "需要カテゴリ",
     Pu_PleaseChooseTheNeededSheetFirst:
@@ -721,6 +723,8 @@ const ja = {
     Ge_NoData: "データが一時的にありません",
     Ge_DeliveryCompleted: "出荷が完了しました。続行しますか？",
     Ge_StockInCompleted: "入庫が完了しました。続行しますか？",
+    Ge_MeasuringTool: "ゲージ台",
+    Ge_Fixture: "つかみ具",
   },
   //生产
   production: {
@@ -881,6 +885,37 @@ const ja = {
     Qc_InspectionExemption: "検査免除",
     Qc_UnReturn: "未返却",
     Qc_Return: "リターンマッチ",
+  },
+  device: {
+    De_Repair: "しゅうりょう",
+    De_Maintenance: "メンテナンス",
+    De_MaintenanceDate: "メンテナンス日付",
+    De_MaintenanceMode: "メンテナンス方式",
+    De_LastMaintenanceDate: "最終保守日",
+    De_CumulativeTime: "積算時間",
+    De_MaintenanceContent: "メンテナンス内容",
+    De_MaintenanceResults: "メンテナンス結果",
+    De_ScrapDate: "廃棄日",
+    De_Repairer: "修理メーカー",
+    De_RepairApplicant: "修理請求人",
+    De_RepairDate: "修理請求日",
+    De_CompletionDate: "完了日",
+    De_AcquisitionDate: "購入日",
+    De_UserDepartment: "使用部門",
+    De_LifeSetting: "寿命設定",
+    De_MaintenanceTemplate: "メンテナンステンプレート",
+    De_Manufacturer: "ベンダー",
+    De_Interval: "間隔日数/累積時間/累積回数",
+    De_StorageStatus: "入出庫ステータス",
+    De_Handlers: "オペレータ",
+    De_ToBeMaintained: "メンテナンス待ち",
+    De_DataToBeMaintained: "保守対象データの表示",
+    De_RegularMaintenance: "タイミングメンテナンス",
+    De_QuantitativeMaintenance: "ていりょうほしゅ",
+    De_FaultRepair: "こしょうほしゅ",
+    De_PrecisionRepair: "せいどちょうせい",
+    De_Type1: "カテゴリ1",
+    De_Type2: "カテゴリ2"
   },
   // 后端提示
   backendMessage: {

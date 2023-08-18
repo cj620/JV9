@@ -93,10 +93,11 @@ export const formSchema = [
         trigger: ["blur"],
       },
     ],
-  }, //间隔天数/累计小时/累计次数
+  },
+  //间隔天数/累计小时/累计次数
   {
     prop: "IntervalDays",
-    label: "间隔天数/累计次数",
+    label: i18n.t("device.De_Interval"),
     cpn: "FormInput",
     rules: [
       {
