@@ -827,7 +827,7 @@ const ja = {
     Pr_ClassicalAlgorithm: "一般的なアルゴリズム",
     Pr_ClassicalAlgorithmDes: "一般的なアルゴリズム:同レベルでは完成度が高い優先",
     Pr_CR: "CR値スケジューリング",
-    Pr_CRDes: "CR値スケジューリング:CR（重要比率）:(納期-現在日付)/工期、同等級ではCR値が小優先",
+    Pr_CRDes: "CR値スケジューリング:CR(重要比率)=(納期-現在日付)/工期、同等級ではCR値が小優先",
     Pr_MinimumWorkingPeriod: "最短工期アルゴリズム",
     Pr_MinimumWorkingPeriodDes: "最短工期アルゴリズム:同級下工期短優先",
     Pr_EarliestDeliveryDate: "最早納期アルゴリズム",

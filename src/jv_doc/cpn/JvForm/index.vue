@@ -34,17 +34,20 @@
             <slot :name="formItem.prop" :prop="formItem.prop"></slot>
           </el-form-item>
 
-          <el-form-item :prop="formItem.prop" v-if="formItem.toolTip">
+          <el-form-item :prop="formItem.prop" v-if="formItem.popoverTip">
             <template slot="label">
               <span>{{ showLabel ? formItem.label : '' }}</span>
-              <el-tooltip class="toolTip" effect="light" placement="top">
-                <div slot="content">
-                  <template v-for="item in formItem.toolTip">
-                    {{ item }}<br />
-                  </template>
-                </div>
-                <i class="el-icon-question" style="color:#1890ff"/>
-              </el-tooltip>
+              <el-popover
+                class="popoverTip"
+                placement="top-start"
+                trigger="hover"
+              >
+                <template v-for="item in formItem.popoverTip">
+                  <!--{{ item }}<br />-->
+                  <p class="popoverTipItem">{{ item }}</p>
+                </template>
+                <i class="el-icon-question" slot="reference" style="color:#1890ff"/>
+              </el-popover>
             </template>
             <FormItem
                 :cdata="formItem"
@@ -150,7 +153,7 @@ export default {
     width: 100%;
   }
 }
-.toolTip {
+.popoverTip {
   margin-left: 4px;
 }
 </style>

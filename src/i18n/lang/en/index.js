@@ -851,7 +851,7 @@ const en = {
     Pr_ClassicalAlgorithm: "Classical Algorithm",
     Pr_ClassicalAlgorithmDes: "ClassicalAlgorithm:Priority given to higher completion under the same level",
     Pr_CR: "CR",
-    Pr_CRDes: "CR:CR(critical ratio):(delivery date - current date)/working period.Priority given to lower CR value under the same level",
+    Pr_CRDes: "CR:CR(critical ratio)=(delivery date - current date)/working period.Priority given to lower CR value under the same level",
     Pr_MinimumWorkingPeriod: "Minimum Working Period",
     Pr_MinimumWorkingPeriodDes: "MinimumWorkingPeriod:Priority given to shorter working period under the same level",
     Pr_EarliestDeliveryDate: "Earliest Delivery Date",

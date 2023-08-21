@@ -19,7 +19,7 @@ export const formSchema = [
     prop: "SchedulingType",
     label: i18n.t("production.Pr_SchedulingAlgorithmSelection"),
     // 算法描述
-    toolTip: AlgorithmTypeEnum.getEnums().map(obj => obj.description),
+    popoverTip: AlgorithmTypeEnum.getEnums().map(obj => obj.description),
     // toolTip: [
     //   i18n.t("production.Pr_ClassicalAlgorithmDes"),
     //   i18n.t("production.Pr_MinimumWorkingPeriodDes"),
