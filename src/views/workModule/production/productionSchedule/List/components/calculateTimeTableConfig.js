@@ -1,3 +1,6 @@
+import i18n from "@/i18n/i18n";
+import { AlgorithmTypeEnum } from "@/enum/workModule/production/AlgorithmTypeEnum";
+
 export const formSchema = [
   {
     prop: "StartDate",
@@ -11,35 +14,22 @@ export const formSchema = [
       },
     ],
   },
+  // 算法类型
   {
-    // prop/value待确定
     prop: "SchedulingType",
     label: i18n.t("production.Pr_SchedulingAlgorithmSelection"),
+    // 算法描述
+    toolTip: AlgorithmTypeEnum.getEnums().map(obj => obj.description),
+    // toolTip: [
+    //   i18n.t("production.Pr_ClassicalAlgorithmDes"),
+    //   i18n.t("production.Pr_MinimumWorkingPeriodDes"),
+    //   i18n.t("production.Pr_EarliestDeliveryDateDes"),
+    //   i18n.t("production.Pr_CRDes"),
+    // ],
     cpn: "FormRadio",
     default: 0,
     options: {
-      list: [
-        // 经典算法
-        {
-          value: 0,
-          label: i18n.t("production.Pr_ClassicalAlgorithm"),
-        },
-        // 最短工期
-        {
-          value: 1,
-          label: i18n.t("production.Pr_MinimumWorkingPeriod"),
-        },
-        // 最早交货期
-        {
-          value: 2,
-          label: i18n.t("production.Pr_EarliestDeliveryDate"),
-        },
-        // CR值排程
-        {
-          value: 3,
-          label: i18n.t("production.Pr_CR"),
-        },
-      ],
+      list: AlgorithmTypeEnum.getEnums(),
     },
   },
 ];

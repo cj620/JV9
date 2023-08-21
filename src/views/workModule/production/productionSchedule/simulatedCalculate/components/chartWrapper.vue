@@ -1,6 +1,11 @@
 <template>
   <div style="width: 48%; height: 50%">
-    <div class="chart-title">{{ title }}</div>
+    <div class="chart-title">
+      {{ title }}
+      <el-tooltip class="toolTip" effect="dark" :content="AlgorithmDes" placement="top">
+        <i class="el-icon-question" style="color:#1890ff"/>
+      </el-tooltip>
+    </div>
     <div class="chart-wrapper" :style="{height: boxHeight / 2 - 58.3 + 'px'}">
       <div
         class="chart-description"
@@ -23,6 +28,7 @@
 </template>
 <script>
 import PieChart from "./pieChart.vue";
+import { AlgorithmTypeEnum } from "@/enum/workModule/production/AlgorithmTypeEnum";
 import { timeFormat } from "@/jv_doc/utils/time";
 export default {
   name: "",
@@ -52,6 +58,7 @@ export default {
       // 各类工单数
       WorksheetNum: [],
       CreationDate: "",
+      AlgorithmDes: "",
       description: [
         `${i18n.t("production.Pr_NormalWorkSheet")}:`,
         `${i18n.t("production.Pr_OverdueWorkSheet")}:`,
@@ -61,7 +68,6 @@ export default {
   },
   mounted() {
     Object.keys(this.title).length !== 0 ? this.load() : "";
-    // this.load();
   },
   watch: {
     datas() {
@@ -89,6 +95,7 @@ export default {
       );
     },
     load() {
+      this.AlgorithmDes = AlgorithmTypeEnum.getItem(this.datas.AlgorithmType, "name").description
       this.title = i18n.t(`production.Pr_${this.datas.AlgorithmType}`);
       if (Object.keys(this.datas).length === 0) {
         this.WorksheetNum = [];

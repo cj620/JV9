@@ -16,7 +16,6 @@
         <div v-show="tableChangeGantt" style="margin-right: 20px">
           <el-select
             v-model="unitOfTime"
-            :placeholder="$t('production.Pr_SelectUnit')"
             size="mini"
             style="width: 66px"
             @change="setGanttZoom"

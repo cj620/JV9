@@ -9,6 +9,7 @@ export const AlgorithmTypeEnum = createEnumObject([
     label: i18n.t("production.Pr_ClassicalAlgorithm"),
     name: "ClassicalAlgorithm",
     value: 0,
+    description: i18n.t("production.Pr_ClassicalAlgorithmDes"),
   },
   /// <summary>
   /// 最短工期
@@ -17,6 +18,7 @@ export const AlgorithmTypeEnum = createEnumObject([
     label: i18n.t("production.Pr_MinimumWorkingPeriod"),
     name: "MinimumWorkingPeriod",
     value: 1,
+    description: i18n.t("production.Pr_MinimumWorkingPeriodDes"),
   },
   /// <summary>
   /// 最早发货期Pr_ClassicalAlgorithm
@@ -25,6 +27,7 @@ export const AlgorithmTypeEnum = createEnumObject([
     label: i18n.t("production.Pr_EarliestDeliveryDate"),
     name: "EarliestDeliveryDate",
     value: 2,
+    description: i18n.t("production.Pr_EarliestDeliveryDateDes"),
   },
   /// <summary>
   /// CR值排程
@@ -33,5 +36,6 @@ export const AlgorithmTypeEnum = createEnumObject([
     label: i18n.t("production.Pr_CR"),
     name: "CR",
     value: 3,
+    description: i18n.t("production.Pr_CRDes"),
   },
 ]);

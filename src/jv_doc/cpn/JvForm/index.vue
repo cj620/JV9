@@ -34,6 +34,25 @@
             <slot :name="formItem.prop" :prop="formItem.prop"></slot>
           </el-form-item>
 
+          <el-form-item :prop="formItem.prop" v-if="formItem.toolTip">
+            <template slot="label">
+              <span>{{ showLabel ? formItem.label : '' }}</span>
+              <el-tooltip class="toolTip" effect="light" placement="top">
+                <div slot="content">
+                  <template v-for="item in formItem.toolTip">
+                    {{ item }}<br />
+                  </template>
+                </div>
+                <i class="el-icon-question" style="color:#1890ff"/>
+              </el-tooltip>
+            </template>
+            <FormItem
+                :cdata="formItem"
+                :form="formObj.form"
+                :formObj="formObj"
+            ></FormItem>
+          </el-form-item>
+
           <el-form-item
             orm-item
             :prop="formItem.prop"
@@ -130,5 +149,8 @@ export default {
   .el-date-editor {
     width: 100%;
   }
+}
+.toolTip {
+  margin-left: 4px;
 }
 </style>
