@@ -66,14 +66,12 @@ export default {
       // 表格实例
       tableObj: {},
       machineCategory: 'Machine',
-      tableTitle: '设备保养',
       editRouterName:  "As_DeviceMaintenanceEdit",
     };
   },
   created() {
     // 创建表格实例
       this.tableObj = new Table();
-    this.tableObj.props.title = this.tableTitle;
     this.tableObj.formObj.form.DeviceCategory=this.machineCategory
     this.tableObj.getData();
   },
