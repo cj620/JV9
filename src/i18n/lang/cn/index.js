@@ -900,6 +900,7 @@ const cn = {
   device: {
     De_Repair: "报修",
     De_Maintenance: "保养",
+	  De_MaintenanceInfo: "保养信息",
     De_MaintenanceDate: "保养日期",
     De_MaintenanceMode: "保养方式",
     De_LastMaintenanceDate: "上次保养日期",
@@ -926,7 +927,13 @@ const cn = {
     De_FaultRepair: "故障维修",
     De_PrecisionRepair: "精度调准",
     De_Type1: "类别一",
-    De_Type2: "类别二"
+    De_Type2: "类别二",
+	  De_CheckScrap: "查看报废单",
+	  De_UsageRecord: "使用记录",
+    De_StockOpsRecord: "出入库记录",
+	  De_AddUsageRecord: "添加使用记录",
+	  De_AddStockOpsRecord: "添加出入库记录",
+	  De_StockOpsInfo: "目的地/来源地",
   },
   // 后端提示
   backendMessage: {

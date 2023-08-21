@@ -31,7 +31,7 @@ export const m_tableConfig = [
   /*工序*/
   {
     prop: "MaintenanceContent",
-    label: '保养项目',
+    label: i18n.t("device.De_MaintenanceContent"),
     formCpn: "FormInput",
     editConfig: {
       rules: {

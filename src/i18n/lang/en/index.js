@@ -915,6 +915,7 @@ const en = {
   device: {
     De_Repair: "Repair",
     De_Maintenance: "Maintenance",
+    De_MaintenanceInfo: "Maintenance Info",
     De_MaintenanceDate: "Maintenance Date",
     De_MaintenanceMode: "Maintenance Mode",
     De_LastMaintenanceDate: "Last Maintenance date",
@@ -941,7 +942,13 @@ const en = {
     De_FaultRepair: "Fault Repair",
     De_PrecisionRepair: "Precision Repair",
     De_Type1: "Type1",
-    De_Type2: "Type2"
+    De_Type2: "Type2",
+	  De_CheckScrap: "Check Scrap",
+	  De_UsageRecord: "Usage Record",
+	  De_StockOpsRecord: "Stock Ops Record",
+	  De_AddUsageRecord: "Add Usage Record",
+	  De_AddStockOpsRecord: "Add Stock Ops Record",
+	  De_StockOpsInfo: "Destination/Source",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

@@ -4,11 +4,11 @@
   <!-- 单据信息 -->
   <PageWrapper ref="page">
 
-    <JvBlock title="模板信息" ref="first">
+    <JvBlock :title="$t('Generality.Ge_TemplateInfo')" ref="first">
       <JvForm :formObj="formObj"> </JvForm>
     </JvBlock>
     <!-- 物料信息 -->
-    <JvBlock title="保养信息" ref="second">
+    <JvBlock :title="$t('device.De_MaintenanceInfo')" ref="second">
       <div slot="extra">
         <Action
           size="mini"

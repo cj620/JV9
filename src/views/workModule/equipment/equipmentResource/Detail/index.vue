@@ -17,21 +17,21 @@
     </el-tabs>
     <Action slot="sticky-extra" size="small" :actions="[
       {
-        label: '编辑',
+        label: $t('Generality.Ge_Edit'),
         confirm: editBill,
       },
       {
-        label: '查看报废单',
+        label: $t('device.De_CheckScrap'),
         confirm: checkScrap,
       },
       {
-        label: '报废',
+        label: $t('quality.Qc_Scrapped'),
         confirm: toScrap,
       },
 
     ]"></Action>
     <Action slot="sticky-extra" size="small" :actions="btnAction"></Action>
-    <JvBlock title="设备信息" ref="first" :contentStyle="{
+    <JvBlock :title="$t('menu.Pr_Devices')" ref="first" :contentStyle="{
       paddingLeft: '150px',
       height: '140px',
       height: '300px',
@@ -47,7 +47,7 @@
       <div style="position: relative">
         <JvDetail :detailObj="detailObj">
           <template #MaintenanceTplId>
-            <el-select v-model="Main_tpl" placeholder="请选择">
+            <el-select v-model="Main_tpl" :placeholder="$t('Generality.Ge_PleaseSelect')">
               <el-option v-for="item in Maintenance_tpl_list" :key="item.Id" :label="item.TemplateName" :value="item.Id">
               </el-option>
             </el-select>
@@ -70,22 +70,26 @@
       <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>
     </JvBlock>
     <!-- 保养 -->
-    <JvBlock title="保养" ref="maintainance">
+    <JvBlock :title="$t('device.De_Maintenance')" ref="maintainance">
       <JvTable :tableObj="maintenanceTableObj"> </JvTable>
       <div slot="extra">
-        <el-button size="mini" type="primary" @click="toMaintenance"> 保养 </el-button>
+        <el-button size="mini" type="primary" @click="toMaintenance">
+            {{ $t('device.De_Maintenance') }}
+        </el-button>
       </div>
     </JvBlock>
     <!-- 报修 -->
-    <JvBlock title="报修" ref="repair">
+    <JvBlock :title="$t('device.De_Repair')" ref="repair">
       <JvTable :tableObj="repairTableObj"> </JvTable>
       <div slot="extra">
-        <el-button size="mini" type="primary" @click="toRepair"> 报修 </el-button>
+        <el-button size="mini" type="primary" @click="toRepair">
+            {{ $t('device.De_Repair') }}
+        </el-button>
       </div>
     </JvBlock>
     <!-- useTableObj -->
     <!-- 使用记录 -->
-    <JvBlock title="使用记录" ref="usageRecord">
+    <JvBlock :title="$t('device.De_UsageRecord')" ref="usageRecord">
       <JvTable :tableObj="useTableObj">
         <template #operation="{ row }">
           <TableAction :actions="[
@@ -101,17 +105,21 @@
         </template>
       </JvTable>
       <div slot="extra">
-        <el-button size="mini" type="primary" @click="addRecord"> 添加使用记录 </el-button>
+        <el-button size="mini" type="primary" @click="addRecord">
+            {{ $t('device.De_AddUsageRecord') }}
+        </el-button>
       </div>
     </JvBlock>
 
-    <!-- 使用记录 -->
-    <JvBlock title="出入库记录" ref="stockOpsRecord">
+    <!-- 出入库记录 -->
+    <JvBlock :title="$t('device.De_StockOpsRecord')" ref="stockOpsRecord">
       <JvTable :tableObj="stockOpsTableObj">
 
       </JvTable>
       <div slot="extra">
-        <el-button size="mini" type="primary" @click="addStockOps"> 添加出入库记录 </el-button>
+        <el-button size="mini" type="primary" @click="addStockOps">
+            {{ $t('device.De_AddStockOpsRecord') }}
+        </el-button>
       </div>
     </JvBlock>
     <!--添加使用记录弹窗-->
@@ -181,7 +189,7 @@ export default {
       taskTypeEnum,
       tabPanes: [
         {
-          label: "设备信息",
+          label: this.$t("menu.Pr_Devices"),
           name: "first",
         },
         {
@@ -193,19 +201,19 @@ export default {
           name: "fourth",
         },
         {
-          label: '保养',
-          name: "maintainance",
+          label: this.$t("device.De_Maintenance"),
+          name: "maintenance",
         },
         {
-          label: '报修',
+          label: this.$t("device.De_Repair"),
           name: "repair",
         },
         {
-          label: '使用记录',
+          label: this.$t("device.De_UsageRecord"),
           name: "usageRecord",
         },
         {
-          label: '出入库记录',
+          label: this.$t("device.De_StockOpsRecord"),
           name: "stockOpsRecord",
         },
       ],

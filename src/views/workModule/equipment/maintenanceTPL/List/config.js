@@ -26,7 +26,7 @@ export class Table extends BaseTable {
       // 行标识
       rowId: 'BillId',
       // 表格标题
-      title: '保养模板',
+      title: i18n.t("menu.As_MaintenanceTPL"),
       // 接口类
       api,
       // 操作列宽度
@@ -46,7 +46,7 @@ export const tableConfig = [
 /*描述*/
   {
   prop: "TemplateName",
-  label: '名称',
+  label: i18n.t("Generality.Ge_ItemName"),
     cpn: "Link",
     cpnProps: {
       // 路由名称
@@ -68,22 +68,18 @@ export const tableConfig = [
   },
   {
     prop: "Description",
-    label: '描述',
-    },
-    {
-      prop: "CreationDate",
-      label: '修改时间',
-      filter:'time'
-      },
-
-
-      /*描述*/
-      {
-      prop: "Creator",
-      label: '创建人',
-      },
-
-
+    label: i18n.t("Generality.Ge_Describe"),
+  },
+  {
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter:'time'
+  },
+  /*描述*/
+  {
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+  }
 ]
 
 // 表单配置
@@ -91,7 +87,7 @@ export const formSchema = [
   //单号搜索
   {
     prop: "Keyword",
-    label: '关键字',
+    label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
   },
 

@@ -25,7 +25,7 @@
       <JvDetail :detailObj="detailObj"> </JvDetail>
     </JvBlock>
     <!-- 保养 -->
-    <JvBlock title="保养信息"  ref="second">
+    <JvBlock :title="$t('device.De_MaintenanceInfo')"  ref="second">
       <JvTable :tableObj="maintenanceTableObj"> </JvTable>
     </JvBlock>
     <!--备注-->
@@ -77,7 +77,7 @@ export default {
           name: "first",
         },
         {
-          label: '保养信息',
+          label: this.$t("device.De_MaintenanceInfo"),
           name: "second",
         },
         {

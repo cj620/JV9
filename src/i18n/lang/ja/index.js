@@ -889,6 +889,7 @@ const ja = {
   device: {
     De_Repair: "しゅうりょう",
     De_Maintenance: "メンテナンス",
+    De_MaintenanceInfo: "メンテナンス情報",
     De_MaintenanceDate: "メンテナンス日付",
     De_MaintenanceMode: "メンテナンス方式",
     De_LastMaintenanceDate: "最終保守日",
@@ -915,7 +916,13 @@ const ja = {
     De_FaultRepair: "こしょうほしゅ",
     De_PrecisionRepair: "せいどちょうせい",
     De_Type1: "カテゴリ1",
-    De_Type2: "カテゴリ2"
+    De_Type2: "カテゴリ2",
+	  De_CheckScrap: "除・売却作業指示の表示",
+	  De_UsageRecord: "レコードの使用方法",
+	  De_StockOpsRecord: "入出庫記録",
+	  De_AddUsageRecord: "使用履歴の追加",
+	  De_AddStockOpsRecord: "入出庫レコードの追加",
+	  De_StockOpsInfo: "宛先/ソース",
   },
   // 后端提示
   backendMessage: {
