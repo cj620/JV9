@@ -123,11 +123,12 @@ const cn = {
     Qc_Error: "质检异常",
     Pr_LabelPrint: "标签打印",
     Se_DeleteItemList: "已删除物料",
-    As_AssetsManage: "设备",
+    As_AssetsManage: "资产管理",
     As_DeviceList: "设备列表",
     As_DeviceMaintain: "设备保养",
     As_DeviceScrap: "设备报废",
     As_DeviceRepair: "设备报修",
+    As_MaintenanceTPL: "保养模板",
   },
   login: {
     l_LogIn: "登录",
@@ -303,6 +304,7 @@ const cn = {
     Pu_RequiredCategory: "需要类别",
     Pu_SupplierInformation: "供应商信息",
     Pu_EnterStorage: "入库",
+    Pu_OutStorage: "出库",
     Pu_PleaseSelectTheOutsourcingRequirements: "请选择委外需求",
     Pu_RequirementType: "需求类别",
     Pu_PleaseChooseTheNeededSheetFirst: "请先勾选需要添加的单据",
@@ -423,6 +425,7 @@ const cn = {
     Ge_Approved: "已审核 ",
     Ge_Rejected: "已拒绝",
     Ge_Reject: "拒绝",
+    Ge_Deferred: "已延期",
     Ge_Completed: "已完成",
     Ge_ApproveProcess: "审核流程",
     Ge_MultipleSetup: "批量设置",
@@ -733,6 +736,8 @@ const cn = {
     Ge_MinutesAgo: "分钟前",
     Ge_HoursAgo: "小时前",
     Ge_1DayAgo: "1天前",
+    Ge_MeasuringTool: "量具",
+    Ge_Fixture: "夹具",
   },
   //生产
   production: {
@@ -835,6 +840,8 @@ const cn = {
     Pr_CR: "CR值排程",
     Pr_MinimumWorkingPeriod: "最短工期",
     Pr_EarliestDeliveryDate: "最早交货期",
+    Pr_DeliveryDate: "交货日期",
+    Pr_ProofDate: "打样日期",
     Pr_DoAPS: "计算排程",
     Pr_APSLog: "排程日志",
     Pr_OneClickProcessing: "一键处理",
@@ -894,6 +901,8 @@ const cn = {
     Qc_Return: "归还",
   },
   device: {
+    De_Repair: "报修",
+    De_Maintenance: "保养",
     De_MaintenanceDate: "保养日期",
     De_MaintenanceMode: "保养方式",
     De_LastMaintenanceDate: "上次保养日期",
@@ -913,6 +922,14 @@ const cn = {
     De_Interval: "间隔天数/累计小时/累计次数",
     De_StorageStatus: "出入库状态",
     De_Handlers: "操作者",
+    De_ToBeMaintained: "待保养",
+    De_DataToBeMaintained: "查看待保养的数据",
+    De_RegularMaintenance: "定时保养",
+    De_QuantitativeMaintenance: "定量保养",
+    De_FaultRepair: "故障维修",
+    De_PrecisionRepair: "精度调准",
+    De_Type1: "类别一",
+    De_Type2: "类别二"
   },
   // 后端提示
   backendMessage: {

@@ -16,15 +16,13 @@
       <div>{{ timeFormat(SendTime, "yyyy-MM-dd hh:mm") }}</div>
     </div>
     <div class="user-action">
-      <el-button size="mini" @click="setRead">{{
-        $t("Generality.Ge_RemarkToRead")
-      }}</el-button>
+      <el-button size="mini" @click="setRead">{{ i18n.t("Generality.Ge_RemarkToRead") }}</el-button>
       <el-button
         size="mini"
         type="primary"
         @click="toDetail"
         v-if="DynamicData && DynamicData.BillId && DynamicData.BillKey"
-        >{{ $t("Generality.Ge_Handle") }}</el-button
+        >{{ i18n.t("Generality.Ge_Handle") }}</el-button
       >
     </div>
   </div>
@@ -33,9 +31,15 @@
 <script>
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { timeFormat } from "@/jv_doc/utils/time";
+import i18n from "@/i18n/i18n.js";
 export default {
   name: "NotifyContent",
   props: ["FromUser", "SendTime", "Content", "Type", "DynamicData", "Id"],
+  data() {
+    return {
+      i18n,
+    };
+  },
   computed: {},
   methods: {
     timeFormat,
