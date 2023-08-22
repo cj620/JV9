@@ -34,6 +34,28 @@
             <slot :name="formItem.prop" :prop="formItem.prop"></slot>
           </el-form-item>
 
+          <el-form-item :prop="formItem.prop" v-if="formItem.popoverTip">
+            <template slot="label">
+              <span>{{ showLabel ? formItem.label : '' }}</span>
+              <el-popover
+                class="popoverTip"
+                placement="top-start"
+                trigger="hover"
+              >
+                <template v-for="item in formItem.popoverTip">
+                  <!--{{ item }}<br />-->
+                  <p class="popoverTipItem">{{ item }}</p>
+                </template>
+                <i class="el-icon-question" slot="reference" style="color:#1890ff"/>
+              </el-popover>
+            </template>
+            <FormItem
+                :cdata="formItem"
+                :form="formObj.form"
+                :formObj="formObj"
+            ></FormItem>
+          </el-form-item>
+
           <el-form-item
             orm-item
             :prop="formItem.prop"
@@ -130,5 +152,8 @@ export default {
   .el-date-editor {
     width: 100%;
   }
+}
+.popoverTip {
+  margin-left: 4px;
 }
 </style>

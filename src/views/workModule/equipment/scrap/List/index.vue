@@ -66,7 +66,6 @@ export default {
       // 表格实例
       tableObj: {},
       machineCategory: 'Machine',
-      tableTitle: '设备报废',
       editRouterName: "As_DeviceScrapEdit",
     };
   },
@@ -78,7 +77,6 @@ export default {
       this.tableObj.formObj.form.DeviceNo = this.$route.params.DeviceNo;
     }
     this.tableObj.formObj.form.DeviceCategory=this.machineCategory
-    this.tableObj.props.title = this.tableTitle;
     this.tableObj.getData();
   },
   computed: {

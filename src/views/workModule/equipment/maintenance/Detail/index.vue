@@ -21,7 +21,7 @@
       ></el-tab-pane>
     </el-tabs>
     <Action slot="sticky-extra" size="small" :actions="btnAction"></Action>
-    <JvBlock title="保养信息"
+    <JvBlock :title="$t('device.De_MaintenanceInfo')"
              ref="first"
              :contentStyle="{
         paddingLeft: '150px',
@@ -48,7 +48,7 @@
       </div>
     </JvBlock>
     <!-- 保养 -->
-    <JvBlock title="保养" ref="second">
+    <JvBlock :title="$t('device.De_Maintenance')" ref="second">
       <JvTable :tableObj="maintenanceTableObj"> </JvTable>
     </JvBlock>
     <!--备注-->

@@ -74,7 +74,7 @@
                       }}
                     </template>
                   </el-table-column>
-                  <el-table-column label="状态" prop="State">
+                  <el-table-column :label="$t('Generality.Ge_State')" prop="State">
                     <template slot-scope="scope">
                       {{
                         ProcessStateMap[scope.row.State] &&

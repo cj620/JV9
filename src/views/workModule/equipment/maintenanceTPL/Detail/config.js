@@ -25,12 +25,12 @@ export const detailConfig = [
   //设备名称
   {
     prop: "TemplateName",
-    label: '名称',
+    label: i18n.t("Generality.Ge_ItemName"),
   },
   //设备描述
   {
     prop: "Description",
-    label: '描述',
+    label: i18n.t("Generality.Ge_Describe"),
   },
 ];
 
@@ -38,6 +38,6 @@ export const m_tableConfig = [
   /*保养项目*/
   {
     prop: "MaintenanceContent",
-    label: '保养项目',
+    label: i18n.t("device.De_MaintenanceContent"),
   },
 ];

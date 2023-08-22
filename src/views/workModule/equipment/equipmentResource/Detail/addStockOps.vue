@@ -1,6 +1,6 @@
 <template>
   <jv-dialog
-    title="出入库记录"
+    :title="$t('device.De_StockOpsRecord')"
     width="35%"
     :close-on-click-modal="true"
     :modal-append-to-body="false"
@@ -10,8 +10,12 @@
     @confirm="confirmItem"
   >
     <div style="font-size: 30px;margin-bottom: 10px">
-      <span v-if="InventoryState==='InPut'">出库</span>
-      <span v-else-if="InventoryState==='OutPut'">入库</span>
+      <span v-if="InventoryState==='InPut'">
+        {{ $t('purchase.Pu_OutStorage') }}
+      </span>
+      <span v-else-if="InventoryState==='OutPut'">
+        {{ $t('purchase.Pu_EnterStorage') }}
+      </span>
     </div>
     <JvForm :formObj="formObj">
     </JvForm>
@@ -42,13 +46,13 @@ export default {
           // 目的地/来源地
           prop: "StockOpsInfo",
           cpn: "FormInput",
-          label: '目的地/来源地',
+          label: i18n.t("device.De_StockOpsInfo"),
         },
         {
           // 描述
           prop: "Remarks",
           cpn: "FormInput",
-          label: '描述',
+          label: i18n.t("Generality.Ge_Describe"),
         },
       ],
       baseColProps: {
