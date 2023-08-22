@@ -16,7 +16,7 @@
           @change="searchValueChange"
         ></el-input>
         <div class="padding-box"></div>
-        <el-button type="primary" size="mini">搜索</el-button>
+        <el-button type="primary" size="mini">{{$t("Generality.Ge_Search")}}</el-button>
         <div class="padding-box"></div>
         <el-select v-model="ganttChangeShow" size="mini" style="width: 100px">
           <el-option
@@ -98,14 +98,14 @@
                   {{
                     timeFormat(
                       item.ToolingInfo.DeliveryDate,
-                      "yyyy-MM-dd hh:mm:ss"
+                      "yyyy-MM-dd"
                     )
                   }}
                 </div>
                 <div>
                   {{ $t("production.Pr_ProofDate") }}:
                   {{
-                    timeFormat(item.ToolingInfo.SampleDate, "yyyy-MM-dd hh:mm:ss")
+                    timeFormat(item.ToolingInfo.SampleDate, "yyyy-MM-dd")
                   }}
                 </div>
                 <div></div>
@@ -116,6 +116,9 @@
                   {{ $t("menu.Sa_Customer") }}: {{ item.ToolingInfo.CustomerName || '--' }}
                 </div>
                 <div></div>
+              </div>
+              <div class="go-details">
+                <el-button size="mini" @click="goDetails(item.ToolingInfo.ToolingNo)">{{$t("project.Pr_PartSchedule")}}</el-button>
               </div>
             </div>
           </div>
@@ -144,20 +147,19 @@
                 </div>
                 <div>
                   {{ $t("Generality.Ge_PlanStart") }}:
-                  {{ timeFormat(children.PlanStart, "yyyy-MM-dd hh:mm:ss") }}
+                  {{ timeFormat(children.PlanStart, "yyyy-MM-dd") }}
                 </div>
                 <div>
                   {{ $t("Generality.Ge_PlanEnd") }}:
-                  {{ timeFormat(children.PlanEnd, "yyyy-MM-dd hh:mm:ss") }}
+                  {{ timeFormat(children.PlanEnd, "yyyy-MM-dd") }}
                 </div>
                 <div>
                   {{ $t("Generality.Ge_ActualEnd") }}:
-                  {{ timeFormat(children.ActualEnd, "yyyy-MM-dd hh:mm:ss") }}
+                  {{ timeFormat(children.ActualEnd, "yyyy-MM-dd") }}
                 </div>
                 <div style="padding: 0">
                   <el-progress
                     :percentage="children.Progress"
-                    :format="() => ''"
                   ></el-progress>
                 </div>
               </div>
@@ -259,6 +261,14 @@ export default {
   methods: {
     imgUrlPlugin,
     timeFormat,
+    goDetails(ToolingNo) {
+      this.$router.push({
+        path: "Pm_Project_PartSchedule",
+        query: {
+          ToolingNo: ToolingNo
+        }
+      })
+    },
     getWorkerProgress() {
       let Project = this.$route.query.Project;
       worker_progress({"Project":Project,"ToolingNo":this.searchValue}).then(res => {
@@ -429,7 +439,7 @@ export default {
           width: 100%;
         }
         .el-progress {
-          width: 120%;
+          width: 112%;
         }
       }
     }
@@ -458,6 +468,13 @@ export default {
         text-overflow: ellipsis;
         -o-text-overflow: ellipsis;
       }
+    }
+    .go-details{
+      position: absolute;
+      right: 20px;
+      height: 100%;
+      display: flex;
+      align-items: center;
     }
   }
 }

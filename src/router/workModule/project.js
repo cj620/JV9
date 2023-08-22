@@ -122,6 +122,17 @@ const project = [
     title: i18n.t("menu.Pm_Project") + "  " + i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+  // 零件进度
+  {
+    key: "Pm_Project_PartSchedule_key",
+    component: () =>
+        import("@/views/workModule/project/projectManage/process_people/components/partSchedule.vue"),
+    Parent: "Pm_Project",
+    name: "Pm_Project_PartSchedule",
+    path: "Pm_Project_PartSchedule",
+    title: i18n.t("menu.Pm_Project") + "  " + i18n.t("project.Pr_PartSchedule"),
+    hidden: true,
+  },
   // 项目任务
   {
     key: "Pm_ProjectTask",
