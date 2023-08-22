@@ -35,7 +35,7 @@ export class Table extends BaseTable {
       rowId: "Id",
       title: i18n.t("menu.Pm_ProjectManagement"),
       importBar: true,
-      printMod: "sales",
+      printMod: "Pm_ProjectManagement",
       fullScreenBar: true,
       // 序号列
       sortCol: false,
