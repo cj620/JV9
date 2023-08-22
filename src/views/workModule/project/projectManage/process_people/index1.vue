@@ -10,6 +10,7 @@
           size="mini"
           style="width: 160px"
           v-model="searchValue"
+          :disabled="ganttChangeShow"
           :placeholder="$t('Generality.Ge_ToolingNo')"
           clearable
           @change="searchValueChange"
@@ -54,7 +55,7 @@
               v-for="item in unitOptions"
               :key="item.value"
               :command="item.value"
-              >{{ item.label }}</el-dropdown-item
+            >{{ item.label }}</el-dropdown-item
             >
           </el-dropdown-menu>
         </el-dropdown>
@@ -172,6 +173,7 @@
         class="left-container"
         :tasks="tasks"
         :formSchema="formSchema"
+        :_arguments="_arguments"
         :api="partProcessingPlan"
         :foldoRunfoldFlag="1"
         dragProgress
@@ -185,16 +187,15 @@
 <script>
 import gantt from "@/components/JVInternal/Gantt";
 import { formSchema } from "./formConfig";
-import { Data } from "./data";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { timeFormat } from "@/jv_doc/utils/time";
-import { partProcessingPlan } from "@/api/workApi/production/dataReport";
-import {worker_progress} from '@/api/workApi/project/projectInfo';
+import {project_gantt_progress, worker_progress} from '@/api/workApi/project/projectInfo';
 import i18n from "@/i18n/i18n";
 export default {
-  name: "index",
+  name: "Pm_ProjectManagement_process_people",
   data() {
     return {
+      _arguments: null,
       tasks: {
         data: [],
         links: [],
@@ -202,12 +203,12 @@ export default {
       searchValue: "",
       unitOptions: [],
       ganttChangeOptions: [
-        { label: "甘特图", value: true },
         { label: "图表", value: false },
+        { label: "甘特图", value: true },
       ],
       ganttChangeShow: false,
       formSchema: formSchema,
-      partProcessingPlan: partProcessingPlan,
+      partProcessingPlan: project_gantt_progress,
       stateList: [
         {
           color: "#efefef",
@@ -244,6 +245,7 @@ export default {
     gantt,
   },
   async created() {
+    this._arguments = {Project: this.$route.query.Project};
     this.GetData();
     this.getWorkerProgress();
   },
@@ -258,7 +260,8 @@ export default {
     imgUrlPlugin,
     timeFormat,
     getWorkerProgress() {
-      worker_progress({"Project":"J22","ToolingNo":this.searchValue}).then(res => {
+      let Project = this.$route.query.Project;
+      worker_progress({"Project":Project,"ToolingNo":this.searchValue}).then(res => {
         console.log(res)
         this.list = res;
       });
@@ -271,7 +274,6 @@ export default {
       const res = this.stateList.filter((children) => {
         return children.value === item.State;
       });
-      console.log(item, res);
       return res[0].color;
     },
     setGanttZoom(unit) {
@@ -288,39 +290,29 @@ export default {
       this.timeout = setTimeout(func, wait);
     },
     GetData() {
-      partProcessingPlan({}).then((res) => {
-        let arr = [];
-        res.forEach((item) => {
-          arr.push({
-            id: item.Id, // 父节点id
-            open: item.IsOpen, // 是否展开
-            text: item.Title, // 父节点名字
-            start_date: timeFormat(item.StartDate, "yyyy-MM-dd hh:mm:ss"), // 必须要字段 task 开始时间
-            cap_plan_end: timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"),
-            end_date: item.EndDate
-              ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss")
-              : "",
-            parent: item.ParentId,
-            color: item.Color,
-            duration: item.Duration,
-            progress: item.ProcessRate,
-            EmployeeName: item.EmployeeName,
-            // fatherId: item.fatherId
-            // row_height: 50,
-            // bar_height: 40
+        let Project = this.$route.query.Project;
+        project_gantt_progress({ Project }).then((res) => {
+          let result = [];
+          if(Array.isArray(res) && res.length > 0)  res.forEach((item) => {
+            result.push({
+              id: item.Id, // 父节点id
+              open: item.IsOpen, // 是否展开
+              text: item.Title, // 父节点名字
+              start_date: timeFormat(item.StartDate, "yyyy-MM-dd hh:mm:ss"), // 必须要字段 task 开始时间
+              cap_plan_end: timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"),
+              end_date: item.EndDate ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"): '',
+              parent: item.ParentId,
+              color: item.Color,
+              duration: item.Duration,
+              progress: item.ProcessRate,
+            });
           });
+          this.tasks.data = result;
+          console.log(this.tasks.data);
+          if (this.$refs.ganttchart) {
+            this.$refs.ganttchart.GetData();
+          }
         });
-        this.tasks.data = [...arr];
-        this.tasks.links = [
-          // { id:1, source:2, target:2, type:1},
-          { id: 1, source: 1, target: 2, type: 1, info: "这是第一条link" },
-          { id: 2, source: 2, target: 3, type: 1, info: "这是第二条link" },
-          { id: 3, source: 3, target: 4, type: 1, info: "这是第三条link" },
-        ];
-        if (this.$refs.ganttchart) {
-          this.$refs.ganttchart.GetData();
-        }
-      });
     },
   },
 };
@@ -369,6 +361,7 @@ export default {
   height: calc(100% - 40px);
   overflow: auto;
   position: relative;
+  background: #fff;
   .mould-box {
     position: sticky;
     left: 0;

@@ -845,7 +845,7 @@ const cn = {
     Pr_EarliestDeliveryDate: "最早交货期",
     Pr_EarliestDeliveryDateDes: "最早交货期：同等级下交货期早优先",
     Pr_DeliveryDate: "交货日期",
-    Pr_ProofDate: "打样日期",
+    Pr_ProofDate: "首样日期",
     Pr_DoAPS: "计算排程",
     Pr_APSLog: "排程日志",
     Pr_OneClickProcessing: "一键处理",

@@ -1,7 +1,7 @@
 export const Data = [
   {
     ToolingInfo: {
-      PhotoUrl: "\\\\Files\\\\1686649348009492482.png",
+      PhotoUrl: null,
       ToolingNo: "J2201",
       ToolingName: "方向盘",
       DeliveryDate: "2023-08-18T09:37:54",

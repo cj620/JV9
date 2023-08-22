@@ -45,6 +45,7 @@
           <el-button
             icon="el-icon-view"
             size="mini"
+            :disabled="currentTabName === 'SimulatedAPS'"
             @click="setTableChangeGantt"
           >
             {{
