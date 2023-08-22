@@ -36,6 +36,10 @@ import { timeFormat } from "@/jv_doc/utils/time";
 export default {
 	name: "index",
 	props: {
+    readonly: {
+      type: Boolean,
+      default: true
+    },
     columns: {
       type: Array,
       default() {
@@ -60,6 +64,12 @@ export default {
 				return () => { }
 			}
 		},
+    _arguments: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
 		foldoRunfoldFlag: {
 			type: Number,
 			default: NaN
@@ -158,7 +168,8 @@ export default {
 			// this.onTaskDrag(); // 拖动事件
 			// 任务更新前
 			gantt.attachEvent("onBeforeTaskUpdate", (id, new_item) => {
-				if (this.isConfrim) return
+        console.log(this.isConfrim);
+        if (this.isConfrim) return
 				var task = gantt.getTask(id);
 				this.$confirm('您当前修改了数据，是否提交修改?', '提示', {
 					confirmButtonText: '确定',
@@ -167,15 +178,17 @@ export default {
 				}).then(() => {
 					this.setGanttUpdate(); //甘特图数据更新
 				}).catch(() => {
-					this.isConfrim = true;
+          this.isConfrim = true;
 					task.start_date = new Date(this.oldDateList[new_item.$index].start_date);
 					task.end_date = new Date(this.oldDateList[new_item.$index].end_date);
 					task.progress = this.oldDateList[new_item.$index].progress
 					gantt.updateTask(id);
+          console.log(this.isConfrim);
 					// this.setLinks();
-					this.$nextTick(() => {
+					let timer = setTimeout(() => {
 						this.isConfrim = false;
-					})
+            clearTimeout(timer)
+					},10)
 				})
 			});
 			// // 任务更新后
@@ -288,6 +301,7 @@ export default {
 		},
 		onTaskDblClick() {
 			gantt.attachEvent("onTaskDblClick", (id, e) => {
+        if(this.readonly) return
 				const data = this.tasks.data[id - 1];
 				gantt.config.details_on_dblclick = false; // 关闭原生弹窗（灯箱）
 				this.currentId = id;
@@ -397,7 +411,7 @@ export default {
 			gantt.ext.fullscreen.toggle();
 		},
 		setGanttUpdate() { // 甘特图数据更新
-			this.api({}).then((res) => {
+			this.api(this._arguments).then((res) => {
 				this.$message({
 					type: 'success',
 					message: '更新成功!'
@@ -419,24 +433,24 @@ export default {
 					});
 				});
 				// gantt.render();
-				gantt.eachTask(function (task) {
-					task.id = arr[task.$index].id
-					task.open = arr[task.$index].open
-					task.text = arr[task.$index].text
-					task.start_date = new Date(arr[task.$index].start_date)
-					task.end_date = new Date(arr[task.$index].end_date)
-					task.cap_plan_end = arr[task.$index].cap_plan_end
-					task.parent = arr[task.$index].parent
-					task.color = arr[task.$index].color
-					task.duration = arr[task.$index].duration
-					task.progress = arr[task.$index].progress
-				})
-				gantt.refreshData();
-				// let tasks = {
-				// 	data: [...arr]
-				// }
+				// gantt.eachTask(function (task) {
+				// 	task.id = arr[task.$index].id
+				// 	task.open = arr[task.$index].open
+				// 	task.text = arr[task.$index].text
+				// 	task.start_date = new Date(arr[task.$index].start_date)
+				// 	task.end_date = new Date(arr[task.$index].end_date)
+				// 	task.cap_plan_end = arr[task.$index].cap_plan_end
+				// 	task.parent = arr[task.$index].parent
+				// 	task.color = arr[task.$index].color
+				// 	task.duration = arr[task.$index].duration
+				// 	task.progress = arr[task.$index].progress
+				// })
+				// gantt.refreshData();
+				let tasks = {
+					data: [...arr]
+				}
 				// //加载数据
-				// gantt.parse(tasks);
+				gantt.parse(tasks);
 				// this.setLinks(); // 设置link
 			});
 		},
@@ -566,7 +580,7 @@ export default {
 			// 可以通过拖放来调整任务大小
 			gantt.config.drag_resize = true;
 			// 可读模式，不许编辑
-			gantt.config.readonly = false;
+			gantt.config.readonly = this.readonly;
 
 			/* 缩放配置
 			 * levels：缩放级别

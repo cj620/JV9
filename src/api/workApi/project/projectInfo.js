@@ -66,3 +66,12 @@ export function create_data_sharing(data) {
     data,
   });
 }
+// 项目进度
+export function worker_progress(data) {
+  return request({
+    url: "/project_info/project_worker_progress",
+    method: "post",
+    data,
+  });
+}
+

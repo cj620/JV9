@@ -115,7 +115,7 @@ const project = [
   {
     key: "Pm_ProjectManagement_process_people",
     component: () =>
-      import("@/views/workModule/project/projectManage/process_people"),
+      import("@/views/workModule/project/projectManage/process_people/index1.vue"),
     Parent: "Pm_Project",
     name: "ProjectManage_process_people",
     path: "projectManage_process_people",
