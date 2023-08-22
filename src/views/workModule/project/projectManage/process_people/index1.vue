@@ -370,13 +370,14 @@ export default {
     background: #fff;
     box-shadow: 0 0 6px 2px #eee;
     &-item {
-      height: 160px;
+      height: 170px;
       display: flex;
       align-items: center;
       //margin-bottom: 70px;
       position: relative;
       box-sizing: border-box;
       padding: 10px 10px;
+      border-bottom: 1px solid #eee;
       .el-image {
         width: 100%;
         height: 100%;
@@ -400,13 +401,14 @@ export default {
     position: absolute;
     top: 0;
     &-item {
-      height: 160px;
+      height: 165px;
       display: flex;
       align-items: center;
+      margin-top: 5px;
     }
     &-children {
       width: 200px;
-      height: 160px;
+      height: 165px;
       margin-left: 20px;
       box-sizing: border-box;
       //box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.15);
@@ -439,7 +441,7 @@ export default {
     background: #eee;
     position: absolute;
     z-index: 2;
-    top: -65px;
+    top: -60px;
     display: flex;
     padding-left: 10px;
     left: 0;
