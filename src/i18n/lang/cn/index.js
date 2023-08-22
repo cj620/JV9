@@ -1206,6 +1206,7 @@ const cn = {
       "自动排程紧急工单工序前置时间系数",
     Aps_extra_urgent_bill_process_lead_time_coefficient:
       "自动排程特急工单工序前置时间系数",
+      Message_notification_configuration:"消息通知配置"
   },
 
   ...zhLocale,
