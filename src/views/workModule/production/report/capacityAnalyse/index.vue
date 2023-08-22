@@ -28,7 +28,7 @@
           </el-date-picker>
         </Popover>
         <span>
-          {{ tableObj.formObj.form.Month | timeFormat("yyyy年MM月份") }}</span
+          {{ tableObj.formObj.form.Month | timeFormat("yyyy.MM") }}</span
         >
       </template>
       <template #Resource="{ record, row }">

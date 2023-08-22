@@ -69,6 +69,7 @@ const ja = {
     Pr_ProductionChart: "加工計画図",
     Pr_EmployeesChart: "従業員生産レポート",
     Pr_PartChart: "部品生産レポート",
+    Pr_PersonnelHoursSummary: "従業員労働時間要約",
     Qc_Quality: "品質",
     Qc_ProductionCheck: "プロセスチェツク",
     Qc_FinishedProduct: "製品検査",
@@ -341,6 +342,7 @@ const ja = {
   Generality: {
     Ge_GanttShow: "ガントチャート表示",
     Ge_TabularShow: "表の表示",
+    Ge_tagClose: "パージ",
     Ge_New: "新規作成",
     Ge_Add: "新規追加",
     Ge_Refresh: "リフレッシュ",
@@ -725,6 +727,8 @@ const ja = {
     Ge_StockInCompleted: "入庫が完了しました。続行しますか？",
     Ge_MeasuringTool: "ゲージ台",
     Ge_Fixture: "つかみ具",
+    Ge_ShowDetail: "詳細の表示",
+    Ge_DateRange: "日付範囲",
   },
   //生产
   production: {
@@ -847,6 +851,8 @@ const ja = {
     Pr_OverdueWorkSheet: "期限切れのシート",
     Pr_OverloadWorkSheet: "過負荷製造オーダ",
     Pr_ComputingTime: "計算時間",
+    Pr_HoursSummary: "労働時間の要約",
+    Pr_IsOverstep: "期間外かどうか",
   },
   quality: {
     Qc_CheckResult: "検査結果",
@@ -900,6 +906,7 @@ const ja = {
     De_MaintenanceContent: "メンテナンス内容",
     De_MaintenanceResults: "メンテナンス結果",
     De_ScrapDate: "廃棄日",
+    De_ScrapDescription: "除・売却の説明",
     De_Repairer: "修理メーカー",
     De_RepairApplicant: "修理請求人",
     De_RepairDate: "修理請求日",
@@ -920,12 +927,12 @@ const ja = {
     De_PrecisionRepair: "せいどちょうせい",
     De_Type1: "カテゴリ1",
     De_Type2: "カテゴリ2",
-	  De_CheckScrap: "除・売却作業指示の表示",
-	  De_UsageRecord: "レコードの使用方法",
-	  De_StockOpsRecord: "入出庫記録",
-	  De_AddUsageRecord: "使用履歴の追加",
-	  De_AddStockOpsRecord: "入出庫レコードの追加",
-	  De_StockOpsInfo: "宛先/ソース",
+    De_CheckScrap: "除・売却作業指示の表示",
+    De_UsageRecord: "レコードの使用方法",
+    De_StockOpsRecord: "入出庫記録",
+    De_AddUsageRecord: "使用履歴の追加",
+    De_AddStockOpsRecord: "入出庫レコードの追加",
+    De_StockOpsInfo: "宛先/ソース",
   },
   // 后端提示
   backendMessage: {

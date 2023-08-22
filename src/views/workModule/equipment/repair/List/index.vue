@@ -65,15 +65,13 @@ export default {
       // 表格实例
       tableObj: {},
       machineCategory: 'Machine',
-      tableTitle: '设备报修',
       editRouterName: "As_DeviceRepairEdit",
       repairEnum,
     };
   },
   created() {
     // 创建表格实例
-      this.tableObj = new Table();
-    this.tableObj.props.title = this.tableTitle;
+    this.tableObj = new Table();
     this.tableObj.formObj.form.DeviceCategory=this.machineCategory
     this.tableObj.getData();
   },

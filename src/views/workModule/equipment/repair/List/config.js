@@ -29,7 +29,7 @@ export class Table extends BaseTable {
       // 行标识
       rowId: 'BillId',
       // 表格标题
-      title: '',
+      title: i18n.t("device.De_ScrapDescription"),
       // 接口类
       api,
       // 操作列宽度

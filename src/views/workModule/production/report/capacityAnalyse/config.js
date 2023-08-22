@@ -54,7 +54,7 @@ export const tableSchema = [
 const formSchema = [
   {
     prop: "Month",
-    label: "日期范围",
+    label: i18n.t("Generality.Ge_DateRange"),
     cpn: "SingleTime",
     default: timeFormat(new Date()),
     cpnProps: {
