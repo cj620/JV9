@@ -339,6 +339,8 @@ const cn = {
   },
   //通用
   Generality: {
+    Ge_Chart: "图表",
+    Ge_Gantt: "甘特图",
     Ge_GanttShow: "甘特图显示",
     Ge_TabularShow: "表格显示",
     Ge_New: "新增",

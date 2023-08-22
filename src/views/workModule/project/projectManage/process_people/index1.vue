@@ -65,6 +65,7 @@
     <div class="chart-box" v-show="!ganttChangeShow">
       <div class="mould-box">
         <div  v-for="(item, i) in list" :key="i">
+          <div style="height: 70px"></div>
           <div class="mould-box-item">
             <el-image
               :src="imgUrlPlugin(item.ToolingInfo.PhotoUrl)"
@@ -118,13 +119,13 @@
               </div>
             </div>
           </div>
-          <div style="height: 70px"></div>
         </div>
 
       </div>
 
       <div class="details-box">
         <div  v-for="(item, i) in list" :key="i">
+          <div style="height: 70px"></div>
           <div class="details-box-item">
             <div
               :class="[children.State === hoverStateValue ? children.State : '']"
@@ -162,7 +163,6 @@
               </div>
             </div>
           </div>
-          <div style="height: 65px"></div>
         </div>
       </div>
     </div>
@@ -203,8 +203,8 @@ export default {
       searchValue: "",
       unitOptions: [],
       ganttChangeOptions: [
-        { label: "图表", value: false },
-        { label: "甘特图", value: true },
+        { label: i18n.t("Generality.Ge_Chart"), value: false },
+        { label: i18n.t("Generality.Ge_Gantt"), value: true },
       ],
       ganttChangeShow: false,
       formSchema: formSchema,
@@ -401,10 +401,8 @@ export default {
     top: 0;
     &-item {
       height: 160px;
-      //margin-bottom: 70px;
       display: flex;
       align-items: center;
-      margin-top: 5px;
     }
     &-children {
       width: 200px;
@@ -435,12 +433,13 @@ export default {
     }
   }
   .info-box {
+    font-size: 14px;
     height: 60px;
     width: 1000px;
     background: #eee;
     position: absolute;
     z-index: 2;
-    bottom: -70px;
+    top: -65px;
     display: flex;
     padding-left: 10px;
     left: 0;

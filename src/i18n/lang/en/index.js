@@ -343,6 +343,8 @@ const en = {
   },
   //通用
   Generality: {
+    Ge_Chart: "Chart",
+    Ge_Gantt: "Gantt",
     Ge_GanttShow: "Gantt Display",
     Ge_TabularShow: "Tabular Display",
     Ge_New: "New",

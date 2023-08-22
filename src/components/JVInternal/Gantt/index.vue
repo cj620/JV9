@@ -89,7 +89,11 @@ export default {
 		barHeight: {
 			type: Number,
 			default: 36,
-		}
+		},
+    unitValue: {
+      type: String,
+      default: 'day',
+    }
 	},
 	data() {
 		return {
@@ -123,7 +127,6 @@ export default {
 				value: 'minute',
 				label: i18n.t('Generality.Ge_Minute')
 			}],
-			unitValue: 'quarter'
 		}
 	},
 	async created() {
@@ -590,11 +593,10 @@ export default {
 			// 判断是否已经初始化过zoomConfig
 			if (!gantt.ext.zoom.getLevels()) {
 				gantt.ext.zoom.init(zoomConfig);
-
 			}
 
 			//切换到指定的缩放级别
-			gantt.ext.zoom.setLevel("hour");
+			gantt.ext.zoom.setLevel(this.unitValue);
 			gantt.init(this.$refs.gantt);
 			this.foldoRunfold(); // 赋值数据
 			gantt.render();
