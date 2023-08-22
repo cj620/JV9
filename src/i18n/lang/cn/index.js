@@ -72,6 +72,7 @@ const cn = {
     Pr_ProductionChart: "加工计划图",
     Pr_EmployeesChart: "员工生产报表",
     Pr_PartChart: "零件生产报表",
+    Pr_PersonnelHoursSummary: "员工工时汇总",
     Qc_Quality: "品质",
     Qc_ProductionCheck: "加工检验",
     Qc_FinishedProduct: "成品检验",
@@ -341,6 +342,7 @@ const cn = {
   Generality: {
     Ge_GanttShow: "甘特图显示",
     Ge_TabularShow: "表格显示",
+    Ge_tagClose: "清除",
     Ge_New: "新增",
     Ge_Add: "添加",
     Ge_Refresh: "刷新",
@@ -738,6 +740,8 @@ const cn = {
     Ge_1DayAgo: "1天前",
     Ge_MeasuringTool: "量具",
     Ge_Fixture: "夹具",
+    Ge_ShowDetail: "查看详情",
+    Ge_DateRange: "日期范围",
   },
   //生产
   production: {
@@ -861,6 +865,8 @@ const cn = {
     Pr_OverdueWorkSheet: "超交期工单",
     Pr_OverloadWorkSheet: "超负荷工单",
     Pr_ComputingTime: "计算时间",
+    Pr_HoursSummary: "工时汇总",
+    Pr_IsOverstep: "是否超出时间段",
   },
   quality: {
     Qc_CheckResult: "检验结果",
@@ -906,7 +912,7 @@ const cn = {
   device: {
     De_Repair: "报修",
     De_Maintenance: "保养",
-	  De_MaintenanceInfo: "保养信息",
+    De_MaintenanceInfo: "保养信息",
     De_MaintenanceDate: "保养日期",
     De_MaintenanceMode: "保养方式",
     De_LastMaintenanceDate: "上次保养日期",
@@ -914,6 +920,7 @@ const cn = {
     De_MaintenanceContent: "保养内容",
     De_MaintenanceResults: "保养结果",
     De_ScrapDate: "报废日期",
+    De_ScrapDescription: "报废说明",
     De_Repairer: "修理厂商",
     De_RepairApplicant: "报修人",
     De_RepairDate: "报修日期",
@@ -934,12 +941,12 @@ const cn = {
     De_PrecisionRepair: "精度调准",
     De_Type1: "类别一",
     De_Type2: "类别二",
-	  De_CheckScrap: "查看报废单",
-	  De_UsageRecord: "使用记录",
+    De_CheckScrap: "查看报废单",
+    De_UsageRecord: "使用记录",
     De_StockOpsRecord: "出入库记录",
-	  De_AddUsageRecord: "添加使用记录",
-	  De_AddStockOpsRecord: "添加出入库记录",
-	  De_StockOpsInfo: "目的地/来源地",
+    De_AddUsageRecord: "添加使用记录",
+    De_AddStockOpsRecord: "添加出入库记录",
+    De_StockOpsInfo: "目的地/来源地",
   },
   // 后端提示
   backendMessage: {

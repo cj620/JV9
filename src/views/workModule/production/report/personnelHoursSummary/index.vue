@@ -9,7 +9,7 @@
         <TableAction
           :actions="[
             {
-              label: '查看明细',
+              label: $t('project.Pro_CheckDetails'),
               confirm: checkDetail.bind(null, row),
             },
           ]"
@@ -17,7 +17,7 @@
       </template>
     </JvTable>
     <JvDialog
-      title="查看明细"
+      :title="$t('project.Pro_CheckDetails')"
       :visible.sync="dialogVisible"
       width="90%"
       @confirm="dialogVisible = false"
