@@ -150,6 +150,7 @@ const en = {
   },
   //项目
   project: {
+    Pr_PartSchedule: "Part Schedule",
     Pro_ItemType: "Item Type",
     Pro_UpdateDate: "Update Date",
     Pro_CalculationMonth: "Calculation Month",

@@ -135,6 +135,7 @@ const cn = {
   },
   //项目
   project: {
+    Pr_PartSchedule: "零件进度",
     Pro_ItemType: "项目类别",
     Pro_UpdateDate: "更新日期",
     Pro_CalculationMonth: "结算月份",
