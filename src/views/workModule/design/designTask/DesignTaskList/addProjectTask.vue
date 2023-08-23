@@ -89,7 +89,7 @@ export default {
     return {
       loading: false,
       IsDisabled: false,
-      title: "新增",
+      title: i18n.t('Generality.Ge_New'),
       formObj: {},
       BelongingDepartment: "",
       projectDataList: [],

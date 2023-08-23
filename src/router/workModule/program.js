@@ -39,7 +39,7 @@ const program = [
     Parent: "Pa_Program",
     name: "Pa_ProgramTaskList",
     path: "Pa_ProgramTaskList",
-    title: "编程任务列表",
+    title: i18n.t('menu.Pa_ProgramTaskList'),
   },
   // 编程任务记录
   {

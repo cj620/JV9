@@ -98,7 +98,7 @@ const tableSchema = [
   /*任务类别*/
   {
     prop: "TaskType",
-    label: "任务类别",
+    label: i18n.t("Generality.Ge_TaskType"),
     customFilter: (value) => {
       if (!value) return "";
       return taskTypeEnum[value].name;
@@ -114,7 +114,7 @@ const tableSchema = [
   /*负责人*/
   {
     prop: "Worker",
-    label: "负责人",
+    label: i18n.t("project.Pro_Worker"),
     innerSearch: {
       // 销售员
       prop: "Worker",
@@ -159,14 +159,14 @@ const formSchema = [
   //单号搜索
   {
     prop: "Keyword",
-    label: "单号",
+    label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
   },
 
   //加工单号搜索
   {
     prop: "PrTaskBillId",
-    label: "加工单号",
+    label: i18n.t("production.Pr_WorkSheetNo"),
     cpn: "FormInput",
   },
   //单号搜索
@@ -235,39 +235,39 @@ const formSchema = [
   //分配状态
   {
     prop: "AllocationType",
-    label: "分配状态",
+    label: i18n.t("design.De_AllocationType"),
     cpn: "FormSelect",
     options: {
       list: [
         {
           value: "1",
-          label: "已分配",
+          label: i18n.t("design.De_Allocated"),
         },
         {
           value: "2",
-          label: "未分配",
+          label: i18n.t("design.De_Unallocated"),
         },
       ],
     },
   },
   {
     prop: "SelctChildrenType",
-    label: "查看任务明细",
+    label: i18n.t("project.Pro_ViewTaskDetails"),
     cpn: "FormSelect",
     default: 2,
     options: {
       list: [
         {
           value: 0,
-          label: "查看父级项目任务",
+          label: i18n.t("project.Pro_ViewParentProjectTasks"),
         },
         {
           value: 1,
-          label: "查看子任务",
+          label: i18n.t("project.Pro_ViewSubtasks"),
         },
         {
           value: 2,
-          label: "查看全部任务",
+          label: i18n.t("project.Pro_ViewAllTasks"),
         },
       ],
     },

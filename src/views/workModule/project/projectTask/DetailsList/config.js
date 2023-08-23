@@ -125,7 +125,7 @@ const tableSchema = [
       // 工序
       prop: "Process",
       cpn: "SyncSelect",
-      label: '工序',
+      label: i18n.t("Generality.Ge_Process"),
       api: getAllProjectProcess,
       apiOptions: {
         immediate: true,
@@ -137,7 +137,7 @@ const tableSchema = [
     /*负责人*/
     {
       prop: "Worker",
-      label: '负责人',
+      label: i18n.t("project.Pro_Worker"),
       innerSearch: {
         // 销售员
         prop: "Worker",
@@ -181,7 +181,7 @@ const formSchema = [
   //单号搜索
   {
     prop: "Keyword",
-    label: '关键字搜索',
+    label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
   },
   //单号搜索
@@ -215,7 +215,7 @@ const formSchema = [
     // 工序
     prop: "Process",
     cpn: "SyncSelect",
-    label: '工序',
+    label: i18n.t("Generality.Ge_Process"),
     api: getAllProjectProcess,
     apiOptions: {
       immediate: true,

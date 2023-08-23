@@ -20,12 +20,12 @@
               disabled: row.ItemState === 'Completed',
             },
             {
-              label: '分发任务',
+              label: $t('project.Pro_DistributionTask'),
               confirm: distributionTask.bind(null, row),
               disabled: row.ItemState === 'Completed' || row.ParentId !== 0,
             },
             {
-              label: '查看子任务',
+              label: $t('project.Pro_ViewSubtasks'),
               confirm: viewSubTask.bind(null, row),
               disabled: row.ParentId !== 0,
             },
@@ -53,7 +53,7 @@
     </distributionTaskDialog>
     <JvDialog
       :visible.sync="viewSubtasksDialogVisible"
-      title="查看子任务"
+      :title="$t('project.Pro_ViewSubtasks')"
       v-if="viewSubtasksDialogVisible"
       @confirm="dialogConfirm"
       width="60%"
@@ -64,7 +64,7 @@
           <TableAction
             :actions="[
               {
-                label: '删除',
+                label: $t('Generality.Ge_Delete'),
                 popConfirm: {
                   title: $t('Generality.Ge_DeleteConfirm'),
                   confirm: deleteItem.bind(null, row),
@@ -124,7 +124,7 @@ export default {
       TaskData: {},
       transferData: {},
       viewSubtasksTableObj: {},
-      tableTitle: "设计任务列表",
+      tableTitle: i18n.t("menu.De_DesignTaskList"),
       ProcessType: "Design",
     };
   },

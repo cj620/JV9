@@ -10,8 +10,8 @@
 import enLocale from "element-ui/lib/locale/lang/en";
 const en = {
   menu: {
-    Pa_ProgramTaskList: "Pa program task list",
-    De_DesignTaskList: "Design task list",
+    Pa_ProgramTaskList: "Program Task List",
+    De_DesignTaskList: "Design Task List",
     De_ProcessTemplate: "Process template",
     Pu_Supplier: "Supplier",
     Sa_Sale: "Sale",
@@ -148,6 +148,9 @@ const en = {
     De_ProcessTemplate: "Process template",
     De_SetLevel: "Set level",
     De_DesignTaskRecord: "Design task record",
+    De_AllocationType: "Allocation Type",
+    De_Allocated: "Allocated",
+    De_Unallocated: "Unallocated",
   },
   //项目
   project: {
@@ -213,6 +216,11 @@ const en = {
     Pro_Share: "Share",
     Pro_CreateLink: "Create link",
     Pro_projectMsgManager: "Project Info",
+    Pro_ViewTaskDetails: "View Task Details",
+    Pro_ViewParentProjectTasks: "View Parent Project Tasks",
+    Pro_ViewSubtasks: "View Subtasks",
+    Pro_ViewAllTasks: "View All Tasks",
+    Pro_DistributionTask: "Distribution Task",
   },
   setup: {
     Stockroom: "Stockroom",

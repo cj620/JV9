@@ -15,7 +15,7 @@ export class EditTable extends BaseTable {
     super({
       tableSchema: tableConfigWrapper(tableConfig),
       data:[],
-      title:'分配任务',
+      title:i18n.t('project.Pro_DistributionTask'),
       tableHeaderShow:false,
       sortCol:false,
       chooseCol:false,

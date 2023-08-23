@@ -60,7 +60,7 @@
           <TableAction
             :actions="[
                {
-                label: '查看子任务',
+                label: $t('project.Pro_ViewSubtasks'),
                 confirm: viewSubtasks.bind(null, row),
               },
               {
@@ -127,7 +127,7 @@
 
     <JvDialog
       :visible.sync="viewSubtasksDialogVisible"
-      title="查看子任务"
+      :title="$t('project.Pro_ViewSubtasks')"
       v-if="viewSubtasksDialogVisible"
       @confirm="viewSubtasksDialogConfirm"
       width="60%"
