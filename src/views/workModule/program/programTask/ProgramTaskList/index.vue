@@ -8,7 +8,7 @@ export default {
   extends: Common,
   data(){
     return{
-        tableTitle:'编程任务列表',
+        tableTitle:i18n.t('menu.Pa_ProgramTaskList'),
         ProcessType:'Program'
     }
   }

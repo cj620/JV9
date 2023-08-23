@@ -10,6 +10,7 @@
 import jaLocale from "element-ui/lib/locale/lang/ja";
 const ja = {
   menu: {
+    Pa_ProgramTaskList: "プログラミングタスクリスト",
     De_DesignTaskList: "タスク・リストの設計",
     De_ProcessTemplate: "工程テンプレート",
     Pu_Supplier: "サプライヤ",
