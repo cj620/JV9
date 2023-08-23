@@ -164,7 +164,7 @@ export class UseTable extends BaseTable {
       // 行标识
       rowId: 'Id',
       // 表格标题
-      title: '使用记录',
+      title: i18n.t("device.De_UsageRecord"),
       // 接口类
       api:recordAPI,
       // 操作列宽度
@@ -197,7 +197,7 @@ export const UseConfig = [
   // 操作者
   {
     prop: "Operator",
-    label: '操作者',
+    label: i18n.t("device.De_Handlers"),
   },
   // 类别
   {
@@ -216,7 +216,7 @@ export class StockOpsTable extends BaseTable {
       // 行标识
       rowId: 'Id',
       // 表格标题
-      title: '使用记录',
+      title: i18n.t("device.De_StockOpsRecord"),
       // 接口类
       api:stockOpsAPI,
       // 操作列宽度
@@ -232,17 +232,17 @@ export const StockOpsConfig = [
   // 编号
   {
     prop: "StockOpsInfo",
-    label: '目的地/来源地',
+    label: i18n.t("device.De_StockOpsInfo"),
   },
   // 操作者
   {
     prop: "Remarks",
-    label: '描述',
+    label: i18n.t("Generality.Ge_Describe"),
   },
   //出入库状态
   {
     prop: "StockOpsType",
-    label: '出入库状态',
+    label: i18n.t("device.De_StorageStatus"),
     customFilter: (value) => {
       if (!value) return "";
       return inventoryStateEnum[value].name;

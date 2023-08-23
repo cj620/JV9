@@ -38,7 +38,7 @@ export class Table extends BaseTable {
       rowId: "Id",
       title: i18n.t("project.Pro_projectMsgManager"),
       importBar: true,
-      printMod: "sales",
+      printMod: "Pm_ProjectManagement_Msg",
       fullScreenBar: true,
       // 'default-expand-all':true,
       // 序号列

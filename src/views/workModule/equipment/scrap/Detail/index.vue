@@ -50,7 +50,7 @@
     </JvBlock>
 
     <!--备注-->
-    <JvBlock title="报废说明" ref="third">
+    <JvBlock :title="$t('device.De_ScrapDescription')" ref="third">
       <JvRemark :RemarkData="detailObj.detailData.ScrapDescription"></JvRemark>
     </JvBlock>
     <!--附件-->

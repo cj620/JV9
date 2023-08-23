@@ -14,7 +14,7 @@
         <div class="simulatedCalculate-page-form">
           <!-- 算法多选框 -->
           <div class="pleaseSelect">
-            {{ $t("production.Pr_PleaseSelectSchedulingAlgorithms") }}:
+            {{ $t("production.Pr_Algorithms") }}:
           </div>
           <el-select
             class="multiple-select"
@@ -45,6 +45,7 @@
           <el-button
             icon="el-icon-view"
             size="mini"
+            :disabled="currentTabName === 'SimulatedAPS'"
             @click="setTableChangeGantt"
           >
             {{
@@ -108,7 +109,6 @@
                     <div style="margin-right: 20px">
                       <el-select
                         v-model="unitOfTime"
-                        placeholder="请选择单位"
                         size="mini"
                         style="width: 66px"
                         @change="setGanttZoom"

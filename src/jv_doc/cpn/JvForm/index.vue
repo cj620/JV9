@@ -33,7 +33,6 @@
           >
             <slot :name="formItem.prop" :prop="formItem.prop"></slot>
           </el-form-item>
-
           <el-form-item
             orm-item
             :prop="formItem.prop"
@@ -44,7 +43,13 @@
               :cdata="formItem"
               :form="formObj.form"
               :formObj="formObj"
-            ></FormItem>
+            >
+            </FormItem>
+
+            <template #label v-if="$slots['header-'+formItem.prop]">
+              <slot :name="'header-'+formItem.prop" ></slot>
+            </template>
+
           </el-form-item>
         </el-col>
       </el-row>

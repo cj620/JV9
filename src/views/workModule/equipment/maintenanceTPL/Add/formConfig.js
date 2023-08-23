@@ -12,7 +12,7 @@ export const formSchema = [
   //设备名称
   {
     prop: "TemplateName",
-    label: '名称',
+    label: i18n.t("Generality.Ge_ItemName"),
     cpn: "FormInput",
     rules: [
       {
@@ -25,7 +25,7 @@ export const formSchema = [
   //设备描述
   {
     prop: "Description",
-    label: '描述',
+    label: i18n.t("Generality.Ge_Describe"),
     cpn: "FormInput",
     // rules: [
     //   {

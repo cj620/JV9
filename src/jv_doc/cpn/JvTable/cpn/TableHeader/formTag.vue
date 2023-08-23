@@ -10,10 +10,12 @@
       <InnerForm :cdata="formItem" :form-obj="formObj" />
 
       <div style="text-align: right; margin-top: 5px">
-        <el-button size="mini" type="text" @click="tagClose(formItem)"
-          >清除</el-button
-        >
-        <el-button type="primary" size="mini" @click="search">搜索</el-button>
+        <el-button size="mini" type="text" @click="tagClose(formItem)">
+          {{ $t("Generality.Ge_tagClose") }}
+        </el-button>
+        <el-button type="primary" size="mini" @click="search">
+          {{ $t("Generality.Ge_Search") }}
+        </el-button>
       </div>
 
       <template slot="reference">

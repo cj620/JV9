@@ -26,6 +26,17 @@
     </div>
 
   </jv-block>
+        <button @click="a"> 1</button>
+
+        <el-time-select
+            placeholder="起始时间"
+            v-model="startTime"
+            :picker-options="{
+      start: '08:30',
+      step: '00:15',
+      end: '18:30'
+    }">
+        </el-time-select>
     </PageWrapper>
 </template>
 <script>
@@ -37,6 +48,7 @@ export default {
   data() {
     return {
       machineData: null,
+		startTime: '',
     };
   },
   created() {
@@ -44,6 +56,9 @@ export default {
     this.getData()
   },
   methods: {
+	  a(){
+		console.log(this.startTime)
+	},
     getData(){
       sales_order_test_list({
         "CustomerId":"C001",

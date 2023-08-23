@@ -226,7 +226,7 @@ const production = [
     Parent: "Pr_Report",
     name: "Pr_PersonnelHoursSummary",
     path: "Pr_PersonnelHoursSummary",
-    title: "员工工时汇总",
+    title: i18n.t("menu.Pr_PersonnelHoursSummary"),
   },
   // 零件生产报表
   {

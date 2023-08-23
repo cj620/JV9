@@ -45,7 +45,7 @@
             </span>
             <div slot="description" class="description">
               <el-link type="primary" @click="showDetail(item)"
-                >查看详情</el-link
+                >{{ $t("Generality.Ge_ShowDetail") }}</el-link
               >
             </div>
             <div slot="description" class="description" v-if="item.ApprovedAt">

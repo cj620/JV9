@@ -10,12 +10,13 @@
           size="mini"
           style="width: 160px"
           v-model="searchValue"
+          :disabled="ganttChangeShow"
           :placeholder="$t('Generality.Ge_ToolingNo')"
           clearable
           @change="searchValueChange"
         ></el-input>
         <div class="padding-box"></div>
-        <el-button type="primary" size="mini">搜索</el-button>
+        <el-button type="primary" size="mini">{{$t("Generality.Ge_Search")}}</el-button>
         <div class="padding-box"></div>
         <el-select v-model="ganttChangeShow" size="mini" style="width: 100px">
           <el-option
@@ -54,7 +55,7 @@
               v-for="item in unitOptions"
               :key="item.value"
               :command="item.value"
-              >{{ item.label }}</el-dropdown-item
+            >{{ item.label }}</el-dropdown-item
             >
           </el-dropdown-menu>
         </el-dropdown>
@@ -64,6 +65,7 @@
     <div class="chart-box" v-show="!ganttChangeShow">
       <div class="mould-box">
         <div  v-for="(item, i) in list" :key="i">
+          <div style="height: 70px"></div>
           <div class="mould-box-item">
             <el-image
               :src="imgUrlPlugin(item.ToolingInfo.PhotoUrl)"
@@ -96,14 +98,14 @@
                   {{
                     timeFormat(
                       item.ToolingInfo.DeliveryDate,
-                      "yyyy-MM-dd hh:mm:ss"
+                      "yyyy-MM-dd"
                     )
                   }}
                 </div>
                 <div>
                   {{ $t("production.Pr_ProofDate") }}:
                   {{
-                    timeFormat(item.ToolingInfo.SampleDate, "yyyy-MM-dd hh:mm:ss")
+                    timeFormat(item.ToolingInfo.SampleDate, "yyyy-MM-dd")
                   }}
                 </div>
                 <div></div>
@@ -115,15 +117,18 @@
                 </div>
                 <div></div>
               </div>
+              <div class="go-details">
+                <el-button size="mini" @click="goDetails(item.ToolingInfo.ToolingNo)">{{$t("project.Pr_PartSchedule")}}</el-button>
+              </div>
             </div>
           </div>
-          <div style="height: 70px"></div>
         </div>
 
       </div>
 
       <div class="details-box">
         <div  v-for="(item, i) in list" :key="i">
+          <div style="height: 70px"></div>
           <div class="details-box-item">
             <div
               :class="[children.State === hoverStateValue ? children.State : '']"
@@ -142,26 +147,24 @@
                 </div>
                 <div>
                   {{ $t("Generality.Ge_PlanStart") }}:
-                  {{ timeFormat(children.PlanStart, "yyyy-MM-dd hh:mm:ss") }}
+                  {{ timeFormat(children.PlanStart, "yyyy-MM-dd") }}
                 </div>
                 <div>
                   {{ $t("Generality.Ge_PlanEnd") }}:
-                  {{ timeFormat(children.PlanEnd, "yyyy-MM-dd hh:mm:ss") }}
+                  {{ timeFormat(children.PlanEnd, "yyyy-MM-dd") }}
                 </div>
                 <div>
                   {{ $t("Generality.Ge_ActualEnd") }}:
-                  {{ timeFormat(children.ActualEnd, "yyyy-MM-dd hh:mm:ss") }}
+                  {{ timeFormat(children.ActualEnd, "yyyy-MM-dd") }}
                 </div>
                 <div style="padding: 0">
                   <el-progress
                     :percentage="children.Progress"
-                    :format="() => ''"
                   ></el-progress>
                 </div>
               </div>
             </div>
           </div>
-          <div style="height: 65px"></div>
         </div>
       </div>
     </div>
@@ -172,6 +175,7 @@
         class="left-container"
         :tasks="tasks"
         :formSchema="formSchema"
+        :_arguments="_arguments"
         :api="partProcessingPlan"
         :foldoRunfoldFlag="1"
         dragProgress
@@ -185,16 +189,15 @@
 <script>
 import gantt from "@/components/JVInternal/Gantt";
 import { formSchema } from "./formConfig";
-import { Data } from "./data";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { timeFormat } from "@/jv_doc/utils/time";
-import { partProcessingPlan } from "@/api/workApi/production/dataReport";
-import {worker_progress} from '@/api/workApi/project/projectInfo';
+import {project_gantt_progress, worker_progress} from '@/api/workApi/project/projectInfo';
 import i18n from "@/i18n/i18n";
 export default {
-  name: "index",
+  name: "Pm_ProjectManagement_process_people",
   data() {
     return {
+      _arguments: null,
       tasks: {
         data: [],
         links: [],
@@ -202,12 +205,12 @@ export default {
       searchValue: "",
       unitOptions: [],
       ganttChangeOptions: [
-        { label: "甘特图", value: true },
-        { label: "图表", value: false },
+        { label: i18n.t("Generality.Ge_Chart"), value: false },
+        { label: i18n.t("Generality.Ge_Gantt"), value: true },
       ],
       ganttChangeShow: false,
       formSchema: formSchema,
-      partProcessingPlan: partProcessingPlan,
+      partProcessingPlan: project_gantt_progress,
       stateList: [
         {
           color: "#efefef",
@@ -244,6 +247,7 @@ export default {
     gantt,
   },
   async created() {
+    this._arguments = {Project: this.$route.query.Project};
     this.GetData();
     this.getWorkerProgress();
   },
@@ -257,8 +261,17 @@ export default {
   methods: {
     imgUrlPlugin,
     timeFormat,
+    goDetails(ToolingNo) {
+      this.$router.push({
+        path: "Pm_Project_PartSchedule",
+        query: {
+          ToolingNo: ToolingNo
+        }
+      })
+    },
     getWorkerProgress() {
-      worker_progress({"Project":"J22","ToolingNo":this.searchValue}).then(res => {
+      let Project = this.$route.query.Project;
+      worker_progress({"Project":Project,"ToolingNo":this.searchValue}).then(res => {
         console.log(res)
         this.list = res;
       });
@@ -271,7 +284,6 @@ export default {
       const res = this.stateList.filter((children) => {
         return children.value === item.State;
       });
-      console.log(item, res);
       return res[0].color;
     },
     setGanttZoom(unit) {
@@ -288,39 +300,29 @@ export default {
       this.timeout = setTimeout(func, wait);
     },
     GetData() {
-      partProcessingPlan({}).then((res) => {
-        let arr = [];
-        res.forEach((item) => {
-          arr.push({
-            id: item.Id, // 父节点id
-            open: item.IsOpen, // 是否展开
-            text: item.Title, // 父节点名字
-            start_date: timeFormat(item.StartDate, "yyyy-MM-dd hh:mm:ss"), // 必须要字段 task 开始时间
-            cap_plan_end: timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"),
-            end_date: item.EndDate
-              ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss")
-              : "",
-            parent: item.ParentId,
-            color: item.Color,
-            duration: item.Duration,
-            progress: item.ProcessRate,
-            EmployeeName: item.EmployeeName,
-            // fatherId: item.fatherId
-            // row_height: 50,
-            // bar_height: 40
+        let Project = this.$route.query.Project;
+        project_gantt_progress({ Project }).then((res) => {
+          let result = [];
+          if(Array.isArray(res) && res.length > 0)  res.forEach((item) => {
+            result.push({
+              id: item.Id, // 父节点id
+              open: item.IsOpen, // 是否展开
+              text: item.Title, // 父节点名字
+              start_date: timeFormat(item.StartDate, "yyyy-MM-dd hh:mm:ss"), // 必须要字段 task 开始时间
+              cap_plan_end: timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"),
+              end_date: item.EndDate ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"): '',
+              parent: item.ParentId,
+              color: item.Color,
+              duration: item.Duration,
+              progress: item.ProcessRate,
+            });
           });
+          this.tasks.data = result;
+          console.log(this.tasks.data);
+          if (this.$refs.ganttchart) {
+            this.$refs.ganttchart.GetData();
+          }
         });
-        this.tasks.data = [...arr];
-        this.tasks.links = [
-          // { id:1, source:2, target:2, type:1},
-          { id: 1, source: 1, target: 2, type: 1, info: "这是第一条link" },
-          { id: 2, source: 2, target: 3, type: 1, info: "这是第二条link" },
-          { id: 3, source: 3, target: 4, type: 1, info: "这是第三条link" },
-        ];
-        if (this.$refs.ganttchart) {
-          this.$refs.ganttchart.GetData();
-        }
-      });
     },
   },
 };
@@ -369,6 +371,7 @@ export default {
   height: calc(100% - 40px);
   overflow: auto;
   position: relative;
+  background: #fff;
   .mould-box {
     position: sticky;
     left: 0;
@@ -377,13 +380,14 @@ export default {
     background: #fff;
     box-shadow: 0 0 6px 2px #eee;
     &-item {
-      height: 160px;
+      height: 170px;
       display: flex;
       align-items: center;
       //margin-bottom: 70px;
       position: relative;
       box-sizing: border-box;
       padding: 10px 10px;
+      border-bottom: 1px solid #eee;
       .el-image {
         width: 100%;
         height: 100%;
@@ -407,15 +411,14 @@ export default {
     position: absolute;
     top: 0;
     &-item {
-      height: 160px;
-      //margin-bottom: 70px;
+      height: 165px;
       display: flex;
       align-items: center;
       margin-top: 5px;
     }
     &-children {
       width: 200px;
-      height: 160px;
+      height: 165px;
       margin-left: 20px;
       box-sizing: border-box;
       //box-shadow: 8px 16px 16px hsl(0deg 0% 0% / 0.15);
@@ -436,18 +439,19 @@ export default {
           width: 100%;
         }
         .el-progress {
-          width: 120%;
+          width: 112%;
         }
       }
     }
   }
   .info-box {
+    font-size: 14px;
     height: 60px;
     width: 1000px;
     background: #eee;
     position: absolute;
     z-index: 2;
-    bottom: -70px;
+    top: -60px;
     display: flex;
     padding-left: 10px;
     left: 0;
@@ -464,6 +468,13 @@ export default {
         text-overflow: ellipsis;
         -o-text-overflow: ellipsis;
       }
+    }
+    .go-details{
+      position: absolute;
+      right: 20px;
+      height: 100%;
+      display: flex;
+      align-items: center;
     }
   }
 }

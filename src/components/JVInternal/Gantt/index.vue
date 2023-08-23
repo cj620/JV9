@@ -8,26 +8,6 @@
 -->
 <template>
 	<div style="height: 100%;">
-		<div style="
-		width: 100%;
-		display: flex;
-		justify-content: flex-end;
-		background-color: #fff;
-		/*padding: 6px 10px;*/
-		align-items: center;">
-			<div>
-        <el-dropdown @command="setGanttZoom">
-          <el-button type="text">
-            <i class="el-icon-setting" style="font-size: 26px;color: #555"></i>
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="item in unitOptions" :key="item.value" :command="item.value"
-            >{{item.label}}</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-			</div>
-		</div>
-
 		<div ref="gantt" style="height: 100%;min-height: calc(100vh - 180px);" />
 		<JvDialog :title="dialogTitle" @confirm="confirm" width="35%" :visible.sync="dialogVisible">
 			<JvForm :formObj="formObj">
@@ -56,6 +36,10 @@ import { timeFormat } from "@/jv_doc/utils/time";
 export default {
 	name: "index",
 	props: {
+    readonly: {
+      type: Boolean,
+      default: true
+    },
     columns: {
       type: Array,
       default() {
@@ -80,6 +64,12 @@ export default {
 				return () => { }
 			}
 		},
+    _arguments: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
 		foldoRunfoldFlag: {
 			type: Number,
 			default: NaN
@@ -99,7 +89,11 @@ export default {
 		barHeight: {
 			type: Number,
 			default: 36,
-		}
+		},
+    unitValue: {
+      type: String,
+      default: 'day',
+    }
 	},
 	data() {
 		return {
@@ -133,7 +127,6 @@ export default {
 				value: 'minute',
 				label: i18n.t('Generality.Ge_Minute')
 			}],
-			unitValue: 'quarter'
 		}
 	},
 	async created() {
@@ -178,7 +171,8 @@ export default {
 			// this.onTaskDrag(); // 拖动事件
 			// 任务更新前
 			gantt.attachEvent("onBeforeTaskUpdate", (id, new_item) => {
-				if (this.isConfrim) return
+        console.log(this.isConfrim);
+        if (this.isConfrim) return
 				var task = gantt.getTask(id);
 				this.$confirm('您当前修改了数据，是否提交修改?', '提示', {
 					confirmButtonText: '确定',
@@ -187,15 +181,17 @@ export default {
 				}).then(() => {
 					this.setGanttUpdate(); //甘特图数据更新
 				}).catch(() => {
-					this.isConfrim = true;
+          this.isConfrim = true;
 					task.start_date = new Date(this.oldDateList[new_item.$index].start_date);
 					task.end_date = new Date(this.oldDateList[new_item.$index].end_date);
 					task.progress = this.oldDateList[new_item.$index].progress
 					gantt.updateTask(id);
+          console.log(this.isConfrim);
 					// this.setLinks();
-					this.$nextTick(() => {
+					let timer = setTimeout(() => {
 						this.isConfrim = false;
-					})
+            clearTimeout(timer)
+					},10)
 				})
 			});
 			// // 任务更新后
@@ -308,6 +304,7 @@ export default {
 		},
 		onTaskDblClick() {
 			gantt.attachEvent("onTaskDblClick", (id, e) => {
+        if(this.readonly) return
 				const data = this.tasks.data[id - 1];
 				gantt.config.details_on_dblclick = false; // 关闭原生弹窗（灯箱）
 				this.currentId = id;
@@ -410,7 +407,6 @@ export default {
 			})
 		},
 		setGanttZoom(unit) { // 设置甘特图缩放级别（年月周 单位）
-      console.log(unit);
       gantt.ext.zoom.setLevel(unit);
 			// this.setLinks();
 		},
@@ -418,7 +414,7 @@ export default {
 			gantt.ext.fullscreen.toggle();
 		},
 		setGanttUpdate() { // 甘特图数据更新
-			this.api({}).then((res) => {
+			this.api(this._arguments).then((res) => {
 				this.$message({
 					type: 'success',
 					message: '更新成功!'
@@ -440,24 +436,24 @@ export default {
 					});
 				});
 				// gantt.render();
-				gantt.eachTask(function (task) {
-					task.id = arr[task.$index].id
-					task.open = arr[task.$index].open
-					task.text = arr[task.$index].text
-					task.start_date = new Date(arr[task.$index].start_date)
-					task.end_date = new Date(arr[task.$index].end_date)
-					task.cap_plan_end = arr[task.$index].cap_plan_end
-					task.parent = arr[task.$index].parent
-					task.color = arr[task.$index].color
-					task.duration = arr[task.$index].duration
-					task.progress = arr[task.$index].progress
-				})
-				gantt.refreshData();
-				// let tasks = {
-				// 	data: [...arr]
-				// }
+				// gantt.eachTask(function (task) {
+				// 	task.id = arr[task.$index].id
+				// 	task.open = arr[task.$index].open
+				// 	task.text = arr[task.$index].text
+				// 	task.start_date = new Date(arr[task.$index].start_date)
+				// 	task.end_date = new Date(arr[task.$index].end_date)
+				// 	task.cap_plan_end = arr[task.$index].cap_plan_end
+				// 	task.parent = arr[task.$index].parent
+				// 	task.color = arr[task.$index].color
+				// 	task.duration = arr[task.$index].duration
+				// 	task.progress = arr[task.$index].progress
+				// })
+				// gantt.refreshData();
+				let tasks = {
+					data: [...arr]
+				}
 				// //加载数据
-				// gantt.parse(tasks);
+				gantt.parse(tasks);
 				// this.setLinks(); // 设置link
 			});
 		},
@@ -587,7 +583,7 @@ export default {
 			// 可以通过拖放来调整任务大小
 			gantt.config.drag_resize = true;
 			// 可读模式，不许编辑
-			gantt.config.readonly = false;
+			gantt.config.readonly = this.readonly;
 
 			/* 缩放配置
 			 * levels：缩放级别
@@ -597,11 +593,10 @@ export default {
 			// 判断是否已经初始化过zoomConfig
 			if (!gantt.ext.zoom.getLevels()) {
 				gantt.ext.zoom.init(zoomConfig);
-
 			}
 
 			//切换到指定的缩放级别
-			gantt.ext.zoom.setLevel("hour");
+			gantt.ext.zoom.setLevel(this.unitValue);
 			gantt.init(this.$refs.gantt);
 			this.foldoRunfold(); // 赋值数据
 			gantt.render();

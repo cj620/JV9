@@ -1,3 +1,6 @@
+import i18n from "@/i18n/i18n";
+import { AlgorithmTypeEnum } from "@/enum/workModule/production/AlgorithmTypeEnum";
+
 export const formSchema = [
   {
     prop: "StartDate",
@@ -11,31 +14,14 @@ export const formSchema = [
       },
     ],
   },
+  // 算法类型
   {
-    // prop/value待确定
     prop: "SchedulingType",
     label: i18n.t("production.Pr_SchedulingAlgorithmSelection"),
     cpn: "FormRadio",
     default: 0,
     options: {
-      list: [
-        {
-          value: 0,
-          label: i18n.t("production.Pr_ClassicalAlgorithm"),
-        },
-        {
-          value: 1,
-          label: i18n.t("production.Pr_CR"),
-        },
-        {
-          value: 2,
-          label: i18n.t("production.Pr_MinimumWorkingPeriod"),
-        },
-        {
-          value: 3,
-          label: i18n.t("production.Pr_EarliestDeliveryDate"),
-        },
-      ],
+      list: AlgorithmTypeEnum.getEnums(),
     },
   },
 ];

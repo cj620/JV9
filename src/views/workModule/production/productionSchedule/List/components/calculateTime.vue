@@ -17,7 +17,21 @@
       @confirm="confirmItem"
     >
       <!-- <el-date-picker v-model="StartDate" type="date"> </el-date-picker> -->
-      <JvForm :formObj="formObj"> </JvForm>
+      <JvForm :formObj="formObj">
+        <template #header-SchedulingType>
+          {{$t("production.Pr_SchedulingAlgorithmSelection")}}
+          <el-popover
+            class="popoverTip"
+            placement="top-start"
+            trigger="hover"
+          >
+            <template v-for="item in tipContent">
+              <p class="popoverTipItem">{{ item }}</p>
+            </template>
+            <i class="el-icon-question" slot="reference" style="color:#1890ff"/>
+          </el-popover>
+        </template>
+      </JvForm>
     </jv-dialog>
   </div>
 </template>
@@ -25,6 +39,7 @@
 <script>
 import { do_aps } from "@/api/workApi/production/aps";
 import { formSchema } from "./calculateTimeTableConfig";
+import { AlgorithmTypeEnum } from "@/enum/workModule/production";
 import { Form } from "@/jv_doc/class/form";
 export default {
   name: "calculateTime",
@@ -32,6 +47,7 @@ export default {
     return {
       StartDate: new Date(),
       formObj: {},
+      tipContent:[],
     };
   },
   created() {
@@ -44,6 +60,7 @@ export default {
       labelWidth: "80px",
     });
     this.formObj.form.StartDate = this.StartDate;
+    this.tipContent = AlgorithmTypeEnum.getEnums().map(obj => obj.description)
   },
   methods: {
     //点击计算排程

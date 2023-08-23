@@ -1,21 +1,26 @@
 <template>
   <div style="width: 48%; height: 50%">
-    <div class="chart-title">{{ title }}</div>
+    <div class="chart-title">
+      {{ title }}
+      <el-tooltip class="toolTip" effect="dark" :content="AlgorithmDes" placement="top">
+        <i class="el-icon-question" style="color:#1890ff"/>
+      </el-tooltip>
+    </div>
     <div class="chart-wrapper" :style="{height: boxHeight / 2 - 58.3 + 'px'}">
       <div
         class="chart-description"
         v-if="Object.keys(this.datas).length !== 0"
       >
         <div>
-          总计{{ datas.TotalCount }}
+          {{$t("production.Pr_Total")}}:{{ datas.TotalCount }}
           <span v-for="(item, index) in description" :key="index">
-            {{ WorksheetNum[index] !== 0 ? WorksheetNum[index] + item : "" }}
+            {{ WorksheetNum[index] !== 0 ? item + WorksheetNum[index] : "" }}
           </span>
-          <span>计算时间:{{ CreationDate }}</span>
+          <span>{{$t("production.Pr_ComputingTime")}}:{{ CreationDate }}</span>
         </div>
       </div>
       <div class="chart-description" v-else>
-        <div>暂无数据</div>
+        <div>{{$t("Generality.Ge_NoData")}}</div>
       </div>
       <PieChart :id="id" :WorksheetNum="WorksheetNum" :height="boxHeight / 2 - 58.3 - 54.2"></PieChart>
     </div>
@@ -23,6 +28,7 @@
 </template>
 <script>
 import PieChart from "./pieChart.vue";
+import { AlgorithmTypeEnum } from "@/enum/workModule/production/AlgorithmTypeEnum";
 import { timeFormat } from "@/jv_doc/utils/time";
 export default {
   name: "",
@@ -52,12 +58,16 @@ export default {
       // 各类工单数
       WorksheetNum: [],
       CreationDate: "",
-      description: ["个正常工单 ", "个超交期工单 ", "个超负荷工单"],
+      AlgorithmDes: "",
+      description: [
+        `${i18n.t("production.Pr_NormalWorkSheet")}:`,
+        `${i18n.t("production.Pr_OverdueWorkSheet")}:`,
+        `${i18n.t("production.Pr_OverloadWorkSheet")}:`,
+      ],
     };
   },
   mounted() {
     Object.keys(this.title).length !== 0 ? this.load() : "";
-    // this.load();
   },
   watch: {
     datas() {
@@ -85,6 +95,7 @@ export default {
       );
     },
     load() {
+      this.AlgorithmDes = AlgorithmTypeEnum.getItem(this.datas.AlgorithmType, "name").description
       this.title = i18n.t(`production.Pr_${this.datas.AlgorithmType}`);
       if (Object.keys(this.datas).length === 0) {
         this.WorksheetNum = [];
