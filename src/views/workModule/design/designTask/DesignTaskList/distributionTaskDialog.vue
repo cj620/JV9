@@ -1,7 +1,7 @@
 <template>
   <div>
     <jv-dialog
-      title="分发任务"
+      :title="$t('project.Pro_DistributionTask')"
       width="70%"
       :close-on-click-modal="true"
       :modal-append-to-body="false"
@@ -11,7 +11,9 @@
       @confirm="confirmData"
     >
       <div style="margin-left: 10px; margin-bottom: 10px">
-        <el-button type="primary" size="mini" @click="add">添加</el-button>
+        <el-button type="primary" size="mini" @click="add">
+          {{ $t('Generality.Ge_Add') }}
+        </el-button>
       </div>
 
       <JvEditTable :tableObj="eTableObj">

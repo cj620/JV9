@@ -199,6 +199,11 @@ const cn = {
     Pro_Share: "分享",
     Pro_CreateLink: "生成链接",
     Pro_projectMsgManager: "项目信息",
+    Pro_ViewTaskDetails: "查看任务明细",
+    Pro_ViewParentProjectTasks: "查看父级项目任务",
+    Pro_ViewSubtasks: "查看子任务",
+    Pro_ViewAllTasks: "查看全部任务",
+    Pro_DistributionTask: "分发任务",
   },
   //设置
   setup: {
@@ -338,6 +343,9 @@ const cn = {
     De_ProcessTemplate: "工序模板",
     De_SetLevel: "设置级别",
     De_DesignTaskRecord: "设计任务记录",
+    De_AllocationType: "分配状态",
+    De_Allocated: "已分配",
+    De_Unallocated: "未分配",
   },
   //通用
   Generality: {

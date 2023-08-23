@@ -32,16 +32,22 @@
           <i class="el-icon-more el-icon--right" style="font-size: 20px"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="edit">修改</el-dropdown-item>
+          <el-dropdown-item command="edit">
+            {{ $t('Generality.Ge_Edit') }}
+          </el-dropdown-item>
           <el-dropdown-item
             :disabled="!(cdata.ParentId == 0)"
             command="distributionTask"
-            >分发任务</el-dropdown-item
+            >
+            {{ $t('project.Pro_DistributionTask') }}
+          </el-dropdown-item
           >
           <el-dropdown-item
             :disabled="!(cdata.ParentId == 0)"
             command="viewSubTask"
-            >查看子任务</el-dropdown-item
+            >
+            {{ $t('project.Pro_ViewSubtasks') }}
+          </el-dropdown-item
           >
           <!-- <el-dropdown-item command="downLoadProductImg"
             >下载图纸</el-dropdown-item

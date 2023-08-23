@@ -10,6 +10,7 @@
 import jaLocale from "element-ui/lib/locale/lang/ja";
 const ja = {
   menu: {
+    De_DesignTaskList: "タスク・リストの設計",
     De_ProcessTemplate: "工程テンプレート",
     Pu_Supplier: "サプライヤ",
     Sa_Sale: "セールス",
@@ -195,6 +196,11 @@ const ja = {
     Pro_Share: "分かち合う",
     Pro_CreateLink: "リンクの生成",
     Pro_projectMsgManager: "プロジェクト情報",
+    Pro_ViewTaskDetails: "タスク詳細の表示",
+    Pro_ViewParentProjectTasks: "親プロジェクトタスクの表示",
+    Pro_ViewSubtasks: "サブタスクの表示",
+    Pro_ViewAllTasks: "すべてのタスクの表示",
+    Pro_DistributionTask: "タスクの配布",
   },
   //设置
   setup: {
@@ -337,6 +343,9 @@ const ja = {
     De_ProcessTemplate: "工程テンプレート",
     De_SetLevel: "レベルの設定",
     De_DesignTaskRecord: "設計タスクレコード",
+    De_AllocationType: "割当ステータス",
+    De_Allocated: "割り当て済み",
+    De_Unallocated: "未割当て",
   },
   //通用
   Generality: {

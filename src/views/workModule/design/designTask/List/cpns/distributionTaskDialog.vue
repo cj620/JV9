@@ -3,7 +3,9 @@
     <jv-dialog :title="$t('Generality.Ge_SelectItems')" width="70%" :close-on-click-modal="true"
       :modal-append-to-body="false" :append-to-body="false" v-bind="$attrs" v-on="$listeners" @confirm="confirmData">
       <div style="margin-left:10px;margin-bottom:10px">
-        <el-button type="primary" size=mini @click="add">添加</el-button>
+        <el-button type="primary" size=mini @click="add">
+          {{ $t("Generality.Ge_Add") }}
+        </el-button>
       </div>
 
       <JvEditTable :tableObj="eTableObj">
@@ -110,7 +112,7 @@ export default {
     },
     //保存
     confirmData() {
-      
+
       this.eTableObj.validate((valid) => {
         this.BillItems = this.eTableObj.getTableData();
         if (valid) {
