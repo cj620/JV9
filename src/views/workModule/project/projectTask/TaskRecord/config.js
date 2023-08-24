@@ -13,6 +13,7 @@ import { getProject_task_log } from "@/api/workApi/project/projectTask";
 export class api extends TableAPI {
   // 获取列表
   getData = getProject_task_log;
+
 }
 //  表格配置
 export const tableConfig = [
@@ -166,7 +167,7 @@ export const tableObjTemp = {
   // 操作列宽度
   operationWidth: 110,
   // 打印模块标识
-  printMod: "Sa_SaleOrder",
+  printMod: "Pm_ProjectTask_Record",
   operationCol: false,
 };
 export class Table extends BaseTable {
