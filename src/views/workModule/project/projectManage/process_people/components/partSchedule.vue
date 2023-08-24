@@ -1,95 +1,3 @@
-<script>
-import { timeFormat } from "@/jv_doc/utils/time";
-import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import IconTooltip from "@/views/workModule/project/projectManage/process_people/components/icon-tooltip.vue";
-import { ProcessState } from "@/enum/workModule";
-import { part_processing_node } from "@/api/workApi/project/projectInfo";
-export default {
-  name: "Pm_Project_PartSchedule.vue",
-  components: { IconTooltip },
-  data() {
-    return {
-      ProcessState,
-      searchValue: "",
-      detailEnum: [
-        { label: i18n.t("Generality.Ge_ProcessName"), value: "Process" },
-        { label: i18n.t("Generality.Ge_Worker"), value: "Worker" },
-        { label: i18n.t("Generality.Ge_PlanTime"), value: "PlanTime" },
-        { label: i18n.t("Generality.Ge_ActualTime"), value: "ActualTime" },
-        { label: i18n.t("Generality.Ge_PlanStart"), value: "PlanStart" },
-        { label: i18n.t("Generality.Ge_PlanEnd"), value: "PlanEnd" },
-        { label: i18n.t("Generality.Ge_ActualStart"), value: "ActualStart" },
-        { label: i18n.t("Generality.Ge_ActualEnd"), value: "ActualEnd" },
-        { label: i18n.t("production.Pr_PlanningDevices"), value: "PlanDevice" },
-        { label: i18n.t("production.Pr_ActualDevice"), value: "ActualDevice" },
-        { label: i18n.t("Generality.Ge_State"), value: "State" },
-      ],
-      index: 0,
-      List: [],
-    };
-  },
-  created() {
-    this.getPartProcessingNode();
-  },
-  mounted() {
-    document.onmouseup = () => {
-      const content = document.querySelectorAll(
-        ".part-schedule-content-item-content"
-      )[this.index];
-      if (content) content.onmousemove = null;
-    };
-  },
-  methods: {
-    timeFormat,
-    imgUrlPlugin,
-    _mousedown(index, e) {
-      this.index = index;
-      const content = document.querySelectorAll(
-        ".part-schedule-content-item-content"
-      )[index];
-      const MaxDistance = content.scrollWidth - content.clientWidth;
-      let count = 0;
-      content.onmousemove = (ev) => {
-        if (ev.clientX > count) {
-          // console.log('右');
-          if (this.List[index].scrollNum > 0) {
-            this.List[index].scrollNum -= 3;
-          }
-        } else if (ev.clientX < count) {
-          // console.log('左')
-          if (this.List[index].scrollNum < MaxDistance) {
-            this.List[index].scrollNum += 3;
-          }
-        }
-        content.scrollTo({ left: this.List[index].scrollNum, top: 0 });
-        count = ev.clientX;
-      };
-    },
-    getPartProcessingNode() {
-      part_processing_node({
-        ToolingNo: this.$route.query.ToolingNo,
-        Keyword: this.searchValue,
-      }).then((res) => {
-        this.List = res.Items;
-        this.List.forEach((item) => {
-          item.scrollNum = 0;
-        });
-      });
-    },
-    setProgress(num) {
-      const _enum = {
-        1: '116%',
-        2: '111%',
-        3: '108%',
-        4: '106%',
-        5: '100%',
-      }
-      return _enum[num.toString().length] || '100%'
-    },
-  },
-};
-</script>
-
 <template>
   <PageWrapper :footer="false">
     <!-- 顶部操作行 -->
@@ -211,16 +119,19 @@ export default {
                     <div style="color: #000; font-weight: 600">
                       {{ detail.label }}
                     </div>
-                    <div>
+                    <div v-show="detail.value !== 'State'">
                       {{
                         isNaN(jtem[detail.value]) &&
                         !isNaN(Date.parse(jtem[detail.value]))
                           ? timeFormat(
-                              jtem[detail.value],
-                              "yyyy-MM-dd hh:mm:ss"
-                            )
+                            jtem[detail.value],
+                            "yyyy-MM-dd hh:mm:ss"
+                          )
                           : jtem[detail.value] || "--"
                       }}
+                    </div>
+                    <div v-show="detail.value === 'State'">
+                      {{ ProcessState[jtem[detail.value]] ? ProcessState[jtem[detail.value]].name : '' }}
                     </div>
                   </div>
                 </div>
@@ -255,13 +166,13 @@ export default {
                     textIndent: j === 0 ? '1.5em' : 0,
                     marginBottom: '4px',
                   }"
-                  >{{
+                >{{
                     ProcessState[jtem.State] && ProcessState[jtem.State].name
                   }}</span
                 >
                 <span style="font-size: 12px; margin-top: 6px; color: #999">{{
-                  timeFormat(jtem.PlanEnd, "yyyy-MM-dd hh:mm:ss")
-                }}</span>
+                    timeFormat(jtem.PlanEnd, "yyyy-MM-dd hh:mm:ss")
+                  }}</span>
               </div>
             </div>
           </div>
@@ -270,6 +181,98 @@ export default {
     </div>
   </PageWrapper>
 </template>
+
+<script>
+import { timeFormat } from "@/jv_doc/utils/time";
+import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
+import IconTooltip from "@/views/workModule/project/projectManage/process_people/components/icon-tooltip.vue";
+import { ProcessState } from "@/enum/workModule";
+import { part_processing_node } from "@/api/workApi/project/projectInfo";
+export default {
+  name: "Pm_Project_PartSchedule.vue",
+  components: { IconTooltip },
+  data() {
+    return {
+      ProcessState,
+      searchValue: "",
+      detailEnum: [
+        { label: i18n.t("Generality.Ge_ProcessName"), value: "Process" },
+        { label: i18n.t("Generality.Ge_Worker"), value: "Worker" },
+        { label: i18n.t("Generality.Ge_PlanTime"), value: "PlanTime" },
+        { label: i18n.t("Generality.Ge_ActualTime"), value: "ActualTime" },
+        { label: i18n.t("Generality.Ge_PlanStart"), value: "PlanStart" },
+        { label: i18n.t("Generality.Ge_PlanEnd"), value: "PlanEnd" },
+        { label: i18n.t("Generality.Ge_ActualStart"), value: "ActualStart" },
+        { label: i18n.t("Generality.Ge_ActualEnd"), value: "ActualEnd" },
+        { label: i18n.t("production.Pr_PlanningDevices"), value: "PlanDevice" },
+        { label: i18n.t("production.Pr_ActualDevice"), value: "ActualDevice" },
+        { label: i18n.t("Generality.Ge_State"), value: "State" },
+      ],
+      index: 0,
+      List: [],
+    };
+  },
+  created() {
+    this.getPartProcessingNode();
+  },
+  mounted() {
+    document.onmouseup = () => {
+      const content = document.querySelectorAll(
+        ".part-schedule-content-item-content"
+      )[this.index];
+      if (content) content.onmousemove = null;
+    };
+  },
+  methods: {
+    timeFormat,
+    imgUrlPlugin,
+    _mousedown(index, e) {
+      this.index = index;
+      const content = document.querySelectorAll(
+        ".part-schedule-content-item-content"
+      )[index];
+      const MaxDistance = content.scrollWidth - content.clientWidth;
+      let count = 0;
+      content.onmousemove = (ev) => {
+        if (ev.clientX > count) {
+          // console.log('右');
+          if (this.List[index].scrollNum > 0) {
+            this.List[index].scrollNum -= 3;
+          }
+        } else if (ev.clientX < count) {
+          // console.log('左')
+          if (this.List[index].scrollNum < MaxDistance) {
+            this.List[index].scrollNum += 3;
+          }
+        }
+        content.scrollTo({ left: this.List[index].scrollNum, top: 0 });
+        count = ev.clientX;
+      };
+    },
+    getPartProcessingNode() {
+      part_processing_node({
+        ToolingNo: this.$route.query.ToolingNo,
+        Keyword: this.searchValue,
+      }).then((res) => {
+        this.List = res.Items;
+        this.List.forEach((item) => {
+          item.scrollNum = 0;
+        });
+      });
+    },
+    setProgress(num) {
+      const _enum = {
+        1: '116%',
+        2: '111%',
+        3: '108%',
+        4: '106%',
+        5: '100%',
+      }
+      return _enum[num.toString().length] || '100%'
+    },
+  },
+};
+</script>
 
 <style scoped lang="scss">
 .part-schedule-header {
