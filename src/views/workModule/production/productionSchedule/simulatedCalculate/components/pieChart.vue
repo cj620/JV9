@@ -100,7 +100,7 @@ export default {
         legend: {
           orient: 'vertical',
           top:'15%',
-          right:'15%',
+          right:'8%',
         },
         series: [
           {
