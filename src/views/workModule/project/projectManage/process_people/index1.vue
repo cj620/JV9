@@ -159,6 +159,7 @@
                 </div>
                 <div style="padding: 0">
                   <el-progress
+                    :style="{width: setProgress(children.Progress)}"
                     :percentage="children.Progress"
                   ></el-progress>
                 </div>
@@ -324,6 +325,16 @@ export default {
           }
         });
     },
+    setProgress(num) {
+      const _enum = {
+        1: '116%',
+        2: '111%',
+        3: '108%',
+        4: '106%',
+        5: '100%',
+      }
+      return _enum[num.toString().length] || '100%'
+    },
   },
 };
 </script>
@@ -439,7 +450,7 @@ export default {
           width: 100%;
         }
         .el-progress {
-          width: 112%;
+          //width: 112%;
         }
       }
     }
