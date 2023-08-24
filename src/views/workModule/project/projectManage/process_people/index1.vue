@@ -337,7 +337,7 @@ export default {
   height: 40px;
   padding: 0 10px;
   align-items: center;
-  font-size: 12px;
+  font-size: 14px;
 }
 .state-list {
   height: 100%;
@@ -366,7 +366,7 @@ export default {
   border-radius: 2px;
 }
 .chart-box {
-  font-size: 12px;
+  font-size: 14px;
   width: 100%;
   height: calc(100% - 40px);
   overflow: auto;
@@ -435,7 +435,7 @@ export default {
         box-sizing: border-box;
         padding: 2px 10px;
         div {
-          padding: 6px 0;
+          padding: 5px 0;
           width: 100%;
         }
         .el-progress {
