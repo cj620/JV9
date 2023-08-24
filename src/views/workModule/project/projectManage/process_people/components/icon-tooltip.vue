@@ -32,7 +32,6 @@ export default {
 
 <style scoped lang="scss">
 i {
-  font-weight: bold;
   font-size: 16px;
   margin-right: 4px;
 }

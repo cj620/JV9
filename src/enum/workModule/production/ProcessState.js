@@ -17,6 +17,7 @@ export default {
     value: "ToBeReceived",
     color: "#f3f3f3",
     _color: "#fff",
+    c_color: "#fff",
     fcolor: "#fff",
     icon: "",
     operation: {
@@ -31,7 +32,8 @@ export default {
     name: i18n.t("production.Pr_AlreadyInStation"),
     value: "Received",
     color: "#22c9df",
-    _color: "#22c9df",
+    _color: "#fff",
+    c_color: "#22c9df",
     fcolor: "#fff",
     icon: "",
     operation: {
@@ -46,7 +48,8 @@ export default {
     name: i18n.t("Generality.Ge_Processing"),
     value: "Processing",
     color: "#faad14",
-    _color: "#faad14",
+    _color: "#fff",
+    c_color: "#faad14",
     fcolor: "#fff",
     icon: "",
     operation: {
@@ -61,7 +64,8 @@ export default {
     name: i18n.t("production.Pr_Processed"),
     value: "Processed",
     color: "#2ee438",
-    _color: "#fff",
+    c_color: "#fff",
+    _color: "#2ee438",
     fcolor: "#fff",
     icon: "",
     operation: {
@@ -76,7 +80,8 @@ export default {
     name: i18n.t("Generality.Ge_Pausing"),
     value: "Pausing",
     color: "#8107e4",
-    _color: "#8107e4",
+    _color: "#fff",
+    c_color: "#8107e4",
     fcolor: "#fff",
     icon: "",
     operation: {
@@ -91,7 +96,8 @@ export default {
     name: i18n.t("Generality.Ge_Outsourcing"),
     value: "Outsourcing",
     color: "#CCCCFF",
-    _color: "#CCCCFF",
+    _color: "#fff",
+    c_color: "#CCCCFF",
     fcolor: "#fff",
     icon: "",
     operation: {

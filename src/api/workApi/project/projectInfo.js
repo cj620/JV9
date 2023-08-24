@@ -74,4 +74,12 @@ export function worker_progress(data) {
     data,
   });
 }
+// 零件加工节点报表
+export function part_processing_node(data) {
+  return request({
+    url: "/data_report/part_processing_node",
+    method: "post",
+    data,
+  });
+}
 
