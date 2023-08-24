@@ -35,8 +35,11 @@
       :style="{
         height: ganttContainerHeight - Number(padding) + 'px',
       }"
-      v-loading="loading"
     >
+      <div class="loading-ganttContainer"
+           v-show="loading"
+           v-loading="loading"
+      ></div>
       <!-- 时间表头列表 -->
       <div
         class="date-header"
@@ -72,7 +75,7 @@
             class="date-header-cell"
             v-for="(item, i) in TableDateBottomList"
             :key="i"
-            :style="{ width: gantt.cellWidth + 'px' }"
+            :style="{ width: gantt.cellWidth + 'px', background: setWeekendColor(i)}"
           >
             {{ item < 10 ? "0" + item : item }}
           </div>
@@ -413,6 +416,15 @@ export default {
     confirm(taskDetail) {
       this.$emit("taskDialogConfrim", taskDetail);
       // 确认
+    },
+    // 设置周末底色
+    setWeekendColor(i) {
+      if(this.unitOfTime !== 'week')  return ''
+      if (this.TimeRangeList.dayDetails[i].week === 6 || this.TimeRangeList.dayDetails[i].week === 7) {
+        return '#ffd3a5'
+      } else {
+        return ''
+      }
     },
     // 设置task弹窗
     setDialogVisible(data) {
@@ -761,5 +773,13 @@ export default {
     background: #e7e7e7;
     color: #a1a1a1;
   }
+}
+.loading-ganttContainer{
+  width: 100%;
+  height: 100%;
+  position: sticky;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 </style>

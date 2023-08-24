@@ -13,6 +13,7 @@
         :tasks="tasks"
         :formSchema="formSchema"
         :api="partProcessingPlan"
+        :getData="GetData"
         >
         </gantt>
       </div>
@@ -35,45 +36,34 @@ export default {
       },
       formSchema: formSchema,
       partProcessingPlan: partProcessingPlan,
+      _arguments: {},
     };
   },
   components: {
     gantt,
   },
   async created() {
-    this.GetData();
   },
   methods: {
-    GetData() {
-      partProcessingPlan({}).then((res) => {
-        // console.log(res);
-        let arr = [];
-        res.forEach((item) => {
-          arr.push({
-            id: item.Id, // 父节点id
-            open: item.IsOpen, // 是否展开
-            text: item.Title, // 父节点名字
-            start_date: timeFormat(item.StartDate, "yyyy-MM-dd hh:mm:ss"), // 必须要字段 task 开始时间
-            cap_plan_end: timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"),
-            end_date: item.EndDate ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"): '',
-            parent: item.ParentId,
-            color: item.Color,
-            duration: item.Duration,
-            progress: item.ProcessRate,
-            // row_height: 50,
-            // bar_height: 40
-          });
+    GetData(res) {
+      let arr = [];
+      res.forEach((item) => {
+        arr.push({
+          id: item.Id, // 父节点id
+          open: item.IsOpen, // 是否展开
+          text: item.Title, // 父节点名字
+          start_date: timeFormat(item.StartDate, "yyyy-MM-dd hh:mm:ss"), // 必须要字段 task 开始时间
+          cap_plan_end: timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"),
+          end_date: item.EndDate ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"): '',
+          parent: item.ParentId,
+          color: item.Color,
+          duration: item.Duration,
+          progress: item.ProcessRate,
+          // row_height: 50,
+          // bar_height: 40
         });
-        this.tasks.data = [...arr];
-
-        this.tasks.links = [
-            // { id:1, source:2, target:2, type:1},
-            { id:1, source:1, target:2, type:1, info: '这是第一条link'},
-            { id:2, source:2, target:3, type:1, info: '这是第二条link'},
-            { id:3, source:3, target:4, type:1, info: '这是第三条link'},
-        ]
-        this.$refs.ganttchart.GetData();
       });
+      return arr
     },
   },
 };

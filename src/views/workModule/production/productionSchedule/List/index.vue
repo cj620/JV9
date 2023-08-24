@@ -54,6 +54,10 @@
           size="mini"
           :actions="[
             {
+              label: $t('Generality.Ge_Refresh'),
+              confirm: _refresh.bind(),
+            },
+            {
               label: $t('production.Pr_Calculate'),
               confirm: calculate.bind(),
             },
@@ -404,6 +408,7 @@ export default {
       this.needOpen = false;
       return;
     }
+    window.onresize = null;
     next();
   },
   created() {
@@ -607,7 +612,6 @@ export default {
       this.ganttContainerHeight = this.isFold
         ? mainContent.clientHeight - 110
         : mainContent.clientHeight / 2 - 110; // 甘特图盒子的高度
-      console.log("ganttContainerHeight::: ", this.ganttContainerHeight);
       window.onresize = (e) => {
         this.debounce(() => {
           this.ganttContainerHeight = this.isFold
@@ -717,9 +721,19 @@ export default {
         this.oldCount === 0 ? this.setFold() : "" ;
         this.IsFlag = false;
       }
+    },
+    // 刷新
+    _refresh() {
+      this.setAlgorithmType();
+      if (!this.tableChangeShow) {
+        this.oldTableObj.reset();
+      } else {
+        this.obsoleteTableObj.reset();
+      }
     }
   },
 	activated(){
+    this.setGanttContainer();
 	  setTimeout(()=>{
       this.setAlgorithmType()
 		  this.obsoleteTableObj.doLayout()
