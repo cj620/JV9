@@ -178,6 +178,7 @@
         :formSchema="formSchema"
         :_arguments="_arguments"
         :api="partProcessingPlan"
+        :getData="GetData"
         :foldoRunfoldFlag="1"
         dragProgress
         tooltip
@@ -195,7 +196,7 @@ import { timeFormat } from "@/jv_doc/utils/time";
 import {project_gantt_progress, worker_progress} from '@/api/workApi/project/projectInfo';
 import i18n from "@/i18n/i18n";
 export default {
-  name: "Pm_ProjectManagement_process_people",
+  name: "ProjectManage_process_people",
   data() {
     return {
       _arguments: null,
@@ -247,13 +248,24 @@ export default {
   components: {
     gantt,
   },
+  beforeRouteLeave(to, from, next) {
+    window.onresize = null;
+    next();
+  },
   async created() {
     this._arguments = {Project: this.$route.query.Project};
-    this.GetData();
     this.getWorkerProgress();
   },
   mounted() {
+    // this.GetData();
+
     this.unitOptions = this.$refs.ganttchart.unitOptions;
+    this.getChartBoxWidth();
+    window.onresize = () => {
+      this.debounce(this.getChartBoxWidth,100)
+    }
+  },
+  activated(){
     this.getChartBoxWidth();
     window.onresize = () => {
       this.debounce(this.getChartBoxWidth,100)
@@ -300,30 +312,23 @@ export default {
       }
       this.timeout = setTimeout(func, wait);
     },
-    GetData() {
-        let Project = this.$route.query.Project;
-        project_gantt_progress({ Project }).then((res) => {
-          let result = [];
-          if(Array.isArray(res) && res.length > 0)  res.forEach((item) => {
-            result.push({
-              id: item.Id, // 父节点id
-              open: item.IsOpen, // 是否展开
-              text: item.Title, // 父节点名字
-              start_date: timeFormat(item.StartDate, "yyyy-MM-dd hh:mm:ss"), // 必须要字段 task 开始时间
-              cap_plan_end: timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"),
-              end_date: item.EndDate ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss"): '',
-              parent: item.ParentId,
-              color: item.Color,
-              duration: item.Duration,
-              progress: item.ProcessRate,
-            });
-          });
-          this.tasks.data = result;
-          console.log(this.tasks.data);
-          if (this.$refs.ganttchart) {
-            this.$refs.ganttchart.GetData();
-          }
+    GetData(res) {
+      let result = [];
+      if(Array.isArray(res) && res.length > 0)  res.forEach((item) => {
+        result.push({
+          id: item.Id, // 父节点id
+          open: item.IsOpen, // 是否展开
+          text: item.Title, // 父节点名字
+          start_date: item.StartDate ? timeFormat(item.StartDate, "yyyy-MM-dd hh:mm:ss") : '1970-01-01 00:00:00', // 必须要字段 task 开始时间
+          cap_plan_end: item.StartDate ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss") : '1970-01-01 00:00:00',
+          end_date: item.EndDate ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss") : '1970-01-01 00:00:00',
+          parent: item.ParentId,
+          color: item.Color,
+          duration: item.Duration,
+          progress: item.ProcessRate,
         });
+      });
+      return result;
     },
     setProgress(num) {
       const _enum = {

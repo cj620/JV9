@@ -207,7 +207,7 @@ import CustomGantt from "@/components/CustomGantt/index.vue";
 import Action from "~/cpn/JvAction/index.vue";
 
 export default {
-  name: "index",
+  name: "ProductionSimulatedCalculate",
   components: {
     Action,
     CustomGantt,
@@ -247,27 +247,17 @@ export default {
       current: 1,
     };
   },
+  beforeRouteLeave(to, from , next) {
+    window.onresize = null;
+    next();
+  },
   created() {
     // 创建表格实例
     this.tableObj = new Table();
   },
   mounted() {
     this.getData();
-    let mainContent = document.querySelector(".main-content");
-    this.boxHeight = mainContent.clientHeight - 100;
-    window.onresize = (e) => {
-      console.log(e);
-      this.debounce(() => {
-        if (this.currentTabName === "SimulatedAPS") {
-          this.boxHeight = mainContent.clientHeight - 100;
-          this.boxHeight < 400 ? (this.boxHeight = 400) : this.boxHeight;
-          mainContent.style.overflowY = "auto";
-        } else {
-          this.boxHeight = mainContent.clientHeight - 100;
-          mainContent.style.overflowY = "none";
-        }
-      }, 100);
-    };
+    this.setContainer();
   },
   computed: {
     // 是否已选择模拟的方法
@@ -276,6 +266,23 @@ export default {
     },
   },
   methods: {
+    setContainer() {
+      let mainContent = document.querySelector(".main-content");
+      this.boxHeight = mainContent.clientHeight - 100;
+      window.onresize = (e) => {
+        console.log(e);
+        this.debounce(() => {
+          if (this.currentTabName === "SimulatedAPS") {
+            this.boxHeight = mainContent.clientHeight - 100;
+            this.boxHeight < 400 ? (this.boxHeight = 400) : this.boxHeight;
+            mainContent.style.overflowY = "auto";
+          } else {
+            this.boxHeight = mainContent.clientHeight - 100;
+            mainContent.style.overflowY = "none";
+          }
+        }, 100);
+      };
+    },
     // 设置任务条颜色
     setTaskBackground(item) {
       if(item) {
@@ -402,6 +409,9 @@ export default {
           this.loading = false;
         });
     },
+  },
+  activated(){
+    this.setContainer();
   },
 };
 </script>

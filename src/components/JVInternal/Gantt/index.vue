@@ -46,12 +46,6 @@ export default {
         return headerColumns
       }
     },
-		tasks: {
-			type: Object,
-			default() {
-				return { data: [], links: [] };
-			},
-		},
 		formSchema: {
 			type: Array,
 			default() {
@@ -93,10 +87,15 @@ export default {
     unitValue: {
       type: String,
       default: 'day',
+    },
+    getData: {
+      type: Function,
+      default: () => []
     }
 	},
 	data() {
 		return {
+      tasks: {data: [],links: []},
 			dialogTitle: '标题',
 			dialogVisible: false, // 弹窗状态
 			currentId: 0, // 当前选中的ID
@@ -147,7 +146,7 @@ export default {
 	},
 	mounted() {
 		// gantt.setSizes();
-		// this.GetData();
+		this.GetData();
 	},
 	watch: {
 		tasks: {
@@ -171,7 +170,6 @@ export default {
 			// this.onTaskDrag(); // 拖动事件
 			// 任务更新前
 			gantt.attachEvent("onBeforeTaskUpdate", (id, new_item) => {
-        console.log(this.isConfrim);
         if (this.isConfrim) return
 				var task = gantt.getTask(id);
 				this.$confirm('您当前修改了数据，是否提交修改?', '提示', {
@@ -179,14 +177,13 @@ export default {
 					cancelButtonText: '取消',
 					type: 'warning'
 				}).then(() => {
-					this.setGanttUpdate(); //甘特图数据更新
+					this.setGanttUpdate(true); //甘特图数据更新
 				}).catch(() => {
           this.isConfrim = true;
 					task.start_date = new Date(this.oldDateList[new_item.$index].start_date);
 					task.end_date = new Date(this.oldDateList[new_item.$index].end_date);
 					task.progress = this.oldDateList[new_item.$index].progress
 					gantt.updateTask(id);
-          console.log(this.isConfrim);
 					// this.setLinks();
 					let timer = setTimeout(() => {
 						this.isConfrim = false;
@@ -199,12 +196,12 @@ export default {
 				// console.log('id, item::: ', id, item);
 			});
 			gantt.attachEvent("onLinkCreated", (link) => { // 创建链接
-				console.log('link::: ', link);
+				// console.log('link::: ', link);
 				return true;
 			})
 			gantt.attachEvent("onLinkClick", function (id, e) { // 链接单击
-				console.log('e::: ', e);
-				console.log('id::: ', id);
+				// console.log('e::: ', e);
+				// console.log('id::: ', id);
 			});
 			// 页面进来可能甘特图还未挂载完毕，定个延时器，延迟设置links
 			// let timer = setTimeout(() => {
@@ -258,7 +255,7 @@ export default {
 						Maps[item](that.formObj.form[item]);
 					}
 				});
-				this.setGanttUpdate(); //甘特图数据更新
+				this.setGanttUpdate(true); //甘特图数据更新
 
 				// 修改完成后刷新数据
 				// gantt.ext.quickInfo.hide(that.currentId);
@@ -270,10 +267,10 @@ export default {
 			})
 		},
 		reload() {
-			gantt.clearAll();
-			this.addTodayLine();
-			gantt.parse(this.$props.tasks);
-			gantt.render();
+			// gantt.clearAll();
+			// this.addTodayLine();
+			// gantt.parse(this.tasks);
+			// gantt.render();
 		},
 		addTodayLine() {
 			// 时间线
@@ -413,47 +410,23 @@ export default {
 		setExpand() { // 设置全屏
 			gantt.ext.fullscreen.toggle();
 		},
-		setGanttUpdate() { // 甘特图数据更新
+		setGanttUpdate(flag) { // 甘特图数据更新
 			this.api(this._arguments).then((res) => {
-				this.$message({
-					type: 'success',
-					message: '更新成功!'
-				});
-				// console.log(res.length);
-				let arr = [];
-				res.forEach((item) => {
-					arr.push({
-						id: item.Id, // 父节点id
-						open: item.IsOpen, // 是否展开
-						text: item.Title, // 父节点名字
-						start_date: this.formatDate(item.StartDate, "yyyy-MM-dd hh:mm:ss"), // 必须要字段 task 开始时间
-						cap_plan_end: this.formatDate(item.EndDate, "yyyy-MM-dd hh:mm:ss"),
-						end_date: item.EndDate ? timeFormat(item.EndDate, "yyyy-MM-dd hh:mm:ss") : '',
-						parent: item.ParentId,
-						color: item.Color,
-						duration: item.Duration,
-						progress: item.ProcessRate,
-					});
-				});
-				// gantt.render();
-				// gantt.eachTask(function (task) {
-				// 	task.id = arr[task.$index].id
-				// 	task.open = arr[task.$index].open
-				// 	task.text = arr[task.$index].text
-				// 	task.start_date = new Date(arr[task.$index].start_date)
-				// 	task.end_date = new Date(arr[task.$index].end_date)
-				// 	task.cap_plan_end = arr[task.$index].cap_plan_end
-				// 	task.parent = arr[task.$index].parent
-				// 	task.color = arr[task.$index].color
-				// 	task.duration = arr[task.$index].duration
-				// 	task.progress = arr[task.$index].progress
-				// })
-				// gantt.refreshData();
-				let tasks = {
-					data: [...arr]
-				}
-				// //加载数据
-				gantt.parse(tasks);
+				if(flag) {
+          this.$message({
+          	type: 'success',
+          	message: '更新成功!'
+          });
+        }
+				let arr = this.getData(res);
+        this.tasks = {
+          data: [...arr]
+        }
+        console.log(this.tasks);
+
+        // //加载数据
+				gantt.parse(this.tasks);
+        console.log(this.tasks);
 				// this.setLinks(); // 设置link
 			});
 		},
@@ -598,14 +571,15 @@ export default {
 			//切换到指定的缩放级别
 			gantt.ext.zoom.setLevel(this.unitValue);
 			gantt.init(this.$refs.gantt);
-			this.foldoRunfold(); // 赋值数据
+			// this.foldoRunfold(); // 赋值数据
+      this.setGanttUpdate();
 			gantt.render();
 		},
 		// 折叠展开
 		foldoRunfold() {
-			const arr = { data: [], links: this.$props.tasks.links }
+			const arr = { data: [], links: this.tasks.links }
 			if (this.$props.foldoRunfoldFlag === 1) {
-				arr.data = this.$props.tasks.data.map(item => {
+				arr.data = this.tasks.data.map(item => {
 					return {
 						...item,
 						open: true,
@@ -613,14 +587,14 @@ export default {
 				});
 
 			} else if (this.$props.foldoRunfoldFlag === 0) {
-				arr.data = this.$props.tasks.data.map(item => {
+				arr.data = this.tasks.data.map(item => {
 					return {
 						...item,
 						open: false,
 					}
 				});
 			} else {
-				arr.data = this.$props.tasks.data.map(item => {
+				arr.data = this.tasks.data.map(item => {
 					return { ...item }
 				});
 			}
@@ -629,7 +603,7 @@ export default {
 		},
 		// 设置预览事件
 		setPreview() {
-			this.$props.tasks.data.forEach(item => {
+			this.tasks.data.forEach(item => {
 				let preview = document.getElementById('preview' + item.id)
 				if (preview) {
 					preview.onclick = () => {

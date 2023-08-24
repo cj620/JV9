@@ -296,6 +296,7 @@ export default {
   background: #fff;
   width: 100%;
   margin-top: 10px;
+  padding-top: 10px;
   height: calc(100vh - 170px);
   display: flex;
   flex-direction: column;
@@ -303,18 +304,20 @@ export default {
   overflow-y: auto;
   padding-bottom: 10px;
   &-item {
-    margin-top: 12px;
     width: 98%;
-    //min-width: 1000px;
-    border: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
     height: 140px;
     display: flex;
+    position: relative;
     &-header {
       width: 200px;
       height: 140px;
       position: relative;
       display: flex;
       flex-direction: column;
+      border-right: 1px solid #eee;
       &-top {
         display: flex;
         &-left {
@@ -419,14 +422,8 @@ export default {
     }
   }
 }
-.part-schedule-content-item-header::after {
-  content: "";
-  height: 124px;
-  width: 1px;
-  background: #eee;
-  position: absolute;
-  right: 0;
-  top: 8px;
+.part-schedule-content-item:first-child{
+  border-top: 1px solid #eee;
 }
 .part-schedule-content-item-content:active {
   cursor: move;
