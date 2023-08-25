@@ -437,6 +437,7 @@ const en = {
     Ge_NewPassword: "New password",
     Ge_Setup: "Setup",
     Ge_Upload: "Upload",
+    Ge_MassUpload: "Mass Upload",
     Ge_RemarksIsNull: "Remarks is null",
     Ge_UnSubmitted: "Unsubmitted",
     Ge_Submitted: "Submitted",

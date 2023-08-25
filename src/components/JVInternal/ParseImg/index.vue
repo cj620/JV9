@@ -34,7 +34,8 @@ export default {
                    }
            }*/
             const items = (event.clipboardData || window.clipboardData).items;
-            let file = null;
+      console.log(items.length)
+      let file = null;
 
             if (!items || items.length === 0) {
               this.$message.error(this.$t("Generality.Ge_NoSupportPaste"));
