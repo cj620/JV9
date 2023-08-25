@@ -767,6 +767,7 @@ const en = {
   },
   //生产
   production: {
+    Pr_ReportedDate: "ReportedDate",
     Pr_DeletedData: "Deleted Data",
     Pr_StaleWorkOrder: "Stale Order",
     Pr_OverdueWorkOrder: "Overdue Order",

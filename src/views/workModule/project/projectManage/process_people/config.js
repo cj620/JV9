@@ -1,8 +1,40 @@
-/*
- * @Author: your name
- * @Date: 2021-11-23 09:01:19
- * @LastEditTime: 2021-11-23 09:01:20
- * @LastEditors: Please set LastEditors
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \V9_Dev\src\views\workModule\project\projectManage\process_people\config.js
- */
+export const tableConfig = [
+    // 实际开始
+    {
+        prop: "ActualStart",
+        label: i18n.t("Generality.Ge_ActualStart"),
+        filter: 'time',
+        width: '140px'
+    },
+    // 实际结束
+    {
+        prop: "ActualEnd",
+        label: i18n.t("Generality.Ge_ActualEnd"),
+        filter: 'time',
+        width: '140px'
+    },
+    // 实际工时
+    {
+        prop: "ActualTime",
+        label: i18n.t("Generality.Ge_ActualTime"),
+    },
+    // 负责人
+    {
+        prop: "Worker",
+        label: i18n.t("project.Pro_Worker"),
+        width: '100px'
+    },
+    // 报工日期
+    {
+        prop: "CreationDate",
+        label: i18n.t("production.Pr_ReportedDate"),
+        filter: 'time',
+        width: '140px'
+    },
+    // 备注
+    {
+        prop: "Remarks",
+        label: i18n.t("Generality.Ge_Remarks"),
+    },
+]
+

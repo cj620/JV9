@@ -4,29 +4,42 @@ export default {
   props: {
     icon: {
       type: String,
-      default: "el-icon-setting"
+      default: "el-icon-setting",
     },
     text: {
       type: String,
-      default: ""
+      default: "",
     },
     tip: {
       type: String,
-      default: ""
-    }
-  }
-}
+      default: "",
+    },
+  },
+};
 </script>
 
 <template>
-  <div style="display: flex;
-            align-items: center;">
+  <div style="display: flex; align-items: center; width: 100%">
     <el-tooltip
       :enterable="false"
-      class="item" effect="dark" :content="tip" placement="top">
+      class="item"
+      effect="dark"
+      :content="tip"
+      placement="top"
+    >
       <i :class="icon"></i>
     </el-tooltip>
-    <span style="line-height: 1">{{text}}</span>
+    <div
+      style="
+        line-height: 1;
+        width: 90%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      "
+    >
+      {{ text }}
+    </div>
   </div>
 </template>
 
