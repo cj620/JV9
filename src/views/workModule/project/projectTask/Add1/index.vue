@@ -140,7 +140,6 @@ export default {
     });
     this.copyProperties();
     this.tableObj = new EditTable();
-    console.log(this.curData);
   },
   mounted() {
   },
