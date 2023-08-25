@@ -93,21 +93,24 @@ export default {
   },
   methods: {
     imgUrlPlugin,
-    
-    
+
+
     handleImageSuccess(file) {},
 
     changeHandle(file) {
-      var formData = new FormData();
-      formData.append("file", file.file);
-      uploadFiles(formData).then((res) => {
-        if (this.listType) {
-          this.imageList.push(res[0].FileUrl);
-        } else {
-          this.imageList = [res[0].FileUrl];
-        }
-        this.$emit("input", this.imageList);
-      });
+
+
+		 var formData = new FormData();
+     formData.append("file", file.file);
+		console.log(formData)
+     uploadFiles(formData).then((res) => {
+       if (this.listType) {
+         this.imageList.push(res[0].FileUrl);
+       } else {
+         this.imageList = [res[0].FileUrl];
+       }
+       this.$emit("input", this.imageList);
+     });
     },
     viewImg(e, index) {
       this.dialogVisible = true;
