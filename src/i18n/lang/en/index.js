@@ -221,6 +221,7 @@ const en = {
     Pro_ViewSubtasks: "View Subtasks",
     Pro_ViewAllTasks: "View All Tasks",
     Pro_DistributionTask: "Distribution Task",
+    Pro_TestMouldProblemPoints: "Test Mould Problem Points",
   },
   setup: {
     Stockroom: "Stockroom",

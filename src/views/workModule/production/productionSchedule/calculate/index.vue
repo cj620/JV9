@@ -16,6 +16,7 @@
             {
               label: $t('production.Pr_EditDeliveryDate'),
               confirm: editDeliveryDate.bind(null),
+              disabled: isNotSelect,
             },
             {
               label: $t('production.Pr_OneClickProcessing'),
@@ -240,7 +241,8 @@ export default {
       },
       editDeliveryDialogFormVisible: false,
       editOverloadDialogFormVisible: false,
-      editDeliveryType:'noBatch'
+      editDeliveryType:'noBatch',
+      isNotSelect: true,
     };
   },
   components: {
@@ -334,6 +336,7 @@ export default {
     //勾选要排程的数据
     handleSelectionChange(val) {
       this.multipleSelection = val;
+      this.$refs.BillTable.selection.length !== 0 ? this.isNotSelect = false : this.isNotSelect = true
     },
   },
 };
