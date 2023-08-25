@@ -45,13 +45,13 @@
             <!-- 信息 -->
             <div class="part-schedule-content-item-header-top-right">
               <div></div>
-              <div>
+              <div style="width: 100%">
                 <icon-tooltip
                   :tip="$t('Generality.Ge_Process')"
                   :text="item.CurrentStation || '--'"
                 ></icon-tooltip>
               </div>
-              <div>
+              <div style="width: 100%">
                 <icon-tooltip
                   icon="el-icon-user"
                   :tip="$t('project.Pro_Worker')"
@@ -64,20 +64,20 @@
           <!-- 头部的下部分 -->
           <div class="part-schedule-content-item-header-bottom">
             <div class="part-schedule-content-item-header-bottom-box">
-              <div style="margin-bottom: 4px">
+              <div style="margin-bottom: 4px;width: 100%">
                 <icon-tooltip
                   :tip="$t('Generality.Ge_PartNo')"
                   :text="item.PartNo || '--'"
                 ></icon-tooltip>
               </div>
-              <div>
+              <div style="width: 100%">
                 <icon-tooltip
                   :tip="$t('Generality.Ge_PartName')"
                   :text="item.PartName || '--'"
                 ></icon-tooltip>
               </div>
             </div>
-            <div class="part-schedule-content-item-header-bottom-box">
+            <div style="width: 100%" class="part-schedule-content-item-header-bottom-box">
               <el-progress
                 :style="{width: setProgress(item.Progress)}"
                 :percentage="item.Progress"
@@ -148,7 +148,7 @@
                     class="el-icon-check"
                     v-show="
                       j === item.Process.length - 1 &&
-                      ProcessState[jtem.State].value === 'Processed'
+                      setCheckShow(item.Process)
                     "
                   ></i>
                 </div>
@@ -270,6 +270,12 @@ export default {
       }
       return _enum[num.toString().length] || '100%'
     },
+    // 设置 √ 的显示
+    setCheckShow(list) {
+      return list.every(item => {
+        return item.State === 'Processed'
+      })
+    }
   },
 };
 </script>
@@ -342,6 +348,7 @@ export default {
           flex-direction: column;
           justify-content: flex-start;
           font-size: 14px;
+          width: 125px;
           div {
             display: flex;
             margin-bottom: 6px;

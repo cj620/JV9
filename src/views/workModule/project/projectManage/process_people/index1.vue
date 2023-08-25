@@ -129,41 +129,50 @@
       <div class="details-box">
         <div  v-for="(item, i) in list" :key="i">
           <div style="height: 70px"></div>
-          <div class="details-box-item">
+          <div class="details-box-item" >
+
             <div
+              slot="reference"
               :class="[children.State === hoverStateValue ? children.State : '']"
               class="details-box-children"
               v-for="(children, c) in item.WorkerList"
             >
-              <div
-                class="details-box-children-title"
-                :style="{ background: setBgColor(children) }"
-              >
-                {{ children.TaskName }}
-              </div>
-              <div class="details-box-children-content">
-                <div>
-                  {{ $t("project.Pro_Worker") }}: {{ children.WorkerName }}
+              <el-popover
+                placement="bottom"
+                trigger="hover">
+                <popover-table :item="children ? children.ProjectTaskLogs : []"></popover-table>
+                <div slot="reference">
+                  <div
+                    class="details-box-children-title"
+                    :style="{ background: setBgColor(children) }"
+                  >
+                    {{ children.TaskName }}
+                  </div>
+                  <div class="details-box-children-content">
+                    <div>
+                      {{ $t("project.Pro_Worker") }}: {{ children.WorkerName }}
+                    </div>
+                    <div>
+                      {{ $t("Generality.Ge_PlanStart") }}:
+                      {{ timeFormat(children.PlanStart, "yyyy-MM-dd") }}
+                    </div>
+                    <div>
+                      {{ $t("Generality.Ge_PlanEnd") }}:
+                      {{ timeFormat(children.PlanEnd, "yyyy-MM-dd") }}
+                    </div>
+                    <div>
+                      {{ $t("Generality.Ge_ActualEnd") }}:
+                      {{ timeFormat(children.ActualEnd, "yyyy-MM-dd") }}
+                    </div>
+                    <div style="padding: 0">
+                      <el-progress
+                        :style="{width: setProgress(children.Progress)}"
+                        :percentage="children.Progress"
+                      ></el-progress>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  {{ $t("Generality.Ge_PlanStart") }}:
-                  {{ timeFormat(children.PlanStart, "yyyy-MM-dd") }}
-                </div>
-                <div>
-                  {{ $t("Generality.Ge_PlanEnd") }}:
-                  {{ timeFormat(children.PlanEnd, "yyyy-MM-dd") }}
-                </div>
-                <div>
-                  {{ $t("Generality.Ge_ActualEnd") }}:
-                  {{ timeFormat(children.ActualEnd, "yyyy-MM-dd") }}
-                </div>
-                <div style="padding: 0">
-                  <el-progress
-                    :style="{width: setProgress(children.Progress)}"
-                    :percentage="children.Progress"
-                  ></el-progress>
-                </div>
-              </div>
+              </el-popover>
             </div>
           </div>
         </div>
@@ -195,8 +204,9 @@ import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { timeFormat } from "@/jv_doc/utils/time";
 import {project_gantt_progress, worker_progress} from '@/api/workApi/project/projectInfo';
 import i18n from "@/i18n/i18n";
+import PopoverTable from "@/views/workModule/project/projectManage/process_people/components/popover-table.vue";
 export default {
-  name: "ProjectManage_process_people",
+  // name: "ProjectManage_process_people",
   data() {
     return {
       _arguments: null,
@@ -246,6 +256,7 @@ export default {
     };
   },
   components: {
+    PopoverTable,
     gantt,
   },
   beforeRouteLeave(to, from, next) {
@@ -432,7 +443,12 @@ export default {
       align-items: center;
       margin-top: 5px;
     }
+    &-children:hover{
+      transform: scale(1.05);
+    }
     &-children {
+      transition: .3s;
+      cursor: pointer;
       width: 200px;
       height: 165px;
       margin-left: 20px;
