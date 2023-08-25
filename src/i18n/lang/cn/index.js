@@ -204,6 +204,7 @@ const cn = {
     Pro_ViewSubtasks: "查看子任务",
     Pro_ViewAllTasks: "查看全部任务",
     Pro_DistributionTask: "分发任务",
+    Pro_TestMouldProblemPoints: "试模问题点",
   },
   //设置
   setup: {

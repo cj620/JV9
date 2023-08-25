@@ -78,9 +78,15 @@ export default {
       this.dialogShow = !this.dialogShow;
     },
     confirm(){
-      this.setDialogShow();
-      let arr = this.formData.filter((item) => item.BillId === this.formObj.form.BillId)
-      this.$emit('toAddMold',arr[0])
+      this.formObj.validate((valid) => {
+        if (valid) {
+          this.setDialogShow();
+          let arr = this.formData.filter((item) => item.BillId === this.formObj.form.BillId)
+          this.$emit('toAddMold',arr[0])
+        } else {
+          return false;
+        }
+      })
     },
   },
 }

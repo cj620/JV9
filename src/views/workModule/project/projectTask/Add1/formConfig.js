@@ -6,23 +6,20 @@
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleOrder\components\formConfig.js
  */
+
 import { taskTypeEnum, enumToList } from "@/enum/workModule";
 
 export const formSchema = [
-  //单号搜索
+  //模具编号
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
     cpn: "FormInput",
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseSelect"),
-        trigger: ["change", "blur"],
-      },
-    ],
+    cpnProps: {
+      disabled: true,
+    },
   },
-  //客户搜索
+  // 任务类型
   {
     prop: "TaskType",
     label: i18n.t("Generality.Ge_TaskType"),
@@ -30,36 +27,77 @@ export const formSchema = [
     options: {
       list: enumToList(taskTypeEnum),
     },
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseSelect"),
-        trigger: ["change", "blur"],
-      },
-    ],
+    cpnProps: {
+      disabled: true,
+    },
   },
+  //计划开始
   {
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     cpn: "SingleTime",
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseSelect"),
-        trigger: ["change", "blur"],
-      },
-    ],
   },
+  //计划结束
   {
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
     cpn: "SingleTime",
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseSelect"),
-        trigger: ["change", "blur"],
-      },
-    ],
+  },
+  //相关编号
+  {
+    prop: "RelationId",
+    label: i18n.t("sale.Sa_RelationId"),
+    cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
+    },
+  },
+  //试模原因
+  {
+    prop: "TestMouldReason",
+    label: "试模原因",
+    cpn: "FormInput",
+  },
+  //试模结果
+  {
+    prop: "TestMouldResult",
+    label: "试模结果",
+    cpn: "FormInput",
+  },
+  //试模颜色
+  {
+    prop: "TestMouldColor",
+    label: "试模颜色",
+    cpn: "FormInput",
+  },
+  //试模机台
+  {
+    prop: "TestMouldMachine",
+    label: "试模机台",
+    cpn: "FormInput",
+  },
+  //试模机台
+  {
+    prop: "TestMouldLocation",
+    label: "试模地点",
+    cpn: "FormInput",
+  },
+  //试模日期
+  {
+    prop: "TestMouldDate",
+    label: "试模日期",
+    cpn: "SingleTime",
+  },
+  //试模日期
+  {
+    prop: "TestMouldUseTime",
+    label: "试模用时",
+    cpn: "FormInput",
+  },
+  //试模日期
+  {
+    prop: "TestMouldInfo",
+    label: "试模信息",
+    cpn: "FormInput",
   },
 ];
