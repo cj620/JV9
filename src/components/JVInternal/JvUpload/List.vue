@@ -102,7 +102,7 @@ export default {
 
 		 var formData = new FormData();
      formData.append("file", file.file);
-		formData.append("BillId", '123');
+
 
 		console.log(formData)
      uploadFiles(formData).then((res) => {
