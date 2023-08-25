@@ -152,6 +152,16 @@ const project = [
     title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.Pm_ProjectTask"),
     hidden: true,
   },
+  // 新增试模任务
+  {
+    key: "Pm_ProjectTask_Add1",
+    component: () => import("@/views/workModule/project/projectTask/Add1"),
+    Parent: "Pm_Project",
+    name: "Pm_ProjectTask_Add1",
+    path: "pm_ProjectTask_Add1",
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.Pm_TestTask"),
+    hidden: true,
+  },
   {
     key: "Pm_ProjectTask_Edit",
     component: () => import("@/views/workModule/project/projectTask/Edit"),
