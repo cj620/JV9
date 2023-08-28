@@ -44,7 +44,7 @@ export const detailConfig = [
   },
 ];
 // 项目任务
-const P_tableSchema = [
+export const P_tableSchema = [
   {
     prop: "BillId",
     label: i18n.t("project.Pro_TaskSheetNo"),

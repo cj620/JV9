@@ -89,6 +89,12 @@
           @click="addNewTask(taskTypeEnum['TrialTooling'].value)"
           >{{ $t("project.Pro_AddTrialMoldTask") }}</el-button
         >
+        <el-button
+          size="mini"
+          type="primary"
+          @click="addTrailMold"
+          >{{ $t("project.Pro_AddTrialMoldTask") }}</el-button
+        >
       </div>
       <JvTable :table-obj="P_tableObj">
         <template #State="{ record }">
@@ -117,6 +123,13 @@
       @dynamicConfirm="dynamicConfirm"
     >
     </Dynamic>
+      <AddTrialMold
+          ref="addTrialMold"
+          @toAddMold="toAddMold"
+          :formData="ProjectTask"
+          :title="$t('project.Pro_AddTrialMoldTask')"
+      >
+      </AddTrialMold>
     <jv-dialog
       title="编辑"
       width="35%"
@@ -136,6 +149,7 @@
 import { detailConfig, P_Table, T_Table, R_Table } from "./config";
 import { data2doubleCol } from "@/views/workModule/sale/saleQuote/utils";
 import Dynamic from "./cpns/Dynamic.vue";
+import AddTrialMold from "./cpns/addTrialMold.vue";
 import Detail from "@/jv_doc/class/detail/Detail";
 import {
   getToolingDetail,
@@ -152,7 +166,7 @@ import { formSchema1 } from "./formConfig";
 import { Form } from "~/class/form";
 export default {
   name: "index",
-  components: { BillStateTags, DynamicList, Dynamic, JvUploadList },
+  components: { BillStateTags, DynamicList, Dynamic, JvUploadList, AddTrialMold },
   data() {
     return {
       ImgDataList: [],
@@ -166,7 +180,9 @@ export default {
       // 项目任务
       P_tableObj: {},
       detailObj: {},
+		  ProjectTask:[],
       dynamicShow: false,
+		  addTrialMoldShow: false,
       cur_Id: this.$route.query.BillId,
       DynamicInfo: [],
       taskTypeEnum,
@@ -236,7 +252,9 @@ export default {
         this.R_tableObj.setData(data2doubleCol(res.RelatedWorkerInfo));
         this.T_tableObj.setData(data2doubleCol(res.ToolingSpecInfo));
         this.DynamicInfo = res.DynamicInfo;
-      });
+		    this.ProjectTask = res.ProjectTaskInfo.filter((item)=>item.TaskType !== "TrialTooling")
+        // this.$refs.addTrialMold.setFormData(this.ProjectTask)
+	  });
     },
 
     addNewTask(TaskType) {
@@ -298,6 +316,16 @@ export default {
         this.editVisible = false;
         this.getData();
       });
+    },
+	  addTrailMold(){
+      this.$refs.addTrialMold.setDialogShow();
+    },
+    // 跳转
+    toAddMold(e){
+      this.$router.push({
+		    name: "Pm_ProjectTask_Add1",
+        query: e,
+      })
     }
   },
 };

@@ -6,10 +6,10 @@
  */
 
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
-import { getAllDevice } from "@/api/workApi/production/baseData";
+import { production_device_list } from "@/api/workApi/production/baseData";
 
 export class api extends TableAPI {
-  getData = getAllDevice;
+  getData = production_device_list;
 }
 export class Table extends BaseTable {
   constructor() {

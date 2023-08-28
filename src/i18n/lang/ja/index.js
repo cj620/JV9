@@ -202,6 +202,7 @@ const ja = {
     Pro_ViewSubtasks: "サブタスクの表示",
     Pro_ViewAllTasks: "すべてのタスクの表示",
     Pro_DistributionTask: "タスクの配布",
+    Pro_TestMouldProblemPoints: "金型試験の問題点",
   },
   //设置
   setup: {
