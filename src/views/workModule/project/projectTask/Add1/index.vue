@@ -32,7 +32,6 @@
                 style="width: 50px; height: 50px"
                 v-for="(item,index) in row.BillFiles.value"
                 :key="index"
-
                 :src="defaultImgUrl +item"
             >
             </el-image>
@@ -114,6 +113,7 @@ import { formSchema } from "./formConfig";
 import { API as ProjectTask } from "@/api/workApi/project/projectTask";
 import closeTag from "@/utils/closeTag";
 import { timeFormat } from "~/utils/time";
+import { mapState } from "vuex";
 export default {
   name: "Pm_ProjectTask_Add1",
   components: {
@@ -138,27 +138,31 @@ export default {
       tableRow: {},
       fileBillId: this.$route.query.BillId,
       ruleForm:{
+        BillId: this.$route.query.BillId,
+        BillGui: "",
         TaskType: 0,
 		    ToolingNo: "",
         PlanStart: "",
         PlanEnd: "",
-        RelationId: "",
-        TestMouldReason: "",
-        TestMouldResult: "",
-        TestMouldColor: "",
-        TestMouldMachine: "",
-        TestMouldLocation: "",
-        TestMouldDate: "",
-        TestMouldUseTime: "",
-        TestMouldInfo: "",
 		    Remarks: "",
+        BillItems:[],
+        TrialToolingDynamicData: {
+          RelationId: "",
+          TestMouldReason: "",
+          TestMouldResult: "",
+          TestMouldColor: "",
+          TestMouldMachine: "",
+          TestMouldLocation: "",
+          TestMouldDate: "",
+          TestMouldUseTime: "",
+          TestMouldInfo: "",
+          TestMouldProblemPoints:[],
+        },
 		    SaveAndSubmit: true,
-		    BillItems: [],
 		    BillFiles: [],
       },
-      BillItems: {
-        Id: "",
-        BillGui: "",
+      TestMouldProblemPoints: {
+        Id: 0,
         ProblemPoints: "",
         SuggestionsImprovement: "",
         Remarks: "",
@@ -184,6 +188,11 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState({
+      current: (state) => state.page.current,
+    }),
+  },
   async created() {
     this.formObj = new Form({
       formSchema,
@@ -206,6 +215,7 @@ export default {
           this.formObj.form[key] = this.curData[key];
         }
       }
+      this.formObj.form.TaskType = "TrialTooling"
       this.formObj.form.RelationId = this.curData.BillId
       this.formObj.form.TestMouldDate = timeFormat(new Date(), "yyyy-MM-dd")
     },
@@ -215,7 +225,7 @@ export default {
     },
     //新增一行
     addRow() {
-      this.tableObj.push([this.BillItems]);
+      this.tableObj.push([this.TestMouldProblemPoints]);
     },
     //删除明细
     delItem(index) {
@@ -224,15 +234,15 @@ export default {
     //点击添加图片
     addImg(row){
       console.log(row);
-      this.dialogImgFormVisible=true
-      this.ImgDataList=row.BillFiles.value
-      this.tableRow=row
+      this.dialogImgFormVisible = true
+      this.ImgDataList = row.BillFiles.value
+      this.tableRow = row
     },
     confirmImg(){
       console.log(this.ImgDataList,this.tableRow);
-      this.tableRow.BillFiles.value=this.ImgDataList
-      this.dialogImgFormVisible=false
-      this.tableRow={}
+      this.tableRow.BillFiles.value = this.ImgDataList
+      this.dialogImgFormVisible = false
+      this.tableRow = {}
     },
     save(saveAndSubmit) {
       // this.tableObj.tableData.forEach((item, index) => {
@@ -243,22 +253,31 @@ export default {
         [this.formObj.validate, this.tableObj.validate],
         (valid) => {
             if (valid) {
-              Object.assign(this.ruleForm, this.formObj.form);
-              console.log(this.tableObj);
-              this.ruleForm.BillItems = this.tableObj.getTableData();
-              this.ruleForm.BillItems = this.ruleForm.BillItems.map((item, index) => {
-                item.Id = index.toString();
-                return item;
-              });
+              for (let key in this.formObj.form) {
+                if (this.ruleForm.hasOwnProperty(key)){
+                  this.ruleForm[key] = this.formObj.form[key]
+                }
+                if (this.ruleForm.TrialToolingDynamicData.hasOwnProperty(key)) {
+                  this.ruleForm.TrialToolingDynamicData[key] = this.formObj.form[key];
+                }
+              }
+              this.ruleForm.TrialToolingDynamicData.TestMouldProblemPoints = this.tableObj.getTableData().map((item, index) => ({
+                ...item,
+                Id: index
+              }));
               this._save();
+              console.log(this.ruleForm);
             }
         }
       );
     },
     _save() {
-      console.log('执行');
       ProjectTask.api_save(this.ruleForm).then((res) => {
-        console.log(res)
+        let TagName = {
+          name: this.detailRouteName,
+          query: { BillId: res },
+        };
+        closeTag(this.current, TagName);
       });
     },
     //上传文件返回的数据
