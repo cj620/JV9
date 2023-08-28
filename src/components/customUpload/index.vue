@@ -1,6 +1,6 @@
 <template>
   <div class="dropzone-box">
-    <div style="display: flex;flex-direction: column">
+    <div style="display: flex;justify-content: center;position:relative;">
       <div id="dropzone"
            @dragenter="dragEnter"
            @dragleave="dragLeave"
@@ -17,20 +17,25 @@
       >
         <div class="paste"></div>
       </parse-img>
+      <div class="clear-img" v-show="files.length > 3">
+        <el-button size="mini" type="danger" plain @click="allClear">全部清除</el-button>
+      </div>
     </div>
     <input v-show="false" id="custom_file" type="file" @change="selectFile" multiple />
-    <div class="file-box">
-      <div
-        class="file-items"
-        v-for="(file, i) in files" :key="i">
-        <div class="file-items-clear" @click="clearFile(i)">
-          <i class="el-icon-close"></i>
-        </div>
-        <el-image v-if="imageShow" :src="images[i]"
-                  :preview-src-list="previewSrcList"
-        ></el-image>
-        <div class="file-items-name">
-          {{ file.name }}
+    <div style="max-height: 290px;overflow-y: auto;">
+      <div class="file-box">
+        <div
+          class="file-items"
+          v-for="(file, i) in files" :key="i">
+          <div class="file-items-clear" @click="clearFile(i)">
+            <i class="el-icon-close"></i>
+          </div>
+          <el-image v-if="imageShow" :src="images[i]"
+                    :preview-src-list="previewSrcList"
+          ></el-image>
+          <div class="file-items-name">
+            {{ file.name }}
+          </div>
         </div>
       </div>
     </div>
@@ -107,14 +112,14 @@ export default {
       this.imageShow = false;
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        this.files.push(file);
+        this.files.unshift(file);
 
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
           const src = reader.result;
-          this.images.push(src);
-          this.previewSrcList.push(src);
+          this.images.unshift(src);
+          this.previewSrcList.unshift(src);
         };
       }
     },
@@ -144,11 +149,12 @@ export default {
     allClear() {
       this.images = [];
       this.files = [];
+      this.previewSrcList = [];
     },
     // 粘贴事件
     handlePasteData(files) {
       this.handleFiles(files);
-    }
+    },
   },
 
   watch: {
@@ -177,11 +183,10 @@ export default {
 }
 .paste{
   width: 300px;
-  height: 100px;
+  height: 200px;
   border: 1px dashed #d9d9d9;
   text-align: center;
-  line-height: 100px;
-  margin-top: 20px;
+  line-height: 200px;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -204,19 +209,26 @@ export default {
     color: #c0c4cc;
   }
 }
+.clear-img{
+  position: absolute;
+  right: 24px;
+  bottom: 0;
+}
 .dropzone-box{
-  display: flex;
-  align-items: center;
+  //display: flex;
+  //align-items: center;
   .file-box{
-    height: 340px;
-    width: 300px;
-    //border: 1px solid;
-    overflow-y: auto;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
     .file-items:hover .file-items-clear{
       display: block;
       cursor: pointer;
     }
     .file-items{
+      margin-left: 5px;
+      margin-right: 5px;
       margin-bottom: 10px;
       border-radius: 8px;
       border: 1px solid #ccc;

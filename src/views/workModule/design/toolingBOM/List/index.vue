@@ -229,7 +229,7 @@
     :visible.sync="showMassUpload"
     destroy-on-close
     :title="$t('design.De_DownloadTemplate')"
-    width="700px"
+    width="960px"
     @confirm="MassUpload"
     >
       <custom-upload ref="customUploadRef"></custom-upload>
@@ -408,7 +408,6 @@ export default {
     },
     MassUpload() {
       this.uploadLoading = true;
-      this.showMassUpload = false;
       let files = this.$refs.customUploadRef.files;
       let promiseAll = [];
       files.forEach(item => {
@@ -431,6 +430,8 @@ export default {
         let state = results.filter(item => {
           return item.status === 'fulfilled'
         })
+        // 如果全部上传成功则关闭
+        this.showMassUpload = (state.length !== results.length);
         this.$notify({
           title: '上传完毕',
           message: `一共上传${results.length}张图片，成功${state.length}张, 失败${results.length - state.length}张`,
