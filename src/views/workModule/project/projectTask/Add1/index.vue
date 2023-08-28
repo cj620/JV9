@@ -26,9 +26,26 @@
           }}</el-button>
       </div>
       <JvEditTable :tableObj="tableObj">
-        <template #operation="{ row_index }">
+        <template #BillFiles="{ row }">
+          <div v-if="row.BillFiles.value.length>0">
+            <el-image
+                style="width: 50px; height: 50px"
+                v-for="(item,index) in row.BillFiles.value"
+                :key="index"
+
+                :src="defaultImgUrl +item"
+            >
+            </el-image>
+          </div>
+
+        </template>
+        <template #operation="{ row, row_index }">
           <TableAction
               :actions="[
+              {
+                label: '图片',
+                confirm: addImg.bind(null, row),
+              },
               {
                 icon: 'el-icon-delete',
                 confirm: delItem.bind(null, row_index),
@@ -72,18 +89,36 @@
         $t("Generality.Ge_SaveAndSubmit")
       }}</el-button>
     </div>
+
+    <jv-dialog
+        :title="$t('Generality.Ge_AddNewPicture')"
+        width="35%"
+        :close-on-click-modal="false"
+        :modal-append-to-body="false"
+        :append-to-body="false"
+        :visible.sync="dialogImgFormVisible"
+        v-if="dialogImgFormVisible"
+        @confirm="confirmImg"
+    >
+      <JvUploadList v-model="ImgDataList" :listType="true"></JvUploadList>
+    </jv-dialog>
   </PageWrapper>
 </template>
 
 <script>
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
+import JvUploadList from "@/components/JVInternal/JvUpload/List";
 import { Form } from "~/class/form";
 import { EditTable } from "./editConfig"
 import { formSchema } from "./formConfig";
+import { API as ProjectTask } from "@/api/workApi/project/projectTask";
+import closeTag from "@/utils/closeTag";
+import { timeFormat } from "~/utils/time";
 export default {
   name: "Pm_ProjectTask_Add1",
   components: {
     JvUploadFile,
+    JvUploadList,
   },
   props: {
     billData: {
@@ -96,10 +131,30 @@ export default {
       curData: this.$route.query,
       formObj: {},
       tableObj: {},
+      dialogImgFormVisible: false,
+      defaultImgUrl: window.global_config.ImgBase_Url,
+      detailRouteName: "Pm_ProjectTask_Detail",
+      ImgDataList: [],
+      tableRow: {},
       fileBillId: this.$route.query.BillId,
       ruleForm:{
-        Remarks:"",
-        BillFiles: [],
+        TaskType: 0,
+		    ToolingNo: "",
+        PlanStart: "",
+        PlanEnd: "",
+        RelationId: "",
+        TestMouldReason: "",
+        TestMouldResult: "",
+        TestMouldColor: "",
+        TestMouldMachine: "",
+        TestMouldLocation: "",
+        TestMouldDate: "",
+        TestMouldUseTime: "",
+        TestMouldInfo: "",
+		    Remarks: "",
+		    SaveAndSubmit: true,
+		    BillItems: [],
+		    BillFiles: [],
       },
       BillItems: {
         Id: "",
@@ -107,7 +162,7 @@ export default {
         ProblemPoints: "",
         SuggestionsImprovement: "",
         Remarks: "",
-        BillFiles: "",
+        BillFiles: [],
       },
       tabPanes: [
         {
@@ -152,7 +207,7 @@ export default {
         }
       }
       this.formObj.form.RelationId = this.curData.BillId
-      this.formObj.form.TestMouldDate = new Date()
+      this.formObj.form.TestMouldDate = timeFormat(new Date(), "yyyy-MM-dd")
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
@@ -165,6 +220,46 @@ export default {
     //删除明细
     delItem(index) {
       this.tableObj.delItem(index);
+    },
+    //点击添加图片
+    addImg(row){
+      console.log(row);
+      this.dialogImgFormVisible=true
+      this.ImgDataList=row.BillFiles.value
+      this.tableRow=row
+    },
+    confirmImg(){
+      console.log(this.ImgDataList,this.tableRow);
+      this.tableRow.BillFiles.value=this.ImgDataList
+      this.dialogImgFormVisible=false
+      this.tableRow={}
+    },
+    save(saveAndSubmit) {
+      // this.tableObj.tableData.forEach((item, index) => {
+      //   item.Id = item.row_index
+      // });
+      this.ruleForm.SaveAndSubmit = saveAndSubmit;
+      this.formObj.submitAll(
+        [this.formObj.validate, this.tableObj.validate],
+        (valid) => {
+            if (valid) {
+              Object.assign(this.ruleForm, this.formObj.form);
+              console.log(this.tableObj);
+              this.ruleForm.BillItems = this.tableObj.getTableData();
+              this.ruleForm.BillItems = this.ruleForm.BillItems.map((item, index) => {
+                item.Id = index.toString();
+                return item;
+              });
+              this._save();
+            }
+        }
+      );
+    },
+    _save() {
+      console.log('执行');
+      ProjectTask.api_save(this.ruleForm).then((res) => {
+        console.log(res)
+      });
     },
     //上传文件返回的数据
     returnData(fileData) {

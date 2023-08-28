@@ -92,6 +92,7 @@ export const formSchema = [
   {
     prop: "TestMouldUseTime",
     label: "试模用时",
+    type: "number",
     cpn: "FormInput",
   },
   //试模日期
