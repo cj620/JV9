@@ -28,7 +28,7 @@ export class Table extends BaseTable {
       // 操作列宽度
       operationCol: false,
       // 打印模块标识
-      printMod: "Pr_ProductionSchedule",
+      printMod: "apsLog",
       height:400,
     });
   }
