@@ -130,49 +130,43 @@
         <div  v-for="(item, i) in list" :key="i">
           <div style="height: 70px"></div>
           <div class="details-box-item" >
-
             <div
-              slot="reference"
               :class="[children.State === hoverStateValue ? children.State : '']"
               class="details-box-children"
               v-for="(children, c) in item.WorkerList"
+              @click="setProjectTaskLogs(children)"
             >
-              <el-popover
-                placement="bottom"
-                trigger="hover">
-                <popover-table :item="children ? children.ProjectTaskLogs : []"></popover-table>
-                <div slot="reference">
-                  <div
-                    class="details-box-children-title"
-                    :style="{ background: setBgColor(children) }"
-                  >
-                    {{ children.TaskName }}
+              <div>
+                <div
+                  class="details-box-children-title"
+                  :style="{ background: setBgColor(children) }"
+                >
+                  {{ children.TaskName }}
+                </div>
+                <div class="details-box-children-content">
+                  <div>
+                    {{ $t("project.Pro_Worker") }}: {{ children.WorkerName }}
                   </div>
-                  <div class="details-box-children-content">
-                    <div>
-                      {{ $t("project.Pro_Worker") }}: {{ children.WorkerName }}
-                    </div>
-                    <div>
-                      {{ $t("Generality.Ge_PlanStart") }}:
-                      {{ timeFormat(children.PlanStart, "yyyy-MM-dd") }}
-                    </div>
-                    <div>
-                      {{ $t("Generality.Ge_PlanEnd") }}:
-                      {{ timeFormat(children.PlanEnd, "yyyy-MM-dd") }}
-                    </div>
-                    <div>
-                      {{ $t("Generality.Ge_ActualEnd") }}:
-                      {{ timeFormat(children.ActualEnd, "yyyy-MM-dd") }}
-                    </div>
-                    <div style="padding: 0">
-                      <el-progress
-                        :style="{width: setProgress(children.Progress)}"
-                        :percentage="children.Progress"
-                      ></el-progress>
-                    </div>
+                  <div>
+                    {{ $t("Generality.Ge_PlanStart") }}:
+                    {{ timeFormat(children.PlanStart, "yyyy-MM-dd") }}
+                  </div>
+                  <div>
+                    {{ $t("Generality.Ge_PlanEnd") }}:
+                    {{ timeFormat(children.PlanEnd, "yyyy-MM-dd") }}
+                  </div>
+                  <div>
+                    {{ $t("Generality.Ge_ActualEnd") }}:
+                    {{ timeFormat(children.ActualEnd, "yyyy-MM-dd") }}
+                  </div>
+                  <div style="padding: 0">
+                    <el-progress
+                      :style="{width: setProgress(children.Progress)}"
+                      :percentage="children.Progress"
+                    ></el-progress>
                   </div>
                 </div>
-              </el-popover>
+              </div>
             </div>
           </div>
         </div>
@@ -194,6 +188,13 @@
       >
       </gantt>
     </div>
+    <JvDialog
+      :visible.sync="showProjectTaskLogs"
+      :title="ProjectTaskLogs.TaskName"
+      @confrim="showProjectTaskLogs = !showProjectTaskLogs"
+    >
+      <popover-table :item="ProjectTaskLogs"></popover-table>
+    </JvDialog>
   </PageWrapper>
 </template>
 
@@ -253,6 +254,8 @@ export default {
       hoverStateValue: "",
       list: [],
       chartBoxWidth: 0,
+      ProjectTaskLogs: [],
+      showProjectTaskLogs: false,
     };
   },
   components: {
@@ -285,6 +288,10 @@ export default {
   methods: {
     imgUrlPlugin,
     timeFormat,
+    setProjectTaskLogs(item) {
+      this.showProjectTaskLogs = !this.showProjectTaskLogs;
+      this.ProjectTaskLogs = item;
+    },
     goDetails(ToolingNo) {
       this.$router.push({
         path: "Pm_Project_PartSchedule",

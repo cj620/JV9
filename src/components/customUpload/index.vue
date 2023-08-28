@@ -1,0 +1,285 @@
+<template>
+  <div class="dropzone-box">
+    <div style="display: flex;flex-direction: column">
+      <div id="dropzone"
+           @dragenter="dragEnter"
+           @dragleave="dragLeave"
+           @dragover="dragOver"
+           @drop="dropFile"
+           @click="chooseFile"
+      >
+        <div><i class="el-icon-upload"></i></div>
+        <div>将文件拖放到此处,或点击选择文件</div>
+      </div>
+<!--      <parse-img-->
+<!--        @handlePasteData="handlePasteData"-->
+<!--        class="edit-partRes-uploadIcons"-->
+<!--        :title="$t('Generality.Ge_Paste')"-->
+<!--      >-->
+<!--      </parse-img>-->
+    </div>
+    <input v-show="false" id="custom_file" type="file" @change="selectFile" multiple />
+    <div class="file-box">
+      <div
+        class="file-items"
+        v-for="(file, i) in files" :key="i">
+        <div class="file-items-clear" @click="clearFile(i)">
+          <i class="el-icon-close"></i>
+        </div>
+        <el-image v-if="imageShow" :src="images[i].src"
+                  :preview-src-list="previewSrcList"
+        ></el-image>
+        <div class="file-items-name">
+          {{ file.name }}
+        </div>
+      </div>
+    </div>
+<!--    <div v-for="(file, i) in files" :key="i">-->
+<!--      文件名：{{ file.name }}，大小：{{ file.size }}字节-->
+<!--      <button @click="downloadFile(file)">下载</button>-->
+<!--    </div>-->
+  </div>
+</template>
+
+<script>
+import ParseImg from "@/components/JVInternal/ParseImg";
+import request from '@/utils/request'
+export default {
+  data() {
+    return {
+      files: [],
+      images: [],
+      previewSrcList: [],
+      imageShow: false,
+      dropzoneActive: false
+    }
+  },
+  methods: {
+    /**
+     * 处理拖拽区域的拖入事件
+     * @param {Event} event - 拖入事件对象
+     */
+    dragEnter(event) {
+      event.preventDefault();
+      this.dropzoneActive = true;
+    },
+    /**
+     * 处理拖拽区域的拖离事件
+     * @param {Event} event - 拖离事件对象
+     */
+    dragLeave(event) {
+      event.preventDefault();
+      this.dropzoneActive = false;
+    },
+    /**
+     * 处理拖拽区域的拖放事件
+     * @param {Event} event - 拖放事件对象
+     */
+    dragOver(event) {
+      event.preventDefault();
+    },
+    /**
+     * 处理文件的拖放上传
+     * @param {Event} event - 拖放事件对象
+     */
+    dropFile(event) {
+      event.preventDefault();
+      this.dropzoneActive = false;
+      const files = event.dataTransfer.files;
+
+      this.handleFiles(files);
+    },
+    /**
+     * 处理选择文件按钮的上传事件
+     * @param {Event} event - 选择文件事件对象
+     */
+    selectFile(event) {
+      const files = event.target.files;
+      this.handleFiles(files);
+      console.log(files);
+    },
+    /**
+     * 处理上传的文件列表
+     * @param {FileList} files - 文件列表
+     */
+    handleFiles(files) {
+      this.imageShow = false;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        this.files.push(file);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const src = reader.result;
+          this.images.push({
+            src: src,
+            progress: 0
+          });
+          this.previewSrcList.push(src);
+        };
+      }
+      console.log(this.images);
+    },
+    /**
+     * 下载文件
+     * @param {File} file - 文件对象
+     */
+    downloadFile(file) {
+      const url = URL.createObjectURL(file);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = file.name;
+      link.click();
+      URL.revokeObjectURL(url);
+    },
+    // 点击选择文件
+    chooseFile() {
+      const fileInput = document.getElementById('custom_file');
+      fileInput.click();
+    },
+    // 删除
+    clearFile(i) {
+      this.images.splice(i, 1);
+      this.files.splice(i, 1);
+      console.log(this.files,this.images)
+    },
+    // 全部清除
+    allClear() {
+      this.images = [];
+      this.files = [];
+    },
+    // 上传
+    uploader() {
+      let formData = new FormData();
+      formData.append("file", this.files[0]);
+      formData.append("IsUpdateOwner", 'true');
+      request({
+        url: '/files/upload_image',
+        method: 'post',
+        data: formData,
+      }).then(res => {
+        console.log(res, '上传成功')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    // 粘贴事件
+    async handlePaste(event) {
+      console.log(event)
+      const items = (event.clipboardData || window.clipboardData).items;
+      let file = null;
+      if (!items || items.length === 0) {
+        this.$message.error(this.$t("Generality.Ge_NoSupportPaste"));
+        return;
+      }
+    }
+  },
+
+  watch: {
+    images() {
+      setTimeout(() => {
+        this.imageShow = true;
+      },10)
+    }
+  }
+}
+
+</script>
+
+<style lang="scss" scoped>
+#dropzone:hover{
+  border: 1px dashed #409eff;
+}
+.paste:hover{
+  border: 1px dashed #409eff;
+  cursor: pointer;
+  user-select: none;
+}
+//.paste:active{
+//  background: #f1f1f1;
+//}
+.paste{
+  width: 300px;
+  height: 100px;
+  border: 1px dashed #d9d9d9;
+  text-align: center;
+  line-height: 100px;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+#dropzone {
+  border-radius: 8px;
+  width: 300px;
+  height: 200px;
+  border: 1px dashed #d9d9d9;
+  font-size: 16px;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 20px;
+  i{
+    margin-bottom: 20px;
+    font-size: 50px;
+    color: #c0c4cc;
+  }
+}
+.dropzone-box{
+  display: flex;
+  align-items: center;
+  .file-box{
+    height: 340px;
+    width: 300px;
+    //border: 1px solid;
+    overflow-y: auto;
+    .file-items:hover .file-items-clear{
+      display: block;
+      cursor: pointer;
+    }
+    .file-items{
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      height: 60px;
+      width: 290px;
+      box-sizing: border-box;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      &-name{
+        width: 230px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      &-clear{
+        display: none;
+        position: absolute;
+        right: -23px;
+        top: -23px;
+        height: 46px;
+        width: 46px;
+        //text-align: center;
+        line-height: 66px;
+        font-size: 12px;
+        color: #fff;
+        border-radius: 50%;
+        background: rgba(0,0,0,.5);
+        i{
+          margin-left: 6px;
+        }
+      }
+    }
+    .el-image{
+      height: 50px;
+      width: 50px;
+      border-radius: 4px;
+      margin-right: 20px;
+    }
+  }
+}
+</style>

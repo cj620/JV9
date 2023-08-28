@@ -9,8 +9,8 @@ export default {
   name: "popover-table",
   props: {
     item: {
-      type: Array,
-      default: [],
+      type: Object,
+      default: {},
     },
   },
   data() {
@@ -29,8 +29,13 @@ export default {
       tableHeaderShow: false,
       operationCol: false,
     });
-    this.tableObj.setData(this.item);
+    this.tableObj.setData(this.item.ProjectTaskLogs);
   },
+  watch: {
+    item(val) {
+      this.tableObj.setData(this.item.ProjectTaskLogs);
+    }
+  }
 }
 </script>
 

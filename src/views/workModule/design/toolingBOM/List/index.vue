@@ -53,6 +53,10 @@
             confirm: downExport2Excel.bind(),
           },
           {
+            label: $t('Generality.Ge_MassUpload'),
+            confirm: setShowMassUpload.bind(),
+          },
+          {
             label: $t('design.De_LeadingInBOM'),
             disabled: IsDisabled,
             confirm: ImportBOM.bind(),
@@ -221,6 +225,14 @@
         </template>
       </JvEditTable>
     </jv-dialog>
+    <JvDialog
+    :visible.sync="showMassUpload"
+    :title="$t('design.De_DownloadTemplate')"
+    width="700px"
+    @confrim="MassUpload"
+    >
+      <custom-upload></custom-upload>
+    </JvDialog>
   </PageWrapper>
 </template>
 
@@ -250,20 +262,24 @@ import { format2source } from "@/jv_doc/class/utils/dataFormat";
 import ParseImg from "@/components/JVInternal/ParseImg";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
-
+import JvDialog from "~/cpn/JvDialog/index.vue";
+import customUpload from "@/components/customUpload/index.vue";
 export default {
   name: "ToolingBOM",
   // 表格数据
   components: {
+    JvDialog,
     Popover,
     ParseImg,
     searchItem,
     selectTask,
     setLevel,
+    customUpload
   },
   data() {
     return {
       demandStatusEnum,
+      showMassUpload: false, // 批量上传弹窗
       partLevelMap: {
         0: {
           name: this.$t("Generality.Ge_Hide"),
@@ -383,8 +399,11 @@ export default {
       return this.eTableObj.selectData.datas.length === 1;
     },
   },
-
   methods: {
+    setShowMassUpload() {
+      this.showMassUpload = !this.showMassUpload;
+    },
+    MassUpload() {},
     getData() {
       this.closeTooltip();
       if (!this.toolId) return;

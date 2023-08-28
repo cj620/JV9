@@ -432,6 +432,7 @@ const cn = {
     Ge_NewPassword: "新密码",
     Ge_Setup: "配置",
     Ge_Upload: "上传",
+    Ge_MassUpload: "批量上传",
     Ge_RemarksIsNull: "暂无备注",
     Ge_UnSubmitted: "未提交",
     Ge_Submitted: "已提交",
