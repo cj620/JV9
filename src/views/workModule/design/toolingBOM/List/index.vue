@@ -6,7 +6,7 @@
 -->
 
 <template>
-  <PageWrapper :footer="false">
+  <PageWrapper :footer="false" v-loading="uploadLoading">
     <JvEditTable
       :tableObj="eTableObj"
       highlight-current-row
@@ -227,11 +227,12 @@
     </jv-dialog>
     <JvDialog
     :visible.sync="showMassUpload"
+    destroy-on-close
     :title="$t('design.De_DownloadTemplate')"
     width="700px"
-    @confrim="MassUpload"
+    @confirm="MassUpload"
     >
-      <custom-upload></custom-upload>
+      <custom-upload ref="customUploadRef"></custom-upload>
     </JvDialog>
   </PageWrapper>
 </template>
@@ -264,6 +265,7 @@ import { temMerge } from "@/jv_doc/utils/handleData/index";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 import JvDialog from "~/cpn/JvDialog/index.vue";
 import customUpload from "@/components/customUpload/index.vue";
+import request from "@/utils/request";
 export default {
   name: "ToolingBOM",
   // 表格数据
@@ -279,6 +281,7 @@ export default {
   data() {
     return {
       demandStatusEnum,
+      uploadLoading: false, // 上传loaidng
       showMassUpload: false, // 批量上传弹窗
       partLevelMap: {
         0: {
@@ -403,7 +406,40 @@ export default {
     setShowMassUpload() {
       this.showMassUpload = !this.showMassUpload;
     },
-    MassUpload() {},
+    MassUpload() {
+      this.uploadLoading = true;
+      this.showMassUpload = false;
+      let files = this.$refs.customUploadRef.files;
+      let promiseAll = [];
+      files.forEach(item => {
+        let formData = new FormData();
+        formData.append("file", item);
+        formData.append("IsUpdateOwner", 'true');
+        promiseAll.push(new Promise((resolve, reject) => {
+          uploadImage(formData).then(res => {
+            resolve(res);
+          }).catch(err => {
+            reject(err)
+          })
+        }))
+      })
+
+      const allSettledPromise = Promise.allSettled(promiseAll);
+
+      allSettledPromise.then((results) => {
+        this.uploadLoading = false;
+        let state = results.filter(item => {
+          return item.status === 'fulfilled'
+        })
+        this.$notify({
+          title: '上传完毕',
+          message: `一共上传${results.length}张图片，成功${state.length}张, 失败${results.length - state.length}张`,
+          type: state.length === results.length ? 'success' : 'warning'
+        });
+        this.getData();
+      })
+
+    },
     getData() {
       this.closeTooltip();
       if (!this.toolId) return;
