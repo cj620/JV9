@@ -14,6 +14,12 @@
 <script>
 export default {
   name: "index",
+  props: {
+    more: {
+      type: Boolean,
+      default: false,
+    }
+  },
   methods: {
     //粘贴图片
     async handlePaste(event) {
@@ -36,7 +42,7 @@ export default {
             const items = (event.clipboardData || window.clipboardData).items;
       console.log(items.length)
       let file = null;
-
+      let files = [];
             if (!items || items.length === 0) {
               this.$message.error(this.$t("Generality.Ge_NoSupportPaste"));
               return;
@@ -45,14 +51,16 @@ export default {
             for (let i = 0; i < items.length; i++) {
               if (items[i].type.indexOf("image") !== -1) {
                 file = items[i].getAsFile();
-                break;
+                files.push(items[i].getAsFile());
+                // break;
               }
             }
             if (!file) {
               this.$message.error(this.$t("Generality.Ge_NeedPicture"));
               return;
             }
-            this.$emit("handlePasteData", file);
+
+            this.$emit("handlePasteData", this.more ? files : file);
     },
   },
 };

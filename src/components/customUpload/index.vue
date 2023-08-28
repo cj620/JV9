@@ -11,12 +11,12 @@
         <div><i class="el-icon-upload"></i></div>
         <div>将文件拖放到此处,或点击选择文件</div>
       </div>
-<!--      <parse-img-->
-<!--        @handlePasteData="handlePasteData"-->
-<!--        class="edit-partRes-uploadIcons"-->
-<!--        :title="$t('Generality.Ge_Paste')"-->
-<!--      >-->
-<!--      </parse-img>-->
+      <parse-img
+        @handlePasteData="handlePasteData"
+        more
+      >
+        <div class="paste"></div>
+      </parse-img>
     </div>
     <input v-show="false" id="custom_file" type="file" @change="selectFile" multiple />
     <div class="file-box">
@@ -26,7 +26,7 @@
         <div class="file-items-clear" @click="clearFile(i)">
           <i class="el-icon-close"></i>
         </div>
-        <el-image v-if="imageShow" :src="images[i].src"
+        <el-image v-if="imageShow" :src="images[i]"
                   :preview-src-list="previewSrcList"
         ></el-image>
         <div class="file-items-name">
@@ -54,6 +54,7 @@ export default {
       dropzoneActive: false
     }
   },
+  components: {ParseImg},
   methods: {
     /**
      * 处理拖拽区域的拖入事件
@@ -107,18 +108,15 @@ export default {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         this.files.push(file);
+
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
           const src = reader.result;
-          this.images.push({
-            src: src,
-            progress: 0
-          });
+          this.images.push(src);
           this.previewSrcList.push(src);
         };
       }
-      console.log(this.images);
     },
     /**
      * 下载文件
@@ -141,37 +139,15 @@ export default {
     clearFile(i) {
       this.images.splice(i, 1);
       this.files.splice(i, 1);
-      console.log(this.files,this.images)
     },
     // 全部清除
     allClear() {
       this.images = [];
       this.files = [];
     },
-    // 上传
-    uploader() {
-      let formData = new FormData();
-      formData.append("file", this.files[0]);
-      formData.append("IsUpdateOwner", 'true');
-      request({
-        url: '/files/upload_image',
-        method: 'post',
-        data: formData,
-      }).then(res => {
-        console.log(res, '上传成功')
-      }).catch(err => {
-        console.log(err)
-      })
-    },
     // 粘贴事件
-    async handlePaste(event) {
-      console.log(event)
-      const items = (event.clipboardData || window.clipboardData).items;
-      let file = null;
-      if (!items || items.length === 0) {
-        this.$message.error(this.$t("Generality.Ge_NoSupportPaste"));
-        return;
-      }
+    handlePasteData(files) {
+      this.handleFiles(files);
     }
   },
 
@@ -192,12 +168,13 @@ export default {
 }
 .paste:hover{
   border: 1px dashed #409eff;
-  cursor: pointer;
-  user-select: none;
 }
-//.paste:active{
-//  background: #f1f1f1;
-//}
+.paste:active{
+  background: #f1f1f1;
+}
+.paste:before{
+  content: '点击然后粘贴';
+}
 .paste{
   width: 300px;
   height: 100px;
@@ -206,6 +183,7 @@ export default {
   line-height: 100px;
   margin-top: 20px;
   border-radius: 8px;
+  cursor: pointer;
 }
 #dropzone {
   border-radius: 8px;
