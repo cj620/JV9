@@ -17,6 +17,11 @@
           <TableAction
             :actions="[
               {
+                label: '预览',
+                hidden:![...P_inSite,...P_offSite].includes( row.FileType.toLocaleLowerCase() ),
+                confirm: preview.bind(null, row,),
+              },
+              {
                 label: $t('Generality.Ge_Download'),
                 confirm: download.bind(null, row),
               },
@@ -34,6 +39,10 @@
       :image-size="100"
     >
     </el-empty>
+    <el-image-viewer
+      v-if="showViewer"
+      :on-close="()=>{showViewer=false}"
+      :url-list="[preImgUrl]" />
   </div>
 </template>
 
@@ -42,13 +51,22 @@ import { Table } from "@/jv_doc/class/table";
 import { tableConfig } from "./config";
 import { uploadFiles, getBillFile } from "@/api/basicApi/systemSettings/upload";
 import { getToken } from "@/utils/auth";
+import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
+import {P_inSite,P_offSite} from '@/enum/baseModule/fileEnum/previewEnum';
 import axios from "axios";
 export default {
   name: "index",
+  components:{
+    'el-image-viewer':()=>import('element-ui/packages/image/src/image-viewer')
+  },
   data() {
     return {
       tableFileObj: {},
+      showViewer:false,
       fileList: [],
+      preImgUrl:'',
+      P_inSite,
+      P_offSite
     };
   },
   props: {
@@ -147,6 +165,15 @@ export default {
         fileData.map((x) => x.FileUrl)
       );
     },
+    preview(row, scope){
+      console.log(row)
+      this.preImgUrl=imgUrlPlugin(row.FileUrl)
+      if(this.P_inSite.includes(row.FileType)){
+        this.showViewer=true
+      }else{
+        window.open(this.preImgUrl, "_blank");
+      }
+    }
   },
 };
 </script>

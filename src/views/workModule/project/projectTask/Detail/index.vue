@@ -31,26 +31,23 @@
       style="position: relative"
     >
       <div class="mould-img">
-      <el-image
-        :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
-
-        style="width: 100%; height: 100%"
-        :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
-        fit="cover"
-      >
-
-      </el-image>
+        <el-image
+          :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
+          style="width: 100%; height: 100%"
+          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
+          fit="cover"
+        >
+        </el-image>
       </div>
       <div style="position: relative">
-      <JvDetail :detailObj="detailObj">
-        <template #TaskType="{ record }">
-          <!-- 状态标签 -->
-          {{ taskTypeEnum[record].name }}
-        </template>
-      </JvDetail>
+        <JvDetail :detailObj="detailObj">
+          <template #TaskType="{ record }">
+            <!-- 状态标签 -->
+            {{ taskTypeEnum[record].name }}
+          </template>
+        </JvDetail>
 
         <JvState :state="detailObj.detailData.State"></JvState>
-
       </div>
     </JvBlock>
     <!-- 物料信息 -->
@@ -59,7 +56,7 @@
         <template #operation="{ row }">
           <TableAction
             :actions="[
-               {
+              {
                 label: $t('project.Pro_ViewSubtasks'),
                 confirm: viewSubtasks.bind(null, row),
               },
@@ -77,8 +74,8 @@
             :percentage="row.Progress"
           ></el-progress>
         </template>
-         <template #Worker="{ row }">
-         {{row.Worker}}
+        <template #Worker="{ row }">
+          {{ row.Worker }}
         </template>
       </JvTable>
     </JvBlock>
@@ -89,7 +86,25 @@
     </JvBlock>
     <!--附件-->
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
-      <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>
+      <div slot="extra">
+        <el-button
+          size="mini"
+          type="primary"
+          @click="(_) => $refs.upLoad.upload()"
+          >{{ $t("Generality.Ge_Upload") }}</el-button
+        >
+        <el-button size="mini" type="primary" @click="saveFiles"
+          >保存编辑</el-button
+        >
+      </div>
+
+      <JvUploadFile
+        @returnData="returnData"
+        :BillId="cur_Id"
+        ref="upLoad"
+      ></JvUploadFile>
+
+<!--      <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>-->
     </JvBlock>
     <!--审核流程-->
     <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
@@ -159,9 +174,12 @@ import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import AuditProcess from "@/components/BasicModule/AuditProcess";
 import Dynamic from "../../projectManage/mouldDetail/cpns/Dynamic.vue";
 import DynamicList from "../../projectManage/mouldDetail/cpns/DynamicList.vue";
+import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
+import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
 export default {
   // name: "Pm_ProjectTask_Detail",
   components: {
+    JvUploadFile,
     JvRemark,
     JvFileExhibit,
     AuditProcess,
@@ -182,6 +200,7 @@ export default {
       editRouteName: "Pm_ProjectTask_Edit",
       printMod: "Pm_ProjectTask",
       taskTypeEnum,
+      BillFiles: [],
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -279,7 +298,6 @@ export default {
       getJobRecord({ ItemId: row.Id }).then((res) => {
         this.dialogVisible = true;
         this.jobRecordTableObj.setData(res.Items);
-
       });
     },
     dialogConfirm() {
@@ -302,21 +320,32 @@ export default {
     viewSubtasksDialogConfirm() {
       this.viewSubtasksDialogVisible = false;
     },
+    saveFiles() {
+      update_file_owner({
+        BillFiles: this.BillFiles,
+        BillId: this.cur_Id,
+      }).then((res) => {});
+    },
+    returnData(fileData) {
+      // console.log(fileData);
+      // update_file_owner
+      this.BillFiles = fileData;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-  .mould-img {
-    width: 120px;
-    height: 120px;
-    // background-color: pink;
-    position: absolute;
-    left: 10px;
-    right: 200px;
-  }
+.mould-img {
+  width: 120px;
+  height: 120px;
+  // background-color: pink;
+  position: absolute;
+  left: 10px;
+  right: 200px;
+}
 
-  .sum-text {
+.sum-text {
   display: inline-block;
   // padding-right: 100px;
   width: 200px;

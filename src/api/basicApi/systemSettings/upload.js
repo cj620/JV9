@@ -37,3 +37,12 @@ export function DownFile(query) {
     loading:true
   });
 }
+
+//修改文件所有者
+export function update_file_owner(data) {
+  return request({
+    url: "/sys/update_file_owner",
+    method: "post",
+    data
+  });
+}
