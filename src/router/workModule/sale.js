@@ -320,5 +320,17 @@ const sale = [
     title: i18n.t("menu.Sa_Customer") + " " + i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+
+    // 订单评估
+  {
+    key: "Sa_OrderEvaluation",
+    component: () =>
+        import("@/views/workModule/sale/saleQuote/List/components/orderEvaluation.vue"),
+    Parent: "Sa_BaseData",
+    name: "Sa_OrderEvaluation",
+    path: "Sa_OrderEvaluation",
+    title: i18n.t("menu.Sa_Customer") + " " + i18n.t("sale.Sa_OrderEvaluation"),
+    hidden: true,
+  },
 ];
 export default sale;

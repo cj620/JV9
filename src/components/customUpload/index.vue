@@ -48,7 +48,6 @@
 
 <script>
 import ParseImg from "@/components/JVInternal/ParseImg";
-import request from '@/utils/request'
 export default {
   data() {
     return {
@@ -189,6 +188,7 @@ export default {
   line-height: 200px;
   border-radius: 8px;
   cursor: pointer;
+  font-size: 16px;
 }
 #dropzone {
   border-radius: 8px;

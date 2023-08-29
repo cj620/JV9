@@ -292,6 +292,7 @@ const en = {
     ConfirmPasswordReset: "Confirm Password Reset",
   },
   sale: {
+    Sa_OrderEvaluation: "Order Evaluation",
     Sa_CustomerId: "Customer No.",
     Sa_ShortName: "Short Name",
     Sa_FullName: "Full Name",
