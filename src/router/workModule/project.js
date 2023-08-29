@@ -182,6 +182,17 @@ const project = [
       i18n.t("menu.Pm_ProjectTask") + "  " + i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+  // 试模任务详情
+  {
+    key: "Pm_ProjectTask_Detail1",
+    component: () => import("@/views/workModule/project/projectTask/Detail1"),
+    Parent: "Pm_Project",
+    name: "Pm_ProjectTask_Detail1",
+    path: "pm_ProjectTask_Detail1",
+    title:
+      i18n.t("menu.Pm_ProjectTask") + "  " + i18n.t("Generality.Ge_Details"),
+    hidden: true,
+  },
   // 项目任务
   {
     key: "Pm_ProjectTask_Record",

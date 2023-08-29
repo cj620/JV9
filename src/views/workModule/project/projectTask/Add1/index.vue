@@ -133,7 +133,7 @@ export default {
       tableObj: {},
       dialogImgFormVisible: false,
       defaultImgUrl: window.global_config.ImgBase_Url,
-      detailRouteName: "Pm_ProjectTask_Detail",
+      detailRouteName: "Pm_ProjectTask_Detail1",
       ImgDataList: [],
       tableRow: {},
       fileBillId: this.$route.query.BillId,

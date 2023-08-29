@@ -22,16 +22,18 @@
             <el-form ref="form" size="mini" :model="detailsSearchForm" inline>
               <el-form-item>
                 <el-input
-                  v-model="detailsSearchForm.Keyword"
-                  placeholder="请输入单据编号、名称、部门"
+                  style="margin-right: 10px"
+                  v-for="(item, index) in inputList" :key="index"
+                  v-model="detailsSearchForm[item.label]"
+                  :placeholder="item.title"
                 ></el-input>
               </el-form-item>
-              <el-form-item label-width="20px">
-                <el-button type="primary" size="mini" @click="searchForm">{{
+              <!--<slot name="customerName"></slot>-->
+              <el-button type="primary" size="mini" @click="searchForm">{{
                   $t("Generality.Ge_Search")
                 }}</el-button>
                 <slot name="slot-btn" :form="tableObj.formObj.form"></slot>
-              </el-form-item>
+              <!--</el-form-item>-->
             </el-form>
           </template>
 
@@ -67,6 +69,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    formConfig: {
+      type: Array,
+      default: () => [],
+    }
   },
   data() {
     return {
@@ -74,6 +80,9 @@ export default {
       detailsSearchForm: {
         Keyword: "",
       },
+      inputList: [
+        {label: 'Keyword', title:'请输入单据编号、名称、部门'}
+      ],
     };
   },
   methods: {
@@ -116,10 +125,17 @@ export default {
         this.tableObj.formObj.form,
         this.detailsSearchForm
       );
+      delete this.tableObj.formObj.form.undefined
       this.tableObj.getData();
     },
   },
   created() {
+
+    this.formConfig.forEach(item => {
+      this.detailsSearchForm[item.key] = ''
+      this.inputList.push(item)
+    })
+
     if (this.tableConfig) {
       this.tableObj = new this.tableConfig();
       this.tableObj.getData();
@@ -136,4 +152,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+::v-deep .el-form-item__content{
+  display: flex;
+}
+</style>

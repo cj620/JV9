@@ -121,10 +121,12 @@
     <select-doc-details
       :visible.sync="detailsVisible"
       v-if="detailsVisible"
+      :formConfig="[{label: 'CustomerName',title:'请输入客户简称'}]"
       :tableConfig="Table"
       :detailedData="detailedData"
       @confirmDetails="validateIsCompleted"
-    ></select-doc-details>
+    >
+    </select-doc-details>
 
     <!-- 发货完成提醒弹窗 -->
     <jv-dialog
@@ -191,6 +193,7 @@ export default {
       confirmFormVisible: false,
       completedItems: [],
       selectedItems: [],
+      CustomerName:"",
       ruleForm: {
         BillId: "",
         BillGui: "",
