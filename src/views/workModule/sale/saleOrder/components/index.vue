@@ -206,7 +206,7 @@ export default {
         ItemName: "",
         Description: "",
         Unit: "",
-        Quantity: 0,
+        Quantity: 1,
         Price: 0,
         Amount: 0,
         Tax: 0,

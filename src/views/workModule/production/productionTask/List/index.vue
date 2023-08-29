@@ -327,6 +327,7 @@ export default {
         "Processed",
         "Pausing",
         "Outsourcing",
+        "OutsourcingApplying",
       ],
       form: {
         ToolingNo: "",

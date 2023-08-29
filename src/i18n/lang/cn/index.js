@@ -491,6 +491,7 @@ const cn = {
     Ge_Processing: "加工中",
     Ge_Pausing: "暂停中",
     Ge_Outsourcing: "外协中",
+    Ge_OutsourcingApplying: "外协申请中",
     Ge_Revoked: "已撤审",
     Ge_TDA: "未税金额",
     Ge_AuxiliaryQty: "辅助数量",

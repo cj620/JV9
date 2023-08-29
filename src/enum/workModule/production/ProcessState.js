@@ -105,4 +105,20 @@ export default {
       switchDevice:true
     },
   },
+  /// <summary>
+  /// 外协申请中
+  /// </summary>
+  OutsourcingApplying: {
+    name: i18n.t("Generality.Ge_OutsourcingApplying"),
+    value: "Outsourcing",
+    color: "#F709F7",
+    _color: "#fff",
+    c_color: "#F709F7",
+    fcolor: "#fff",
+    icon: "",
+    operation: {
+      top:true,
+      switchDevice:true
+    },
+  },
 };
