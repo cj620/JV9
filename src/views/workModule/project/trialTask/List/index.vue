@@ -21,21 +21,21 @@
         <TableAction :actions="getListTableColBtnModel(row)" />
       </template>
       <!-- 表格操作行 -->
-      <!--<Action-->
-      <!--  size="mini"-->
-      <!--  slot="btn-list"-->
-      <!--  :actions="[-->
-      <!--    {-->
-      <!--      label: $t('project.Pro_TaskRecord'),-->
-      <!--      confirm: taskRecord,-->
-      <!--    },-->
-      <!--    {-->
-      <!--      label: $t('Generality.Ge_Details1'),-->
-      <!--      confirm: detailsList,-->
-      <!--    },-->
-      <!--  ]"-->
-      <!--&gt;-->
-      <!--</Action>-->
+      <Action
+        size="mini"
+        slot="btn-list"
+        :actions="[
+          {
+            label: $t('Generality.Ge_Delete'),
+            disabled: canIsDel,
+            popConfirm: {
+              title: $t('Generality.Ge_DeleteConfirm'),
+              confirm: delBills,
+            },
+          }
+        ]"
+      >
+      </Action>
     </JvTable>
   </PageWrapper>
 </template>
@@ -43,7 +43,7 @@
 // 单据状态组件
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import { listTableColBtnModel } from "@/jv_doc/utils/system/pagePlugin";
-import { taskTypeEnum } from "@/enum/workModule";
+import { stateEnum, taskTypeEnum } from "@/enum/workModule";
 // 引入表格类
 import { Table } from "./config";
 export default {
@@ -59,8 +59,6 @@ export default {
       tableObj: {},
       // 编辑路由
       EditRoute: "Sa_SaleQuote_Edit",
-      // 新增路由
-      AddRoute: "Sa_SaleQuote_Add",
 
       TaskType: "TrialTooling",
     };
@@ -75,23 +73,31 @@ export default {
       this.tableObj.formObj.form.TaskType = this.TaskType;
       this.tableObj.getData();
     },
-    // taskRecord() {
-    //   this.$router.push({
-    //     name: "Pm_ProjectTask_Record",
-    //     query: { TaskType: this.TaskType },
-    //   });
-    // },
-    // //项目任务明细
-    // detailsList() {
-    //   this.$router.push({
-    //     name: "Pm_ProjectTask_DetailList",
-    //   });
-    // },
+    //批量删除单据
+    delBills() {
+      this.tableObj.api.del({ BillIds: this.tableObj.selectData.keys }).then((_) => {
+        this.tableObj.getData();
+      });
+    },
   },
   computed: {
     getListTableColBtnModel() {
       return (row) => {
         return listTableColBtnModel(this, row);
+      };
+    },
+    // 是否可以批量删除
+    canIsDel() {
+      let { datas } = this.tableObj.selectData;
+      if (datas.length === 0) return true;
+      return datas.some((item) => {
+        return !["Rejected", "Unsubmitted"].includes(item.State);
+      });
+    },
+    // 获取按钮状态
+    getActionState() {
+      return (state, type) => {
+        return !stateEnum[state]?.operation?.[type];
       };
     },
   },

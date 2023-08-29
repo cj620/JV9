@@ -14,7 +14,7 @@
     </el-tabs>
 
     <!--单据信息-->
-    <JvBlock :title="$t('Generality.Ge_BillInfo')" ref="first">
+    <JvBlock :title="$t('Generality.Ge_BillInfo') + BillIdShow" ref="first">
       <JvForm :formObj="formObj"> </JvForm>
     </JvBlock>
 
@@ -191,6 +191,9 @@ export default {
     ...mapState({
       current: (state) => state.page.current,
     }),
+    BillIdShow() {
+      return this.cur_Id ? `:  ${this.cur_Id}` : "";
+    },
   },
   async created() {
     this.formObj = new Form({

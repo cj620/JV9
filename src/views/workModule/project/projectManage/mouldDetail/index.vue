@@ -323,7 +323,7 @@ export default {
     // 跳转
     toAddMold(e){
       this.$router.push({
-		    name: "Pm_ProjectTask_Add1",
+		    name: "Pm_TrialTask_Add",
         query: e,
       })
     }

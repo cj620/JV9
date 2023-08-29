@@ -65,10 +65,9 @@ export class Table extends BaseTable {
           // 接口类
           api,
           // 操作列宽度
-          operationWidth: 110,
+          operationWidth: 150,
           // 打印模块标识
           printMod: "Pm_TestTask",
-          operationCol: false,
         }
     );
   }
@@ -145,12 +144,12 @@ export const tableConfig = [
   },
 
   /*状态*/
-  // {
-  //   prop: "State",
-  //   label: i18n.t("Generality.Ge_State"),
-  //   custom: true,
-  //   width: "115px",
-  // },
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    custom: true,
+    width: "115px",
+  },
 
   /*计划交期*/
   {
