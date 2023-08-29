@@ -9,10 +9,9 @@
 <!--新增-->
 <!--编辑销售订单-->
 <template>
-  <!-- 单据信息 -->
   <PageWrapper ref="page">
+    <!-- tab 导航栏  -->
     <el-tabs @tab-click="tabClick" slot="sticky-tabs">
-      <!-- tab 导航栏  -->
       <el-tab-pane
         v-for="pane in tabPanes"
         :key="pane.name"
@@ -20,13 +19,13 @@
         :name="pane.name"
       ></el-tab-pane>
     </el-tabs>
-    <Action slot="sticky-extra" size="small" :actions="btnAction"></Action>
+    <!-- 单据信息 -->
     <JvBlock
       :title="$t('Generality.Ge_BillInfo')"
       ref="first"
       :contentStyle="{
         paddingLeft: '150px',
-        height: '140px',
+        height: '280px',
       }"
       style="position: relative"
     >
@@ -42,43 +41,30 @@
       </el-image>
       </div>
       <div style="position: relative">
-      <JvDetail :detailObj="detailObj">
-        <template #TaskType="{ record }">
-          <!-- 状态标签 -->
-          {{ taskTypeEnum[record].name }}
-        </template>
-      </JvDetail>
-
+        <JvDetail :detailObj="detailObj">
+        <!-- 任务类别 -->
+          <template #TaskType="{ record }">
+            {{ taskTypeEnum[record].name }}
+          </template>
+        </JvDetail>
+        <!-- 状态标签 -->
         <JvState :state="detailObj.detailData.State"></JvState>
-
       </div>
     </JvBlock>
-    <!-- 物料信息 -->
-    <JvBlock :title="$t('Generality.Ge_ProcessInfo')" ref="second">
+    <!-- 试模动态信息 -->
+    <JvBlock title="试模问题点" ref="second">
       <JvTable :tableObj="tableObj">
-        <template #operation="{ row }">
-          <TableAction
-            :actions="[
-               {
-                label: $t('project.Pro_ViewSubtasks'),
-                confirm: viewSubtasks.bind(null, row),
-              },
-              {
-                label: $t('project.Pro_ReportToWorkRecord'),
-                confirm: jobRecordVisiable.bind(null, row),
-              },
-            ]"
-          />
-        </template>
-        <template #Progress="{ row }">
-          <el-progress
-            :text-inside="true"
-            :stroke-width="14"
-            :percentage="row.Progress"
-          ></el-progress>
-        </template>
-         <template #Worker="{ row }">
-         {{row.Worker}}
+        <template #BillFiles="{ record }">
+          <div v-if="record.length > 0">
+            <el-image
+              style="width: 50px; height: 50px"
+              v-for="(item, index) in record"
+              :key="index"
+              :preview-src-list="[defaultImgUrl + item]"
+              :src="defaultImgUrl + item"
+            >
+            </el-image>
+          </div>
         </template>
       </JvTable>
     </JvBlock>
@@ -110,48 +96,21 @@
       @dynamicConfirm="dynamicConfirm"
     >
     </Dynamic>
-    <JvDialog
-      :visible.sync="dialogVisible"
-      :title="$t('project.Pro_ReportToWorkRecord')"
-      v-if="dialogVisible"
-      @confirm="dialogConfirm"
-      width="60%"
-    >
-      <JvTable :tableObj="jobRecordTableObj">
-        <template #TaskType="{ record }">
-          <!-- 状态标签 -->
-          {{ taskTypeEnum[record].name }}
-        </template>
-      </JvTable>
-    </JvDialog>
 
-    <JvDialog
-      :visible.sync="viewSubtasksDialogVisible"
-      :title="$t('project.Pro_ViewSubtasks')"
-      v-if="viewSubtasksDialogVisible"
-      @confirm="viewSubtasksDialogConfirm"
-      width="60%"
-    >
-      <JvTable :tableObj="viewSubtasksTableObj"> </JvTable>
-    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import { Table, detailConfig } from "./config";
-import { ViewSubtasksTableObj } from "./viewSubtasksTableConfig";
-import { JobRecordTable } from "./jobRecordTableConfig";
 import Detail from "@/jv_doc/class/detail/Detail";
 import {
   API as ProjectTask,
-  getJobRecord,
   successProjectTask,
-  project_task_get_children_item,
 } from "@/api/workApi/project/projectTask";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { save_project_dynamic } from "@/api/workApi/project/projectInfo";
-import { detailPageModel } from "@/jv_doc/utils/system/index";
+// import { detailPageModel } from "@/jv_doc/utils/system/index";
 import { taskTypeEnum } from "@/enum/workModule";
 import JvState from "@/components/JVInternal/JvState/index";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
@@ -175,8 +134,7 @@ export default {
       detailObj: {},
       // 工序
       tableObj: {},
-      jobRecordTableObj: {},
-      btnAction: [],
+      // btnAction: [],
       DynamicInfo: [],
       // 编辑路由指向 谨慎删除
       editRouteName: "Pm_ProjectTask_Edit",
@@ -188,7 +146,7 @@ export default {
           name: "first",
         },
         {
-          label: this.$t("Generality.Ge_ProcessInfo"),
+          label: '试模问题点',
           name: "second",
         },
         {
@@ -209,17 +167,14 @@ export default {
         },
       ],
       dynamicShow: false,
-      dialogVisible: false,
-      viewSubtasksDialogVisible: false,
-      viewSubtasksTableObj: {},
     };
   },
   computed: {
     ...mapState({
       current: (state) => state.page.current,
     }),
-
-    BillIdShow() {},
+    //
+    // BillIdShow() {},
   },
   created() {
     // this.ruleForm
@@ -229,9 +184,7 @@ export default {
       schema: detailConfig,
       column: 3,
     });
-    this.jobRecordTableObj = new JobRecordTable();
     this.getData();
-    this.viewSubtasksTableObj = new ViewSubtasksTableObj();
   },
   mounted() {},
   methods: {
@@ -239,14 +192,11 @@ export default {
     getData() {
       ProjectTask.api_get({ BillId: this.cur_Id }).then((res) => {
         this.detailObj.setData(res);
-        this.tableObj.setData(res.BillItems);
+        for (let key in res.TrialToolingDynamicData) {
+          this.detailObj.detailData[key] = res.TrialToolingDynamicData[key];
+        }
+        this.tableObj.setData(res.TestMouldProblemPoints);
         this.DynamicInfo = res.DynamicInfo || [];
-        this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
-        this.btnAction.push({
-          label: this.$t("Generality.Ge_Finished"),
-          confirm: this.successProjectTask,
-          disabled: this.detailObj.detailData.State !== "Approved",
-        });
       });
     },
     // 新增动态
@@ -274,33 +224,6 @@ export default {
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
-    },
-    jobRecordVisiable(row) {
-      getJobRecord({ ItemId: row.Id }).then((res) => {
-        this.dialogVisible = true;
-        this.jobRecordTableObj.setData(res.Items);
-
-      });
-    },
-    dialogConfirm() {
-      this.dialogVisible = false;
-    },
-    // 完成单据
-    successProjectTask() {
-      successProjectTask({ BillId: this.cur_Id }).then(() => {
-        this.getData();
-      });
-    },
-    //查看子用户
-    viewSubtasks(row) {
-      this.viewSubtasksDialogVisible = true;
-
-      project_task_get_children_item({ Id: row.Id }).then((res) => {
-        this.viewSubtasksTableObj.setData(res.Items);
-      });
-    },
-    viewSubtasksDialogConfirm() {
-      this.viewSubtasksDialogVisible = false;
     },
   },
 };
