@@ -52,10 +52,14 @@
     <JvBlock :title="$t('sale.Sa_MaterialCost')" ref="second">
       <JvTable :table-obj="M_TableObj"> </JvTable>
     </JvBlock>
-    <!--加工费用及项目费用-->
-    <JvBlock :title="$t('sale.Sa_ProcessingCostAndProjectCost')" ref="third">
-      <JvTable :table-obj="P_TableObj"> </JvTable>
+    <!--项目费用-->
+    <JvBlock title="项目费用" ref="third">
+      <JvTable :table-obj="Project_TableObj"> </JvTable>
     </JvBlock>
+      <!--加工费用-->
+      <JvBlock title="加工费用" ref="third">
+          <JvTable :table-obj="Produce_TableObj"> </JvTable>
+      </JvBlock>
     <!-- 成本合计 -->
     <JvBlock
       :contentStyle="{
@@ -129,8 +133,10 @@ export default {
     return {
       // 材料费用
       M_TableObj: {},
-      // 加工及项目费用
-      P_TableObj: {},
+      // 项目费用
+		Project_TableObj: {},
+		// 加工费用
+		Produce_TableObj: {},
       // 成本费用
       C_TableObj: {},
       // 当前单据的id
@@ -194,7 +200,8 @@ export default {
       height: 350,
     });
     this.M_TableObj = new M_Table();
-    this.P_TableObj = new P_Table();
+    this.Project_TableObj = new P_Table();
+    this.Produce_TableObj = new P_Table();
     this.C_TableObj = new C_Table();
     this.GetData();
   },
@@ -207,7 +214,8 @@ export default {
         this.detailObj.detailData = res;
         this.M_TableObj.setData(res.MaterialCost);
         // this.P_TableObj.setData(res.ProductionCost);
-        this.P_TableObj.setData(data2doubleCol(res.ProductionCost));
+        this.Project_TableObj.setData(data2doubleCol(res.ProjectCost));
+        this.Produce_TableObj.setData(data2doubleCol(res.ProductionCost));
         this.C_TableObj.setData(res.AdditionalCost);
         this.btnAction = detailPageModel(this, res, Quotation, this.GetData);
         // this.btnAction=[...this.btnAction,...[{

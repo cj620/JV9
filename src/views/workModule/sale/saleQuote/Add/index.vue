@@ -84,14 +84,14 @@
         </template>
       </JvEditTable>
     </JvBlock>
-    <!-- 加工费用及项目费用-->
-    <JvBlock :title="$t('sale.Sa_ProcessingCostAndProjectCost')" ref="third">
+    <!-- 项目费用-->
+    <JvBlock title="项目费用" ref="third">
       <div slot="extra">
-        <el-button size="mini" @click="add_p_row" type="primary">{{
+        <el-button size="mini" @click="add_project_row" type="primary">{{
           $t("Generality.Ge_New")
         }}</el-button>
       </div>
-      <JvEditTable :tableObj="P_TableObj">
+      <JvEditTable :tableObj="Project_TableObj">
         <template #Amount="{ row }">
           {{ getSummary(row, "Amount") }}
         </template>
@@ -103,17 +103,47 @@
             :actions="[
               {
                 icon: 'el-icon-circle-plus-outline',
-                confirm: insertDoubleCol.bind(null, P_TableObj, row_index),
+                confirm: insertDoubleCol.bind(null, Project_TableObj, row_index),
               },
               {
                 icon: 'el-icon-delete',
-                confirm: delDoubleCol.bind(null, P_TableObj, row_index),
+                confirm: delDoubleCol.bind(null, Project_TableObj, row_index),
               },
             ]"
           />
         </template>
       </JvEditTable>
     </JvBlock>
+      <!-- 加工费用-->
+      <JvBlock title="加工费用" ref="third">
+          <div slot="extra">
+              <el-button size="mini" @click="add_produce_row" type="primary">{{
+                  $t("Generality.Ge_New")
+                  }}</el-button>
+          </div>
+          <JvEditTable :tableObj="Produce_TableObj">
+              <template #Amount="{ row }">
+                  {{ getSummary(row, "Amount") }}
+              </template>
+              <template #col_Amount="{ row }">
+                  {{ p_getSummary(row, "col_Amount") }}
+              </template>
+              <template #operation="{ row_index }">
+                  <TableAction
+                      :actions="[
+              {
+                icon: 'el-icon-circle-plus-outline',
+                confirm: insertDoubleCol.bind(null, Produce_TableObj, row_index),
+              },
+              {
+                icon: 'el-icon-delete',
+                confirm: delDoubleCol.bind(null, Produce_TableObj, row_index),
+              },
+            ]"
+                  />
+              </template>
+          </JvEditTable>
+      </JvBlock>
     <!-- 成本合计 -->
     <JvBlock
       :contentStyle="{
@@ -258,7 +288,8 @@ export default {
       // 材料费用
       M_TableObj: {},
       // 加工及项目费用
-      P_TableObj: {},
+		Project_TableObj: {},
+		Produce_TableObj: {},
       // 成本费用
       C_TableObj: {},
       // 成本合计
@@ -308,6 +339,8 @@ export default {
         MaterialCost: [],
         // 加工费用
         ProductionCost: [],
+		  // 项目费用
+		  ProjectCost: [],
         // 其他费用
         AdditionalCost: [],
       },
@@ -363,11 +396,14 @@ export default {
     },
     getAllCostSum() {
       let m_sum = amount2Number(this.M_TableObj.summaryRowResult[6]);
-      let p_sum =
-        amount2Number(this.P_TableObj.summaryRowResult[4]) +
-        amount2Number(this.P_TableObj.summaryRowResult[9]);
-      this.costSummary = m_sum + p_sum;
-      return amountFormat(m_sum + p_sum);
+      let project_sum =
+        amount2Number(this.Project_TableObj.summaryRowResult[4]) +
+        amount2Number(this.Project_TableObj.summaryRowResult[9]);
+	  let produce_sum =
+        amount2Number(this.Produce_TableObj.summaryRowResult[4]) +
+        amount2Number(this.Produce_TableObj.summaryRowResult[9]);
+      this.costSummary = m_sum + project_sum+ produce_sum;
+      return amountFormat(m_sum + project_sum+ produce_sum);
     },
     getAllSum() {
       let c_sum = amount2Number(this.C_TableObj.summaryRowResult[3]);
@@ -393,7 +429,8 @@ export default {
       this.formObj.form.Currency = b.Currency;
     });
     this.M_TableObj = new M_EditTable();
-    this.P_TableObj = new P_EditTable();
+    this.Project_TableObj = new P_EditTable();
+    this.Produce_TableObj = new P_EditTable();
     this.C_TableObj = new C_EditTable();
     // await this.Configuration();
     this.GetProjectData();
@@ -418,11 +455,15 @@ export default {
           res.ProductionCost.forEach((item) => {
             item.Id = 0;
           });
+			res.ProjectCost.forEach((item) => {
+				item.Id = 0;
+			});
           res.AdditionalCost.forEach((item) => {
             item.Id = 0;
           });
           this.M_TableObj.setData(res.MaterialCost);
-          this.P_TableObj.setData(data2doubleCol(res.ProductionCost));
+          this.Project_TableObj.setData(data2doubleCol(res.ProjectCost));
+          this.Produce_TableObj.setData(data2doubleCol(res.ProductionCost));
           this.C_TableObj.setData(res.AdditionalCost);
         });
       }
@@ -477,9 +518,13 @@ export default {
     },
     insertDoubleCol,
     delDoubleCol,
-    // 加工费用及项目费用-
-    add_p_row() {
-      pushDoubleCol(this.P_TableObj);
+    // 项目费用-
+	  add_project_row() {
+      pushDoubleCol(this.Project_TableObj);
+    },
+      //加工费用
+	  add_produce_row(){
+		pushDoubleCol(this.Produce_TableObj);
     },
     //上传文件返回的数据
     returnData(fileData) {
@@ -501,9 +546,13 @@ export default {
           Object.assign(this.ruleForm, this.formObj.form);
 
           this.ruleForm.MaterialCost = this.M_TableObj.getTableData();
-          this.ruleForm.ProductionCost = doubleCol2data(
-            this.P_TableObj.getTableData()
+          this.ruleForm.ProjectCost = doubleCol2data(
+            this.Project_TableObj.getTableData()
           );
+			this.ruleForm.ProductionCost = doubleCol2data(
+		  this.Produce_TableObj.getTableData()
+			);
+
           this.ruleForm.AdditionalCost = this.C_TableObj.getTableData();
           this._save();
         }

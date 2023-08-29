@@ -24,7 +24,7 @@ export default {
         this.formObj.form = this.ruleForm;
 
         this.M_TableObj.setData(res.MaterialCost);
-        this.P_TableObj.setData(data2doubleCol(res.ProductionCost));
+        this.Project_TableObj.setData(data2doubleCol(res.ProductionCost));
         this.C_TableObj.setData(res.AdditionalCost);
       });
     },
