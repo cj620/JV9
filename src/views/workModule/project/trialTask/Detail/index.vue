@@ -19,6 +19,7 @@
         :name="pane.name"
       ></el-tab-pane>
     </el-tabs>
+    <Action slot="sticky-extra" size="small" :actions="btnAction"></Action>
     <!-- 单据信息 -->
     <JvBlock
       :title="$t('Generality.Ge_BillInfo')"
@@ -108,7 +109,7 @@ import {
   API as ProjectTask,
   successProjectTask,
 } from "@/api/workApi/project/projectTask";
-import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
+import { detailPageModel, imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { save_project_dynamic } from "@/api/workApi/project/projectInfo";
 // import { detailPageModel } from "@/jv_doc/utils/system/index";
 import { taskTypeEnum } from "@/enum/workModule";
@@ -119,7 +120,7 @@ import AuditProcess from "@/components/BasicModule/AuditProcess";
 import Dynamic from "../../projectManage/mouldDetail/cpns/Dynamic.vue";
 import DynamicList from "../../projectManage/mouldDetail/cpns/DynamicList.vue";
 export default {
-  name: "Pm_ProjectTask_Detail1",
+  name: "Pm_TrialTask_Detail",
   components: {
     JvRemark,
     JvFileExhibit,
@@ -132,13 +133,13 @@ export default {
     return {
       cur_Id: this.$route.query.BillId,
       detailObj: {},
-      // 工序
       tableObj: {},
-      // btnAction: [],
       DynamicInfo: [],
+      btnAction: [],
+      defaultImgUrl: window.global_config.ImgBase_Url,
       // 编辑路由指向 谨慎删除
-      editRouteName: "Pm_ProjectTask_Edit",
-      printMod: "Pm_ProjectTask",
+      editRouteName: "Pm_TrialTask_Edit",
+      printMod: "Pm_TrialTask_Detail",
       taskTypeEnum,
       tabPanes: [
         {
@@ -197,6 +198,18 @@ export default {
         }
         this.tableObj.setData(res.TestMouldProblemPoints);
         this.DynamicInfo = res.DynamicInfo || [];
+        this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
+        this.btnAction.push({
+          label: this.$t("Generality.Ge_Finished"),
+          confirm: this.successProjectTask,
+          disabled: this.detailObj.detailData.State !== "Approved",
+        });
+      });
+    },
+    // 完成单据
+    successProjectTask() {
+      successProjectTask({ BillId: this.cur_Id }).then(() => {
+        this.getData();
       });
     },
     // 新增动态

@@ -14,7 +14,7 @@
     </el-tabs>
 
     <!--单据信息-->
-    <JvBlock :title="$t('Generality.Ge_BillInfo')" ref="first">
+    <JvBlock :title="$t('Generality.Ge_BillInfo') + BillIdShow" ref="first">
       <JvForm :formObj="formObj"> </JvForm>
     </JvBlock>
 
@@ -114,7 +114,7 @@ import closeTag from "@/utils/closeTag";
 import { timeFormat } from "~/utils/time";
 import { mapState } from "vuex";
 export default {
-  name: "Pm_ProjectTask_Add1",
+  name: "Pm_TrialTask_Add",
   components: {
     JvUploadFile,
     JvUploadList,
@@ -132,7 +132,7 @@ export default {
       tableObj: {},
       dialogImgFormVisible: false,
       defaultImgUrl: window.global_config.ImgBase_Url,
-      detailRouteName: "Pm_ProjectTask_Detail1",
+      detailRouteName: "Pm_TrialTask_Detail",
       ImgDataList: [],
       tableRow: {},
       fileBillId: this.$route.query.BillId,
@@ -191,6 +191,9 @@ export default {
     ...mapState({
       current: (state) => state.page.current,
     }),
+    BillIdShow() {
+      return this.cur_Id ? `:  ${this.cur_Id}` : "";
+    },
   },
   async created() {
     this.formObj = new Form({
@@ -213,9 +216,11 @@ export default {
           this.formObj.form[key] = this.curData[key];
         }
       }
-      this.formObj.form.TaskType = "TrialTooling"
-      this.formObj.form.RelationId = this.curData.BillId
-      this.formObj.form.TestMouldDate = timeFormat(new Date(), "yyyy-MM-dd")
+      if (this.formObj.form.TaskType !== "TrialTooling"){
+        this.formObj.form.TaskType = "TrialTooling"
+        this.formObj.form.RelationId = this.curData.BillId
+        this.formObj.form.TestMouldDate = timeFormat(new Date(), "yyyy-MM-dd")
+      }
       console.log(this.formObj.form);
     },
     tabClick(e) {

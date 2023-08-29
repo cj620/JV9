@@ -152,16 +152,6 @@ const project = [
     title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.Pm_ProjectTask"),
     hidden: true,
   },
-  // 新增试模任务
-  {
-    key: "Pm_ProjectTask_Add1",
-    component: () => import("@/views/workModule/project/projectTask/Add1"),
-    Parent: "Pm_Project",
-    name: "Pm_ProjectTask_Add1",
-    path: "pm_ProjectTask_Add1",
-    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.Pm_ProjectTask"),
-    hidden: true,
-  },
   {
     key: "Pm_ProjectTask_Edit",
     component: () => import("@/views/workModule/project/projectTask/Edit"),
@@ -178,17 +168,6 @@ const project = [
     Parent: "Pm_Project",
     name: "Pm_ProjectTask_Detail",
     path: "pm_ProjectTask_Detail",
-    title:
-      i18n.t("menu.Pm_ProjectTask") + "  " + i18n.t("Generality.Ge_Details"),
-    hidden: true,
-  },
-  // 试模任务详情
-  {
-    key: "Pm_ProjectTask_Detail1",
-    component: () => import("@/views/workModule/project/projectTask/Detail1"),
-    Parent: "Pm_Project",
-    name: "Pm_ProjectTask_Detail1",
-    path: "pm_ProjectTask_Detail1",
     title:
       i18n.t("menu.Pm_ProjectTask") + "  " + i18n.t("Generality.Ge_Details"),
     hidden: true,
@@ -224,6 +203,38 @@ const project = [
     name: "Pm_TestTask",
     path: "pm_TestTask",
     title: i18n.t("menu.Pm_TestTask"),
+  },
+  // 新增试模任务
+  {
+    key: "Pm_TrialTask_Add",
+    component: () => import("@/views/workModule/project/trialTask/Add"),
+    Parent: "Pm_TestTask",
+    name: "Pm_TrialTask_Add",
+    path: "pm_TrialTask_Add",
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.Pm_ProjectTask"),
+    hidden: true,
+  },
+  // 试模任务详情
+  {
+    key: "Pm_TrialTask_Detail",
+    component: () => import("@/views/workModule/project/trialTask/Detail"),
+    Parent: "Pm_TestTask",
+    name: "Pm_TrialTask_Detail",
+    path: "pm_TrialTask_Detail",
+    title:
+        i18n.t("menu.Pm_ProjectTask") + "  " + i18n.t("Generality.Ge_Details"),
+    hidden: true,
+  },
+  // 试模任务编辑
+  {
+    key: "Pm_TrialTask_Edit",
+    component: () => import("@/views/workModule/project/trialTask/Edit"),
+    Parent: "Pm_TestTask",
+    name: "Pm_TrialTask_Edit",
+    path: "pm_TrialTask_Edit",
+    title:
+        i18n.t("menu.Pm_ProjectTask") + "  " + i18n.t("Generality.Ge_Edit"),
+    hidden: true,
   },
   // 项目成本
   {
