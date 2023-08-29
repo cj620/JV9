@@ -17,7 +17,7 @@ export class EditTable extends BaseTable {
       title: "",
       tableHeaderShow: false,
       height: null,
-      maxHeight: 2000,
+      Height: 400,
       operationWidth: 80,
       chooseCol:false,
     });
@@ -52,10 +52,10 @@ export const tableSchema = [
       disabled:true,
     }
   },
-  /*编号*/
+/*  /!*编号*!/
   {
     prop: "Id",
     label: i18n.t("Generality.Ge_ID"),
     hidden: true,
-  },
+  },*/
 ];

@@ -22,25 +22,24 @@
     <JvBlock :title="$t('project.Pro_TestMouldProblemPoints')" ref="second">
       <div slot="extra">
         <el-button size="mini" @click="addRow">{{
-            $t("Generality.Ge_New")
-          }}</el-button>
+          $t("Generality.Ge_New")
+        }}</el-button>
       </div>
       <JvEditTable :tableObj="tableObj">
         <template #BillFiles="{ row }">
-          <div v-if="row.BillFiles.value.length>0">
+          <div v-if="row.BillFiles.value.length > 0">
             <el-image
-                style="width: 50px; height: 50px"
-                v-for="(item,index) in row.BillFiles.value"
-                :key="index"
-                :src="defaultImgUrl +item"
+              style="width: 50px; height: 50px"
+              v-for="(item, index) in row.BillFiles.value"
+              :key="index"
+              :src="defaultImgUrl + item"
             >
             </el-image>
           </div>
-
         </template>
         <template #operation="{ row, row_index }">
           <TableAction
-              :actions="[
+            :actions="[
               {
                 label: '图片',
                 confirm: addImg.bind(null, row),
@@ -90,14 +89,14 @@
     </div>
 
     <jv-dialog
-        :title="$t('Generality.Ge_AddNewPicture')"
-        width="35%"
-        :close-on-click-modal="false"
-        :modal-append-to-body="false"
-        :append-to-body="false"
-        :visible.sync="dialogImgFormVisible"
-        v-if="dialogImgFormVisible"
-        @confirm="confirmImg"
+      :title="$t('Generality.Ge_AddNewPicture')"
+      width="35%"
+      :close-on-click-modal="false"
+      :modal-append-to-body="false"
+      :append-to-body="false"
+      :visible.sync="dialogImgFormVisible"
+      v-if="dialogImgFormVisible"
+      @confirm="confirmImg"
     >
       <JvUploadList v-model="ImgDataList" :listType="true"></JvUploadList>
     </jv-dialog>
@@ -108,7 +107,7 @@
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import JvUploadList from "@/components/JVInternal/JvUpload/List";
 import { Form } from "~/class/form";
-import { EditTable } from "./editConfig"
+import { EditTable } from "./editConfig";
 import { formSchema } from "./formConfig";
 import { API as ProjectTask } from "@/api/workApi/project/projectTask";
 import closeTag from "@/utils/closeTag";
@@ -137,15 +136,15 @@ export default {
       ImgDataList: [],
       tableRow: {},
       fileBillId: this.$route.query.BillId,
-      ruleForm:{
+      ruleForm: {
         BillId: this.$route.query.BillId,
         BillGui: "",
         TaskType: 0,
-		    ToolingNo: "",
+        ToolingNo: "",
         PlanStart: "",
         PlanEnd: "",
-		    Remarks: "",
-        BillItems:[],
+        Remarks: "",
+        BillItems: [],
         TrialToolingDynamicData: {
           RelationId: "",
           TestMouldReason: "",
@@ -156,10 +155,10 @@ export default {
           TestMouldDate: "",
           TestMouldUseTime: "",
           TestMouldInfo: "",
-          TestMouldProblemPoints:[],
+          TestMouldProblemPoints: [],
         },
-		    SaveAndSubmit: true,
-		    BillFiles: [],
+        SaveAndSubmit: true,
+        BillFiles: [],
       },
       TestMouldProblemPoints: {
         Id: 0,
@@ -170,7 +169,7 @@ export default {
       },
       tabPanes: [
         {
-          label: this.$t('Generality.Ge_BillInfo'),
+          label: this.$t("Generality.Ge_BillInfo"),
           name: "first",
         },
         {
@@ -205,8 +204,7 @@ export default {
     this.copyProperties();
     this.tableObj = new EditTable();
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     //单据信息赋初值
     copyProperties() {
@@ -215,9 +213,9 @@ export default {
           this.formObj.form[key] = this.curData[key];
         }
       }
-      this.formObj.form.TaskType = "TrialTooling"
-      this.formObj.form.RelationId = this.curData.BillId
-      this.formObj.form.TestMouldDate = timeFormat(new Date(), "yyyy-MM-dd")
+      this.formObj.form.TaskType = "TrialTooling";
+      this.formObj.form.RelationId = this.curData.BillId;
+      this.formObj.form.TestMouldDate = timeFormat(new Date(), "yyyy-MM-dd");
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
@@ -232,17 +230,15 @@ export default {
       this.tableObj.delItem(index);
     },
     //点击添加图片
-    addImg(row){
-      console.log(row);
-      this.dialogImgFormVisible = true
-      this.ImgDataList = row.BillFiles.value
-      this.tableRow = row
+    addImg(row) {
+      this.dialogImgFormVisible = true;
+      this.ImgDataList = [...row.BillFiles.value];
+      this.tableRow = row;
     },
-    confirmImg(){
-      console.log(this.ImgDataList,this.tableRow);
-      this.tableRow.BillFiles.value = this.ImgDataList
-      this.dialogImgFormVisible = false
-      this.tableRow = {}
+    confirmImg() {
+      this.tableRow.BillFiles.value = this.ImgDataList;
+      this.dialogImgFormVisible = false;
+      this.tableRow = {};
     },
     save(saveAndSubmit) {
       // this.tableObj.tableData.forEach((item, index) => {
@@ -252,22 +248,24 @@ export default {
       this.formObj.submitAll(
         [this.formObj.validate, this.tableObj.validate],
         (valid) => {
-            if (valid) {
-              for (let key in this.formObj.form) {
-                if (this.ruleForm.hasOwnProperty(key)){
-                  this.ruleForm[key] = this.formObj.form[key]
-                }
-                if (this.ruleForm.TrialToolingDynamicData.hasOwnProperty(key)) {
-                  this.ruleForm.TrialToolingDynamicData[key] = this.formObj.form[key];
-                }
+          if (valid) {
+            for (let key in this.formObj.form) {
+              if (this.ruleForm.hasOwnProperty(key)) {
+                this.ruleForm[key] = this.formObj.form[key];
               }
-              this.ruleForm.TrialToolingDynamicData.TestMouldProblemPoints = this.tableObj.getTableData().map((item, index) => ({
-                ...item,
-                Id: index
-              }));
-              this._save();
-              console.log(this.ruleForm);
+              if (this.ruleForm.TrialToolingDynamicData.hasOwnProperty(key)) {
+                this.ruleForm.TrialToolingDynamicData[key] =
+                  this.formObj.form[key];
+              }
             }
+            this.ruleForm.TrialToolingDynamicData.TestMouldProblemPoints =
+              this.tableObj.getTableData().map((item, index) => ({
+                ...item,
+                Id: index,
+              }));
+            this._save();
+            console.log(this.ruleForm);
+          }
         }
       );
     },
@@ -288,6 +286,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
