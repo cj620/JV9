@@ -24,13 +24,6 @@ export class EditTable extends BaseTable {
   }
 }
 export const tableSchema = [
-  /*编号*/
-  // {
-  //   prop: "Id",
-  //   formCpn: "FormInput",
-  //   label: i18n.t("Generality.Ge_ID"),
-  //   width: "200px"
-  // },
   /*问题点*/
   {
     prop: "ProblemPoints",
@@ -50,11 +43,19 @@ export const tableSchema = [
     label: i18n.t("Generality.Ge_Remarks"),
     formCpn: "FormInput",
   },
-  /*图片（多张）*/
+  /*图片*/
   {
     prop: "BillFiles",
-    label: i18n.t("Generality.Ge_PhotoUrl"),
-    formCpn: "FormInput",
-    width: "100px",
+    label:'图片',
+    custom: true,
+    editConfig:{
+      disabled:true,
+    }
+  },
+  /*编号*/
+  {
+    prop: "Id",
+    label: i18n.t("Generality.Ge_ID"),
+    hidden: true,
   },
 ];

@@ -40,6 +40,11 @@ export const tableConfig = [
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
   },
+  // 客户简称
+  {
+    prop: "CustomerName",
+    label: i18n.t("sale.Sa_CustomerName"),
+  },
   /*物料编号*/
   {
     prop: "ItemId",
