@@ -208,7 +208,7 @@ const project = [
   {
     key: "Pm_TrialTask_Add",
     component: () => import("@/views/workModule/project/trialTask/Add"),
-    Parent: "Pm_TrialTask",
+    Parent: "Pm_TestTask",
     name: "Pm_TrialTask_Add",
     path: "pm_TrialTask_Add",
     title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.Pm_ProjectTask"),
@@ -218,7 +218,7 @@ const project = [
   {
     key: "Pm_TrialTask_Detail",
     component: () => import("@/views/workModule/project/trialTask/Detail"),
-    Parent: "Pm_TrialTask",
+    Parent: "Pm_TestTask",
     name: "Pm_TrialTask_Detail",
     path: "pm_TrialTask_Detail",
     title:

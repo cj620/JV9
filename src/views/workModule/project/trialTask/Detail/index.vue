@@ -137,8 +137,9 @@ export default {
       // btnAction: [],
       DynamicInfo: [],
       // 编辑路由指向 谨慎删除
+      defaultImgUrl: window.global_config.ImgBase_Url,
       editRouteName: "Pm_ProjectTask_Edit",
-      printMod: "Pm_ProjectTask",
+      printMod: "Pm_TrialTask_Detail",
       taskTypeEnum,
       tabPanes: [
         {

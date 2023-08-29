@@ -65,6 +65,10 @@ export default {
       TaskType: "TrialTooling",
     };
   },
+  created() {
+    this.init();
+  },
+  mounted() {},
   methods: {
     init() {
       this.tableObj = new Table();
@@ -84,10 +88,6 @@ export default {
     //   });
     // },
   },
-  created() {
-    this.init();
-  },
-  mounted() {},
   computed: {
     getListTableColBtnModel() {
       return (row) => {
