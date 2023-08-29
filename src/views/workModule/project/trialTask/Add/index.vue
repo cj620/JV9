@@ -114,7 +114,7 @@ import closeTag from "@/utils/closeTag";
 import { timeFormat } from "~/utils/time";
 import { mapState } from "vuex";
 export default {
-  name: "Pm_ProjectTask_Add1",
+  name: "Pm_TrialTask_Add",
   components: {
     JvUploadFile,
     JvUploadList,
@@ -132,7 +132,7 @@ export default {
       tableObj: {},
       dialogImgFormVisible: false,
       defaultImgUrl: window.global_config.ImgBase_Url,
-      detailRouteName: "Pm_ProjectTask_Detail1",
+      detailRouteName: "Pm_TrialTask_Detail",
       ImgDataList: [],
       tableRow: {},
       fileBillId: this.$route.query.BillId,

@@ -119,7 +119,7 @@ import AuditProcess from "@/components/BasicModule/AuditProcess";
 import Dynamic from "../../projectManage/mouldDetail/cpns/Dynamic.vue";
 import DynamicList from "../../projectManage/mouldDetail/cpns/DynamicList.vue";
 export default {
-  name: "Pm_ProjectTask_Detail1",
+  name: "Pm_TrialTask_Detail",
   components: {
     JvRemark,
     JvFileExhibit,
