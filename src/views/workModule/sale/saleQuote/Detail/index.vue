@@ -53,13 +53,13 @@
       <JvTable :table-obj="M_TableObj"> </JvTable>
     </JvBlock>
     <!--项目费用-->
-    <JvBlock title="项目费用" ref="third">
+    <JvBlock :title="$t('sale.Sa_ProjectCost')" ref="projectCost">
       <JvTable :table-obj="Project_TableObj"> </JvTable>
     </JvBlock>
-      <!--加工费用-->
-      <JvBlock title="加工费用" ref="third">
-          <JvTable :table-obj="Produce_TableObj"> </JvTable>
-      </JvBlock>
+    <!--加工费用-->
+    <JvBlock :title="$t('sale.Sa_ProcessingCost')" ref="processingCost">
+      <JvTable :table-obj="Produce_TableObj"> </JvTable>
+    </JvBlock>
     <!-- 成本合计 -->
     <JvBlock
       :contentStyle="{
@@ -134,9 +134,9 @@ export default {
       // 材料费用
       M_TableObj: {},
       // 项目费用
-		Project_TableObj: {},
-		// 加工费用
-		Produce_TableObj: {},
+      Project_TableObj: {},
+      // 加工费用
+      Produce_TableObj: {},
       // 成本费用
       C_TableObj: {},
       // 当前单据的id
@@ -155,8 +155,12 @@ export default {
           name: "second",
         },
         {
-          label: this.$t("sale.Sa_ProcessingCostAndProjectCost"),
-          name: "third",
+          label: this.$t("sale.Sa_ProjectCost"),
+          name: "projectCost",
+        },
+        {
+          label: this.$t("sale.Sa_ProcessingCost"),
+          name: "processingCost",
         },
         {
           label: this.$t("sale.Sa_AdditionalCharges"),

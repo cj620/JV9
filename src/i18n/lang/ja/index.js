@@ -297,6 +297,8 @@ const ja = {
     Sa_Subtotal: "原価合計",
     Sa_MaterialCost: "ざいりょうひよう",
     Sa_ProcessingCostAndProjectCost: "加工費及びプロジェクト費用",
+    Sa_ProjectCost: "プロジェクト費用",
+    Sa_ProcessingCost: "かこうひよう",
     Sa_TotalQuotation: "見積合計",
     Sa_Scale: "ひれい",
     Sa_UserInformation: "ユーザー情報",

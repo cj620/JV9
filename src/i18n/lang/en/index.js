@@ -316,6 +316,8 @@ const en = {
     Sa_Subtotal: "Subtotal",
     Sa_MaterialCost: "Material cost",
     Sa_ProcessingCostAndProjectCost: "Processing cost and project cost",
+    Sa_ProjectCost: "Project cost",
+    Sa_ProcessingCost: "Processing cost",
     Sa_TotalQuotation: "Total quotation",
     Sa_Scale: "Scale",
     Sa_UserInformation: "User information",
