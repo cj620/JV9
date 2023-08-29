@@ -216,9 +216,11 @@ export default {
           this.formObj.form[key] = this.curData[key];
         }
       }
-      this.formObj.form.TaskType = "TrialTooling"
-      this.formObj.form.RelationId = this.curData.BillId
-      this.formObj.form.TestMouldDate = timeFormat(new Date(), "yyyy-MM-dd")
+      if (this.formObj.form.TaskType !== "TrialTooling"){
+        this.formObj.form.TaskType = "TrialTooling"
+        this.formObj.form.RelationId = this.curData.BillId
+        this.formObj.form.TestMouldDate = timeFormat(new Date(), "yyyy-MM-dd")
+      }
       console.log(this.formObj.form);
     },
     tabClick(e) {

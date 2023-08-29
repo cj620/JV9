@@ -225,6 +225,17 @@ const project = [
         i18n.t("menu.Pm_ProjectTask") + "  " + i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+  // 试模任务编辑
+  {
+    key: "Pm_TrialTask_Edit",
+    component: () => import("@/views/workModule/project/trialTask/Edit"),
+    Parent: "Pm_TestTask",
+    name: "Pm_TrialTask_Edit",
+    path: "pm_TrialTask_Edit",
+    title:
+        i18n.t("menu.Pm_ProjectTask") + "  " + i18n.t("Generality.Ge_Edit"),
+    hidden: true,
+  },
   // 项目成本
   {
     key: "Pm_ProjectCost",

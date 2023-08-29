@@ -58,7 +58,7 @@ export default {
       // 表格实例
       tableObj: {},
       // 编辑路由
-      EditRoute: "Sa_SaleQuote_Edit",
+      EditRoute: "Pm_TrialTask_Edit",
 
       TaskType: "TrialTooling",
     };
