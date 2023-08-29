@@ -37,6 +37,9 @@
           :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
           fit="cover"
         >
+          <div slot="error" class="image-slot1">
+            <i class="el-icon-picture-outline"></i>
+          </div>
         </el-image>
       </div>
       <div style="position: relative">
@@ -350,5 +353,18 @@ export default {
   // padding-right: 100px;
   width: 200px;
   text-align: end;
+}
+.el-image {
+  ::v-deep .image-slot1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #f5f7fa;
+    width: 120px;
+    i {
+      font-size: 20px;
+    }
+  }
 }
 </style>

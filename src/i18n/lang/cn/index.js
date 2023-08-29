@@ -274,6 +274,7 @@ const cn = {
   },
   //销售
   sale: {
+    Sa_OrderEvaluation: "订单评估",
     Sa_CustomerId: "客户编号",
     Sa_ShortName: "简称",
     Sa_FullName: "全称",
