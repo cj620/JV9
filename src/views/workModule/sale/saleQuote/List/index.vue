@@ -55,7 +55,13 @@ export default {
   computed: {
     // 表格操作模块
     getListTableBtnModel() {
-      return listTableBtnModel(this);
+      let buttonList = [...listTableBtnModel(this)]
+      buttonList.push(
+        {
+          label: i18n.t("sale.Sa_OrderEvaluation"),
+          confirm: this.goOrderEvaluation.bind(),
+        },)
+      return buttonList;
     },
     // 表格行
     getListTableColBtnModel() {
@@ -71,7 +77,13 @@ export default {
       };
     },
   },
-  // methods: {
+  methods: {
+    // 跳转订单评估
+    goOrderEvaluation() {
+      this.$router.push({
+        name: 'Sa_OrderEvaluation',
+      });
+    }
   //   copy(row) {
   //     console.log(row);
   //     this.$router.push({
@@ -79,6 +91,6 @@ export default {
   //       query: { BillId: row.BillId, type: "copy" },
   //     });
   //   },
-  // },
+  },
 };
 </script>

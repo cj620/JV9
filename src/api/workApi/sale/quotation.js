@@ -14,6 +14,13 @@ export function sales_quotation_get_last() {
     method: "get",
   });
 }
+export function sales_estimate(data) {
+  return request({
+    url: "/sales_quotation/estimate",
+    method: "post",
+    data
+  });
+}
 /*销售订单*/
 const API=apiGenPlugin('sales_quotation',apiType.COMMON)
 export {
