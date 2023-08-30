@@ -329,7 +329,7 @@ const sale = [
     Parent: "Sa_BaseData",
     name: "Sa_OrderEvaluation",
     path: "Sa_OrderEvaluation",
-    title: i18n.t("menu.Sa_Customer") + " " + i18n.t("sale.Sa_OrderEvaluation"),
+    title: i18n.t("sale.Sa_OrderEvaluation"),
     hidden: true,
   },
 ];

@@ -28,11 +28,6 @@ export function listTableBtnModel($el) {
         confirm: l_delete.bind($el, keys),
       },
     },
-      // 订单评估
-    {
-      label: i18n.t("sale.Sa_OrderEvaluation"),
-      confirm: goOrderEvaluation.bind($el),
-    },
     // 快速打印
     // 新增按钮
     // {
@@ -135,12 +130,6 @@ function l_add() {
   this.$router.push({
     name: this.AddRoute,
     params: { type: "add", title: this.AddRoute },
-  });
-}
-// 跳转订单评估
-function goOrderEvaluation() {
-  this.$router.push({
-    name: 'Sa_OrderEvaluation',
   });
 }
 // 获取按钮状态
