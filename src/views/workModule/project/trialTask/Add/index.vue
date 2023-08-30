@@ -143,6 +143,7 @@ export default {
         ToolingNo: "",
         PlanStart: "",
         PlanEnd: "",
+        State: "",
         Remarks: "",
         BillItems: [],
         TrialToolingDynamicData: {
