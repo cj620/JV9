@@ -24,6 +24,8 @@ export class Table extends BaseTable {
       height: "",
       operationCol: false,
       chooseCol: false,
+      // 打印模块标识
+      printMod: "Pm_TrialTask_Detail",
     });
   }
 }
