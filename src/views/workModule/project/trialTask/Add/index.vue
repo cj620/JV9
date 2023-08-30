@@ -221,7 +221,7 @@ export default {
         this.formObj.form.RelationId = this.curData.BillId
         this.formObj.form.TestMouldDate = timeFormat(new Date(), "yyyy-MM-dd")
       }
-      console.log(this.formObj.form);
+      // console.log(this.formObj.form);
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;

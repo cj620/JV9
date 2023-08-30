@@ -39,6 +39,7 @@ export default {
         }
         this.tableObj.setData(res.TrialToolingDynamicData.TestMouldProblemPoints);
         this.ruleForm.Remarks = res.Remarks
+        this.ruleForm.BillId = this.$route.query.BillId
       });
     },
   },
