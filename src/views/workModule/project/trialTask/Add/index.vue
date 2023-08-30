@@ -217,12 +217,16 @@ export default {
           this.formObj.form[key] = this.curData[key];
         }
       }
+      // 新建单据时
       if (this.formObj.form.TaskType !== "TrialTooling"){
         this.formObj.form.TaskType = "TrialTooling"
         this.formObj.form.RelationId = this.curData.BillId
+        this.formObj.form.PlanStart = timeFormat(new Date(), "yyyy-MM-dd")
+        let planEnd = new Date(this.formObj.form.PlanStart);
+        planEnd.setDate(planEnd.getDate() + 7);
+        this.formObj.form.PlanEnd = timeFormat(planEnd, "yyyy-MM-dd");
         this.formObj.form.TestMouldDate = timeFormat(new Date(), "yyyy-MM-dd")
       }
-      // console.log(this.formObj.form);
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
@@ -248,9 +252,6 @@ export default {
       this.tableRow = {};
     },
     save(saveAndSubmit) {
-      // this.tableObj.tableData.forEach((item, index) => {
-      //   item.Id = item.row_index
-      // });
       this.ruleForm.SaveAndSubmit = saveAndSubmit;
       this.formObj.submitAll(
         [this.formObj.validate, this.tableObj.validate],
@@ -270,7 +271,7 @@ export default {
                 ...item,
                 Id: index,
               }));
-            this._save();
+            // this._save();
             console.log(this.ruleForm);
           }
         }
