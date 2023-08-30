@@ -6,7 +6,9 @@
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { single2Double } from "../utils";
-
+import { getAllSalesCustomer } from '@/api/workApi/sale/customer'
+import { getAllProcess } from "@/api/workApi/production/baseData";
+import { getAllUnit } from '@/api/basicApi/systemSettings/unit'
 // 材料费用表格
 export class M_EditTable extends BaseTable {
   constructor() {
@@ -40,8 +42,17 @@ export const m_tableConfig = [
   {
     prop: "Unit",
     label: i18n.t("Generality.Ge_Unit"),
-    formCpn: "FormInput",
-    width: "70px",
+    formCpn: "SyncSelect",
+    width: "100px",
+    api: getAllUnit,
+    apiOptions: {
+      immediate: true,
+      keyName: "Unit",
+      valueName: "Unit",
+    },
+    editConfig:{
+      colInit:true
+    }
   },
   /*数量*/
   {
@@ -85,11 +96,11 @@ export const m_tableConfig = [
     formCpn: "FormInput",
   },
 ];
-// 加工费用及项目费用
-export class P_EditTable extends BaseTable {
+// 项目费用
+export class Project_EditTable extends BaseTable {
   constructor() {
     super({
-      tableSchema: single2Double(p_tableConfig),
+      tableSchema: single2Double(project_tableConfig),
       data: [],
       title: "",
       tableHeaderShow: false,
@@ -103,8 +114,25 @@ export class P_EditTable extends BaseTable {
     });
   }
 }
-
-export const p_tableConfig = [
+// 项目费用
+export class Produce_EditTable extends BaseTable {
+  constructor() {
+    super({
+      tableSchema: single2Double(produce_tableConfig),
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationWidth: 80,
+      showSummary: true,
+      height: null,
+      // 序号列
+      sortCol: false,
+      // 选择列
+      chooseCol: false,
+    });
+  }
+}
+export const project_tableConfig = [
   /*序号*/
   {
     prop: "sort",
@@ -118,8 +146,71 @@ export const p_tableConfig = [
   /*名称*/
   {
     prop: "ItemName",
-    formCpn: "FormInput",
     label: i18n.t("menu.Pm_Project"),
+    formCpn: "FormInput",
+  },
+  /*数量*/
+  {
+    prop: "Quantity",
+    label: i18n.t("Generality.Ge_Quantity"),
+    formCpn: "FormInput",
+    align: "right",
+    width: "100px",
+    type: "number",
+    filter: "amount",
+  },
+  /*单价*/
+  {
+    prop: "Price",
+    label: i18n.t("Generality.Ge_Price"),
+    type: "number",
+    align: "right",
+    width: "120px",
+    formCpn: "FormInput",
+    filter: "amount",
+  },
+  /*金额*/
+  {
+    prop: "Amount",
+    label: i18n.t("Generality.Ge_Amount"),
+    align: "right",
+    custom: true,
+    width: "120px",
+    editConfig: {
+      disabled: true,
+    },
+    commonConfig: {
+      summary: true,
+    },
+  },
+];
+export const produce_tableConfig = [
+  /*序号*/
+  {
+    prop: "sort",
+    label: "",
+    width: 50,
+    align: "center",
+    editConfig: {
+      disabled: true,
+    },
+  },
+  /*名称*/
+  {
+    prop: "ItemName",
+    formCpn: "SyncSelect",
+    label: i18n.t("menu.Pm_Project"),
+    api: getAllProcess,
+    apiOptions: {
+      immediate: true,
+      keyName: "Process",
+      valueName: "Process",
+      propChange: (value, form, dataItem) => {
+        console.log(value, form, dataItem)
+        form.Quantity.value=1
+        
+      }
+    },
   },
   /*数量*/
   {

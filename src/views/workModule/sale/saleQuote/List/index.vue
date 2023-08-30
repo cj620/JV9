@@ -55,7 +55,7 @@ export default {
   computed: {
     // 表格操作模块
     getListTableBtnModel() {
-      return listTableBtnModel(this);
+		return listTableBtnModel(this);
     },
     // 表格行
     getListTableColBtnModel() {

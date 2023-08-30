@@ -247,7 +247,7 @@
 
 <script>
 import { formSchema } from "./formConfig";
-import { M_EditTable, P_EditTable, C_EditTable } from "./editConfig";
+import { M_EditTable, C_EditTable, Produce_EditTable, Project_EditTable } from "./editConfig";
 import { Form } from "@/jv_doc/class/form";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import ImgUploader from "@/components/WorkModule/ImgUploader";
@@ -441,8 +441,8 @@ export default {
       this.formObj.form.Currency = b.Currency;
     });
     this.M_TableObj = new M_EditTable();
-    this.Project_TableObj = new P_EditTable();
-    this.Produce_TableObj = new P_EditTable();
+    this.Project_TableObj = new Project_EditTable();
+    this.Produce_TableObj = new Produce_EditTable();
     this.C_TableObj = new C_EditTable();
     // await this.Configuration();
     this.GetProjectData();
