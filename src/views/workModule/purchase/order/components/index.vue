@@ -137,7 +137,7 @@ import {
   getPrice,
 } from "@/jv_doc/utils/system/taxCount";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
-import SelectDocDetails from "@/components/SelectDocumentDetails";
+import SelectDocDetails from "./SelectDocumentDetails.vue";
 import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
 
 export default {
