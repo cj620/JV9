@@ -121,7 +121,7 @@
     <select-doc-details
       :visible.sync="detailsVisible"
       v-if="detailsVisible"
-      :formConfig="[{label: 'CustomerName',title:'请输入客户简称'}]"
+      :CustomerName="this.formObj.form.CustomerName"
       :tableConfig="Table"
       :detailedData="detailedData"
       @confirmDetails="validateIsCompleted"
@@ -154,7 +154,7 @@ import { API as delivery } from "@/api/workApi/sale/delivery";
 import { getCustomer } from "@/api/workApi/sale/customer";
 import { mapState } from "vuex";
 import closeTag from "@/utils/closeTag";
-import { amountFormat, temMerge } from "@/jv_doc/utils/handleData/index";
+import { amountFormat, temMerge } from "@/jv_doc/utils/handleData";
 import {
   getTaxAmount,
   getAmount,
@@ -162,7 +162,7 @@ import {
 } from "@/jv_doc/utils/system/taxCount";
 // 单据转换逻辑
 import { billTransform } from "~/utils/system/editPagePlugin";
-import SelectDocDetails from "@/components/SelectDocumentDetails";
+import SelectDocDetails from "./SelectDocumentDetails.vue";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
 
@@ -274,6 +274,7 @@ export default {
     if (this.type === "edit" || this.type === "copy") {
       this.fileBillId = this.billData;
       await this.GetData(this.fileBillId);
+      this.changeCustomerId(this.formObj.form.CustomerId)
     }
     // 判断是否由销售订单转发货
     if (this.$route.params.orderData) {
@@ -307,6 +308,7 @@ export default {
       getCustomer({ CustomerId: e }).then((res) => {
         this.formObj.form.Currency = res.Currency;
         this.ruleForm.CustomerName = res.ShortName;
+        console.log(this.formObj.form.CustomerName);
         this.AddressData = res.ContactInfo;
         this.BillItems.Tax = res.Tax;
         this.changeTax(res.Tax);

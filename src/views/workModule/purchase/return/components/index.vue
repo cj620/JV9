@@ -119,7 +119,7 @@ import {
 } from "@/api/workApi/purchase/supplier";
 
 import SelectMaterial from "@/components/JVInternal/SelectMaterial";
-import SelectDocDetails from "@/components/SelectDocumentDetails";
+import SelectDocDetails from "./SelectDocumentDetails.vue";
 
 import { API } from "@/api/workApi/purchase/return";
 

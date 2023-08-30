@@ -148,6 +148,7 @@ export default {
   position: absolute;
   bottom: 15px;
   right: 15px;
+  z-index: 999;
 }
 .jv-dialog-content {
   max-height: 60vh;

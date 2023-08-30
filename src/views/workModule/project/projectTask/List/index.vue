@@ -83,7 +83,7 @@ export default {
     init() {
       // 创建表格实例
       this.tableObj = new Table();
-      this.tableObj.getData();
+      this.tableObj.getData({TaskTypes:["NewTooling","DesignChange","ToolCorrection"]});
     },
     taskRecord() {
       this.$router.push({

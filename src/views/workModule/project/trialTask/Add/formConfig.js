@@ -94,6 +94,7 @@ export const formSchema = [
     label: "试模用时",
     type: "number",
     cpn: "FormInput",
+    default: 1,
   },
   //试模日期
   {
