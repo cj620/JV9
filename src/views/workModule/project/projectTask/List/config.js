@@ -18,12 +18,12 @@ class api extends TableAPI {
   del = api_delete;
 }
 
-// const newObj = {};
-// Object.entries(taskTypeEnum).forEach(([key, value]) => {
-//   if (key !== "TrialTooling") {
-//     newObj[key] = value;
-//   }
-// });
+const newObj = {};
+Object.entries(taskTypeEnum).forEach(([key, value]) => {
+  if (key !== "TrialTooling") {
+    newObj[key] = value;
+  }
+});
 
 //  表格配置
 export const tableConfig = [
