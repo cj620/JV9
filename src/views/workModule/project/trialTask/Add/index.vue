@@ -271,8 +271,7 @@ export default {
                 ...item,
                 Id: index,
               }));
-            // this._save();
-            console.log(this.ruleForm);
+            this._save();
           }
         }
       );
