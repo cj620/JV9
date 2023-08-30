@@ -13,6 +13,7 @@
             :range-separator="$t('Generality.Ge_To')"
             :start-placeholder="$t('Generality.Ge_StartDate')"
             :end-placeholder="$t('Generality.Ge_EndDate')"
+            :picker-options="pickerOptions"
           >
           </el-date-picker>
         </div>
@@ -20,6 +21,7 @@
           $t("sale.Sa_Evaluation")
         }}</el-button>
       </div>
+      <div class="placeholder-map" v-show="placeholderMap">暂无评估</div>
       <div class="order-evaluation-content">
         <div class="order-evaluation-content-top">
           <base-chart
@@ -27,7 +29,7 @@
             v-if="echartsShow" :options="options"></base-chart>
         </div>
         <div class="order-evaluation-content-bottom">
-          <JvTable :table-obj="evaluationTable"></JvTable>
+<!--          <JvTable :table-obj="evaluationTable"></JvTable>-->
         </div>
       </div>
 
@@ -82,6 +84,13 @@ export default {
       BillIds: [],
       options: {},
       echartsShow: false,
+      placeholderMap: true,
+      pickerOptions: {
+        disabledDate(time) {
+          console.log(time.getTime())
+          return time.getTime() + 86400000 < Date.now();
+        },
+      }
     };
   },
   created() {
@@ -93,13 +102,20 @@ export default {
     assess() {
       if (this.BillIds.length) {
         this.loading = true;
+        this.dialogShow = false;
         sales_estimate({
           StartDate: this.dateRange[0],
           EndDate: this.dateRange[1],
           BillIds: this.BillIds,
         }).then((res) => {
-          this.options = setOptions(res);
-          this.echartsShow = true;
+          if(res.Items.length) {
+            this.options = setOptions(res);
+            this.placeholderMap = false;
+            this.echartsShow = true;
+          } else {
+            this.placeholderMap = true;
+            this.echartsShow = false;
+          }
           this.loading = false;
           console.log(res);
         }).catch(err => {
@@ -130,6 +146,7 @@ export default {
   background: #fff;
   width: 100%;
   height: 100%;
+  position: relative;
   &-header {
     display: flex;
     height: 40px;
@@ -154,5 +171,14 @@ export default {
   display: flex;
   padding-left: 10px;
   margin-bottom: 10px;
+}
+.placeholder-map{
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 100px);
+  color: #666666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
