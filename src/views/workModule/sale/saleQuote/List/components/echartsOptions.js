@@ -64,6 +64,9 @@ export function setOptions(res) {
                         }
 
                     },
+                    fontWeight: 'bold',
+                    fontSize: '18px',
+                    color: 'red',
                     show: true,
                     position: 'top'
                 },
