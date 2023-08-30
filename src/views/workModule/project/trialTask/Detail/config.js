@@ -36,16 +36,9 @@ export const detailConfig = [
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
   },
-  //单号搜索
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
-  },
-  //客户搜索
-  {
-    prop: "TaskType",
-    label: i18n.t("Generality.Ge_TaskType"),
-    custom: true,
   },
   {
     prop: "PlanStart",
@@ -61,6 +54,7 @@ export const detailConfig = [
   {
     prop: "RelationId",
     label: "相关编号",
+    custom: true,
   },
   //试模原因
   {

@@ -33,7 +33,6 @@
       <div class="mould-img">
       <el-image
         :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
-
         style="width: 100%; height: 100%"
         :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
         fit="cover"
@@ -43,9 +42,13 @@
       </div>
       <div style="position: relative">
         <JvDetail :detailObj="detailObj">
-        <!-- 任务类别 -->
-          <template #TaskType="{ record }">
-            {{ taskTypeEnum[record].name }}
+          <template #RelationId="{ record }">
+            <span
+              style="color: #409eff; cursor: pointer"
+              @click="linkToProject(record)"
+            >
+              {{ record }}
+            </span>
           </template>
         </JvDetail>
         <!-- 状态标签 -->
@@ -75,8 +78,26 @@
       <JvRemark :RemarkData="detailObj.detailData.Remarks"></JvRemark>
     </JvBlock>
     <!--附件-->
+    <!--<JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">-->
+    <!--  <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>-->
+    <!--</JvBlock>-->
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
-      <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>
+      <div slot="extra">
+        <el-button
+          size="mini"
+          type="primary"
+          @click="(_) => $refs.upLoad.upload()"
+        >{{ $t("Generality.Ge_Upload") }}</el-button
+        >
+        <el-button size="mini" type="primary" @click="saveFiles"
+        >保存编辑</el-button
+        >
+      </div>
+      <JvUploadFile
+        @returnData="returnData"
+        :BillId="cur_Id"
+        ref="upLoad"
+      ></JvUploadFile>
     </JvBlock>
     <!--审核流程-->
     <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
@@ -97,7 +118,6 @@
       @dynamicConfirm="dynamicConfirm"
     >
     </Dynamic>
-
   </PageWrapper>
 </template>
 
@@ -119,9 +139,12 @@ import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import AuditProcess from "@/components/BasicModule/AuditProcess";
 import Dynamic from "../../projectManage/mouldDetail/cpns/Dynamic.vue";
 import DynamicList from "../../projectManage/mouldDetail/cpns/DynamicList.vue";
+import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
+import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
 export default {
   name: "Pm_TrialTask_Detail",
   components: {
+    JvUploadFile,
     JvRemark,
     JvFileExhibit,
     AuditProcess,
@@ -237,6 +260,21 @@ export default {
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
+    },
+    linkToProject(BillId) {
+      this.$router.push({
+        name: "Pm_ProjectTask_Detail",
+        query: { BillId },
+      });
+    },
+    saveFiles() {
+      update_file_owner({
+        BillFiles: this.BillFiles,
+        BillId: this.cur_Id,
+      }).then((res) => {});
+    },
+    returnData(fileData) {
+      this.BillFiles = fileData;
     },
   },
 };
