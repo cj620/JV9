@@ -83,12 +83,12 @@
           @click="addNewTask(taskTypeEnum['DesignChange'].value)"
           >{{ $t("project.Pro_AddDesignChangeTask") }}</el-button
         >
-        <el-button
-          size="mini"
-          type="primary"
-          @click="addNewTask(taskTypeEnum['TrialTooling'].value)"
-          >{{ $t("project.Pro_AddTrialMoldTask") }}</el-button
-        >
+        <!--<el-button-->
+        <!--  size="mini"-->
+        <!--  type="primary"-->
+        <!--  @click="addNewTask(taskTypeEnum['TrialTooling'].value)"-->
+        <!--  >{{ $t("project.Pro_AddTrialMoldTask") }}</el-button-->
+        <!--&gt;-->
         <el-button
           size="mini"
           type="primary"
@@ -97,6 +97,10 @@
         >
       </div>
       <JvTable :table-obj="P_tableObj">
+        <template #BillId="{ row }">
+            <Link :state="row.BillId" :cpnProps="{ routeName: 'Pm_TrialTask_Detail', routePath: '', parameterKey: 'BillId', moreStaticParameters: {} }" v-if="row.TaskType === 'TrialTooling'" />
+            <Link :state="row.BillId" :cpnProps="{ routeName: 'Pm_ProjectTask_Detail', routePath: '', parameterKey: 'BillId', moreStaticParameters: {} }" v-else />
+        </template>
         <template #State="{ record }">
           <!-- 状态标签 -->
           <BillStateTags :state="record"></BillStateTags>
@@ -146,6 +150,7 @@
 </template>
 
 <script>
+import Link from "@/jv_doc/cpn/JvTable/cpn/Link.vue"
 import { detailConfig, P_Table, T_Table, R_Table } from "./config";
 import { data2doubleCol } from "@/views/workModule/sale/saleQuote/utils";
 import Dynamic from "./cpns/Dynamic.vue";
@@ -166,7 +171,7 @@ import { formSchema1 } from "./formConfig";
 import { Form } from "~/class/form";
 export default {
   name: "index",
-  components: { BillStateTags, DynamicList, Dynamic, JvUploadList, AddTrialMold },
+  components: { BillStateTags, DynamicList, Dynamic, JvUploadList, AddTrialMold, Link },
   data() {
     return {
       ImgDataList: [],
