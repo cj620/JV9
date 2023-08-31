@@ -118,11 +118,6 @@ export const tableConfig1 = [
                     fontWeight: 'bold',
                     fontSize: '18px'
                 }
-            } else {
-                return {
-                    color: '#85ce60',
-                    fontWeight: 'bold'
-                }
             }
         },
         customFilter(col, row) {
@@ -137,6 +132,9 @@ export const tableConfig1 = [
     {
         prop: "PlannedLoad",
         label: i18n.t("sale.Sa_PlannedLoad"),
+        customFilter(col) {
+            return col + '%'
+        }
     },
 ]
 // 表单配置

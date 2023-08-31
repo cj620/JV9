@@ -523,6 +523,7 @@ export default {
       if (val) {
         this.obsoleteTableObj.getData();
       } else {
+
         this.oldTableObj.getData();
       }
     },
