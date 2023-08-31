@@ -42,6 +42,11 @@ export const formSchema = [
       immediate: true,
       keyName: "ShortName",
       valueName: "CustomerId",
+      propChange: (value, form, dataItem) => {
+        console.log(value, form, dataItem)
+        form.CustomerName=dataItem.ShortName
+        
+      }
     },
   },
   {
@@ -141,5 +146,12 @@ export const formSchema = [
     cpnProps: {
       type: "textarea",
     },
+  },
+  {
+    // 描述
+    prop: "CustomerName",
+    cpn: "FormInput",
+    hidden: false,
+    label: i18n.t("Generality.Ge_Describe"),
   },
 ];

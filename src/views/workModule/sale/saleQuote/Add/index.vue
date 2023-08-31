@@ -247,7 +247,7 @@
 
 <script>
 import { formSchema } from "./formConfig";
-import { M_EditTable, P_EditTable, C_EditTable } from "./editConfig";
+import { M_EditTable, C_EditTable, Produce_EditTable, Project_EditTable } from "./editConfig";
 import { Form } from "@/jv_doc/class/form";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import ImgUploader from "@/components/WorkModule/ImgUploader";
@@ -437,18 +437,15 @@ export default {
       labelWidth: "80px",
     });
     this.formObj.eventBus.$on("CustomerId", (a, b, c) => {
-      // console.log(a, b, c, "fasdfjasdklf");
       this.formObj.form.Currency = b.Currency;
     });
     this.M_TableObj = new M_EditTable();
-    this.Project_TableObj = new P_EditTable();
-    this.Produce_TableObj = new P_EditTable();
+    this.Project_TableObj = new Project_EditTable();
+    this.Produce_TableObj = new Produce_EditTable();
     this.C_TableObj = new C_EditTable();
     // await this.Configuration();
     this.GetProjectData();
-    // console.log(this.$route.name,this.$options.name);
     this.$options.name == "Sa_SaleQuote_Add" && this.get_last_data();
-    console.log(this.$route.query.type, 999);
   },
 
   methods: {
@@ -498,14 +495,12 @@ export default {
     //获取项目
     async GetProjectData() {
       await getProjectQuery({ Keyword: "" }).then((res) => {
-        console.log(res.Items);
         this.projectDataList = res.Items;
       });
     },
     //搜索项目
     remoteMethod(query) {
       getProjectQuery({ Keyword: query }).then((res) => {
-        console.log(res.Items, 555);
         if (query !== "") {
           this.loading = true;
           setTimeout(() => {

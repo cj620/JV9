@@ -39,6 +39,9 @@ export default {
         }
         this.tableObj.setData(res.TrialToolingDynamicData.TestMouldProblemPoints);
         this.ruleForm.Remarks = res.Remarks
+        this.ruleForm.State = res.State
+        this.ruleForm.BillGui = res.BillGui
+        this.ruleForm.BillId = this.$route.query.BillId
       });
     },
   },

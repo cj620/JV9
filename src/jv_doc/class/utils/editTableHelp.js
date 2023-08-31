@@ -131,7 +131,6 @@ function setMsg(rules, msg) {
 export function cacheInit(prop){
   let cacheKey=getCacheId(prop.tid)
   let tableCache=getLocalStorage(cacheKey)
-  console.log(cacheKey,66996699);
   if(prop.tid&&tableCache){
     prop.tableSchema&&mergeSchema(prop.tableSchema,tableCache.tableSchema)
   }else{

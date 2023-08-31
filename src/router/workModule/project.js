@@ -211,7 +211,7 @@ const project = [
     Parent: "Pm_TestTask",
     name: "Pm_TrialTask_Add",
     path: "pm_TrialTask_Add",
-    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.Pm_ProjectTask"),
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.Pm_TestTask"),
     hidden: true,
   },
   // 试模任务详情
@@ -222,7 +222,7 @@ const project = [
     name: "Pm_TrialTask_Detail",
     path: "pm_TrialTask_Detail",
     title:
-        i18n.t("menu.Pm_ProjectTask") + "  " + i18n.t("Generality.Ge_Details"),
+        i18n.t("menu.Pm_TestTask") + "  " + i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
   // 试模任务编辑
@@ -233,7 +233,7 @@ const project = [
     name: "Pm_TrialTask_Edit",
     path: "pm_TrialTask_Edit",
     title:
-        i18n.t("menu.Pm_ProjectTask") + "  " + i18n.t("Generality.Ge_Edit"),
+        i18n.t("menu.Pm_TestTask") + "  " + i18n.t("Generality.Ge_Edit"),
     hidden: true,
   },
   // 项目成本
