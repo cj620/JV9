@@ -39,7 +39,7 @@ export function setOptions(res) {
         ],
         series: [
             {
-                name: 'QuotationTime', // 报价时间
+                name: i18n.t("sale.Sa_QuotationTime"), // 报价时间
                 type: 'bar',
                 stack: 'Ad',
                 emphasis: {
@@ -48,7 +48,7 @@ export function setOptions(res) {
                 data: QuotationTime
             },
             {
-                name: 'HoldingTime',// 占用时间
+                name: i18n.t("sale.Sa_HoldingTime"),// 占用时间
                 type: 'bar',
                 stack: 'Ad',
                 emphasis: {
@@ -73,7 +73,7 @@ export function setOptions(res) {
                 data: HoldingTime
             },
             {
-                name: 'surplus', // 可用时间
+                name: i18n.t("sale.Sa_TotalAvailableTime"), // 可用时间
                 type: 'bar',
                 data: surplus,
                 emphasis: {

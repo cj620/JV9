@@ -29,7 +29,7 @@
             v-if="echartsShow" :options="options"></base-chart>
         </div>
         <div class="order-evaluation-content-bottom">
-<!--          <JvTable :table-obj="evaluationTable"></JvTable>-->
+          <JvTable :table-obj="evaluationTable" v-if="echartsShow"></JvTable>
         </div>
       </div>
 
@@ -66,7 +66,7 @@
 
 <script>
 import { sales_estimate } from "@/api/workApi/sale/quotation.js";
-import { Table } from "./config";
+import { Table, Table1 } from "./config";
 import { setOptions } from './echartsOptions'
 import BaseChart from "@/views/dashboard/admin/echarts/base-echart.vue";
 export default {
@@ -87,7 +87,6 @@ export default {
       placeholderMap: true,
       pickerOptions: {
         disabledDate(time) {
-          console.log(time.getTime())
           return time.getTime() + 86400000 < Date.now();
         },
       }
@@ -96,6 +95,7 @@ export default {
   created() {
     // 创建表格实例
     this.tableObj = new Table();
+    this.evaluationTable = new Table1();
     this.tableObj.getData({ State: "Approved" });
   },
   methods: {
@@ -112,6 +112,7 @@ export default {
             this.options = setOptions(res);
             this.placeholderMap = false;
             this.echartsShow = true;
+            this.evaluationTable.setData(res.Items);
           } else {
             this.placeholderMap = true;
             this.echartsShow = false;
@@ -164,6 +165,7 @@ export default {
     }
     &-bottom{
       height: 50%;
+      padding-top: 20px;
     }
   }
 }
