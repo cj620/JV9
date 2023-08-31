@@ -108,7 +108,14 @@ export function project_task_update_log(data) {
   });
 }
 
-
+// 试模任务列表
+export function trial_tooling_list(data) {
+  return request({
+    url: "/project_task/trial_tooling_list",
+    method: "post",
+    data,
+  });
+}
 
 // 检查报工时间
 export function project_task_check_report_work_date(data) {
