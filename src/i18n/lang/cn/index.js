@@ -274,6 +274,11 @@ const cn = {
   },
   //销售
   sale: {
+    Sa_DownTime: "停机时间",
+    Sa_TotalAvailableTime: "可用时间",
+    Sa_PlannedLoad: "计划负荷",
+    Sa_HoldingTime: "占用时间",
+    Sa_QuotationTime: "报价时间",
     Sa_EvaluationTime: "评估时间",
     Sa_Evaluation: "评估",
     Sa_OrderEvaluation: "订单评估",

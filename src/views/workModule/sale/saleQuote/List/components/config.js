@@ -76,6 +76,69 @@ export const tableConfig = [
         width: "150px",
     },
 ];
+export const tableConfig1 = [
+    // 任务工序
+    {
+        prop: "Process",
+        label: i18n.t("production.Pr_TaskProcess"),
+    },
+    // 工序代号
+    {
+        prop: "ProcessCode",
+        label: i18n.t("production.Pr_ProcessCode"),
+    },
+    // 资源组
+    {
+        prop: "Resource",
+        label: i18n.t("menu.Pr_Resources"),
+    },
+    // 报价时间
+    {
+        prop: "QuotationTime",
+        label: i18n.t("sale.Sa_QuotationTime"),
+    },
+    // 占用时间
+    {
+        prop: "HoldingTime",
+        label: i18n.t("sale.Sa_HoldingTime"),
+    },
+    // 停机时间
+    {
+        prop: "DownTime",
+        label: i18n.t("sale.Sa_DownTime"),
+    },
+    // 可用时间
+    {
+        prop: "TotalAvailableTime",
+        label: i18n.t("sale.Sa_TotalAvailableTime"),
+        setStyle(col, row){
+            if(row.QuotationTime + row.HoldingTime > row.TotalAvailableTime - row.DownTime) {
+                return {
+                    color: 'red',
+                    fontWeight: 'bold',
+                    fontSize: '18px'
+                }
+            } else {
+                return {
+                    color: '#85ce60',
+                    fontWeight: 'bold'
+                }
+            }
+        },
+        customFilter(col, row) {
+            if(row.QuotationTime + row.HoldingTime > row.TotalAvailableTime - row.DownTime) {
+                return col + '  (可用时间不足)'
+            } else {
+                return col
+            }
+        }
+    },
+    // 计划负荷
+    {
+        prop: "PlannedLoad",
+        label: i18n.t("sale.Sa_PlannedLoad"),
+    },
+]
 // 表单配置
 export const formSchema = [
     //单号搜索
@@ -112,12 +175,33 @@ export const tableProps = {
     operationCol: false,
     tableHeaderShow: false,
     // 打印模块标识
-    printMod: "Sa_SaleQuote",
+    printMod: "Sa_SaleQuote1",
     height: '46vh',
+};
+
+export const tableProps1 = {
+    // 表格配置
+    tableSchema: tableConfig1,
+    // 行标识
+    rowId: "BillId",
+    // 表格标题
+    title: i18n.t("sale.Sa_OrderEvaluation"),
+    // 隐藏操作列
+    operationCol: false,
+    tableHeaderShow: false,
+    chooseCol: false,
+    // 打印模块标识
+    printMod: "Sa_OrderEvaluation",
 };
 
 export class Table extends BaseTable {
     constructor() {
         super(tableProps);
+    }
+}
+
+export class Table1 extends BaseTable {
+    constructor() {
+        super(tableProps1);
     }
 }

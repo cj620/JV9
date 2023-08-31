@@ -292,6 +292,11 @@ const en = {
     ConfirmPasswordReset: "Confirm Password Reset",
   },
   sale: {
+    Sa_DownTime: "Down Time",
+    Sa_TotalAvailableTime: "TotalAvailable Time",
+    Sa_PlannedLoad: "Planned Load",
+    Sa_HoldingTime: "Holding Time",
+    Sa_QuotationTime: "Quotation Time",
     Sa_EvaluationTime: "Evaluation Time",
     Sa_Evaluation: "Evaluation",
     Sa_OrderEvaluation: "Order Evaluation",

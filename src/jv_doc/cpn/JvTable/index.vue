@@ -93,7 +93,7 @@
                   }"
                 />
                 <span v-else>
-                  <span>{{
+                  <span :style="item.setStyle ? item.setStyle(scope.row[item.prop], scope.row) : {}">{{
                     item.customFilter
                       ? item.customFilter(scope.row[item.prop], scope.row)
                       : dataFilter(item.filter, scope.row[item.prop])
