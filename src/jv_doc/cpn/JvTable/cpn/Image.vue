@@ -39,10 +39,11 @@ export default {
   },
   computed: {
     getImageBind() {
-      if (!this.cpnProps) return {};
       let imgPreUrl = imgUrlPlugin(this.state, {
-        prefix: this.cpnProps.preUrl,
+        prefix: this?.cpnProps?.preUrl,
       });
+
+
       return {
         src: imgPreUrl,
         previewSrcList: [imgPreUrl],

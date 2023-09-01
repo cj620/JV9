@@ -7,7 +7,11 @@
         :key="index"
         class="upload-img-list"
       >
-        <img :src="imgUrlPlugin(item)" class="avatar" />
+        <el-image :src="imgUrlPlugin(item)" class="avatar">
+          <div slot="error" class="image-slot">
+            <i class="el-icon-picture-outline"></i>
+          </div>
+        </el-image>
         <div class="upload-img-list-operate">
           <span @click="viewImg(item, index)">
             <i class="el-icon-zoom-in"></i
@@ -87,6 +91,7 @@ export default {
   },
   created() {
     this.imageList = this.value;
+    console.log(this.imageList)
   },
   components: {
     ParseImg,
@@ -130,6 +135,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-image {
+  .image-slot {
+    min-width: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e7e7e7;
+    color: #a1a1a1;
+  }
+}
 .JvUpload-demo {
   width: 100%;
   ::v-deep .el-upload {

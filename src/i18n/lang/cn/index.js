@@ -27,6 +27,7 @@ const cn = {
     Pm_Project: "项目",
     Pm_Process: "项目任务工序",
     Pm_ProjectManagement: "项目管理",
+    Pm_ProjectToolingList: "模具列表",
     Pm_ProjectTask: "项目任务",
     Pm_TestTask: "试模任务",
     Pm_ProjectCost: "项目成本",
@@ -136,6 +137,7 @@ const cn = {
   },
   //项目
   project: {
+    Pm_MoldList: "模具列表",
     Pr_PartSchedule: "零件进度",
     Pro_ItemType: "项目类别",
     Pro_UpdateDate: "更新日期",
