@@ -37,7 +37,9 @@
         :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
         fit="cover"
       >
-
+        <div slot="error" class="image-slot1">
+          <i class="el-icon-picture-outline"></i>
+        </div>
       </el-image>
       </div>
       <div style="position: relative">
@@ -281,15 +283,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .mould-img {
+.mould-img {
+  width: 120px;
+  height: 120px;
+  // background-color: pink;
+  position: absolute;
+  left: 10px;
+  right: 200px;
+}
+.el-image {
+  ::v-deep .image-slot1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #f5f7fa;
     width: 120px;
-    height: 120px;
-    // background-color: pink;
-    position: absolute;
-    left: 10px;
-    right: 200px;
+    i {
+      font-size: 20px;
+    }
   }
-
+}
   .sum-text {
   display: inline-block;
   // padding-right: 100px;
