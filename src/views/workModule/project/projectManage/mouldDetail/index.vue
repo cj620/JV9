@@ -306,7 +306,8 @@ export default {
       this.editVisible = true;
       data.ItemName = JSON.parse(JSON.stringify(data.ToolingName));
       this.formObj1.form = JSON.parse(JSON.stringify(data));
-      this.ImgDataList = [JSON.parse(JSON.stringify(data.PhotoUrl))];
+      console.log(JSON.parse(JSON.stringify(data.PhotoUrl)));
+      this.ImgDataList = JSON.parse(JSON.stringify(data.PhotoUrl)) ? [JSON.parse(JSON.stringify(data.PhotoUrl))] : [];
     },
     confirmEditDate() {
       this.formObj1.form.PhotoUrl = this.ImgDataList[0];
@@ -352,16 +353,18 @@ export default {
 }
 .productionTask-details-img {
   background-color: rgb(231, 231, 231);
+}
+::v-deep .el-image {
   .image-slot {
-    width: 100%;
+    min-width: 40px;
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    // color: rgb(161, 161, 161);
-    .error-icon {
-      color: rgb(161, 161, 161);
-      font-size: 19px;
+    justify-content: center;
+    background: #e7e7e7;
+    color: #a1a1a1;
+    i{
+      font-size: 20px;
     }
   }
 }
