@@ -17,7 +17,7 @@
           <TableAction
             :actions="[
               {
-                label: '预览',
+                label: $t('setup.Preview'),
                 hidden:![...P_inSite,...P_offSite].includes( row.FileType.toLocaleLowerCase() ),
                 confirm: preview.bind(null, row,),
               },

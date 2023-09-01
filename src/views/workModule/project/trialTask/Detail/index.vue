@@ -57,8 +57,8 @@
         <JvState :state="detailObj.detailData.State"></JvState>
       </div>
     </JvBlock>
-    <!-- 试模动态信息 -->
-    <JvBlock title="试模问题点" ref="second">
+    <!-- 试模问题点 -->
+    <JvBlock :title="$t('project.Pro_TestMouldProblemPoints')" ref="second">
       <JvTable :tableObj="tableObj">
         <template #BillFiles="{ record }">
           <div v-if="record.length > 0">
@@ -92,7 +92,7 @@
         >{{ $t("Generality.Ge_Upload") }}</el-button
         >
         <el-button size="mini" type="primary" @click="saveFiles"
-        >保存编辑</el-button
+        >{{ $t("Generality.Ge_saveEdits") }}</el-button
         >
       </div>
       <JvUploadFile
@@ -133,7 +133,6 @@ import {
 } from "@/api/workApi/project/projectTask";
 import { detailPageModel, imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { save_project_dynamic } from "@/api/workApi/project/projectInfo";
-// import { detailPageModel } from "@/jv_doc/utils/system/index";
 import { taskTypeEnum } from "@/enum/workModule";
 import JvState from "@/components/JVInternal/JvState/index";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
@@ -172,7 +171,7 @@ export default {
           name: "first",
         },
         {
-          label: '试模问题点',
+          label: this.$t("project.Pro_TestMouldProblemPoints"),
           name: "second",
         },
         {

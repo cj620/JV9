@@ -80,7 +80,7 @@
       <el-select
         style="margin-bottom: 20px"
         v-model="ResourceType"
-        placeholder="请选择"
+        :placeholder="$t('Generality.Ge_PleaseSelect')"
       >
         <el-option
           v-for="item in options"
