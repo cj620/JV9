@@ -243,11 +243,6 @@ export default {
       labelWidth: "80px",
     });
     this.eTableObj = new EditTable();
-    // if (this.type === "edit") {
-    //   this.fileBillId = this.billData;
-    //   this.editDisabled = true;
-    //   await this.GetData(this.billData);
-    // }
     if (this.type === "edit" || this.type === "copy") {
       this.fileBillId = this.billData;
       this.editDisabled = true;
@@ -265,6 +260,11 @@ export default {
       this.eTableObj.push(
         temMerge(this.BillItems, this.$route.params.stockInData.BillItems)
       );
+    } else if (this.$route.params.trialToolingData) {
+      this.formObj.form.PickingType = "TrialTooling";
+      this.formObj.form.PmTaskBillId = this.$route.params.trialToolingData.BillId
+      this.formObj.form.ToolingNo = this.$route.params.trialToolingData.ToolingNo
+      this.editDisabled = true;
     }
     await this.Configuration();
   },

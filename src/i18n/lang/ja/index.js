@@ -203,6 +203,16 @@ const ja = {
     Pro_ViewAllTasks: "すべてのタスクの表示",
     Pro_DistributionTask: "タスクの配布",
     Pro_TestMouldProblemPoints: "金型試験の問題点",
+    Pro_TestMouldReason: "試作原因",
+    Pro_TestMouldResult: "試作結果",
+    Pro_TestMouldColor: "しけんへんしょく",
+    Pro_TestMouldMachine: "しけんダイテーブル",
+    Pro_TestMouldLocation: "試験型場所",
+    Pro_TestMouldDate: "試作日",
+    Pro_TestMouldUseTime: "型試用時",
+    Pro_TestMouldInfo: "しけんモードじょうほう",
+    Pro_ProblemPoints: "問題点",
+    Pro_SuggestionsImprovement: "改善提案",
   },
   //设置
   setup: {
@@ -271,6 +281,7 @@ const ja = {
     EditPermissions: "権限の編集",
     PrintPreview: "印刷プレビュー",
     ConfirmPasswordReset: "パスワードのリセットを確認するか",
+    Preview: "プレビュー",
   },
   //销售
   sale: {
@@ -353,6 +364,7 @@ const ja = {
   },
   //通用
   Generality: {
+    Ge_saveEdits: "編集の保存",
     Ge_GanttShow: "ガントチャート表示",
     Ge_TabularShow: "表の表示",
     Ge_tagClose: "パージ",
@@ -866,6 +878,7 @@ const ja = {
     Pr_ComputingTime: "計算時間",
     Pr_HoursSummary: "労働時間の要約",
     Pr_IsOverstep: "期間外かどうか",
+    Pr_ConfirmToDelete: "このリソースグループを削除しますか？",
   },
   quality: {
     Qc_CheckResult: "検査結果",

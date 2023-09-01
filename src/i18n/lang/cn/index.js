@@ -207,6 +207,16 @@ const cn = {
     Pro_ViewAllTasks: "查看全部任务",
     Pro_DistributionTask: "分发任务",
     Pro_TestMouldProblemPoints: "试模问题点",
+    Pro_TestMouldReason: "试模原因",
+    Pro_TestMouldResult: "试模结果",
+    Pro_TestMouldColor: "试模颜色",
+    Pro_TestMouldMachine: "试模机台",
+    Pro_TestMouldLocation: "试模地点",
+    Pro_TestMouldDate: "试模日期",
+    Pro_TestMouldUseTime: "试模用时",
+    Pro_TestMouldInfo: "试模信息",
+    Pro_ProblemPoints: "问题点",
+    Pro_SuggestionsImprovement: "改善建议",
   },
   //设置
   setup: {
@@ -273,6 +283,7 @@ const cn = {
     EditPermissions: "编辑权限",
     PrintPreview: "打印预览",
     ConfirmPasswordReset: "是否确认重置密码",
+    Preview: "预览",
   },
   //销售
   sale: {
@@ -361,6 +372,7 @@ const cn = {
   },
   //通用
   Generality: {
+    Ge_saveEdits: "保存编辑",
     Ge_Chart: "图表",
     Ge_Gantt: "甘特图",
     Ge_GanttShow: "甘特图显示",
@@ -893,6 +905,7 @@ const cn = {
     Pr_ComputingTime: "计算时间",
     Pr_HoursSummary: "工时汇总",
     Pr_IsOverstep: "是否超出时间段",
+    Pr_ConfirmToDelete: "确定删除此资源组?",
   },
   quality: {
     Qc_CheckResult: "检验结果",

@@ -41,7 +41,7 @@
           <TableAction
             :actions="[
               {
-                label: '图片',
+                label: $t('Generality.Ge_PhotoUrl'),
                 confirm: addImg.bind(null, row),
               },
               {

@@ -37,7 +37,9 @@
         :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
         fit="cover"
       >
-
+        <div slot="error" class="image-slot1">
+          <i class="el-icon-picture-outline"></i>
+        </div>
       </el-image>
       </div>
       <div style="position: relative">
@@ -55,8 +57,8 @@
         <JvState :state="detailObj.detailData.State"></JvState>
       </div>
     </JvBlock>
-    <!-- 试模动态信息 -->
-    <JvBlock title="试模问题点" ref="second">
+    <!-- 试模问题点 -->
+    <JvBlock :title="$t('project.Pro_TestMouldProblemPoints')" ref="second">
       <JvTable :tableObj="tableObj">
         <template #BillFiles="{ record }">
           <div v-if="record.length > 0">
@@ -90,7 +92,7 @@
         >{{ $t("Generality.Ge_Upload") }}</el-button
         >
         <el-button size="mini" type="primary" @click="saveFiles"
-        >保存编辑</el-button
+        >{{ $t("Generality.Ge_saveEdits") }}</el-button
         >
       </div>
       <JvUploadFile
@@ -131,7 +133,6 @@ import {
 } from "@/api/workApi/project/projectTask";
 import { detailPageModel, imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { save_project_dynamic } from "@/api/workApi/project/projectInfo";
-// import { detailPageModel } from "@/jv_doc/utils/system/index";
 import { taskTypeEnum } from "@/enum/workModule";
 import JvState from "@/components/JVInternal/JvState/index";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
@@ -170,7 +171,7 @@ export default {
           name: "first",
         },
         {
-          label: '试模问题点',
+          label: this.$t("project.Pro_TestMouldProblemPoints"),
           name: "second",
         },
         {
@@ -226,6 +227,10 @@ export default {
           label: this.$t("Generality.Ge_Finished"),
           confirm: this.successProjectTask,
           disabled: this.detailObj.detailData.State !== "Approved",
+        },{
+          label: this.$t("stockroom.St_Picking"),
+          confirm: this.toStockPicking,
+          disabled: this.detailObj.detailData.State !== "Approved",
         });
       });
     },
@@ -233,6 +238,12 @@ export default {
     successProjectTask() {
       successProjectTask({ BillId: this.cur_Id }).then(() => {
         this.getData();
+      });
+    },
+    toStockPicking(){
+      this.$router.push({
+        name: "St_Picking_Add",
+        params: { trialToolingData: this.detailObj.detailData },
       });
     },
     // 新增动态
@@ -281,15 +292,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .mould-img {
+.mould-img {
+  width: 120px;
+  height: 120px;
+  // background-color: pink;
+  position: absolute;
+  left: 10px;
+  right: 200px;
+}
+.el-image {
+  ::v-deep .image-slot1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #f5f7fa;
     width: 120px;
-    height: 120px;
-    // background-color: pink;
-    position: absolute;
-    left: 10px;
-    right: 200px;
+    i {
+      font-size: 20px;
+    }
   }
-
+}
   .sum-text {
   display: inline-block;
   // padding-right: 100px;

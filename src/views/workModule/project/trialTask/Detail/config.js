@@ -8,7 +8,7 @@
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
 // import { m_tableConfig as tableConfig } from "../Add/editConfig";
-import { taskTypeEnum, enumToList } from "@/enum/workModule";
+// import { taskTypeEnum, enumToList } from "@/enum/workModule";
 // const newTableCongfig = [...tableConfig];
 // newTableCongfig.splice(tableConfig.length - 1, 0, {
 //   prop: "Progress",
@@ -53,71 +53,71 @@ export const detailConfig = [
   //相关编号
   {
     prop: "RelationId",
-    label: "相关编号",
+    label: i18n.t("sale.Sa_RelationId"),
     custom: true,
   },
   //试模原因
   {
     prop: "TestMouldReason",
-    label: "试模原因",
+    label: i18n.t("project.Pro_TestMouldReason"),
   },
   //试模结果
   {
     prop: "TestMouldResult",
-    label: "试模结果",
+    label: i18n.t("project.Pro_TestMouldResult"),
   },
   //试模颜色
   {
     prop: "TestMouldColor",
-    label: "试模颜色",
+    label: i18n.t("project.Pro_TestMouldColor"),
   },
   //试模机台
   {
     prop: "TestMouldMachine",
-    label: "试模机台",
+    label: i18n.t("project.Pro_TestMouldMachine"),
   },
   //试模地点
   {
     prop: "TestMouldLocation",
-    label: "试模地点",
+    label: i18n.t("project.Pro_TestMouldLocation"),
   },
   //试模日期
   {
     prop: "TestMouldDate",
-    label: "试模日期",
+    label: i18n.t("project.Pro_TestMouldDate"),
     filter: "date",
   },
   //试模用时
   {
     prop: "TestMouldUseTime",
-    label: "试模用时",
+    label: i18n.t("project.Pro_TestMouldUseTime"),
   },
   //试模信息
   {
     prop: "TestMouldInfo",
-    label: "试模信息",
+    label: i18n.t("project.Pro_TestMouldInfo"),
   },
 ];
 const tableConfig = [
   //问题点
   {
     prop: "ProblemPoints",
-    label: '问题点',
+    label: i18n.t("project.Pro_ProblemPoints"),
   },
   //改善建议
   {
     prop: "SuggestionsImprovement",
-    label: '改善建议',
+    label: i18n.t("project.Pro_SuggestionsImprovement"),
   },
   //备注
   {
     prop: "Remarks",
-    label: '备注',
+    label: i18n.t("Generality.Ge_Remarks"),
   },
   //图片
   {
     prop: "BillFiles",
-    label: '图片',
+    label: i18n.t("Generality.Ge_PhotoUrl"),
     custom:true,
   },
 ]
