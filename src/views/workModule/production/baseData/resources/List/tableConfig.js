@@ -13,8 +13,8 @@ export class api extends TableAPI {
 			rowId: "DeviceNo",
 			api,
 			tableHeaderShow: false,
-      height: 430,
-      operationCol: false,
+      		height: 430,
+      		operationCol: false,
 			// pagination: false,
 			// 打印模块标识
 			printMod: "Pr_BaseData_resources",
