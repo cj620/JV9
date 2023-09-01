@@ -69,6 +69,16 @@ const project = [
     path: "projectManage",
     title: i18n.t("menu.Pm_ProjectManagement"),
   },
+    // 模具列表
+  {
+    key: "Pm_ProjectToolingList",
+    component: () =>
+        import("@/views/workModule/project/MoldList"),
+    Parent: "Pm_Project",
+    name: "Pm_ProjectToolingList",
+    path: "Pm_ProjectToolingList",
+    title: i18n.t("project.Pm_MoldList")
+  },
   // 项目信息管理
   {
     key: "Pm_ProjectManagement_Msg",

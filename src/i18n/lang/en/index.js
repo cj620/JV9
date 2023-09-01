@@ -27,6 +27,7 @@ const en = {
     Pm_Project: "Project",
     Pm_Process: "Process",
     Pm_ProjectManagement: "Project Manage",
+    Pm_ProjectToolingList: "Tooling List",
     Pm_ProjectTask: "Project Task",
     Pm_TestTask: "Trial Task",
     Pm_ProjectCost: "Project Cost",
@@ -154,6 +155,7 @@ const en = {
   },
   //项目
   project: {
+    Pm_MoldList: "Mold List",
     Pr_PartSchedule: "Part Schedule",
     Pro_ItemType: "Item Type",
     Pro_UpdateDate: "Update Date",
