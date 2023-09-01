@@ -227,6 +227,10 @@ export default {
           label: this.$t("Generality.Ge_Finished"),
           confirm: this.successProjectTask,
           disabled: this.detailObj.detailData.State !== "Approved",
+        },{
+          label: this.$t("stockroom.St_Picking"),
+          confirm: this.toStockPicking,
+          disabled: this.detailObj.detailData.State !== "Approved",
         });
       });
     },
@@ -234,6 +238,12 @@ export default {
     successProjectTask() {
       successProjectTask({ BillId: this.cur_Id }).then(() => {
         this.getData();
+      });
+    },
+    toStockPicking(){
+      this.$router.push({
+        name: "St_Picking_Add",
+        params: { trialToolingData: this.detailObj.detailData },
       });
     },
     // 新增动态
