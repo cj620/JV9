@@ -129,7 +129,8 @@ export default {
       };
     } else {
       this.IsDisabled = true;
-      this.title = "编辑";
+      // this.title = "编辑";
+      this.title = this.$t("Generality.Ge_Edit");
       this.formObj.form = this.transferData;
       this.formObj.form.Remarks=this.transferData.ItemRemarks;
       this.formObj.form.PlanStart = this.transferData.ItemPlanStart;

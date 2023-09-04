@@ -53,7 +53,7 @@
     </JvBlock>
 
     <!--客户信息-->
-    <JvBlock title="客户信息" ref="first">
+    <JvBlock :title="$t('Generality.Ge_CustomerInfo')" ref="first">
       <!---->
       <JvDetail :detailObj="detailObj1"> </JvDetail>
     </JvBlock>

@@ -41,7 +41,7 @@
             <el-form-item prop="UserName">
               <el-input
                 v-model="LoginData.UserName"
-                placeholder="账号"
+                :placeholder="$t('setup.Account')"
                 size="medium"
                 class="login-right1"
                 @keyup.enter.native="toggleInput(1)"

@@ -45,7 +45,7 @@ export const tableConfig = [
   /*客户简称*/
   {
     prop: "CustomerName",
-    label: "客户简称",
+    label: i18n.t("sale.Sa_CustomerName"),
   },
   /*物料编号*/
   {

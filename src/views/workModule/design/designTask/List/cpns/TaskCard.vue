@@ -114,7 +114,7 @@
     </distributionTaskDialog>
     <JvDialog
       :visible.sync="viewSubtasksDialogVisible"
-      title="查看子任务"
+      :title="$t('project.Pro_ViewSubtasks')"
       v-if="viewSubtasksDialogVisible"
       @confirm="dialogConfirm"
       width="60%"
@@ -123,7 +123,7 @@
     </JvDialog>
     <DetailModel
       ref="detailModel"
-      title="更多信息"
+      :title="$t('project.Pro_MoreInformation')"
       :visible.sync="moreMsgShow"
       width="40%"
       :cdata="cdata"

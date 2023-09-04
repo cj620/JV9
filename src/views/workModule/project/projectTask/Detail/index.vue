@@ -97,7 +97,7 @@
           >{{ $t("Generality.Ge_Upload") }}</el-button
         >
         <el-button size="mini" type="primary" @click="saveFiles"
-          >保存编辑</el-button
+          >{{ $t("Generality.Ge_SaveEdits") }}</el-button
         >
       </div>
 
