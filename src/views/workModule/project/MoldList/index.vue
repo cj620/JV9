@@ -2,11 +2,18 @@
   <PageWrapper :footer="false">
     <div class="mold-list">
       <JvTable :table-obj="tableObj">
-<!--        <template #PhotoUrl="{ record }">-->
-<!--          <el-image :src="imgUrlPlugin(record)">-->
-
-<!--          </el-image>-->
-<!--        </template>-->
+        <template #operation="{ row }">
+          <TableAction :actions="[
+          {
+              label: $t('Generality.Ge_Schedule'),
+              confirm: toProjectProcess.bind(null, row),
+            },
+            {
+              label: $t('project.Pro_Cost'),
+              confirm: toProjrctCost.bind(null, row, false),
+            }
+          ]" />
+        </template>
       </JvTable>
     </div>
   </PageWrapper>
@@ -34,6 +41,20 @@ export default {
   },
   methods: {
     imgUrlPlugin,
+    // 跳转项目进度
+    toProjectProcess(row) {
+      console.log(row);
+      this.$router.push({
+        name: "ProjectManage_process_people",
+        query: { Project: row.Project },
+      });
+    },
+    toProjrctCost(row, flag) {
+      this.$router.push({
+        name: "Pm_PivotTable",
+        query: { ProjectId: row.Id, Typ: flag },
+      });
+    },
   }
 };
 </script>
