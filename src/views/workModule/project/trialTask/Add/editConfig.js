@@ -29,12 +29,12 @@ export const tableSchema = [
     prop: "ProblemPoints",
     formCpn: "FormInput",
     width: "300px",
-    label: "问题点",
+    label: i18n.t("project.Pro_ProblemPoints"),
   },
   /*改善建议*/
   {
     prop: "SuggestionsImprovement",
-    label: "改善建议",
+    label: i18n.t("project.Pro_SuggestionsImprovement"),
     formCpn: "FormInput",
   },
   /*备注*/
@@ -46,16 +46,10 @@ export const tableSchema = [
   /*图片*/
   {
     prop: "BillFiles",
-    label:'图片',
+    label: i18n.t("Generality.Ge_PhotoUrl"),
     custom: true,
     editConfig:{
       disabled:true,
     }
   },
-/*  /!*编号*!/
-  {
-    prop: "Id",
-    label: i18n.t("Generality.Ge_ID"),
-    hidden: true,
-  },*/
 ];

@@ -72,6 +72,7 @@
       :title="$t('Generality.Ge_ResourceGroupMembers')"
       width="35%"
       :visible.sync="dialogTableVisible"
+      destroy-on-close
       @confirm="dialogTableConfirm"
       :autoFocus="true"
       v-if="dialogTableVisible"
@@ -79,7 +80,7 @@
       <el-select
         style="margin-bottom: 20px"
         v-model="ResourceType"
-        placeholder="请选择"
+        :placeholder="$t('Generality.Ge_PleaseSelect')"
       >
         <el-option
           v-for="item in options"
@@ -127,22 +128,21 @@
       :title="
         $t('Generality.Ge_New') + $t('Generality.Ge_ResourceGroupMembers')
       "
+      destroy-on-close
       width="35%"
       :visible.sync="ResourceMemberVisible"
       @confirm="ResourceMemberConfirm"
       :autoFocus="true"
     >
-      <JvForm :formObj="formObj1">
-        <template #Master="{ prop }">
-          <el-checkbox v-model="formObj1.form[prop]"> </el-checkbox>
-        </template> </JvForm
-    ></jv-dialog>
+        <JvTable :table-obj="tableObj" ref="resourceTable" v-if="ResourceMemberVisible"></JvTable>
+    </jv-dialog>
   </PageWrapper>
 </template>
 
 <script>
 import { formSchema, formSchema1 } from "./formConfig";
 import { Form } from "@/jv_doc/class/form";
+import { Table } from "./tableConfig"
 import {
   getAllResource,
   editResource,
@@ -155,7 +155,7 @@ export default {
     return {
       ResourceData: [],
       formObj: {},
-      formObj1: {},
+		  tableObj:{},
       tableData: [],
       dialogFormVisible: false,
       dialogTableVisible: false,
@@ -229,11 +229,9 @@ export default {
     },
     // 添加设备成员
     addResourceMember() {
+      this.tableObj = new Table();
+      this.tableObj.getData();
       this.ResourceMemberVisible = true;
-      this.formObj1.form = {
-        DeviceNo: "",
-        Master: false,
-      };
     },
     // 删除资源组成员
     deleteResourceMember(row) {
@@ -242,15 +240,11 @@ export default {
     },
     // 新增资源组成员confirm
     ResourceMemberConfirm() {
-      if (
-        this.tableData.some(
-          (item) => item.DeviceNo === this.formObj1.form.DeviceNo
-        )
-      ) {
-        this.$message.warning(this.$t("Generality.Ge_DeviceExists"));
-        return;
-      }
-      this.tableData.push(this.formObj1.form);
+      let arr = []
+      this.tableObj.selectData.datas.forEach( e =>{
+        arr.push({ DeviceNo: e.DeviceNo, "Master": false })
+      })
+      this.tableData = arr
       this.ResourceMemberVisible = false;
     },
   },
@@ -264,14 +258,7 @@ export default {
       },
       labelWidth: "80px",
     });
-    this.formObj1 = new Form({
-      formSchema: formSchema1,
-      labelPosition: "top",
-      baseColProps: {
-        span: 24,
-      },
-      labelWidth: "80px",
-    });
+	  // this.tableObj.getData();
   },
 };
 </script>

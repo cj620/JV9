@@ -55,43 +55,43 @@ export const formSchema = [
   //试模原因
   {
     prop: "TestMouldReason",
-    label: "试模原因",
+    label: i18n.t("project.Pro_TestMouldReason"),
     cpn: "FormInput",
   },
   //试模结果
   {
     prop: "TestMouldResult",
-    label: "试模结果",
+    label: i18n.t("project.Pro_TestMouldResult"),
     cpn: "FormInput",
   },
   //试模颜色
   {
     prop: "TestMouldColor",
-    label: "试模颜色",
+    label: i18n.t("project.Pro_TestMouldColor"),
     cpn: "FormInput",
   },
   //试模机台
   {
     prop: "TestMouldMachine",
-    label: "试模机台",
+    label: i18n.t("project.Pro_TestMouldMachine"),
     cpn: "FormInput",
   },
   //试模机台
   {
     prop: "TestMouldLocation",
-    label: "试模地点",
+    label: i18n.t("project.Pro_TestMouldLocation"),
     cpn: "FormInput",
   },
   //试模日期
   {
     prop: "TestMouldDate",
-    label: "试模日期",
+    label: i18n.t("project.Pro_TestMouldDate"),
     cpn: "SingleTime",
   },
   //试模日期
   {
     prop: "TestMouldUseTime",
-    label: "试模用时",
+    label: i18n.t("project.Pro_TestMouldUseTime"),
     type: "number",
     cpn: "FormInput",
     default: 1,
@@ -99,7 +99,7 @@ export const formSchema = [
   //试模日期
   {
     prop: "TestMouldInfo",
-    label: "试模信息",
+    label: i18n.t("project.Pro_TestMouldInfo"),
     cpn: "FormInput",
   },
 ];

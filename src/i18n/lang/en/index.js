@@ -224,6 +224,16 @@ const en = {
     Pro_ViewAllTasks: "View All Tasks",
     Pro_DistributionTask: "Distribution Task",
     Pro_TestMouldProblemPoints: "Test Mould Problem Points",
+    Pro_TestMouldReason: "Test Mould Reason",
+    Pro_TestMouldResult: "Test Mould Result",
+    Pro_TestMouldColor: "Test Mould Color",
+    Pro_TestMouldMachine: "Test Mould Machine",
+    Pro_TestMouldLocation: "Test Mould Location",
+    Pro_TestMouldDate: "Test Mould Date",
+    Pro_TestMouldUseTime: "Test Mould Use Time",
+    Pro_TestMouldInfo: "Test Mould Info",
+    Pro_ProblemPoints: "Problem Points",
+    Pro_SuggestionsImprovement: "Suggestions Improvement",
   },
   setup: {
     Stockroom: "Stockroom",
@@ -292,6 +302,7 @@ const en = {
     EditPermissions: "Edit permissions",
     PrintPreview: "Print preview",
     ConfirmPasswordReset: "Confirm Password Reset",
+    Preview: "Preview",
   },
   sale: {
     Sa_DownTime: "Down Time",
@@ -366,6 +377,7 @@ const en = {
   },
   //通用
   Generality: {
+    Ge_saveEdits: "Save Edits",
     Ge_Chart: "Chart",
     Ge_Gantt: "Gantt",
     Ge_GanttShow: "Gantt Display",
@@ -905,6 +917,7 @@ const en = {
     Pr_ComputingTime: "Computing time",
     Pr_HoursSummary: "Hours summary",
     Pr_IsOverstep: "Is Overstep",
+    Pr_ConfirmToDelete: "Are you sure to delete this resource group?",
   },
   quality: {
     Qc_CheckResult: "Check result",

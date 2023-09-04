@@ -48,17 +48,18 @@ export const P_tableSchema = [
   {
     prop: "BillId",
     label: i18n.t("project.Pro_TaskSheetNo"),
-    cpn: "Link",
-    cpnProps: {
-      // 路由名称
-      routeName: "Pm_ProjectTask_Detail",
-      // 路由路径（名称和路径二选一）
-      // routePath:'/dashboard',
-      // 路由传参方式 默认query
-      methods: "query",
-      // 传参的键名，值为当前数据
-      parameterKey: "BillId",
-    },
+    custom: true
+    // cpn: "Link",
+    // cpnProps: {
+    //   // 路由名称
+    //   routeName: "Pm_ProjectTask_Detail",
+    //   // 路由路径（名称和路径二选一）
+    //   // routePath:'/dashboard',
+    //   // 路由传参方式 默认query
+    //   methods: "query",
+    //   // 传参的键名，值为当前数据
+    //   parameterKey: "BillId",
+    // },
   },
   /*任务类别*/
   {
