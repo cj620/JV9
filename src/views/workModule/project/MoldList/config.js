@@ -25,7 +25,7 @@ export class Table extends BaseTable {
       rowId: "Id",
       title: i18n.t("project.Pm_MoldList"),
       printMod: "Pm_MoldList",
-      operationCol: false,
+      operationCol: true,
       chooseCol: false,
       api,
     });
@@ -44,6 +44,18 @@ export const tableConfig = [
   {
     prop: "Id",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    align: "center",
+    cpn: "Link",
+    cpnProps: {
+      // 路由名称
+      routeName: "ProjectManage_MouldDetail",
+      // 路由路径（名称和路径二选一）
+      // routePath:'/dashboard',
+      // 路由传参方式 默认query
+      methods: "query",
+      // 传参的键名，值为当前数据
+      parameterKey: "BillId",
+    },
     // width: "140px",
   },
     // 模具名称
@@ -79,13 +91,15 @@ export const tableConfig = [
   {
     prop: "DeliveryDate",
     label: i18n.t("Generality.Ge_DeliveryDate"),
-    filter: 'time'
+    filter: 'date',
+    width: '120px'
   },
   // 首样日期
   {
     prop: "PlanDueDate",
     label: i18n.t("production.Pr_ProofDate"),
-    filter: 'time'
+    filter: 'date',
+    width: '120px'
   },
   // 加工进度
   {
@@ -99,5 +113,11 @@ export const formSchema = [
   {
     prop: "Keyword",
     label: i18n.t("Generality.Ge_PleaseEnter")+' '+ i18n.t("Generality.Ge_KeyWords"),
+    cpn: "FormInput",
+  },
+  {
+    prop: "Project",
+    label:i18n.t("sale.Sa_ProjectId"),
+    cpn: "FormInput",
   },
 ];
