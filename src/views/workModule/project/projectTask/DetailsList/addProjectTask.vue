@@ -89,7 +89,7 @@ export default {
     return {
       loading: false,
       IsDisabled: false,
-      title: "新增",
+      title: this.$t("Generality.Ge_New"),
       formObj: {},
       BelongingDepartment: "",
       projectDataList: [],
@@ -129,7 +129,8 @@ export default {
       };
     } else {
       this.IsDisabled = true;
-      this.title = "编辑";
+      // this.title = "编辑";
+      this.title = this.$t("Generality.Ge_Edit");
       this.formObj.form = this.transferData;
       this.formObj.form.PlanStart = this.transferData.ItemPlanStart;
       this.formObj.form.PlanEnd = this.transferData.ItemPlanEnd;

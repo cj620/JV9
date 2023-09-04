@@ -23,7 +23,7 @@
               <el-form-item>
                 <el-input
                   v-model="detailsSearchForm.Keyword"
-                  placeholder="请输入单据编号、名称、部门"
+                  :placeholder="$t('sale.Sa_PleaseInput1')"
                 ></el-input>
               </el-form-item>
               <el-form-item label-width="20px">

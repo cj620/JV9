@@ -125,7 +125,17 @@
       :tableConfig="Table"
       :detailedData="detailedData"
       @confirmDetails="validateIsCompleted"
+      :slotData="['BillId']"
     >
+      <template #BillId="scope">
+        <!--<span>{{ scope.row.BillId }}</span>-->
+        <span
+          style="color: #409eff; cursor: pointer"
+          @click="linkToOrder(scope.row.BillId)"
+        >
+          {{ scope.row.BillId }}
+        </span>
+      </template>
     </select-doc-details>
 
     <!-- 发货完成提醒弹窗 -->
@@ -315,6 +325,12 @@ export default {
       });
     },
 
+    linkToOrder(BillId) {
+      this.$router.push({
+        name: "Sa_SaleOrder_Detail",
+        query: { BillId },
+      });
+    },
     //选择地址
     changeAddress(e) {
       console.log(e);

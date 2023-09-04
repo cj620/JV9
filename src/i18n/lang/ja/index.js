@@ -135,6 +135,8 @@ const ja = {
   },
   //项目
   project: {
+    Pm_MoldList: "モールドリスト",
+    Pr_PartSchedule: "部品の進捗",
     Pro_ItemType: "プロジェクトカテゴリ",
     Pro_UpdateDate: "更新日",
     Pro_CalculationMonth: "決済月",
@@ -200,6 +202,7 @@ const ja = {
     Pro_ViewTaskDetails: "タスク詳細の表示",
     Pro_ViewParentProjectTasks: "親プロジェクトタスクの表示",
     Pro_ViewSubtasks: "サブタスクの表示",
+    Pro_MoreInformation: "詳細情報",
     Pro_ViewAllTasks: "すべてのタスクの表示",
     Pro_DistributionTask: "タスクの配布",
     Pro_TestMouldProblemPoints: "金型試験の問題点",
@@ -314,6 +317,7 @@ const ja = {
     Sa_Scale: "ひれい",
     Sa_UserInformation: "ユーザー情報",
     Sa_Sum: "合計",
+    Sa_PleaseInput1: "品目番号、名称を入力してください",
   },
   // 采购
   purchase: {
@@ -364,7 +368,7 @@ const ja = {
   },
   //通用
   Generality: {
-    Ge_saveEdits: "編集の保存",
+    Ge_SaveEdits: "編集の保存",
     Ge_GanttShow: "ガントチャート表示",
     Ge_TabularShow: "表の表示",
     Ge_tagClose: "パージ",
@@ -452,6 +456,7 @@ const ja = {
     Ge_Approved: "レビュー済み ",
     Ge_Rejected: "拒否されました",
     Ge_Reject: "拒否",
+    Ge_Deferred: "延期",
     Ge_Completed: "完了",
     Ge_ApproveProcess: "レビュープロセス",
     Ge_MultipleSetup: "一括設定",
@@ -845,6 +850,8 @@ const ja = {
     Pr_SelectDate: "日付の選択",
     Pr_Processed: "加工済み",
     Pr_ToBeProcessed: "加工待ち",
+    Pr_DeliveryDate: "搬送日",
+    Pr_ProofDate: "最初のサンプル日",
     Pr_Inside: "工場内",
     Pr_Outside: "工場外",
     Pr_Top: "の頂部をおおう",
