@@ -151,7 +151,7 @@ export default {
   z-index: 999;
 }
 .jv-dialog-content {
-  max-height: 60vh;
+  max-height: 80vh;
   overflow: auto;
   padding: 30px 20px;
 }
