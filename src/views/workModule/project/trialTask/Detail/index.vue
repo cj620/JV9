@@ -19,7 +19,10 @@
         :name="pane.name"
       ></el-tab-pane>
     </el-tabs>
-    <Action slot="sticky-extra" size="small" :actions="btnAction"></Action>
+    <Action slot="sticky-extra" size="small"
+      :actions="
+        btnAction.filter((item) => item.label != $t('Generality.Ge_Copy'))
+    "></Action>
     <!-- 单据信息 -->
     <JvBlock
       :title="$t('Generality.Ge_BillInfo')"
