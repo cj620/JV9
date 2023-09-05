@@ -17,6 +17,8 @@ import program from "./workModule/program";
 import quality from "./workModule/quality";
 import equipment from "./workModule/equipment";
 import test from "./basicModule/test";
+import dataV from "./workModule/dataV";
+
 /* Router Modules */
 
 /**
@@ -64,12 +66,19 @@ export const constantRoutes = [
     component: () => import("@/views/sys/login/index"),
     hidden: true,
   },
+  // {
+  //   path: "/se_DSe_MoldProgressKanbanesk",
+  //   name: "Se_MoldProgressKanban",
+  //   component: () => import("@/views/basicModule/KanBan/MoldProgressKanban"),
+  //   hidden: true,
+  // },
   {
     path: "/se_DSe_MoldProgressKanbanesk",
     name: "Se_MoldProgressKanban",
-    component: () => import("@/views/basicModule/KanBan/MoldProgressKanban"),
+    component: () => import("@/views/basicModule/KanBan/IntegratedSignage"),
     hidden: true,
   },
+    ...dataV,
    // 项目分享
    {
     component: () =>

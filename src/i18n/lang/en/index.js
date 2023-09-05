@@ -377,6 +377,22 @@ const en = {
     St_Assembly: "Assembly",
     St_Split: "Split",
   },
+  // 看板 （数据可视化）
+  DataV: {
+    Da_IntegratedSignage: "Integrated Signage",
+    Da_EquipmentSignage: "Equipment Signage",
+    Da_EquipmentStatus: "Equipment Status",
+    Da_AlarmSituation: "Alarm Situation",
+    Da_ShutdownCondition: "Shutdown Condition",
+    Da_OverallEfficiency: "Overall Efficiency",
+    Da_EquipmentDynamicCurve: "Equipment DynamicCurve",
+    Da_HUT: "HUT",
+    Da_Alarm: "Alarm",
+    Da_Operation: "Operation",
+    Da_Leisure: "Leisure",
+    Da_Shutdown: "Shutdown",
+    Da_NotCollected: "Not Collected",
+  },
   //通用
   Generality: {
     Ge_SaveEdits: "Save Edits",

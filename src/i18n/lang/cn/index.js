@@ -372,6 +372,22 @@ const cn = {
     De_Allocated: "已分配",
     De_Unallocated: "未分配",
   },
+  // 看板 （数据可视化）
+  DataV: {
+    Da_IntegratedSignage: "综合看板",
+    Da_EquipmentSignage: "设备看板",
+    Da_EquipmentStatus: "设备状态",
+    Da_AlarmSituation: "报警情况",
+    Da_ShutdownCondition: "停机情况",
+    Da_OverallEfficiency: "设备综合效率",
+    Da_EquipmentDynamicCurve: "设备稼动曲线",
+    Da_HUT: "开机率",
+    Da_Alarm: "报警",
+    Da_Operation: "运行",
+    Da_Leisure: "空闲",
+    Da_Shutdown: "关机",
+    Da_NotCollected: "未采集",
+  },
   //通用
   Generality: {
     Ge_SaveEdits: "保存编辑",
