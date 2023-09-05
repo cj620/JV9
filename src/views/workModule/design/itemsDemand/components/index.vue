@@ -149,12 +149,13 @@ export default {
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
     } else if (this.$route.params.data) {
-
+      console.log(this.$route.params);
       this.$route.params.data.forEach((item) => {
         item.ItemName = item.PartName;
       });
       this.formObj.form.ToolingNo = this.$route.params.data[0].ToolingNo;
       this.eTableObj.push(temMerge(this.BillItems, this.$route.params.data));
+      this.$route.params.PmTaskBillId ? this.formObj.form.PmTaskBillId = this.$route.params.PmTaskBillId : ""
     }
   },
 

@@ -71,6 +71,7 @@
             disabled: !IsSearchItemDisabled,
             confirm: searchItem.bind(),
           },
+          // 提交物料需求
           {
             label: $t('design.De_SubmitDemand'),
             disabled: IsTableDisabled,
@@ -234,6 +235,33 @@
     >
       <custom-upload ref="customUploadRef"></custom-upload>
     </JvDialog>
+    <JvDialog
+      v-if="selectProjectFormVisible"
+      :visible.sync="selectProjectFormVisible"
+      destroy-on-close
+      :title="$t('Generality.Ge_Remind')"
+      width="30%"
+      @confirm="confirmItem"
+    >
+      <JvForm :formObj="formObj">
+        <template #PmTaskBillId="{ prop }">
+          <el-select
+            v-model="formObj.form[prop]"
+            filterable
+          >
+            <el-option
+              v-for="item in TaskListData"
+              :key="item.BillId"
+              :label="
+                item.BillId + '(' + taskTypeEnum[item.TaskType].name + ')'
+              "
+              :value="item.BillId"
+            >
+            </el-option>
+          </el-select>
+        </template>
+      </JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 
@@ -254,7 +282,7 @@ import {
 } from "@/api/workApi/design/toolingBOM";
 // 获取系统配置接口
 import { batch_get } from "@/api/basicApi/systemSettings/sysSettings";
-import { demandStatusEnum } from "@/enum/workModule";
+import { demandStatusEnum, taskTypeEnum } from "@/enum/workModule";
 
 import { uploadImage } from "@/api/workApi/materials/fileUpload";
 import Popover from "@/jv_doc/cpn/JvTable/cpn/Popover.vue";
@@ -266,6 +294,7 @@ import { itemList } from "@/api/basicApi/systemSettings/Item";
 import JvDialog from "~/cpn/JvDialog/index.vue";
 import customUpload from "@/components/customUpload/index.vue";
 import request from "@/utils/request";
+import { Form } from "@/jv_doc/class/form";
 export default {
   name: "ToolingBOM",
   // 表格数据
@@ -280,8 +309,9 @@ export default {
   },
   data() {
     return {
+      taskTypeEnum,
       demandStatusEnum,
-      uploadLoading: false, // 上传loaidng
+      uploadLoading: false, // 上传loading
       showMassUpload: false, // 批量上传弹窗
       partLevelMap: {
         0: {
@@ -297,8 +327,10 @@ export default {
       ToolingNo: "",
       currentRow: {},
       cur_toolId: "",
+      TaskListData: [],
       importShow: false,
       loading: false,
+      selectProjectFormVisible:false,
       searchItemDialogFormVisible: false,
       selectTaskDialogFormVisible: false,
       setLevelDialogFormVisible: false,
@@ -369,6 +401,19 @@ export default {
     };
   },
   created() {
+    this.formObj = new Form({
+      formSchema:[{
+        prop: "PmTaskBillId",
+        cpn: "SyncSelect",
+        label: i18n.t("project.Pro_TaskSheetNo"),
+        custom: true,
+      }],
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
     this.eTableObj = new EditTable();
     this.importTableObj = new importEditTable();
     this.defaultConfig();
@@ -651,12 +696,28 @@ export default {
         });
       });
     },
-
     //提交物料需求
     submitItemsDemand() {
       var str = {
+        ToolingNo: this.ToolingNo,
+        SelectType: 0,
+      };
+      toolingTaskInfoList(str).then((res) => {
+        //判断说明不只一个任务单
+        if (res.Items.length === 1) {
+          this.formObj.form.PmTaskBillId = res.Items[0].BillId;
+        } else if (res.Items.length === 0) {
+          this.formObj.form.PmTaskBillId = "";
+        }
+        this.TaskListData = res.Items;
+        this.selectProjectFormVisible = true
+      });
+    },
+    confirmItem() {
+      var str = {
         ToolingNo: this.toolId,
         Boms: format2source(this.eTableObj.selectData.datas),
+        PmTaskBillId: this.formObj.form.PmTaskBillId
       };
       confirmSubmitMaterialRequirement(str).then((res) => {
         //判断有没有提交过物料需求
@@ -671,12 +732,15 @@ export default {
           ).then(() => {
             // this.IsSubmitItemsDemand()
             this.confirmTask();
+            this.selectProjectFormVisible = false
           });
         } else {
           // this.IsSubmitItemsDemand()
           this.confirmTask();
+          this.selectProjectFormVisible = false
         }
       });
+
     },
     //判断需要关联的任务
     IsSubmitItemsDemand() {
@@ -690,6 +754,7 @@ export default {
         params: {
           data: format2source(this.eTableObj.selectData.datas),
           AssociateTask: e,
+          PmTaskBillId: this.formObj.form.PmTaskBillId
         },
       });
     },

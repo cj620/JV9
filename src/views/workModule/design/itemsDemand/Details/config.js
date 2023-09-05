@@ -90,4 +90,9 @@ export const detailConfig = [
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
   },
+  {
+    // 任务单号
+    prop: "PmTaskBillId",
+    label: i18n.t("project.Pro_TaskSheetNo"),
+  },
 ];
