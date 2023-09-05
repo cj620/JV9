@@ -193,7 +193,9 @@
       :title="ProjectTaskLogs.TaskName"
       @confrim="showProjectTaskLogs = !showProjectTaskLogs"
     >
-      <popover-table :item="ProjectTaskLogs"></popover-table>
+      <div style="height: 60vh;min-height: 30vh">
+        <popover-table :item="ProjectTaskLogs"></popover-table>
+      </div>
     </JvDialog>
   </PageWrapper>
 </template>
@@ -268,6 +270,7 @@ export default {
   },
   async created() {
     this._arguments = {Project: this.$route.query.Project};
+    this.$route.query.ToolingNo ? this.searchValue = this.$route.query.ToolingNo : '';
     this.getWorkerProgress();
   },
   mounted() {

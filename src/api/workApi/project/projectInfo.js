@@ -66,6 +66,14 @@ export function create_data_sharing(data) {
     data,
   });
 }
+// 获取零件进度分享结果
+export function get_data_sharing(data) {
+  return request({
+    url: "/project_data_sharing/part_processing_node",
+    method: "get",
+    params:data
+  });
+}
 // 项目进度
 export function worker_progress(data) {
   return request({
@@ -82,4 +90,3 @@ export function part_processing_node(data) {
     data,
   });
 }
-
