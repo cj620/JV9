@@ -18,7 +18,8 @@ import "./styles/element-variables.scss";
 // 注册全局组件
 import "@/jv_doc/cpn/global.js";
 import "@/styles/index.scss"; // global css
-
+// 将自动注册所有组件为全局组件
+import dataV from '@jiaminghi/data-view'
 import App from "./App";
 import store from "./store";
 import router from "./router";
@@ -47,6 +48,7 @@ import "devextreme/dist/css/dx.light.css";
 }
  */
 Vue.use(VueParticles);
+Vue.use(dataV)
 Vue.use(Element, {
   size: Cookies.get("size") || "medium", // set element-ui default size
   // 如果使用中文，无需设置，请删除
