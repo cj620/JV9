@@ -69,6 +69,11 @@ export const tableConfig = [
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
+  /*加工单号*/
+  {
+    prop: "PrTaskBillId",
+    label: '加工单号',
+  },
 ];
 
 export const formSchema = [
