@@ -367,7 +367,8 @@ export default {
     },
     //导入成功
     importComplete(e) {
-      this.importShow = false;
+		console.log(e)
+		this.importShow = false;
 
       var arr = [];
       e.forEach((Titem) => {
