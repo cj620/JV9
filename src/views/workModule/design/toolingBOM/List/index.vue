@@ -239,7 +239,7 @@
       v-if="selectProjectFormVisible"
       :visible.sync="selectProjectFormVisible"
       destroy-on-close
-      :title="$t('Generality.Ge_Remind')"
+      :title="$t('project.Pro_TaskSheetNo')"
       width="30%"
       @confirm="confirmItem"
     >

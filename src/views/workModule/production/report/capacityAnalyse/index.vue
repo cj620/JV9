@@ -8,6 +8,7 @@
   <PageWrapper :footer="false">
     <!-- 表格 -->
     <JvTable
+      @cell-click="clickToDetail"
       ref="BillTable"
       :table-obj="tableObj"
       :header-cell-style="headerClass"
@@ -42,6 +43,16 @@
         </div>
       </template>
     </JvTable>
+    <JvDialog
+      v-if="detailDataView"
+      :visible.sync="detailDataView"
+      destroy-on-close
+      :title="$t('Generality.Ge_DetailedInformation')"
+      :IsShowFooterBtn="false"
+      width="80%"
+    >
+      <JvTable :table-obj="detailTableObj"></JvTable>
+    </JvDialog>
   </PageWrapper>
 </template>
 <script>
@@ -54,6 +65,7 @@ import ColProgress from "./cpns/ColProgress";
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
 import { timeFormat } from "@/jv_doc/utils/time";
 import Popover from "@/jv_doc/cpn/JvTable/cpn/Popover.vue";
+import { DetailTable } from "./detailConfig";
 export default {
   name: "list",
   components: {
@@ -63,6 +75,8 @@ export default {
     return {
       // 表格数据
       tableObj: {},
+      detailTableObj: {},
+      detailDataView: false
     };
   },
   created() {
@@ -74,10 +88,15 @@ export default {
   },
   computed: {},
   methods: {
+    clickToDetail(row, column) {
+      const columnLabel = "Data" + column.label
+      this.detailTableObj.setData(row[columnLabel])
+      this.detailDataView = true
+    },
     init() {
       this.tableObj = new Table();
       this.tableObj.getData();
-		  console.log(this.tableObj)
+      this.detailTableObj = new DetailTable
 	  },
     imgUrlPlugin,
     headerClass(e) {

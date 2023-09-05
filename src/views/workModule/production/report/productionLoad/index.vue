@@ -10,6 +10,7 @@
 import Common from "@/views/workModule/production/report/capacityAnalyse";
 import { load_analysis_items } from "@/api/workApi/production/dataReport";
 import { Table } from "./config";
+import { DetailTable } from "../capacityAnalyse/detailConfig";
 export default {
   // name: "Pa_ProgramTask",
   // 继承
@@ -18,9 +19,15 @@ export default {
     return {};
   },
   methods: {
+    clickToDetail(row, column) {
+      const columnLabel = "Data" + column.label
+      this.detailTableObj.setData(row[columnLabel])
+      this.detailDataView = true
+    },
     init() {
       this.tableObj = new Table();
       this.tableObj.getData();
+      this.detailTableObj = new DetailTable
     },
     load(tree, treeNode, resolve) {
       load_analysis_items({
