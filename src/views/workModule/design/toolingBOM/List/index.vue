@@ -654,6 +654,9 @@ export default {
 
     //提交物料需求
     submitItemsDemand() {
+
+    },
+    isSubmitted(){
       var str = {
         ToolingNo: this.toolId,
         Boms: format2source(this.eTableObj.selectData.datas),
@@ -669,18 +672,12 @@ export default {
               type: "warning",
             }
           ).then(() => {
-            // this.IsSubmitItemsDemand()
             this.confirmTask();
           });
         } else {
-          // this.IsSubmitItemsDemand()
           this.confirmTask();
         }
       });
-    },
-    //判断需要关联的任务
-    IsSubmitItemsDemand() {
-      this.confirmTask(res.Items);
     },
 
     //跳转到物料需求
