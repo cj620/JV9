@@ -49,9 +49,13 @@
       destroy-on-close
       :title="$t('Generality.Ge_DetailedInformation')"
       :IsShowFooterBtn="false"
-      width="80%"
+      width="60%"
     >
-      <JvTable :table-obj="detailTableObj"></JvTable>
+      <JvTable :table-obj="detailTableObj">
+        <template #ApsState="{ record }">
+          {{ ApsSheetsMap[record].name }}
+        </template>
+      </JvTable>
     </JvDialog>
   </PageWrapper>
 </template>
@@ -76,7 +80,18 @@ export default {
       // 表格数据
       tableObj: {},
       detailTableObj: {},
-      detailDataView: false
+      detailDataView: false,
+      ApsSheetsMap: {
+        Normal: {
+          name: this.$t("production.Pr_Normal")
+        },
+        Overdue: {
+          name: this.$t("production.Pr_OverdueWorkSheet"),
+        },
+        Overload: {
+          name: this.$t("production.Pr_OverloadWorkSheet"),
+        },
+      },
     };
   },
   created() {
@@ -88,16 +103,16 @@ export default {
   },
   computed: {},
   methods: {
-    clickToDetail(row, column) {
-      const columnLabel = "Data" + column.label
-      this.detailTableObj.setData(row[columnLabel])
-      this.detailDataView = true
-    },
     init() {
       this.tableObj = new Table();
       this.tableObj.getData();
       this.detailTableObj = new DetailTable
 	  },
+    clickToDetail(row, column) {
+      const columnLabel = "Data" + column.label
+      this.detailTableObj.setData(row[columnLabel])
+      this.detailDataView = true
+    },
     imgUrlPlugin,
     headerClass(e) {
       if (e.columnIndex == 0) return;
