@@ -8,6 +8,7 @@
   <PageWrapper :footer="false">
     <!-- 表格 -->
     <JvTable
+      @cell-click="clickToDetail"
       ref="BillTable"
       :table-obj="tableObj"
       :header-cell-style="headerClass"
@@ -42,6 +43,20 @@
         </div>
       </template>
     </JvTable>
+    <JvDialog
+      v-if="detailDataView"
+      :visible.sync="detailDataView"
+      destroy-on-close
+      :title="$t('Generality.Ge_DetailedInformation')"
+      :IsShowFooterBtn="false"
+      width="60%"
+    >
+      <JvTable :table-obj="detailTableObj">
+        <template #ApsState="{ record }">
+          {{ ApsSheetsMap[record].name }}
+        </template>
+      </JvTable>
+    </JvDialog>
   </PageWrapper>
 </template>
 <script>
@@ -54,6 +69,7 @@ import ColProgress from "./cpns/ColProgress";
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
 import { timeFormat } from "@/jv_doc/utils/time";
 import Popover from "@/jv_doc/cpn/JvTable/cpn/Popover.vue";
+import { DetailTable } from "./detailConfig";
 export default {
   name: "list",
   components: {
@@ -63,6 +79,19 @@ export default {
     return {
       // 表格数据
       tableObj: {},
+      detailTableObj: {},
+      detailDataView: false,
+      ApsSheetsMap: {
+        Normal: {
+          name: this.$t("production.Pr_Normal")
+        },
+        Overdue: {
+          name: this.$t("production.Pr_OverdueWorkSheet"),
+        },
+        Overload: {
+          name: this.$t("production.Pr_OverloadWorkSheet"),
+        },
+      },
     };
   },
   created() {
@@ -77,8 +106,13 @@ export default {
     init() {
       this.tableObj = new Table();
       this.tableObj.getData();
-		  console.log(this.tableObj)
+      this.detailTableObj = new DetailTable
 	  },
+    clickToDetail(row, column) {
+      const columnLabel = "Data" + column.label
+      this.detailTableObj.setData(row[columnLabel])
+      this.detailDataView = true
+    },
     imgUrlPlugin,
     headerClass(e) {
       if (e.columnIndex == 0) return;

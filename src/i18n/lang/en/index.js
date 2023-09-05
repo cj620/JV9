@@ -235,6 +235,7 @@ const en = {
     Pro_TestMouldInfo: "Test Mould Info",
     Pro_ProblemPoints: "Problem Points",
     Pro_SuggestionsImprovement: "Suggestions Improvement",
+    Pro_VersionCode:"Version Code",
   },
   setup: {
     Stockroom: "Stockroom",
