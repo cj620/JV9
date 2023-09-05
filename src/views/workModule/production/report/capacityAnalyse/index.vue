@@ -31,7 +31,7 @@
           {{ tableObj.formObj.form.Month | timeFormat("yyyy.MM") }}</span
         >
       </template>
-      <template #Resource="{ record, row }">
+      <template #Resource="{ record, row }" >
         <span v-if="row.Flag == '0'">{{ record }}</span>
         <div v-else style="padding-left: 30px">
           <div>{{ record }}</div>
@@ -77,8 +77,8 @@ export default {
     init() {
       this.tableObj = new Table();
       this.tableObj.getData();
-		console.log(this.tableObj)
-	},
+		  console.log(this.tableObj)
+	  },
     imgUrlPlugin,
     headerClass(e) {
       if (e.columnIndex == 0) return;
