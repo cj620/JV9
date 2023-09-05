@@ -1,26 +1,23 @@
 <template>
-  <PageWrapper :footer="false">
+  <div style="height: 100vh">
     <!-- 顶部操作行 -->
-    <div class="part-schedule-header">
-      <div class="part-schedule-header-left">
-        <div class="part-schedule-header-left-box">
-          <el-input
-            :placeholder="`${$t('Generality.Ge_PleaseEnter')}...`"
-            size="mini"
-            clearable
-            @change="getPartProcessingNode"
-            v-model="searchValue"
-          ></el-input>
-        </div>
-        <div class="part-schedule-header-left-box">
-          <el-button size="mini">{{ $t("Generality.Ge_Search") }}</el-button>
-        </div>
-        <div class="part-schedule-header-left-box">
-          <el-button size="mini" @click="shareShow = !shareShow">{{ $t("project.Pro_Share") }}</el-button>
-        </div>
-      </div>
-      <div></div>
-    </div>
+<!--    <div class="part-schedule-header">-->
+<!--      <div class="part-schedule-header-left">-->
+<!--        <div class="part-schedule-header-left-box">-->
+<!--          <el-input-->
+<!--            :placeholder="`${$t('Generality.Ge_PleaseEnter')}...`"-->
+<!--            size="mini"-->
+<!--            clearable-->
+<!--            @change="getPartProcessingNode"-->
+<!--            v-model="searchValue"-->
+<!--          ></el-input>-->
+<!--        </div>-->
+<!--        <div class="part-schedule-header-left-box">-->
+<!--          <el-button size="mini">{{ $t("Generality.Ge_Search") }}</el-button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div></div>-->
+<!--    </div>-->
     <!-- 内容 -->
     <div class="part-schedule-content">
       <!-- 每一项 -->
@@ -130,9 +127,9 @@
                         isNaN(jtem[detail.value]) &&
                         !isNaN(Date.parse(jtem[detail.value]))
                           ? timeFormat(
-                              jtem[detail.value],
-                              "yyyy-MM-dd hh:mm:ss"
-                            )
+                            jtem[detail.value],
+                            "yyyy-MM-dd hh:mm:ss"
+                          )
                           : jtem[detail.value] || "--"
                       }}
                     </div>
@@ -176,47 +173,20 @@
                     textIndent: j === 0 ? '1.5em' : 0,
                     marginBottom: '4px',
                   }"
-                  >{{
+                >{{
                     ProcessState[jtem.State] && ProcessState[jtem.State].name
                   }}</span
                 >
                 <span style="font-size: 12px; margin-top: 6px; color: #999">{{
-                  timeFormat(jtem.PlanEnd, "yyyy-MM-dd hh:mm:ss")
-                }}</span>
+                    timeFormat(jtem.PlanEnd, "yyyy-MM-dd hh:mm:ss")
+                  }}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <JvDialog
-    :title="$t('project.Pro_Share')"
-    :visible.sync="shareShow"
-    >
-      <div class="form-box">
-        <JvForm :formObj="formObj" style="padding-left: 30px"> </JvForm>
-        <div class="form-box-button">
-          <Action
-            slot="extra"
-            size="mini"
-            :primary="[
-          {
-            label: $t('project.Pro_CreateLink'),
-            confirm: createLink,
-          },
-        ]"
-          ></Action>
-        </div>
-      </div>
-      <div style="padding: 0 30px">
-        <el-input v-model="link" v-if="link">
-          <div slot="append" style="cursor: pointer" @click="copyLink">
-            {{ $t("Generality.Ge_Copy") }}
-          </div>
-        </el-input>
-      </div>
-    </JvDialog>
-  </PageWrapper>
+  </div>
 </template>
 
 <script>
@@ -224,18 +194,12 @@ import { timeFormat } from "@/jv_doc/utils/time";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import IconTooltip from "@/views/workModule/project/projectManage/process_people/components/icon-tooltip.vue";
 import { ProcessState } from "@/enum/workModule";
-import { part_processing_node, create_data_sharing } from "@/api/workApi/project/projectInfo";
-import { Form } from "@/jv_doc/class/form";
-import handleClipboard from "@/utils/clipboard";
+import { get_data_sharing } from "@/api/workApi/project/projectInfo";
 export default {
   name: "Pm_Project_PartSchedule.vue",
   components: { IconTooltip },
   data() {
     return {
-      shareShow: false,
-      formObj: {},
-      link: "",
-
       ProcessState,
       searchValue: "",
       detailEnum: [
@@ -257,7 +221,6 @@ export default {
   },
   created() {
     this.getPartProcessingNode();
-    this.shareInit();
   },
   mounted() {
     document.onmouseup = () => {
@@ -270,58 +233,6 @@ export default {
   methods: {
     timeFormat,
     imgUrlPlugin,
-    shareInit() {
-      let dateTime = new Date();
-      dateTime = dateTime.setDate(dateTime.getDate() + 1);
-      dateTime = new Date(dateTime);
-      this.formObj = new Form({
-        formSchema: [
-          {
-            prop: "ExpirationTime",
-            label: this.$t("project.Pro_ExpirationTime"),
-            cpn: "SingleDateTime",
-            default: dateTime,
-            rules: [
-              {
-                required: true,
-                message: this.$t("Generality.Ge_PleaseEnter"),
-                trigger: ["change"],
-              },
-            ],
-          },
-          // {
-          //   prop: "Project",
-          //   label: "",
-          //   default: this.$route.query.Project,
-          //   hidden: true,
-          // },
-          {
-            prop: "ToolingNo",
-            label: "",
-            default: this.$route.query.ToolingNo,
-            hidden: true,
-          },
-        ],
-        baseColProps: {
-          span: 8,
-        },
-        gutter: 40,
-        labelPosition: "top",
-      });
-    },
-    createLink() {
-      create_data_sharing(this.formObj.form).then((res) => {
-        this.link =
-          // window.global_config.ImgBase_Url
-          window.global_config.Share_Url +
-          "/#/ProjectManage_ProcessPeople_Share?key=" +
-          res;
-      });
-    },
-    copyLink(e) {
-      // console.log(e);
-      handleClipboard(this.link, e);
-    },
 
     _mousedown(index, e) {
       this.index = index;
@@ -347,10 +258,10 @@ export default {
       };
     },
     getPartProcessingNode() {
-      part_processing_node({
-        ToolingNo: this.$route.query.ToolingNo,
-        Keyword: this.searchValue,
+      get_data_sharing({
+        dataSharingKey: this.$route.query.key,
       }).then((res) => {
+        console.log(res)
         this.List = res.Items;
         this.List.forEach((item) => {
           item.scrollNum = 0;
@@ -398,9 +309,8 @@ export default {
 .part-schedule-content {
   background: #fff;
   width: 100%;
-  margin-top: 10px;
   padding-top: 10px;
-  height: calc(100vh - 170px);
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

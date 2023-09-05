@@ -16,7 +16,7 @@ import getPageTitle from "@/utils/get-page-title";
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
-const whiteList = ["/login", "/auth-redirect",'/ProjectManage_Share_Demo']; // no redirect whitelist
+const whiteList = ["/login", "/auth-redirect",'/ProjectManage_Share_Demo','/ProjectManage_ProcessPeople_Share']; // no redirect whitelist
 router.beforeEach(async (to, from, next) => {
   // start progress bar
   NProgress.start();
@@ -73,8 +73,8 @@ router.beforeEach(async (to, from, next) => {
     } else {
       // other pages that do not have permission to access are redirected to the login page.
       console.log(to,to.name==='ProjectManage_Share_Demo',885588);
-      
-      if(to.name==='ProjectManage_Share_Demo'){
+
+      if(to.name==='ProjectManage_Share_Demo' || to.name === 'ProjectManage_ProcessPeople_Share'){
         // setToken(to.query.key)
         next({...to});
       }else{

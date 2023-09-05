@@ -46,7 +46,7 @@ export default {
       console.log(row);
       this.$router.push({
         name: "ProjectManage_process_people",
-        query: { Project: row.Project },
+        query: { Project: row.Project, ToolingNo: row.Id },
       });
     },
     toProjrctCost(row, flag) {

@@ -78,6 +78,14 @@ export const constantRoutes = [
     path: "/projectManage_Share_Demo",
     hidden: true,
   },
+  // 零件进度分享
+  {
+    component: () =>
+        import("@/views/workModule/project/projectManage/process_people/share"),
+    name: "ProjectManage_ProcessPeople_Share",
+    path: "/ProjectManage_ProcessPeople_Share",
+    hidden: true,
+  },
   {
     path: "/auth-redirect",
     component: () => import("@/views/sys/login/auth-redirect"),
