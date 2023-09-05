@@ -221,6 +221,7 @@ const en = {
     Pro_ViewTaskDetails: "View Task Details",
     Pro_ViewParentProjectTasks: "View Parent Project Tasks",
     Pro_ViewSubtasks: "View Subtasks",
+    Pro_MoreInformation: "More Information",
     Pro_ViewAllTasks: "View All Tasks",
     Pro_DistributionTask: "Distribution Task",
     Pro_TestMouldProblemPoints: "Test Mould Problem Points",
@@ -343,6 +344,7 @@ const en = {
     Sa_Scale: "Scale",
     Sa_UserInformation: "User information",
     Sa_Sum: "sum",
+    Sa_PleaseInput1: "Please enter the material number and name",
   },
   // 采购
   purchase: {
@@ -377,7 +379,7 @@ const en = {
   },
   //通用
   Generality: {
-    Ge_saveEdits: "Save Edits",
+    Ge_SaveEdits: "Save Edits",
     Ge_Chart: "Chart",
     Ge_Gantt: "Gantt",
     Ge_GanttShow: "Gantt Display",

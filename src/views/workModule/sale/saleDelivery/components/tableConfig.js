@@ -39,6 +39,7 @@ export const tableConfig = [
   {
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
+    custom: true,
   },
   // 客户简称
   {
@@ -96,15 +97,15 @@ export const tableConfig = [
     prop: "Amount",
     label: i18n.t("Generality.Ge_Amount"),
   },
-  /*备注*/
-  {
-    prop: "Remarks",
-    label: i18n.t("Generality.Ge_Remarks"),
-  },
-  /*项目类别*/
-  {
-    prop: "ItemType",
-    label: i18n.t("project.Pro_ItemType"),
-  },
+  // /*备注*/
+  // {
+  //   prop: "Remarks",
+  //   label: i18n.t("Generality.Ge_Remarks"),
+  // },
+  // /*项目类别*/
+  // {
+  //   prop: "ItemType",
+  //   label: i18n.t("project.Pro_ItemType"),
+  // },
 ];
 export const formSchema = [];

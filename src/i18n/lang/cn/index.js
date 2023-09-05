@@ -204,6 +204,7 @@ const cn = {
     Pro_ViewTaskDetails: "查看任务明细",
     Pro_ViewParentProjectTasks: "查看父级项目任务",
     Pro_ViewSubtasks: "查看子任务",
+    Pro_MoreInformation: "更多信息",
     Pro_ViewAllTasks: "查看全部任务",
     Pro_DistributionTask: "分发任务",
     Pro_TestMouldProblemPoints: "试模问题点",
@@ -323,6 +324,7 @@ const cn = {
     Sa_Scale: "比例",
     Sa_UserInformation: "用户信息",
     Sa_Sum: "合计",
+    Sa_PleaseInput1: "请输入物料编号、名称",
   },
   // 采购
   purchase: {
@@ -372,7 +374,7 @@ const cn = {
   },
   //通用
   Generality: {
-    Ge_saveEdits: "保存编辑",
+    Ge_SaveEdits: "保存编辑",
     Ge_Chart: "图表",
     Ge_Gantt: "甘特图",
     Ge_GanttShow: "甘特图显示",

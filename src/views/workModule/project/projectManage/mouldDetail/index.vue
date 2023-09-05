@@ -36,7 +36,7 @@
           type="primary"
           @click="editBaciInfo(detailObj.detailData)"
         >
-          编辑
+          {{ $t("Generality.Ge_Edit") }}
         </el-button>
       </div>
       <div class="mould-img">
@@ -135,7 +135,7 @@
       >
       </AddTrialMold>
     <jv-dialog
-      title="编辑"
+      :title="$t('Generality.Ge_Edit')"
       width="35%"
       :visible.sync="editVisible"
       v-if="editVisible"
