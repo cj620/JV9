@@ -122,20 +122,9 @@
       :visible.sync="detailsVisible"
       v-if="detailsVisible"
       :CustomerName="this.formObj.form.CustomerName"
-      :tableConfig="Table"
       :detailedData="detailedData"
       @confirmDetails="validateIsCompleted"
-      :slotData="['BillId']"
     >
-      <template #BillId="scope">
-        <!--<span>{{ scope.row.BillId }}</span>-->
-        <span
-          style="color: #409eff; cursor: pointer"
-          @click="linkToOrder(scope.row.BillId)"
-        >
-          {{ scope.row.BillId }}
-        </span>
-      </template>
     </select-doc-details>
 
     <!-- 发货完成提醒弹窗 -->
@@ -155,7 +144,6 @@
 <script>
 import { formSchema, detailConfig } from "./formConfig";
 import { EditTable } from "./editConfig";
-import { Table } from "./tableConfig";
 import Detail from "@/jv_doc/class/detail/Detail";
 import { Form } from "@/jv_doc/class/form";
 import { getAllSalesCustomer } from "@/api/workApi/sale/customer";
@@ -185,7 +173,6 @@ export default {
   },
   data() {
     return {
-      Table,
       // cur_Id: this.$route.query.BillId,
       Id: this.$route.query.BillId,
       formObj: {},
@@ -318,17 +305,11 @@ export default {
       getCustomer({ CustomerId: e }).then((res) => {
         this.formObj.form.Currency = res.Currency;
         this.ruleForm.CustomerName = res.ShortName;
+        this.formObj.form.CustomerName = res.ShortName;
         console.log(this.formObj.form.CustomerName);
         this.AddressData = res.ContactInfo;
         this.BillItems.Tax = res.Tax;
         this.changeTax(res.Tax);
-      });
-    },
-
-    linkToOrder(BillId) {
-      this.$router.push({
-        name: "Sa_SaleOrder_Detail",
-        query: { BillId },
       });
     },
     //选择地址
@@ -357,6 +338,7 @@ export default {
       });
     },
     openDetailsDialog() {
+      console.log(this.formObj);
       this.formObj.validate((valid) => {
         if (valid) {
           this.detailsVisible = true;

@@ -34,12 +34,13 @@
               </el-form-item>
             </el-form>
           </template>
-
-          <!-- JvTable插槽 父组件使用时需传slotData -->
-          <template v-for="item in slotData" #[item]="scope">
-            <template v-if="item">
-              <slot :name="item" :row="scope.row" />
-            </template>
+          <template #BillId="scope">
+            <span
+              style="color: #409eff; cursor: pointer"
+              @click="linkToOrder(scope.row.BillId)"
+            >
+              {{ scope.row.BillId }}
+            </span>
           </template>
         </JvTable>
       </div>
@@ -48,23 +49,12 @@
 </template>
 
 <script>
+import { Table } from "./tableConfig";
 export default {
   props: {
-    tableConfig: {
-      type: Function,
-      required: true,
-    },
     detailedData: {
       type: Array,
       required: true,
-      default: () => [],
-    },
-    detailName: {
-      type: String,
-      default: "",
-    },
-    slotData: {
-      type: Array,
       default: () => [],
     },
     CustomerName: {
@@ -79,6 +69,10 @@ export default {
         Keyword: "",
       },
     };
+  },
+  created() {
+    this.tableObj = new Table();
+    this.tableObj.getData({CustomerName: this.CustomerName});
   },
   methods: {
     confirmItem() {
@@ -122,20 +116,12 @@ export default {
       );
       this.tableObj.getData({CustomerName: this.CustomerName});
     },
+    linkToOrder(BillId) {
+      this.$router.push({
+        name: "Sa_SaleOrder_Detail",
+        query: { BillId },
+      });
+    },
   },
-  created() {
-    if (this.tableConfig) {
-      this.tableObj = new this.tableConfig();
-      this.tableObj.getData({CustomerName: this.CustomerName});
-    }
-    if (this.detailName === "outsourcingRequirement") {
-      this.tableObj.formObj.form.State = "ToBeProcessed";
-    } else if (this.detailName === "purchaseOrder") {
-      this.tableObj.formObj.form.ItemStates = ["NotPurchased"];
-    }
-  },
-  mounted() {},
-  computed: {},
-  components: {},
 };
 </script>
