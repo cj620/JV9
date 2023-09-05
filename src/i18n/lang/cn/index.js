@@ -218,6 +218,7 @@ const cn = {
     Pro_TestMouldInfo: "试模信息",
     Pro_ProblemPoints: "问题点",
     Pro_SuggestionsImprovement: "改善建议",
+    Pro_VersionCode:"版本编号",
   },
   //设置
   setup: {

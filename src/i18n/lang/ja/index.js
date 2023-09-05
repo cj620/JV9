@@ -216,6 +216,7 @@ const ja = {
     Pro_TestMouldInfo: "しけんモードじょうほう",
     Pro_ProblemPoints: "問題点",
     Pro_SuggestionsImprovement: "改善提案",
+    Pro_VersionCode:"バージョン番号",
   },
   //设置
   setup: {

@@ -127,13 +127,13 @@
       @dynamicConfirm="dynamicConfirm"
     >
     </Dynamic>
-      <AddTrialMold
-          ref="addTrialMold"
-          @toAddMold="toAddMold"
-          :formData="ProjectTask"
-          :title="$t('project.Pro_AddTrialMoldTask')"
-      >
-      </AddTrialMold>
+    <AddTrialMold
+      ref="addTrialMold"
+      @toAddMold="toAddMold"
+      :formData="ProjectTask"
+      :title="$t('project.Pro_AddTrialMoldTask')"
+    >
+    </AddTrialMold>
     <jv-dialog
       :title="$t('Generality.Ge_Edit')"
       width="35%"
