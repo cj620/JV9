@@ -387,7 +387,17 @@ const cn = {
     Da_Operation: "运行",
     Da_Leisure: "空闲",
     Da_Shutdown: "关机",
+    Da_StartingUp: "开机",
     Da_NotCollected: "未采集",
+    Da_Area: "区域",
+    Da_Equipment: "设备",
+    Da_AlarmTime: "报警时间",
+    Da_AlarmInfo: "报警信息",
+    Da_State: "状态",
+    Da_DownTime: "停机时间",
+    Da_StartTime: "开始时间",
+    Da_Above: "以上",
+    Da_Under: "以下",
   },
   //通用
   Generality: {
