@@ -144,4 +144,7 @@ export default {
 .month-weekend {
   color: pink;
 }
+.jv-table-keyword {
+  display: none;
+}
 </style>
