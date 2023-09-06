@@ -110,8 +110,10 @@ export default {
 	  },
     clickToDetail(row, column) {
       const columnLabel = "Data" + column.label
-      this.detailTableObj.setData(row[columnLabel])
-      this.detailDataView = true
+      if (row[columnLabel] && row[columnLabel].length !== 0){
+        this.detailTableObj.setData(row[columnLabel])
+        this.detailDataView = true
+      }
     },
     imgUrlPlugin,
     headerClass(e) {
