@@ -49,7 +49,7 @@
       destroy-on-close
       :title="$t('Generality.Ge_DetailedInformation')"
       :IsShowFooterBtn="false"
-      width="60%"
+      width="80%"
     >
       <JvTable :table-obj="detailTableObj">
         <template #ApsState="{ record }">
