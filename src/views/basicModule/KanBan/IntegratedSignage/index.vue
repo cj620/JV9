@@ -12,9 +12,9 @@
       <div class="integrate-signage-content">
         <div
           class="dataV-item"
-          v-for="(item, i) in dataVList" :key="i">
+          v-for="(item, i) in dataVList" :key="i" @click="goKanban(item.url)">
           <dv-border-box-11 :title="item.title">
-            <el-image v-if="item.url" :src="item.url"></el-image>
+            <el-image v-if="item.imgUrl" :src="item.imgUrl"></el-image>
           </dv-border-box-11>
         </div>
       </div>
@@ -28,13 +28,19 @@ export default {
   data() {
     return {
       dataVList: [
-        {title: '设备看板', url: require('./yxhyXoCFs7.png')},
+        {title: '设备看板', imgUrl: require('./yxhyXoCFs7.png'), url: '/EquipmentSignage'},
         {title: '看板2'},
         {title: '看板3'},
         {title: '看板4'},
         {title: '看板5'},
         {title: '看板6'},
       ]
+    }
+  },
+  methods: {
+    goKanban(url) {
+      console.log(url)
+      this.$router.push({path: url})
     }
   }
 }
