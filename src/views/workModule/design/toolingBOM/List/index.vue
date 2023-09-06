@@ -406,6 +406,13 @@ export default {
         prop: "PmTaskBillId",
         cpn: "SyncSelect",
         label: i18n.t("project.Pro_TaskSheetNo"),
+        rules: [
+          {
+            required: true,
+            message: i18n.t("Generality.Ge_PleaseEnter"),
+            trigger: ["change", "blur"],
+          },
+        ],
         custom: true,
       }],
       labelPosition: "top",
