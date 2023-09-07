@@ -265,6 +265,9 @@ export default {
       this.formObj.form.PmTaskBillId = this.$route.params.trialToolingData.BillId
       this.formObj.form.ToolingNo = this.$route.params.trialToolingData.ToolingNo
       this.editDisabled = true;
+    } else if (this.$route.params.itemDemandData){
+      this.formObj.form.PmTaskBillId = this.$route.params.itemDemandData.PmTaskBillId
+      this.formObj.form.ToolingNo = this.$route.params.itemDemandData.ToolingNo
     }
     await this.Configuration();
   },

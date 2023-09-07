@@ -191,10 +191,20 @@ export default {
           this.stateForm = auditPlugin(res);
           this.tableObj.setData(res.BillItems);
           this.btnAction = detailPageModel(this, res, materialRequirement, this.GetData);
-          console.log(this.btnAction, 666666);
+          this.btnAction.push({
+            label: this.$t("stockroom.St_Picking"),
+            confirm: this.toStockPicking,
+            disabled: this.detailObj.detailData.State !== "Approved",
+          });
         });
     },
-
+    toStockPicking(){
+      console.log(this.detailObj.detailData);
+      this.$router.push({
+        name: "St_Picking_Add",
+        params: { itemDemandData: this.detailObj.detailData },
+      });
+    },
     //订单转
     orderTransform(routerName, keyName) {
       this.$router.push({
