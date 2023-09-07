@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="roll-table-content">
-      <RollList v-if="result.length" :step="60" :id="id">
+      <RollList v-if="result.length" :step="$window.global_config.DataVStep" :id="id">
         <div
           :class="[
             index % 2 === 1 ? 'newColor' : '',
@@ -89,9 +89,11 @@ export default {
   },
   data() {
     return {
+      $window: null,
     }
   },
   created() {
+    this.$window = window
   },
   methods: {
     timeFormat,

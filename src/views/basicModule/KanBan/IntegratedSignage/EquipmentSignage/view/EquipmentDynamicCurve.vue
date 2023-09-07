@@ -12,39 +12,39 @@ export default {
   components: { BaseChart },
   props: {
     result: {
-      type: Array,
+      type: Object,
       default() {
-        return []
-      }
-    }
+        return {};
+      },
+    },
   },
   data() {
     return {
       options: {},
-    }
+    };
   },
   watch: {
     result(val) {
-      const date = val.Date.map(item => {
-        return timeFormat(item, 'MM-dd')
-      })
-      const series = val.Data.map(item => {
+      const date = val.Date.map((item) => {
+        return timeFormat(item, "MM-dd");
+      });
+      const series = val.Data.map((item) => {
         return {
           name: item.Name,
-          type: 'line',
-          data: item.Values
-        }
-      })
+          type: "line",
+          data: item.Values,
+        };
+      });
       this.options = {
         tooltip: {
-          trigger: 'axis'
+          trigger: "axis",
         },
         grid: {
-          left: '3%',
-          right: '5%',
-          bottom: '4%',
-          top: '3%',
-          containLabel: true
+          left: "3%",
+          right: "5%",
+          bottom: "4%",
+          top: "3%",
+          containLabel: true,
         },
         // toolbox: {
         //   feature: {
@@ -52,20 +52,30 @@ export default {
         //   }
         // },
         xAxis: {
-          type: 'category',
+          type: "category",
           boundaryGap: false,
-          data: date
+          data: date,
+          axisLine: {
+            lineStyle: {
+              color: "#eaeaea",
+            },
+          },
         },
         yAxis: {
-          type: 'value',
-          splitLine: {show: false},
-          axisLine: {show: true},
-          axisLabel: {formatter: '{value}% '}
+          type: "value",
+          splitLine: { show: false },
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: "#eaeaea",
+            },
+          },
+          axisLabel: { formatter: "{value}% " },
         },
-        series: series
+        series: series,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

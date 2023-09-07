@@ -2,7 +2,7 @@
   <dv-full-screen-container>
     <div class="Equipment-signage">
       <div class="Equipment-signage-header">
-        <div class="Equipment-signage-header-left">logo</div>
+        <div class="Equipment-signage-header-left">LOGO</div>
         <div class="Equipment-signage-header-center">
           {{ $t("DataV.Da_EquipmentSignage") }}
         </div>
@@ -22,8 +22,9 @@
             </item-box>
           </div>
         </div>
+        <!--  中间部分-->
         <div class="Equipment-signage-content-center">
-          <EquipmentSignageContent />
+          <EquipmentSignageContent :contentResult="contentResult" />
         </div>
         <div class="Equipment-signage-content-right">
           <div
@@ -60,6 +61,7 @@ export default {
   data() {
     return {
       loading: false,
+      timer: null,
       leftList: [
         {
           title: i18n.t("DataV.Da_EquipmentStatus"),
@@ -86,32 +88,59 @@ export default {
         {
           title: i18n.t("DataV.Da_EquipmentDynamicCurve"),
           component: EquipmentDynamicCurve,
-          result: [],
+          result: {},
         },
-        { title: i18n.t("DataV.Da_HUT"), component: HUT, result: [] },
+        { title: i18n.t("DataV.Da_HUT"), component: HUT, result: {} },
       ],
+      contentResult: {EquipmentProcessingInfo: {},EquipmentOperationTimeline: []},
     };
   },
   created() {
-    this.loading = true;
-    const left = ["EquipmentStatus", "AlarmSituation", "ShutdownCondition"];
-    const right = ["OverallEfficiency", "EquipmentDynamicCurve", "HUT"];
-    equipment_comprehensive_dashboard()
-      .then((res) => {
-        left.forEach((item, i) => {
-          this.leftList[i].result = res[item];
-        });
-        right.forEach((item, i) => {
-          this.rightList[i].result = res[item];
-        });
-        this.loading = false;
-      })
-      .catch((err) => {
-        this.loading = false;
-      });
+    this.getResult();
+    this.timer = setInterval(this.getResult, window.global_config.DashboardRefreshTime);
   },
   mounted() {},
-  methods: {},
+  methods: {
+    getResult() {
+      this.loading = true;
+      const left = ["EquipmentStatus", "AlarmSituation", "ShutdownCondition"];
+      const right = ["OverallEfficiency", "EquipmentDynamicCurve", "HUT"];
+      equipment_comprehensive_dashboard()
+        .then((res) => {
+          left.forEach((item, i) => {
+            this.leftList[i].result = res[item];
+          });
+          right.forEach((item, i) => {
+            this.rightList[i].result = res[item];
+          });
+          this.contentResult.EquipmentProcessingInfo = res['EquipmentProcessingInfo'];
+          this.contentResult.EquipmentOperationTimeline = res['EquipmentOperationTimeline'];
+
+          // 假数据
+          // let list = []
+          // for (let i = 0; i < 20; i++) {
+          //   res['EquipmentOperationTimeline'].forEach(item => {
+          //     list.push(item)
+          //   })
+          // }
+          // this.contentResult.EquipmentOperationTimeline = list;
+
+          this.loading = false;
+        })
+        .catch((err) => {
+          this.loading = false;
+        });
+    }
+  },
+  beforeDestroy() {
+    //清除定时器
+    clearTimeout(this.timer);
+  },
+  destroyed() {
+    //清除定时器
+    clearTimeout(this.timer);
+    this.timer = null;
+  },
 };
 </script>
 
