@@ -265,9 +265,10 @@ export default {
       this.formObj.form.PmTaskBillId = this.$route.params.trialToolingData.BillId
       this.formObj.form.ToolingNo = this.$route.params.trialToolingData.ToolingNo
       this.editDisabled = true;
-    } else if (this.$route.params.itemDemandData){
-      this.formObj.form.PmTaskBillId = this.$route.params.itemDemandData.PmTaskBillId
-      this.formObj.form.ToolingNo = this.$route.params.itemDemandData.ToolingNo
+    } else if (this.$route.params.itemsDemandData){
+      this.formObj.form.PmTaskBillId = this.$route.params.itemsDemandData.PmTaskBillId
+      this.formObj.form.ToolingNo = this.$route.params.itemsDemandData.ToolingNo
+      this.editDisabled = true;
     }
     await this.Configuration();
   },

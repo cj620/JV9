@@ -202,7 +202,7 @@ export default {
       console.log(this.detailObj.detailData);
       this.$router.push({
         name: "St_Picking_Add",
-        params: { itemDemandData: this.detailObj.detailData },
+        params: { itemsDemandData: this.detailObj.detailData },
       });
     },
     //订单转
