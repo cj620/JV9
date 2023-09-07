@@ -321,6 +321,7 @@ export default {
           name: this.$t("Generality.Ge_Show"),
         },
       },
+      formObj: {},
       eTableObj: {},
       importTableObj: {},
       toolId: "",
@@ -710,12 +711,6 @@ export default {
         SelectType: 0,
       };
       toolingTaskInfoList(str).then((res) => {
-        //判断说明不只一个任务单
-        if (res.Items.length === 1) {
-          this.formObj.form.PmTaskBillId = res.Items[0].BillId;
-        } else if (res.Items.length === 0) {
-          this.formObj.form.PmTaskBillId = "";
-        }
         this.TaskListData = res.Items;
         this.selectProjectFormVisible = true
       });
