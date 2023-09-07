@@ -398,6 +398,12 @@ const cn = {
     Da_StartTime: "开始时间",
     Da_Above: "以上",
     Da_Under: "以下",
+    Da_TotalProcessingQuantity: "当日加工件总数",
+    Da_AccumulatedProcessingTime: "当日累计加工时间",
+    Da_OEE: "当日平均OEE",
+    Da_FaultAlarmQuantity: "故障报警数",
+    Da_SerialNumber: "序号",
+    Da_DeviceName: "设备名称",
   },
   //通用
   Generality: {

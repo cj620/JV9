@@ -403,6 +403,12 @@ const en = {
     Da_StartTime: "StartTime",
     Da_Above: "Above",
     Da_Under: "Under",
+    Da_TotalProcessingQuantity: "Total Processing Quantity",
+    Da_AccumulatedProcessingTime: "Accumulated Processing Time",
+    Da_OEE: "OEE",
+    Da_FaultAlarmQuantity: "Fault Alarm Quantity",
+    Da_SerialNumber: "Serial Number",
+    Da_DeviceName: "Device Name",
   },
   //通用
   Generality: {

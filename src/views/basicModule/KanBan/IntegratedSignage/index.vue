@@ -68,10 +68,10 @@ export default {
     flex-wrap: wrap;
     width: 100%;
     .dataV-item{
-      width: 30vw;
-      height: 450px;
-      margin-right: 1.6vw;
-      margin-left: 1.6vw;
+      width: 610px;
+      height: 400px;
+      margin-right: 15px;
+      margin-left: 15px;
       margin-bottom: 20px;
       cursor: pointer;
       .el-image{

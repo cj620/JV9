@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%">
-    <base-chart style="height: 80%" :options="options"></base-chart>
+    <base-chart style="height: 85%" :options="options"></base-chart>
   </div>
 </template>
 
@@ -63,7 +63,7 @@ export default {
                 formatter: '{d}%' //自定义显示格式(b:name, c:value, d:百分比)
               }
             },
-            center: ['35%', '60%'],
+            center: ['35%', '55%'],
             data: data,
             itemStyle: {
               normal: {

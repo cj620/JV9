@@ -17,5 +17,6 @@ window.global_config = {
   DashboardRefreshTime: 60000, // 看板刷新时间
   DashboardQuantity: 14, // 看板数量
   showTestTab: true, // 开启测试菜单
+  DataVStep: 100, // 看板翻滚速度
   // IsSaveTableSchema: false, //是否缓存表格布局
 };

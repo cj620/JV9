@@ -38,6 +38,7 @@ export default {
     color: #efefef;
     font-size: 16px;
     min-width: 180px;
+    padding: 0 10px;
     text-align: center;
     line-height: 30px;
     margin-top: 6px;
