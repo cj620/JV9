@@ -24,6 +24,7 @@ export default {
 <style scoped lang="scss">
 .itemBox-content{
   height: calc(100% - 40px);
+  padding: 0 6px;
 }
 .itemBox-title{
   width: 100%;

@@ -7,67 +7,110 @@
           {{ $t("DataV.Da_EquipmentSignage") }}
         </div>
         <div class="Equipment-signage-header-right">
-          <formatted-time format="yyyy/MM/dd hh:mm"/>
+          <formatted-time format="yyyy/MM/dd hh:mm" />
         </div>
       </div>
       <div class="Equipment-signage-content">
         <div class="Equipment-signage-content-left">
-          <div class="Equipment-signage-content-left-box aside-box" v-for="(item, i) in leftList" :key="i">
+          <div
+            class="Equipment-signage-content-left-box aside-box"
+            v-for="(item, i) in leftList"
+            :key="i"
+          >
             <item-box :title="item.title">
-              <Component :is="item.component" :result="item.result"/>
+              <Component :is="item.component" :result="item.result" />
             </item-box>
           </div>
         </div>
-        <div class="Equipment-signage-content-center"></div>
+        <div class="Equipment-signage-content-center">
+          <EquipmentSignageContent />
+        </div>
         <div class="Equipment-signage-content-right">
-          <div class="Equipment-signage-content-right-box aside-box" v-for="(item, i) in rightList" :key="i">
+          <div
+            class="Equipment-signage-content-right-box aside-box"
+            v-for="(item, i) in rightList"
+            :key="i"
+          >
             <item-box :title="item.title">
               <Component :is="item.component" :result="item.result" />
             </item-box>
           </div>
         </div>
       </div>
+      <d-loading v-show="loading" />
     </div>
   </dv-full-screen-container>
 </template>
 
 <script>
 import FormattedTime from "./components/formattedTime.vue";
-import itemBox from './components/itemBox.vue';
+import itemBox from "./components/itemBox.vue";
+import dLoading from "./components/d-loading.vue";
 import EquipmentStatus from "./view/EquipmentStatus.vue";
 import AlarmSituation from "./view/AlarmSituation.vue";
 import ShutdownCondition from "./view/ShutdownCondition.vue";
 import OverallEfficiency from "./view/OverallEfficiency.vue";
 import EquipmentDynamicCurve from "./view/EquipmentDynamicCurve.vue";
 import HUT from "./view/HUT.vue";
+import { equipment_comprehensive_dashboard } from "@/api/basicApi/dataV/kanban";
+import EquipmentSignageContent from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/view/EquipmentSignageContent.vue";
 export default {
   name: "EquipmentSignage",
-  components: { FormattedTime, itemBox},
+  components: { EquipmentSignageContent, FormattedTime, itemBox, dLoading },
   data() {
     return {
+      loading: false,
       leftList: [
-        {title: i18n.t('DataV.Da_EquipmentStatus'), component: EquipmentStatus},
-        {title: i18n.t('DataV.Da_AlarmSituation'), component: AlarmSituation},
-        {title: i18n.t('DataV.Da_ShutdownCondition'), component: ShutdownCondition},
+        {
+          title: i18n.t("DataV.Da_EquipmentStatus"),
+          component: EquipmentStatus,
+          result: [],
+        },
+        {
+          title: i18n.t("DataV.Da_AlarmSituation"),
+          component: AlarmSituation,
+          result: [],
+        },
+        {
+          title: i18n.t("DataV.Da_ShutdownCondition"),
+          component: ShutdownCondition,
+          result: [],
+        },
       ],
       rightList: [
-        {title: i18n.t('DataV.Da_OverallEfficiency'), component: OverallEfficiency},
-        {title: i18n.t('DataV.Da_EquipmentDynamicCurve'), component: EquipmentDynamicCurve},
-        {title: i18n.t('DataV.Da_HUT'), component: HUT},
-      ]
+        {
+          title: i18n.t("DataV.Da_OverallEfficiency"),
+          component: OverallEfficiency,
+          result: [],
+        },
+        {
+          title: i18n.t("DataV.Da_EquipmentDynamicCurve"),
+          component: EquipmentDynamicCurve,
+          result: [],
+        },
+        { title: i18n.t("DataV.Da_HUT"), component: HUT, result: [] },
+      ],
     };
   },
-  mounted() {
-    setTimeout(() => {
-      this.$set(this.leftList[0], 'result', [
-        { value: 1048, name: 'Alarm'},
-        { value: 735, name: 'Operation'},
-        { value: 580, name: 'Leisure'},
-        { value: 484, name: 'Shutdown'},
-        { value: 300, name: 'NotCollected' }
-      ])
-    },500)
+  created() {
+    this.loading = true;
+    const left = ["EquipmentStatus", "AlarmSituation", "ShutdownCondition"];
+    const right = ["OverallEfficiency", "EquipmentDynamicCurve", "HUT"];
+    equipment_comprehensive_dashboard()
+      .then((res) => {
+        left.forEach((item, i) => {
+          this.leftList[i].result = res[item];
+        });
+        right.forEach((item, i) => {
+          this.rightList[i].result = res[item];
+        });
+        this.loading = false;
+      })
+      .catch((err) => {
+        this.loading = false;
+      });
   },
+  mounted() {},
   methods: {},
 };
 </script>
@@ -84,11 +127,21 @@ export default {
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+    position: relative;
+    background: url("./3.svg") no-repeat;
+    background-size: cover;
+    &-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
     &-center {
       font-size: 30px;
       color: #fff;
       height: 100%;
       line-height: 80px;
+      z-index: 1;
     }
     &-left {
       height: 100%;
@@ -98,38 +151,42 @@ export default {
       color: #fff;
       padding-bottom: 10px;
       box-sizing: border-box;
+      z-index: 1;
+      width: 200px;
     }
     &-right {
       height: 100%;
       color: #efefef;
       display: flex;
       align-items: flex-end;
-      padding-right: 20px;
       padding-bottom: 10px;
       box-sizing: border-box;
+      z-index: 1;
+      width: 200px;
+      justify-content: center;
     }
   }
   &-content {
     width: 100%;
     height: calc(100% - 90px);
     display: flex;
-    &-left{
+    &-left {
       width: 470px;
       height: 100%;
       margin-right: 10px;
       padding-left: 20px;
     }
-    &-right{
+    &-right {
       width: 470px;
       height: 100%;
       margin-left: 10px;
       padding-right: 20px;
     }
-    &-center{
+    &-center {
       width: 960px;
       height: 100%;
     }
-    .aside-box{
+    .aside-box {
       height: 33%;
     }
   }

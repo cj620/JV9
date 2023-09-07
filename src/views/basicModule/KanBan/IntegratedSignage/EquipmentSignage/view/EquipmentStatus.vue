@@ -3,17 +3,16 @@
     <div class="status-box">
       <div
         v-for="item in result"
-        :key="item.name"
-        :style="{ background: EquipmentStatusEnum[item.name].color }"
+        :key="item.Name"
+        :style="{ background: EquipmentStatusEnum[item.Name].color }"
       >
-        <span style="font-weight: bold">{{ item.value }}</span>
+        <span style="font-weight: bold">{{ item.Value }}</span>
         <span style="font-size: 14px">{{
-          EquipmentStatusEnum[item.name].name
+          EquipmentStatusEnum[item.Name].name
         }}</span>
       </div>
     </div>
     <base-chart
-      v-if="result.length"
       style="height: 80%"
       :options="options"
     ></base-chart>
@@ -48,6 +47,12 @@ export default {
   },
   watch: {
     result(val) {
+      const data = val.map(item => {
+        return {
+          value: item.Value,
+          name: item.Name
+        }
+      })
       this.options = {
         tooltip: {
           trigger: 'item'
@@ -64,7 +69,7 @@ export default {
             labelLine: {
               show: false
             },
-            data: val,
+            data: data,
             itemStyle: {
               normal: {
                 color: (colors) => {
@@ -72,12 +77,19 @@ export default {
                   return colorList[colors.dataIndex];
                 }
               },
+            },
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
             }
           }
         ]
       }
     }
-  }
+  },
 }
 </script>
 
@@ -85,7 +97,7 @@ export default {
 .status-box {
   display: flex;
   width: 100%;
-  padding: 20px 10px 0 10px;
+  padding-top: 20px;
   div {
     width: 18%;
     margin-right: 1%;
