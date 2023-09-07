@@ -96,13 +96,13 @@ export default {
     };
   },
   created() {
+    this.loading = true;
     this.getResult();
     this.timer = setInterval(this.getResult, window.global_config.DashboardRefreshTime);
   },
   mounted() {},
   methods: {
     getResult() {
-      this.loading = true;
       const left = ["EquipmentStatus", "AlarmSituation", "ShutdownCondition"];
       const right = ["OverallEfficiency", "EquipmentDynamicCurve", "HUT"];
       equipment_comprehensive_dashboard()
