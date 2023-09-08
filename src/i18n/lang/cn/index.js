@@ -378,6 +378,7 @@ const cn = {
     Da_IntegratedSignage: "综合看板",
     Da_EquipmentSignage: "设备看板",
     Da_DepartmentSignage: "部门综合看板",
+    Da_SaleSignage: "销售大数据看板",
     Da_EquipmentStatus: "设备状态",
     Da_AlarmSituation: "报警情况",
     Da_ShutdownCondition: "停机情况",

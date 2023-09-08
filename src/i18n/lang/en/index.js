@@ -383,6 +383,7 @@ const en = {
     Da_IntegratedSignage: "Integrated Signage",
     Da_EquipmentSignage: "Equipment Signage",
     Da_DepartmentSignage: "Department Comprehensive Signage",
+    Da_SaleSignage: "Sale Signage",
     Da_EquipmentStatus: "Equipment Status",
     Da_AlarmSituation: "Alarm Situation",
     Da_ShutdownCondition: "Shutdown Condition",

@@ -9,6 +9,11 @@ const dataV = [
         path: "/TaskStatusSignage",
         component: () => import("@/views/basicModule/KanBan/IntegratedSignage/TaskStatusSignage"),
         name: "TaskStatusSignage",
-    }
+    },
+  {
+        path: "/SaleSignage",
+        component: () => import("@/views/basicModule/KanBan/IntegratedSignage/SaleSignage"),
+        name: "SaleSignage",
+    },
 ]
 export default dataV
