@@ -382,6 +382,8 @@ const en = {
   DataV: {
     Da_IntegratedSignage: "Integrated Signage",
     Da_EquipmentSignage: "Equipment Signage",
+    Da_DepartmentSignage: "Department Comprehensive Signage",
+    Da_SaleSignage: "Sale Signage",
     Da_EquipmentStatus: "Equipment Status",
     Da_AlarmSituation: "Alarm Situation",
     Da_ShutdownCondition: "Shutdown Condition",
@@ -409,6 +411,17 @@ const en = {
     Da_FaultAlarmQuantity: "Fault Alarm Quantity",
     Da_SerialNumber: "Serial Number",
     Da_DeviceName: "Device Name",
+    Da_LastWeekCapacity: "Last Week Capacity",
+    Da_NextWeekCapacity: "Next Week Capacity",
+    Da_PlannedHours: "Planed Hours",
+    Da_ActualHours: "Actual Hours",
+    Da_AvailableHours: "Available Hours",
+    Da_PlannedCompletion: "Planned Completion",
+    Da_UnplannedCompletion: "Unplanned Completion",
+    Da_PlannedQuantity: "Planned Quantity",
+    Da_ActualCompletion: "Actual Completion",
+    Da_DailyRatedHours: "Daily Rated Hours",
+    Da_DailyPlannedHours: "Daily Planned Hours",
   },
   //通用
   Generality: {
