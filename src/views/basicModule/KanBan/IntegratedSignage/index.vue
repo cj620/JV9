@@ -30,7 +30,7 @@ export default {
       dataVList: [
         {title: '设备看板', imgUrl: require('./yxhyXoCFs7.png'), url: '/EquipmentSignage'},
         {title: '看板2'},
-        {title: '看板3'},
+        {title: 'NC部门看板', url: '/DepartmentSignboard'},
         {title: '看板4'},
         {title: '看板5'},
         {title: '看板6'},
