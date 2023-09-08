@@ -29,7 +29,7 @@ export default {
     return {
       dataVList: [
         {title: '设备看板', imgUrl: require('./yxhyXoCFs7.png'), url: '/EquipmentSignage'},
-        {title: '看板2'},
+        {title: '部门综合看板', imgUrl: require('./TaskStatus.png'), url: '/TaskStatusSignage'},
         {title: '看板3'},
         {title: '看板4'},
         {title: '看板5'},

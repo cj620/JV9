@@ -377,6 +377,7 @@ const cn = {
   DataV: {
     Da_IntegratedSignage: "综合看板",
     Da_EquipmentSignage: "设备看板",
+    Da_DepartmentSignage: "部门综合看板",
     Da_EquipmentStatus: "设备状态",
     Da_AlarmSituation: "报警情况",
     Da_ShutdownCondition: "停机情况",
@@ -398,6 +399,17 @@ const cn = {
     Da_StartTime: "开始时间",
     Da_Above: "以上",
     Da_Under: "以下",
+    Da_LastWeekCapacity: "过去一周产能负荷",
+    Da_NextWeekCapacity: "未来一周产能负荷",
+    Da_PlannedHours: "计划工时",
+    Da_ActualHours: "实际工时",
+    Da_AvailableHours: "可用工时",
+    Da_PlannedCompletion: "计划内完成",
+    Da_UnplannedCompletion: "计划外完成",
+    Da_PlannedQuantity: "计划完成数",
+    Da_ActualCompletion: "实际完成数",
+    Da_DailyRatedHours: "日额定工时",
+    Da_DailyPlannedHours: "日计划工时",
   },
   //通用
   Generality: {
