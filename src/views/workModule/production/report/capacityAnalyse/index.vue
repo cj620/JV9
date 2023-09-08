@@ -49,7 +49,7 @@
       destroy-on-close
       :title="$t('Generality.Ge_DetailedInformation')"
       :IsShowFooterBtn="false"
-      width="60%"
+      width="80%"
     >
       <JvTable :table-obj="detailTableObj">
         <template #ApsState="{ record }">
@@ -110,8 +110,10 @@ export default {
 	  },
     clickToDetail(row, column) {
       const columnLabel = "Data" + column.label
-      this.detailTableObj.setData(row[columnLabel])
-      this.detailDataView = true
+      if (row[columnLabel] && row[columnLabel].length !== 0){
+        this.detailTableObj.setData(row[columnLabel])
+        this.detailDataView = true
+      }
     },
     imgUrlPlugin,
     headerClass(e) {
@@ -143,5 +145,8 @@ export default {
 <style lang="scss">
 .month-weekend {
   color: pink;
+}
+.jv-table-keyword {
+  display: none;
 }
 </style>
