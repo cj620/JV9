@@ -7,20 +7,38 @@
           {{ $t("DataV.Da_NCDepartmentSignboard") }}
         </div>
         <div class="department-signboard-header-right">
-          <el-dropdown>
+          <el-dropdown trigger="click" @command="selectDepartment">
             <div class="department-signboard-header-right-select-department">
-              <span>选择部门</span>
-              <i class="el-icon-caret-bottom"></i>
+              <span
+                ><input
+                  type="text"
+                  :placeholder="$t('DataV.Da_SelectDepartment')"
+                  @input="departmentChange"
+                  @compositionstart="compositionstart"
+                  @compositionend="compositionend"
+                  @focus="departmentFocus"
+                  @blur="departmentBlur"
+                  autofocus
+                  ref="departmentRef"
+                  v-model="departmentName"
+              /></span>
+              <i class="el-icon-caret-bottom" v-show="!clearable"></i>
+              <i
+                class="el-icon-error"
+                v-show="clearable"
+                @click="clearDepartmentName"
+              ></i>
             </div>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>黄金糕</el-dropdown-item>
-              <el-dropdown-item>狮子头</el-dropdown-item>
-              <el-dropdown-item>螺蛳粉</el-dropdown-item>
-              <el-dropdown-item>双皮奶</el-dropdown-item>
-              <el-dropdown-item>蚵仔煎</el-dropdown-item>
+              <d-loading v-show="departmentLoading"></d-loading>
+              <el-dropdown-item
+                v-for="(item, i) in department"
+                :key="i"
+                :command="item"
+                >{{ item }}
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-
           <formatted-time format="yyyy-MM-dd hh:mm" />
         </div>
       </div>
@@ -30,7 +48,7 @@
             class="department-signboard-content-info-item"
             v-for="(item, i) in infoList"
             :key="i"
-            :style="{ marginLeft: i !== 0 ? '30px' : '' }"
+            :style="{ marginLeft: i !== 0 ? '20px' : '' }"
           >
             <dv-border-box-7 :color="['#4c5f98', '#5166b0']">
               <div class="department-signboard-content-info-item-box">
@@ -52,10 +70,14 @@
             <!-- 下面的柱状图和表 -->
             <div class="department-signboard-content-left-bottom">
               <!-- 每日加工任务 -->
-              <div class="daily-processing-task"><DailyProcessingTask :result="DailyProcessingTaskList" /></div>
+              <div class="daily-processing-task">
+                <DailyProcessingTask :result="DailyProcessingTaskList" />
+              </div>
               <!-- 昨日报工工时排序 -->
               <div class="sort-of-hours-reported-yesterday">
-                <SortOfHoursReportedYesterday :result="SortOfHoursReportedYesterdayRes" />
+                <SortOfHoursReportedYesterday
+                  :result="SortOfHoursReportedYesterdayRes"
+                />
               </div>
             </div>
           </div>
@@ -75,7 +97,9 @@ import FormattedTime from "@/views/basicModule/KanBan/IntegratedSignage/Equipmen
 import LastSevenDays from "@/views/basicModule/KanBan/IntegratedSignage/DepartmentSignboard/view/LastSevenDays.vue";
 import DailyProcessingTask from "@/views/basicModule/KanBan/IntegratedSignage/DepartmentSignboard/view/Daily-processing-task.vue";
 import SortOfHoursReportedYesterday from "@/views/basicModule/KanBan/IntegratedSignage/DepartmentSignboard/view/Sort-of-hours-reported-yesterday.vue";
-
+import dLoading from '../EquipmentSignage/components/d-loading.vue';
+import { getDepartmentList } from '@/api/basicApi/systemSettings/department';
+import { processing_department_kanban } from '@/api/basicApi/dataV/kanban';
 export default {
   name: "DepartmentSignboard",
   components: {
@@ -84,9 +108,11 @@ export default {
     LastSevenDays,
     FormattedTime,
     Devices,
+    dLoading,
   },
   data() {
     return {
+      departmentLoading: false,
       infoList: [
         {
           label:
@@ -108,38 +134,20 @@ export default {
         },
         { label: i18n.t("DataV.Da_PassRate") },
       ],
-      infoRes: ["70/60", "60/40", "80%/60%", "60%"],
-      LastSevenDaysRes: {},
-      DailyProcessingTaskList: [],
-      SortOfHoursReportedYesterdayRes: {},
-      DevicesRes: {}
+      infoRes: [],
+      LastSevenDaysRes: {}, // 过去七天工时记录
+      DailyProcessingTaskList: [], // 每日加工任务
+      SortOfHoursReportedYesterdayRes: {}, // 昨日报工工时排序
+      DevicesRes: {}, // 设备列表
+      department: ['部门1','部门2','部门3','部门4','部门5','部门6'], // 部门列表
+      departmentName: '', // 部门
+      isComposition: false, // 是否开始输入中文
+      clearable: false, // 清除按钮
     };
   },
   created() {
+    this.search();
     setTimeout(() => {
-      this.LastSevenDaysRes = {
-        XAxis: ['4', '5', '6', '7', '8', '9'],
-        PlannedTime: [100, 140, 230, 100, 130, 177],
-        ActualHour: [150, 100, 200, 140, 100, 217],
-        UtilizationRate: [126, 222,163, 140, 184, 123],
-      };
-      this.DailyProcessingTaskList = [
-        {StartTime: '2023-08-27T05:00:00', EndTime: '2023-08-27T12:00:00', PlannedMachine: '机台1', ActualMachine: '机台5', State: '状态1'},
-        {StartTime: '2023-08-27T05:00:00', EndTime: '2023-08-27T12:00:00', PlannedMachine: '机台2', ActualMachine: '机台4', State: '状态2'},
-        {StartTime: '2023-08-27T05:00:00', EndTime: '2023-08-27T12:00:00', PlannedMachine: '机台3', ActualMachine: '机台3', State: '状态3'},
-        {StartTime: '2023-08-27T05:00:00', EndTime: '2023-08-27T12:00:00', PlannedMachine: '机台4', ActualMachine: '机台2', State: '状态4'},
-        {StartTime: '2023-08-27T05:00:00', EndTime: '2023-08-27T12:00:00', PlannedMachine: '机台5', ActualMachine: '机台1', State: '状态5'},
-        {StartTime: '2023-08-27T05:00:00', EndTime: '2023-08-27T12:00:00', PlannedMachine: '机台5', ActualMachine: '机台1', State: '状态5'},
-        {StartTime: '2023-08-27T05:00:00', EndTime: '2023-08-27T12:00:00', PlannedMachine: '机台5', ActualMachine: '机台1', State: '状态5'},
-        {StartTime: '2023-08-27T05:00:00', EndTime: '2023-08-27T12:00:00', PlannedMachine: '机台5', ActualMachine: '机台1', State: '状态5'},
-        {StartTime: '2023-08-27T05:00:00', EndTime: '2023-08-27T12:00:00', PlannedMachine: '机台5', ActualMachine: '机台1', State: '状态5'},
-        {StartTime: '2023-08-27T05:00:00', EndTime: '2023-08-27T12:00:00', PlannedMachine: '机台5', ActualMachine: '机台1', State: '状态5'},
-        {StartTime: '2023-08-27T05:00:00', EndTime: '2023-08-27T12:00:00', PlannedMachine: '机台5', ActualMachine: '机台1', State: '状态5'},
-      ]
-      this.SortOfHoursReportedYesterdayRes = {
-        YAxis: ['李显辉', '陈旭', '昌建', '李洪鑫', '陈义初', '林轶龙'],
-        Data: [130, 50, 40, 30, 20, 10]
-      };
       this.DevicesRes = {
         NormalNumberOfUnits: 9, // 正常台数
         ShutdownMaintenance: 1, // 停机维修
@@ -212,8 +220,68 @@ export default {
           },
         ]
       }
-    }, 1000);
+    }, 0);
   },
+  methods: {
+    // 输入部门change事件
+    departmentChange() {
+
+    },
+    // 选择部门
+    selectDepartment(val) {
+      this.departmentName = val;
+    },
+    // 中文输入开始
+    compositionstart() {
+      this.isComposition = true;
+    },
+    // 中文输入结束
+    compositionend() {
+      this.isComposition = false;
+      // 因为v-model后执行 此时还没有拿到最新的departmentName的值，所以要加个异步处理
+      let timer = setTimeout(() => {
+        this.search();
+        clearTimeout(timer);
+      })
+    },
+    // 搜索方法
+    search() {
+      this.departmentName ? this.department = ['开发部', '销售部'] : this.department = ['部门1','部门2','部门3','部门4','部门5','部门6'];
+      processing_department_kanban({Department: this.departmentName}).then(res => {
+        this.infoRes = res['TopInfo']; // 顶部信息
+        this.LastSevenDaysRes = { ...res['WorkHourRecord'] }; // 过去七天工时记录
+        this.DailyProcessingTaskList = res['ProcessingTask']; // 每日加工任务
+        this.SortOfHoursReportedYesterdayRes = {...res['WorkHoursReported']}; // 昨日报工工时排序
+        this.DevicesRes = {...res['Devices']}; // 设备列表
+        console.log(res)
+      })
+    },
+    // 聚焦事件
+    departmentFocus() {
+      if(this.departmentName) {
+        this.clearable = true;
+      }
+    },
+    // 失焦事件
+    departmentBlur() {
+      let timer = setTimeout(() => {
+        this.clearable = false;
+        clearTimeout(timer);
+      },200)
+    },
+    clearDepartmentName() {
+      this.departmentName = '';
+      this.$refs.departmentRef.focus();
+    }
+  },
+  watch: {
+    departmentName(val) {
+      // console.log(val)
+      val ? this.clearable = true : this.clearable = false;
+      if(this.isComposition) return
+      this.search();
+    }
+  }
 };
 </script>
 
@@ -248,7 +316,7 @@ export default {
       padding-bottom: 10px;
       box-sizing: border-box;
       z-index: 1;
-      width: 300px;
+      width: 310px;
     }
     &-right {
       height: 100%;
@@ -258,11 +326,11 @@ export default {
       padding-bottom: 10px;
       box-sizing: border-box;
       z-index: 1;
-      width: 300px;
+      width: 310px;
       justify-content: space-between;
       padding-right: 20px;
-      &-select-department{
-        width: 140px;
+      &-select-department {
+        width: 150px;
         height: 30px;
         background: #2f3c57;
         margin-bottom: -6px;
@@ -273,12 +341,41 @@ export default {
         justify-content: space-between;
         align-items: center;
         padding: 0 6px;
+        cursor: pointer;
+        input {
+          width: 120px;
+          border: 0; /*清除自带的2px的边框*/
+          padding: 0; /*清除自带的padding间距*/
+          outline: none; /*清除input点击之后的黑色边框*/
+          background: #2f3c57;
+          color: #eaeaea;
+        }
+        ::-webkit-input-placeholder {
+          /* WebKit browsers，webkit内核浏览器 */
+          color: #eaeaea;
+          font-size: 12px;
+        }
+        :-moz-placeholder {
+          /* Mozilla Firefox 4 to 18 */
+          color: #eaeaea;
+          font-size: 12px;
+        }
+        ::-moz-placeholder {
+          /* Mozilla Firefox 19+ */
+          color: #eaeaea;
+          font-size: 12px;
+        }
+        :-ms-input-placeholder {
+          /* Internet Explorer 10+ */
+          color: #eaeaea;
+          font-size: 12px;
+        }
       }
     }
   }
   &-content {
     height: calc(100% - 90px);
-    padding: 0 40px;
+    padding: 0 20px;
     overflow: hidden;
     &-info {
       margin-top: 10px;
@@ -335,6 +432,25 @@ export default {
       width: 680px;
       height: 100%;
     }
+  }
+}
+.el-dropdown-menu {
+  width: 150px;
+  max-height: 200px;
+  background: #2f3c57;
+  border: 1px solid #2f3c57;
+  overflow-y: auto;
+  .el-dropdown-menu__item {
+    color: #eaeaea;
+  }
+  .el-dropdown-menu__item:hover {
+    background: #1d2536;
+  }
+  ::v-deep.popper__arrow {
+    border-bottom-color: #2f3c57;
+  }
+  ::v-deep.popper__arrow::after {
+    border-bottom-color: #2f3c57;
   }
 }
 </style>

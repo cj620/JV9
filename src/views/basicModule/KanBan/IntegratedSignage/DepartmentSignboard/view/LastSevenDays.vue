@@ -6,6 +6,7 @@
 
 <script>
 import BaseChart from "@/views/dashboard/admin/echarts/base-echart.vue";
+import { timeFormat } from "@/jv_doc/utils/time";
 import {Month} from '@/enum/baseModule/dataV/Month';
 export default {
   name: "LastSevenDays",
@@ -25,12 +26,12 @@ export default {
   },
   watch: {
     result(val) {
-      const xAxisData = val.XAxis.map(item => {
-        return Month[item].numberName
-      })
-      // const date = val.Date.map((item) => {
-      //   return timeFormat(item, "MM-dd");
-      // });
+      // const xAxisData = val.XAxis.map(item => {
+      //   return Month[item].numberName
+      // })
+      const xAxisData = val.Data.map((item) => {
+        return timeFormat(item, "MM-dd");
+      });
       // const series = val.Data.map((item) => {
       //   return {
       //     name: item.Name,
@@ -40,7 +41,7 @@ export default {
       // });
       this.options = {
         title: {
-          text: '过去七天工时记录',
+          text: i18n.t('DataV.Da_RecordOfWorkingHoursInThePastSevenDays'),
           textStyle: {
             color: '#eaeaea'
           },
@@ -128,7 +129,7 @@ export default {
         ],
         series: [
           {
-            name: '预计工时',
+            name: i18n.t('DataV.Da_PlannedTime'),
             type: 'bar',
             tooltip: {
               valueFormatter: function (value) {
@@ -149,7 +150,7 @@ export default {
             // },
           },
           {
-            name: '实际工时',
+            name: i18n.t('DataV.Da_ActualHours'),
             type: 'bar',
             tooltip: {
               valueFormatter: function (value) {
@@ -170,7 +171,7 @@ export default {
             }
           },
           {
-            name: '稼动率',
+            name: i18n.t('DataV.Da_UtilizationRate'),
             type: 'line',
             yAxisIndex: 1,
             tooltip: {

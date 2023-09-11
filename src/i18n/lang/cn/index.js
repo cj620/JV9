@@ -465,6 +465,10 @@ const cn = {
     Da_ActualCropYield: "实际稼动率",
     Da_Processing: "加工中",
     Da_Idle: "空闲中",
+    Da_SelectDepartment: "选择部门",
+    Da_RecordOfWorkingHoursInThePastSevenDays: "过去七天工时记录",
+    Da_DailyProcessingTasks: "每日加工任务",
+    Da_SortingOfWorkHoursReportedYesterday: "昨日报工工时排序",
   },
   //通用
   Generality: {

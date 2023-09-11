@@ -470,6 +470,10 @@ const en = {
     Da_ActualCropYield: "Actual Crop Yield",
     Da_Processing: "Processing",
     Da_Idle: "Idle",
+    Da_SelectDepartment: "Select Department",
+    Da_RecordOfWorkingHoursInThePastSevenDays: "Record of working hours in the past seven days",
+    Da_DailyProcessingTasks: "Daily Processing Tasks",
+    Da_SortingOfWorkHoursReportedYesterday: "Sorting of work hours reported yesterday",
   },
   //通用
   Generality: {

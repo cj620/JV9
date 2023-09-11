@@ -7,27 +7,36 @@
       </div>
       <div class="Devices-content-item-box">
         <RollList :step="cWindow.global_config.DataVStep-80" v-if="JSON.stringify(result) !== '{}'" id="infoId">
-          <div class="Devices-content-item" v-for="(item, i) in result['DevicesList']" :key="i">
+          <div class="Devices-content-item" v-for="(item, i) in result['Devices']" :key="i">
             <div class="Devices-content-item-top">
               <div class="Devices-content-item-top-devices-name">
                 <span class="Devices-content-item-top-devices-name-state" :style="{background: EquipmentStatusEnum[item.State].color}"></span>
-                {{item.DevicesName || '--' }}
+                <!--设备名称-->
+                {{item.Device || '--' }}
               </div>
+              <!--作业者-->
               <div class="Devices-content-item-top-worker">{{item.Worker || '--' }}</div>
-              <div class="Devices-content-item-top-devices-no">{{item.DevicesNo || '--' }}</div>
+              <!--设备编号-->
+              <div class="Devices-content-item-top-devices-no">{{item.DeviceNo || '--' }}</div>
             </div>
             <div class="Devices-content-item-bottom">
               <div class="Devices-content-item-bottom-img">
                 <CImage :src="item.PhotoUrl" :preview-src-list="[item.PhotoUrl]" />
               </div>
               <div class="Devices-content-item-bottom-left Devices-content-item-bottom-common">
+                <!--上机工时-->
                 <span>{{$t('DataV.Da_OperatingHours')}}：{{item.OperatingHours || '--' }}</span>
-                <span>{{$t('DataV.Da_CurrentNumberOfWorkpieces')}}：{{item.CurrentNumberOfWorkpieces || '--' }}</span>
+                <!--当前工件数-->
+                <span>{{$t('DataV.Da_CurrentNumberOfWorkpieces')}}：{{item.Quantity || '--' }}</span>
+                <!--计划稼动率-->
                 <span>{{$t('DataV.Da_PlannedCropYield')}}：{{item.PlannedCropYield}}</span>
               </div>
               <div class="Devices-content-item-bottom-right Devices-content-item-bottom-common">
+                <!--运行时间-->
                 <span>{{$t('DataV.Da_RunTime')}}(M)：{{item.RunTime}}</span>
+                <!--停机时间-->
                 <span>{{$t('DataV.Da_DownTime')}}(M)：{{item.DownTime}}</span>
+                <!--实际稼动率-->
                 <span>{{$t('DataV.Da_ActualCropYield')}}：{{item.ActualCropYield}}</span>
               </div>
             </div>
@@ -59,8 +68,8 @@ export default {
       cWindow,
       EquipmentStatusEnum,
       infoList: [
-        {label: i18n.t('DataV.Da_NormalMachine'), prop: 'NormalNumberOfUnits'},
-        {label: i18n.t('DataV.Da_ShutdownMaintenance'), prop: 'ShutdownMaintenance'},
+        {label: i18n.t('DataV.Da_NormalMachine'), prop: 'NormalQuantity'},
+        {label: i18n.t('DataV.Da_ShutdownMaintenance'), prop: 'AbnormalQuantity'},
         {label: i18n.t('DataV.Da_OperationalAvailability'), prop: 'OperationalAvailability'},
       ]
     }
@@ -70,7 +79,7 @@ export default {
 
 <style scoped lang="scss">
 .Devices{
-  width: 660px;
+  width: 700px;
   height: calc(100% - 40px);
   background: #242d48;
   margin-top: 20px;
@@ -133,10 +142,10 @@ export default {
           }
         }
         &-worker{
-          width: 240px;
+          width: 260px;
         }
         &-devices-no{
-          width: 240px;
+          width: 260px;
         }
       }
       &-bottom{
@@ -146,7 +155,7 @@ export default {
         height: 100px;
         &-common{
           padding: 10px 0 10px 20px;
-          width: 240px;
+          width: 260px;
           display: flex;
           flex-direction: column;
           justify-content: space-around;
@@ -167,7 +176,7 @@ export default {
       content: '';
       position: absolute;
       height: 1px;
-      width: 600px;
+      width: 640px;
       left: 19px;
       background: #374264;
       bottom: 0;

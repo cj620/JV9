@@ -1,6 +1,6 @@
 <template>
   <div class="sort-of-hours-reported-yesterday">
-    <div class="sort-of-hours-reported-yesterday-title">昨日报工工时排序</div>
+    <div class="sort-of-hours-reported-yesterday-title">{{$t('DataV.Da_SortingOfWorkHoursReportedYesterday')}}</div>
     <base-chart style="height: calc(100% - 40px)" :options="options"></base-chart>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
         },
         yAxis: {
           type: 'category',
-          data: val.YAxis,
+          data: val.Name ? val.Name.reverse() : val.Name,
           axisLine: {
             lineStyle: {
               color: "#eaeaea",
@@ -67,7 +67,7 @@ export default {
           {
             name: '2011',
             type: 'bar',
-            data: val.Data,
+            data: val.Date ? val.Date.reverse() : val.Date,
             label: {
               show: true,
               position: 'right',

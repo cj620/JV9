@@ -1,6 +1,6 @@
 <template>
   <div class="daily-processing-task">
-    <div class="daily-processing-task-title">每日加工任务</div>
+    <div class="daily-processing-task-title">{{$t('DataV.Da_DailyProcessingTasks')}}</div>
     <div class="daily-processing-task-table">
       <div class="daily-processing-task-table-header">
         <div
@@ -23,12 +23,17 @@
               :key="item.prop"
               :style="{ borderLeft: i !== 0 ? '1px solid #374264' : 'none' }"
             >
-              {{
-                isNaN(parent[item.prop]) &&
-                !isNaN(Date.parse(parent[item.prop]))
-                  ? timeFormat(parent[item.prop])
-                  : parent[item.prop]
-              }}
+              <span v-if="item.prop === 'State'">
+                {{ProcessState[parent[item.prop]].name}}
+              </span>
+              <span v-else>
+                {{
+                  (isNaN(parent[item.prop]) &&
+                  !isNaN(Date.parse(parent[item.prop]))
+                    ? timeFormat(parent[item.prop])
+                    : parent[item.prop]) || '--'
+                }}
+              </span>
             </div>
           </div>
         </RollList>
@@ -40,6 +45,7 @@
 <script>
 import RollList from "@/components/RollList/index.vue";
 import timeFormat from "~/utils/time/timeFormat";
+import ProcessState from "@/enum/workModule/production/ProcessState";
 const cWindow = window;
 export default {
   name: "Daily-processing-task",
@@ -55,11 +61,12 @@ export default {
   data() {
     return {
       cWindow,
+      ProcessState,
       headerList: [
-        {prop: 'StartTime', label: i18n.t('DataV.Da_StartTime')},
-        {prop: 'EndTime', label: i18n.t('DataV.Da_EndTime')},
-        {prop: 'PlannedMachine', label: i18n.t('DataV.Da_PlannedMachine')},
-        {prop: 'ActualMachine', label: i18n.t('DataV.Da_ActualMachine')},
+        {prop: 'PlanStart', label: i18n.t('DataV.Da_StartTime')},
+        {prop: 'PlanEnd', label: i18n.t('DataV.Da_EndTime')},
+        {prop: 'PlanDevice', label: i18n.t('DataV.Da_PlannedMachine')},
+        {prop: 'ActualDevice', label: i18n.t('DataV.Da_ActualMachine')},
         {prop: 'State', label: i18n.t('DataV.Da_State')},
       ],
     }
