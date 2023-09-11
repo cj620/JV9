@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="roll-table-content">
-      <RollList v-if="result.length" :step="$window.global_config.DataVStep" :id="id">
+      <RollList v-if="result.length" :step="cWindow.global_config.DataVStep" :id="id">
         <div
           :class="[
             index % 2 === 1 ? 'newColor' : '',
@@ -67,6 +67,7 @@
 <script>
 import RollList from "@/components/RollList/index.vue";
 import timeFormat from '@/jv_doc/utils/time/timeFormat';
+const cWindow = window;
 export default {
   components: { RollList },
   props: {
@@ -89,11 +90,10 @@ export default {
   },
   data() {
     return {
-      $window: null,
+      cWindow
     }
   },
   created() {
-    this.$window = window
   },
   methods: {
     timeFormat,

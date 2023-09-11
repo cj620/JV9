@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="content-table-content">
-        <RollList :step="$window.global_config.DataVStep">
+        <RollList :step="cWindow.global_config.DataVStep">
           <div class="content-table-content-item"
                v-for="(item, i) in contentResult.EquipmentOperationTimeline" :key="i"
           >
@@ -62,6 +62,7 @@
 import { EquipmentStatusEnum } from '@/enum/baseModule/dataV/EquipmentStatus';
 import CImage from "@/components/CImage/index.vue";
 import RollList from "@/components/RollList/index.vue";
+const cWindow = window;
 export default {
   name: "EquipmentSignageContent",
   components: { CImage, RollList },
@@ -75,7 +76,7 @@ export default {
   },
   data() {
     return {
-      $window: null,
+      cWindow,
       EquipmentStatusEnum,
       InfoList: [
         {title: i18n.t('DataV.Da_TotalProcessingQuantity'), prop: 'TotalProcessingQuantity'},
@@ -85,7 +86,7 @@ export default {
       ]
     };
   },
-  created() {this.$window = window},
+  created() {},
   methods: {
     setWidth(item, i, parent) {
       const date = new Date();

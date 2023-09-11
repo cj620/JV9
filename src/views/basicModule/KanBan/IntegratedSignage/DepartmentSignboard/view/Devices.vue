@@ -6,37 +6,46 @@
         <div v-for="(item, i) in infoList" :key="i">{{ item.label }}：<span style="font-weight: bold;font-size: 18px">{{result[item.prop]}}</span></div>
       </div>
       <div class="Devices-content-item-box">
-        <div class="Devices-content-item" v-for="(item, i) in result['DevicesList']" :key="i">
-          <div class="Devices-content-item-top">
-            <div class="Devices-content-item-top-devices-name">
-              <span class="Devices-content-item-top-devices-name-state"></span>
-              {{item.DevicesName}}
+        <RollList :step="cWindow.global_config.DataVStep-80" v-if="JSON.stringify(result) !== '{}'" id="infoId">
+          <div class="Devices-content-item" v-for="(item, i) in result['DevicesList']" :key="i">
+            <div class="Devices-content-item-top">
+              <div class="Devices-content-item-top-devices-name">
+                <span class="Devices-content-item-top-devices-name-state" :style="{background: EquipmentStatusEnum[item.State].color}"></span>
+                {{item.DevicesName || '--' }}
+              </div>
+              <div class="Devices-content-item-top-worker">{{item.Worker || '--' }}</div>
+              <div class="Devices-content-item-top-devices-no">{{item.DevicesNo || '--' }}</div>
             </div>
-            <div class="Devices-content-item-top-worker">{{item.Worker}}</div>
-            <div class="Devices-content-item-top-devices-no">{{item.DevicesNo}}</div>
+            <div class="Devices-content-item-bottom">
+              <div class="Devices-content-item-bottom-img">
+                <CImage :src="item.PhotoUrl" :preview-src-list="[item.PhotoUrl]" />
+              </div>
+              <div class="Devices-content-item-bottom-left Devices-content-item-bottom-common">
+                <span>{{$t('DataV.Da_OperatingHours')}}：{{item.OperatingHours || '--' }}</span>
+                <span>{{$t('DataV.Da_CurrentNumberOfWorkpieces')}}：{{item.CurrentNumberOfWorkpieces || '--' }}</span>
+                <span>{{$t('DataV.Da_PlannedCropYield')}}：{{item.PlannedCropYield}}</span>
+              </div>
+              <div class="Devices-content-item-bottom-right Devices-content-item-bottom-common">
+                <span>{{$t('DataV.Da_RunTime')}}(M)：{{item.RunTime}}</span>
+                <span>{{$t('DataV.Da_DownTime')}}(M)：{{item.DownTime}}</span>
+                <span>{{$t('DataV.Da_ActualCropYield')}}：{{item.ActualCropYield}}</span>
+              </div>
+            </div>
           </div>
-          <div class="Devices-content-item-bottom">
-            <div class="Devices-content-item-bottom-img">1</div>
-            <div class="Devices-content-item-bottom-left">
-              <span>{{$t('DataV.Da_OperatingHours')}}：{{item.OperatingHours}}</span>
-              <span>{{$t('DataV.Da_CurrentNumberOfWorkpieces')}}：{{item.CurrentNumberOfWorkpieces}}</span>
-              <span>{{$t('DataV.Da_PlannedCropYield')}}：{{item.PlannedCropYield}}</span>
-            </div>
-            <div class="Devices-content-item-bottom-right">
-              <span>{{$t('DataV.Da_RunTime')}}(M)：{{item.RunTime}}</span>
-              <span>{{$t('DataV.Da_DownTime')}}(M)：{{item.DownTime}}</span>
-              <span>{{$t('DataV.Da_ActualCropYield')}}：{{item.ActualCropYield}}</span>
-            </div>
-          </div>
-        </div>
+        </RollList>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import RollList from "@/components/RollList/index.vue";
+import CImage from "@/components/CImage/index.vue";
+import {EquipmentStatusEnum} from "@/enum/baseModule/dataV/EquipmentStatus";
+const cWindow = window;
 export default {
   name: "Devices",
+  components: { CImage, RollList },
   props: {
     result: {
       type: Object,
@@ -47,8 +56,10 @@ export default {
   },
   data() {
     return {
+      cWindow,
+      EquipmentStatusEnum,
       infoList: [
-        {label: i18n.t('DataV.Da_NormalNumberOfUnits'), prop: 'NormalNumberOfUnits'},
+        {label: i18n.t('DataV.Da_NormalMachine'), prop: 'NormalNumberOfUnits'},
         {label: i18n.t('DataV.Da_ShutdownMaintenance'), prop: 'ShutdownMaintenance'},
         {label: i18n.t('DataV.Da_OperationalAvailability'), prop: 'OperationalAvailability'},
       ]
@@ -88,19 +99,26 @@ export default {
       color: #eaeaea;
       padding: 0 20px;
       div{
-        flex: 1;
+        flex: 3;
         text-align: start;
+      }
+      div:nth-child(2){
+        flex: 3.6;
+      }
+      div:last-child{
+        flex: 3.3;
       }
     }
     &-item{
-      height: 160px;
+      height: 153.6px;
       position: relative;
-      margin-top: 10px;
+      box-sizing: border-box;
+      padding-top: 10px;
       color: #eaeaea;
       &-top{
         width: 100%;
         display: flex;
-        height: 40px;
+        height: 30px;
         div{padding-left: 20px;display: flex;
         align-items: center;height: 100%}
         &-devices-name{
@@ -122,18 +140,26 @@ export default {
         }
       }
       &-bottom{
+        margin-top: 10px;
         width: 100%;
         display: flex;
-        height: 120px;
-        div{padding-left: 20px}
+        height: 100px;
+        &-common{
+          padding: 10px 0 10px 20px;
+          width: 240px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        }
         &-img{
+          padding: 4px 0 10px 20px;
           width: 158px;
         }
         &-left{
-          width: 240px;
+
         }
         &-right{
-          width: 240px;
+
         }
       }
     }
@@ -148,8 +174,8 @@ export default {
     }
     &-item-box{
       width: 100%;
-      height: calc(100% - 40px);
-      overflow-y: auto;
+      height: 768px;
+      overflow-y: hidden;
     }
   }
 }

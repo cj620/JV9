@@ -29,4 +29,16 @@ export const EquipmentStatusEnum = {
         value: "NotCollected",
         color: "#66676e",
     },
+    // 加工中
+    Processing: {
+        name: i18n.t('DataV.Da_Processing'),
+        value: "Processing",
+        color: "#a7f241",
+    },
+    // 空闲中
+    Idle: {
+        name: i18n.t('DataV.Da_Processing'),
+        value: "Idle",
+        color: "#f6c268",
+    },
 };

@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="daily-processing-task-table-content">
-        <RollList v-if="result.length" :step="$window.global_config.DataVStep">
+        <RollList v-if="result.length" :step="cWindow.global_config.DataVStep">
           <div
             class="daily-processing-task-table-content-item"
             v-for="(parent, p) in result"
@@ -40,6 +40,7 @@
 <script>
 import RollList from "@/components/RollList/index.vue";
 import timeFormat from "~/utils/time/timeFormat";
+const cWindow = window;
 export default {
   name: "Daily-processing-task",
   components: { RollList },
@@ -53,6 +54,7 @@ export default {
   },
   data() {
     return {
+      cWindow,
       headerList: [
         {prop: 'StartTime', label: i18n.t('DataV.Da_StartTime')},
         {prop: 'EndTime', label: i18n.t('DataV.Da_EndTime')},
@@ -60,11 +62,9 @@ export default {
         {prop: 'ActualMachine', label: i18n.t('DataV.Da_ActualMachine')},
         {prop: 'State', label: i18n.t('DataV.Da_State')},
       ],
-      $window: null,
     }
   },
   created() {
-    this.$window = window
   },
   methods: {
     timeFormat,

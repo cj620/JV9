@@ -7,7 +7,21 @@
           {{ $t("DataV.Da_NCDepartmentSignboard") }}
         </div>
         <div class="department-signboard-header-right">
-          <formatted-time format="yyyy/MM/dd hh:mm" />
+          <el-dropdown>
+            <div class="department-signboard-header-right-select-department">
+              <span>选择部门</span>
+              <i class="el-icon-caret-bottom"></i>
+            </div>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>黄金糕</el-dropdown-item>
+              <el-dropdown-item>狮子头</el-dropdown-item>
+              <el-dropdown-item>螺蛳粉</el-dropdown-item>
+              <el-dropdown-item>双皮奶</el-dropdown-item>
+              <el-dropdown-item>蚵仔煎</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+
+          <formatted-time format="yyyy-MM-dd hh:mm" />
         </div>
       </div>
       <div class="department-signboard-content">
@@ -132,18 +146,70 @@ export default {
         OperationalAvailability: '90%', // 可动率
         DevicesList: [
           {
-            State: '', // 状态
+            State: 'Processing', // 状态
             DevicesName: 'CNC1', // 设备名称
-            Worker: '李显辉', // 负责人
+            Worker: '陈旭', // 负责人
             DevicesNo: 'S20230905001-A01', // 设备编号
-            PhotoUrl: '',  // 图片
+            PhotoUrl: '\\Files\\1478908435801047041.png',  // 图片
             OperatingHours: 4, //上机工时
             RunTime: 200, // 运行时间
             CurrentNumberOfWorkpieces: 2, // 当前工件数
             DownTime: 100, // 停机时间
             PlannedCropYield: '95%', // 计划稼动率
             ActualCropYield: '80%', // 实际稼动率
-          }
+          },
+          {
+            State: 'Idle', // 状态
+            DevicesName: 'CNC1', // 设备名称
+            Worker: '', // 负责人
+            DevicesNo: null, // 设备编号
+            PhotoUrl: '\\Files\\1478908435801047041.png',  // 图片
+            OperatingHours: null, //上机工时
+            RunTime: 200, // 运行时间
+            CurrentNumberOfWorkpieces: null, // 当前工件数
+            DownTime: 100, // 停机时间
+            PlannedCropYield: '95%', // 计划稼动率
+            ActualCropYield: '80%', // 实际稼动率
+          },
+          {
+            State: 'Processing', // 状态
+            DevicesName: 'CNC1', // 设备名称
+            Worker: '李显辉', // 负责人
+            DevicesNo: 'S20230905001-A01', // 设备编号
+            PhotoUrl: '\\Files\\1478908435801047041.png',  // 图片
+            OperatingHours: 4, //上机工时
+            RunTime: 200, // 运行时间
+            CurrentNumberOfWorkpieces: 2, // 当前工件数
+            DownTime: 100, // 停机时间
+            PlannedCropYield: '95%', // 计划稼动率
+            ActualCropYield: '80%', // 实际稼动率
+          },
+          {
+            State: 'Idle', // 状态
+            DevicesName: 'CNC1', // 设备名称
+            Worker: '', // 负责人
+            DevicesNo: null, // 设备编号
+            PhotoUrl: '\\Files\\1478908435801047041.png',  // 图片
+            OperatingHours: null, //上机工时
+            RunTime: 200, // 运行时间
+            CurrentNumberOfWorkpieces: null, // 当前工件数
+            DownTime: 100, // 停机时间
+            PlannedCropYield: '95%', // 计划稼动率
+            ActualCropYield: '80%', // 实际稼动率
+          },
+          {
+            State: 'Processing', // 状态
+            DevicesName: 'CNC1', // 设备名称
+            Worker: '昌建', // 负责人
+            DevicesNo: 'S20230905001-A01', // 设备编号
+            PhotoUrl: '\\Files\\1478908435801047041.png',  // 图片
+            OperatingHours: 4, //上机工时
+            RunTime: 200, // 运行时间
+            CurrentNumberOfWorkpieces: 2, // 当前工件数
+            DownTime: 100, // 停机时间
+            PlannedCropYield: '95%', // 计划稼动率
+            ActualCropYield: '80%', // 实际稼动率
+          },
         ]
       }
     }, 1000);
@@ -182,7 +248,7 @@ export default {
       padding-bottom: 10px;
       box-sizing: border-box;
       z-index: 1;
-      width: 200px;
+      width: 300px;
     }
     &-right {
       height: 100%;
@@ -192,8 +258,22 @@ export default {
       padding-bottom: 10px;
       box-sizing: border-box;
       z-index: 1;
-      width: 200px;
-      justify-content: center;
+      width: 300px;
+      justify-content: space-between;
+      padding-right: 20px;
+      &-select-department{
+        width: 140px;
+        height: 30px;
+        background: #2f3c57;
+        margin-bottom: -6px;
+        color: #eaeaea;
+        line-height: 30px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 6px;
+      }
     }
   }
   &-content {

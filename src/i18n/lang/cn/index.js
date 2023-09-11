@@ -454,7 +454,7 @@ const cn = {
     Da_12Month: '12月',
     Da_December: '十二月',
     Da_Devices: '设备列表',
-    Da_NormalNumberOfUnits: '正常台数',
+    Da_NormalMachine: '正常机台',
     Da_ShutdownMaintenance: '停机维修',
     Da_OperationalAvailability: '可动率',
     Da_Worker: "负责人",
@@ -463,6 +463,8 @@ const cn = {
     Da_CurrentNumberOfWorkpieces: "当前工件数",
     Da_PlannedCropYield: "计划稼动率",
     Da_ActualCropYield: "实际稼动率",
+    Da_Processing: "加工中",
+    Da_Idle: "空闲中",
   },
   //通用
   Generality: {
