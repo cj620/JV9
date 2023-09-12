@@ -67,7 +67,7 @@
       <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
     </JvBlock>
     <JvDialog
-      title="物料领料"
+      :title="$t('design.De_SelectPicking')"
       :visible.sync="selectMaterialVisible"
       :confirm-disabled="!tableObj1.selectData.datas.length"
       v-if="selectMaterialVisible"

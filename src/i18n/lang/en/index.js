@@ -152,6 +152,7 @@ const en = {
     De_AllocationType: "Allocation Type",
     De_Allocated: "Allocated",
     De_Unallocated: "Unallocated",
+    De_SelectPicking: "Select Material Picking",
   },
   //项目
   project: {

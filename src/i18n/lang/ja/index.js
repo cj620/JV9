@@ -366,6 +366,7 @@ const ja = {
     De_AllocationType: "割当ステータス",
     De_Allocated: "割り当て済み",
     De_Unallocated: "未割当て",
+    De_SelectPicking: "ピックピック",
   },
   //通用
   Generality: {
