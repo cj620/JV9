@@ -38,6 +38,16 @@
 
     <!--物料信息-->
     <JvBlock :title="$t('Generality.Ge_ItemsInfo')" ref="second">
+      <!-- 领料按钮 -->
+      <div slot="extra">
+        <el-button
+          size="mini"
+          @click="selectMaterial"
+          :disabled="isDisabled"
+        >
+            {{ $t("stockroom.St_Picking") }}
+        </el-button>
+      </div>
       <JvTable :table-obj="tableObj">
         <template #State="{ record }">
           {{ demandStatusMap[record] && demandStatusMap[record].name }}
@@ -56,7 +66,20 @@
     <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
       <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
     </JvBlock>
-
+    <JvDialog
+      title="物料领料"
+      :visible.sync="selectMaterialVisible"
+      :confirm-disabled="!tableObj1.selectData.datas.length"
+      v-if="selectMaterialVisible"
+      width="70%"
+      @confirm="toStockPicking"
+    >
+      <JvTable :table-obj="tableObj1">
+        <template #State="{ record }">
+            {{ demandStatusMap[record] && demandStatusMap[record].name }}
+        </template>
+      </JvTable>
+    </JvDialog>
   </PageWrapper>
 </template>
 
@@ -87,12 +110,15 @@ export default {
       // 当前单据的id
       cur_billId: "",
       tableObj: {},
+      tableObj1: {},
       detailObj: {},
       detailData: {},
       formObj: {},
       stateForm: {},
+      isDisabled: true,
       dialogFormVisible: false,
-      tableDetail: [],
+      selectMaterialVisible: false,
+		  tableDetail: [],
       fileBillId: "",
       RemarkData: "",
       type: "",
@@ -164,6 +190,15 @@ export default {
       operationCol: false,
       height: 350,
     });
+	  this.tableObj1 = new Table({
+		  tableSchema: tableConfig,
+		  pagination: false,
+		  data: [],
+		  title: "",
+		  tableHeaderShow: false,
+		  operationCol: false,
+      height: 350
+    })
     await this.GetData();
   },
   computed: {
@@ -184,26 +219,28 @@ export default {
       await materialRequirement
         .api_get({ BillId: this.$route.query.BillId })
         .then((res) => {
-          console.log(this.tableObj);
           this.detailObj.detailData = res;
           this.RemarkData = res.Remarks;
           this.cur_billId = res.BillId;
           this.stateForm = auditPlugin(res);
           this.tableObj.setData(res.BillItems);
+			    const filteredItems = res.BillItems.filter(item => item.State === 'Processed' || item.State === 'Stored');
+          this.tableObj1.setData(filteredItems);
           this.btnAction = detailPageModel(this, res, materialRequirement, this.GetData);
-          this.btnAction.push({
-            label: this.$t("stockroom.St_Picking"),
-            confirm: this.toStockPicking,
-            disabled: this.detailObj.detailData.State !== "Approved",
-          });
+		      if (filteredItems.length && this.detailObj.detailData.State === 'Approved'){
+				    this.isDisabled = false
+          }
         });
     },
+    selectMaterial(){
+      this.selectMaterialVisible = true
+    },
     toStockPicking(){
-      console.log(this.detailObj.detailData);
       this.$router.push({
         name: "St_Picking_Add",
-        params: { itemsDemandData: this.detailObj.detailData },
+        params: { itemsDemandData: this.detailObj.detailData, selectData: this.tableObj1.selectData.datas},
       });
+		  this.selectMaterialVisible = false
     },
     //订单转
     orderTransform(routerName, keyName) {
