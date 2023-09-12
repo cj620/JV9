@@ -47,10 +47,10 @@
         </RollList>
 
         <div class="content-table-content-bottom"  style="display: flex;align-items: center;justify-content: center">
-          <div v-for="(item, i) in Object.keys(EquipmentStatusEnum)" :key="i"
+          <div v-for="(item, i) in Object.keys(EquipmentStatusEnum).slice(0, 5)" :key="i"
                style="display: flex;align-items: center;color: #eaeaea;margin-right: 20px">
             <div class="content-table-content-bottom-bg" :style="{background: EquipmentStatusEnum[item].color,marginRight: '10px'}"></div>
-            <div>{{EquipmentStatusEnum[item].name}}</div>
+            <div style="width: fit-content;">{{EquipmentStatusEnum[item].name}}</div>
           </div>
         </div>
       </div>
@@ -233,9 +233,10 @@ export default {
       position: fixed;
       bottom: 10px;
       background: #0b0f28;
+      font-size: 14px;
       &-bg{
         height: 2px;
-        width: 80px;
+        width: 60px;
       }
     }
   }

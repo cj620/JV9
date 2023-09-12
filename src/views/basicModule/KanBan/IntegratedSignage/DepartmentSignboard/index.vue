@@ -40,7 +40,7 @@
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <formatted-time format="yyyy-MM-dd hh:mm" />
+          <formatted-time />
         </div>
       </div>
       <div class="department-signboard-content">
@@ -253,7 +253,7 @@ export default {
       padding-bottom: 10px;
       box-sizing: border-box;
       z-index: 1;
-      width: 310px;
+      width: 330px;
     }
     &-right {
       height: 100%;
@@ -263,7 +263,7 @@ export default {
       padding-bottom: 10px;
       box-sizing: border-box;
       z-index: 1;
-      width: 310px;
+      width: 330px;
       justify-content: space-between;
       padding-right: 20px;
       &-select-department {

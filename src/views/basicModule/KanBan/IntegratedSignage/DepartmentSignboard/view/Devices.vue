@@ -17,7 +17,7 @@
               <!--作业者-->
               <div class="Devices-content-item-top-worker">{{item.Worker || '--' }}</div>
               <!--设备编号-->
-              <div class="Devices-content-item-top-devices-no">{{item.DeviceNo || '--' }}</div>
+              <div class="Devices-content-item-top-devices-no">{{item.PartNo || '--' }}</div>
             </div>
             <div class="Devices-content-item-bottom">
               <div class="Devices-content-item-bottom-img">

@@ -23,5 +23,11 @@ const dataV = [
         component: () => import("@/views/basicModule/KanBan/IntegratedSignage/SaleSignage"),
         name: "SaleSignage",
     },
+    // 模具机加综合看板
+    {
+        path: "/MoldMachining",
+        component: () => import("@/views/basicModule/KanBan/IntegratedSignage/MoldMachining"),
+        name: "MoldMachining",
+    },
 ]
 export default dataV
