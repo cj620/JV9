@@ -33,10 +33,13 @@
         </div>
     </div>
     <div   class="centre-bottom-table">
-    
-     
-        <custom-table :data="EmergencyProdTask"></custom-table> 
-  
+
+        <d-roll-list
+          :itemStyle="setStyle"
+          :header-style="{borderBottom: 'none', background: '#303959'}"
+          :table-config="tableConfig" :result="EmergencyProdTask"></d-roll-list>
+<!--        <custom-table :data="EmergencyProdTask"></custom-table>-->
+
 
     </div>
   </div>
@@ -46,13 +49,15 @@
 <script>
 import conicGradient from "./conic-gradient.vue";
 
-import customTable from "./customTable.vue";
+// import customTable from "./customTable.vue";
+import DRollList from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/components/d-roll-list.vue";
 
 export default {
   name: "main-centre",
   components: {
+    DRollList,
     conicGradient,
-    customTable
+    // customTable
   },
   data(){
     return{
@@ -61,9 +66,15 @@ export default {
       ],
       msg:1,
       centreDataList:[],
-      EmergencyProdTask:[]
+      EmergencyProdTask:[],
 
-
+      tableConfig: [
+        {prop: 'BillId', label: "单号"},
+        {prop: 'ToolingNo', label: "产品号"},
+        {prop: 'PartNo', label: "零件号"},
+        {prop: 'PartName', label: "零件名称"},
+        {prop: 'State', label: "状态"},
+      ]
     }
   },
   props:{
@@ -88,6 +99,11 @@ export default {
     this.changeData();
   },
   methods:{
+    setStyle(item, index) {
+      return {
+        background: index % 2 === 1 ? '#303959' : '',
+      }
+    },
     changeData(){
       this.timer = setInterval(() => {
         this.dataList=this.shuffle(this.dataList)
@@ -113,112 +129,117 @@ export default {
 <style lang="scss" scoped>
 $fontWeight: 500;
 .data-v-main-centre{
-  width: 2010px;
+  width: 960px;
   height: 100%;
 
   margin: 0 22px;
   .centre-top{
-    height: 868px;
-    margin-bottom: 130px;
+    height: 460px;
+    margin-bottom: 50px;
     position: relative;
     .centre-top-circle1{
-      width: 255px;
-      height:255px;
-      background: url("../img/circle1.png") no-repeat 0px 0px;
+      width: 128px;
+      height:128px;
+      background: url("../img/circle1.png") no-repeat;
+      background-size: cover;
       position:absolute;
-      left: 422px;
-      top: 146px;
-     display: flex;
+      left: 200px;
+      top: 70px;
+      display: flex;
       align-items: center;
       flex-direction: column;
       justify-content: center;
 
       .title{
-        font-size: 58px;
+        font-size: 28px;
         font-weight: $fontWeight;
       }
       .value{
-        font-size: 25px;
+        font-size: 12px;
         font-weight: $fontWeight;
       }
     }
     .centre-top-circle2{
-      width: 164px;
-      height:164px;
-      background: url("../img/circle2.png") no-repeat 0px 0px;
+      width: 82px;
+      height:82px;
+      background: url("../img/circle2.png") no-repeat;
+      background-size: cover;
       position:absolute;
-      left: 510px;
-      top: 720px;
+      left: 255px;
+      top: 360px;
       display: flex;
       align-items: center;
       flex-direction: column;
       justify-content: center;
       .title{
-        font-size: 40px;
+        font-size: 20px;
         font-weight: $fontWeight;
       }
       .value{
-        font-size: 18px;
+        font-size: 12px;
         font-weight: $fontWeight;
       }
     }
     .centre-top-circle3{
-      width: 405px;
-      height:405px;
-      background: url("../img/circle3.png") no-repeat 0px 0px;
+      width: 202px;
+      height:202px;
+      background: url("../img/circle3.png") no-repeat;
+      background-size: cover;
       position:absolute;
-      left: 780px;
-      top: 310px;
+      left: 380px;
+      top: 160px;
       display: flex;
       align-items: center;
       flex-direction: column;
       justify-content: center;
       .title{
-        font-size: 78px;
+        font-size: 37px;
         font-weight: $fontWeight;
       }
       .value{
-        font-size: 38px;
+        font-size: 16px;
         font-weight: $fontWeight;
       }
     }
     .centre-top-circle4{
-      width: 200px;
-      height:200px;
-      background: url("../img/circle4.png") no-repeat 0px 0px;
+      width: 100px;
+      height:100px;
+      background: url("../img/circle4.png") no-repeat;
+      background-size: cover;
       position:absolute;
-      left: 1300px;
-      top: 170px;
+      left: 650px;
+      top: 85px;
       display: flex;
       align-items: center;
       flex-direction: column;
       justify-content: center;
       .title{
-        font-size: 48px;
+        font-size: 24px;
         font-weight: $fontWeight;
       }
       .value{
-        font-size: 22px;
+        font-size: 12px;
         font-weight: $fontWeight;
       }
     }
     .centre-top-circle5{
-      width: 270px;
-      height:270px;
-      background: url("../img/circle5.png") no-repeat 0px 0px;
+      width: 135px;
+      height:135px;
+      background: url("../img/circle5.png") no-repeat;
+      background-size: cover;
       position:absolute;
-      left: 1315px;
-      top: 610px;
+      left: 657px;
+      top: 305px;
       display: flex;
       align-items: center;
       flex-direction: column;
       justify-content: center;
       .title{
-        font-size: 34px;
+        font-size: 18px;
         font-weight: $fontWeight;
       }
       .value{
-        font-size: 22px;
+        font-size: 12px;
         font-weight: $fontWeight;
       }
     }
@@ -226,16 +247,18 @@ $fontWeight: 500;
   .centre-center{
     display: flex;
     .centre-center-data{
-      width: 240px;
-      height: 300px;
-      margin-left: 130px;
+      width: 130px;
+      height: 150px;
+      margin-left: 30px;
+      margin-right: 30px;
       .centre-center-data-pie{
-        width: 240px;
-        height: 240px;
+        width: 120px;
+        height: 120px;
+        margin-left: 10px;
       }
       .centre-center-data-title{
-        margin-top: 20px;
-        font-size: 30px;
+        margin-top: 10px;
+        font-size: 16px;
         text-align: center;
         font-weight: $fontWeight;
       }
@@ -244,12 +267,12 @@ $fontWeight: 500;
   }
   .centre-bottom{
     background-color: #242947;
-    height: 545px;
-    margin-top: 85px;
-    padding: 35px;
+    height: 280px;
+    margin-top: 20px;
+    padding: 8px;
     .centre-bottom-title{
       display: flex;
-      font-size: 40px;
+      font-size: 18px;
       font-weight: $fontWeight;
       justify-content: space-between;
       justify-items: center;
@@ -260,7 +283,7 @@ $fontWeight: 500;
         align-items: center;
       }
       .centre-bottom-title-number{
-        font-size: 60px;
+        font-size: 26px;
         font-weight: $fontWeight;
 
         color: #ff5a6a;
@@ -268,8 +291,8 @@ $fontWeight: 500;
 
     }
     .centre-bottom-table{
-      margin-top: 50px;
-
+      height: 230px;
+      margin-top: 10px;
     }
   }
 }

@@ -1,6 +1,8 @@
 <template>
   <div style="height: 100%">
-    <div class="roll-table-header">
+    <div class="roll-table-header"
+    :style="headerStyle"
+    >
       <div
         class="roll-table-header-item"
         v-for="item in tableConfig"
@@ -19,6 +21,7 @@
             index % 2 === 1 ? 'newColor' : '',
             'roll-table-content-item',
           ]"
+          :style="itemStyle(parent, index)"
           v-for="(parent, index) in result"
           :key="JSON.stringify(parent)"
         >
@@ -86,6 +89,16 @@ export default {
     id: {
       type: String,
       default: 'roll'
+    },
+    itemStyle: {
+      type: Function,
+      default: () => {}
+    },
+    headerStyle: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
   },
   data() {

@@ -8,8 +8,6 @@
        :rate="Number(dataListObject1.Obj.Value)"
        :config="{
          showEyes:true,
-       eyesSize: '28px',
-       circleSize: '28px',
        startColor:'#313956',
        circleColor:'#00e3d5',
        endColor:'#00e3d5'
@@ -41,8 +39,6 @@
           :rate="Number(dataListObject2.Obj.Value)"
           :config="{
          showEyes:true,
-       eyesSize: '28px',
-       circleSize: '28px',
        startColor:'#313956',
        circleColor:'#31b5ff',
        endColor:'#31b5ff'
@@ -67,7 +63,7 @@
   </div>
   <div class="left-bottom">
     <div  class="left-bottom-title">{{ QualityTitle }}</div>
-    <div id="myMiddleChart" :style="{width: '880px',height: '770px'}"></div>
+    <div id="myMiddleChart" :style="{width: '440px',height: '360px'}"></div>
     <div class="slot-title" v-show="false">{{ msg }}</div>
 
   </div>
@@ -108,7 +104,7 @@ export default {
     this.dataList1=this.LeftDataList.Data1
     this.dataList2=this.LeftDataList.Data2
     this.dataList3=this.LeftDataList.Data3
-   
+
 /*
     this.QualityTitle = this.LeftDataList.Data3[0].Title
 */
@@ -167,7 +163,7 @@ export default {
     this.drawMiddleChart();
     },
     shuffle(array) {
-      
+
       let str =''
       str=array[0]
       for (let i = 0; i < array.length; i++) {
@@ -191,23 +187,24 @@ export default {
 
         legend: {
           show: true,
-            right: "7%",
-            itemGap: 80,
-            itemWidth: 18,
-            itemHeight: 18,
+            right: "3%",
+            itemGap: 40,
+            itemWidth: 9,
+            itemHeight: 9,
             data: [{name: '目标值',icon: 'circle'},
             {name: '合格率',icon: 'circle'},],
             textStyle: {
             color: "#ffffff",
-              fontSize:" 32px",
+              fontSize:" 16px",
               fontWeight: "400",
-              padding: [1, 1, 1, 22]
+              padding: [1, 1, 1, 11]
           }
         },
         grid: {
-          left: '1%',
-            right: '2%',
-            bottom: '1%',
+          left: '0%',
+          top: '8%',
+            right: '6%',
+            bottom: '12%',
             containLabel: true
         },
         xAxis: [
@@ -227,7 +224,7 @@ export default {
               color: '#fff',
               fontWeight:400,
 
-              fontSize: 24
+              fontSize: 12
             }
           }
         ],
@@ -257,7 +254,7 @@ export default {
               color: '#fff',
               fontWeight:400,
               margin: 20,
-              fontSize: 24
+              fontSize: 12
             }
           }
         ],
@@ -269,7 +266,7 @@ export default {
             smooth: true,
             lineStyle: {
               color: "#00e3d5",
-              width: 6
+              width: 2
 
             },
             showSymbol: false,
@@ -299,7 +296,7 @@ export default {
             smooth: true,
             lineStyle: {
               color: "#9b6afa",
-              width: 6
+              width: 2
             },
             showSymbol: false,
             areaStyle: {
@@ -337,54 +334,54 @@ export default {
 
 <style lang="scss" scoped>
 .data-v-main-left{
-  width: 958px;
+  width: 460px;
   height: 100%;
-  padding-left:22px;
+  padding-left:11px;
   .left-top{
     width: 100%;
-    height: 504px;
+    height: 280px;
     background-color: #242947;
-    padding: 35px;
+    padding: 15px;
     .left-top-title{
-      font-size: 36px;
+      font-size: 18px;
       font-weight: 500;
-      margin-bottom: 58px;
+      margin-bottom: 29px;
     }
     .left-top-center{
       display: flex;
       .left-top-center-left{
-        width: 330px;
-        height: 330px;
+        width: 165px;
+        height: 165px;
         box-sizing: border-box;
-        margin-right: 144px;
+        margin-right: 50px;
         .slot-bg{
           color: #00e3d5;
           text-align: center;
           .slot-process{
-            font-size: 67px;
+            font-size: 33px;
             font-weight: 500;
           }
           .slot-title{
-            font-size: 32px;
+            font-size: 16px;
             font-weight: 500;
           }
         }
       }
       .left-top-center-right{
-        margin-bottom: 35px;
-        font-size: 32px;
+        margin-bottom: 17px;
+        font-size: 16px;
         font-weight: 400;
         display: flex;
         align-items: center;
         .left-top-center-right-circle{
-          width: 18px;
-          height: 18px;
+          width: 9px;
+          height: 9px;
           background-color: #00e3d5;
           border-radius: 50%;
-          margin-right: 80px;
+          margin-right: 30px;
         }
         .left-top-center-right-dept{
-          width: 150px;
+          width: 140px;
         }
 
       }
@@ -392,31 +389,31 @@ export default {
   }
   .left-center{
     width: 100%;
-    height: 504px;
+    height: 280px;
     background-color: #242947;
-    padding: 35px;
-    margin:  22px 0;
+    padding: 15px;
+    margin:  20px 0;
     .left-center-title{
-      font-size: 36px;
+      font-size: 18px;
       font-weight: 500;
-      margin-bottom: 58px;
+      margin-bottom: 29px;
     }
     .left-center-center{
       display: flex;
       .left-center-center-left{
-        width: 330px;
-        height: 330px;
+        width: 165px;
+        height: 165px;
         box-sizing: border-box;
-        margin-right: 144px;
+        margin-right: 50px;
         .slot-bg{
           color: #31b5ff;
           text-align: center;
           .slot-process{
-            font-size: 67px;
+            font-size: 33px;
             font-weight: 500;
           }
           .slot-title{
-            font-size: 32px;
+            font-size: 16px;
             font-weight: 500;
           }
 
@@ -425,31 +422,31 @@ export default {
 
       }
       .left-center-center-right{
-        margin-bottom: 35px;
-        font-size: 32px;
+        margin-bottom: 17px;
+        font-size: 16px;
         font-weight: 400;
         display: flex;
         align-items: center;
         .left-center-center-right-circle{
-          width: 18px;
-          height: 18px;
+          width: 9px;
+          height: 9px;
           background-color: #31b5ff;
           border-radius: 50%;
-          margin-right: 80px;
+          margin-right: 30px;
         }
         .left-center-center-right-dept{
-          width: 150px;
+          width: 140px;
         }
 
       }
     }
   }
   .left-bottom{
-    height: 876px;
+    height: 360px;
     background-color: #242947;
-    padding: 35px;
+    padding: 15px;
     .left-bottom-title{
-      font-size: 36px;
+      font-size: 18px;
       font-weight: 500;
     }
   }

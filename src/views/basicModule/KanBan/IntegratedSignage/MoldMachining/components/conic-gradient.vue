@@ -88,12 +88,12 @@ export default {
 /* 开始处增加一个圆形端点，模拟圆角效果 */
 .process-wrapper::after {
   content: "";
-  width: 15px;
-  height: 15px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   position: absolute;
   left: 50%;
-  top: 20px;
+  top: 10px;
   transform: translateX(-50%);
   background: var(--start-color);
   z-index: 1;
@@ -112,11 +112,11 @@ export default {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 15px;
-  height: 15px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--start-color);
-  transform: translate(-50%, -67%);
+  transform: translate(-42%, -275%);
   z-index: 1;
   opacity: var(--show-eyes);
 }
@@ -134,10 +134,10 @@ export default {
 }
 .process-box{
   position: absolute;
-  left: 20px;
-  top: 20px;
-  width: 200px;
-  height: 200px;
+  left: 10px;
+  top: 10px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   box-sizing: border-box;
   background-color: var(--background-color);
@@ -154,10 +154,10 @@ export default {
 
 .pointer-box1{
   position: absolute;
-  left: 35px;
-  top: 35px;
-  width: 170px;
-  height: 170px;
+  left: 17px;
+  top: 17px;
+  width: 85px;
+  height: 85px;
   border-radius: 50%;
   box-sizing: border-box;
   background-color: var(--background-color);
@@ -165,10 +165,10 @@ export default {
 }
 .pointer-box2{
   position: absolute;
-  left: 40px;
-  top: 40px;
-  width: 160px;
-  height: 160px;
+  left: 20px;
+  top: 20px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   box-sizing: border-box;
   background-color: #1B223D;
@@ -180,7 +180,7 @@ export default {
 }
 .pointer-box2-value{
   color: var(--start-color);
-  font-size: 50px;
+  font-size: 24px;
   font-weight: 400;
 }
 </style>

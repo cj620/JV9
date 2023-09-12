@@ -22,6 +22,7 @@ import mainLeft from "./components/main-left.vue";
 import mainCentre from "./components/main-centre.vue";
 import mainRight from "./components/main-right.vue";
 import screenFull from "screenfull";
+
 import { timeFormat } from "~/utils/time/index";
 import {Data} from './data';
 import { data_report_vkb_datav_dashboard } from "@/api/workApi/production/dataReport";

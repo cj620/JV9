@@ -223,18 +223,21 @@ $color: #1370fb;
     .ranking-info {
       display: flex;
       width: 100%;
-      font-size: 34px;
+      font-size: 16px;
 
       .info-name {
-        width: 200px;
-        font-size: 34px;
+        width: 100px;
+        font-size: 16px;
         font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .inside-column {
         position: relative;
         height: 24px;
         background-color: #5A5F75;
-        width: 350px;
+        width: 230px;
         border-radius:0 12px 12px 0;
         .shine {
           position: absolute;
@@ -258,11 +261,11 @@ $color: #1370fb;
 
       }
       .ranking-value{
-        width: 80px;
-        margin:0 30px;
+        width: 40px;
+        margin:0 15px;
       }
       .ranking-progress{
-        width: 80px;
+        width: 70px;
       }
     }
 

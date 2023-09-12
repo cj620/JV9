@@ -60,15 +60,15 @@ export default {
     return {
       /* 此配置下所有属性均可在config中进行覆盖，实现个性化配置 */
       defaultConfig: {
-        borderWidth: "28px", // 描边宽度
+        borderWidth: "14px", // 描边宽度
         borderBackground: "#313956", // 描边背景颜色
-        circleSize: "16px", // 结尾处圆点直径
+        circleSize: "8px", // 结尾处圆点直径
         circleColor: "#2ec4a7", // 结尾处圆点颜色
         startColor: "#d5f4ee", // 进度条起始颜色
         endColor: "#2ec4a7", // 进度条结束颜色
         clockwise: true, // 是否顺时针
         showEyes: false, // 是否显示结尾处小眼睛
-        eyesSize: "28px", // 结尾处小眼睛大小
+        eyesSize: "14px", // 结尾处小眼睛大小
       },
     };
   },
