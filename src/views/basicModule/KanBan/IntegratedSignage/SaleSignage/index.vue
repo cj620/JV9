@@ -10,7 +10,7 @@
           {{ $t("DataV.Da_SaleSignage") }}
         </div>
         <div class="Sale-signage-header-right">
-          <formatted-time format="yyyy/MM/dd hh:mm:ss" />
+          <formatted-time format="yyyy-MM-dd hh:mm:ss" />
         </div>
       </div>
       <!--页面主体-->
@@ -77,6 +77,7 @@ import sortStatistics from "./components/sortStatistics.vue"
 import monthlyShipments from "./components/monthlyShipments.vue";
 import top8Shipments from "./components/top8Shipments.vue";
 import nonShipment from "./components/nonShipment.vue";
+import screenFull from 'screenfull';
 export default {
   name: "SaleSignage",
   components: {
@@ -102,6 +103,7 @@ export default {
     }
   },
   created() {
+    screenFull.toggle(); // 全屏
     setTimeout(() => {
       this.AnnualData = [
         { title:"本年销售总金额", data:21495 },

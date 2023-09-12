@@ -44,8 +44,8 @@ export default {
           }
         },
         legend: {
-          top: 10,
-          right: 20,
+          top: "3%",
+          right: '4%',
           textStyle:{
             color: '#eaeaea'
           }

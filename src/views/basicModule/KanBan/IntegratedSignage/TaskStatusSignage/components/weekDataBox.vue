@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%">
-    <base-chart style="height: 100%;top: 5px" :options="options"></base-chart>
+    <base-chart style="height: 100%;" :options="options"></base-chart>
   </div>
 </template>
 <script>
@@ -19,7 +19,6 @@ export default {
   data(){
     return{
       options: {},
-      colors:[],
     }
   },
   created() {
@@ -33,17 +32,23 @@ export default {
         this.$t('DataV.Da_ActualHours'),
         this.$t('DataV.Da_AvailableHours'),
       ])
-      console.log(data);
       this.options = {
         tooltip: {},
         legend: {
+          right: '4%',
           textStyle:{
             color:'rgb(255,255,255,0.9)'
           },
-          right: 20,
         },
         dataset: {
           source: data
+        },
+        grid: {
+          top: '10%',
+          left: '3%',
+          right: '4%',
+          bottom: '6%',
+          containLabel: true
         },
         xAxis: {
           type: 'category' ,

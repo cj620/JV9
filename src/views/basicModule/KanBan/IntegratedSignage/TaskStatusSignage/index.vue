@@ -9,7 +9,7 @@
           {{ $t("DataV.Da_DepartmentSignage") }}
         </div>
         <div class="TaskStatus-signage-header-right">
-          <formatted-time format="yyyy/MM/dd hh:mm:ss" />
+          <formatted-time format="yyyy-MM-dd hh:mm:ss" />
         </div>
       </div>
       <div class="TaskStatus-signage-content">
@@ -46,6 +46,7 @@ import ItemBox from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSigna
 import resourceBox from "./components/resourceBox.vue";
 import { department_comprehensive_dashboard } from "@/api/basicApi/dataV/kanban";
 import weekDataBox from "./components/weekDataBox.vue";
+import screenFull from 'screenfull';
 export default {
   Name: "TaskStatusSignage",
   components: { weekDataBox, ItemBox, FormattedTime, dLoading, resourceBox },
@@ -62,6 +63,7 @@ export default {
   },
   created() {
     this.loading = true;
+    screenFull.toggle(); // 全屏
     this.getData()
   },
   methods: {
@@ -132,25 +134,26 @@ export default {
     }
   }
   &-content {
-    width: 100%;
+    padding: 0 20px;
+    overflow: hidden;
     height: calc(100% - 90px);
     &-top {
-      width: 1920px;
+      width: 1880px;
       height: 33%;
       display: flex;
       &-box {
         height: 100%;
-        width: 960px;
+        width: 940px;
       }
     }
     &-bottom {
-      width: 1920px;
+      width: 1880px;
       height: 66%;
       display: flex;
       flex-wrap: wrap;
       &-box {
         height: 50%;
-        width: 640px;
+        width: 626.6px;
       }
     }
 

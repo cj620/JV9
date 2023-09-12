@@ -42,17 +42,17 @@ export default {
           trigger: 'axis',
         },
         legend: {
-          top: 10,
-          right: 20,
+          top: '3%',
+          right: '4%',
           data: ['出货金额RMB'],
           textStyle:{
             color: '#eaeaea'
           }
         },
         grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
+          left: '4%',
+          right: '5%',
+          bottom: '4%',
           containLabel: true
         },
         xAxis: [
