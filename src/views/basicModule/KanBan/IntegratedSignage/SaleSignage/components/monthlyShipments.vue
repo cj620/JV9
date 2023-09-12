@@ -31,7 +31,7 @@ export default {
       this.options = {
         color: ['#FFD700'],
         title: {
-          text: "本年每月订单统计",
+          text: i18n.t('DataV.Da_MonthlyShipmentStatisticsForThisYear'),
           textStyle: {
             color: '#eaeaea'
           },
@@ -44,7 +44,6 @@ export default {
         legend: {
           top: '3%',
           right: '4%',
-          data: ['出货金额RMB'],
           textStyle:{
             color: '#eaeaea'
           }
@@ -84,7 +83,7 @@ export default {
         ],
         series: [
           {
-            name: '出货金额RMB',
+            name: i18n.t('DataV.Da_ShipmentAmountRMB'),
             type: 'line',
             smooth: true,
             lineStyle: {

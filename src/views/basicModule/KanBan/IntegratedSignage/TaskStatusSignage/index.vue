@@ -9,7 +9,7 @@
           {{ $t("DataV.Da_DepartmentSignage") }}
         </div>
         <div class="TaskStatus-signage-header-right">
-          <formatted-time format="yyyy-MM-dd hh:mm:ss" />
+          <formatted-time/>
         </div>
       </div>
       <div class="TaskStatus-signage-content">

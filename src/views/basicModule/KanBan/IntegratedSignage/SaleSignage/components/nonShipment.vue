@@ -1,6 +1,8 @@
 <template>
   <div class="non-Shipment">
-    <div class="non-Shipment-title">一周内未出货统计</div>
+    <div class="non-Shipment-title">
+      {{ $t('DataV.Da_NonShipmentWithinAWeek') }}
+    </div>
     <div class="non-Shipment-table">
       <div class="non-Shipment-table-header">
         <div
@@ -54,11 +56,11 @@ export default {
   data() {
     return {
       headerList: [
-        {prop: 'Id', label: '序号'},
-        {prop: 'CustomerId', label: '客户编号'},
-        {prop: 'BillId', label: '订单编号'},
-        {prop: 'UnshippedQuantity', label: '未出货数量'},
-        {prop: 'DeliveryDate', label: '交货日期'},
+        {prop: 'Id', label: this.$t('DataV.Da_SerialNumber')},
+        {prop: 'CustomerId', label: this.$t('sale.Sa_CustomerId')},
+        {prop: 'BillId', label: this.$t('DataV.Da_BillId')},
+        {prop: 'UnshippedQuantity', label: this.$t('DataV.Da_UnshippedQuantity')},
+        {prop: 'DeliveryDate', label: this.$t('DataV.Da_DeliveryDate')},
       ],
       $window: null,
     }

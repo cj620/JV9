@@ -10,7 +10,7 @@
           {{ $t("DataV.Da_SaleSignage") }}
         </div>
         <div class="Sale-signage-header-right">
-          <formatted-time format="yyyy-MM-dd hh:mm:ss" />
+          <formatted-time/>
         </div>
       </div>
       <!--页面主体-->
@@ -129,8 +129,8 @@ export default {
       this.SortData = [
         { value:4332, name: 'DomesticOrders' },
         { value:3133, name: 'ForeignOrders' },
-        { value:1244, name: 'ComplaintOrder' },
-        { value:5243, name: 'OtherOrder' },
+        { value:1244, name: 'ComplaintOrders' },
+        { value:5243, name: 'OtherOrders' },
       ];
       this.MonthlyShipmentsData = [123,423,231,235,121,231,534,121,32,12,342,534]
       this.Top8ShipmentsList = [
@@ -291,6 +291,7 @@ export default {
     width: 100%;
     height: 50%;
     color: #eaeaea;
+    font-weight: bold;
     text-align: center;
     line-height: 59px;
     font-size: 20px;

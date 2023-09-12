@@ -30,7 +30,7 @@ export default {
       })
       this.options = {
         title:{
-          text: "本年每月订单统计",
+          text: i18n.t('DataV.Da_MonthlyOrderStatisticsForThisYear'),
           textStyle: {
             color: '#eaeaea'
           },
@@ -84,7 +84,7 @@ export default {
         ],
         series: [
           {
-            name: '国内订单',
+            name: i18n.t('DataV.Da_DomesticOrders'),
             type: 'bar',
             stack: 'order',
             itemStyle: {
@@ -96,7 +96,7 @@ export default {
             data: val.DomesticOrders
           },
           {
-            name: '国外订单',
+            name: i18n.t('DataV.Da_ForeignOrders'),
             type: 'bar',
             stack: 'order',
             itemStyle: {
@@ -108,7 +108,7 @@ export default {
             data: val.ForeignOrders
           },
           {
-            name: '客诉订单',
+            name: i18n.t('DataV.Da_ComplaintOrders'),
             type: 'bar',
             stack: 'order',
             itemStyle: {
@@ -120,7 +120,7 @@ export default {
             data: val.ComplaintOrder
           },
           {
-            name: '其它类型',
+            name: i18n.t('DataV.Da_OtherOrders'),
             type: 'bar',
             stack: 'order',
             itemStyle: {

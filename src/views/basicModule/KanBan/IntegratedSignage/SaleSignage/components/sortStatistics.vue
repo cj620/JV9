@@ -19,13 +19,26 @@ export default {
   data() {
     return {
       options: {},
+      transData: [],
     };
   },
   watch: {
     result(val) {
+      this.transData = val
+      this.transData.forEach(item => {
+        if (item.name === 'DomesticOrders'){
+          item.name = this.$t('DataV.Da_DomesticOrders')
+        }else if (item.name === 'ForeignOrders'){
+          item.name = this.$t('DataV.Da_ForeignOrders')
+        }else if (item.name === 'ComplaintOrders'){
+          item.name = this.$t('DataV.Da_ComplaintOrders')
+        }else if (item.name === 'OtherOrders'){
+          item.name = this.$t('DataV.Da_OtherOrders')
+        }
+      })
       this.options = {
         title: {
-          text: "订单分类统计",
+          text: i18n.t('DataV.Da_OrderClassificationStatistics'),
           textStyle: {
             color: '#eaeaea'
           },
@@ -55,7 +68,7 @@ export default {
                 color: '#eaeaea'
               }
             },
-            data: val,
+            data: this.transData,
             itemStyle: {},
             emphasis: {
               itemStyle: {

@@ -27,7 +27,7 @@ export default {
       const values = val.map(item => item.value);
       this.options = {
         title: {
-          text: "本年出货Top8统计",
+          text: i18n.t('DataV.Da_Top8Shipments'),
           textStyle: {
             color: '#eaeaea'
           },
