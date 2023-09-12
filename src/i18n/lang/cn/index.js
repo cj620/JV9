@@ -501,7 +501,7 @@ const cn = {
     Ge_Filter: "筛选",
     Ge_Search: "搜索",
     Ge_DeleteData: "删除数据",
-    Ge_DeleteConfirm: "是否确实要删除此项目？",
+    Ge_DeleteConfirm: "是否确实要删除此数据？",
     Ge_Login: "登录",
     Ge_Logout: "注销",
     Ge_Operate: "操作",

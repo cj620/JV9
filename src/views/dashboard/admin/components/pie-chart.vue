@@ -35,7 +35,7 @@ export default {
         },
         series: [
           {
-            name: "分类数据",
+            name: "",
             type: "pie",
             radius: "50%",
             data: this.pieData,

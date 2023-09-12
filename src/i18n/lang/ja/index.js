@@ -396,7 +396,7 @@ const ja = {
     Ge_Filter: "フィルタリング",
     Ge_Search: "検索けんさく",
     Ge_DeleteData: "データの削除",
-    Ge_DeleteConfirm: "このアイテムを削除してもよろしいですか？",
+    Ge_DeleteConfirm: "このデータを削除してもよろしいですか？",
     Ge_Login: "ログイン",
     Ge_Logout: "ログアウト",
     Ge_Operate: "操作",

@@ -9,7 +9,7 @@
     style="text-align: left; display: inline-block"
     v-model="selectedValue"
     filterable
-    :titles="['所有成员', '已有成员']"
+    :titles="[$t('Generality.Ge_All'), $t('Generality.Ge_Selected')]"
     :format="{
       noChecked: '${total}',
       hasChecked: '${checked}/${total}',
