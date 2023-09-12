@@ -4,7 +4,7 @@
       <div class="right-top-title">项目进度展示</div>
       <dvScrollRankingBoard
         :config="config1"
-        style="width: 782px; height: 700px"
+        style="width: 460px; height: 350px"
       ></dvScrollRankingBoard>
     </div>
     <div class="right-bottom">
@@ -77,7 +77,7 @@ export default {
     this.changeData();
   },
   mounted() {
-    this.can = new CreateCircle("myCanvas", 400, 400, 180, 40, 10000);
+    this.can = new CreateCircle("myCanvas", 200, 200, 90, 20, 10000);
     this.can.drowCircle(this.list);
     this.creteText(this.dataList);
     this.changeData();
@@ -105,18 +105,18 @@ export default {
     creteText(e) {
       this.can.creteText(
         {
-          px: "66px",
+          px: "33px",
           fontFamliy: "Medium",
           txt: e[0].Value,
           color: "#fff",
-          offsetTop: 183,
+          offsetTop: 91,
         },
         {
-          px: "34px",
+          px: "16px",
           fontFamliy: "Regular",
           txt: e[0].Name,
           color: "#fff",
-          offsetTop: 243,
+          offsetTop: 121,
         }
       );
       console.log( this.can);
@@ -127,30 +127,30 @@ export default {
 
 <style lang="scss" scoped>
 .data-v-main-right {
-  width: 795px;
+  width: 460px;
   height: 100%;
-
+  margin-right: 10px;
   .right-top {
-    height: 836px;
+    height: 418px;
     width: 100%;
-    padding: 36px;
+    padding: 18px;
     background-color: #242947;
-    margin-bottom: 22px;
+    margin-bottom: 10px;
     .right-top-title {
-      font-size: 40px;
+      font-size: 20px;
       font-weight: 500;
-      margin-bottom: 22px;
+      margin-bottom: 10px;
     }
   }
   .right-bottom {
-    height: 1070px;
+    height: 535px;
     width: 100%;
     background-color: #242947;
     padding: 35px;
     .right-bottom-title {
-      font-size: 40px;
+      font-size: 20px;
       font-weight: 500;
-      margin-bottom: 22px;
+      margin-bottom: 10px;
     }
     .right-bottom-canvas {
       display: flex;
@@ -160,30 +160,30 @@ export default {
     .right-bottom-value {
       display: flex;
       align-items: center;
-      font-size: 32px;
+      font-size: 16px;
       font-weight: 400;
-      margin-top: 50px;
+      margin-top: 25px;
 
       .circle {
-        width: 16px;
-        height: 16px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
-        margin: 0 40px;
+        margin: 0 20px;
       }
       .name {
-        width: 330px;
+        width: 165px;
       }
       .dataValue {
-        width: 100px;
+        width: 50px;
       }
       .percentage {
-        margin: 0 40px;
+        margin: 0 20px;
       }
     }
   }
 }
 #myCanvas {
   background-color: #242947;
-  margin: 80px 0;
+  margin: 40px 0;
 }
 </style>

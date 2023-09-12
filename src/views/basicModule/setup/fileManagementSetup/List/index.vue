@@ -90,6 +90,7 @@ export default {
     //新增
     add(){
       this.addDialogVisible = true;
+      this.formObj.form = {}
     },
 
     //点击保存
@@ -111,7 +112,7 @@ export default {
       const str = JSON.parse(JSON.stringify(row))
       str.PopedomRead=parseInt(str.PopedomRead)
       str.PopedomWrite=parseInt(str.PopedomWrite)
-
+      console.log(str);
       this.formObj.form = str
       this.addDialogVisible = true
     },

@@ -67,4 +67,22 @@ export const formSchema = [
       },
     ],
   },
+  {
+    prop: "ApproveName",
+    cpn: "SyncSelect",
+    label: i18n.t("Generality.Ge_AuditAuthority"),
+    api: getAllRole,
+    apiOptions: {
+      // 立即调接口
+      immediate: true,
+      keyName: "RoleName",
+      valueName: "RoleId",
+    },
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseSelect"),
+      },
+    ],
+  },
 ];

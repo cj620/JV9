@@ -174,7 +174,7 @@ class CreateCircle {
   creteText(...t) {
     this.ctx.beginPath();
     // this.ctx.fillRect(this.width/4,this.height/4,this.radius+28,this.radius);
-    this.ctx.arc(this.radius+20,this.radius+20,this.radius-40,0,2*Math.PI)
+    this.ctx.arc(this.radius+10,this.radius+10,this.radius-20,0,2*Math.PI)
     this.ctx.fillStyle="#242947";//设置填充颜色
     this.ctx.fill();//开始填充
     // this.ctx.clearRect(this.width/4,this.height/4,this.radius + 28,this.radius)
