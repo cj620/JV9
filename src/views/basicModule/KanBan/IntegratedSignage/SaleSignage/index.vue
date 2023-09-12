@@ -19,7 +19,7 @@
         <div class="Sale-signage-content-top">
           <!-- 本年销售数据 -->
           <div class="Sale-signage-content-top-left">
-            <dv-border-box-7 :color="['#4c5f98', '#5166b0']" style="width: 33%" v-for="(item) in AnnualData">
+            <dv-border-box-7 :color="['#4c5f98', '#5166b0']" style="width: 33%" v-for="(item) in AnnualData" :key="item.title">
               <div class="border-box-7-content">
                 <div class="border-box-7-content-top">{{ item.title }}</div>
                 <div class="border-box-7-content-bottom">{{ item.data }}</div>
@@ -28,7 +28,7 @@
           </div>
           <!-- 本月销售数据 -->
           <div class="Sale-signage-content-top-right">
-            <dv-border-box-7 :color="['#4c5f98', '#5166b0']" style="width: 33.3%" v-for="(item) in MonthlyData">
+            <dv-border-box-7 :color="['#4c5f98', '#5166b0']" style="width: 33.3%" v-for="(item) in MonthlyData" :key="item.title">
               <div class="border-box-7-content">
                 <div class="border-box-7-content-top">{{ item.title }}</div>
                 <div class="border-box-7-content-bottom">{{ item.data }}</div>

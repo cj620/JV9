@@ -23,5 +23,11 @@ const dataV = [
         component: () => import("@/views/basicModule/KanBan/IntegratedSignage/SaleSignage"),
         name: "SaleSignage",
     },
+    //  品质部门看板
+    {
+        path: "/QualitySignage",
+        component: () => import("@/views/basicModule/KanBan/IntegratedSignage/QualitySignage"),
+        name: "QualitySignage",
+    }
 ]
 export default dataV
