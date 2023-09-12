@@ -1,6 +1,7 @@
 <template>
   <DvFullScreenContainer>
     <div class="department-signboard">
+      <d-loading v-show="loading" />
       <div class="department-signboard-header">
         <div class="department-signboard-header-left"></div>
         <div class="department-signboard-header-center">
@@ -112,6 +113,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       departmentLoading: false,
       infoList: [
         {
@@ -139,7 +141,7 @@ export default {
       DailyProcessingTaskList: [], // 每日加工任务
       SortOfHoursReportedYesterdayRes: {}, // 昨日报工工时排序
       DevicesRes: {}, // 设备列表
-      department: ['部门1','部门2','部门3','部门4','部门5','部门6'], // 部门列表
+      department: ['销售部','生产部','采购部','设计部','编程部','开发部'], // 部门列表
       departmentName: '', // 部门
       isComposition: false, // 是否开始输入中文
       clearable: false, // 清除按钮
@@ -147,80 +149,6 @@ export default {
   },
   created() {
     this.search();
-    setTimeout(() => {
-      this.DevicesRes = {
-        NormalNumberOfUnits: 9, // 正常台数
-        ShutdownMaintenance: 1, // 停机维修
-        OperationalAvailability: '90%', // 可动率
-        DevicesList: [
-          {
-            State: 'Processing', // 状态
-            DevicesName: 'CNC1', // 设备名称
-            Worker: '陈旭', // 负责人
-            DevicesNo: 'S20230905001-A01', // 设备编号
-            PhotoUrl: '\\Files\\1478908435801047041.png',  // 图片
-            OperatingHours: 4, //上机工时
-            RunTime: 200, // 运行时间
-            CurrentNumberOfWorkpieces: 2, // 当前工件数
-            DownTime: 100, // 停机时间
-            PlannedCropYield: '95%', // 计划稼动率
-            ActualCropYield: '80%', // 实际稼动率
-          },
-          {
-            State: 'Idle', // 状态
-            DevicesName: 'CNC1', // 设备名称
-            Worker: '', // 负责人
-            DevicesNo: null, // 设备编号
-            PhotoUrl: '\\Files\\1478908435801047041.png',  // 图片
-            OperatingHours: null, //上机工时
-            RunTime: 200, // 运行时间
-            CurrentNumberOfWorkpieces: null, // 当前工件数
-            DownTime: 100, // 停机时间
-            PlannedCropYield: '95%', // 计划稼动率
-            ActualCropYield: '80%', // 实际稼动率
-          },
-          {
-            State: 'Processing', // 状态
-            DevicesName: 'CNC1', // 设备名称
-            Worker: '李显辉', // 负责人
-            DevicesNo: 'S20230905001-A01', // 设备编号
-            PhotoUrl: '\\Files\\1478908435801047041.png',  // 图片
-            OperatingHours: 4, //上机工时
-            RunTime: 200, // 运行时间
-            CurrentNumberOfWorkpieces: 2, // 当前工件数
-            DownTime: 100, // 停机时间
-            PlannedCropYield: '95%', // 计划稼动率
-            ActualCropYield: '80%', // 实际稼动率
-          },
-          {
-            State: 'Idle', // 状态
-            DevicesName: 'CNC1', // 设备名称
-            Worker: '', // 负责人
-            DevicesNo: null, // 设备编号
-            PhotoUrl: '\\Files\\1478908435801047041.png',  // 图片
-            OperatingHours: null, //上机工时
-            RunTime: 200, // 运行时间
-            CurrentNumberOfWorkpieces: null, // 当前工件数
-            DownTime: 100, // 停机时间
-            PlannedCropYield: '95%', // 计划稼动率
-            ActualCropYield: '80%', // 实际稼动率
-          },
-          {
-            State: 'Processing', // 状态
-            DevicesName: 'CNC1', // 设备名称
-            Worker: '昌建', // 负责人
-            DevicesNo: 'S20230905001-A01', // 设备编号
-            PhotoUrl: '\\Files\\1478908435801047041.png',  // 图片
-            OperatingHours: 4, //上机工时
-            RunTime: 200, // 运行时间
-            CurrentNumberOfWorkpieces: 2, // 当前工件数
-            DownTime: 100, // 停机时间
-            PlannedCropYield: '95%', // 计划稼动率
-            ActualCropYield: '80%', // 实际稼动率
-          },
-        ]
-      }
-    }, 0);
   },
   methods: {
     // 输入部门change事件
@@ -240,20 +168,30 @@ export default {
       this.isComposition = false;
       // 因为v-model后执行 此时还没有拿到最新的departmentName的值，所以要加个异步处理
       let timer = setTimeout(() => {
-        this.search();
+        this.departmentLoading = true;
+        // 获取部门
+        getDepartmentList().then(res => {
+          this.departmentLoading = false;
+        }).catch(err => {
+          this.departmentLoading = false;
+        })
+        // this.search();
         clearTimeout(timer);
       })
     },
     // 搜索方法
     search() {
-      this.departmentName ? this.department = ['开发部', '销售部'] : this.department = ['部门1','部门2','部门3','部门4','部门5','部门6'];
+      this.departmentName ? this.department = ['开发部', '销售部'] : this.department = ['销售部','生产部','采购部','设计部','编程部','开发部'];
+      this.loading = true;
       processing_department_kanban({Department: this.departmentName}).then(res => {
         this.infoRes = res['TopInfo']; // 顶部信息
         this.LastSevenDaysRes = { ...res['WorkHourRecord'] }; // 过去七天工时记录
         this.DailyProcessingTaskList = res['ProcessingTask']; // 每日加工任务
         this.SortOfHoursReportedYesterdayRes = {...res['WorkHoursReported']}; // 昨日报工工时排序
         this.DevicesRes = {...res['Devices']}; // 设备列表
-        console.log(res)
+        this.loading = false;
+      }).catch(err => {
+        this.loading = false;
       })
     },
     // 聚焦事件
@@ -276,10 +214,9 @@ export default {
   },
   watch: {
     departmentName(val) {
-      // console.log(val)
       val ? this.clearable = true : this.clearable = false;
       if(this.isComposition) return
-      this.search();
+      // this.search();
     }
   }
 };
