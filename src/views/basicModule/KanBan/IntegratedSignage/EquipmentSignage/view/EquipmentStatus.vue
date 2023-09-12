@@ -7,7 +7,7 @@
         :style="{ background: EquipmentStatusEnum[item.Name].color }"
       >
         <span style="font-weight: bold">{{ item.Value }}</span>
-        <span style="font-size: 14px">{{
+        <span style="font-size: 12px">{{
           EquipmentStatusEnum[item.Name].name
         }}</span>
       </div>

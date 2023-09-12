@@ -7,7 +7,7 @@
           {{ $t("DataV.Da_EquipmentSignage") }}
         </div>
         <div class="Equipment-signage-header-right">
-          <formatted-time format="yyyy/MM/dd hh:mm" />
+          <formatted-time />
         </div>
       </div>
       <div class="Equipment-signage-content">
@@ -55,6 +55,7 @@ import EquipmentDynamicCurve from "./view/EquipmentDynamicCurve.vue";
 import HUT from "./view/HUT.vue";
 import { equipment_comprehensive_dashboard } from "@/api/basicApi/dataV/kanban";
 import EquipmentSignageContent from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/view/EquipmentSignageContent.vue";
+import screenFull from 'screenfull';
 export default {
   name: "EquipmentSignage",
   components: { EquipmentSignageContent, FormattedTime, itemBox, dLoading },
@@ -96,6 +97,7 @@ export default {
     };
   },
   created() {
+    screenFull.toggle(); // 全屏
     this.loading = true;
     this.getResult();
     this.timer = setInterval(this.getResult, window.global_config.DashboardRefreshTime);
