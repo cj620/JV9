@@ -7,7 +7,7 @@
           logo
         </div>
         <div class="Quality-signage-header-center">
-          品质部门看板
+          {{ $t('DataV.Da_QualitySignage') }}
         </div>
         <div class="Quality-signage-header-right">
           <formatted-time/>
@@ -99,11 +99,11 @@ export default {
 		  quality_department_dashboard().then((res) => {
         console.log(res);
         this.qualityData = [
-          { title:'送检总数', data: res.TopInfo[0]},
-          { title:'已检验数', data: res.TopInfo[1]},
-          { title:'本月NG数', data: res.TopInfo[2]},
-          { title:'不良率', data: res.TopInfo[3] },
-          { title:'返工率', data: res.TopInfo[4]},
+          { title: this.$t('DataV.Da_InspectionTotalQty'), data: res.TopInfo[0]},
+          { title: this.$t('DataV.Da_InspectedQty'), data: res.TopInfo[1]},
+          { title: this.$t('DataV.Da_NGQtyThisMonth'), data: res.TopInfo[2]},
+          { title: this.$t('DataV.Da_DefectRate'), data: res.TopInfo[3] },
+          { title: this.$t('DataV.Da_ReworkRate'), data: res.TopInfo[4]},
         ]
 		    this.monthlyAnomaly = res.MonthlyAnomaly
         this.inspectionRecord = res.InspectionRecord

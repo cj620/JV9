@@ -1,7 +1,7 @@
 <template>
   <div class="rework-Details">
     <div class="rework-Details-title">
-      返工明细
+      {{ $t('DataV.Da_ReworkDetail') }}
     </div>
     <div class="rework-Details-table">
       <div class="rework-Details-table-header">
@@ -58,8 +58,8 @@ export default {
       headerList: [
         {prop: 'PartNo', label: this.$t('Generality.Ge_PartNo')},
         {prop: 'Process', label: this.$t('Generality.Ge_Process')},
-        {prop: 'Worker', label: '作业员'},
-        {prop: 'Remarks', label: '返工原因'},
+        {prop: 'Worker', label: this.$t('Generality.Ge_Worker')},
+        {prop: 'Remarks', label: this.$t('DataV.Da_ReworkReason')},
       ],
       $window: null,
     }

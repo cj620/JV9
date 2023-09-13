@@ -26,7 +26,7 @@ export default {
     result(val) {
       this.options = {
         title: {
-          text: '工序返工占比',
+          text: i18n.t('DataV.Da_ProcessRework'),
           textStyle: {
             color: '#eaeaea'
           },

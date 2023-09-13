@@ -26,7 +26,7 @@ export default {
     result(val){
       this.options = {
         title: {
-          text: '员工检验记录',
+          text: i18n.t('DataV.Da_InspectionRecord'),
           textStyle: {
             color: '#eaeaea'
           },
@@ -80,7 +80,7 @@ export default {
         ],
         series: [
           {
-            name: '合格数',
+            name: i18n.t('DataV.Da_QualifiedQty'),
             type: 'bar',
             stack: 'quantity',
             itemStyle: {
@@ -92,7 +92,7 @@ export default {
             data: val.QualifiedQty
           },
           {
-            name: '不合格数',
+            name: i18n.t('DataV.Da_UnqualifiedQty'),
             type: 'bar',
             stack: 'quantity',
             itemStyle: {

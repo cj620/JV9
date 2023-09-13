@@ -1,7 +1,7 @@
 <template>
   <div class="order-Inspected">
     <div class="order-Inspected-title">
-      待检工单
+      {{ $t('DataV.Da_OrderToBeInspected') }}
     </div>
     <div class="order-Inspected-table">
       <div class="order-Inspected-table-header">
@@ -56,10 +56,10 @@ export default {
   data() {
     return {
       headerList: [
-        {prop: 'BillId', label: '单号'},
-        {prop: 'PartNo', label: '零件'},
-        {prop: 'CheckDate', label: '送检时间'},
-        {prop: 'Worker', label: '送检人'},
+        {prop: 'BillId', label: this.$t('DataV.Da_BillId')},
+        {prop: 'PartNo', label: this.$t('DataV.Da_PartNo')},
+        {prop: 'CheckDate', label: this.$t('DataV.Da_CheckDate')},
+        {prop: 'Worker', label: this.$t('DataV.Da_Worker1')},
       ],
       $window: null,
     }

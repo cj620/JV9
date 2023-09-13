@@ -35,7 +35,7 @@ export default {
       })
       this.options = {
         title: {
-          text: "每月异常统计",
+          text: i18n.t('DataV.Da_MonthlyAnomaly'),
           textStyle: {
             color: '#eaeaea'
           },
@@ -105,12 +105,12 @@ export default {
         ],
 		  series: [
 			  {
-				  name: '不合格数',
+				  name: i18n.t('DataV.Da_UnqualifiedQty'),
 				  type: 'bar',
 				  data: val.UnqualifiedQty
 			  },
 			  {
-				  name: '不合格率',
+				  name: i18n.t('DataV.Da_UnqualifiedPercent'),
 				  type: 'line',
 				  yAxisIndex: 1,
 				  data: val.UnqualifiedPercent

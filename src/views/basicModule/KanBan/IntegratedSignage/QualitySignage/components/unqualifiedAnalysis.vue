@@ -26,7 +26,7 @@ export default {
     result(val) {
       this.options = {
         title: {
-          text: '不合格分析',
+          text: i18n.t('DataV.Da_UnqualifiedAnalysis'),
           textStyle: {
             color: '#eaeaea'
           },
