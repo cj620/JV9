@@ -16,7 +16,7 @@
           </div>
           <div class="vmy-login-auto">
             <img
-              src="../../../assets/svg/login2.png"
+              src="../../../assets/svg/扁平科技电脑后台-01.svg"
               class="vmy-login-img login-left1"
               width="455px"
             />
