@@ -27,6 +27,13 @@ export class Table extends BaseTable {
 }
 
 export const tableConfig = [
+  // 图片
+  {
+    prop: "PhotoUrl",
+    label: i18n.t("Generality.Ge_PhotoUrl"),
+    cpn: 'Image',
+    width: '60px'
+  },
   {
     prop: "DeviceNo",
     label: i18n.t("production.Pr_DeviceNo"),
