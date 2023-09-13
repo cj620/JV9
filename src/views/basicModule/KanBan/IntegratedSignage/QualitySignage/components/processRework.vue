@@ -49,6 +49,7 @@ export default {
             center: ["50%", "53%"],
             avoidLabelOverlap: false,
             label: {
+              formatter: '{b}:{c}' + '\n\r' + '({d}%)',
               color: '#eaeaea'
             },
             data: val,

@@ -64,6 +64,7 @@ import OrderToBeInspected
 	from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/orderToBeInspected.vue";
 import ReworkDetails from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/reworkDetails.vue";
 import { quality_department_dashboard } from "@/api/basicApi/dataV/kanban";
+import { ProcessReworkEnum} from "@/enum/baseModule/dataV/ProcessRework";
 
 export default {
   name: "QualitySignage",
@@ -92,43 +93,6 @@ export default {
   created() {
 	  this.loading = true;
 	  this.getData()
-    setTimeout(() => {
-		  this.monthlyAnomaly = {
-		    UnqualifiedQty: [20,31,51,22,23,54,12,98,32,55,22,34],
-		    UnqualifiedPercent: [10,23,31,4,12,12,34,21,3,12,21,4]
-      }
-      // this.unqualifiedAnalysis= [
-		  //   { name: '尺寸不合格',value:100 },
-		  //   { name: '有毛刺',value:150 },
-		  //   { name: '质检',value:181 },
-		  // ]
-      // this.orderToBeInspected = [
-		  //   { BillId: 'SP22331212',PartNo:'零件001',CheckDate:'2023-08-27T12:00:00',Worker:'张三1'},
-		  //   { BillId: 'SP23223312',PartNo:'零件002',CheckDate:'2023-08-27T12:00:00',Worker:'张三2'},
-		  //   { BillId: 'SP92331212',PartNo:'螺丝',CheckDate:'2023-08-27T12:00:00',Worker:'张三3'},
-		  //   { BillId: 'SP87631212',PartNo:'004',CheckDate:'2023-08-27T12:00:00',Worker:'张三4'},
-		  //   { BillId: 'SP29561212',PartNo:'001',CheckDate:'2023-08-27T12:00:00',Worker:'张三5'},
-		  //   { BillId: 'SP29561212',PartNo:'001',CheckDate:'2023-08-27T12:00:00',Worker:'张三5'},
-		  //   { BillId: 'SP29561212',PartNo:'001',CheckDate:'2023-08-27T12:00:00',Worker:'张三5'},
-		  //   { BillId: 'SP29561212',PartNo:'001',CheckDate:'2023-08-27T12:00:00',Worker:'张三5'},
-		  //   { BillId: 'SP29561212',PartNo:'001',CheckDate:'2023-08-27T12:00:00',Worker:'张三5'},
-		  //   { BillId: 'SP29561212',PartNo:'001',CheckDate:'2023-08-27T12:00:00',Worker:'张三5'},
-		  //   { BillId: 'SP29561212',PartNo:'001',CheckDate:'2023-08-27T12:00:00',Worker:'张三5'},
-		  // ]
-      this.reworkDetails = [
-		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三1',Remarks:'有毛刺'},
-		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三1',Remarks:'尺寸不合格'},
-		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三2',Remarks:'有毛刺'},
-		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三3',Remarks:'有毛刺'},
-		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',Remarks:'有毛刺'},
-		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',Remarks:'有毛刺'},
-		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',Remarks:'有毛刺'},
-		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',Remarks:'有毛刺'},
-		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',Remarks:'有毛刺'},
-		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',Remarks:'有毛刺'},
-		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',Remarks:'有毛刺'},
-		  ]
-    })
   },
 	methods: {
 		getData(){
@@ -141,10 +105,11 @@ export default {
           { title:'不良率', data: res.TopInfo[3] },
           { title:'返工率', data: res.TopInfo[4]},
         ]
+		    this.monthlyAnomaly = res.MonthlyAnomaly
         this.inspectionRecord = res.InspectionRecord
         this.processRework = res.ProcessRework.map(obj => {
           return {
-            name: obj.Name,
+            name: ProcessReworkEnum[obj.Name].name,
             value: obj.Value
           };
         });
