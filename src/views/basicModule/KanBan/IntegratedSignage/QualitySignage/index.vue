@@ -26,14 +26,26 @@
         </div>
         <!-- 图表 -->
         <div class="Quality-signage-content-body">
-          <div class="Quality-signage-content-body-item"></div>
-          <div class="Quality-signage-content-body-item"></div>
-          <div class="Quality-signage-content-body-item"></div>
+          <div class="Quality-signage-content-body-item">
+              <monthly-anomaly :result="monthlyAnomaly"></monthly-anomaly>
+          </div>
+          <div class="Quality-signage-content-body-item">
+              <inspection-record :result="inspectionRecord"></inspection-record>
+          </div>
+          <div class="Quality-signage-content-body-item">
+              <process-rework :result="processRework"></process-rework>
+          </div>
         </div>
         <div class="Quality-signage-content-body">
-          <div class="Quality-signage-content-body-item"></div>
-          <div class="Quality-signage-content-body-item"></div>
-          <div class="Quality-signage-content-body-item"></div>
+          <div class="Quality-signage-content-body-item">
+              <unqualified-analysis :result="UnqualifiedAnalysis"></unqualified-analysis>
+          </div>
+          <div class="Quality-signage-content-body-item">
+              <order-to-be-inspected :result="orderToBeInspected"></order-to-be-inspected>
+          </div>
+          <div class="Quality-signage-content-body-item">
+              <rework-details :result="reworkDetails"></rework-details>
+          </div>
         </div>
       </div>
     </div>
@@ -43,17 +55,86 @@
 <script>
 import dLoading from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/components/d-loading.vue";
 import FormattedTime from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/components/formattedTime.vue";
+import MonthlyAnomaly from "./components/monthlyAnomaly.vue";
+import InspectionRecord from "./components/inspectionRecord.vue";
+import ProcessRework from "./components/processRework.vue";
+import UnqualifiedAnalysis
+	from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/unqualifiedAnalysis.vue";
+import OrderToBeInspected
+	from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/orderToBeInspected.vue";
+import ReworkDetails from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/reworkDetails.vue";
 
 export default {
   name: "QualitySignage",
   components: {
+	  ReworkDetails,
+	  OrderToBeInspected,
+	  UnqualifiedAnalysis,
+	  ProcessRework,
+	  InspectionRecord,
+	  MonthlyAnomaly,
     FormattedTime,
     dLoading,
   },
   data(){
     return{
       loading: false,
-      qualityData:[]
+      qualityData:[],
+      monthlyAnomaly:{},
+		  inspectionRecord:{},
+		  processRework:[],
+		  UnqualifiedAnalysis:[],
+		  orderToBeInspected:[],
+		  reworkDetails:[],
+
+      // res:{
+		  //   // 顶部数据
+      //   qualityData: [
+      //     { title:'送检总数', data: 3423}, //送检总数
+      //     { title:'已检验数', data: 1233}, //已检验数
+      //     { title:'本月NG数', data: 876}, //本月NG数
+      //     { title:'不良率', data: '3.6%' }, //不良率
+      //     { title:'返工率', data: '2%'}, //返工率
+      //   ],
+      //   // 每月异常统计
+      //   monthlyAnomaly: {
+      //     AnomalyQty: [20,31,51,22,23,54,12,98,32,55,22,34],
+      //     AnomalyPercent: [10,23,31,4,12,12,34,21,3,12,21,4]
+      //   },
+		  //   // 员工检验记录
+      //   inspectionRecord: {
+			//     Qualified: [211,435,323,412,531], //合格数
+			//     Unqualified: [32,21,32,50,75], //不合格数
+			//     Staff: ['张三1','张三2','张三3','张三4','张三5'] //员工
+      //   },
+		  //   // 工序返工占比
+		  //   processRework:[
+      //     { name: '数据1',value:150 }, //数据1
+      //     { name: '数据2',value:100 }, //数据2
+      //   ],
+		  //   // 不合格分析
+		  //   nonconformingAnalysis:[
+	    //     { name: '尺寸不合格',value:100 },
+	    //     { name: '有毛刺',value:150 },
+      //     { name: '质检',value:181 },
+      //   ],
+		  //   // 待检工单 /BillId:单号 /Part:零件 /InspectionTime:送检时间 /Submitter:送检人
+		  //   orderToBeInspected:[
+			//     { BillId: 'SP22331212',Part:'零件001',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三1'},
+			//     { BillId: 'SP23223312',Part:'零件002',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三2'},
+			//     { BillId: 'SP92331212',Part:'螺丝',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三3'},
+			//     { BillId: 'SP87631212',Part:'004',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三4'},
+			//     { BillId: 'SP29561212',Part:'001',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三5'},
+      //   ],
+		  //   // 返工明细 /PartNo:零件编号 /Process:工序 /Worker:作业员 /ReasonForRework:返工原因
+		  //   reworkDetails:[
+			//     { PartNo: 'PA1212',Process:'铣床',Worker:'张三1',ReasonForRework:'有毛刺'},
+			//     { PartNo: 'PA1212',Process:'铣床',Worker:'张三1',ReasonForRework:'尺寸不合格'},
+			//     { PartNo: 'PA1212',Process:'铣床',Worker:'张三2',ReasonForRework:'有毛刺'},
+			//     { PartNo: 'PA1212',Process:'铣床',Worker:'张三3',ReasonForRework:'有毛刺'},
+			//     { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',ReasonForRework:'有毛刺'},
+      //   ],
+      // }
     }
   },
   created() {
@@ -65,6 +146,50 @@ export default {
         { title:'不良率', data: '3.6%' },
         { title:'返工率', data: '2%'},
       ]
+		  this.monthlyAnomaly = {
+		    UnqualifiedQty: [20,31,51,22,23,54,12,98,32,55,22,34],
+		    UnqualifiedPercent: [10,23,31,4,12,12,34,21,3,12,21,4]
+      }
+	    this.inspectionRecord = {
+        Qualified: [211,435,323,412,531],
+        Unqualified: [32,21,32,50,75],
+        Staff: ['张三1','张三2','张三3','张三4','张三5']
+      }
+	    this.processRework = [
+		    { name: '数据1',value:150 }, //数据1
+		    { name: '数据2',value:100 }, //数据2
+		  ]
+      this.UnqualifiedAnalysis= [
+		    { name: '尺寸不合格',value:100 },
+		    { name: '有毛刺',value:150 },
+		    { name: '质检',value:181 },
+		  ]
+      this.orderToBeInspected = [
+		    { BillId: 'SP22331212',Part:'零件001',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三1'},
+		    { BillId: 'SP23223312',Part:'零件002',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三2'},
+		    { BillId: 'SP92331212',Part:'螺丝',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三3'},
+		    { BillId: 'SP87631212',Part:'004',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三4'},
+		    { BillId: 'SP29561212',Part:'001',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三5'},
+		    { BillId: 'SP29561212',Part:'001',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三5'},
+		    { BillId: 'SP29561212',Part:'001',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三5'},
+		    { BillId: 'SP29561212',Part:'001',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三5'},
+		    { BillId: 'SP29561212',Part:'001',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三5'},
+		    { BillId: 'SP29561212',Part:'001',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三5'},
+		    { BillId: 'SP29561212',Part:'001',InspectionTime:'2023-08-27T12:00:00',Submitter:'张三5'},
+		  ]
+      this.reworkDetails = [
+		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三1',ReasonForRework:'有毛刺'},
+		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三1',ReasonForRework:'尺寸不合格'},
+		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三2',ReasonForRework:'有毛刺'},
+		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三3',ReasonForRework:'有毛刺'},
+		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',ReasonForRework:'有毛刺'},
+		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',ReasonForRework:'有毛刺'},
+		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',ReasonForRework:'有毛刺'},
+		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',ReasonForRework:'有毛刺'},
+		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',ReasonForRework:'有毛刺'},
+		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',ReasonForRework:'有毛刺'},
+		    { PartNo: 'PA1212',Process:'铣床',Worker:'张三4',ReasonForRework:'有毛刺'},
+		  ]
     })
   }
 }

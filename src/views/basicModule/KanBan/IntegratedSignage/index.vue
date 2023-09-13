@@ -31,9 +31,9 @@ export default {
         {title: '设备看板', imgUrl: require('./yxhyXoCFs7.png'), url: '/EquipmentSignage'},
         {title: '部门综合看板', imgUrl: require('./TaskStatus.png'), url: '/TaskStatusSignage'},
 		    {title: 'NC部门看板', url: '/DepartmentSignboard'},
-        {title: '销售大数据看板', imgUrl: require('./saleSignage.png'), url: '/SaleSignage'},
+        {title: '销售大数据看板', imgUrl: require('./SaleSignage.png'), url: '/SaleSignage'},
         {title: '看板5'},
-        {title: '品质部门看板', imgUrl: require('./saleSignage.png'), url: '/QualitySignage'},
+        {title: '品质部门看板', imgUrl: require('./QualitySignage.png'), url: '/QualitySignage'},
       ]
     }
   },
