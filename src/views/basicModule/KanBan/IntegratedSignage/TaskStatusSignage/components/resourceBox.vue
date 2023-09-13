@@ -2,11 +2,11 @@
   <div class="resourceBox">
     <div class="resourceBox-left">
       <div v-for="item in description" class="resourceBox-left-content">
-        {{ item.str }}:{{ item.data }}
+        {{ item.str }}：{{ item.data }}
       </div>
     </div>
     <div class="resourceBox-right">
-      <base-chart style="height: 100%; right: 70px" :options="options"></base-chart>
+      <base-chart style="height: 100%;" :options="options"></base-chart>
     </div>
   </div>
 </template>
@@ -37,17 +37,14 @@ export default {
     this.chartData = [
       {
         value: planedQty,
-        // name: "计划内完成",
         name: this.$t('DataV.Da_PlannedCompletion')
       },
       {
         value: outPlanedQty,
-        // name: "计划外完成"
         name: this.$t('DataV.Da_UnplannedCompletion')
       }
     ]
     this.description = [
-      // { str: "计划完成数", data: this.boxData.PlanedQty },
       { str: this.$t('DataV.Da_PlannedQuantity'), data: this.boxData.PlanedQty },
       { str: this.$t('DataV.Da_ActualCompletion'), data: this.boxData.ActualQty },
       { str: this.$t('DataV.Da_UnplannedCompletion'), data: outPlanedQty },
@@ -61,15 +58,17 @@ export default {
       },
       legend: {
         orient: 'vertical',
-        right: 0,
+        top: "3%",
+        right: '6%',
         textStyle:{
-          color:'rgb(255,255,255,0.9)'
+          color: '#eaeaea'
         }
       },
       series: [
         {
           type: 'pie',
           radius: ['40%', '70%'],
+          center: ['36%','45%'],
           avoidLabelOverlap: false,
           label: {
             show: false

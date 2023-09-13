@@ -33,8 +33,8 @@ export default {
 		  {title: 'NC部门看板', imgUrl: require('./NC.jpg'), url: '/DepartmentSignboard'},
         {title: '销售大数据看板', imgUrl: require('./saleSignage.png'), url: '/SaleSignage'},
         {title: '模具机加综合看板',url: '/MoldMachining'},
-        {title: '看板6'},
-      ]
+		  {title: '品质部门看板', imgUrl: require('./saleSignage.png'),
+	  ]
     }
   },
   methods: {

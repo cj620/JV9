@@ -35,6 +35,11 @@ export const tableConfig = [
     prop: "ProcessCode",
     label: i18n.t("production.Pr_ProcessCode"),
   },
+  /*部门*/
+  {
+    prop: "Department",
+    label: i18n.t("Generality.Ge_Department")
+  },
   /*资源组*/
   {
     prop: "Resource",

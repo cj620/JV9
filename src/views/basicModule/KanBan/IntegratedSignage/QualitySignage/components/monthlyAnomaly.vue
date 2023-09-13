@@ -7,21 +7,23 @@
 import BaseChart from "@/views/dashboard/admin/echarts/base-echart.vue";
 import { Month } from "@/enum/baseModule/dataV/Month"
 export default {
-  name: 'monthlyShipments',
-  components: { BaseChart },
+  name: "monthlyAnomaly",
+  components: {
+    BaseChart,
+  },
   props: {
     result: {
-      type: Array,
+      type: Object,
       default() {
-        return [];
+        return {};
       }
     }
   },
-  data() {
+  data(){
     return {
       options: {},
-      XAxis: ['1','2','3','4','5','6','7','8','9','10','11','12'],
-    };
+      XAxis: ['1','2','3','4','5','6','7','8','9','10','11','12']
+    }
   },
   watch: {
     result(val) {
@@ -29,9 +31,8 @@ export default {
         return Month[item].numberName
       })
       this.options = {
-        color: ['#FFD700'],
         title: {
-          text: i18n.t('DataV.Da_MonthlyShipmentStatisticsForThisYear'),
+          text: "每月异常统计",
           textStyle: {
             color: '#eaeaea'
           },
@@ -40,24 +41,27 @@ export default {
         },
         tooltip: {
           trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
         },
         legend: {
-          top: '3%',
+          top: "3%",
           right: '4%',
           textStyle:{
             color: '#eaeaea'
           }
         },
-        grid: {
-          left: '4%',
-          right: '5%',
-          bottom: '4%',
-          containLabel: true
+        toolbox: {
+          feature: {
+            dataView: { show: true, readOnly: false },
+            restore: { show: true },
+            saveAsImage: { show: true }
+          }
         },
         xAxis: [
           {
             type: 'category',
-            boundaryGap: false,
             data: xAxisData,
             axisLabel: {
               show:true,
@@ -70,6 +74,20 @@ export default {
         yAxis: [
           {
             type: 'value',
+            position: 'left',
+            axisLine:{
+              show:true
+            },
+            axisLabel: {
+              show:true,
+              textStyle:{
+                color: '#eaeaea'
+              }
+            }
+          },
+          {
+            type: 'value',
+            position: 'right',
             axisLine:{
               show:true
             },
@@ -81,25 +99,6 @@ export default {
             }
           }
         ],
-        series: [
-          {
-            name: i18n.t('DataV.Da_ShipmentAmountRMB'),
-            type: 'line',
-            smooth: true,
-            lineStyle: {
-              width: 2
-            },
-            showSymbol: false,
-            areaStyle: {
-              opacity: 0.8,
-              color: '#AEB103'
-            },
-            emphasis: {
-              focus: 'series'
-            },
-            data: val
-          },
-        ]
       }
     }
   }
