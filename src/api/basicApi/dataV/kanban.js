@@ -24,4 +24,12 @@ export function processing_department_kanban(data){
     })
 }
 
+// 品质部门看板
+export function quality_department_dashboard(){
+    return request({
+        url: "/data_report/quality_department_dashboard",
+        method: "get",
+    })
+}
+
 

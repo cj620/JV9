@@ -55,7 +55,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: val.Staff,
+            data: val.Name,
             axisLabel: {
               show:true,
               textStyle:{
@@ -89,7 +89,7 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: val.Qualified
+            data: val.QualifiedQty
           },
           {
             name: '不合格数',
@@ -101,7 +101,7 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: val.Unqualified
+            data: val.UnqualifiedQty
           }
         ]
       }

@@ -59,7 +59,7 @@ export default {
         {prop: 'PartNo', label: this.$t('Generality.Ge_PartNo')},
         {prop: 'Process', label: this.$t('Generality.Ge_Process')},
         {prop: 'Worker', label: '作业员'},
-        {prop: 'ReasonForRework', label: '返工原因'},
+        {prop: 'Remarks', label: '返工原因'},
       ],
       $window: null,
     }

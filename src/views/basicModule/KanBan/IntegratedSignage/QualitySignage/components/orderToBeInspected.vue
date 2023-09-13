@@ -56,10 +56,10 @@ export default {
   data() {
     return {
       headerList: [
-        {prop: 'BillId', label: this.$t('DataV.Da_BillId')},
-        {prop: 'Part', label: this.$t('Generality.Ge_PartName')},
-        {prop: 'InspectionTime', label: '送检时间'},
-        {prop: 'Submitter', label: '送检人'},
+        {prop: 'BillId', label: '单号'},
+        {prop: 'PartNo', label: '零件'},
+        {prop: 'CheckDate', label: '送检时间'},
+        {prop: 'Worker', label: '送检人'},
       ],
       $window: null,
     }
