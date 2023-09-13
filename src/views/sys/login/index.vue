@@ -5,23 +5,23 @@
         <div class="vmy-login-left">
           <div class="jvisoft-logo">
             <img
-              src="../../../assets/image/jvlogo.png"
+              src="../../../assets/image/logo.png"
               width="44px "
               height="44px"
               alt=""
             />
             <span class="vmy-login-info1" style="margin-left: 20px"
-              >Jvisoft</span
+              >Mosturn</span
             >
           </div>
           <div class="vmy-login-auto">
             <img
-              src="../../../assets/svg/扁平科技电脑后台-01.svg"
+              src="../../../assets/svg/login2.png"
               class="vmy-login-img login-left1"
               width="455px"
             />
             <div class="vmy-login-info1 login-left2">
-              <span>Welcome to JvMms V9</span>
+              <span>Welcome to MTMMS V9</span>
             </div>
             <!-- <div class="vmy-login-info2 login-left3">
               <span>Jvisoft Technology Project Management System</span>
