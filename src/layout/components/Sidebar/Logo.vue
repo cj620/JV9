@@ -15,10 +15,10 @@
         class="sidebar-logo-link"
         to="/"
       >
-        <img src="@/assets/image/jvlogo.png" class="sidebar-logo" />
+        <img src="@/assets/image/logo.png" class="sidebar-logo" />
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <img src="@/assets/image/jvlogo.png" class="sidebar-logo" />
+        <img src="@/assets/image/logo.png" class="sidebar-logo" />
         <h1 class="sidebar-title">{{ title }}</h1>
       </router-link>
     </transition>

@@ -99,6 +99,7 @@ import LastSevenDays from "@/views/basicModule/KanBan/IntegratedSignage/Departme
 import DailyProcessingTask from "@/views/basicModule/KanBan/IntegratedSignage/DepartmentSignboard/view/Daily-processing-task.vue";
 import SortOfHoursReportedYesterday from "@/views/basicModule/KanBan/IntegratedSignage/DepartmentSignboard/view/Sort-of-hours-reported-yesterday.vue";
 import dLoading from '../EquipmentSignage/components/d-loading.vue';
+import screenFull from 'screenfull';
 import { getDepartmentList } from '@/api/basicApi/systemSettings/department';
 import { processing_department_kanban } from '@/api/basicApi/dataV/kanban';
 export default {
@@ -148,6 +149,7 @@ export default {
     };
   },
   created() {
+    screenFull.toggle(); // 全屏
     this.search();
   },
   methods: {
