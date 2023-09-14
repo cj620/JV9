@@ -20,12 +20,15 @@ export default {
   data() {
     return {
       options: {},
-      XAxis: ['1','2','3','4','5','6','7','8','9','10','11','12'],
     };
   },
   watch: {
     result(val) {
-      const xAxisData = this.XAxis.map(item => {
+      const months = val.Date.map(date => {
+        const d = new Date(date);
+        return d.getMonth() + 1;
+      });
+      const xAxisData = months.map(item => {
         return Month[item].numberName
       })
       this.options = {
@@ -43,13 +46,13 @@ export default {
             type: 'shadow'
           }
         },
-        legend: {
-          top: "3%",
-          right: '4%',
-          textStyle:{
-            color: '#eaeaea'
-          }
-        },
+        // legend: {
+        //   top: "3%",
+        //   right: '4%',
+        //   textStyle:{
+        //     color: '#eaeaea'
+        //   }
+        // },
         grid: {
           left: '3%',
           right: '4%',
@@ -84,40 +87,14 @@ export default {
         ],
         series: [
           {
-            name: i18n.t('DataV.Da_ShippedAmount'),
             type: 'bar',
-            stack: 'order',
             itemStyle: {
               color: '#46c882'
             },
             emphasis: {
               focus: 'series'
             },
-            data: val.ShippedAmount
-          },
-          {
-            name: i18n.t('DataV.Da_UnshippedAmount'),
-            type: 'bar',
-            stack: 'order',
-            itemStyle: {
-              color: '#06E0E1'
-            },
-            emphasis: {
-              focus: 'series'
-            },
-            data: val.UnshippedAmount
-          },
-          {
-            name: i18n.t('DataV.Da_ReturnAmount'),
-            type: 'bar',
-            stack: 'order',
-            itemStyle: {
-              color: '#EA6D6A'
-            },
-            emphasis: {
-              focus: 'series'
-            },
-            data: val.ReturnAmount
+            data: val.Amount
           },
         ]
       }

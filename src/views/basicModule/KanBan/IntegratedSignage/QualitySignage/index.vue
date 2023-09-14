@@ -64,7 +64,6 @@ import OrderToBeInspected
 	from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/orderToBeInspected.vue";
 import ReworkDetails from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/reworkDetails.vue";
 import { quality_department_dashboard } from "@/api/basicApi/dataV/kanban";
-import { ProcessReworkEnum } from "@/enum/baseModule/dataV/ProcessRework";
 import screenFull from 'screenfull';
 
 export default {
@@ -111,7 +110,7 @@ export default {
         this.inspectionRecord = res.InspectionRecord
         this.processRework = res.ProcessRework.map(obj => {
           return {
-            name: ProcessReworkEnum[obj.Name].name,
+            name: obj.Name,
             value: obj.Value
           };
         });

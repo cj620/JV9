@@ -26,12 +26,15 @@ export default {
     result(val) {
       this.transData = val
       this.transData.forEach(item => {
-        if (item.name === 'ShippedAmount'){
+        if (item.Name === 'Shipped'){
           item.name = this.$t('DataV.Da_ShippedAmount')
-        }else if (item.name === 'UnshippedAmount'){
+          item.value = item.Value
+        }else if (item.Name === 'Unshipped'){
           item.name = this.$t('DataV.Da_UnshippedAmount')
-        }else if (item.name === 'ReturnAmount'){
+          item.value = item.Value
+        }else if (item.Name === 'ReturnedPurchase'){
           item.name = this.$t('DataV.Da_ReturnAmount')
+          item.value = item.Value
         }
       })
       this.options = {

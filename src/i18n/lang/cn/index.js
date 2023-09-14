@@ -501,6 +501,12 @@ const cn = {
     Da_CheckDate: "送检时间",
     Da_Worker1: "送检人",
     Da_ReworkReason: "返工原因",
+    Da_TotalSalesAmountThisYear: "本年销售总金额",
+    Da_TotalAmountNotShippedThisYear: "本年未出货总金额",
+    Da_ShippedAmountThisYear: "本年已出货总金额",
+    Da_TotalSalesAmountThisMonth: "本月销售总金额",
+    Da_TotalAmountNotShippedThisMonth: "本月未出货总金额",
+    Da_ShippedAmountThisMonth: "本月已出货总金额",
   },
   //通用
   Generality: {
