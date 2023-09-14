@@ -5,7 +5,7 @@
         <div class="vmy-login-left">
           <div class="jvisoft-logo">
             <img
-              src="../../../assets/image/logo.png"
+              src="../../../assets/image/logo1.png"
               width="44px "
               height="44px"
               alt=""
