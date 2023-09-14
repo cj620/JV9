@@ -70,7 +70,6 @@ export const detailConfig=[
     // 仓库
     prop:'Stockroom',
     label: i18n.t("setup.Stockroom"),
-    filter:'date'
   },
   {
     // 制单人
