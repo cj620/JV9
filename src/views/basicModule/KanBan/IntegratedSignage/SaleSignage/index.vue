@@ -115,22 +115,20 @@ export default {
         { title:"本月未出货总金额",data:23179 },
         { title:"本月已出货总金额",data:12321 },
       ];
+      // 每月订单统计
       this.MonthlyOrdersData = {
-        //   国内订单
-        DomesticOrders: [123,423,231,235,121,231,534,121,32,12,342,534],
-        //   国外订单
-        ForeignOrders: [198,472,348,324,481,349,162,325,324,54,231,123],
-        //   客诉订单
-        ComplaintOrder: [12,32,45,56,2,43,23,54,23,32,12,34],
-        //   其它类型
-        OtherOrder: [110,220,120,222,132,113,354,511,320,320,333,111],
+        //   已出货金额
+        ShippedAmount: [12323,42323,23321,23235,13221,22331,53124,112321,33322,12322,32342,31534],
+        //   未出货金额
+        UnshippedAmount: [11983,41172,33248,32324,12481,23339,32162,12325,34324,51224,22331,12123],
+        //   退货金额
+        ReturnAmount: [11232,32332,41521,53216,21213,43323,9223,51234,11223,33212,12222,31334],
       };
       // 订单分类统计
       this.SortData = [
-        { value:4332, name: 'DomesticOrders' },
-        { value:3133, name: 'ForeignOrders' },
-        { value:1244, name: 'ComplaintOrders' },
-        { value:5243, name: 'OtherOrders' },
+        { value:43312, name: 'ShippedAmount' },
+        { value:31331, name: 'UnshippedAmount' },
+        { value:12441, name: 'ReturnAmount' },
       ];
       this.MonthlyShipmentsData = [123,423,231,235,121,231,534,121,32,12,342,534]
       this.Top8ShipmentsList = [

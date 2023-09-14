@@ -64,7 +64,8 @@ import OrderToBeInspected
 	from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/orderToBeInspected.vue";
 import ReworkDetails from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/reworkDetails.vue";
 import { quality_department_dashboard } from "@/api/basicApi/dataV/kanban";
-import { ProcessReworkEnum} from "@/enum/baseModule/dataV/ProcessRework";
+import { ProcessReworkEnum } from "@/enum/baseModule/dataV/ProcessRework";
+import screenFull from 'screenfull';
 
 export default {
   name: "QualitySignage",
@@ -91,6 +92,7 @@ export default {
     }
   },
   created() {
+    screenFull.toggle(); // 全屏
 	  this.loading = true;
 	  this.getData()
   },

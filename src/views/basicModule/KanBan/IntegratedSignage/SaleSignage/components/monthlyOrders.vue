@@ -84,7 +84,7 @@ export default {
         ],
         series: [
           {
-            name: i18n.t('DataV.Da_DomesticOrders'),
+            name: i18n.t('DataV.Da_ShippedAmount'),
             type: 'bar',
             stack: 'order',
             itemStyle: {
@@ -93,10 +93,10 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: val.DomesticOrders
+            data: val.ShippedAmount
           },
           {
-            name: i18n.t('DataV.Da_ForeignOrders'),
+            name: i18n.t('DataV.Da_UnshippedAmount'),
             type: 'bar',
             stack: 'order',
             itemStyle: {
@@ -105,10 +105,10 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: val.ForeignOrders
+            data: val.UnshippedAmount
           },
           {
-            name: i18n.t('DataV.Da_ComplaintOrders'),
+            name: i18n.t('DataV.Da_ReturnAmount'),
             type: 'bar',
             stack: 'order',
             itemStyle: {
@@ -117,19 +117,7 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: val.ComplaintOrder
-          },
-          {
-            name: i18n.t('DataV.Da_OtherOrders'),
-            type: 'bar',
-            stack: 'order',
-            itemStyle: {
-              color: '#5b7ad8'
-            },
-            emphasis: {
-              focus: 'series'
-            },
-            data: val.OtherOrder
+            data: val.ReturnAmount
           },
         ]
       }

@@ -26,14 +26,12 @@ export default {
     result(val) {
       this.transData = val
       this.transData.forEach(item => {
-        if (item.name === 'DomesticOrders'){
-          item.name = this.$t('DataV.Da_DomesticOrders')
-        }else if (item.name === 'ForeignOrders'){
-          item.name = this.$t('DataV.Da_ForeignOrders')
-        }else if (item.name === 'ComplaintOrders'){
-          item.name = this.$t('DataV.Da_ComplaintOrders')
-        }else if (item.name === 'OtherOrders'){
-          item.name = this.$t('DataV.Da_OtherOrders')
+        if (item.name === 'ShippedAmount'){
+          item.name = this.$t('DataV.Da_ShippedAmount')
+        }else if (item.name === 'UnshippedAmount'){
+          item.name = this.$t('DataV.Da_UnshippedAmount')
+        }else if (item.name === 'ReturnAmount'){
+          item.name = this.$t('DataV.Da_ReturnAmount')
         }
       })
       this.options = {
