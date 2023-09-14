@@ -52,6 +52,15 @@ module.exports = {
       }
     }
   },
+  css: {
+    loaderOptions: {
+      sass: {
+        sassOptions: {
+          outputStyle: 'expanded'
+        }
+      }
+    }
+  },
   /*  configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
       config.optimization.minimizer[0].options.terserOptions.compress.warnings = false
