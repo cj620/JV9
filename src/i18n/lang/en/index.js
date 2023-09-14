@@ -506,6 +506,12 @@ const en = {
     Da_CheckDate: "Check Date",
     Da_Worker1: "Worker",
     Da_ReworkReason: "Rework Reason",
+    Da_TotalSalesAmountThisYear: "Total Sales Amount This Year",
+    Da_TotalAmountNotShippedThisYear: "Total Amount Not Shipped This Year",
+    Da_ShippedAmountThisYear: "Shipped Amount This Year",
+    Da_TotalSalesAmountThisMonth: "Total Sales Amount This Month",
+    Da_TotalAmountNotShippedThisMonth: "Total Amount Not Shipped This Month",
+    Da_ShippedAmountThisMonth: "Shipped Amount This Month",
   },
   //通用
   Generality: {

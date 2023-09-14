@@ -72,7 +72,7 @@ export const tableConfig = [
   /*加工单号*/
   {
     prop: "PrTaskBillId",
-    label: '加工单号',
+    label: i18n.t("production.Pr_WorkSheetNo"),
     align: "center",
     cpn: "Link",
     cpnProps: {

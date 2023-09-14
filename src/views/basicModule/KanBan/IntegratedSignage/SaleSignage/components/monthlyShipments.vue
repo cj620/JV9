@@ -20,12 +20,15 @@ export default {
   data() {
     return {
       options: {},
-      XAxis: ['1','2','3','4','5','6','7','8','9','10','11','12'],
     };
   },
   watch: {
     result(val) {
-      const xAxisData = this.XAxis.map(item => {
+      const months = val.Date.map(date => {
+        const d = new Date(date);
+        return d.getMonth() + 1;
+      });
+      const xAxisData = months.map(item => {
         return Month[item].numberName
       })
       this.options = {
@@ -97,7 +100,7 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: val
+            data: val.Amount
           },
         ]
       }

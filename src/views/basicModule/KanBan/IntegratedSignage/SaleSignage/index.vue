@@ -45,7 +45,7 @@
             </div>
             <!-- 订单分类统计 -->
             <div class="Order-classification-statistics">
-              <sortStatistics :result="SortData"></sortStatistics>
+              <sortStatistics :result="OrderClassificationData"></sortStatistics>
             </div>
           </div>
           <div class="Sale-signage-content-main-bottom">
@@ -55,7 +55,7 @@
             </div>
             <!-- 本年出货Top8统计 -->
             <div class="Top8-statistics-for-shipments">
-              <top8Shipments :result="sortTop8"></top8Shipments>
+              <top8Shipments :result="Top8ShipmentsList"></top8Shipments>
             </div>
             <!-- 一周内未出货统计 -->
             <div class="Non-shipment-within-a-week">
@@ -78,6 +78,7 @@ import monthlyShipments from "./components/monthlyShipments.vue";
 import top8Shipments from "./components/top8Shipments.vue";
 import nonShipment from "./components/nonShipment.vue";
 import screenFull from 'screenfull';
+import { sales_dashboard } from "@/api/basicApi/dataV/kanban";
 export default {
   name: "SaleSignage",
   components: {
@@ -95,68 +96,42 @@ export default {
       AnnualData:[],
       MonthlyData:[],
       MonthlyOrdersData:{},
-      SortData:[],
+      OrderClassificationData:[],
       MonthlyShipmentsData: [],
       Top8ShipmentsList: [],
-      sortTop8:[],
       NonShipmentList: [],
     }
   },
   created() {
     screenFull.toggle(); // 全屏
-    setTimeout(() => {
-      this.AnnualData = [
-        { title:"本年销售总金额", data:21495 },
-        { title:"本年未出货总金额",data:64383 },
-        { title:"已出货金额",data:25443 },
-      ];
-      this.MonthlyData = [
-        { title:"本月销售总金额", data:12333 },
-        { title:"本月未出货总金额",data:23179 },
-        { title:"本月已出货总金额",data:12321 },
-      ];
-      // 每月订单统计
-      this.MonthlyOrdersData = {
-        //   已出货金额
-        ShippedAmount: [12323,42323,23321,23235,13221,22331,53124,112321,33322,12322,32342,31534],
-        //   未出货金额
-        UnshippedAmount: [11983,41172,33248,32324,12481,23339,32162,12325,34324,51224,22331,12123],
-        //   退货金额
-        ReturnAmount: [11232,32332,41521,53216,21213,43323,9223,51234,11223,33212,12222,31334],
-      };
-      // 订单分类统计
-      this.SortData = [
-        { value:43312, name: 'ShippedAmount' },
-        { value:31331, name: 'UnshippedAmount' },
-        { value:12441, name: 'ReturnAmount' },
-      ];
-      this.MonthlyShipmentsData = [123,423,231,235,121,231,534,121,32,12,342,534]
-      this.Top8ShipmentsList = [
-        { name:'A182',value:110 },
-        { name:'A142',value:120 },
-        { name:'B23',value:222 },
-        { name:'B55',value:132 },
-        { name:'B213',value:113 },
-        { name:'C23',value:354 },
-        { name:'C54',value:511 },
-        { name:'C134',value:320 },
-      ]
-      this.sortTop8 = this.Top8ShipmentsList.sort((a, b) => b.value - a.value);
-      this.NonShipmentList = [
-        {Id: 0, CustomerId: '001', BillId: 'SP22331212', UnshippedQuantity: '32', DeliveryDate: '2023-08-27T12:00:00' },
-        {Id: 1, CustomerId: '001', BillId: 'SP27645212', UnshippedQuantity: '213', DeliveryDate: '2023-08-27T12:00:00' },
-        {Id: 2, CustomerId: '006', BillId: 'SP23231212', UnshippedQuantity: '12', DeliveryDate: '2023-08-27T12:00:00' },
-        {Id: 3, CustomerId: '006', BillId: 'SP22231214', UnshippedQuantity: '32', DeliveryDate: '2023-08-27T12:00:00' },
-        {Id: 4, CustomerId: '123', BillId: 'SP22231213', UnshippedQuantity: '4', DeliveryDate: '2023-08-27T12:00:00' },
-        {Id: 5, CustomerId: '224', BillId: 'SP22231212', UnshippedQuantity: '23', DeliveryDate: '2023-08-27T12:00:00' },
-        {Id: 6, CustomerId: '886', BillId: 'SP22231215', UnshippedQuantity: '21', DeliveryDate: '2023-08-27T12:00:00' },
-        {Id: 7, CustomerId: '245', BillId: 'SP22231216', UnshippedQuantity: '34', DeliveryDate: '2023-08-27T12:00:00' },
-        {Id: 8, CustomerId: '202', BillId: 'SP22231217', UnshippedQuantity: '324', DeliveryDate: '2023-08-27T12:00:00' },
-        {Id: 9, CustomerId: '202', BillId: 'SP22231218', UnshippedQuantity: '2', DeliveryDate: '2023-08-27T12:00:00' },
-        {Id: 10, CustomerId: '203', BillId: 'SP22231292', UnshippedQuantity: '2', DeliveryDate: '2023-08-27T12:00:00' },
-      ]
-
-    }, 1000);
+    this.getData()
+  },
+  methods: {
+    getData(){
+      sales_dashboard().then((res)=>{
+        console.log(res);
+        this.AnnualData = [
+          { title: this.$t('DataV.Da_TotalSalesAmountThisYear'), data: res.TopInfo[0]},
+          { title: this.$t('DataV.Da_TotalAmountNotShippedThisYear'), data: res.TopInfo[1]},
+          { title: this.$t('DataV.Da_ShippedAmountThisYear'), data: res.TopInfo[2]},
+        ];
+        this.MonthlyData = [
+          { title: this.$t('DataV.Da_TotalSalesAmountThisMonth'), data: res.TopInfo[3] },
+          { title: this.$t('DataV.Da_TotalAmountNotShippedThisMonth'), data: res.TopInfo[4]},
+          { title: this.$t('DataV.Da_ShippedAmountThisMonth'), data: res.TopInfo[5]},
+        ];
+        this.MonthlyOrdersData = res.MonthlyOrdersData;
+        this.OrderClassificationData = res.OrderClassificationData;
+        this.MonthlyShipmentsData = res.MonthlyShipmentsData;
+        this.Top8ShipmentsList = res.Top8ShipmentsList.map(obj => {
+          return {
+            name: obj.Name,
+            value: obj.Value
+          };
+        });
+        this.NonShipmentList = res.NonShipmentList
+      })
+    }
   }
 }
 </script>
