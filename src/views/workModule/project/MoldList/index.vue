@@ -2,20 +2,45 @@
   <PageWrapper :footer="false">
     <div class="mold-list">
       <JvTable :table-obj="tableObj">
+        <template #btn-list>
+          <Action
+            size="mini"
+            :actions="[
+              {
+                label: $t('Generality.Ge_New'),
+                confirm: add,
+              },
+            ]"
+          ></Action>
+        </template>
         <template #operation="{ row }">
-          <TableAction :actions="[
-          {
-              label: $t('Generality.Ge_Schedule'),
-              confirm: toProjectProcess.bind(null, row),
-            },
-            {
-              label: $t('project.Pro_Cost'),
-              confirm: toProjrctCost.bind(null, row, false),
-            }
-          ]" />
+          <TableAction
+            :actions="[
+              {
+                label: $t('Generality.Ge_Schedule'),
+                confirm: toProjectProcess.bind(null, row),
+              },
+              {
+                label: $t('project.Pro_Cost'),
+                confirm: toProjrctCost.bind(null, row, false),
+              },
+            ]"
+          />
         </template>
       </JvTable>
     </div>
+    <JvDialog
+      :visible.sync="addDialogShow"
+      width="35%"
+      :title="$t('Generality.Ge_GenerateItems')"
+      @confirm="confirmAdd"
+    >
+      <JvForm :formObj="formObj">
+        <template #PhotoUrl>
+          <JvUploadList v-model="ImgDataList" :listType="false"></JvUploadList>
+        </template>
+      </JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 
@@ -23,24 +48,115 @@
 import { Table } from "./config";
 import ColProgress from "./cpns/ColProgress";
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
-import {delCpn, setCpn} from "~/maps";
+import { delCpn, setCpn } from "~/maps";
+import Action from "~/cpn/JvAction/index.vue";
+import { Form } from "@/jv_doc/class/form";
+import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
+import { saveItem } from "@/api/basicApi/systemSettings/Item";
+import JvUploadList from "@/components/JVInternal/JvUpload/List.vue";
 export default {
   name: "Pm_ProjectMoldList",
+  components: { JvUploadList, Action },
   data() {
     return {
       tableObj: {},
+      formObj: {},
+      addDialogShow: false,
+      ImgDataList: [],
     };
   },
-  created() {
+  async created() {
     setCpn("ColProgress", ColProgress);
     this.tableObj = new Table();
     this.tableObj.getData();
+
+    this.formObj = new Form({
+      formSchema: [
+        {
+          // 编号
+          prop: "ItemId",
+          cpn: "FormInput",
+          label: i18n.t("Generality.Ge_ID"),
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseEnter"),
+              trigger: ["blur"],
+            },
+          ],
+        },
+        {
+          // 名称
+          prop: "ItemName",
+          cpn: "FormInput",
+          label: i18n.t("Generality.Ge_ItemName"),
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseEnter"),
+              trigger: ["blur"],
+            },
+          ],
+        },
+        {
+          // 单位
+          prop: "Unit",
+          cpn: "SyncSelect",
+          label: i18n.t("Generality.Ge_Unit"),
+          api: getAllUnit,
+          apiOptions: {
+            immediate: true,
+            keyName: "Unit",
+            valueName: "Unit",
+          },
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseEnter"),
+              trigger: ["blur"],
+            },
+          ],
+        },
+        {
+          // 名称
+          prop: "Description",
+          cpn: "FormInput",
+          label: i18n.t("Generality.Ge_Describe"),
+        },
+        {
+          prop: "PhotoUrl",
+          custom: true,
+          label: i18n.t('Generality.Ge_PhotoUrl')
+        },
+      ],
+      baseColProps: { span: 24 },
+      labelWidth: "80px",
+    });
   },
   beforeDestroy() {
     delCpn("ColProgress");
   },
   methods: {
     imgUrlPlugin,
+    add() {
+
+      this.addDialogShow = true;
+    },
+    confirmAdd() {
+      this.formObj.form['PhotoUrl'] = this.ImgDataList.toString();
+      this.formObj.form.DataState = 2
+      saveItem(this.formObj.form).then(res => {
+        this.$message({
+          message: i18n.t('backendMessage.P10159'),
+          type: 'success'
+        });
+        this.tableObj.reset();
+        this.addDialogShow = false;
+      }).catch(err => {
+        this.addDialogShow = false;
+      })
+      console.log(this.formObj.form);
+    },
     // 跳转项目进度
     toProjectProcess(row) {
       console.log(row);
@@ -55,7 +171,7 @@ export default {
         query: { ProjectId: row.Id, Typ: flag },
       });
     },
-  }
+  },
 };
 </script>
 
