@@ -75,6 +75,11 @@ export const tableConfig = [
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
   },
+    // 项目
+  {
+    prop: "Project",
+    label: i18n.t("systemSetupData.Project"),
+  },
   // 单位
   // {
   //   prop: "Description",
