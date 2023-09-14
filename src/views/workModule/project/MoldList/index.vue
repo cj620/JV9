@@ -52,6 +52,7 @@ import { delCpn, setCpn } from "~/maps";
 import Action from "~/cpn/JvAction/index.vue";
 import { Form } from "@/jv_doc/class/form";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
+import { get_basic_info_list } from '@/api/workApi/project/projectManage';
 import { saveItem } from "@/api/basicApi/systemSettings/Item";
 import JvUploadList from "@/components/JVInternal/JvUpload/List.vue";
 export default {
@@ -118,17 +119,47 @@ export default {
           ],
         },
         {
-          // 名称
+          // 项目
+          prop: "Project",
+          label: i18n.t("systemSetupData.Project"),
+          cpn: "SyncSelect",
+          api: get_basic_info_list,
+          apiOptions: {
+            immediate: true,
+            keyName: "Id",
+            valueName: "Id",
+            params: {
+              CurrentPage:1,
+              PageSize:1000,
+            }
+          },
+        },
+        {
+          // 交期
+          prop: "DeliveryDate",
+          cpn: "SingleDateTime",
+          label: i18n.t("Generality.Ge_DeliveryDate"),
+        },
+        {
+          // 首样日期
+          prop: "SampleDate",
+          cpn: "SingleDateTime",
+          label: i18n.t("production.Pr_ProofDate"),
+        },
+        {
+          // 描述
           prop: "Description",
           cpn: "FormInput",
           label: i18n.t("Generality.Ge_Describe"),
         },
+        // 图片
         {
           prop: "PhotoUrl",
           custom: true,
           label: i18n.t('Generality.Ge_PhotoUrl')
         },
       ],
+      autoFocus: true,
       baseColProps: { span: 24 },
       labelWidth: "80px",
     });
@@ -145,17 +176,21 @@ export default {
     confirmAdd() {
       this.formObj.form['PhotoUrl'] = this.ImgDataList.toString();
       this.formObj.form.DataState = 2
-      saveItem(this.formObj.form).then(res => {
-        this.$message({
-          message: i18n.t('backendMessage.P10159'),
-          type: 'success'
-        });
-        this.tableObj.reset();
-        this.addDialogShow = false;
-      }).catch(err => {
-        this.addDialogShow = false;
+      this.formObj.validate((valid) => {
+        if(valid) {
+          saveItem(this.formObj.form).then(res => {
+            this.$message({
+              message: i18n.t('backendMessage.P10159'),
+              type: 'success'
+            });
+            this.tableObj.reset();
+            this.addDialogShow = false;
+          }).catch(err => {
+            this.addDialogShow = false;
+          })
+        }
       })
-      console.log(this.formObj.form);
+
     },
     // 跳转项目进度
     toProjectProcess(row) {

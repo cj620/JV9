@@ -186,12 +186,12 @@ export default {
       this.departmentName ? this.department = ['开发部', '销售部'] : this.department = ['销售部','生产部','采购部','设计部','编程部','开发部'];
       this.loading = true;
       processing_department_kanban({Department: this.departmentName}).then(res => {
-        this.infoRes = res['TopInfo']; // 顶部信息
-        this.LastSevenDaysRes = { ...res['WorkHourRecord'] }; // 过去七天工时记录
-        this.DailyProcessingTaskList = res['ProcessingTask']; // 每日加工任务
-        this.SortOfHoursReportedYesterdayRes = {...res['WorkHoursReported']}; // 昨日报工工时排序
-        this.DevicesRes = {...res['Devices']}; // 设备列表
         this.loading = false;
+        this.infoRes = res['TopInfo'] || []; // 顶部信息
+        this.LastSevenDaysRes = { ...res['WorkHourRecord'] } || {}; // 过去七天工时记录
+        this.DailyProcessingTaskList = res['ProcessingTask'] || []; // 每日加工任务
+        this.SortOfHoursReportedYesterdayRes = {...res['WorkHoursReported']} || {}; // 昨日报工工时排序
+        this.DevicesRes = {...res['Devices']} || {}; // 设备列表
       }).catch(err => {
         this.loading = false;
       })
