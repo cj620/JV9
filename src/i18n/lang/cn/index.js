@@ -372,6 +372,7 @@ const cn = {
     De_AllocationType: "分配状态",
     De_Allocated: "已分配",
     De_Unallocated: "未分配",
+    De_SelectPicking: "选择领料",
   },
   // 看板 （数据可视化）
   DataV: {
@@ -469,6 +470,19 @@ const cn = {
     Da_RecordOfWorkingHoursInThePastSevenDays: "过去七天工时记录",
     Da_DailyProcessingTasks: "每日加工任务",
     Da_SortingOfWorkHoursReportedYesterday: "昨日报工工时排序",
+    Da_MonthlyOrderStatisticsForThisYear: '本年每月订单统计',
+    Da_OrderClassificationStatistics: '订单分类统计',
+    Da_MonthlyShipmentStatisticsForThisYear: '本年每月出货统计',
+    Da_Top8Shipments: '本年出货top8统计',
+    Da_NonShipmentWithinAWeek: '一周内未出货统计',
+    Da_DomesticOrders: '国内订单',
+    Da_ForeignOrders: '国外订单',
+    Da_ComplaintOrders: '客诉订单',
+    Da_OtherOrders: '其它订单',
+    Da_ShipmentAmountRMB: '出货金额RMB',
+    Da_BillId: '订单编号',
+    Da_UnshippedQuantity: '未交货数量',
+    Da_DeliveryDate: '交货日期',
   },
   //通用
   Generality: {
@@ -501,7 +515,7 @@ const cn = {
     Ge_Filter: "筛选",
     Ge_Search: "搜索",
     Ge_DeleteData: "删除数据",
-    Ge_DeleteConfirm: "是否确实要删除此项目？",
+    Ge_DeleteConfirm: "是否确实要删除此数据？",
     Ge_Login: "登录",
     Ge_Logout: "注销",
     Ge_Operate: "操作",

@@ -366,6 +366,7 @@ const ja = {
     De_AllocationType: "割当ステータス",
     De_Allocated: "割り当て済み",
     De_Unallocated: "未割当て",
+    De_SelectPicking: "ピックピック",
   },
   //通用
   Generality: {
@@ -396,7 +397,7 @@ const ja = {
     Ge_Filter: "フィルタリング",
     Ge_Search: "検索けんさく",
     Ge_DeleteData: "データの削除",
-    Ge_DeleteConfirm: "このアイテムを削除してもよろしいですか？",
+    Ge_DeleteConfirm: "このデータを削除してもよろしいですか？",
     Ge_Login: "ログイン",
     Ge_Logout: "ログアウト",
     Ge_Operate: "操作",

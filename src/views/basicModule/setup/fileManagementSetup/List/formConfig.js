@@ -68,7 +68,7 @@ export const formSchema = [
     ],
   },
   {
-    prop: "ApproveName",
+    prop: "Approve",
     cpn: "SyncSelect",
     label: i18n.t("Generality.Ge_AuditAuthority"),
     api: getAllRole,

@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%">
-    <base-chart style="height: 100%; top: 10px" :options="options"></base-chart>
+    <base-chart style="height: 100%;" :options="options"></base-chart>
   </div>
 </template>
 <script>
@@ -19,26 +19,39 @@ export default {
   data() {
     return {
       options: {},
+      transData: [],
     };
   },
   watch: {
     result(val) {
+      this.transData = val
+      this.transData.forEach(item => {
+        if (item.name === 'DomesticOrders'){
+          item.name = this.$t('DataV.Da_DomesticOrders')
+        }else if (item.name === 'ForeignOrders'){
+          item.name = this.$t('DataV.Da_ForeignOrders')
+        }else if (item.name === 'ComplaintOrders'){
+          item.name = this.$t('DataV.Da_ComplaintOrders')
+        }else if (item.name === 'OtherOrders'){
+          item.name = this.$t('DataV.Da_OtherOrders')
+        }
+      })
       this.options = {
         title: {
-          text: "订单分类统计",
+          text: i18n.t('DataV.Da_OrderClassificationStatistics'),
           textStyle: {
             color: '#eaeaea'
           },
           left: '3%',
-          // top: "3%",
+          top: "3%",
         },
         tooltip: {
           trigger: 'item'
         },
         legend: {
           orient: 'vertical',
-          right: 10,
-          // top: 10,
+          top: "3%",
+          right: '4%',
           textStyle:{
             color: '#eaeaea'
           }
@@ -47,6 +60,7 @@ export default {
           {
             type: 'pie',
             radius: ['40%', '70%'],
+            center: ["42%", "50%"],
             avoidLabelOverlap: false,
             label: {
               normal: {
@@ -54,7 +68,7 @@ export default {
                 color: '#eaeaea'
               }
             },
-            data: val,
+            data: this.transData,
             itemStyle: {},
             emphasis: {
               itemStyle: {

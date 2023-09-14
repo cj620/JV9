@@ -10,7 +10,7 @@
           {{ $t("DataV.Da_SaleSignage") }}
         </div>
         <div class="Sale-signage-header-right">
-          <formatted-time format="yyyy/MM/dd hh:mm:ss" />
+          <formatted-time/>
         </div>
       </div>
       <!--页面主体-->
@@ -19,7 +19,7 @@
         <div class="Sale-signage-content-top">
           <!-- 本年销售数据 -->
           <div class="Sale-signage-content-top-left">
-            <dv-border-box-7 :color="['#4c5f98', '#5166b0']" style="width: 33%" v-for="(item) in AnnualData">
+            <dv-border-box-7 :color="['#4c5f98', '#5166b0']" style="width: 33%" v-for="(item) in AnnualData" :key="item.title">
               <div class="border-box-7-content">
                 <div class="border-box-7-content-top">{{ item.title }}</div>
                 <div class="border-box-7-content-bottom">{{ item.data }}</div>
@@ -28,7 +28,7 @@
           </div>
           <!-- 本月销售数据 -->
           <div class="Sale-signage-content-top-right">
-            <dv-border-box-7 :color="['#4c5f98', '#5166b0']" style="width: 33.3%" v-for="(item) in MonthlyData">
+            <dv-border-box-7 :color="['#4c5f98', '#5166b0']" style="width: 33.3%" v-for="(item) in MonthlyData" :key="item.title">
               <div class="border-box-7-content">
                 <div class="border-box-7-content-top">{{ item.title }}</div>
                 <div class="border-box-7-content-bottom">{{ item.data }}</div>
@@ -77,6 +77,7 @@ import sortStatistics from "./components/sortStatistics.vue"
 import monthlyShipments from "./components/monthlyShipments.vue";
 import top8Shipments from "./components/top8Shipments.vue";
 import nonShipment from "./components/nonShipment.vue";
+import screenFull from 'screenfull';
 export default {
   name: "SaleSignage",
   components: {
@@ -99,67 +100,10 @@ export default {
       Top8ShipmentsList: [],
       sortTop8:[],
       NonShipmentList: [],
-      res:{
-        // 本年销售数据
-        AnnualData: [
-          { title:"本年销售总金额", data:21495 },
-          { title:"本年未出货总金额",data:64383 },
-          { title:"已出货金额",data:25443 },
-        ],
-        // 本月销售数据
-        MonthlyData: [
-          { title:"本月销售总金额", data:12333 },
-          { title:"本月未出货总金额",data:23179 },
-          { title:"本月已出货总金额",data:12321 },
-        ],
-        // 本年每月订单统计
-        MonthlyOrdersData: {
-          //   国内订单
-          DomesticOrders: [123,423,231,235,121,231,534,121,32,12,342,534],
-          //   国外订单
-          ForeignOrders: [198,472,348,324,481,349,162,325,324,54,231,123],
-          //   客诉订单
-          ComplaintOrder: [12,32,45,56,2,43,23,54,23,32,12,34],
-          // 其它类型
-          OtherOrder: [110,220,120,222,132,113,354,511,320,320,333,111],
-        },
-        // 订单分类统计
-        SortData: [
-          { value:4332, name: 'DomesticOrders' },
-          { value:3133, name: 'ForeignOrders' },
-          { value:1244, name: 'ComplaintOrder' },
-          { value:5243, name: 'OtherOrder' },
-        ],
-        // 每月出货统计
-        MonthlyShipmentsData: [123,423,231,235,121,231,534,121,32,12,342,534],
-        // 本年出货Top8统计
-        Top8ShipmentsList: [
-          { name:'A182',value:110 },
-          { name:'A142',value:120 },
-          { name:'B23',value:222 },
-          { name:'B55',value:132 },
-          { name:'B213',value:113 },
-          { name:'C23',value:354 },
-          { name:'C54',value:511 },
-          { name:'C134',value:320 },
-        ],
-        NonShipmentList: [
-          {Id: 0, CustomerId: '001', BillId: 'SP22331212', UnshippedQuantity: '32', DeliveryDate: '2023-08-27T12:00:00' },
-          {Id: 1, CustomerId: '001', BillId: 'SP27645212', UnshippedQuantity: '213', DeliveryDate: '2023-08-27T12:00:00' },
-          {Id: 2, CustomerId: '006', BillId: 'SP23231212', UnshippedQuantity: '12', DeliveryDate: '2023-08-27T12:00:00' },
-          {Id: 3, CustomerId: '006', BillId: 'SP22231214', UnshippedQuantity: '32', DeliveryDate: '2023-08-27T12:00:00' },
-          {Id: 4, CustomerId: '123', BillId: 'SP22231213', UnshippedQuantity: '4', DeliveryDate: '2023-08-27T12:00:00' },
-          {Id: 5, CustomerId: '224', BillId: 'SP22231212', UnshippedQuantity: '23', DeliveryDate: '2023-08-27T12:00:00' },
-          {Id: 6, CustomerId: '886', BillId: 'SP22231215', UnshippedQuantity: '21', DeliveryDate: '2023-08-27T12:00:00' },
-          {Id: 7, CustomerId: '245', BillId: 'SP22231216', UnshippedQuantity: '34', DeliveryDate: '2023-08-27T12:00:00' },
-          {Id: 8, CustomerId: '202', BillId: 'SP22231217', UnshippedQuantity: '324', DeliveryDate: '2023-08-27T12:00:00' },
-          {Id: 9, CustomerId: '202', BillId: 'SP22231218', UnshippedQuantity: '2', DeliveryDate: '2023-08-27T12:00:00' },
-          {Id: 10, CustomerId: '203', BillId: 'SP22231292', UnshippedQuantity: '2', DeliveryDate: '2023-08-27T12:00:00' },
-        ]
-      }
     }
   },
   created() {
+    screenFull.toggle(); // 全屏
     setTimeout(() => {
       this.AnnualData = [
         { title:"本年销售总金额", data:21495 },
@@ -185,8 +129,8 @@ export default {
       this.SortData = [
         { value:4332, name: 'DomesticOrders' },
         { value:3133, name: 'ForeignOrders' },
-        { value:1244, name: 'ComplaintOrder' },
-        { value:5243, name: 'OtherOrder' },
+        { value:1244, name: 'ComplaintOrders' },
+        { value:5243, name: 'OtherOrders' },
       ];
       this.MonthlyShipmentsData = [123,423,231,235,121,231,534,121,32,12,342,534]
       this.Top8ShipmentsList = [
@@ -347,6 +291,7 @@ export default {
     width: 100%;
     height: 50%;
     color: #eaeaea;
+    font-weight: bold;
     text-align: center;
     line-height: 59px;
     font-size: 20px;

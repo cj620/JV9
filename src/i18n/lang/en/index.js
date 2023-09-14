@@ -152,6 +152,7 @@ const en = {
     De_AllocationType: "Allocation Type",
     De_Allocated: "Allocated",
     De_Unallocated: "Unallocated",
+    De_SelectPicking: "Select Material Picking",
   },
   //项目
   project: {
@@ -474,6 +475,19 @@ const en = {
     Da_RecordOfWorkingHoursInThePastSevenDays: "Record of working hours in the past seven days",
     Da_DailyProcessingTasks: "Daily Processing Tasks",
     Da_SortingOfWorkHoursReportedYesterday: "Sorting of work hours reported yesterday",
+    Da_MonthlyOrderStatisticsForThisYear: 'Monthly Order Statistics For This Year',
+    Da_OrderClassificationStatistics: 'Order Classification Statistics',
+    Da_MonthlyShipmentStatisticsForThisYear: 'Monthly Shipment Statistics For This Year',
+    Da_Top8Shipments: 'Top 8 Statistics For Shipments This Year',
+    Da_NonShipmentWithinAWeek: 'Statistics Of Non Shipment Within A Week',
+    Da_DomesticOrders: 'Domestic Orders',
+    Da_ForeignOrders: 'Foreign Orders',
+    Da_ComplaintOrders: 'Complaint Orders',
+    Da_OtherOrders: 'Other Orders',
+    Da_ShipmentAmountRMB: 'Shipment Amount RMB',
+    Da_BillId: 'BillId',
+    Da_UnshippedQuantity: 'Unshipped Qty',
+    Da_DeliveryDate: 'Delivery Date',
   },
   //通用
   Generality: {
@@ -506,7 +520,7 @@ const en = {
     Ge_Filter: "Filter",
     Ge_Search: "Search",
     Ge_DeleteData: "Delete Data",
-    Ge_DeleteConfirm: "Are you sure you want to delete this items?",
+    Ge_DeleteConfirm: "Are you sure you want to delete this data?",
     Ge_Login: "Login",
     Ge_Logout: "Logout",
     Ge_Operate: "Operate",

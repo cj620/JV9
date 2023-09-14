@@ -27,6 +27,7 @@
           size="mini"
           @click="confirm"
           :loading="loading"
+          :disabled="confirmDisabled"
           >{{ $t("Generality.Ge_OK") }}</el-button
         >
         <el-button size="mini" @click="cancel" v-if="IsShowCancelFooterBtn">{{
@@ -54,6 +55,10 @@ export default {
       default: () => Function,
     },
     loading: {
+      type: Boolean,
+      default: false,
+    },
+    confirmDisabled: {
       type: Boolean,
       default: false,
     },

@@ -38,7 +38,17 @@
 
     <!--物料信息-->
     <JvBlock :title="$t('Generality.Ge_ItemsInfo')" ref="second">
-      <JvTable :table-obj="tableObj">
+      <!-- 领料按钮 -->
+      <div slot="extra">
+        <el-button
+          size="mini"
+          @click="toStockPicking"
+          :disabled="isDisabled"
+        >
+            {{ $t("stockroom.St_Picking") }}
+        </el-button>
+      </div>
+      <JvTable :table-obj="tableObj" @selection-change="canPick">
         <template #State="{ record }">
           {{ demandStatusMap[record] && demandStatusMap[record].name }}
         </template>
@@ -56,7 +66,6 @@
     <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
       <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
     </JvBlock>
-
   </PageWrapper>
 </template>
 
@@ -91,8 +100,9 @@ export default {
       detailData: {},
       formObj: {},
       stateForm: {},
+      isDisabled: true,
       dialogFormVisible: false,
-      tableDetail: [],
+		  tableDetail: [],
       fileBillId: "",
       RemarkData: "",
       type: "",
@@ -156,8 +166,6 @@ export default {
     this.tableObj = new Table({
       tableSchema: tableConfig,
       pagination: false,
-      sortCol: false,
-      chooseCol: false,
       data: [],
       title: "",
       tableHeaderShow: false,
@@ -184,25 +192,18 @@ export default {
       await materialRequirement
         .api_get({ BillId: this.$route.query.BillId })
         .then((res) => {
-          console.log(this.tableObj);
           this.detailObj.detailData = res;
           this.RemarkData = res.Remarks;
           this.cur_billId = res.BillId;
           this.stateForm = auditPlugin(res);
           this.tableObj.setData(res.BillItems);
           this.btnAction = detailPageModel(this, res, materialRequirement, this.GetData);
-          this.btnAction.push({
-            label: this.$t("stockroom.St_Picking"),
-            confirm: this.toStockPicking,
-            disabled: this.detailObj.detailData.State !== "Approved",
-          });
         });
     },
     toStockPicking(){
-      console.log(this.detailObj.detailData);
       this.$router.push({
         name: "St_Picking_Add",
-        params: { itemsDemandData: this.detailObj.detailData },
+        params: { itemsDemandData: this.detailObj.detailData, selectData: this.tableObj.selectData.datas},
       });
     },
     //订单转
@@ -216,6 +217,13 @@ export default {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
     },
+    canPick() {
+      const isAllProcessedOrStored = this.tableObj.selectData.datas.every(item => item.State === 'Processed' || item.State === 'Stored');
+      this.isDisabled = !(this.detailObj.detailData.State === 'Approved' && isAllProcessedOrStored);
+      if (this.tableObj.selectData.datas.length === 0){
+        this.isDisabled = true
+      }
+    }
   },
 };
 </script>

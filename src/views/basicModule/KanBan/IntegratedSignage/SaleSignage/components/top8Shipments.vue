@@ -1,6 +1,6 @@
 <template>
-  <div style="height: 110%">
-    <base-chart style="height: 100%; left: 15px" :options="options"></base-chart>
+  <div style="height: 100%">
+    <base-chart style="height: 100%;" :options="options"></base-chart>
   </div>
 </template>
 <script>
@@ -27,10 +27,11 @@ export default {
       const values = val.map(item => item.value);
       this.options = {
         title: {
-          text: "本年出货Top8统计",
+          text: i18n.t('DataV.Da_Top8Shipments'),
           textStyle: {
             color: '#eaeaea'
           },
+          left: '3%',
           top: "3%",
         },
         tooltip: {
@@ -38,6 +39,12 @@ export default {
           axisPointer: {
             type: 'shadow'
           }
+        },
+        grid: {
+          left: '4%',
+          right: '5%',
+          bottom: '4%',
+          containLabel: true
         },
         xAxis: {
           type: 'category',
