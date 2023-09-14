@@ -7,7 +7,7 @@
           logo
         </div>
         <div class="Quality-signage-header-center">
-          品质部门看板
+          {{ $t('DataV.Da_QualitySignage') }}
         </div>
         <div class="Quality-signage-header-right">
           <formatted-time/>
@@ -26,14 +26,26 @@
         </div>
         <!-- 图表 -->
         <div class="Quality-signage-content-body">
-          <div class="Quality-signage-content-body-item"></div>
-          <div class="Quality-signage-content-body-item"></div>
-          <div class="Quality-signage-content-body-item"></div>
+          <div class="Quality-signage-content-body-item">
+              <monthly-anomaly :result="monthlyAnomaly"></monthly-anomaly>
+          </div>
+          <div class="Quality-signage-content-body-item">
+              <inspection-record :result="inspectionRecord"></inspection-record>
+          </div>
+          <div class="Quality-signage-content-body-item">
+              <process-rework :result="processRework"></process-rework>
+          </div>
         </div>
         <div class="Quality-signage-content-body">
-          <div class="Quality-signage-content-body-item"></div>
-          <div class="Quality-signage-content-body-item"></div>
-          <div class="Quality-signage-content-body-item"></div>
+          <div class="Quality-signage-content-body-item">
+              <unqualified-analysis :result="unqualifiedAnalysis"></unqualified-analysis>
+          </div>
+          <div class="Quality-signage-content-body-item">
+              <order-to-be-inspected :result="orderToBeInspected"></order-to-be-inspected>
+          </div>
+          <div class="Quality-signage-content-body-item">
+              <rework-details :result="reworkDetails"></rework-details>
+          </div>
         </div>
       </div>
     </div>
@@ -43,30 +55,80 @@
 <script>
 import dLoading from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/components/d-loading.vue";
 import FormattedTime from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/components/formattedTime.vue";
+import MonthlyAnomaly from "./components/monthlyAnomaly.vue";
+import InspectionRecord from "./components/inspectionRecord.vue";
+import ProcessRework from "./components/processRework.vue";
+import UnqualifiedAnalysis
+	from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/unqualifiedAnalysis.vue";
+import OrderToBeInspected
+	from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/orderToBeInspected.vue";
+import ReworkDetails from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/reworkDetails.vue";
+import { quality_department_dashboard } from "@/api/basicApi/dataV/kanban";
+import { ProcessReworkEnum} from "@/enum/baseModule/dataV/ProcessRework";
 
 export default {
   name: "QualitySignage",
   components: {
+	  ReworkDetails,
+	  OrderToBeInspected,
+	  UnqualifiedAnalysis,
+	  ProcessRework,
+	  InspectionRecord,
+	  MonthlyAnomaly,
     FormattedTime,
     dLoading,
   },
   data(){
     return{
       loading: false,
-      qualityData:[]
+      qualityData:[],
+      monthlyAnomaly:{},
+		  inspectionRecord:{},
+		  processRework:[],
+		  unqualifiedAnalysis:[],
+		  orderToBeInspected:[],
+		  reworkDetails:[],
     }
   },
   created() {
-    setTimeout(() => {
-      this.qualityData = [
-        { title:'送检总数', data: 3423},
-        { title:'已检验数', data: 1233},
-        { title:'本月NG数', data: 876},
-        { title:'不良率', data: '3.6%' },
-        { title:'返工率', data: '2%'},
-      ]
-    })
-  }
+	  this.loading = true;
+	  this.getData()
+  },
+	methods: {
+		getData(){
+		  quality_department_dashboard().then((res) => {
+        console.log(res);
+        this.qualityData = [
+          { title: this.$t('DataV.Da_InspectionTotalQty'), data: res.TopInfo[0]},
+          { title: this.$t('DataV.Da_InspectedQty'), data: res.TopInfo[1]},
+          { title: this.$t('DataV.Da_NGQtyThisMonth'), data: res.TopInfo[2]},
+          { title: this.$t('DataV.Da_DefectRate'), data: res.TopInfo[3] },
+          { title: this.$t('DataV.Da_ReworkRate'), data: res.TopInfo[4]},
+        ]
+		    this.monthlyAnomaly = res.MonthlyAnomaly
+        this.inspectionRecord = res.InspectionRecord
+        this.processRework = res.ProcessRework.map(obj => {
+          return {
+            name: ProcessReworkEnum[obj.Name].name,
+            value: obj.Value
+          };
+        });
+        this.unqualifiedAnalysis = res.UnqualifiedAnalysis.map(obj => {
+          return {
+            name: obj.Name,
+            value: obj.Value
+          };
+        });
+        this.orderToBeInspected = res.OrderToBeInspected
+        this.reworkDetails = res.ReworkData
+        this.loading = false;
+        }
+		  ).catch((err) => {
+          this.loading = false;
+        }
+		  );
+		}
+	},
 }
 </script>
 <style scoped lang="scss">

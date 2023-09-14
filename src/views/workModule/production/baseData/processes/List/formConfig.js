@@ -5,12 +5,13 @@
  * @Description:
  */
 import { getAllResource } from "@/api/workApi/production/baseData";
+import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
 
 export const formSchema = [
+  //   工序
   {
     prop: "Process",
     cpn: "FormInput",
-
     label: i18n.t("Generality.Ge_Process"),
     rules: [
       {
@@ -21,6 +22,7 @@ export const formSchema = [
     ],
     custom: true,
   },
+    // 工序代号
   {
     prop: "ProcessCode",
     cpn: "FormInput",
@@ -34,6 +36,30 @@ export const formSchema = [
     ],
     custom: true,
   },
+  //部门搜索
+  {
+    prop: "Department",
+    label: i18n.t("menu.Se_Department"),
+    cpn: "SyncSelect",
+    api: getDepartmentList,
+    apiOptions: {
+      immediate: true,
+      tree: true,
+      treeProps: {
+        children: "Children",
+        keyName: "Department",
+        valueName: "Department",
+      },
+    },
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+    // 加工内容
   {
     prop: "ProcessContent",
     cpn: "FormInput",
@@ -46,6 +72,7 @@ export const formSchema = [
       },
     ],
   },
+    // 资源组
   {
     prop: "Resource",
     cpn: "SyncSelect",
@@ -64,11 +91,13 @@ export const formSchema = [
       },
     ],
   },
+    // 前置时间
   {
     prop: "LeadTimeOfProcess",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_LeadTimeOfProcess"),
   },
+    // 后置时间
   {
     prop: "PostTimeOfProcess",
     cpn: "FormInput",
