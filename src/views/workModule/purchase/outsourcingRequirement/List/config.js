@@ -73,6 +73,21 @@ export const tableConfig = [
   {
     prop: "PrTaskBillId",
     label: '加工单号',
+    align: "center",
+    cpn: "Link",
+    innerSearch: {
+      prop: "BillId",
+      cpn: "FormInput",
+      label: i18n.t("Generality.Ge_BillId"),
+    },
+    cpnProps: {
+      // 路由名称
+      routeName: "ProductionTaskDetails",
+      // 路由传参方式 默认query
+      methods: "query",
+      // 传参的键名，值为当前数据
+      parameterKey: "BillId",
+    },
   },
 ];
 

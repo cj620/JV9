@@ -89,6 +89,13 @@ export default {
       })
     },
   },
+  watch:{
+    formData(val){
+      if(val.length === 1){
+        this.formObj.form.BillId = val[0].BillId
+      }
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

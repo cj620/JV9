@@ -26,6 +26,9 @@
           ]"
         ></TableAction
       ></template>
+      <!--<template #PrTaskBillId="{ record }">-->
+      <!--  {{ record }}-->
+      <!--</template>-->
       <Action
         size="mini"
         slot="btn-list"
