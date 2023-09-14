@@ -5,12 +5,10 @@
 </template>
 <script>
 import BaseChart from "@/views/dashboard/admin/echarts/base-echart.vue";
-import { Month } from "@/enum/baseModule/dataV/Month"
+
 export default {
-  name: "monthlyAnomaly",
-  components: {
-    BaseChart,
-  },
+  name: "inspectionRecord",
+  components: { BaseChart },
   props: {
     result: {
       type: Object,
@@ -19,23 +17,16 @@ export default {
       }
     }
   },
-  data(){
+  data() {
     return {
       options: {},
     }
   },
   watch: {
-    result(val) {
-      const months = val.Date.map(date => {
-        const d = new Date(date);
-        return d.getMonth() + 1;
-      });
-      const xAxisData = months.map(item => {
-        return Month[item].numberName
-      })
+    result(val){
       this.options = {
         title: {
-          text: i18n.t('DataV.Da_MonthlyAnomaly'),
+          text: i18n.t('DataV.Da_InspectionRecord'),
           textStyle: {
             color: '#eaeaea'
           },
@@ -45,7 +36,7 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'cross'
+            type: 'shadow'
           }
         },
         grid: {
@@ -64,7 +55,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: xAxisData,
+            data: val.Name,
             axisLabel: {
               show:true,
               textStyle:{
@@ -76,24 +67,8 @@ export default {
         yAxis: [
           {
             type: 'value',
-            position: 'left',
-			      alignTicks: true,
             axisLine:{
-              show:true,
-            },
-            axisLabel: {
-              show:true,
-              textStyle:{
-                color: '#eaeaea'
-              }
-            }
-          },
-          {
-            type: 'value',
-            position: 'right',
-			      alignTicks: true,
-            axisLine:{
-              show:true,
+              show:true
             },
             axisLabel: {
               show:true,
@@ -103,21 +78,34 @@ export default {
             }
           }
         ],
-		  series: [
-			  {
-				  name: i18n.t('DataV.Da_UnqualifiedQty'),
-				  type: 'bar',
-				  data: val.UnqualifiedQty
-			  },
-			  {
-				  name: i18n.t('DataV.Da_UnqualifiedPercent'),
-				  type: 'line',
-				  yAxisIndex: 1,
-				  data: val.UnqualifiedPercent
-			  },
-      ]
+        series: [
+          {
+            name: i18n.t('DataV.Da_QualifiedQty'),
+            type: 'bar',
+            stack: 'quantity',
+            itemStyle: {
+              color: '#46c882'
+            },
+            emphasis: {
+              focus: 'series'
+            },
+            data: val.QualifiedQty
+          },
+          {
+            name: i18n.t('DataV.Da_UnqualifiedQty'),
+            type: 'bar',
+            stack: 'quantity',
+            itemStyle: {
+              color: '#5b7ad8'
+            },
+            emphasis: {
+              focus: 'series'
+            },
+            data: val.UnqualifiedQty
+          }
+        ]
       }
     }
   }
-}
+};
 </script>

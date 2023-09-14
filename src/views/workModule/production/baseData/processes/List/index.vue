@@ -98,6 +98,7 @@ export default {
       this.formObj.form = {
         Process: "",
         ProcessCode: "",
+        Department: "",
         Resource: "",
         ProcessContent: "",
         LeadTimeOfProcess: "",
