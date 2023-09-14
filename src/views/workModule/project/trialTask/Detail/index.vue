@@ -95,7 +95,7 @@
         >{{ $t("Generality.Ge_Upload") }}</el-button
         >
         <el-button size="mini" type="primary" @click="saveFiles"
-        >{{ $t("Generality.Ge_saveEdits") }}</el-button
+        >{{ $t("Generality.Ge_SaveEdits") }}</el-button
         >
       </div>
       <JvUploadFile

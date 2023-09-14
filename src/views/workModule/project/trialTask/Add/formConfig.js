@@ -62,7 +62,23 @@ export const formSchema = [
   {
     prop: "TestMouldResult",
     label: i18n.t("project.Pro_TestMouldResult"),
-    cpn: "FormInput",
+    cpn: "FormSelect",
+    options: {
+      list: [
+        {
+          value: "OK",
+          label: "OK"
+        },
+        {
+          value: "NG",
+          label: "NG"
+        },
+        {
+          value: "Pending",
+          label: "待定"
+        }
+      ]
+    }
   },
   //试模颜色
   {
