@@ -65,6 +65,7 @@ export const detailConfig = [
   {
     prop: "TestMouldResult",
     label: i18n.t("project.Pro_TestMouldResult"),
+    custom: true,
   },
   //试模颜色
   {

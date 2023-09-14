@@ -55,6 +55,9 @@
               {{ record }}
             </span>
           </template>
+          <template #TestMouldResult="{ record }">
+            {{ testMouldResultEnum[record].name }}
+          </template>
         </JvDetail>
         <!-- 状态标签 -->
         <JvState :state="detailObj.detailData.State"></JvState>
@@ -168,6 +171,11 @@ export default {
       editRouteName: "Pm_TrialTask_Edit",
       printMod: "Pm_TrialTask_Detail",
       taskTypeEnum,
+      testMouldResultEnum:{
+        OK:{ name:'OK', value:'OK' },
+        NG:{ name:'NG', value:'NG' },
+        Pending:{ name:'待定', value:'Pending' },
+      },
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
