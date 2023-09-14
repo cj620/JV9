@@ -160,6 +160,15 @@ export const tableConfig = [
       disabled: true,
     },
   },
+  /*供应商*/
+  {
+    prop: "SupplierName",
+    label: i18n.t("purchase.Pu_Supplier"),
+    width: 140,
+    editConfig: {
+      disabled: true,
+    },
+  },
 
   
 ];

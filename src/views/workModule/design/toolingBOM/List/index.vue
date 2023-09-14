@@ -97,6 +97,7 @@
             v-model="toolId"
             filterable
             remote
+            clearable
             reserve-keyword
             :remote-method="remoteMethod"
             :loading="loading"
