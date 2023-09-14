@@ -75,11 +75,6 @@ export const tableConfig = [
     label: '加工单号',
     align: "center",
     cpn: "Link",
-    innerSearch: {
-      prop: "BillId",
-      cpn: "FormInput",
-      label: i18n.t("Generality.Ge_BillId"),
-    },
     cpnProps: {
       // 路由名称
       routeName: "ProductionTaskDetails",

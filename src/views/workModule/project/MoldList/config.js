@@ -64,12 +64,6 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_ToolingName"),
     // width: "140px",
   },
-    // 客户
-  {
-    prop: "CustomerName",
-    label: i18n.t("menu.Sa_Customer"),
-    width: "100px",
-  },
   // 描述
   {
     prop: "Description",

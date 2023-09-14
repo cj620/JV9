@@ -650,6 +650,7 @@ const en = {
     Ge_Processing: "Processing",
     Ge_Pausing: "Pausing",
     Ge_Outsourcing: "Outsourcing",
+    Ge_OutsourcingApplying: "Outsourcing Applying",
     Ge_Revoked: "Revoked",
     Ge_TDA: "TDA",
     Ge_AuxiliaryQty: "Auxiliary Qty",

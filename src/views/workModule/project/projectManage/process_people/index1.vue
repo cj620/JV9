@@ -97,7 +97,7 @@
                   {{ $t("production.Pr_DeliveryDate") }}:
                   {{
                     timeFormat(
-                      item.ToolingInfo.DeliveryDate,
+                      item.ToolingInfo.TDeliveryDate,
                       "yyyy-MM-dd"
                     )
                   }}
@@ -105,7 +105,7 @@
                 <div>
                   {{ $t("production.Pr_ProofDate") }}:
                   {{
-                    timeFormat(item.ToolingInfo.SampleDate, "yyyy-MM-dd")
+                    timeFormat(item.ToolingInfo.TSampleDate, "yyyy-MM-dd")
                   }}
                 </div>
                 <div></div>

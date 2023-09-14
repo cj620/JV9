@@ -136,13 +136,13 @@ export default {
         },
         {
           // 交期
-          prop: "DeliveryDate",
+          prop: "TDeliveryDate",
           cpn: "SingleDateTime",
           label: i18n.t("Generality.Ge_DeliveryDate"),
         },
         {
           // 首样日期
-          prop: "SampleDate",
+          prop: "TSampleDate",
           cpn: "SingleDateTime",
           label: i18n.t("production.Pr_ProofDate"),
         },

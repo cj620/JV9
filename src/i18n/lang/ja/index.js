@@ -507,6 +507,7 @@ const ja = {
     Ge_Processing: "加工中",
     Ge_Pausing: "一時停止中",
     Ge_Outsourcing: "外注中",
+    Ge_OutsourcingApplying: "外注申請中",
     Ge_Revoked: "審問を取り消された",
     Ge_TDA: "未課税金額",
     Ge_AuxiliaryQty: "補助数量",

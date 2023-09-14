@@ -58,13 +58,13 @@ export const formSchema1 = [
   },
   {
     // 交货日期
-    prop: "DeliveryDate",
+    prop: "TDeliveryDate",
     cpn: "SingleTime",
     label: i18n.t("Generality.Ge_DeliveryDate"),
   },
   {
     // 首样日期
-    prop: "SampleDate",
+    prop: "TSampleDate",
     cpn: "SingleTime",
     label: i18n.t("Generality.Ge_SampleDate"),
   },

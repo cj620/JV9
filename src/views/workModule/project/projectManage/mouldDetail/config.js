@@ -27,13 +27,13 @@ export const detailConfig = [
   },
   {
     // 交货日期
-    prop: "DeliveryDate",
+    prop: "TDeliveryDate",
     label: i18n.t("Generality.Ge_DeliveryDate"),
     filter: "date",
   },
   {
     // 首样日期
-    prop: "SampleDate",
+    prop: "TSampleDate",
     label: i18n.t("Generality.Ge_SampleDate"),
     filter: "date",
   },
