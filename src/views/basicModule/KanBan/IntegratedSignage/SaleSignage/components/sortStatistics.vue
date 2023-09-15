@@ -5,6 +5,7 @@
 </template>
 <script>
 import BaseChart from "@/views/dashboard/admin/echarts/base-echart.vue";
+import { SortStatistics } from "@/enum/baseModule/dataV/SortStatistics";
 export default {
   name: 'sortStatistics',
   components: { BaseChart },
@@ -26,16 +27,8 @@ export default {
     result(val) {
       this.transData = val
       this.transData.forEach(item => {
-        if (item.Name === 'Shipped'){
-          item.name = this.$t('DataV.Da_ShippedAmount')
-          item.value = item.Value
-        }else if (item.Name === 'Unshipped'){
-          item.name = this.$t('DataV.Da_UnshippedAmount')
-          item.value = item.Value
-        }else if (item.Name === 'ReturnedPurchase'){
-          item.name = this.$t('DataV.Da_ReturnAmount')
-          item.value = item.Value
-        }
+        item.name = SortStatistics[item.Name].name
+        item.value = item.Value
       })
       this.options = {
         title: {

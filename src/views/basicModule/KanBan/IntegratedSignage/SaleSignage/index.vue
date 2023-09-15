@@ -97,7 +97,7 @@ export default {
       MonthlyData:[],
       MonthlyOrdersData:{},
       OrderClassificationData:[],
-      MonthlyShipmentsData: [],
+      MonthlyShipmentsData: {},
       Top8ShipmentsList: [],
       NonShipmentList: [],
     }
