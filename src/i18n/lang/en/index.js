@@ -10,6 +10,7 @@
 import enLocale from "element-ui/lib/locale/lang/en";
 const en = {
   menu: {
+    Se_ErrorPrompt: "Error Prompt",
     Pa_ProgramTaskList: "Program Task List",
     De_DesignTaskList: "Design Task List",
     De_ProcessTemplate: "Process template",

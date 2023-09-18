@@ -16,7 +16,9 @@
           <el-button size="mini">{{ $t("Generality.Ge_Search") }}</el-button>
         </div>
         <div class="part-schedule-header-left-box">
-          <el-button size="mini" @click="shareShow = !shareShow">{{ $t("project.Pro_Share") }}</el-button>
+          <el-button size="mini" @click="shareShow = !shareShow">{{
+            $t("project.Pro_Share")
+          }}</el-button>
         </div>
       </div>
       <div></div>
@@ -189,9 +191,8 @@
         </div>
       </div>
     </div>
-    <JvDialog
-    :title="$t('project.Pro_Share')"
-    :visible.sync="shareShow"
+    <JvDialog :title="$t('project.Pro_Share')" :visible.sync="shareShow"
+              destroy-on-close
     >
       <div class="form-box">
         <JvForm :formObj="formObj" style="padding-left: 30px"> </JvForm>
@@ -200,21 +201,29 @@
             slot="extra"
             size="mini"
             :primary="[
-          {
-            label: $t('project.Pro_CreateLink'),
-            confirm: createLink,
-          },
-        ]"
+              {
+                label: $t('project.Pro_CreateLink'),
+                confirm: createLink,
+              },
+            ]"
           ></Action>
         </div>
       </div>
-      <div style="padding: 0 30px">
+      <div style="padding: 0 30px 20px 30px">
         <el-input v-model="link" v-if="link">
           <div slot="append" style="cursor: pointer" @click="copyLink">
             {{ $t("Generality.Ge_Copy") }}
           </div>
         </el-input>
       </div>
+      <JvTable :table-obj="tableObj">
+        <template #Progress="{ row }">
+          <el-progress
+            :style="{ width: setProgress(row['Progress']) }"
+            :percentage="row['Progress']"
+          ></el-progress>
+        </template>
+      </JvTable>
     </JvDialog>
   </PageWrapper>
 </template>
@@ -224,8 +233,12 @@ import { timeFormat } from "@/jv_doc/utils/time";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import IconTooltip from "@/views/workModule/project/projectManage/process_people/components/icon-tooltip.vue";
 import { ProcessState } from "@/enum/workModule";
-import { part_processing_node, create_data_sharing } from "@/api/workApi/project/projectInfo";
+import {
+  part_processing_node,
+  create_data_sharing,
+} from "@/api/workApi/project/projectInfo";
 import { Form } from "@/jv_doc/class/form";
+import { Table } from "./config";
 import handleClipboard from "@/utils/clipboard";
 export default {
   name: "Pm_Project_PartSchedule.vue",
@@ -253,6 +266,7 @@ export default {
       ],
       index: 0,
       List: [],
+      tableObj: {},
     };
   },
   created() {
@@ -271,6 +285,8 @@ export default {
     timeFormat,
     imgUrlPlugin,
     shareInit() {
+      this.tableObj = new Table();
+
       let dateTime = new Date();
       dateTime = dateTime.setDate(dateTime.getDate() + 1);
       dateTime = new Date(dateTime);
@@ -310,7 +326,11 @@ export default {
       });
     },
     createLink() {
-      create_data_sharing(this.formObj.form).then((res) => {
+      let obj = {
+        PartNos: this.tableObj.selectData.keys
+      }
+      Object.assign(obj, this.formObj.form)
+      create_data_sharing(obj).then((res) => {
         this.link =
           // window.global_config.ImgBase_Url
           window.global_config.Share_Url +
@@ -352,6 +372,7 @@ export default {
         Keyword: this.searchValue,
       }).then((res) => {
         this.List = res.Items;
+        this.tableObj.setData(res.Items);
         this.List.forEach((item) => {
           item.scrollNum = 0;
         });
@@ -544,10 +565,10 @@ export default {
     padding: 10px 0px;
   }
 }
-.form-box{
+.form-box {
   position: relative;
   width: 100%;
-  &-button{
+  &-button {
     position: absolute;
     right: 0;
     top: calc(25% + 9px);

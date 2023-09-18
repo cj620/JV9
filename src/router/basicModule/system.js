@@ -240,7 +240,7 @@ const system = [
   },
 
 
-  // 审核人配置
+  // 文件夹管理权限
   {
     key: "Se_FileManagementSetup",
     component: () => import("@/views/basicModule/setup/fileManagementSetup/List"),
@@ -257,6 +257,14 @@ const system = [
     hidden: true,
     component: () => import("@/views/basicModule/OA"),
     title: "审核配置",
+  },
+  {
+    key: "Se_ErrorPrompt",
+    path: "Se_ErrorPrompt",
+    name: "Se_ErrorPrompt",
+    Parent: "Se_Setup",
+    component: () => import("@/views/basicModule/setup/errorPrompt"),
+    title: i18n.t("menu.Se_ErrorPrompt"),
   },
   /*  // 模具进度看板
   {
