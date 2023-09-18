@@ -10,6 +10,8 @@
 import zhLocale from "element-ui/lib/locale/lang/zh-CN";
 const cn = {
   menu: {
+    CustomSammaryManage:'自定义汇总',
+    PoleStock:'电极库位',
     ElectorExceptionPost: "电极异常",
     ElectrodeUnPrint: "电极解除打印",
     ToolStock: "设备刀库",
