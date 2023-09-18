@@ -68,10 +68,11 @@ export default {
         {
           type: 'pie',
           radius: ['40%', '70%'],
-          center: ['36%','45%'],
+          center: ['40%','45%'],
           avoidLabelOverlap: false,
           label: {
-            show: false
+            formatter: '{c}',
+            color: '#eaeaea'
           },
           data: this.chartData,
           itemStyle: {},

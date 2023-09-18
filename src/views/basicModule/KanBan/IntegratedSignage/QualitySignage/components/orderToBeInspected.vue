@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       headerList: [
-        {prop: 'BillId', label: this.$t('DataV.Da_BillId')},
+        // {prop: 'BillId', label: this.$t('DataV.Da_BillId')},
         {prop: 'PartNo', label: this.$t('DataV.Da_PartNo')},
         {prop: 'CheckDate', label: this.$t('DataV.Da_CheckDate')},
         {prop: 'Worker', label: this.$t('DataV.Da_Worker1')},
