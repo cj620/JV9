@@ -66,7 +66,28 @@ export default {
             }
           }
         },
-        series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+        series: [
+          {
+            type: 'bar',
+            // label: {
+            //   show: true,
+            //   position: 'inside'
+            // },
+          },
+          {
+            type: 'bar' ,
+            // label: {
+            //   show: true,
+            //   position: 'inside'
+            // },
+          },
+          {
+            type: 'bar',
+            // label: {
+            //   show: true,
+            //   position: 'inside'
+            // },
+          }]
       }
     }
   }

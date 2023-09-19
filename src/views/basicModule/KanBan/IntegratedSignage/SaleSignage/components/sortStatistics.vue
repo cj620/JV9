@@ -54,13 +54,11 @@ export default {
           {
             type: 'pie',
             radius: ['40%', '70%'],
-            center: ["42%", "50%"],
+            center: ["45%", "55%"],
             avoidLabelOverlap: false,
             label: {
-              normal: {
-                formatter: '{d}%',
-                color: '#eaeaea'
-              }
+              formatter: '{b}:{c}' + '\n\r' + '({d}%)',
+              color: '#eaeaea'
             },
             data: this.transData,
             itemStyle: {},
