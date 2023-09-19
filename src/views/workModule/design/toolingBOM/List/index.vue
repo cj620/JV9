@@ -354,6 +354,7 @@ export default {
         PhotoUrl: "",
         Unit: "",
         ToolingNo: "",
+        SupplierName: "",
         MaterialRequirementState: "",
         Creator: "",
         CreationDate: "",

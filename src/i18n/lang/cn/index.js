@@ -10,6 +10,22 @@
 import zhLocale from "element-ui/lib/locale/lang/zh-CN";
 const cn = {
   menu: {
+    Se_ErrorPrompt: "报错提示项",
+    CustomSammaryManage:'自定义汇总',
+    PoleStock:'电极库位',
+    ElectorExceptionPost: "电极异常",
+    ElectrodeUnPrint: "电极解除打印",
+    ToolStock: "设备刀库",
+    ProgramBill: "程序单",
+    FixtureBase: "夹具补正",
+    PartList: "零件列表",
+    PoleProduceDemand: "电极生产需求",
+    Equipment: "资源管理",
+    CmmProgramData: "检测程序管理",
+    EDMTemplate: "放电模板",
+    MakeGroup: "加工组",
+    RfidData: "RFID编号管理",
+    BaseData: "基础数据",
     Pa_ProgramTaskList: "编程任务列表",
     De_DesignTaskList: "设计任务列表",
     De_ProcessTemplate: "工序模板",
