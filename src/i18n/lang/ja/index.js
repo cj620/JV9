@@ -367,6 +367,7 @@ const ja = {
     De_Allocated: "割り当て済み",
     De_Unallocated: "未割当て",
     De_SelectPicking: "ピックピック",
+    De_Description2: "品目説明2"
   },
   // 看板 （数据可视化）
   DataV: {

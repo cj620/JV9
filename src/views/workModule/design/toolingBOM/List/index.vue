@@ -348,6 +348,7 @@ export default {
         PartName: "",
         ItemId: "",
         Description: "",
+        Description2: "",
         Quantity: 0,
         PartLevel: 1,
         BOMType: "Part",

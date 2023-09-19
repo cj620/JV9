@@ -132,7 +132,7 @@ export default {
       if (this.dialogTip === 0) {
         handlePurchaseOutsourcingRequirement({ ItemIds: arr }).then(
           setTimeout(() => {
-            this.tableObj.reset()
+              this.tableObj.reset()
             }
             ,100)
         )
