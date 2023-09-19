@@ -11,9 +11,9 @@ export default {
   components: { BaseChart },
   props: {
     result: {
-      type: Array,
+      type: Object,
       default() {
-        return [];
+        return {};
       }
     }
   },

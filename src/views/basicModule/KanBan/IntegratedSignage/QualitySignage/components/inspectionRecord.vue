@@ -89,7 +89,11 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: val.QualifiedQty
+            data: val.QualifiedQty,
+            label: {
+              show: true,
+              position: 'inside'
+            },
           },
           {
             name: i18n.t('DataV.Da_UnqualifiedQty'),
@@ -101,7 +105,11 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: val.UnqualifiedQty
+            data: val.UnqualifiedQty,
+            label: {
+              show: true,
+              position: 'inside'
+            },
           }
         ]
       }

@@ -73,11 +73,6 @@ export const ProcessingResult = {
     name: i18n.t("quality.Qc_AcceptOnDeviation"),
     value: "AcceptOnDeviation",
   },
-  // 过程返工
-  NormalRework: {
-    name: i18n.t("quality.Qc_NormalRework"),
-    value: "NormalRework",
-  },
 };
 
 export const CheckResulteEnum = {

@@ -51,13 +51,6 @@ export const formSchema = [
         valueName: "Department",
       },
     },
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["change", "blur"],
-      },
-    ],
   },
     // 加工内容
   {

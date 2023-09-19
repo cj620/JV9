@@ -107,13 +107,17 @@ export default {
 			  {
 				  name: i18n.t('DataV.Da_UnqualifiedQty'),
 				  type: 'bar',
-				  data: val.UnqualifiedQty
+				  data: val.UnqualifiedQty,
+          label: {
+            show: true,
+            position: 'inside'
+          },
 			  },
 			  {
 				  name: i18n.t('DataV.Da_UnqualifiedPercent'),
 				  type: 'line',
 				  yAxisIndex: 1,
-				  data: val.UnqualifiedPercent
+				  data: val.UnqualifiedPercent,
 			  },
       ]
       }

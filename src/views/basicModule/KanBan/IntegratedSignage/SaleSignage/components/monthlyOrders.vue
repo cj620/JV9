@@ -91,6 +91,10 @@ export default {
             itemStyle: {
               color: '#46c882'
             },
+            label: {
+              show: true,
+              position: 'inside',
+            },
             emphasis: {
               focus: 'series'
             },

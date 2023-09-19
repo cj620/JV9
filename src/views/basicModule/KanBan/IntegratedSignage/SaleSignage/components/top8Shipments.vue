@@ -68,7 +68,12 @@ export default {
         series: [
           {
             data: values,
-            type: 'bar'
+            type: 'bar',
+            label: {
+              show: true,
+              position: 'inside',
+              color: '#eaeaea'
+            },
           }
         ]
       }
