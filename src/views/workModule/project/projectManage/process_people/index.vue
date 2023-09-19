@@ -57,7 +57,7 @@ export default {
     };
   },
   created() {
-    this.getGanttData();
+    //this.getGanttData();
     this.getData();
   },
   methods: {
