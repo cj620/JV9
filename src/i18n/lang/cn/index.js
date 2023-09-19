@@ -358,6 +358,7 @@ const cn = {
     Pu_RequirementType: "需求类别",
     Pu_PleaseChooseTheNeededSheetFirst: "请先勾选需要添加的单据",
     Pu_Outsourced: "已委外",
+    Pu_ConfirmToHandle: "是否将选中的单据状态改为",
   },
   // 仓库
   stockroom: {

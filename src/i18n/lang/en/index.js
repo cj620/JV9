@@ -365,6 +365,7 @@ const en = {
     Pu_RequirementType: "Requirement Type",
 
     Pu_Outsourced: "Outsourced",
+    Pu_ConfirmToHandle: "Confirm to change the selected document status to",
   },
   // 仓库
   stockroom: {
