@@ -118,6 +118,12 @@ export default {
             },
           ],
         },
+		  {
+			  // 描述
+			  prop: "Description",
+			  cpn: "FormInput",
+			  label: i18n.t("Generality.Ge_Describe"),
+		  },
         {
           // 项目
           prop: "Project",
@@ -146,12 +152,7 @@ export default {
           cpn: "SingleTime",
           label: i18n.t("production.Pr_ProofDate"),
         },
-        {
-          // 描述
-          prop: "Description",
-          cpn: "FormInput",
-          label: i18n.t("Generality.Ge_Describe"),
-        },
+
         // 图片
         {
           prop: "PhotoUrl",

@@ -4,6 +4,9 @@
  * @LastEditTime: 2021-12-01 13:57:49
  * @Description:
  */
+import {
+  CheckResulteEnum,
+} from "@/enum/workModule";
 export const detailConfig = [
   /*模具编号*/
   {
@@ -44,6 +47,10 @@ export const detailConfig = [
   {
     prop: "CheckResult",
     label: i18n.t("quality.Qc_CheckResult"),
+    customFilter: (value, row) => {
+      if (!value) return "";
+      return CheckResulteEnum?.[value]?.name ?? value;
+    },
   },
   /*日期*/
   {

@@ -10,7 +10,7 @@
 <template>
     <div>
       <!--暂无备注  -->
-      <div  v-if="RemarkData===''" class="noRemarks-detail" >{{$t('Generality.Ge_RemarksIsNull')}}</div>
+      <div  v-if="RemarkData===''||RemarkData===null" class="noRemarks-detail" >{{$t('Generality.Ge_RemarksIsNull')}}</div>
       <div v-else class="Remarks-detail">
         {{RemarkData}}
       </div>
