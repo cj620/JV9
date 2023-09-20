@@ -154,7 +154,8 @@ const en = {
     De_Allocated: "Allocated",
     De_Unallocated: "Unallocated",
     De_SelectPicking: "Select Material Picking",
-    De_Description2: "Description2"
+    De_Description2: "Description2",
+    De_MergeItems: "Merge Items",
   },
   //项目
   project: {
