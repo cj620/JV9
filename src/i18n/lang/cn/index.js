@@ -302,6 +302,7 @@ const cn = {
     PrintPreview: "打印预览",
     ConfirmPasswordReset: "是否确认重置密码",
     Preview: "预览",
+    IsCompulsoryInspection: "是否强制校验",
   },
   //销售
   sale: {

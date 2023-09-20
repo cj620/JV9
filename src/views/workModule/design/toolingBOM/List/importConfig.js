@@ -16,7 +16,7 @@ export class importEditTable extends BaseTable {
       operationWidth: 180,
       importBar: false,
       tableHeaderShow:false,
-
+      maxHeight: 99999,
       sortCol: false,
       // sortCol:false
     });
@@ -24,7 +24,7 @@ export class importEditTable extends BaseTable {
 }
 
 export const tableConfig = [
- 
+
   /*编号*/
   {
     prop: "PartNo",
@@ -103,7 +103,7 @@ export const tableConfig = [
     formCpn: "FormInput",
     width: 80,
   },
-  
-  
-  
+
+
+
 ];

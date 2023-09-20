@@ -55,6 +55,9 @@
             ]"
           />
         </template>
+        <template #IsCompulsoryInspection="{ row }">
+          <el-checkbox v-model="row.IsCompulsoryInspection.value"></el-checkbox>
+        </template>
         <template #ProcessContent="{ row }">
           <el-select
             v-model="row.customData.value"
@@ -129,6 +132,7 @@ export default {
         Remarks: "",
         customData: [],
         ProcessContentList: [],
+        IsCompulsoryInspection: null,
       },
       editData: {},
     };

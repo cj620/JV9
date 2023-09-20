@@ -122,6 +122,9 @@
             </el-option>
           </el-select>
         </template>
+        <template #IsCompulsoryInspection="{ row }">
+          <el-checkbox v-model="row.IsCompulsoryInspection.value"></el-checkbox>
+        </template>
         <template #ProcessPicture="{ row }">
           <div @click="addProcessPicture(row)">{{$t('Generality.Ge_New')}}</div>
         </template>
@@ -304,6 +307,7 @@ export default {
         ProcessPicture: [],
         customData: [],
         ProcessContentList: [],
+        IsCompulsoryInspection: null,
       },
     };
   },

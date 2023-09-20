@@ -62,7 +62,16 @@ export const tableConfig = [
       disabled: true,
     },
   },
-  /*工序图片*/
+  /*是否强制校验*/
+  {
+    prop: "IsCompulsoryInspection",
+    label: i18n.t("setup.IsCompulsoryInspection"),
+    custom: true,
+    editConfig: {
+      disabled: true,
+    },
+  },
+  /*备注*/
   {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),

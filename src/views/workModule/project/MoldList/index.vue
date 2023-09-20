@@ -34,6 +34,7 @@
       width="35%"
       :title="$t('Generality.Ge_GenerateItems')"
       @confirm="confirmAdd"
+      destroy-on-close
     >
       <JvForm :formObj="formObj">
         <template #PhotoUrl>
@@ -171,7 +172,7 @@ export default {
   methods: {
     imgUrlPlugin,
     add() {
-
+      this.formObj.reset();
       this.addDialogShow = true;
     },
     confirmAdd() {
