@@ -24,7 +24,7 @@ export class importEditTable extends BaseTable {
 }
 
 export const tableConfig = [
- 
+
   /*编号*/
   {
     prop: "PartNo",
@@ -55,7 +55,12 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_Describe"),
     formCpn: "FormInput",
   },
-
+  // 物料描述2
+  {
+    prop: "Description2",
+    label: i18n.t("design.De_Description2"),
+    formCpn: "FormInput",
+  },
   /*单位*/
   {
     prop: "Unit",
@@ -103,7 +108,7 @@ export const tableConfig = [
     formCpn: "FormInput",
     width: 80,
   },
-  
-  
-  
+
+
+
 ];

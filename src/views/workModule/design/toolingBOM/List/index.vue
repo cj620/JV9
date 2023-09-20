@@ -377,6 +377,11 @@ export default {
           prop: "Description",
           label: this.$t("Generality.Ge_Describe"),
         },
+        /*描述*/
+        {
+          prop: "Description2",
+          label: this.$t("design.De_Description2"),
+        },
         /*数量*/
         {
           prop: "Quantity",
