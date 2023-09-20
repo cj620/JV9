@@ -1349,6 +1349,7 @@ const en = {
     P10195:
       "The quantity that can be delivery is less than the current quantity",
     P10196: "Returnable quantity is less than the current quantity",
+    P10197: "The previous process was not inspected",
   },
   program: {
     Pr_ProcessPlanning: "Process planning",
