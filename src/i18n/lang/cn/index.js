@@ -390,7 +390,8 @@ const cn = {
     De_Allocated: "已分配",
     De_Unallocated: "未分配",
     De_SelectPicking: "选择领料",
-    De_Description2: "描述2"
+    De_Description2: "描述2",
+    De_MergeItems: "合并物料",
   },
   // 看板 （数据可视化）
   DataV: {
