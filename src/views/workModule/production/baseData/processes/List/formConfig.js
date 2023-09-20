@@ -84,15 +84,6 @@ export const formSchema = [
       },
     ],
   },
-    // 是否强制校验
-  {
-    prop: "IsCompulsoryInspection",
-    label: i18n.t("setup.IsCompulsoryInspection"),
-    cpn: "FormSingleCheckBox",
-    options: {
-      CheckBoxlabel: ''
-    }
-  },
     // 前置时间
   {
     prop: "LeadTimeOfProcess",
@@ -104,5 +95,14 @@ export const formSchema = [
     prop: "PostTimeOfProcess",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_PostTimeOfProcess"),
+  },
+  // 是否强制校验
+  {
+    prop: "IsCompulsoryInspection",
+    label: i18n.t("setup.IsCompulsoryInspection"),
+    cpn: "FormSingleCheckBox",
+    options: {
+      CheckBoxlabel: ''
+    }
   },
 ];

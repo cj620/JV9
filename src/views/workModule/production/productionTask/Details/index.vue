@@ -109,6 +109,9 @@
                     <svg-icon icon-class="equipment"></svg-icon>
                     {{ item.DisplayDevice }}
                   </span>
+                  <span>
+                    {{ item.IsCompulsoryInspection ? $t("setup.CompulsoryInspection") : '' }}
+                  </span>
                 </div>
                 <div>
                   <svg-icon icon-class="processingContent"></svg-icon>

@@ -309,6 +309,7 @@ const en = {
     ConfirmPasswordReset: "Confirm Password Reset",
     Preview: "Preview",
     IsCompulsoryInspection: "IsCompulsoryInspection",
+    CompulsoryInspection: "CompulsoryInspection",
   },
   sale: {
     Sa_DownTime: "Down Time",

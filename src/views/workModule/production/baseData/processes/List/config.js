@@ -60,6 +60,14 @@ export const tableConfig = [
     prop: "PostTimeOfProcess",
     label: i18n.t("Generality.Ge_PostTimeOfProcess"),
   },
+  // 是否强制校验
+  {
+    prop: "IsCompulsoryInspection",
+    label: i18n.t("setup.IsCompulsoryInspection"),
+    customFilter(item) {
+      return item ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No")
+    }
+  },
 ];
 
 export const formSchema = [

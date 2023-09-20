@@ -365,7 +365,7 @@ export default {
             );
             return;
           }
-          console.log(Math.floor(item.PlanTime.value))
+          console.log(Math.floor(item.PlanTime.value / 10))
           console.log(item.PlanStart, item.PlanEnd)
         });
       },
