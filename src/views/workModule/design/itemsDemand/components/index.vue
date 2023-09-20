@@ -229,24 +229,13 @@ export default {
     },
     // 确认合并
     confirmMerge() {
-      // console.log('表格全数据',this.eTableObj.tableData);
-      // console.log('选中的数据', this.eTableObj.selectData.datas);
-      // console.log('合并后的数据', this.mergeFormObj.form);
-      /*  for (let key in this.mergeFormObj.form) {
-        if (this.eTableObj.selectData.datas[0].hasOwnProperty(key)) {
-          this.eTableObj.selectData.datas[0][key].value = this.mergeFormObj.form[key];
-        }
-      }*/
-      ///const obj1 = this.eTableObj.selectData.datas[0]
       let ParNoList = "";
       this.eTableObj.selectData.datas.forEach((item) => {
         this.eTableObj.tableData.splice(item.ItemId.value, 1);
         ParNoList += item.PartNo.value + ",";
       });
-      ParNoList.slice(-1);
-      this.mergeFormObj.form.PartNo = ParNoList;
-      //this.eTableObj.tableData.unshift(obj1)
-
+      this.mergeFormObj.form.PartNo = ParNoList.slice(0, -1);
+      console.log(this.mergeFormObj.form);
       this.eTableObj.push(temMerge(this.BillItems, [this.mergeFormObj.form]));
       this.ItemMergeFormVisible = false;
     },
