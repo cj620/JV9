@@ -72,8 +72,7 @@
       @confirm="confirmMerge"
       width="30%"
     >
-      <JvForm :formObj="mergeFormObj">
-      </JvForm>
+      <JvForm :formObj="mergeFormObj"> </JvForm>
     </JvDialog>
   </PageWrapper>
 </template>
@@ -162,13 +161,13 @@ export default {
       labelWidth: "80px",
     });
     this.mergeFormObj = new Form({
-      formSchema:mergeFormSchema,
+      formSchema: mergeFormSchema,
       labelPosition: "top",
       baseColProps: {
         span: 24,
       },
       labelWidth: "80px",
-    })
+    });
     this.eTableObj = new EditTable();
     if (this.type === "edit") {
       this.fileBillId = this.billData;
@@ -180,7 +179,9 @@ export default {
       });
       this.formObj.form.ToolingNo = this.$route.params.data[0].ToolingNo;
       this.eTableObj.push(temMerge(this.BillItems, this.$route.params.data));
-      this.$route.params.PmTaskBillId ? this.formObj.form.PmTaskBillId = this.$route.params.PmTaskBillId : ""
+      this.$route.params.PmTaskBillId
+        ? (this.formObj.form.PmTaskBillId = this.$route.params.PmTaskBillId)
+        : "";
     }
   },
 
@@ -204,22 +205,26 @@ export default {
     },
     // 合并物料
     mergeItems() {
-      this.mergeFormObj.form = Object.keys(this.eTableObj.selectData.datas[0]).reduce((acc, key) => {
+      this.mergeFormObj.form = Object.keys(
+        this.eTableObj.selectData.datas[0]
+      ).reduce((acc, key) => {
         if (key !== "row_index") {
           acc[key] = this.eTableObj.selectData.datas[0][key].value;
         }
         return acc;
       }, {});
-      this.ItemMergeFormVisible = true
+      this.ItemMergeFormVisible = true;
     },
     // 判断合并按钮是否禁用
     canPick() {
       if (this.eTableObj.selectData.datas.length !== 1) {
-        this.noMergeItems = !this.eTableObj.selectData.datas.every( item =>
-          item.Description2.value === this.eTableObj.selectData.datas[0].Description2.value
-        )
+        this.noMergeItems = !this.eTableObj.selectData.datas.every(
+          (item) =>
+            item.Description2.value ===
+            this.eTableObj.selectData.datas[0].Description2.value
+        );
       } else {
-        this.noMergeItems = true
+        this.noMergeItems = true;
       }
     },
     // 确认合并
@@ -227,17 +232,23 @@ export default {
       // console.log('表格全数据',this.eTableObj.tableData);
       // console.log('选中的数据', this.eTableObj.selectData.datas);
       // console.log('合并后的数据', this.mergeFormObj.form);
-      for (let key in this.mergeFormObj.form) {
+      /*  for (let key in this.mergeFormObj.form) {
         if (this.eTableObj.selectData.datas[0].hasOwnProperty(key)) {
           this.eTableObj.selectData.datas[0][key].value = this.mergeFormObj.form[key];
         }
-      }
-      const obj1 = this.eTableObj.selectData.datas[0]
-      this.eTableObj.selectData.datas.forEach( item => {
-        this.eTableObj.tableData.splice( item.row_index, 1 )
-      } )
-      this.eTableObj.tableData.unshift(obj1)
-      this.ItemMergeFormVisible = false
+      }*/
+      ///const obj1 = this.eTableObj.selectData.datas[0]
+      let ParNoList = "";
+      this.eTableObj.selectData.datas.forEach((item) => {
+        this.eTableObj.tableData.splice(item.ItemId.value, 1);
+        ParNoList += item.PartNo.value + ",";
+      });
+      ParNoList.slice(-1);
+      this.mergeFormObj.form.PartNo = ParNoList;
+      //this.eTableObj.tableData.unshift(obj1)
+
+      this.eTableObj.push(temMerge(this.BillItems, [this.mergeFormObj.form]));
+      this.ItemMergeFormVisible = false;
     },
     //上传文件返回的数据
     returnData(fileData) {
