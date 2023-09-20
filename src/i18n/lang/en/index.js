@@ -154,7 +154,8 @@ const en = {
     De_Allocated: "Allocated",
     De_Unallocated: "Unallocated",
     De_SelectPicking: "Select Material Picking",
-    De_Description2: "Description2"
+    De_Description2: "Description2",
+    De_MergeItems: "Merge Items",
   },
   //项目
   project: {
@@ -1350,6 +1351,7 @@ const en = {
     P10195:
       "The quantity that can be delivery is less than the current quantity",
     P10196: "Returnable quantity is less than the current quantity",
+    P10197: "The previous process was not inspected",
   },
   program: {
     Pr_ProcessPlanning: "Process planning",

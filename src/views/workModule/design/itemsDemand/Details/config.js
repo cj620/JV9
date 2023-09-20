@@ -72,6 +72,11 @@ export const tableConfig = [
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
+  // 零件编号
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo")
+  }
 ];
 export const detailConfig = [
   {

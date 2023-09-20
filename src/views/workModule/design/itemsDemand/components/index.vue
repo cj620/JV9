@@ -9,11 +9,14 @@
     <!-- 物料信息 -->
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
       <div slot="extra">
+        <el-button size="mini" @click="mergeItems" :disabled="noMergeItems">{{
+          $t("design.De_MergeItems")
+        }}</el-button>
         <el-button size="mini" @click="selectItems">{{
           $t("Generality.Ge_SelectItems")
         }}</el-button>
       </div>
-      <JvEditTable :tableObj="eTableObj">
+      <JvEditTable :tableObj="eTableObj" @selection-change="canPick">
         <template #operation="{ row_index }">
           <TableAction
             :actions="[
@@ -62,11 +65,20 @@
       @confirmData="confirmData"
     >
     </SelectMaterial>
+    <JvDialog
+      :title="$t('design.De_MergeItems')"
+      v-if="ItemMergeFormVisible"
+      :visible.sync="ItemMergeFormVisible"
+      @confirm="confirmMerge"
+      width="30%"
+    >
+      <JvForm :formObj="mergeFormObj"> </JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
-import { formSchema } from "./formConfig";
+import { formSchema, mergeFormSchema } from "./formConfig";
 import { EditTable } from "./editConfig";
 import { Form } from "@/jv_doc/class/form";
 import SelectMaterial from "@/components/JVInternal/SelectMaterial";
@@ -96,6 +108,9 @@ export default {
     return {
       formObj: {},
       eTableObj: {},
+      mergeFormObj: {},
+      noMergeItems: true,
+      ItemMergeFormVisible: false,
       ItemsDialogFormVisible: false,
       transferData: [],
       CustomerData: [],
@@ -121,6 +136,7 @@ export default {
         ItemId: "",
         ItemName: "",
         Description: "",
+        Description2: "",
         Unit: "kg",
         Quantity: 0,
         ToolingNo: "",
@@ -144,6 +160,14 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
+    this.mergeFormObj = new Form({
+      formSchema: mergeFormSchema,
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
     this.eTableObj = new EditTable();
     if (this.type === "edit") {
       this.fileBillId = this.billData;
@@ -155,7 +179,9 @@ export default {
       });
       this.formObj.form.ToolingNo = this.$route.params.data[0].ToolingNo;
       this.eTableObj.push(temMerge(this.BillItems, this.$route.params.data));
-      this.$route.params.PmTaskBillId ? this.formObj.form.PmTaskBillId = this.$route.params.PmTaskBillId : ""
+      this.$route.params.PmTaskBillId
+        ? (this.formObj.form.PmTaskBillId = this.$route.params.PmTaskBillId)
+        : "";
     }
   },
 
@@ -176,6 +202,42 @@ export default {
           this.transferData = this.eTableObj.getTableData();
         }
       });
+    },
+    // 合并物料
+    mergeItems() {
+      this.mergeFormObj.form = Object.keys(
+        this.eTableObj.selectData.datas[0]
+      ).reduce((acc, key) => {
+        if (key !== "row_index") {
+          acc[key] = this.eTableObj.selectData.datas[0][key].value;
+        }
+        return acc;
+      }, {});
+      this.ItemMergeFormVisible = true;
+    },
+    // 判断合并按钮是否禁用
+    canPick() {
+      if (this.eTableObj.selectData.datas.length !== 1) {
+        this.noMergeItems = !this.eTableObj.selectData.datas.every(
+          (item) =>
+            item.Description2.value ===
+            this.eTableObj.selectData.datas[0].Description2.value
+        );
+      } else {
+        this.noMergeItems = true;
+      }
+    },
+    // 确认合并
+    confirmMerge() {
+      let ParNoList = "";
+      this.eTableObj.selectData.datas.forEach((item) => {
+        this.eTableObj.tableData.splice(item.ItemId.value, 1);
+        ParNoList += item.PartNo.value + ",";
+      });
+      this.mergeFormObj.form.PartNo = ParNoList.slice(0, -1);
+      console.log(this.mergeFormObj.form);
+      this.eTableObj.push(temMerge(this.BillItems, [this.mergeFormObj.form]));
+      this.ItemMergeFormVisible = false;
     },
     //上传文件返回的数据
     returnData(fileData) {

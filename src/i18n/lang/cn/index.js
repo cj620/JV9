@@ -392,7 +392,8 @@ const cn = {
     De_Allocated: "已分配",
     De_Unallocated: "未分配",
     De_SelectPicking: "选择领料",
-    De_Description2: "描述2"
+    De_Description2: "描述2",
+    De_MergeItems: "合并物料",
   },
   // 看板 （数据可视化）
   DataV: {
@@ -1343,6 +1344,7 @@ const cn = {
     P10194: "可入库数量小于当前数量",
     P10195: "可发货数量小于当前数量",
     P10196: "可退货数量小于当前数量",
+    P10197: "上一道工序未质检! ",
   },
   program: {
     Pr_ProcessPlanning: "工艺设计",

@@ -367,7 +367,8 @@ const ja = {
     De_Allocated: "割り当て済み",
     De_Unallocated: "未割当て",
     De_SelectPicking: "ピックピック",
-    De_Description2: "品目説明2"
+    De_Description2: "品目説明2",
+    De_MergeItems: "品目のマージ",
   },
   // 看板 （数据可视化）
   DataV: {
@@ -1311,6 +1312,7 @@ const ja = {
     P10194: "入庫可能数量が現在の数量より小さい",
     P10195: "出荷可能数量が現在の数量より小さい",
     P10196: "返品可能数量が現在の数量より小さい",
+    P10197: "前工程で品質検査が行われていない! ",
   },
   program: {
     Pr_ProcessPlanning: "プロセス設計",
