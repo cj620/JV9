@@ -55,7 +55,12 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_Describe"),
     formCpn: "FormInput",
   },
-
+  // 描述2
+  {
+    prop: "Description2",
+    label: i18n.t("design.De_Description2"),
+    formCpn: "FormInput",
+  },
   /*单位*/
   {
     prop: "Unit",

@@ -34,12 +34,12 @@
         slot="btn-list"
         :actions="[
           {
-            label: '委外',
+            label: $t('project.Pro_Outsource'),
             confirm: outsourcingBill.bind(),
             disabled: isDisabled1
           },
           {
-            label: '完成',
+            label: $t('Generality.Ge_Finished'),
             confirm: completeBill.bind(),
             disabled: isDisabled2
           },
@@ -52,19 +52,20 @@
       </Action>
     </JvTable>
     <JvDialog
-      title="提示"
+      :title="$t('Generality.Ge_Remind')"
       :visible.sync="confirmDialogShow"
       v-if="confirmDialogShow"
       @confirm="confirmBill"
       width="30%"
     >
-      是否将选中的单据状态改为:{{ newState[dialogTip].name }}
+      {{ $t("purchase.Pu_ConfirmToHandle") }}'{{ newState[dialogTip].name }}'?
     </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
-import { deleteOutsourcingrRequirement } from "@/api/workApi/purchase/outsourcingRequirement";
+import { deleteOutsourcingrRequirement, handlePurchaseOutsourcingRequirement, completedPurchaseOutsourcingRequirement }
+  from "@/api/workApi/purchase/outsourcingRequirement";
 import { Table } from "./config";
 export default {
   name:'Pu_OutsourcingRequirement',
@@ -77,10 +78,10 @@ export default {
       dialogTip:"",
       newState:{
         0:{
-          name:'已委外',
+          name: this.$t('purchase.Pu_Outsourced'),
         },
         1:{
-          name:'已完成',
+          name: this.$t('Generality.Ge_Completed'),
         }
       },
       Category: {
@@ -90,6 +91,7 @@ export default {
       State: {
         ToBeProcessed: this.$t("Generality.Ge_Pending"),
         Outsourced: this.$t("purchase.Pu_Outsourced"),
+        Completed: this.$t("Generality.Ge_Completed")
       },
     };
   },
@@ -126,11 +128,21 @@ export default {
       this.dialogTip = 1
     },
     confirmBill(){
-      const arr = this.tableObj.selectData.datas.map(item => item.PrTaskBillId);
+      const arr = this.tableObj.selectData.datas.map(item => item.Id);
       if (this.dialogTip === 0) {
-        console.log('需要改为已委外的加工单号：',arr);
+        handlePurchaseOutsourcingRequirement({ ItemIds: arr }).then(
+          setTimeout(() => {
+              this.tableObj.reset()
+            }
+            ,100)
+        )
       } else if (this.dialogTip === 1){
-        console.log('需要改为已完成的加工单号：',arr);
+        completedPurchaseOutsourcingRequirement({ ItemIds: arr }).then(
+          setTimeout(() => {
+              this.tableObj.reset()
+            }
+            ,100)
+        )
       }
       this.confirmDialogShow = false
     },

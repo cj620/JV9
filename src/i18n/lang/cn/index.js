@@ -359,6 +359,7 @@ const cn = {
     Pu_RequirementType: "需求类别",
     Pu_PleaseChooseTheNeededSheetFirst: "请先勾选需要添加的单据",
     Pu_Outsourced: "已委外",
+    Pu_ConfirmToHandle: "是否将选中的单据状态改为",
   },
   // 仓库
   stockroom: {
@@ -390,6 +391,7 @@ const cn = {
     De_Allocated: "已分配",
     De_Unallocated: "未分配",
     De_SelectPicking: "选择领料",
+    De_Description2: "描述2"
   },
   // 看板 （数据可视化）
   DataV: {

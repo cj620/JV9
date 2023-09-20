@@ -348,6 +348,7 @@ export default {
         PartName: "",
         ItemId: "",
         Description: "",
+        Description2: "",
         Quantity: 0,
         PartLevel: 1,
         BOMType: "Part",
@@ -375,6 +376,11 @@ export default {
         {
           prop: "Description",
           label: this.$t("Generality.Ge_Describe"),
+        },
+        /*描述*/
+        {
+          prop: "Description2",
+          label: this.$t("design.De_Description2"),
         },
         /*数量*/
         {
