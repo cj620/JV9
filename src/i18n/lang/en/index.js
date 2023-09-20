@@ -309,6 +309,7 @@ const en = {
     PrintPreview: "Print preview",
     ConfirmPasswordReset: "Confirm Password Reset",
     Preview: "Preview",
+    IsCompulsoryInspection: "IsCompulsoryInspection",
   },
   sale: {
     Sa_DownTime: "Down Time",

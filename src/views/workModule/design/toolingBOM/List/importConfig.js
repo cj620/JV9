@@ -16,7 +16,7 @@ export class importEditTable extends BaseTable {
       operationWidth: 180,
       importBar: false,
       tableHeaderShow:false,
-
+      maxHeight: 99999,
       sortCol: false,
       // sortCol:false
     });

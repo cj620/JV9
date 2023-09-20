@@ -45,6 +45,15 @@ export const tableConfig = [
     formCpn: "customFormSelect",
     options: {},
   },
+  /*是否强制校验*/
+  {
+    prop: "IsCompulsoryInspection",
+    label: i18n.t("setup.IsCompulsoryInspection"),
+    custom: true,
+    editConfig: {
+      disabled: true,
+    },
+  },
   /*资源组*/
   {
     prop: "Resource",

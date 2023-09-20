@@ -880,4 +880,7 @@ export default {
   line-height: 10px;
   text-align: center;
 }
+.el-table--scrollable-y .el-table__body-wrapper{
+  //overflow-y: hidden;
+}
 </style>
