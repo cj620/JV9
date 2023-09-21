@@ -3,94 +3,86 @@
  * @Date: 2022-08-31 09:59:45
 -->
 <template>
-    <PageWrapper :footer="false">
-  <jv-block title="机床运行状态">
-    <div class="state-bar">
-      <el-tooltip
-        v-for="(item, index) in machineData.Data"
-        :key="index"
-        :style="{ background: item.state, width: item.time / 14.4 + '%' }"
-        class="state-item"
-        effect="dark"
-        :content="Number(item.time)"
-        placement="top-start"
-      >
-        <div>{{ item.time }}</div>
-      </el-tooltip>
+  <PageWrapper :footer="false">
+    <div @click="chooseFile" class="choose-file">
+      {{ $t("Generality.Ge_SelectFile") }}
     </div>
-    <div style="height:20px;border: 1px solid #000;width: 100%;display: flex ">
-      <div v-for="(item,index) in 24" :style="{width: (100/24)+'%'}">
-        {{index}}
-
-      </div>
-    </div>
-
-  </jv-block>
-        <button @click="a"> 1</button>
-
-        <el-time-select
-            placeholder="起始时间"
-            v-model="startTime"
-            :picker-options="{
-      start: '08:30',
-      step: '00:15',
-      end: '18:30'
-    }">
-        </el-time-select>
-    </PageWrapper>
+    <input
+      ref="excel-upload-input"
+      class="excel-upload-input"
+      type="file"
+      accept=".xlsx"
+      @change="handleClick"
+    />
+  </PageWrapper>
 </template>
 <script>
-import { getBarData } from "./utils";
-import { sales_order_test_list } from "@/api/workApi/sale/order";
+import XLSX from "xlsx";
 export default {
-  name: "Home",
-
   data() {
-    return {
-      machineData: null,
-		startTime: '',
-    };
-  },
-  created() {
-    this.machineData = getBarData();
-    this.getData()
+    return {};
   },
   methods: {
-	  a(){
-		console.log(this.startTime)
-	},
-    getData(){
-      sales_order_test_list({
-        "CustomerId":"C001",
-        "BillId":"",
-        "CustomerName":"",
-        "State":"",
-        "PageSize":20,
-        "CurrentPage":1
-      }).then(res=>{
-        console.log(res)
-      })
-
-    }
+    chooseFile() {
+      this.$refs["excel-upload-input"].click();
+    },
+    handleClick(e) {
+      console.log(55);
+      this.loading = true;
+      const files = e.target.files;
+      const rawFile = files[0]; // only use files[0]
+      if (!rawFile) return;
+      this.upload(rawFile);
+    },
+    upload(rawFile) {
+      this.$refs["excel-upload-input"].value = null; // fix can't select the same excel
+      this.readerData(rawFile);
+    },
+    readerData(rawFile) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const data = e.target.result;
+          console.log(data, 69696);
+          const workbook = XLSX.read(data, { type: "array" });
+          console.log(workbook, 69696);
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          const results = XLSX.utils.sheet_to_json(worksheet);
+          console.log(results, "results");
+          this.handleExcelData(results);
+          resolve();
+        };
+        reader.readAsArrayBuffer(rawFile);
+      });
+    },
+    handleExcelData(res = []) {
+      let endIndex = res.findIndex((item) => {
+        return !item["__EMPTY"] && !item["__EMPTY_1"];
+      });
+      let data = res.slice(4, endIndex - 1);
+      let result = data.map((item) => {
+        return {
+          PartNo: item["__EMPTY_1"] || "",
+          PartName: item["__EMPTY"] || "",
+          Description2: item["__EMPTY_2"] || "",
+          Quantity: item["__EMPTY_3"] || "",
+          Description: this.handleDescription([
+            item["__EMPTY_4"],
+            item["__EMPTY_5"],
+            item["__EMPTY_6"],
+          ]),
+          SupplierName: item["__EMPTY_7"] || "",
+          Remarks: item["__EMPTY_8"] || "",
+        };
+      });
+      console.log(result);
+    },
+    handleDescription(descArr = []) {
+      let arr = descArr.filter((item) => !!item);
+      return arr.join("*");
+    },
   },
 };
 </script>
-<style lang="scss" scoped>
-.state-bar {
-  width: 100%;
-  height: 50px;
-  border: 1px solid #ccc;
-  background-color: #ccc;
-  display: flex;
-  justify-content: flex-start;
-  .state-item {
-    height: 100%;
-    &:hover {
-      filter: brightness(1.2);
-    }
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
