@@ -11,6 +11,7 @@ import zhLocale from "element-ui/lib/locale/lang/zh-CN";
 const cn = {
   menu: {
     Se_ErrorPrompt: "报错提示项",
+    Automation: "自动化",
     CustomSammaryManage:'自定义汇总',
     PoleStock:'电极库位',
     ElectorExceptionPost: "电极异常",
