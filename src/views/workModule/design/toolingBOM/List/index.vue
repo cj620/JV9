@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2023-08-09 09:14:42
+ * @LastEditTime: 2023-09-21 15:45:48
  * @Description: 模具BOM
 -->
 
@@ -228,11 +228,11 @@
       </JvEditTable>
     </jv-dialog>
     <JvDialog
-    :visible.sync="showMassUpload"
-    destroy-on-close
-    :title="$t('design.De_DownloadTemplate')"
-    width="960px"
-    @confirm="MassUpload"
+      :visible.sync="showMassUpload"
+      destroy-on-close
+      :title="$t('design.De_DownloadTemplate')"
+      width="960px"
+      @confirm="MassUpload"
     >
       <custom-upload ref="customUploadRef"></custom-upload>
     </JvDialog>
@@ -246,10 +246,7 @@
     >
       <JvForm :formObj="formObj">
         <template #PmTaskBillId="{ prop }">
-          <el-select
-            v-model="formObj.form[prop]"
-            filterable
-          >
+          <el-select v-model="formObj.form[prop]" filterable>
             <el-option
               v-for="item in TaskListData"
               :key="item.BillId"
@@ -306,7 +303,7 @@ export default {
     searchItem,
     selectTask,
     setLevel,
-    customUpload
+    customUpload,
   },
   data() {
     return {
@@ -332,7 +329,7 @@ export default {
       TaskListData: [],
       importShow: false,
       loading: false,
-      selectProjectFormVisible:false,
+      selectProjectFormVisible: false,
       searchItemDialogFormVisible: false,
       selectTaskDialogFormVisible: false,
       setLevelDialogFormVisible: false,
@@ -411,19 +408,21 @@ export default {
   },
   created() {
     this.formObj = new Form({
-      formSchema:[{
-        prop: "PmTaskBillId",
-        cpn: "SyncSelect",
-        label: i18n.t("project.Pro_TaskSheetNo"),
-        rules: [
-          {
-            required: true,
-            message: i18n.t("Generality.Ge_PleaseEnter"),
-            trigger: ["change", "blur"],
-          },
-        ],
-        custom: true,
-      }],
+      formSchema: [
+        {
+          prop: "PmTaskBillId",
+          cpn: "SyncSelect",
+          label: i18n.t("project.Pro_TaskSheetNo"),
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseEnter"),
+              trigger: ["change", "blur"],
+            },
+          ],
+          custom: true,
+        },
+      ],
       labelPosition: "top",
       baseColProps: {
         span: 24,
@@ -471,36 +470,41 @@ export default {
       this.uploadLoading = true;
       let files = this.$refs.customUploadRef.files;
       let promiseAll = [];
-      files.forEach(item => {
+      files.forEach((item) => {
         let formData = new FormData();
         formData.append("file", item);
-        formData.append("IsUpdateOwner", 'true');
-        promiseAll.push(new Promise((resolve, reject) => {
-          uploadImage(formData).then(res => {
-            resolve(res);
-          }).catch(err => {
-            reject(err)
+        formData.append("IsUpdateOwner", "true");
+        promiseAll.push(
+          new Promise((resolve, reject) => {
+            uploadImage(formData)
+              .then((res) => {
+                resolve(res);
+              })
+              .catch((err) => {
+                reject(err);
+              });
           })
-        }))
-      })
+        );
+      });
 
       const allSettledPromise = Promise.allSettled(promiseAll);
 
       allSettledPromise.then((results) => {
         this.uploadLoading = false;
-        let state = results.filter(item => {
-          return item.status === 'fulfilled'
-        })
+        let state = results.filter((item) => {
+          return item.status === "fulfilled";
+        });
         // 如果全部上传成功则关闭
-        this.showMassUpload = (state.length !== results.length);
+        this.showMassUpload = state.length !== results.length;
         this.$notify({
-          title: '上传完毕',
-          message: `一共上传${results.length}张图片，成功${state.length}张, 失败${results.length - state.length}张`,
-          type: state.length === results.length ? 'success' : 'warning'
+          title: "上传完毕",
+          message: `一共上传${results.length}张图片，成功${
+            state.length
+          }张, 失败${results.length - state.length}张`,
+          type: state.length === results.length ? "success" : "warning",
         });
         this.getData();
-      })
-
+      });
     },
     getData() {
       this.closeTooltip();
@@ -593,7 +597,7 @@ export default {
       this.eTableObj.delItem(index);
     },
     i_delete(row, index) {
-      this.importTableObj.delItem(index);
+      this.importTableObj.delItem(row);
     },
     l_save() {
       var Boms = temMerge(
@@ -719,18 +723,18 @@ export default {
         SelectType: 0,
       };
       toolingTaskInfoList(str).then((res) => {
-        if (res.Count === 1){
-          this.formObj.form.PmTaskBillId = res.Items[0].BillId
+        if (res.Count === 1) {
+          this.formObj.form.PmTaskBillId = res.Items[0].BillId;
         }
         this.TaskListData = res.Items;
-        this.selectProjectFormVisible = true
+        this.selectProjectFormVisible = true;
       });
     },
     confirmItem() {
       var str = {
         ToolingNo: this.toolId,
         Boms: format2source(this.eTableObj.selectData.datas),
-        PmTaskBillId: this.formObj.form.PmTaskBillId
+        PmTaskBillId: this.formObj.form.PmTaskBillId,
       };
       confirmSubmitMaterialRequirement(str).then((res) => {
         //判断有没有提交过物料需求
@@ -745,15 +749,14 @@ export default {
           ).then(() => {
             // this.IsSubmitItemsDemand()
             this.confirmTask();
-            this.selectProjectFormVisible = false
+            this.selectProjectFormVisible = false;
           });
         } else {
           // this.IsSubmitItemsDemand()
           this.confirmTask();
-          this.selectProjectFormVisible = false
+          this.selectProjectFormVisible = false;
         }
       });
-
     },
     //判断需要关联的任务
     IsSubmitItemsDemand() {
@@ -767,7 +770,7 @@ export default {
         params: {
           data: format2source(this.eTableObj.selectData.datas),
           AssociateTask: e,
-          PmTaskBillId: this.formObj.form.PmTaskBillId
+          PmTaskBillId: this.formObj.form.PmTaskBillId,
         },
       });
     },
@@ -782,17 +785,45 @@ export default {
       this.importShow = false;
       this.importDialogFormVisible = true;
 
-      var arr = [];
-      e.forEach((Titem) => {
-        var str = {};
-        this.exportTemplate.forEach((item) => {
-          if (Titem[item.label]) {
-            str[item.prop] = Titem[item.label];
-          }
-        });
-        arr.push(str);
-      });
+      let arr = this.handleExcelData(e);
+      console.log(arr, "arr");
+      // var arr = [];
+      // e.forEach((Titem) => {
+      //   var str = {};
+      //   this.exportTemplate.forEach((item) => {
+      //     if (Titem[item.label]) {
+      //       str[item.prop] = Titem[item.label];
+      //     }
+      //   });
+      //   arr.push(str);
+      // });
       this.importTableObj.setData(temMerge(this.saveData, arr));
+    },
+    handleExcelData(res = []) {
+      let endIndex = res.findIndex((item) => {
+        return !item["__EMPTY"] && !item["__EMPTY_1"];
+      });
+      let data = res.slice(4, endIndex - 1);
+      let result = data.map((item) => {
+        return {
+          PartNo: item["__EMPTY_1"] || "",
+          PartName: item["__EMPTY"] || "",
+          Description2: item["__EMPTY_2"] || "",
+          Quantity: item["__EMPTY_3"] || "",
+          Description: this.handleDescription([
+            item["__EMPTY_4"],
+            item["__EMPTY_5"],
+            item["__EMPTY_6"],
+          ]),
+          SupplierName: item["__EMPTY_7"] || "",
+          Remarks: item["__EMPTY_8"] || "",
+        };
+      });
+      return result;
+    },
+    handleDescription(descArr = []) {
+      let arr = descArr.filter((item) => !!item);
+      return arr.join("*");
     },
 
     //上传图片
@@ -823,20 +854,23 @@ export default {
     //确定导入的数据
     confirmImportData() {
       if (this.importTableObj.selectData.datas.length > 0) {
-        var arr = this.eTableObj
-          .getTableData()
-          .concat(format2source(this.importTableObj.selectData.datas));
-        console.log(arr);
-        var Boms = temMerge(this.saveData, this.mixinToolId(arr));
-
-        var saveData = {
-          ToolingNo: this.toolId,
-          Boms,
-        };
-        console.log(saveData);
-        savePartBom(saveData).then((res) => {
-          this.getData();
-          this.importDialogFormVisible = false;
+        this.importTableObj.validate((valid) => {
+          if (valid) {
+            var arr = this.eTableObj
+              .getTableData()
+              .concat(format2source(this.importTableObj.selectData.datas));
+            var Boms = temMerge(this.saveData, this.mixinToolId(arr));
+            var saveData = {
+              ToolingNo: this.toolId,
+              Boms,
+            };
+            savePartBom(saveData).then((res) => {
+              this.getData();
+              this.importDialogFormVisible = false;
+            });
+          } else {
+            // alert("fail");
+          }
         });
       } else {
         this.$message.error(this.$t("Generality.Ge_PleaseAddData"));
@@ -880,7 +914,7 @@ export default {
   line-height: 10px;
   text-align: center;
 }
-.el-table--scrollable-y .el-table__body-wrapper{
+.el-table--scrollable-y .el-table__body-wrapper {
   //overflow-y: hidden;
 }
 </style>
