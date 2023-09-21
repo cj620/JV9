@@ -593,7 +593,6 @@ export default {
       this.eTableObj.delItem(index);
     },
     i_delete(row, index) {
-		  console.log(row, index);
       this.importTableObj.delItem(row);
     },
     l_save() {
