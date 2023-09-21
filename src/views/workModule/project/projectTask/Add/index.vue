@@ -138,6 +138,7 @@ import { API as ProjectTask } from "@/api/workApi/project/projectTask";
 import { getAllProjectProcess } from "@/api/workApi/project/baseData";
 import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import closeTag from "@/utils/closeTag";
+import countEndDate from '@/jv_doc/utils/time/countEndDate';
 import {
   pushDoubleCol,
   insertDoubleCol,
@@ -365,8 +366,7 @@ export default {
             );
             return;
           }
-          console.log(Math.floor(item.PlanTime.value / 10))
-          console.log(item.PlanStart, item.PlanEnd)
+          item.PlanEnd.value =  countEndDate(item.PlanStart.value, Number(item.PlanTime.value))
         });
       },
       deep: true,
