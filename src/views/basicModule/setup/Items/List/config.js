@@ -120,14 +120,28 @@ export const formSchema = [
     cpn: "FormInput",
   },
 
+  // {
+  //   prop: "ItemType",
+  //   label:i18n.t("Generality.Ge_ItemsCategory"),
+  //   cpn: "SyncSelect",
+  //   api: getAllItemType,
+  //   apiOptions: {
+  //     keyName: "ItemType",
+  //     valueName: "ItemType",
+  //   },
+  // },
   {
-    prop: "ItemType",
+    prop: "ItemCategory",
     label:i18n.t("Generality.Ge_ItemsCategory"),
-    cpn: "SyncSelect",
-    api: getAllItemType,
-    apiOptions: {
-      keyName: "ItemType",
-      valueName: "ItemType",
+    cpn: "FormSelect",
+    options: {
+      list: [
+        {value: 'Tooling',label: i18n.t("Generality.Ge_Tooling")},
+        {value: 'Part',label:i18n.t("Generality.Ge_Part")},
+        {value: 'Electrode',label: i18n.t("Generality.Ge_Electrode")},
+        {value: 'Material',label: i18n.t("Generality.Ge_Items")},
+        {value: 'Standard',label: i18n.t("Generality.Ge_Standard")},
+      ],
     },
   },
 ];
