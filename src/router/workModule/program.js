@@ -117,5 +117,18 @@ const program = [
       i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+  // 电极物料需求明细
+  {
+    key: "Pa_ElectrodeDemand_Details_list",
+    component: () => import("@/views/workModule/program/electrodeDemand/DetailsList"),
+    Parent: "Pa_Program",
+    name: "Pa_ElectrodeDemand_Details_list",
+    path: "Pa_ElectrodeDemand_Details_list",
+    title:
+        i18n.t("menu.Pa_ElectrodeDemand") +
+        " " +
+        i18n.t('Generality.Ge_Details1'),
+    hidden: true,
+  }
 ];
 export default program;

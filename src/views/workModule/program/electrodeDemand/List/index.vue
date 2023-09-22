@@ -47,6 +47,10 @@
               confirm: delBills,
             },
           },
+          {
+            label: $t('project.Pro_CheckDetails'),
+            confirm: toDetailsList,
+          },
         ]"
       >
       </Action>
@@ -101,6 +105,11 @@ export default {
       this.tableObj.api.del({ BillIds: ids }).then((_) => {
         this.tableObj.getData();
       });
+    },
+    toDetailsList() {
+      this.$router.push({
+        name: "Pa_ElectrodeDemand_Details_list",
+      })
     },
     //新增
     add() {
