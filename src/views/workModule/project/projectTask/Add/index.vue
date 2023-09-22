@@ -121,7 +121,7 @@
 
 <script>
 import { formSchema } from "./formConfig";
-import { M_EditTable } from "./editConfig";
+import { M_EditTable, getRowIndex } from "./editConfig";
 import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
@@ -366,14 +366,15 @@ export default {
             );
             return;
           }
-          // if(oldV[i] == newV[i]) {
-          //   console.log(item.PlanTime, oldV[i].PlanTime)
-          // }
+
+          if(i > getRowIndex() && getRowIndex() !== null) {
+            newV[i].PlanStart.value = newV[getRowIndex()].PlanEnd.value;
+            newV[i].PlanEnd.value = newV[getRowIndex()].PlanEnd.value;
+          }
+          // newV[getRowIndex()].
+          // console.log()
           // item.PlanEnd.value =  countEndDate(item.PlanStart.value, Number(item.PlanTime.value))
-          // if(newV[i+1]) {
-          //   newV[i+1].PlanStart.value = item.PlanEnd.value
-          // }
-          // for(let j = i; j < newV.length -1; j++)
+
         });
       },
       deep: true,
