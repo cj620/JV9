@@ -357,7 +357,7 @@ export default {
   },
   watch: {
     "M_TableObj.tableData": {
-      handler(newV) {
+      handler(newV, oldV) {
         newV.forEach((item, i) => {
           if (parseInt(item.PlanTime.value) < 0) {
             item.PlanTime.value = "0";
@@ -366,12 +366,14 @@ export default {
             );
             return;
           }
-          item.PlanEnd.value =  countEndDate(item.PlanStart.value, Number(item.PlanTime.value))
-          if(newV[i+1]) {
-            newV[i+1].PlanStart.value = item.PlanEnd.value
-          }
+          // if(oldV[i] == newV[i]) {
+          //   console.log(item.PlanTime, oldV[i].PlanTime)
+          // }
+          // item.PlanEnd.value =  countEndDate(item.PlanStart.value, Number(item.PlanTime.value))
+          // if(newV[i+1]) {
+          //   newV[i+1].PlanStart.value = item.PlanEnd.value
+          // }
           // for(let j = i; j < newV.length -1; j++)
-          console.log(item.PlanEnd.value)
         });
       },
       deep: true,
