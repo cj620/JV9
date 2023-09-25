@@ -9,7 +9,7 @@ import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 // 获取列表接口
 import { query_aps_result } from "@/api/workApi/production/aps";
 import { overdue_and_obsolete_list } from "@/api/workApi/production/productionSchedule";
-import { enumFilter , ProcessState } from "@/enum/workModule";
+import { enumFilter , ProductionTaskState } from "@/enum/workModule";
 
 const IsPartakeAPS = {
   Normal: {
@@ -240,7 +240,7 @@ export const OldTableConfig = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    customFilter: (value) => enumFilter(value, ProcessState),
+    customFilter: (value) => enumFilter(value, ProductionTaskState),
   }
 ];
 // 超期表格配置
