@@ -105,4 +105,13 @@ export const formSchema = [
       CheckBoxlabel: ''
     }
   },
+  // 是否强制编程
+  {
+    prop: "IsCompulsoryPrograming",
+    label: i18n.t("setup.IsCompulsoryPrograming"),
+    cpn: "FormSingleCheckBox",
+    options: {
+      CheckBoxlabel: ''
+    }
+  },
 ];
