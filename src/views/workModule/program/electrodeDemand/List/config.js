@@ -33,7 +33,7 @@ export class Table extends BaseTable {
       // 操作列宽度
       operationWidth:110,
       // 打印模块标识
-      printMod:'Sa_SaleOrder',
+      printMod:'ElectrodeDemand',
     })
   }
 }
