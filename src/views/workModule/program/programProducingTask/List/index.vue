@@ -11,7 +11,7 @@
 <script>
 import Common from "../../../design/designTask/List";
 export default {
-  // name: "ProgramProducingTask",
+  name: "ProgramProducingTask",
   // 继承
   extends: Common,
   data() {
@@ -19,12 +19,6 @@ export default {
       // pageDesc: i18n.t("menu.Pa_ProgramTask"),
       pageDesc: i18n.t("menu.Pa_ProgramProducingTask"),
       // recordRouteName: "ProgramTask_Record",
-      form: {
-        DepartmentName: "",
-        PageSize: 5,
-        CurrentPage: 1,
-        SelectType: 1, //待修改
-      },
     };
   },
 };

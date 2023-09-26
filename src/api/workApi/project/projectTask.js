@@ -125,3 +125,27 @@ export function project_task_check_report_work_date(data) {
     data,
   });
 }
+// 生产编程任务单列表
+export function production_programing_task_list(data) {
+  return request({
+    url: "/production_programing_task/list",
+    method: "post",
+    data,
+  });
+}
+// 生产编程任务单明细
+export function production_programing_task_items(data) {
+  return request({
+    url: "/production_programing_task/items",
+    method: "post",
+    data,
+  });
+}
+// 编辑生产加工编程任务
+export function production_programing_task_edit(data) {
+  return request({
+    url: "/production_programing_task/edit",
+    method: "post",
+    data,
+  });
+}
