@@ -63,6 +63,10 @@
         <JvState :state="detailObj.detailData.State"></JvState>
       </div>
     </JvBlock>
+      <!--物料信息-->
+      <JvBlock title="试模用料" ref="second">
+          <JvTable :table-obj="tableObj1"> </JvTable>
+      </JvBlock>
     <!-- 试模问题点 -->
     <JvBlock :title="$t('project.Pro_TestMouldProblemPoints')" ref="second">
       <JvTable :tableObj="tableObj">
@@ -131,7 +135,7 @@
 
 <script>
 import { mapState } from "vuex";
-import { Table, detailConfig } from "./config";
+import { Table, detailConfig,Table1 } from "./config";
 import Detail from "@/jv_doc/class/detail/Detail";
 import {
   API as ProjectTask,
@@ -148,6 +152,7 @@ import Dynamic from "../../projectManage/mouldDetail/cpns/Dynamic.vue";
 import DynamicList from "../../projectManage/mouldDetail/cpns/DynamicList.vue";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
 import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
+import { format2source } from '~/class/utils/dataFormat'
 export default {
   name: "Pm_TrialTask_Detail",
   components: {
@@ -164,6 +169,7 @@ export default {
       cur_Id: this.$route.query.BillId,
       detailObj: {},
       tableObj: {},
+		tableObj1: {},
       DynamicInfo: [],
       btnAction: [],
       defaultImgUrl: window.global_config.ImgBase_Url,
@@ -215,6 +221,7 @@ export default {
   created() {
     // this.ruleForm
     this.tableObj = new Table();
+	  this.tableObj1 = new Table1();
     this.detailObj = new Detail({
       data: {},
       schema: detailConfig,
@@ -232,6 +239,7 @@ export default {
           this.detailObj.detailData[key] = res.TrialToolingDynamicData[key];
         }
         this.tableObj.setData(res.TestMouldProblemPoints);
+        this.tableObj1.setData(res.TrialToolingMaterialDetails);
         this.DynamicInfo = res.DynamicInfo || [];
         this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
         this.btnAction.push({
@@ -239,10 +247,14 @@ export default {
           confirm: this.successProjectTask,
           disabled: this.detailObj.detailData.State !== "Approved",
         },{
+			label: '物料需求',
+			confirm: this.toItemsDemand,
+			disabled: this.detailObj.detailData.State !== "Approved",
+		}/*,{
           label: this.$t("stockroom.St_Picking"),
           confirm: this.toStockPicking,
           disabled: this.detailObj.detailData.State !== "Approved",
-        });
+        }*/);
       });
     },
     // 完成单据
@@ -256,6 +268,17 @@ export default {
         name: "St_Picking_Add",
         params: { trialToolingData: this.detailObj.detailData },
       });
+    },
+      //跳转到物料需求
+	  toItemsDemand(){
+		this.$router.push({
+			name: "De_ItemsDemand_Add",
+			params: {
+		      ToolingNo:this.detailObj.detailData.ToolingNo,
+          PmTaskBillId: this.cur_Id,
+          data:[]
+			},
+		});
     },
     // 新增动态
     addDynamic() {

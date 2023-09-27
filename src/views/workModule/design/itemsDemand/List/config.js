@@ -9,6 +9,9 @@ import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 
 // 引入模块API接口
 import { API } from "@/api/workApi/design/materialRequirement";
+import { enumFilter, enumToList } from '~/utils/system/enumsPlugin'
+import { taskTypeEnum } from '@/enum/workModule'
+import ProcessState from '@/enum/workModule/production/ProcessState'
 // 结构
 let { api_list, api_delete } = API;
 export class api extends TableAPI {
@@ -81,7 +84,17 @@ export const tableConfig = [
       label: i18n.t("Generality.Ge_BillId"),
     },
   },
-
+  /*任务单号*/
+  {
+    prop: "PmTaskBillId",
+    label: i18n.t("Generality.Ge_TaskType"),
+  },
+  /*任务类别*/
+  {
+    prop: "TaskType",
+    label: i18n.t("Generality.Ge_TaskType"),
+    customFilter: (value) => enumFilter(value, taskTypeEnum),
+  },
   /*制单人*/
   {
     prop: "Creator",

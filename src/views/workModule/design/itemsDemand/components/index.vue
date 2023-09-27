@@ -177,7 +177,7 @@ export default {
       this.$route.params.data.forEach((item) => {
         item.ItemName = item.PartName;
       });
-      this.formObj.form.ToolingNo = this.$route.params.data[0].ToolingNo;
+      this.formObj.form.ToolingNo =this.$route.params.ToolingNo?this.$route.params.ToolingNo: this.$route.params.data[0].ToolingNo;
       this.eTableObj.push(temMerge(this.BillItems, this.$route.params.data));
       this.$route.params.PmTaskBillId
         ? (this.formObj.form.PmTaskBillId = this.$route.params.PmTaskBillId)

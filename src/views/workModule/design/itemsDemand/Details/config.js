@@ -5,6 +5,8 @@
  * @Description:
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
+import { enumFilter } from '~/utils/system/enumsPlugin'
+import { taskTypeEnum } from '@/enum/workModule'
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -99,5 +101,11 @@ export const detailConfig = [
     // 任务单号
     prop: "PmTaskBillId",
     label: i18n.t("project.Pro_TaskSheetNo"),
+  },
+  {
+    // 任务类别
+    prop: "TaskType",
+    label: i18n.t("Generality.Ge_TaskType"),
+    customFilter: (value) => enumFilter(value, taskTypeEnum),
   },
 ];
