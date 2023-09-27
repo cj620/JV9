@@ -78,6 +78,7 @@ export default {
         Keyword: "",
         ToolingNo: "",
         BOMType: "Part",
+		    ItemCategory: "Part",
       },
     };
   },
