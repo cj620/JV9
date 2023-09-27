@@ -67,6 +67,11 @@ const tableSchema = [
 		width: "115px",
 	},
 
+	/*模具编号*/
+	{
+		prop: "ToolingNo",
+		label: i18n.t("Generality.Ge_ToolingNo")
+	},
 	/*物料编号*/
 	{
 		prop: "ItemId",

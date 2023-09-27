@@ -16,3 +16,11 @@ export function adaptor_synchronize_erp_material(data) {
     loading: true,
   });
 }
+//同步电极物料需求
+export function adaptor_synchronize_electrode_demand(data) {
+  return request({
+    url: "/adaptor/synchronize_electrode_demand",
+    method: "post",
+    data,
+  })
+}
