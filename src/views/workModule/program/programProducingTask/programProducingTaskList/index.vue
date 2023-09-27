@@ -3,9 +3,9 @@
     <!--  设计任务明细表格 -->
     <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj">
       <!-- 状态标签 -->
-      <!--<template #State="{ record }">-->
-      <!--  <TaskState :state="record"></TaskState>-->
-      <!--</template>-->
+      <template #State="{ record }">
+        {{ record }}
+      </template>
       <!-- 结束日期 -->
       <template #ItemPlanEnd="{ record }">
         {{ record }}{{ IsDelay(record) }}
@@ -17,13 +17,8 @@
             {
               label: $t('Generality.Ge_Edit'),
               confirm: edit.bind(null, row),
-              disabled: row.ItemState === 'Completed',
+              disabled: row.State === 'Processed',//待修改
             },
-            // {
-            //   label: $t('project.Pro_DistributionTask'),
-            //   confirm: distributionTask.bind(null, row),
-            //   disabled: row.ItemState === 'Completed' || row.ParentId !== 0,
-            // },
             {
               label: $t('project.Pro_ViewSubtasks'),
               confirm: viewSubTask.bind(null, row),
@@ -80,11 +75,9 @@
 
 <script>
 import { Table } from "./config";
-import { taskStateEnum } from "@/enum/workModule";
 import { ViewSubtasksTableObj } from "@/views/workModule/design/designTask/DesignTaskList/viewSubtasksTableConfig";
 import distributionTaskDialog from "@/views/workModule/design/designTask/DesignTaskList/distributionTaskDialog.vue";
 import addProjectTask from "@/views/workModule/design/designTask/DesignTaskList/addProjectTask.vue";
-import TaskState from "@/components/JVInternal/TaskState/index.vue";
 import {
   project_task_get_children_item,
   project_task_delete_item,
@@ -92,11 +85,8 @@ import {
 
 export default {
   name: "Pa_ProgramProducingTaskList",
-  components: { TaskState, addProjectTask, distributionTaskDialog },
+  components: { addProjectTask, distributionTaskDialog },
   computed: {
-    stateMap() {
-      return taskStateEnum;
-    },
     IsDelay() {
       return (e) => {
         var ss = this.DayDelay * 24 * 60 * 60 * 1000; //一天的毫秒数86400
@@ -128,12 +118,7 @@ export default {
     // 创建表格实例
     this.tableObj = new Table();
     this.tableObj.props.title = this.tableTitle;
-    // this.tableObj.formObj.form.SelctChildrenType=2
-    // this.tableObj.formObj.form.ProcessType = this.ProcessType;
-    // this.tableObj.formObj.form.States = ["Approved", "Completed"];
-
     this.viewSubtasksTableObj = new ViewSubtasksTableObj();
-    // this.tableObj.formObj.setForm(this.$route.params);
     this.tableObj.getData();
   },
   methods: {
@@ -147,11 +132,6 @@ export default {
       this.type = "edit";
       this.transferData = JSON.parse(JSON.stringify(row));
     },
-    //分发任务
-    // distributionTask(row) {
-    //   this.distributionTaskDialogFormVisible = true;
-    //   this.TaskData = row;
-    // },
     //查看子任务
     viewSubTask(row) {
       console.log(row);
@@ -168,7 +148,7 @@ export default {
     confirmDistributionTask() {
       this.distributionTaskDialogFormVisible = false;
     },
-    //修改人员
+    //确认编辑
     confirmData() {
       this.addProjectTaskDialogFormVisible = false;
       this.tableObj.getData();

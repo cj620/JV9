@@ -95,10 +95,6 @@ export default {
         CurrentPage: 1,
         SelectType: 0,
       },
-      form1: {
-        PageSize: 5,
-        CurrentPage: 1,
-      },
       sourceData: [],
       Count: 0,
     };
@@ -111,7 +107,7 @@ export default {
   methods: {
     getData() {
       if (this.$route.name === 'ProgramProducingTask'){
-        production_programing_task_list(this.form1).then((res) => {
+        production_programing_task_list(this.form).then((res) => {
           this.sourceData = res.Items;
           this.Count = res.Count;
         });
