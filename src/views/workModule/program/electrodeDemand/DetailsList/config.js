@@ -66,11 +66,10 @@ const tableSchema = [
 		custom: true,
 		width: "115px",
 	},
-
 	/*模具编号*/
 	{
 		prop: "ToolingNo",
-		label: i18n.t("Generality.Ge_ToolingNo")
+		label: i18n.t("Generality.Ge_ToolingNo"),
 	},
 	/*物料编号*/
 	{
@@ -142,6 +141,13 @@ const formSchema = [
 		label: "",
 		cpn: "FormInput",
 		default: true,
+		hidden: true,
+	},
+	{
+		prop: "State",
+		label: "",
+		cpn: "FormInput",
+		default: 'Approved',
 		hidden: true,
 	},
 	// QueryAll

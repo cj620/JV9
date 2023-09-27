@@ -6,6 +6,8 @@
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
+import { enumFilter } from '~/utils/system/enumsPlugin'
+import { itemCategoryEnum } from "@/enum/baseModule";
 export class EditTable extends BaseTable {
   constructor() {
     super({
@@ -130,6 +132,19 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_Level"),
     custom: true,
     width: 70,
+    editConfig: {
+      disabled: true,
+    },
+  },
+  
+  /*类别*/
+  {
+    prop: "ItemCategory",
+    label: i18n.t("Generality.Ge_ItemsCategory"),
+    formCpn: "FormInput",
+    customFilter: (value) => enumFilter(value, itemCategoryEnum),
+    
+    width: 80,
     editConfig: {
       disabled: true,
     },

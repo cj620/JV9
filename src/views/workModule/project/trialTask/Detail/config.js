@@ -170,15 +170,7 @@ const tableConfig1 = [
     width: "100px",
     filter: "amount",
   },
-  /*领用数量*/
-  {
-    prop: "ActualPickingCount",
-    label: i18n.t("Generality.Ge_TakeAwayQuantity"),
-    align: "right",
-    type: "number",
-    width: "100px",
-    filter: "amount",
-  },
+
   /*需求日期*/
   {
     prop: "DemandDate",

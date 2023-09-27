@@ -351,6 +351,7 @@ export default {
         BOMType: "Part",
         PhotoUrl: "",
         Unit: "",
+		    ItemCategory: "Part",
         ToolingNo: "",
         SupplierName: "",
         MaterialRequirementState: "",
@@ -701,6 +702,7 @@ export default {
               if (item.PartNo.value === Titem.PartNo) {
                 item.Description.value = Titem.Description;
                 item.ItemId.value = Titem.ItemId;
+                item.ItemCategory.value = Titem.ItemCategory;
               }
             });
           });
@@ -713,6 +715,7 @@ export default {
         e.forEach((Titem) => {
           item.Description.value = Titem.Description;
           item.ItemId.value = Titem.ItemId;
+          item.ItemCategory.value = 'Standard';
         });
       });
     },
