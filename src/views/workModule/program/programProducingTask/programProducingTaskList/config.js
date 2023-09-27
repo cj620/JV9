@@ -39,9 +39,10 @@ export class Table extends BaseTable {
 }
 //  表格配置
 const tableSchema = [
+  //   加工单号
   {
-    prop: "BillId",
-    label: i18n.t("project.Pro_TaskSheetNo"),
+    prop: "ProductionBillId",
+    label: i18n.t("production.Pr_WorkSheetNo"),
     align: "center",
     cpn: "Link",
     width: "150px",
@@ -58,51 +59,69 @@ const tableSchema = [
   },
   /*状态*/
   {
-    prop: "ItemState",
-    label: i18n.t("Generality.Ge_State"),
-    custom: true,
+    prop: "State",
+    label: i18n.t("Generality.Ge_TaskStatus"),
+    // custom: true,
     width: "115px",
     align: "center",
-    innerSearch: {
-      prop: "ItemState",
-      label: i18n.t("Generality.Ge_State"),
-      cpn: "FormSelect",
-      options: {
-        list: [
-          {
-            value: "NotStarted",
-            label: i18n.t("project.Pro_NotStarted"),
-          },
-          {
-            value: "HaveInHand",
-            label: i18n.t("project.Pro_Ongoing"),
-          },
-          {
-            value: "Completed",
-            label: i18n.t("Generality.Ge_Completed"),
-          },
-        ],
-      },
-    },
   },
-  /*项目*/
+  // {
+  //   prop: "ItemState",
+  //   label: i18n.t("Generality.Ge_State"),
+  //   custom: true,
+  //   width: "115px",
+  //   align: "center",
+  //   innerSearch: {
+  //     prop: "ItemState",
+  //     label: i18n.t("Generality.Ge_State"),
+  //     cpn: "FormSelect",
+  //     options: {
+  //       list: [
+  //         {
+  //           value: "NotStarted",
+  //           label: i18n.t("project.Pro_NotStarted"),
+  //         },
+  //         {
+  //           value: "HaveInHand",
+  //           label: i18n.t("project.Pro_Ongoing"),
+  //         },
+  //         {
+  //           value: "Completed",
+  //           label: i18n.t("Generality.Ge_Completed"),
+  //         },
+  //       ],
+  //     },
+  //   },
+  // },
+  // /*项目*/
+  // {
+  //   prop: "Project",
+  //   label: i18n.t("systemSetupData.Project"),
+  // },
+  //   任务单号
   {
-    prop: "Project",
-    label: i18n.t("systemSetupData.Project"),
+    prop: "TaskBillId",
+    label: i18n.t("project.Pro_TaskSheetNo"),
   },
   /*产品名称*/
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
   },
-  /*任务类别*/
+  // /*任务类别*/
+  // {
+  //   prop: "TaskType",
+  //   label: i18n.t("Generality.Ge_TaskType"),
+  //   customFilter: (value) => {
+  //     if (!value) return "";
+  //     return taskTypeEnum[value].name;
+  //   },
+  // },
+  //  关联工序
   {
-    prop: "TaskType",
-    label: i18n.t("Generality.Ge_TaskType"),
-    customFilter: (value) => {
-      if (!value) return "";
-      return taskTypeEnum[value].name;
-    },
+    prop: "ProcessTaskCode",
+    label: "任务工序代码",
+    width: "140px",
   },
 
   /*工序*/
@@ -111,13 +130,14 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_Process"),
   },
 
+
   /*负责人*/
   {
-    prop: "Worker",
+    prop: "Creator",
     label: i18n.t("project.Pro_Worker"),
     innerSearch: {
       // 销售员
-      prop: "Worker",
+      prop: "Creator",
       cpn: "SyncSelect",
       label: i18n.t("project.Pro_Worker"),
       api: getAllUserData,
@@ -128,10 +148,15 @@ const tableSchema = [
       },
     },
   },
-  /*预计工时*/
+  // /*预计工时*/
+  // {
+  //   prop: "PlanTime",
+  //   label: i18n.t("Generality.Ge_PlanTime"),
+  // },
+  //   制单
   {
-    prop: "PlanTime",
-    label: i18n.t("Generality.Ge_PlanTime"),
+    prop: "CreationDate",
+    label: '创建时间',
   },
   /*计划开始*/
   {

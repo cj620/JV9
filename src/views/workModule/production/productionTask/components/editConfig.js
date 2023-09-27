@@ -79,6 +79,15 @@ export const tableConfig = [
       disabled: true,
     },
   },
+  // 是否强制编程
+  {
+    prop: "IsCompulsoryPrograming",
+    label: i18n.t("setup.IsCompulsoryPrograming"),
+    custom: true,
+    editConfig: {
+      disabled: true,
+    },
+  },
   /*资源组*/
   {
     prop: "Resource",
