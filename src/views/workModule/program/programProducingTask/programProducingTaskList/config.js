@@ -9,7 +9,7 @@
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { production_programing_task_items } from "@/api/workApi/project/projectTask";
-import { taskTypeEnum, ProductionType } from "@/enum/workModule";
+import { taskTypeEnum, ProductionType, enumFilter, ProductionTaskState } from "@/enum/workModule";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 
 import { getProjectQuery } from "@/api/workApi/project/projectManage";
@@ -34,6 +34,7 @@ export class Table extends BaseTable {
       printMod: "Pa_ProgramProducingTaskList",
       operationWidth: 280,
       printBar: false,
+      searchBar: false,
     });
   }
 }
@@ -44,60 +45,16 @@ const tableSchema = [
     prop: "ProductionBillId",
     label: i18n.t("production.Pr_WorkSheetNo"),
     align: "center",
-    cpn: "Link",
     width: "150px",
-    cpnProps: {
-      // 路由名称
-      routeName: "Pm_ProjectTask_Detail",
-      // 路由路径（名称和路径二选一）
-      // routePath:'/dashboard',
-      // 路由传参方式 默认query
-      methods: "query",
-      // 传参的键名，值为当前数据
-      parameterKey: "BillId",
-    },
   },
   /*状态*/
   {
     prop: "State",
     label: i18n.t("Generality.Ge_TaskStatus"),
-    // custom: true,
+    customFilter: (value) => enumFilter(value, ProductionTaskState),
     width: "115px",
     align: "center",
   },
-  // {
-  //   prop: "ItemState",
-  //   label: i18n.t("Generality.Ge_State"),
-  //   custom: true,
-  //   width: "115px",
-  //   align: "center",
-  //   innerSearch: {
-  //     prop: "ItemState",
-  //     label: i18n.t("Generality.Ge_State"),
-  //     cpn: "FormSelect",
-  //     options: {
-  //       list: [
-  //         {
-  //           value: "NotStarted",
-  //           label: i18n.t("project.Pro_NotStarted"),
-  //         },
-  //         {
-  //           value: "HaveInHand",
-  //           label: i18n.t("project.Pro_Ongoing"),
-  //         },
-  //         {
-  //           value: "Completed",
-  //           label: i18n.t("Generality.Ge_Completed"),
-  //         },
-  //       ],
-  //     },
-  //   },
-  // },
-  // /*项目*/
-  // {
-  //   prop: "Project",
-  //   label: i18n.t("systemSetupData.Project"),
-  // },
   //   任务单号
   {
     prop: "TaskBillId",
@@ -108,15 +65,6 @@ const tableSchema = [
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
   },
-  // /*任务类别*/
-  // {
-  //   prop: "TaskType",
-  //   label: i18n.t("Generality.Ge_TaskType"),
-  //   customFilter: (value) => {
-  //     if (!value) return "";
-  //     return taskTypeEnum[value].name;
-  //   },
-  // },
   //  关联工序
   {
     prop: "ProcessTaskCode",
@@ -135,24 +83,7 @@ const tableSchema = [
   {
     prop: "Creator",
     label: i18n.t("project.Pro_Worker"),
-    innerSearch: {
-      // 销售员
-      prop: "Creator",
-      cpn: "SyncSelect",
-      label: i18n.t("project.Pro_Worker"),
-      api: getAllUserData,
-      apiOptions: {
-        immediate: true,
-        keyName: "UserName",
-        valueName: "UserName",
-      },
-    },
   },
-  // /*预计工时*/
-  // {
-  //   prop: "PlanTime",
-  //   label: i18n.t("Generality.Ge_PlanTime"),
-  // },
   //   制单
   {
     prop: "CreationDate",
