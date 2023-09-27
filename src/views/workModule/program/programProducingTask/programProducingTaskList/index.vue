@@ -3,9 +3,9 @@
     <!--  设计任务明细表格 -->
     <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj">
       <!-- 状态标签 -->
-      <template #ItemState="{ record }">
-        <TaskState :state="record"></TaskState>
-      </template>
+      <!--<template #State="{ record }">-->
+      <!--  <TaskState :state="record"></TaskState>-->
+      <!--</template>-->
       <!-- 结束日期 -->
       <template #ItemPlanEnd="{ record }">
         {{ record }}{{ IsDelay(record) }}

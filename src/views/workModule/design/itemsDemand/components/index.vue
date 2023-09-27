@@ -217,11 +217,11 @@ export default {
     },
     // 判断合并按钮是否禁用
     canPick() {
-      if (this.eTableObj.selectData.datas.length !== 1) {
+      if (this.eTableObj.selectData.datas.length > 1) {
         this.noMergeItems = !this.eTableObj.selectData.datas.every(
           (item) =>
             item.Description2.value ===
-            this.eTableObj.selectData.datas[0].Description2.value
+            this.eTableObj.selectData.datas[0].Description2.value && item.Description2.value !== ""
         );
       } else {
         this.noMergeItems = true;
