@@ -179,11 +179,22 @@ export default {
           Language.Language = this.languageEnum[this.LoginData.Language];
           this.$store
             .dispatch("user/login", Language)
-            .then(() => {
-              this.$router.push({
-                path: this.redirect || "/",
-                query: this.otherQuery,
-              });
+            .then((data) => {
+              console.log(data, "adkjjdfskjfsakldfj");
+              // this.$router.push({
+              //   path: this.redirect || "/",
+              //   query: this.otherQuery,
+              // });
+              if (data.DefaultNavigationBar) {
+                this.$router.push({
+                  name: data.DefaultNavigationBar,
+                });
+              } else {
+                this.$router.push({
+                  path: this.redirect || "/",
+                  query: this.otherQuery,
+                });
+              }
               if (this.LoginData.checked) {
                 localStorage.setItem("UserName", this.LoginData.UserName);
                 localStorage.setItem("Password", this.LoginData.Password);

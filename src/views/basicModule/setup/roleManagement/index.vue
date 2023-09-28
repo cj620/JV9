@@ -16,10 +16,7 @@
                   class="el-icon-user"
                   @click.stop="addUser(item.RoleId, item.RoleName)"
                 ></i>
-                <i
-                  class="el-icon-edit"
-                  @click.stop="editRole(item.RoleId, item.RoleName)"
-                ></i
+                <i class="el-icon-edit" @click.stop="editRole(item)"></i
                 ><i
                   class="el-icon-delete"
                   @click.stop="deleteRole(item.RoleId)"
@@ -174,13 +171,14 @@ export default {
       this.formObj.form = {
         RoleName: "",
         RoleId: 0,
+        RoleDefaultNavigationBar: "",
       };
     },
     // 打开编辑角色dialog
-    editRole(RoleId, RoleName) {
+    editRole(params) {
       this.dialogTitle = this.$t("Generality.Ge_Edit");
       this.editDialogVisible = true;
-      this.formObj.form = { RoleId, RoleName };
+      this.formObj.form = { ...params };
     },
     // 打开新增角色成员弹窗
     addUser(id, name) {
