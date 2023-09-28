@@ -19,10 +19,10 @@
               confirm: edit.bind(null, row),
               disabled: row.State === 'Processed',//待修改
             },
-            {
-              label: $t('project.Pro_ViewSubtasks'),
-              confirm: viewSubTask.bind(null, row),
-              disabled: row.ParentId !== 0,
+             {
+              label: '领用',
+              confirm: reception.bind(null, row),
+              disabled: row.State === 'Processed',//待修改
             },
           ]"
         />
@@ -131,6 +131,11 @@ export default {
       this.addProjectTaskDialogFormVisible = true;
       this.type = "edit";
       this.transferData = JSON.parse(JSON.stringify(row));
+    },
+      //领用任务
+
+	  reception(){
+
     },
     //查看子任务
     viewSubTask(row) {

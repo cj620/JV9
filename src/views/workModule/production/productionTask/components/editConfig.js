@@ -88,6 +88,14 @@ export const tableConfig = [
       disabled: true,
     },
   },
+  /*编程预计工时*/
+  {
+    prop: "ProgramingPlanTime",
+    label: '编程预计工时',
+    formCpn: "FormInput",
+    type: "number",
+    width: "140px",
+  },
   /*资源组*/
   {
     prop: "Resource",

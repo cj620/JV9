@@ -37,7 +37,9 @@
             <el-option
               v-for="item in TaskListData"
               :key="item.BillId"
-              :label="item.BillId+'('+taskTypeEnum[item.TaskType].name+')'"
+              :label="
+                item.BillId + '(' + taskTypeEnum[item.TaskType].name + ')'
+              "
               :value="item.BillId"
             >
             </el-option>
@@ -129,7 +131,9 @@
           <el-checkbox v-model="row.IsCompulsoryPrograming.value"></el-checkbox>
         </template>
         <template #ProcessPicture="{ row }">
-          <div @click="addProcessPicture(row)">{{$t('Generality.Ge_New')}}</div>
+          <div @click="addProcessPicture(row)">
+            {{ $t("Generality.Ge_New") }}
+          </div>
         </template>
         <template #operation="{ row_index }">
           <TableAction
@@ -192,7 +196,7 @@
     >
     </selectBomList>
     <jv-dialog
- :title="$t('Generality.Ge_AddNewPicture')"
+      :title="$t('Generality.Ge_AddNewPicture')"
       width="35%"
       :close-on-click-modal="false"
       :modal-append-to-body="false"
@@ -232,7 +236,7 @@ import {
   getProductionTask,
 } from "@/api/workApi/production/productionTask";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
-import { data } from '../../../../basicModule/demo/EditTable/data'
+import { data } from "../../../../basicModule/demo/EditTable/data";
 export default {
   name: "Sa_SaleOrder_Edit",
   components: {
@@ -312,6 +316,7 @@ export default {
         ProcessContentList: [],
         IsCompulsoryInspection: null,
         IsCompulsoryPrograming: null,
+        ProgramingPlanTime: 1,
       },
     };
   },
@@ -327,7 +332,7 @@ export default {
     },
   },
   async created() {
-    console.log(this.taskTypeEnum,54321)
+    console.log(this.taskTypeEnum, 54321);
     this.formObj = new Form({
       formSchema,
       baseColProps: {
@@ -339,8 +344,8 @@ export default {
     this.formObj.form.Level = "Ordinary";
     this.eTableObj = new EditTable();
     this.tableObj = new Table();
-    this.formObj.form.PlanStart =new Date()
-    console.log(this.formObj.form,new Date(),5656)
+    this.formObj.form.PlanStart = new Date();
+    console.log(this.formObj.form, new Date(), 5656);
     if (this.type === "edit") {
       this.editDisabled = true;
       await this.GetData(this.billData);
@@ -376,7 +381,6 @@ export default {
           CurrentPage: 1,
         };
         itemList(str).then((res) => {
-
           this.MouldListData = res.Items;
           this.loading = false;
         });
@@ -390,13 +394,12 @@ export default {
         SelectType: 0,
       };
       toolingTaskInfoList(str).then((res) => {
-        this.PmTaskData = res.Items
+        this.PmTaskData = res.Items;
         if (res.Items.length === 1) {
           this.formObj.form.PmTaskBillId = res.Items[0].BillId;
           this.formObj.form.PlanEnd = res.Items[0].PlanEnd;
-        }else if(res.Items.length === 0){
-          this.formObj.form.PmTaskBillId =''
-
+        } else if (res.Items.length === 0) {
+          this.formObj.form.PmTaskBillId = "";
         }
         this.TaskListData = res.Items;
 
@@ -405,14 +408,13 @@ export default {
     },
 
     //根据任务单号拿计划结束日期
-    changePmTaskBillId(){
-      console.log(this.formObj.form.PmTaskBillId)
-      this.PmTaskData.forEach(item=>{
-        if(this.formObj.form.PmTaskBillId===item.BillId){
+    changePmTaskBillId() {
+      console.log(this.formObj.form.PmTaskBillId);
+      this.PmTaskData.forEach((item) => {
+        if (this.formObj.form.PmTaskBillId === item.BillId) {
           this.formObj.form.PlanEnd = item.PlanEnd;
         }
-      })
-
+      });
     },
     //选择零件
     selectBomList() {

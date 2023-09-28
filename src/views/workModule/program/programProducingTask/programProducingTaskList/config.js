@@ -88,6 +88,8 @@ const tableSchema = [
   {
     prop: "CreationDate",
     label: '创建时间',
+    filter: "time",
+    width: "140px",
   },
   /*计划开始*/
   {

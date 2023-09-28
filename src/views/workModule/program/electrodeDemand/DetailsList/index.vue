@@ -108,6 +108,7 @@ export default {
     },
     // 点击触发
     submit() {
+		console.log(123456)
       var str = {
         ToolingNo: this.ToolingNo,
         SelectType: 0,
