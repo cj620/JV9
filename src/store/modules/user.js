@@ -46,7 +46,7 @@ const actions = {
           commit("SET_TOKEN", response.ticket);
           commit("SET_NAME", response.UserName);
           setToken(response.ticket);
-          resolve();
+          resolve(response);
         })
         .catch((error) => {
           reject(error);
@@ -88,6 +88,7 @@ const actions = {
           commit("SET_AVATAR", avatar);
           commit("SET_USERID", userId);
           commit("SET_INTRODUCTION", introduction);
+
           resolve(data);
         })
         .catch((error) => {
