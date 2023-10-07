@@ -113,3 +113,11 @@ export function update_state(data){
     data,
   })
 }
+// 领用生产编程任务
+export function update_worker(query){
+  return request({
+    url:"/production_programing_task/updateWorker",
+    method:"get",
+    params: query,
+  })
+}

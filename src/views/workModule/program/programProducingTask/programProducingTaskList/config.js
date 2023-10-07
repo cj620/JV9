@@ -141,121 +141,66 @@ const tableSchema = [
 ];
 //  搜索表单配置
 const formSchema = [
-//   //单号搜索
-//   {
-//     prop: "Keyword",
-//     label: i18n.t("Generality.Ge_KeyWords"),
-//     cpn: "FormInput",
-//   },
-//
-//   //加工单号搜索
-//   {
-//     prop: "PrTaskBillId",
-//     label: i18n.t("production.Pr_WorkSheetNo"),
-//     cpn: "FormInput",
-//   },
-//   //单号搜索
-//   {
-//     prop: "Project",
-//     label: i18n.t("sale.Sa_ProjectId"),
-//     cpn: "AsyncSearch",
-//     api: getProjectQuery,
-//     apiOptions: {
-//       keyName: "Project",
-//       valueName: "Project",
-//     },
-//   },
-//   //模号搜索 Ge_ToolingName
-//   {
-//     prop: "ToolingNo",
-//     label:
-//       i18n.t("Generality.Ge_ToolingNo") +
-//       "  /  " +
-//       i18n.t("Generality.Ge_ToolingName"),
-//     cpn: "AsyncSearch",
-//     api: itemList,
-//     apiOptions: {
-//       keyName: "ItemName",
-//       showValue: true,
-//       valueName: "ItemId",
-//       params: {
-//         ItemCategory: "Tooling",
-//       },
-//     },
-//   },
-//
-//   {
-//     // 销售员
-//     prop: "Worker",
-//     cpn: "SyncSelect",
-//     label: i18n.t("project.Pro_Worker"),
-//     api: getAllUserData,
-//     apiOptions: {
-//       immediate: true,
-//       keyName: "UserName",
-//       valueName: "UserName",
-//     },
-//   },
-//   {
-//     prop: "ItemState",
-//     label: i18n.t("Generality.Ge_State"),
-//     cpn: "FormSelect",
-//     options: {
-//       list: [
-//         {
-//           value: "NotStarted",
-//           label: i18n.t("project.Pro_NotStarted"),
-//         },
-//         {
-//           value: "HaveInHand",
-//           label: i18n.t("project.Pro_Ongoing"),
-//         },
-//         {
-//           value: "Completed",
-//           label: i18n.t("Generality.Ge_Completed"),
-//         },
-//       ],
-//     },
-//   },
-//   //分配状态
-//   {
-//     prop: "AllocationType",
-//     label: i18n.t("design.De_AllocationType"),
-//     cpn: "FormSelect",
-//     options: {
-//       list: [
-//         {
-//           value: "1",
-//           label: i18n.t("design.De_Allocated"),
-//         },
-//         {
-//           value: "2",
-//           label: i18n.t("design.De_Unallocated"),
-//         },
-//       ],
-//     },
-//   },
-//   {
-//     prop: "SelctChildrenType",
-//     label: i18n.t("project.Pro_ViewTaskDetails"),
-//     cpn: "FormSelect",
-//     default: 2,
-//     options: {
-//       list: [
-//         {
-//           value: 0,
-//           label: i18n.t("project.Pro_ViewParentProjectTasks"),
-//         },
-//         {
-//           value: 1,
-//           label: i18n.t("project.Pro_ViewSubtasks"),
-//         },
-//         {
-//           value: 2,
-//           label: i18n.t("project.Pro_ViewAllTasks"),
-//         },
-//       ],
-//     },
-//   },
-//
 ];
+export const formSchema1 = [
+  {
+    prop: "ProgramingTaskId",
+    label: "生产加工编程任务单号",
+    cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
+    },
+  },
+  {
+    prop: "ActualStart",
+    label: "实际开始时间",
+    cpn: "SingleTime",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    prop: "ActualEnd",
+    label: "实际结束时间",
+    cpn: "SingleTime",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    prop: "ActualTime",
+    label: "实际用时",
+    cpn: "FormInput",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    prop: "Schedule",
+    label: "进度",
+    cpn: "Slider",
+    default: 0,
+  },
+  {
+    prop: "Number",
+    label: "数量",
+    cpn: "FormInput",
+  },
+  {
+    prop: "DeviceNo",
+    label: "设备编号",
+    cpn: "FormInput",
+  },
+]

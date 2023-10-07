@@ -32,3 +32,11 @@ export function site_collection_inspection_arrival(data) {
     data,
   });
 }
+//编辑工时报工
+export function site_collection_programing_time_collection(data){
+  return request({
+    url: "/site_collection/programing_time_collection",
+    method: "post",
+    data,
+  })
+}
