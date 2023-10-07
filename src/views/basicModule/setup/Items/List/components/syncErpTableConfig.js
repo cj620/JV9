@@ -20,15 +20,13 @@ export class Table extends BaseTable {
       formSchema:[],
       // 行标识
       rowId: 'BillId',
-      // 表格标题
-      title: i18n.t("menu.Sa_SaleOrder"),
 
       tableHeaderShow: false,
       operationCol: false,
       pagination: false,
       height: 350,
       // 打印模块标识
-      printMod:'Sa_SaleOrder',
+      printMod:'Se_SyncErp',
     })
   }
 }
