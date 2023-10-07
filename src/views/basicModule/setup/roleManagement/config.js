@@ -5,6 +5,8 @@
  * @Description:
  */
 import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
+import * as filters from "@/filters";
+import Vue from "_vue@2.6.10@vue";
 
 // DefaultNavigationBarConfiguration
 async function getIndexNav() {
@@ -13,15 +15,24 @@ async function getIndexNav() {
   });
   // console.log(JSON.parse(data.ConfigValue), "sadfasdfdsfsadfsafas");
   const arr = JSON.parse(data.ConfigValue) || [];
+  console.log(arr);
+  let Items = [];
+  arr.forEach((item) => {
+    console.log(item);
+    for (let key in item) {
+      console.log(key);
+      Items.push({
+        label: item[key],
+        value: key,
+      });
+    }
+  });
+  console.log(Items);
   return {
-    Items: arr.map((item) => {
-      return {
-        label: i18n.t(`menu.${item}`),
-        value: item,
-      };
-    }),
+    Items,
     Count: arr.length,
   };
+
 }
 export const formSchema = [
   {
