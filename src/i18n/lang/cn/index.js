@@ -162,6 +162,7 @@ const cn = {
     Pro_UpdateDate: "更新日期",
     Pro_CalculationMonth: "结算月份",
     Pro_Worker: "负责人",
+    Pro_Worker1: "创建人",
     Pro_ProcessingProgress: "加工进度",
     Pro_TaskSheetNo: "任务单号",
     Pro_AddProcedure: "增加工序",

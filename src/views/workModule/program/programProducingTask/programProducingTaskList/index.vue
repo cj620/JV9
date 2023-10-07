@@ -19,9 +19,14 @@
               confirm: edit.bind(null, row),
               disabled: row.State === 'Processed',//待修改
             },
-             {
+            {
               label: '领用',
               confirm: reception.bind(null, row),
+              disabled: row.State === 'Processed',//待修改
+            },
+            {
+              label: '报工',
+              confirm: report.bind(null, row),
               disabled: row.State === 'Processed',//待修改
             },
           ]"
@@ -132,9 +137,12 @@ export default {
       this.type = "edit";
       this.transferData = JSON.parse(JSON.stringify(row));
     },
-      //领用任务
-
+    // 领用
 	  reception(){
+
+    },
+    // 报工
+    report(){
 
     },
     //查看子任务

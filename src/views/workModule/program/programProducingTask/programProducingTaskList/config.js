@@ -40,7 +40,7 @@ export class Table extends BaseTable {
 }
 //  表格配置
 const tableSchema = [
-  /*产品编号*/
+  /*模号*/
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
@@ -54,6 +54,10 @@ const tableSchema = [
   {
     prop: "PartName",
     label: i18n.t("Generality.Ge_PartName"),
+  },
+  {
+    prop: "Description",
+    label: "描述",
   },
   /*状态*/
   {
@@ -69,26 +73,35 @@ const tableSchema = [
     label: i18n.t("project.Pro_TaskSheetNo"),
   },
 
-  //  关联工序
+  //  任务工序代码
   {
     prop: "ProcessTaskCode",
     label: "任务工序代码",
     width: "140px",
   },
 
-  /*工序*/
+  /*工序名称*/
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
   },
+  //
+  {
+    prop: "Schedule",
+    label: "进度",
+  },
 
-
-  /*负责人*/
+  /*创建人*/
   {
     prop: "Creator",
+    label: i18n.t("project.Pro_Worker1"),
+  },
+  //   负责人
+  {
+    prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
   },
-  //   制单
+  //   创建时间
   {
     prop: "CreationDate",
     label: '创建时间',
@@ -110,9 +123,19 @@ const tableSchema = [
     width: "140px",
     //custom: true,
   },
+  //   预计工时
+  {
+    prop: "PlanTime",
+    label: "预计工时",
+  },
+  //   实际工时
+  {
+    prop: "ActualTime",
+    label: "实际工时",
+  },
   /*备注*/
   {
-    prop: "ItemRemarks",
+    prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
 ];
