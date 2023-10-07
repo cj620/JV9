@@ -228,7 +228,7 @@ const system = [
     path: "se_AuditFlowSetup",
     title: i18n.t("Generality.Ge_Approve"),
   },
-  // 审核人配置
+  // 工作台
   {
     key: "Se_Desk",
     component: () => import("@/views/basicModule/system/desk"),
