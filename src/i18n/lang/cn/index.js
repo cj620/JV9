@@ -30,6 +30,7 @@ const cn = {
     BaseData: "基础数据",
     Pa_ProgramTaskList: "编程任务列表",
     Pa_ProgramProducingTaskList: "编程加工任务列表",
+    Pa_ProgramProducingTaskReport: "加工编程任务报工",
     De_DesignTaskList: "设计任务列表",
     De_ProcessTemplate: "工序模板",
     Pu_Supplier: "供应商",
@@ -163,6 +164,7 @@ const cn = {
     Pro_UpdateDate: "更新日期",
     Pro_CalculationMonth: "结算月份",
     Pro_Worker: "负责人",
+    Pro_Worker1: "创建人",
     Pro_ProcessingProgress: "加工进度",
     Pro_TaskSheetNo: "任务单号",
     Pro_AddProcedure: "增加工序",
@@ -1355,6 +1357,12 @@ const cn = {
   program: {
     Pr_ProcessPlanning: "工艺设计",
     Pr_CAMTaskRecord: "编程任务记录",
+    Pr_Receive: "领用",
+    Pr_ProcessTaskCode: "任务工序代码",
+    Pr_CreationDate: "创建时间",
+    Pr_ProgramingTaskId: "生产加工编程任务单号",
+    Pr_ActualStart: "实际开始时间",
+    Pr_ActualEnd: "实际结束时间",
   },
   dashboard: {
     Da_ECNThisMonth: "本月设变",

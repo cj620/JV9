@@ -35,7 +35,7 @@ const program = [
   {
     key: "Pa_ProgramTaskList",
     component: () =>
-      import("@/views/workModule/program/programTask/ProgramTaskList"),
+      import("@/views/workModule/program/ProgramTaskList"),
     Parent: "Pa_Program",
     name: "Pa_ProgramTaskList",
     path: "Pa_ProgramTaskList",
@@ -55,11 +55,21 @@ const program = [
   {
     key: "Pa_ProgramProducingTaskList",
     component: () =>
-      import("@/views/workModule/program/programProducingTask/programProducingTaskList"),
+      import("@/views/workModule/program/programProducingTaskList"),
     Parent: "Pa_Program",
     name: "Pa_ProgramProducingTaskList",
     path: "Pa_ProgramProducingTaskList",
     title: i18n.t("menu.Pa_ProgramProducingTaskList"),
+  },
+  // 编程加工任务报工
+  {
+    key: "Pa_ProgramProducingTaskReport",
+    component: () =>
+        import("@/views/workModule/program/programProducingTaskReport"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramProducingTaskReport",
+    path: "Pa_ProgramProducingTaskReport",
+    title: i18n.t("menu.Pa_ProgramProducingTaskReport"),
   },
   // 编程任务记录
   {
