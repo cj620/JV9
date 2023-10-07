@@ -21,7 +21,7 @@ export class Table extends BaseTable {
       tableSchema: newTableCongfig,
       tableHeaderShow: false,
       pagination: false,
-      height: "",
+      height: null,
     });
   }
 }

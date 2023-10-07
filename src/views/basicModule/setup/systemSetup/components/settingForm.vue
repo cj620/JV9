@@ -21,7 +21,7 @@
             style="width: 100%"
             v-model="form.ConfigValue"
             :multiple="isMultiple"
-            filterable 
+            filterable
             :placeholder="$t('Generality.Ge_PleaseSelect')"
           >
             <el-option

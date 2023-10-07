@@ -9,6 +9,8 @@
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getUserLogList } from "@/api/basicApi/systemSettings/user";
+import { enumFilter } from "~/utils/system/enumsPlugin";
+import { itemCategoryEnum } from "@/enum/baseModule";
 class api extends TableAPI {
   // 获取列表
   getData = getUserLogList;
@@ -50,6 +52,10 @@ const tableSchema = [
   {
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
+    customFilter: (value) => {
+      console.log(value, i18n.t("menu." + value), 989898);
+      return value?i18n.t("menu." + value):value;
+    },
   },
   {
     prop: "AssociatedNo",

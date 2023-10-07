@@ -10,6 +10,7 @@
 import zhLocale from "element-ui/lib/locale/lang/zh-CN";
 const cn = {
   menu: {
+    Login: "登录",
     Se_ErrorPrompt: "报错提示项",
     Automation: "自动化",
     CustomSammaryManage:'自定义汇总',
@@ -1419,6 +1420,8 @@ const cn = {
       "自动排程特急工单工序前置时间系数",
       Message_notification_configuration:"消息通知配置",
     User_default_navigation_bar:"默认导航栏",
+    Default_navigation_bar_configuration:"默认导航栏菜单",
+    ERP_inventory_category_configuration:"ERP编码规则",
   },
 
   ...zhLocale,
