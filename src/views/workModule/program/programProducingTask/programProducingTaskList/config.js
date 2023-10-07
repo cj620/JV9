@@ -9,7 +9,7 @@
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { production_programing_task_items } from "@/api/workApi/project/projectTask";
-import { taskTypeEnum, ProductionType, enumFilter, ProductionTaskState } from "@/enum/workModule";
+import { enumFilter, taskStateEnum } from "@/enum/workModule";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 
 import { getProjectQuery } from "@/api/workApi/project/projectManage";
@@ -40,18 +40,26 @@ export class Table extends BaseTable {
 }
 //  表格配置
 const tableSchema = [
-  //   加工单号
+  /*产品编号*/
   {
-    prop: "ProductionBillId",
-    label: i18n.t("production.Pr_WorkSheetNo"),
-    align: "center",
-    width: "150px",
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+  },
+  /*零件编号*/
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+  },
+  /*零件名称*/
+  {
+    prop: "PartName",
+    label: i18n.t("Generality.Ge_PartName"),
   },
   /*状态*/
   {
     prop: "State",
     label: i18n.t("Generality.Ge_TaskStatus"),
-    customFilter: (value) => enumFilter(value, ProductionTaskState),
+    customFilter: (value) => enumFilter(value, taskStateEnum),
     width: "115px",
     align: "center",
   },
@@ -60,11 +68,7 @@ const tableSchema = [
     prop: "TaskBillId",
     label: i18n.t("project.Pro_TaskSheetNo"),
   },
-  /*产品名称*/
-  {
-    prop: "ToolingNo",
-    label: i18n.t("Generality.Ge_ToolingNo"),
-  },
+
   //  关联工序
   {
     prop: "ProcessTaskCode",

@@ -1425,7 +1425,8 @@ const en = {
       "Aps urgent bill process lead time coefficient",
     Aps_extra_urgent_bill_process_lead_time_coefficient:
       "Aps extra urgent bill process lead time coefficient",
-      Message_notification_configuration:"Message notification configuration"
+      Message_notification_configuration:"Message notification configuration",
+    User_default_navigation_bar:"Default navigation bar",
   },
   ...enLocale,
 };

@@ -15,19 +15,15 @@ async function getIndexNav() {
   });
   // console.log(JSON.parse(data.ConfigValue), "sadfasdfdsfsadfsafas");
   const arr = JSON.parse(data.ConfigValue) || [];
-  console.log(arr);
   let Items = [];
   arr.forEach((item) => {
-    console.log(item);
     for (let key in item) {
-      console.log(key);
       Items.push({
         label: item[key],
         value: key,
       });
     }
   });
-  console.log(Items);
   return {
     Items,
     Count: arr.length,

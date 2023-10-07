@@ -44,6 +44,7 @@
 import { getAllProcess } from "@/api/workApi/production/baseData";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
+import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
 
 export default {
   created() {
@@ -117,10 +118,34 @@ export default {
           this.label = this.ConfigItems[this.ConfigKey].value;
           this.value = this.ConfigItems[this.ConfigKey].value;
         });
+      } else if (["UserDefaultNavigationBar"].includes(this.ConfigKey)) {
+		  this.isMultiple =false
+        this.getIndexNav();
       }
     },
     updateValue() {
       this.$emit("upadte:form", this.form);
+    },
+
+    getIndexNav() {
+      getConfigKey({
+        ConfigKey: "DefaultNavigationBarConfiguration",
+      }).then((res) => {
+        const arr = JSON.parse(res.ConfigValue) || [];
+        let Items = [];
+        arr.forEach((item) => {
+          for (let key in item) {
+            Items.push({
+              label: item[key],
+              value: key,
+            });
+          }
+        });
+        console.log(Items);
+		  this.options = Items
+		  this.label = 'label';
+		  this.value = 'value';
+      });
     },
   },
   computed: {
@@ -132,6 +157,7 @@ export default {
         "DesignUsers",
         "BomDefaultUnit",
         "ProhibitSkipStationProcesses",
+        "UserDefaultNavigationBar",
       ].includes(this.ConfigKey);
     },
   },
