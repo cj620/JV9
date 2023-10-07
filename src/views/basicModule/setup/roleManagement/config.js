@@ -6,7 +6,7 @@
  */
 import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
 import * as filters from "@/filters";
-import Vue from "_vue@2.6.10@vue";
+// import Vue from "_vue@2.6.10@vue";
 
 // DefaultNavigationBarConfiguration
 async function getIndexNav() {
