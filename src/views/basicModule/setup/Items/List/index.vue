@@ -93,6 +93,9 @@
             <el-button size="mini" @click="add">{{
               $t("Generality.Ge_New")
             }}</el-button>
+            <el-button size="mini" @click="syncErpData">
+              同步ERP数据
+            </el-button>
             <el-button size="mini" @click="downExport2Excel">
               {{ $t("design.De_DownloadTemplate") }}
             </el-button>
@@ -124,6 +127,11 @@
       :title="$t('Generality.Ge_Import')"
       @complete="importComplete"
     ></Import>
+    <sync-erp-data
+      :visible.sync="syncErpDataDialogFormVisible"
+      v-if="syncErpDataDialogFormVisible">
+
+    </sync-erp-data>
   </PageWrapper>
 </template>
 
@@ -142,9 +150,13 @@ import {
 } from "@/api/basicApi/systemSettings/Item";
 import { stateEnum } from "@/enum/baseModule";
 import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
+import syncErpData from "./components/syncErpData";
 
 export default {
   name: "Items",
+  components:{
+    syncErpData
+  },
   data() {
     return {
       stateEnum,
@@ -159,6 +171,8 @@ export default {
       formObj: {},
       dialogFormVisible: false,
       importShow: false,
+
+      syncErpDataDialogFormVisible: false,
 
       form: { filterText: "" },
       CategoryListData: [],
@@ -314,6 +328,10 @@ export default {
     // 打开新增页面
     add() {
       this.$router.push({ name: "Se_Item_Add", params: { type: "add" } });
+    },
+    //同步erp数据
+    syncErpData(){
+      this.syncErpDataDialogFormVisible = true
     },
     //复制一张单子出来
     copy(row) {
