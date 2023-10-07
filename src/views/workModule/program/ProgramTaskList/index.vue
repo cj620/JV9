@@ -1,7 +1,7 @@
 
 
 <script>
-import Common from "../../../design/designTask/DesignTaskList";
+import Common from "../../design/designTask/DesignTaskList";
 
 export default {
  // 继承

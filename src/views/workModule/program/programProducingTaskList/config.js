@@ -6,7 +6,7 @@
  */
 //销售订单明细 配置文件
 // 引入表格表格类和表格API类
-import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
+import { TableAPI, Table as BaseTable } from "~/class/table";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { production_programing_task_items } from "@/api/workApi/project/projectTask";
 import { enumFilter, taskStateEnum } from "@/enum/workModule";
@@ -57,7 +57,7 @@ const tableSchema = [
   },
   {
     prop: "Description",
-    label: "描述",
+    label: i18n.t("Generality.Ge_Describe"),
   },
   /*状态*/
   {
@@ -76,7 +76,7 @@ const tableSchema = [
   //  任务工序代码
   {
     prop: "ProcessTaskCode",
-    label: "任务工序代码",
+    label: i18n.t("program.Pr_ProcessTaskCode"),
     width: "140px",
   },
 
@@ -88,7 +88,7 @@ const tableSchema = [
   //
   {
     prop: "Schedule",
-    label: "进度",
+    label: i18n.t("Generality.Ge_Schedule"),
   },
 
   /*创建人*/
@@ -104,7 +104,7 @@ const tableSchema = [
   //   创建时间
   {
     prop: "CreationDate",
-    label: '创建时间',
+    label: i18n.t("program.Pr_CreationDate"),
     filter: "time",
     width: "140px",
   },
@@ -126,12 +126,12 @@ const tableSchema = [
   //   预计工时
   {
     prop: "PlanTime",
-    label: "预计工时",
+    label: i18n.t("Generality.Ge_PlanTime"),
   },
   //   实际工时
   {
     prop: "ActualTime",
-    label: "实际工时",
+    label: i18n.t("Generality.Ge_ActualHour"),
   },
   /*备注*/
   {
@@ -145,7 +145,7 @@ const formSchema = [
 export const formSchema1 = [
   {
     prop: "ProgramingTaskId",
-    label: "生产加工编程任务单号",
+    label: i18n.t("program.Pr_ProgramingTaskId"),
     cpn: "FormInput",
     cpnProps: {
       disabled: true,
@@ -153,7 +153,7 @@ export const formSchema1 = [
   },
   {
     prop: "ActualStart",
-    label: "实际开始时间",
+    label: i18n.t("program.Pr_ActualStart"),
     cpn: "SingleTime",
     rules: [
       {
@@ -165,7 +165,7 @@ export const formSchema1 = [
   },
   {
     prop: "ActualEnd",
-    label: "实际结束时间",
+    label: i18n.t("program.Pr_ActualEnd"),
     cpn: "SingleTime",
     rules: [
       {
@@ -177,7 +177,7 @@ export const formSchema1 = [
   },
   {
     prop: "ActualTime",
-    label: "实际用时",
+    label: i18n.t("Generality.Ge_ActualTime"),
     cpn: "FormInput",
     rules: [
       {
@@ -189,18 +189,18 @@ export const formSchema1 = [
   },
   {
     prop: "Schedule",
-    label: "进度",
+    label: i18n.t("Generality.Ge_Schedule"),
     cpn: "Slider",
     default: 0,
   },
   {
     prop: "Number",
-    label: "数量",
+    label: i18n.t("Generality.Ge_Quantity"),
     cpn: "FormInput",
   },
   {
     prop: "DeviceNo",
-    label: "设备编号",
+    label: i18n.t("production.Pr_DeviceNo"),
     cpn: "FormInput",
   },
 ]

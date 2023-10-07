@@ -14,20 +14,23 @@
       <template #operation="{ row }">
         <TableAction
           :actions="[
+            // 编辑
             {
               label: $t('Generality.Ge_Edit'),
               confirm: edit.bind(null, row),
               disabled: row.State === 'Processed',//待修改
             },
+            // 领用
             {
-              label: '领用',
+              label: $t('program.Pr_Receive'),
               popConfirm: {
                 title: '是否确定领用',
-                confirm: reception.bind(null, row),
+                confirm: receive.bind(null, row),
               },
             },
+            // 报工
             {
-              label: '报工',
+              label: $t('setup.ReportWork'),
               confirm: report.bind(null, row),
             },
           ]"
@@ -78,7 +81,7 @@
     </JvDialog>
     <JvDialog
       :visible.sync="reportDialogVisible"
-      title="报工"
+      :title="$t('setup.ReportWork')"
       v-if="reportDialogVisible"
       @confirm="confirmToReport"
       width="30%"
@@ -92,7 +95,7 @@
 
 <script>
 import { Table, formSchema1 } from "./config";
-import { Form } from "@/jv_doc/class/form";
+import { Form } from "~/class/form";
 import { ViewSubtasksTableObj } from "@/views/workModule/design/designTask/DesignTaskList/viewSubtasksTableConfig";
 import distributionTaskDialog from "@/views/workModule/design/designTask/DesignTaskList/distributionTaskDialog.vue";
 import addProjectTask from "@/views/workModule/design/designTask/DesignTaskList/addProjectTask.vue";
@@ -163,15 +166,15 @@ export default {
       this.transferData = JSON.parse(JSON.stringify(row));
     },
     // 领用
-	  reception(row){
-      update_worker({ ProgramingTaskId: row.TaskBillId }).then((res) => {
+    receive(row){
+      update_worker({ ProgramingTaskId: row.Id }).then((res) => {
         this.tableObj.getData();
       })
     },
     // 报工
     report(row){
       this.reportDialogVisible = true
-      this.reportForm.form.ProgramingTaskId = row.TaskBillId
+      this.reportForm.form.ProgramingTaskId = row.Id
       this.reportForm.form.Schedule = row.Schedule
       this.reportForm.form.ActualStart = row.ActualStart
       this.reportForm.form.ActualEnd = row.ActualEnd
