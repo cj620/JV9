@@ -31,6 +31,7 @@ const cn = {
     Pa_ProgramTaskList: "编程任务列表",
     Pa_ProgramProducingTaskList: "编程加工任务列表",
     Pa_ProgramProducingTaskReport: "加工编程任务报工",
+    Pa_ProgramProducingTaskReportRecord: "加工编程任务报工记录",
     De_DesignTaskList: "设计任务列表",
     De_ProcessTemplate: "工序模板",
     Pu_Supplier: "供应商",

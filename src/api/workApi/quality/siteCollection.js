@@ -40,3 +40,11 @@ export function site_collection_programing_time_collection(data){
     data,
   })
 }
+// 报工记录报表
+export function site_collection_production_task_record(data){
+  return request({
+    url: "/site_collection/production_task_record",
+    method: "post",
+    data,
+  })
+}

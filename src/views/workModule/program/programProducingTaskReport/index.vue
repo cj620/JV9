@@ -13,10 +13,16 @@
               label: $t('setup.ReportWork'),
               confirm: report.bind(null, row),
             },
+            // 报工记录
+            {
+              label: $t('project.Pro_ReportToWorkRecord'),
+              confirm: reportRecord.bind(null, row),
+            }
           ]"
         />
       </template>
     </JvTable>
+    <!--报工-->
     <JvDialog
       :visible.sync="reportDialogVisible"
       :title="$t('setup.ReportWork')"
@@ -29,10 +35,21 @@
       <el-divider></el-divider>
       <JvForm :formObj="reportForm"></JvForm>
     </JvDialog>
+    <!-- 报工记录 -->
+    <JvDialog
+      :visible.sync="reportRecordDialogVisible"
+      :title="$t('project.Pro_ReportToWorkRecord')"
+      destroy-on-close
+      v-if="reportRecordDialogVisible"
+      :IsShowFooterBtn="false"
+      width="50%">
+      <JvTable :table-obj="recordTableObj">
+      </JvTable>
+    </JvDialog>
   </PageWrapper>
 </template>
 <script>
-import { Table, formSchema1, detailConfig } from "./config"
+import { Table, RecordTable, formSchema1, detailConfig } from "./config"
 import { Form } from "~/class/form";
 import Detail from "@/jv_doc/class/detail/Detail";
 import { site_collection_programing_time_collection } from "@/api/workApi/quality/siteCollection"
@@ -41,13 +58,16 @@ export default {
   data() {
     return {
       tableObj: {},
+      recordTableObj: {},
       reportForm: {},
       detailObj:{},
-      reportDialogVisible: false
+      reportDialogVisible: false,
+      reportRecordDialogVisible: false,
     }
   },
   created() {
     this.tableObj = new Table();
+    this.recordTableObj = new RecordTable();
     this.detailObj = new Detail({
       data: {},
       schema: detailConfig,
@@ -85,7 +105,14 @@ export default {
             )
           }
       })
-    }
+    },
+    reportRecord(row) {
+      this.reportRecordDialogVisible = true
+      this.recordTableObj.getData({
+        BillId: row.TaskBillId,
+        // Worker: row.Worker
+      })
+    },
   },
   watch:{
     'reportForm.form.ActualTime':{
