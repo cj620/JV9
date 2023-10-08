@@ -19,9 +19,9 @@ export class EditTable extends BaseTable {
       importBar: false,
       sortCol: false,
       tid:'De_ToolingBOM',
-      selectable: (row, index) => {
-        return row.ItemCategory.value === 'Part';
-      }
+      // selectable: (row, index) => {
+      //   return row.ItemCategory.value === 'Part';
+      // }
       // sortCol:false
     });
   }
