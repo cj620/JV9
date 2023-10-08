@@ -1,5 +1,7 @@
 import { TableAPI, Table as BaseTable } from "~/class/table";
 import { production_programing_task_items } from "@/api/workApi/project/projectTask";
+import { taskTypeEnum } from "@/enum/workModule/project/projectTask"
+import { enumFilter } from "~/utils/system/enumsPlugin";
 class api extends TableAPI {
   // 获取列表
   getData = production_programing_task_items;
@@ -137,4 +139,22 @@ export const formSchema1 = [
       },
     ],
   },
+];
+export const detailConfig = [
+  /*模具编号*/
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+  },
+  //   预计工时
+  {
+    prop: "PlanTime",
+    label: i18n.t("Generality.Ge_PlanTime"),
+  },
+  //   任务类型
+  {
+    prop: "TaskType",
+    label: i18n.t("Generality.Ge_TaskType"),
+    customFilter: (value) => enumFilter(value, taskTypeEnum),
+  }
 ]

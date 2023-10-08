@@ -23,17 +23,18 @@
       destroy-on-close
       v-if="reportDialogVisible"
       @confirm="confirmToReport"
-      width="30%"
+      width="40%"
     >
-      <JvForm :formObj="reportForm">
-
-      </JvForm>
+      <JvDetail :detailObj="detailObj"></JvDetail>
+      <el-divider></el-divider>
+      <JvForm :formObj="reportForm"></JvForm>
     </JvDialog>
   </PageWrapper>
 </template>
 <script>
-import { Table, formSchema1 } from "./config"
+import { Table, formSchema1, detailConfig } from "./config"
 import { Form } from "~/class/form";
+import Detail from "@/jv_doc/class/detail/Detail";
 import { site_collection_programing_time_collection } from "@/api/workApi/quality/siteCollection"
 export default {
   name: "Pa_ProgramProducingTaskReport",
@@ -41,11 +42,18 @@ export default {
     return {
       tableObj: {},
       reportForm: {},
+      detailObj:{},
       reportDialogVisible: false
     }
   },
   created() {
     this.tableObj = new Table();
+    this.detailObj = new Detail({
+      data: {},
+      schema: detailConfig,
+      direction: "horizontal",
+      column: 3,
+    })
     this.reportForm = new Form({
       formSchema : formSchema1,
       labelPosition: "top",
@@ -64,6 +72,9 @@ export default {
       this.reportForm.form.Schedule = row.Schedule
       this.reportForm.form.ActualStart = row.ActualStart
       this.reportForm.form.ActualEnd = row.ActualEnd
+      this.detailObj.detailData.ToolingNo = row.ToolingNo
+      this.detailObj.detailData.PlanTime = row.PlanTime
+      this.detailObj.detailData.TaskType = row.TaskType
     },
     confirmToReport() {
       this.reportForm.validate((valid) => {
@@ -84,7 +95,7 @@ export default {
       handler(n,o){
         if(n){
           // n*60*60*1000
-          this.reportForm.form.ActualStart = new Date(new Date(this.reportForm.form.ActualEnd).getTime() - n * 60 * 60 * 1000);
+          this.reportForm.form.ActualEnd = new Date(new Date(this.reportForm.form.ActualStart).getTime() + n * 60 * 60 * 1000);
         }
       }
     }

@@ -55,10 +55,6 @@ const tableSchema = [
     prop: "PartName",
     label: i18n.t("Generality.Ge_PartName"),
   },
-  {
-    prop: "Description",
-    label: i18n.t("Generality.Ge_Describe"),
-  },
   /*状态*/
   {
     prop: "State",
@@ -72,14 +68,6 @@ const tableSchema = [
     prop: "TaskBillId",
     label: i18n.t("project.Pro_TaskSheetNo"),
   },
-
-  //  任务工序代码
-  {
-    prop: "ProcessTaskCode",
-    label: i18n.t("program.Pr_ProcessTaskCode"),
-    width: "140px",
-  },
-
   /*工序名称*/
   {
     prop: "Process",
@@ -90,23 +78,10 @@ const tableSchema = [
     prop: "Schedule",
     label: i18n.t("Generality.Ge_Schedule"),
   },
-
-  /*创建人*/
-  {
-    prop: "Creator",
-    label: i18n.t("project.Pro_Worker1"),
-  },
   //   负责人
   {
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
-  },
-  //   创建时间
-  {
-    prop: "CreationDate",
-    label: i18n.t("program.Pr_CreationDate"),
-    filter: "time",
-    width: "140px",
   },
   /*计划开始*/
   {
