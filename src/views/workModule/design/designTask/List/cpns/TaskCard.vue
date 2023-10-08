@@ -73,7 +73,7 @@
             <i class="el-icon-box"></i>
             {{ cdata.Process }}
           </div>
-          <div class="desc-text">
+          <div class="desc-text" v-if="cdata.TaskType">
             <i class="el-icon-folder-checked"></i>
             {{ taskMap.name }}
           </div>
@@ -88,6 +88,7 @@
         <div>
           <!-- <i class="el-icon-pie-chart"></i> -->
           <el-progress
+            v-if="cdata.Progress"
             :text-inside="true"
             :stroke-width="15"
             :percentage="Number(cdata.Progress)"
