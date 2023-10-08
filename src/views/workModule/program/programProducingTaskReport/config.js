@@ -186,10 +186,6 @@ export const detailConfig = [
 ]
 const recordSchema = [
   {
-    prop: "BillId",
-    label: i18n.t("Generality.Ge_BillId"),
-  },
-  {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
   },
@@ -204,5 +200,16 @@ const recordSchema = [
     prop: "ActualEnd",
     label: i18n.t("Generality.Ge_ActualEnd"),
     filter: "time",
+  },
+  // 进度
+  // 实际工时
+  {
+    prop: "ActualTime",
+    label: i18n.t("Generality.Ge_ActualTime"),
+  },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
   },
 ]

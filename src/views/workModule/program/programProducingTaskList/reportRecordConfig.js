@@ -7,22 +7,17 @@ export class Table extends BaseTable {
   constructor() {
     super({
       tableSchema: tableSchema,
-      formSchema: [],
+      formSchema: formSchema,
       rowId: "Id",
       title: i18n.t('menu.Pa_ProgramProducingTaskReportRecord'),
       api,
       printMod: "Pa_ProgramProducingTaskReportRecord",
       operationCol: false,
       printBar: false,
-      searchBar: false,
+      // searchBar: false,
     })
   }}
 const tableSchema = [
-  /*任务单号*/
-  {
-    prop: "BillId",
-    label: i18n.t("Generality.Ge_BillId")
-  },
   /*模具编号*/
   {
     prop: "ToolingNo",
@@ -72,4 +67,25 @@ const tableSchema = [
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
+]
+const formSchema = [
+  // 模具编号
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    cpn: "FormInput",
+  },
+  // 零件编号
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+    cpn: "FormInput",
+  },
+  // 负责人
+  {
+    prop: "Worker",
+    label: i18n.t("project.Pro_Worker"),
+    cpn: "FormInput"
+  },
+
 ]
