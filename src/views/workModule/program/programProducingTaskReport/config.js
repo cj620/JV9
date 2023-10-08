@@ -137,15 +137,4 @@ export const formSchema1 = [
       },
     ],
   },
-
-  {
-    prop: "Number",
-    label: i18n.t("Generality.Ge_Quantity"),
-    cpn: "FormInput",
-  },
-  {
-    prop: "DeviceNo",
-    label: i18n.t("production.Pr_DeviceNo"),
-    cpn: "FormInput",
-  },
 ]
