@@ -89,14 +89,14 @@ const tableSchema = [
 //  搜索表单配置
 const formSchema = [];
 export const formSchema1 = [
-  {
-    prop: "ProgramingTaskId",
-    label: i18n.t("program.Pr_ProgramingTaskId"),
-    cpn: "FormInput",
-    cpnProps: {
-      disabled: true,
-    },
-  },
+  // {
+  //   prop: "ProgramingTaskId",
+  //   label: i18n.t("program.Pr_ProgramingTaskId"),
+  //   cpn: "FormInput",
+  //   cpnProps: {
+  //     disabled: true,
+  //   },
+  // },
   {
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_ActualTime"),
