@@ -1352,6 +1352,8 @@ const en = {
       "The quantity that can be delivery is less than the current quantity",
     P10196: "Returnable quantity is less than the current quantity",
     P10197: "The previous process was not inspected",
+    P10198: "The query criteria cannot be empty ",
+    P10199: "Obtaining successful rows",
   },
   program: {
     Pr_ProcessPlanning: "Process planning",
