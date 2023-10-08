@@ -28,6 +28,16 @@ const tableSchema = [
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
   },
+  /*零件编号*/
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+  },
+  /*零件名称*/
+  {
+    prop: "PartName",
+    label: i18n.t("Generality.Ge_PartName"),
+  },
   /*工序名称*/
   {
     prop: "Process",
