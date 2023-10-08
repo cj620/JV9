@@ -28,11 +28,6 @@
                 confirm: receive.bind(null, row),
               },
             },
-            // 报工
-            {
-              label: $t('setup.ReportWork'),
-              confirm: report.bind(null, row),
-            },
           ]"
         />
       </template>
@@ -79,23 +74,11 @@
         </template>
       </JvTable>
     </JvDialog>
-    <JvDialog
-      :visible.sync="reportDialogVisible"
-      :title="$t('setup.ReportWork')"
-      v-if="reportDialogVisible"
-      @confirm="confirmToReport"
-      width="30%"
-    >
-      <JvForm :formObj="reportForm">
-
-      </JvForm>
-    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
-import { Table, formSchema1 } from "./config";
-import { Form } from "~/class/form";
+import { Table } from "./config";
 import { ViewSubtasksTableObj } from "@/views/workModule/design/designTask/DesignTaskList/viewSubtasksTableConfig";
 import distributionTaskDialog from "@/views/workModule/design/designTask/DesignTaskList/distributionTaskDialog.vue";
 import addProjectTask from "@/views/workModule/design/designTask/DesignTaskList/addProjectTask.vue";
@@ -104,7 +87,6 @@ import {
   project_task_delete_item,
 } from "@/api/workApi/project/projectTask";
 import { update_worker } from "@/api/workApi/production/productionTask"
-import { site_collection_programing_time_collection } from "@/api/workApi/quality/siteCollection"
 
 export default {
   name: "Pa_ProgramProducingTaskList",
@@ -125,12 +107,10 @@ export default {
     return {
       // 表格实例
       tableObj: {},
-      reportForm: {},
       type: "add",
       distributionTaskDialogFormVisible: false,
       addProjectTaskDialogFormVisible: false,
       viewSubtasksDialogVisible: false,
-      reportDialogVisible: false,
       TaskData: {},
       transferData: {},
       viewSubtasksTableObj: {},
@@ -142,14 +122,6 @@ export default {
     console.log(this.$route.name)
     // 创建表格实例
     this.tableObj = new Table();
-    this.reportForm = new Form({
-      formSchema : formSchema1,
-      labelPosition: "top",
-      baseColProps: {
-        span: 24,
-      },
-      labelWidth: "80px",
-    })
     this.tableObj.props.title = this.tableTitle;
     this.viewSubtasksTableObj = new ViewSubtasksTableObj();
     this.tableObj.getData();
@@ -170,25 +142,6 @@ export default {
       update_worker({ ProgramingTaskId: row.Id }).then((res) => {
         this.tableObj.getData();
       })
-    },
-    // 报工
-    report(row){
-      this.reportDialogVisible = true
-      this.reportForm.form.ProgramingTaskId = row.Id
-      this.reportForm.form.Schedule = row.Schedule
-      this.reportForm.form.ActualStart = row.ActualStart
-      this.reportForm.form.ActualEnd = row.ActualEnd
-      console.log(this.reportForm.form);
-    },
-    confirmToReport(){
-      site_collection_programing_time_collection(this.reportForm.form).then((res) => {
-        this.tableObj.getData();
-        this.reportDialogVisible = false
-      }).catch(() => {
-        this.reportDialogVisible = false
-        }
-      )
-
     },
     //查看子任务
     viewSubTask(row) {
