@@ -40,17 +40,13 @@ export const tableConfig = [
   {
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
-    editConfig: {
-      disabled: true,
-    },
+    formCpn: "FormInput",
   },
   /*描述2*/
   {
     prop: "Description2",
     label: i18n.t("design.De_Description2"),
-    editConfig: {
-      disabled: true,
-    },
+    formCpn: "FormInput",
   },
   /*单位*/
   {

@@ -2,6 +2,19 @@
   <PageWrapper :footer="false">
     <!--  设计任务明细表格 -->
     <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj">
+      <!--表格操作行-->
+      <Action
+        size="mini"
+        slot="btn-list"
+        :actions="[
+            // 报工记录
+            {
+              label: $t('project.Pro_ReportToWorkRecord'),
+              confirm: reportRecord.bind(null, ''),
+            },
+          ]"
+      >
+      </Action>
       <!-- 状态标签 -->
       <template #State="{ record }">
         {{ record }}
@@ -127,6 +140,11 @@ export default {
     this.tableObj.getData();
   },
   methods: {
+    reportRecord(){
+      this.$router.push({
+        name: "Pa_ProgramProducingTaskReportRecord",
+      });
+    },
     dialogConfirm() {
       this.viewSubtasksDialogVisible = false;
     },

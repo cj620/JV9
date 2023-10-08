@@ -54,6 +54,23 @@ export const tableConfig = [
       disabled: true,
     },
   },
+  // 是否强制编程
+  {
+    prop: "IsCompulsoryPrograming",
+    label: i18n.t("setup.IsCompulsoryPrograming"),
+    custom: true,
+    editConfig: {
+      disabled: true,
+    },
+  },
+  /*编程预计工时*/
+  {
+    prop: "ProgramingPlanTime",
+    label: '编程预计工时',
+    formCpn: "FormInput",
+    type: "number",
+    width: "140px",
+  },
   /*资源组*/
   {
     prop: "Resource",

@@ -71,6 +71,16 @@ const program = [
     path: "Pa_ProgramProducingTaskReport",
     title: i18n.t("menu.Pa_ProgramProducingTaskReport"),
   },
+  // 编程加工任务记录
+  {
+    key: "Pa_ProgramProducingTaskReportRecord",
+    component: () =>
+      import("@/views/workModule/program/programProducingTaskList/programProducingTaskReportRecord.vue"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramProducingTaskReportRecord",
+    path: "Pa_ProgramProducingTaskReportRecord",
+    title: i18n.t("menu.Pa_ProgramProducingTaskReportRecord"),
+  },
   // 编程任务记录
   {
     key: "Pa_ProgramTask_Record",

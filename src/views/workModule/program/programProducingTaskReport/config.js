@@ -1,10 +1,14 @@
 import { TableAPI, Table as BaseTable } from "~/class/table";
 import { production_programing_task_items } from "@/api/workApi/project/projectTask";
+import { site_collection_production_task_record } from "@/api/workApi/quality/siteCollection"
 import { taskTypeEnum } from "@/enum/workModule/project/projectTask"
 import { enumFilter } from "~/utils/system/enumsPlugin";
 class api extends TableAPI {
   // 获取列表
   getData = production_programing_task_items;
+}
+class api1 extends TableAPI{
+  getData = site_collection_production_task_record
 }
 export class Table extends BaseTable {
   constructor() {
@@ -20,6 +24,27 @@ export class Table extends BaseTable {
       searchBar: false,
     })
   }}
+export class RecordTable extends BaseTable {
+  constructor() {
+    super({
+      tableSchema: recordSchema,
+      formSchema: [],
+      rowId: "Id",
+      title: "",
+      api: api1,
+      height: 400,
+      printMod: "Pa_ProgramProducingTaskReportRecord1",
+      printBar: false,
+      searchBar: false,
+      exportBar: false,
+      colBar: false,
+      densityBar: false,
+      tableHeaderShow: false,
+      chooseCol: false,
+      operationCol: false,
+    });
+  }
+}
 const tableSchema = [
   /*模具编号*/
   {
@@ -88,15 +113,16 @@ const tableSchema = [
 ];
 //  搜索表单配置
 const formSchema = [];
+// 报工表单
 export const formSchema1 = [
-  {
-    prop: "ProgramingTaskId",
-    label: i18n.t("program.Pr_ProgramingTaskId"),
-    cpn: "FormInput",
-    cpnProps: {
-      disabled: true,
-    },
-  },
+  // {
+  //   prop: "ProgramingTaskId",
+  //   label: i18n.t("program.Pr_ProgramingTaskId"),
+  //   cpn: "FormInput",
+  //   cpnProps: {
+  //     disabled: true,
+  //   },
+  // },
   {
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_ActualTime"),
@@ -157,4 +183,26 @@ export const detailConfig = [
     label: i18n.t("Generality.Ge_TaskType"),
     customFilter: (value) => enumFilter(value, taskTypeEnum),
   }
+]
+const recordSchema = [
+  {
+    prop: "BillId",
+    label: i18n.t("Generality.Ge_BillId"),
+  },
+  {
+    prop: "Process",
+    label: i18n.t("Generality.Ge_Process"),
+  },
+  /*实际开始*/
+  {
+    prop: "ActualStart",
+    label: i18n.t("Generality.Ge_ActualStart"),
+    filter: "time",
+  },
+  /*实际结束*/
+  {
+    prop: "ActualEnd",
+    label: i18n.t("Generality.Ge_ActualEnd"),
+    filter: "time",
+  },
 ]
