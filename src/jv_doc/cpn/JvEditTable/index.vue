@@ -55,6 +55,7 @@
           type="selection"
           width="50"
           align="center"
+          :selectable="tableProps.selectable"
         />
         <template v-for="item in tableObj.props.tableSchema">
           <template v-if="!item.hidden">
@@ -62,6 +63,7 @@
               :key="item.prop"
               v-bind="{ ...propsAfterHandle(item) }"
               show-overflow-tooltip
+
             >
               <template slot-scope="scope">
                 <slot

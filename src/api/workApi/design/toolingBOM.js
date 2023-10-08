@@ -79,3 +79,13 @@ export function update_bom_part_level(data) {
     data,
   });
 }
+
+// 快速创建生产订单
+export function quickly_create_task(data) {
+  return request({
+    url: "/tooling/quickly_create_task",
+    method: "post",
+    data,
+    loading: true,
+  });
+}

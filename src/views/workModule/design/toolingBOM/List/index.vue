@@ -40,6 +40,12 @@
             disabled: !IsSelectLength,
             confirm: l_del.bind(),
           },
+          {
+            // 创建生产任务
+            label: $t('Generality.Ge_CreateProductionTask'),
+            disabled: !IsSelectLength,
+            confirm: l_createTask.bind(),
+          },
         ]"
         actionType="primary"
         :dropDownActions="[
@@ -260,6 +266,51 @@
         </template>
       </JvForm>
     </JvDialog>
+    <JvDialog
+      v-if="createTaskVisible"
+      :visible.sync="createTaskVisible"
+      destroy-on-close
+      :title="$t('Generality.Ge_CreateProductionTask')"
+      width="30%"
+      @confirm="createTaskConfirm"
+    >
+      <JvForm :formObj="createTaskFormObj">
+        <!--任务单号-->
+        <template #PmTaskBillId="{ prop }">
+          <el-select
+            v-model="createTaskFormObj.form[prop]"
+            filterable
+            :disabled="editDisabled"
+            @change="changePmTaskBillId"
+          >
+            <el-option
+              v-for="item in TaskListData1"
+              :key="item.BillId"
+              :label="
+                item.BillId + '(' + taskTypeEnum[item.TaskType].name + ')'
+              "
+              :value="item.BillId"
+            >
+            </el-option>
+          </el-select>
+        </template>
+        <template #PlanStart="{ prop }">
+          <el-date-picker
+            v-model="createTaskFormObj.form[prop]"
+            type="datetime"
+            format="yyyy-MM-dd HH:mm"
+          ></el-date-picker>
+        </template>
+
+        <template #PlanEnd="{ prop }">
+          <el-date-picker
+            v-model="createTaskFormObj.form[prop]"
+            type="datetime"
+            format="yyyy-MM-dd HH:mm"
+          ></el-date-picker>
+        </template>
+      </JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 
@@ -277,6 +328,7 @@ import {
   toolingTaskInfoList,
   autoMatchMaterials,
   synchronizePart,
+  quickly_create_task
 } from "@/api/workApi/design/toolingBOM";
 // 获取系统配置接口
 import { batch_get } from "@/api/basicApi/systemSettings/sysSettings";
@@ -293,6 +345,8 @@ import JvDialog from "~/cpn/JvDialog/index.vue";
 import customUpload from "@/components/customUpload/index.vue";
 import request from "@/utils/request";
 import { Form } from "@/jv_doc/class/form";
+import {formSchema} from "@/views/workModule/production/productionTask/components/formConfig";
+import {createTaskFormSchema } from './formConfig';
 export default {
   name: "ToolingBOM",
   // 表格数据
@@ -309,8 +363,20 @@ export default {
     return {
       taskTypeEnum,
       demandStatusEnum,
+      PmTaskData:{},
+      TaskListData1: [],
+      editDisabled: false,
       uploadLoading: false, // 上传loading
       showMassUpload: false, // 批量上传弹窗
+      createTaskFormObj: {
+        form: {
+          PmTaskBillId: '',
+          PlanStart: new Date(),
+          PlanEnd: '',
+          Level: '',
+          Parts: [],
+        }
+      },
       partLevelMap: {
         0: {
           name: this.$t("Generality.Ge_Hide"),
@@ -334,6 +400,7 @@ export default {
       selectTaskDialogFormVisible: false,
       setLevelDialogFormVisible: false,
       importDialogFormVisible: false,
+      createTaskVisible: false,
       GetData: [],
       taskData: [],
       setLevelData: [],
@@ -430,6 +497,7 @@ export default {
       },
       labelWidth: "80px",
     });
+    this.createForm();
     this.eTableObj = new EditTable();
     this.importTableObj = new importEditTable();
     this.defaultConfig();
@@ -640,6 +708,72 @@ export default {
           )
         )
       );
+    },
+    // 创建生产任务
+    l_createTask() {
+      this.createTaskFormObj.form.Parts = [];
+      this.createTaskVisible = true;
+      this.searchTaskInfo();
+      this.createTaskFormObj.form.Level = 'Ordinary';
+      this.createTaskFormObj.form.PlanStart = new Date();
+      this.eTableObj.selectData.datas.forEach(item => {
+        this.createTaskFormObj.form.Parts.push({
+          PartNo: item.PartNo.value,
+          PartName: item.PartName.value,
+          Description: item.Description.value,
+          Unit: item.Unit.value,
+          Quantity: item.Quantity.value,
+          ToolingNo: item.ToolingNo.value,
+        })
+      })
+      console.log(this.eTableObj.selectData.datas)
+    },
+    // 确认创建生产任务
+    createTaskConfirm() {
+      this.createTaskFormObj.validate((valid) => {
+        if (valid) {
+          quickly_create_task(this.createTaskFormObj.form).then(res => {
+            this.createTaskVisible = false;
+          })
+        }
+      });
+    },
+    searchTaskInfo() {
+      var str = {
+        ToolingNo: this.ToolingNo,
+        SelectType: 0,
+      };
+      toolingTaskInfoList(str).then((res) => {
+        this.PmTaskData = res.Items;
+        if (res.Items.length === 1) {
+          this.createTaskFormObj.form.PmTaskBillId = res.Items[0].BillId;
+          this.createTaskFormObj.form.PlanEnd = res.Items[0].PlanEnd;
+        } else if (res.Items.length === 0) {
+          this.createTaskFormObj.form.PmTaskBillId = "";
+        }
+        this.TaskListData1 = res.Items;
+
+        //判断说明不只一个任务单
+      });
+    },
+    createForm() {
+      console.log(createTaskFormSchema)
+      this.createTaskFormObj = new Form({
+        formSchema: createTaskFormSchema,
+        labelPosition: "top",
+        baseColProps: {
+          span: 24,
+        },
+        labelWidth: "80px",
+      });
+    },
+    changePmTaskBillId() {
+      console.log(this.formObj.form.PmTaskBillId);
+      this.PmTaskData.forEach((item) => {
+        if (this.formObj.form.PmTaskBillId === item.BillId) {
+          this.formObj.form.PlanEnd = item.PlanEnd;
+        }
+      });
     },
     getNweArr(a, b) {
       const arr = [...a, ...b];

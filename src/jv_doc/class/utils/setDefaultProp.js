@@ -29,6 +29,7 @@ export const defaultEditTableSchemProp = {
   stripe: false,
   size: "medium",
   operationWidth: "170",
+  selectable: () => true
 };
 // 默认表格参数
 export const defaultTableSchemProps = {

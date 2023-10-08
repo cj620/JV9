@@ -18,7 +18,10 @@ export class EditTable extends BaseTable {
       operationWidth: 180,
       importBar: false,
       sortCol: false,
-      tid:'De_ToolingBOM'
+      tid:'De_ToolingBOM',
+      selectable: (row, index) => {
+        return row.ItemCategory.value === 'Part';
+      }
       // sortCol:false
     });
   }
@@ -136,14 +139,14 @@ export const tableConfig = [
       disabled: true,
     },
   },
-  
+
   /*类别*/
   {
     prop: "ItemCategory",
     label: i18n.t("Generality.Ge_ItemsCategory"),
     formCpn: "FormInput",
     customFilter: (value) => enumFilter(value, itemCategoryEnum),
-    
+
     width: 80,
     editConfig: {
       disabled: true,

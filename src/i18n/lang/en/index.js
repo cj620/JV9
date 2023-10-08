@@ -521,6 +521,7 @@ const en = {
   },
   //通用
   Generality: {
+    Ge_CreateProductionTask: "CreateProductionTask",
     Ge_SaveEdits: "Save Edits",
     Ge_Chart: "Chart",
     Ge_Gantt: "Gantt",

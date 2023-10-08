@@ -539,6 +539,7 @@ const cn = {
   },
   //通用
   Generality: {
+    Ge_CreateProductionTask: "创建生产任务",
     Ge_SaveEdits: "保存编辑",
     Ge_Chart: "图表",
     Ge_Gantt: "甘特图",
