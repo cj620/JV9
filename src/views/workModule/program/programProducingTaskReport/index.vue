@@ -1,6 +1,9 @@
 <template>
   <PageWrapper :footer="false">
     <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj">
+      <template #Schedule="{ record }">
+        <el-progress :percentage="record"></el-progress>
+      </template>
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction
@@ -17,6 +20,7 @@
     <JvDialog
       :visible.sync="reportDialogVisible"
       :title="$t('setup.ReportWork')"
+      destroy-on-close
       v-if="reportDialogVisible"
       @confirm="confirmToReport"
       width="30%"
@@ -50,7 +54,7 @@ export default {
       },
       labelWidth: "80px",
     })
-    this.tableObj.getData();
+    this.tableObj.getData({ UserName:this.$store.state.user.name });
   },
   methods: {
     // 报工
@@ -62,13 +66,27 @@ export default {
       this.reportForm.form.ActualEnd = row.ActualEnd
     },
     confirmToReport() {
-      site_collection_programing_time_collection(this.reportForm.form).then((res) => {
-        this.tableObj.getData();
-        this.reportDialogVisible = false
-      }).catch(() => {
-          this.reportDialogVisible = false
+      this.reportForm.validate((valid) => {
+          if (valid) {
+            site_collection_programing_time_collection(this.reportForm.form).then((res) => {
+              this.tableObj.getData();
+              this.reportDialogVisible = false
+            }).catch(() => {
+                this.reportDialogVisible = false
+              }
+            )
+          }
+      })
+    }
+  },
+  watch:{
+    'reportForm.form.ActualTime':{
+      handler(n,o){
+        if(n){
+          // n*60*60*1000
+          this.reportForm.form.ActualStart = new Date(new Date(this.reportForm.form.ActualEnd).getTime() - n * 60 * 60 * 1000);
         }
-      )
+      }
     }
   }
 }

@@ -76,6 +76,7 @@ const tableSchema = [
   {
     prop: "Schedule",
     label: i18n.t("Generality.Ge_Schedule"),
+    custom: true,
   },
   /*备注*/
   {
@@ -95,30 +96,6 @@ export const formSchema1 = [
     },
   },
   {
-    prop: "ActualStart",
-    label: i18n.t("program.Pr_ActualStart"),
-    cpn: "SingleTime",
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["change", "blur"],
-      },
-    ],
-  },
-  {
-    prop: "ActualEnd",
-    label: i18n.t("program.Pr_ActualEnd"),
-    cpn: "SingleTime",
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["change", "blur"],
-      },
-    ],
-  },
-  {
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_ActualTime"),
     cpn: "FormInput",
@@ -136,6 +113,31 @@ export const formSchema1 = [
     cpn: "Slider",
     default: 0,
   },
+  {
+    prop: "ActualStart",
+    label: i18n.t("program.Pr_ActualStart"),
+    cpn: "SingleDateTime",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    prop: "ActualEnd",
+    label: i18n.t("program.Pr_ActualEnd"),
+    cpn: "SingleDateTime",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+
   {
     prop: "Number",
     label: i18n.t("Generality.Ge_Quantity"),
