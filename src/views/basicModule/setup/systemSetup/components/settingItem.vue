@@ -138,7 +138,7 @@ export default {
 
   methods: {
     isDiaolog(item) {
-      console.log(item);
+      console.log(item.ConfigValueType,9898989);
       return (
         item.ConfigValueType === "String" ||
         item.ConfigValueType === "Number" ||

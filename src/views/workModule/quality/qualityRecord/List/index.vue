@@ -27,13 +27,13 @@
             // 创建过程单
             {
               label: $t('menu.Qc_ProcessCheck'),
-              disabled: getActionState(row.CheckResult),
+              disabled: getActionState(row.CheckState),
               confirm: toMachiningCheckList.bind(null, row),
             },
             // 创建成品单
             {
               label: $t('menu.Qc_FinishedProduct'),
-              disabled: getActionState(row.CheckResult),
+              disabled: getActionState(row.CheckState),
               confirm: toFinishedProduct.bind(null, row),
             },
             {

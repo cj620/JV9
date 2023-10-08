@@ -109,6 +109,10 @@ export const formSchema = [
           value: "Scrap",
           label: i18n.t("quality.Qc_Scrapped"),
         },
+        {
+          value: "AcceptOnDeviation",
+          label: i18n.t("quality.Qc_AcceptOnDeviation"),
+        },
       ],
     },
   },
