@@ -43,7 +43,7 @@
           {
             // 创建生产任务
             label: $t('Generality.Ge_CreateProductionTask'),
-            disabled: !IsSelectLength,
+            disabled: !IsCreateTask,
             confirm: l_createTask.bind(),
           },
         ]"
@@ -504,6 +504,16 @@ export default {
     this.remoteMethod("");
   },
   computed: {
+    IsCreateTask() {
+      let flag1 = this.eTableObj.selectData.datas.every(item => {
+        return item.ItemCategory.value === 'Part'
+      });
+      let flag2 = this.eTableObj.selectData.datas.every(item => {
+        return item.IsPartProcess.value
+      });
+      console.log(flag1,flag2,this.IsSelectLength)
+      return this.IsSelectLength && flag1 && flag2
+    },
     IsDisabled() {
       return this.ToolingNo === "";
     },
