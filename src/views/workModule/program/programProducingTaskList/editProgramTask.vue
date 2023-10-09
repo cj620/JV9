@@ -92,7 +92,8 @@ export default {
       });
     },
     confirmEdit(){
-      console.log(this.formObj.form);
+      this.formObj.form.Id = parseInt(this.formObj.form.Id);
+      this.formObj.form.ParentId = parseInt(this.formObj.form.ParentId);
       production_programing_task_edit(this.formObj.form).then((res) => {
         this.$emit("confirmData", false);
       });
