@@ -92,11 +92,22 @@ export default {
       });
     },
     confirmEdit(){
-      console.log(this.formObj.form);
+      this.formObj.form.Id = parseInt(this.formObj.form.Id);
+      this.formObj.form.ParentId = parseInt(this.formObj.form.ParentId);
       production_programing_task_edit(this.formObj.form).then((res) => {
         this.$emit("confirmData", false);
       });
     }
-  }
+  },
+  // watch:{
+  //   'formObj.form.PlanTime':{
+  //     handler(n,o){
+  //       if(n){
+  //         // n*60*60*1000
+  //         this.formObj.form.PlanEnd = new Date(new Date(this.formObj.form.PlanStart).getTime() + n * 60 * 60 * 1000);
+  //       }
+  //     }
+  //   }
+  // }
 }
 </script>

@@ -950,6 +950,7 @@ const en = {
   },
   //生产
   production: {
+    Pr_ProgramingProcess: "Programing Process",
     Pr_ReportedDate: "ReportedDate",
     Pr_DeletedData: "Deleted Data",
     Pr_StaleWorkOrder: "Stale Order",

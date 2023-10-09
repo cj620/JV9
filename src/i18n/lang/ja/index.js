@@ -905,6 +905,7 @@ const ja = {
   },
   //生产
   production: {
+    Pr_ProgramingProcess: "プログラミングプロセス",
     Pr_DeletedData: "削除されたデータ",
     Pr_StaleWorkOrder: "期限切れ製造オーダ",
     Pr_OverdueWorkOrder: "タイムアウト製造オーダ",

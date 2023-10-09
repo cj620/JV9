@@ -31,6 +31,18 @@ export const formSchema = [
     label: i18n.t("Generality.Ge_PlanTime"),
     type: "number",
   },
+  // {
+  //   // 计划开始
+  //   prop: "PlanStart",
+  //   label: i18n.t("Generality.Ge_PlanStart"),
+  //   cpn: "SingleDateTime",
+  // },
+  // {
+  //   // 计划开始
+  //   prop: "PlanEnd",
+  //   label: i18n.t("Generality.Ge_PlanEnd"),
+  //   cpn: "SingleDateTime",
+  // },
   {
     // 备注
     prop: "Remarks",

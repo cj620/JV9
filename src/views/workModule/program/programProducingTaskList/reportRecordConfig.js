@@ -43,6 +43,12 @@ const tableSchema = [
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
   },
+  // 进度
+  {
+    prop: "Schedule",
+    label: i18n.t("Generality.Ge_Schedule"),
+    custom: true,
+  },
   /*实际开始*/
   {
     prop: "ActualStart",

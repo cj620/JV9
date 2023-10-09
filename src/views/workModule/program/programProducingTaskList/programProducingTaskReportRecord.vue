@@ -1,6 +1,9 @@
 <template>
   <PageWrapper :footer="false">
     <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj">
+      <template #Schedule="{ record }">
+        <el-progress :percentage="record"></el-progress>
+      </template>
     </JvTable>
   </PageWrapper>
 </template>

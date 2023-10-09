@@ -12,6 +12,7 @@
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
+import { getAllProcess } from "@/api/workApi/production/baseData";
 
 export class EditTable extends BaseTable {
   constructor() {
@@ -71,14 +72,17 @@ export const tableConfig = [
       disabled: true,
     },
   },
-  // 是否强制编程
+  //   编程工艺
   {
-    prop: "IsCompulsoryPrograming",
-    label: i18n.t("setup.IsCompulsoryPrograming"),
-    custom: true,
-    editConfig: {
-      disabled: true,
-    },
+    prop: "ProgramingProcess",
+    label: i18n.t("production.Pr_ProgramingProcess"),
+    formCpn: "SyncSelect",
+    api: getAllProcess,
+    apiOptions: {
+      immediate: true,
+      keyName: "Process",
+      valueName: "Process",
+    }
   },
   /*编程预计工时*/
   {

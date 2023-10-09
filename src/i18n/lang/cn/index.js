@@ -316,7 +316,7 @@ const cn = {
     PrintPreview: "打印预览",
     ConfirmPasswordReset: "是否确认重置密码",
     Preview: "预览",
-    IsCompulsoryInspection: "是否强制校验",
+    IsCompulsoryInspection: "是否强制检验",
     IsCompulsoryPrograming: "是否强制编程",
     CompulsoryInspection: "强制校验",
     CompulsoryPrograming: "强制编程"
@@ -958,6 +958,7 @@ const cn = {
   },
   //生产
   production: {
+    Pr_ProgramingProcess: "编程工艺",
     Pr_ReportedDate: "报工日期",
     Pr_DeletedData: "已删除数据",
     Pr_StaleWorkOrder: "陈旧工单",

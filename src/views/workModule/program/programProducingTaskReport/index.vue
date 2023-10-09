@@ -44,6 +44,9 @@
       :IsShowFooterBtn="false"
       width="50%">
       <JvTable :table-obj="recordTableObj">
+        <template #Schedule="{ record }">
+          <el-progress :percentage="record"></el-progress>
+        </template>
       </JvTable>
     </JvDialog>
   </PageWrapper>
