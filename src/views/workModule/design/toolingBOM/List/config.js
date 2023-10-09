@@ -15,7 +15,7 @@ export class EditTable extends BaseTable {
       data: [],
       title: i18n.t("menu.De_ToolingBOM"),
       chooseCol: true,
-      operationWidth: 180,
+      operationWidth: 230,
       importBar: false,
       sortCol: false,
       tid:'De_ToolingBOM',
