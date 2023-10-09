@@ -348,6 +348,7 @@ import {
   synchronizePart,
   quickly_create_task,
 } from "@/api/workApi/design/toolingBOM";
+import { getPartsByPartNo } from "@/api/workApi/production/productionTask";
 // 获取系统配置接口
 import { batch_get } from "@/api/basicApi/systemSettings/sysSettings";
 import { demandStatusEnum, taskTypeEnum } from "@/enum/workModule";
@@ -760,6 +761,25 @@ export default {
     createTaskConfirm() {
       this.createTaskFormObj.validate((valid) => {
         if (valid) {
+          this.IsGetPartsByPartNo(this.eTableObj.selectData.datas);
+
+        }
+      });
+    },
+    //用来判断是否开过加工单
+    IsGetPartsByPartNo(e) {
+      getPartsByPartNo(e.map((x) => x.PartNo.value)).then((res) => {
+        if (res.Items.length > 0) {
+          console.log(res.Items);
+          this.$confirm(res.Items.toString() + this.$t("Generality.Ge_SheetIsAlreadyCreated"), {
+            confirmButtonText: this.$t("Generality.Ge_OK"),
+            cancelButtonText: this.$t("Generality.Ge_Cancel"),
+          }).then((res) => {
+            quickly_create_task(this.createTaskFormObj.form).then((res) => {
+              this.createTaskVisible = false;
+            });
+          });
+        } else {
           quickly_create_task(this.createTaskFormObj.form).then((res) => {
             this.createTaskVisible = false;
           });
@@ -776,7 +796,7 @@ export default {
         if (res.Items.length === 1) {
           this.createTaskFormObj.form.PmTaskBillId = res.Items[0].BillId;
           this.createTaskFormObj.form.PlanEnd = res.Items[0].PlanEnd;
-        } else if (res.Items.length === 0) {
+        } else{
           this.createTaskFormObj.form.PmTaskBillId = "";
         }
         this.TaskListData1 = res.Items;

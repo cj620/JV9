@@ -372,6 +372,33 @@ const production = [
       i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+  // 现场作业
+  {
+    key: "Pr_OnSiteOperations",
+    component: () => import("@/views/workModule/production/scene"),
+    Parent: "Pr_Production",
+    name: "Pr_OnSiteOperations",
+    path: "scene",
+    title: i18n.t("menu.Pr_OnSiteOperations"),
+  },
+  {
+    key: "Pr_ScanCodeToEnterTheStation",
+    component: () =>
+        import("@/views/workModule/production/scene/getIn"),
+    Parent: "Pr_OnSiteOperations",
+    name: "ScanCodeToEnterTheStation",
+    path: "ScanCodeToEnterTheStation",
+    title:i18n.t("menu.Pr_ScanCodeToEnterTheStation"),
+  },
+  {
+    key: "Pr_MyTasks",
+    component: () =>
+        import("@/views/workModule/production/scene/myTasks"),
+    Parent: "Pr_OnSiteOperations",
+    name: "myTasks",
+    path: "myTasks",
+    title:i18n.t("menu.Pr_MyTasks"),
+  },
 ];
 
 export default production;
