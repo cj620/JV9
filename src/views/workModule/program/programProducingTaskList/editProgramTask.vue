@@ -97,6 +97,16 @@ export default {
         this.$emit("confirmData", false);
       });
     }
+  },
+  watch:{
+    'formObj.form.PlanTime':{
+      handler(n,o){
+        if(n){
+          // n*60*60*1000
+          this.formObj.form.PlanEnd = new Date(new Date(this.formObj.form.PlanStart).getTime() + n * 60 * 60 * 1000);
+        }
+      }
+    }
   }
 }
 </script>

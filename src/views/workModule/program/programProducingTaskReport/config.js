@@ -201,6 +201,11 @@ const recordSchema = [
     filter: "time",
   },
   // 进度
+  {
+    prop: "Schedule",
+    label: i18n.t("Generality.Ge_Schedule"),
+    custom: true,
+  },
   // 实际工时
   {
     prop: "ActualTime",
