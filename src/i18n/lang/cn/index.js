@@ -1362,6 +1362,7 @@ const cn = {
     Pr_ProcessPlanning: "工艺设计",
     Pr_CAMTaskRecord: "编程任务记录",
     Pr_Receive: "领用",
+    Pr_ReceiveConfirm: "是否确定领用",
     Pr_ProcessTaskCode: "任务工序代码",
     Pr_CreationDate: "创建时间",
     Pr_ProgramingTaskId: "生产加工编程任务单号",

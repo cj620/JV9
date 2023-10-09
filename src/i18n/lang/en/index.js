@@ -12,6 +12,9 @@ const en = {
   menu: {
     Se_ErrorPrompt: "Error Prompt",
     Pa_ProgramTaskList: "Program Task List",
+    Pa_ProgramProducingTaskList: "Program Producing Task List",
+    Pa_ProgramProducingTaskReport: "Program Producing Task Report",
+    Pa_ProgramProducingTaskReportRecord: "Program Producing Task Report Record",
     De_DesignTaskList: "Design Task List",
     De_ProcessTemplate: "Process template",
     Pu_Supplier: "Supplier",
@@ -45,6 +48,7 @@ const en = {
     De_DesignTask: "Design Task",
     Pa_Program: "Program",
     Pa_ProgramTask: "Program Task",
+    Pa_ProgramProducingTask: "Program Producing Task",
     Pa_ElectrodeBom: "Electrode Bom",
     Pa_ElectrodeDemand: "Electrode Demand",
     Pu_Purchase: "Purchase",
@@ -1359,6 +1363,8 @@ const en = {
   program: {
     Pr_ProcessPlanning: "Process planning",
     Pr_CAMTaskRecord: "CAM task record",
+    Pr_Receive: "Receive",
+    Pr_ReceiveConfirm: "Confirm to Receive?",
   },
   dashboard: {
     Da_ECNThisMonth: "ECN this month",
