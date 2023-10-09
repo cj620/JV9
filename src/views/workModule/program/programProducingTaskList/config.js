@@ -32,7 +32,6 @@ export class Table extends BaseTable {
       api,
       // 打印模块标识
       printMod: "Pa_ProgramProducingTaskList",
-      operationWidth: 280,
       printBar: false,
       searchBar: false,
     });
