@@ -11,6 +11,9 @@ import jaLocale from "element-ui/lib/locale/lang/ja";
 const ja = {
   menu: {
     Pa_ProgramTaskList: "プログラミングタスクリスト",
+    Pa_ProgramProducingTaskList: "プログラミング加工タスクリスト",
+    Pa_ProgramProducingTaskReport: "プロセスプログラミングタスクの作業報告",
+    Pa_ProgramProducingTaskReportRecord: "プロセスプログラミングタスク記録",
     De_DesignTaskList: "タスク・リストの設計",
     De_ProcessTemplate: "工程テンプレート",
     Pu_Supplier: "サプライヤ",
@@ -42,6 +45,7 @@ const ja = {
     De_DesignTask: "設計タスク",
     Pa_Program: "プログラミング",
     Pa_ProgramTask: "プログラミングタスク",
+    Pa_ProgramProducingTask: "プログラミング加工タスク",
     Pa_ElectrodeBom: "電極BOM表",
     Pa_ElectrodeDemand: "電極材料の需要",
     Pu_Purchase: "仕入れ",
@@ -1317,6 +1321,8 @@ const ja = {
   program: {
     Pr_ProcessPlanning: "プロセス設計",
     Pr_CAMTaskRecord: "プログラミングタスクレコード",
+    Pr_Receive: "もらう",
+    Pr_ReceiveConfirm: "受領確認していますか",
   },
   dashboard: {
     Da_ECNThisMonth: "今月中に変更する",
