@@ -160,7 +160,7 @@
         {{ demandStatusEnum[record] && demandStatusEnum[record].name }}
       </template>
       <template #operation="{ row, row_index }">
-        <TableAction
+        <!--        <TableAction
           :actions="[
             {
               label: $t('Generality.Ge_Copy'),
@@ -175,7 +175,25 @@
               confirm: l_delete.bind(null, row_index),
             },
           ]"
-        />
+        />-->
+        <div class="bom-action">
+          <span @click="copy(row, row_index)"  class="action-item">{{
+            $t("Generality.Ge_Copy")
+          }}</span>
+          <span @click="l_insert(row_index)"  class="action-item">{{
+            $t("Generality.Ge_Insert")
+          }}</span>
+          <span @click="l_delete(row_index)"  class="action-item">{{
+            $t("Generality.Ge_Delete")
+          }}</span>
+            <span  class="action-item">
+                <el-badge :is-dot="row.IsPartProcess.value">
+            <span @click="CraftDesign1(row)">{{
+                $t("program.Pr_ProcessPlanning")
+                }}</span>
+                </el-badge>
+            </span>
+        </div>
       </template>
     </JvEditTable>
     <!-- 导入数据 -->
@@ -328,7 +346,7 @@ import {
   toolingTaskInfoList,
   autoMatchMaterials,
   synchronizePart,
-  quickly_create_task
+  quickly_create_task,
 } from "@/api/workApi/design/toolingBOM";
 // 获取系统配置接口
 import { batch_get } from "@/api/basicApi/systemSettings/sysSettings";
@@ -345,8 +363,8 @@ import JvDialog from "~/cpn/JvDialog/index.vue";
 import customUpload from "@/components/customUpload/index.vue";
 import request from "@/utils/request";
 import { Form } from "@/jv_doc/class/form";
-import {formSchema} from "@/views/workModule/production/productionTask/components/formConfig";
-import {createTaskFormSchema } from './formConfig';
+import { formSchema } from "@/views/workModule/production/productionTask/components/formConfig";
+import { createTaskFormSchema } from "./formConfig";
 export default {
   name: "ToolingBOM",
   // 表格数据
@@ -363,19 +381,19 @@ export default {
     return {
       taskTypeEnum,
       demandStatusEnum,
-      PmTaskData:{},
+      PmTaskData: {},
       TaskListData1: [],
       editDisabled: false,
       uploadLoading: false, // 上传loading
       showMassUpload: false, // 批量上传弹窗
       createTaskFormObj: {
         form: {
-          PmTaskBillId: '',
+          PmTaskBillId: "",
           PlanStart: new Date(),
-          PlanEnd: '',
-          Level: '',
+          PlanEnd: "",
+          Level: "",
           Parts: [],
-        }
+        },
       },
       partLevelMap: {
         0: {
@@ -418,7 +436,7 @@ export default {
         BOMType: "Part",
         PhotoUrl: "",
         Unit: "",
-		    ItemCategory: "Part",
+        ItemCategory: "Part",
         ToolingNo: "",
         SupplierName: "",
         MaterialRequirementState: "",
@@ -505,14 +523,14 @@ export default {
   },
   computed: {
     IsCreateTask() {
-      let flag1 = this.eTableObj.selectData.datas.every(item => {
-        return item.ItemCategory.value === 'Part'
+      let flag1 = this.eTableObj.selectData.datas.every((item) => {
+        return item.ItemCategory.value === "Part";
       });
-      let flag2 = this.eTableObj.selectData.datas.every(item => {
-        return item.IsPartProcess.value
+      let flag2 = this.eTableObj.selectData.datas.every((item) => {
+        return item.IsPartProcess.value;
       });
-      console.log(flag1,flag2,this.IsSelectLength)
-      return this.IsSelectLength && flag1 && flag2
+      console.log(flag1, flag2, this.IsSelectLength);
+      return this.IsSelectLength && flag1 && flag2;
     },
     IsDisabled() {
       return this.ToolingNo === "";
@@ -724,9 +742,9 @@ export default {
       this.createTaskFormObj.form.Parts = [];
       this.createTaskVisible = true;
       this.searchTaskInfo();
-      this.createTaskFormObj.form.Level = 'Ordinary';
+      this.createTaskFormObj.form.Level = "Ordinary";
       this.createTaskFormObj.form.PlanStart = new Date();
-      this.eTableObj.selectData.datas.forEach(item => {
+      this.eTableObj.selectData.datas.forEach((item) => {
         this.createTaskFormObj.form.Parts.push({
           PartNo: item.PartNo.value,
           PartName: item.PartName.value,
@@ -734,17 +752,17 @@ export default {
           Unit: item.Unit.value,
           Quantity: item.Quantity.value,
           ToolingNo: item.ToolingNo.value,
-        })
-      })
-      console.log(this.eTableObj.selectData.datas)
+        });
+      });
+      console.log(this.eTableObj.selectData.datas);
     },
     // 确认创建生产任务
     createTaskConfirm() {
       this.createTaskFormObj.validate((valid) => {
         if (valid) {
-          quickly_create_task(this.createTaskFormObj.form).then(res => {
+          quickly_create_task(this.createTaskFormObj.form).then((res) => {
             this.createTaskVisible = false;
-          })
+          });
         }
       });
     },
@@ -767,7 +785,7 @@ export default {
       });
     },
     createForm() {
-      console.log(createTaskFormSchema)
+      console.log(createTaskFormSchema);
       this.createTaskFormObj = new Form({
         formSchema: createTaskFormSchema,
         labelPosition: "top",
@@ -825,6 +843,12 @@ export default {
         params: { data: format2source(this.eTableObj.selectData.datas) },
       });
     },
+    CraftDesign1(row) {
+      this.$router.push({
+        name: "CraftDesign",
+        params: { data: format2source([row]) },
+      });
+    },
     //同步零件信息
     synchronizePart() {
       synchronizePart(format2source(this.eTableObj.selectData.datas)).then(
@@ -860,7 +884,7 @@ export default {
         e.forEach((Titem) => {
           item.Description.value = Titem.Description;
           item.ItemId.value = Titem.ItemId;
-          item.ItemCategory.value = 'Standard';
+          item.ItemCategory.value = "Standard";
         });
       });
     },
@@ -1064,5 +1088,12 @@ export default {
 }
 .el-table--scrollable-y .el-table__body-wrapper {
   //overflow-y: hidden;
+}
+
+.action-item {
+  color: #0960bd;
+  padding-right: 10px;
+  font-size: 15px;
+  cursor: pointer;
 }
 </style>

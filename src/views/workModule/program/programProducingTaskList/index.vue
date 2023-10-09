@@ -45,16 +45,24 @@
         />
       </template>
     </JvTable>
-    <!--父级物料弹窗-->
-    <addProjectTask
+    <!--编辑任务-->
+    <!--<addProjectTask-->
+    <!--  :visible.sync="addProjectTaskDialogFormVisible"-->
+    <!--  v-if="addProjectTaskDialogFormVisible"-->
+    <!--  :transferData="transferData"-->
+    <!--  :type="type"-->
+    <!--  @confirmData="confirmData"-->
+    <!--  :confirmText="$t('Generality.Ge_Save')"-->
+    <!--&gt;-->
+    <!--</addProjectTask>-->
+    <!-- 编辑任务 -->
+    <editProgramTask
       :visible.sync="addProjectTaskDialogFormVisible"
       v-if="addProjectTaskDialogFormVisible"
       :transferData="transferData"
-      :type="type"
       @confirmData="confirmData"
-      :confirmText="$t('Generality.Ge_Save')"
-    >
-    </addProjectTask>
+      :confirmText="$t('Generality.Ge_Save')">
+    </editProgramTask>
     <!-- //分发任务页面 -->
     <distributionTaskDialog
       :visible.sync="distributionTaskDialogFormVisible"
@@ -94,6 +102,7 @@
 import { Table } from "./config";
 import { ViewSubtasksTableObj } from "@/views/workModule/design/designTask/DesignTaskList/viewSubtasksTableConfig";
 import distributionTaskDialog from "@/views/workModule/design/designTask/DesignTaskList/distributionTaskDialog.vue";
+import editProgramTask from "@/views/workModule/program/programProducingTaskList/editProgramTask.vue";
 import addProjectTask from "@/views/workModule/design/designTask/DesignTaskList/addProjectTask.vue";
 import {
   project_task_get_children_item,
@@ -103,7 +112,7 @@ import { update_worker } from "@/api/workApi/production/productionTask"
 
 export default {
   name: "Pa_ProgramProducingTaskList",
-  components: { addProjectTask, distributionTaskDialog },
+  components: { addProjectTask, editProgramTask, distributionTaskDialog },
   computed: {
     IsDelay() {
       return (e) => {
@@ -132,7 +141,6 @@ export default {
     };
   },
   created() {
-    console.log(this.$route.name)
     // 创建表格实例
     this.tableObj = new Table();
     this.tableObj.props.title = this.tableTitle;
@@ -148,9 +156,7 @@ export default {
     dialogConfirm() {
       this.viewSubtasksDialogVisible = false;
     },
-    //编辑临时任务
     edit(row) {
-      console.log('row::: ', row);
       this.addProjectTaskDialogFormVisible = true;
       this.type = "edit";
       this.transferData = JSON.parse(JSON.stringify(row));

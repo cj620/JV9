@@ -19,7 +19,6 @@ export class Table extends BaseTable {
       title: i18n.t('menu.Pa_ProgramProducingTaskReport'),
       api,
       printMod: "Pa_ProgramProducingTaskReport",
-      operationWidth: 280,
       printBar: false,
       searchBar: false,
     })
