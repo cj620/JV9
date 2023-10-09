@@ -778,12 +778,13 @@ export default {
       });
     },
     changePmTaskBillId() {
-      console.log(this.formObj.form.PmTaskBillId);
       this.PmTaskData.forEach((item) => {
-        if (this.formObj.form.PmTaskBillId === item.BillId) {
-          this.formObj.form.PlanEnd = item.PlanEnd;
+        console.log(item.BillId)
+        if (this.createTaskFormObj.form.PmTaskBillId === item.BillId) {
+          this.createTaskFormObj.form.PlanEnd = item.PlanEnd;
         }
       });
+      console.log(this.createTaskFormObj.form, this.createTaskFormObj.form.PmTaskBillId);
     },
     getNweArr(a, b) {
       const arr = [...a, ...b];
