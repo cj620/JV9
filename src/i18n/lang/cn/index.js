@@ -951,6 +951,7 @@ const cn = {
   },
   //生产
   production: {
+    Pr_ProgramingProcess: "编程工艺",
     Pr_ReportedDate: "报工日期",
     Pr_DeletedData: "已删除数据",
     Pr_StaleWorkOrder: "陈旧工单",

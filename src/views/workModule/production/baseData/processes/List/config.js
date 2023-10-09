@@ -68,14 +68,11 @@ export const tableConfig = [
       return item ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No")
     }
   },
-  // 是否强制编程
+  // 编程工艺
   {
-    prop: "IsCompulsoryPrograming",
-    label: i18n.t("setup.IsCompulsoryPrograming"),
-    customFilter(item) {
-      return item ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No")
-    }
-  },
+    prop: "ProgramingProcess",
+    label: i18n.t("production.Pr_ProgramingProcess"),
+  }
 ];
 
 export const formSchema = [

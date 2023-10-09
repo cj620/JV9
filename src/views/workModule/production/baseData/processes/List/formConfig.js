@@ -105,13 +105,11 @@ export const formSchema = [
       CheckBoxlabel: ''
     }
   },
-  // 是否强制编程
+  // 加工工艺
   {
-    prop: "IsCompulsoryPrograming",
-    label: i18n.t("setup.IsCompulsoryPrograming"),
-    cpn: "FormSingleCheckBox",
-    options: {
-      CheckBoxlabel: ''
-    }
+    prop: "ProgramingProcess",
+    cpn: "FormSelect",
+    label: i18n.t("production.Pr_ProgramingProcess"),
+    custom: true,
   },
 ];
