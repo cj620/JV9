@@ -24,13 +24,13 @@ export const formSchema = [
     label: i18n.t("project.Pro_Worker"),
     custom: true,
   },
-  // {
-  //   // 预计工时
-  //   prop: "PlanTime",
-  //   cpn: "FormInput",
-  //   label: i18n.t("Generality.Ge_PlanTime"),
-  //   type: "number",
-  // },
+  {
+    // 预计工时
+    prop: "PlanTime",
+    cpn: "FormInput",
+    label: i18n.t("Generality.Ge_PlanTime"),
+    type: "number",
+  },
   // {
   //   // 计划开始
   //   prop: "PlanStart",

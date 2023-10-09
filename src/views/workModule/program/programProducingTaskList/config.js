@@ -62,11 +62,6 @@ const tableSchema = [
     width: "115px",
     align: "center",
   },
-  //   任务单号
-  {
-    prop: "TaskBillId",
-    label: i18n.t("project.Pro_TaskSheetNo"),
-  },
   /*工序名称*/
   {
     prop: "Process",
