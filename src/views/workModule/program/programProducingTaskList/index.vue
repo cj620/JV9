@@ -37,7 +37,7 @@
             {
               label: $t('program.Pr_Receive'),
               popConfirm: {
-                title: '是否确定领用',
+                title: $t('program.Pr_ReceiveConfirm'),
                 confirm: receive.bind(null, row),
               },
             },
