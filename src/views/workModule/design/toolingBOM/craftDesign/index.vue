@@ -58,9 +58,6 @@
         <template #IsCompulsoryInspection="{ row }">
           <el-checkbox v-model="row.IsCompulsoryInspection.value"></el-checkbox>
         </template>
-        <template #IsCompulsoryPrograming="{ row }">
-          <el-checkbox v-model="row.IsCompulsoryPrograming.value"></el-checkbox>
-        </template>
         <template #ProcessPicture="{ row }">
           <div @click="addProcessPicture(row)">
             {{ $t("Generality.Ge_New") }}
@@ -149,7 +146,7 @@ export default {
         PlanTime: 1,
         ProcessContent: "",
         Resource: "",
-        IsCompulsoryPrograming: false,
+        ProgramingProcess: "",
         ProgramingPlanTime: 1,
         ProcessPicture: [],
         customData: [],

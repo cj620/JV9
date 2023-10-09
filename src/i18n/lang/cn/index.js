@@ -309,7 +309,7 @@ const cn = {
     PrintPreview: "打印预览",
     ConfirmPasswordReset: "是否确认重置密码",
     Preview: "预览",
-    IsCompulsoryInspection: "是否强制校验",
+    IsCompulsoryInspection: "是否强制检验",
     IsCompulsoryPrograming: "是否强制编程",
     CompulsoryInspection: "强制校验",
     CompulsoryPrograming: "强制编程"

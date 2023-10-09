@@ -58,9 +58,6 @@
         <template #IsCompulsoryInspection="{ row }">
           <el-checkbox v-model="row.IsCompulsoryInspection.value"></el-checkbox>
         </template>
-        <template #IsCompulsoryPrograming="{ row }">
-          <el-checkbox v-model="row.IsCompulsoryPrograming.value"></el-checkbox>
-        </template>
         <template #ProcessContent="{ row }">
           <el-select
             v-model="row.customData.value"
@@ -136,7 +133,7 @@ export default {
         customData: [],
         ProcessContentList: [],
         IsCompulsoryInspection: null,
-        IsCompulsoryPrograming: false,
+        ProgramingProcess: "",
         ProgramingPlanTime: 1,
       },
       editData: {},
