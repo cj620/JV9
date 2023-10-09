@@ -314,7 +314,7 @@ export default {
         ProcessPicture: [],
         customData: [],
         ProcessContentList: [],
-        IsCompulsoryInspection: null,
+        IsCompulsoryInspection: false,
 		    ProgramingProcess: "",
         ProgramingPlanTime: 1,
       },

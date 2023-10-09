@@ -9,7 +9,7 @@
 import { TableAPI, Table as BaseTable } from "~/class/table";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { production_programing_task_items } from "@/api/workApi/project/projectTask";
-import { enumFilter, taskStateEnum } from "@/enum/workModule";
+import { enumFilter, taskStateEnum, taskTypeEnum } from "@/enum/workModule";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 
 import { getProjectQuery } from "@/api/workApi/project/projectManage";
@@ -66,6 +66,17 @@ const tableSchema = [
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
+  },
+  // 加工单号
+  {
+    prop: "ProductionBillId",
+    label: i18n.t("production.Pr_WorkSheetNo")
+  },
+  //   任务类型
+  {
+    prop: "TaskType",
+    label: i18n.t("Generality.Ge_TaskType"),
+    customFilter: (value) => enumFilter(value, taskTypeEnum),
   },
   // 进度
   {

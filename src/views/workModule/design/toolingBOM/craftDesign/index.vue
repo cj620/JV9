@@ -151,7 +151,7 @@ export default {
         ProcessPicture: [],
         customData: [],
         ProcessContentList: [],
-        IsCompulsoryInspection: null,
+        IsCompulsoryInspection: false,
       },
     };
   },
