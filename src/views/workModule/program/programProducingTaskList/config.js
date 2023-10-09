@@ -43,34 +43,39 @@ const tableSchema = [
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    width: "120px",
   },
   /*零件编号*/
   {
     prop: "PartNo",
     label: i18n.t("Generality.Ge_PartNo"),
+    width: "120px",
   },
   /*零件名称*/
   {
     prop: "PartName",
     label: i18n.t("Generality.Ge_PartName"),
+    width: "120px",
   },
   /*状态*/
   {
     prop: "State",
     label: i18n.t("Generality.Ge_TaskStatus"),
     customFilter: (value) => enumFilter(value, taskStateEnum),
-    width: "115px",
+    width: "100px",
     align: "center",
   },
   /*工序名称*/
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
+    width: "100px",
   },
   // 加工单号
   {
     prop: "ProductionBillId",
-    label: i18n.t("production.Pr_WorkSheetNo")
+    label: i18n.t("production.Pr_WorkSheetNo"),
+    width: "120px",
   },
   //   任务类型
   {
