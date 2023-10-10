@@ -917,6 +917,8 @@ export default {
       toolingTaskInfoList(str).then((res) => {
         if (res.Count === 1) {
           this.formObj.form.PmTaskBillId = res.Items[0].BillId;
+        } else {
+			    this.formObj.form.PmTaskBillId = ""
         }
         this.TaskListData = res.Items;
         this.selectProjectFormVisible = true;
