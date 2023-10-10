@@ -47,17 +47,19 @@
 
       <div class="get-in-content">
         <div class="get-in-content-cardBox">
-          <div class="get-in-content-cardBox-item" v-for="(item, i) in DataList" :key="i">
-            <div class="get-in-content-cardBox-item-title">{{ item.PartNo }}</div>
-            <div class="get-in-content-cardBox-item-content">
-              <div class="get-in-content-cardBox-item-content-left">
-                <div>{{$t('Generality.Ge_ProcessName')}}: <span style="font-weight: bold">{{item.Process}}</span></div>
-                <div>{{$t('Generality.Ge_WorkHours')}}: <span style="font-weight: bold">{{item.PlanTime}}H</span> </div>
-                <div>{{$t('Generality.Ge_Quantity')}}: <span style="font-weight: bold">{{item.Quantity}}</span></div>
-              </div>
-              <div class="get-in-content-cardBox-item-content-right">
-                <div class="image-box">
-                  <CImage :src="item.PhotoUrl?item.PhotoUrl:''"></CImage>
+          <div style="display: flex;flex-wrap: wrap;width: 100%">
+            <div class="get-in-content-cardBox-item" v-for="(item, i) in DataList" :key="i">
+              <div class="get-in-content-cardBox-item-title">{{ item.PartNo }}</div>
+              <div class="get-in-content-cardBox-item-content">
+                <div class="get-in-content-cardBox-item-content-left">
+                  <div>{{$t('Generality.Ge_ProcessName')}}: <span style="font-weight: bold">{{item.Process}}</span></div>
+                  <div>{{$t('Generality.Ge_WorkHours')}}: <span style="font-weight: bold">{{item.PlanTime}}H</span> </div>
+                  <div>{{$t('Generality.Ge_Quantity')}}: <span style="font-weight: bold">{{item.Quantity}}</span></div>
+                </div>
+                <div class="get-in-content-cardBox-item-content-right">
+                  <div class="image-box">
+                    <CImage :src="item.PhotoUrl?item.PhotoUrl:''"></CImage>
+                  </div>
                 </div>
               </div>
             </div>
@@ -304,9 +306,9 @@ export default {
     }
     &-form {
       padding-left: 20px;
-      width: 300px;
+      width: 360px;
       display: flex;
-      margin-top: 14px;
+      margin-top: 10px;
       ::v-deep.el-input--medium {
         height: 50px !important;
         .el-input__inner {
@@ -321,9 +323,10 @@ export default {
       display: flex;
       padding-left: 20px;
       margin-top: 20px;
-      font-size: 18px;
+      font-size: 22px;
       &-f {
         font-weight: bold;
+        color: #5657ed;
       }
       div {
         margin-right: 20px;
@@ -338,9 +341,9 @@ export default {
     &-cardBox {
       width: 100%;
       height: 100%;
-      display: flex;
+      //display: flex;
       //justify-content: center;
-      flex-wrap: wrap;
+      //flex-wrap: wrap;
       overflow-y: auto;
       padding-left: 20px;
       //justify-content: space-around;
