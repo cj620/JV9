@@ -10,6 +10,13 @@
 import zhLocale from "element-ui/lib/locale/lang/zh-CN";
 const cn = {
   menu: {
+    Pr_MyTasks: "我的任务",
+    Pr_ScanCodeToEnterTheStation: "扫码进站",
+    Pr_ScanCodeToStartWork: "扫码开工",
+    Pr_ScanCodeCompletion: "扫码完工",
+    Pr_ToBeStarted: "待开工",
+    Pr_WorkReportRecords: "报工记录",
+    Pr_OnSiteOperations: "现场作业",
     Login: "登录",
     Se_ErrorPrompt: "报错提示项",
     Automation: "自动化",

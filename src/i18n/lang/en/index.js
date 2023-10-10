@@ -10,6 +10,13 @@
 import enLocale from "element-ui/lib/locale/lang/en";
 const en = {
   menu: {
+    Pr_MyTasks: "My Tasks",
+    Pr_ScanCodeToEnterTheStation: "ScanCode ToEnter The Station",
+    Pr_ScanCodeToStartWork: "ScanCode ToStart Work",
+    Pr_ScanCodeCompletion: "ScanCode Completion",
+    Pr_ToBeStarted: "ToBe Started",
+    Pr_WorkReportRecords: "Work Report Records",
+    Pr_OnSiteOperations: "On Site Operations",
     Se_ErrorPrompt: "Error Prompt",
     Pa_ProgramTaskList: "Program Task List",
     Pa_ProgramProducingTaskList: "Program Producing Task List",
