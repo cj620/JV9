@@ -381,6 +381,7 @@ const production = [
     path: "scene",
     title: i18n.t("menu.Pr_OnSiteOperations"),
   },
+    // 扫码进站
   {
     key: "Pr_ScanCodeToEnterTheStation",
     component: () =>
@@ -390,6 +391,7 @@ const production = [
     path: "ScanCodeToEnterTheStation",
     title:i18n.t("menu.Pr_ScanCodeToEnterTheStation"),
   },
+    // 我的任务
   {
     key: "Pr_MyTasks",
     component: () =>
@@ -399,6 +401,17 @@ const production = [
     path: "myTasks",
     title:i18n.t("menu.Pr_MyTasks"),
   },
+    // 扫码开工
+  {
+    key: "Pr_ScanCodeToStartWork",
+    component: () =>
+        import("@/views/workModule/production/scene/ScanCodeToStartWork"),
+    Parent: "Pr_OnSiteOperations",
+    name: "ScanCodeToStartWork",
+    path: "ScanCodeToStartWork",
+    title:i18n.t("menu.Pr_ScanCodeToStartWork"),
+  },
+
 ];
 
 export default production;

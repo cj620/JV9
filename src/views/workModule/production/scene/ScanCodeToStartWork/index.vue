@@ -3,43 +3,76 @@
     <div class="get-in">
       <!--头部-->
       <div class="get-in-header">
-        <!--工序-->
-        <div class="get-in-header-processes">
-<!--          <i class="el-icon-location-information"></i>-->
-          <span>{{$t('Generality.Ge_Site')}}: </span>
-          <div
-            v-for="site in SiteData"
-            :key="site"
-            style="margin: 0 5px; display: inline-block"
-          >
-            <el-tag>{{ site }}</el-tag>
+        <!--左-->
+        <div class="get-in-header-left">
+          <!--工序-->
+          <div class="get-in-header-processes">
+            <!--          <i class="el-icon-location-information"></i>-->
+            <span>{{$t('Generality.Ge_Site')}}: </span>
+            <div
+              v-for="site in SiteData"
+              :key="site"
+              style="margin: 0 5px; display: inline-block"
+            >
+              <el-tag>{{ site }}</el-tag>
+            </div>
           </div>
-        </div>
-        <!-- 表单，用来输入用户和任务单-->
-        <div class="get-in-header-form">
-          <el-input
-            v-model.trim="formData"
-            ref="refFocus"
-            :placeholder="
+          <!-- 表单，用来输入用户和任务单-->
+          <div class="get-in-header-form">
+            <el-input
+              v-model.trim="formData"
+              ref="refFocus"
+              :placeholder="
               $t('production.Pr_PleaseEnterEmployeeNoAndWorkSheetNo')
             "
-            autofocus
-            @keyup.enter.native="onBoard($event)"
-          ></el-input>
-          <el-button @click="onBoard" style="margin-left: 15px; height: 50px">{{
-            $t("production.Pr_EnterStation")
-          }}</el-button>
+              @keyup.enter.native="onBoard($event)"
+            ></el-input>
+            <el-button @click="onBoard" style="margin-left: 15px; height: 50px">{{
+                $t("production.Pr_UpToMachine")
+              }}</el-button>
+          </div>
+          <!-- 信息-->
+          <div class="get-in-header-info">
+            <div>
+              {{$t("Generality.Ge_Personnel")}}：<span class="get-in-header-info-f">{{
+                UserData.UserName || '--'
+              }}</span>
+            </div>
+            <div>
+              {{$t("Generality.Ge_OddNumbers")}}：<span class="get-in-header-info-f">{{ form.BillId || '--' }}</span>
+            </div>
+          </div>
+          <div class="get-in-header-info">
+            <div>
+              {{$t("DataV.Da_Equipment")}}：<span class="get-in-header-info-f">{{
+                UserData.UserName || '--'
+              }}</span>
+            </div>
+          </div>
         </div>
-        <!-- 信息-->
-        <div class="get-in-header-info">
-          <div>
-            {{$t("Generality.Ge_Personnel")}}：<span class="get-in-header-info-f">{{
-              UserData.UserName || '--'
-            }}</span>
+        <!--右-->
+        <div class="get-in-header-right">
+          <div class="get-in-header-right-title">
+            {{$t("production.Pr_MachineToolOperationProcess")}}
           </div>
-          <div>
-            {{$t("Generality.Ge_OddNumbers")}}：<span class="get-in-header-info-f">{{ form.BillId || '--' }}</span>
+          <div class="get-in-header-right-box">
+            <div class="get-in-header-right-box-item"  v-for="(item, i) in DataList" :key="i">
+              <div class="get-in-header-right-box-item-title">{{ item.PartNo }}</div>
+              <div class="get-in-header-right-box-item-content">
+                <div class="get-in-header-right-box-item-content-left">
+                  <div>{{$t('Generality.Ge_ProcessName')}}: <span style="font-weight: bold">{{item.Process}}</span></div>
+                  <div>{{$t('Generality.Ge_WorkHours')}}: <span style="font-weight: bold">{{item.PlanTime}}H</span> </div>
+                  <div>{{$t('Generality.Ge_Quantity')}}: <span style="font-weight: bold">{{item.Quantity}}</span></div>
+                </div>
+                <div class="get-in-header-right-box-item-content-right">
+                  <div class="image-box">
+                    <CImage :src="item.PhotoUrl?item.PhotoUrl:''"></CImage>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <div class="get-in-header-right-control"><i class="el-icon-arrow-right"></i></div>
         </div>
       </div>
 
@@ -100,7 +133,7 @@ import inputQuantity from "@/views/workModule/production/productionReport/List/c
 import selectProcess from "@/views/workModule/production/productionReport/List/components/selectProcess.vue";
 
 export default {
-  name: "ScanCodeToEnterTheStation",
+  name: "index",
   components: { selectProcess, inputQuantity, PageWrapper, CImage },
   data() {
     return {
@@ -292,21 +325,102 @@ export default {
   background: #fff;
   &-header {
     width: 100%;
-    height: 200px;
+    height: 240px;
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
+    display: flex;
+    &-left{
+      width: 400px;
+      height: 100%;
+    }
+    &-right{
+      width: calc(100% - 400px);
+      height: 100%;
+      padding-left: 20px;
+      position: relative;
+      &-title{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        height: 50px;
+      }
+      &-box{
+        width: calc(100% - 70px);
+        height: calc(100% - 50px);
+        overflow-x: auto;
+        display: -webkit-box;
+        &-item{
+          width: 300px;
+          height: 100%;
+          border: 1px solid #eee;
+          margin-right: 20px;
+          &-title {
+            width: 100%;
+            height: 30px;
+            background: #ffbf6b;
+            line-height: 30px;
+            color: #fff;
+            text-indent: 1em;
+          }
+          &-content {
+            width: 100%;
+            display: flex;
+            height: calc(100% - 30px);
+            &-left {
+              text-indent: 1em;
+              width: calc(100% - 110px);
+              div {
+                margin-top: 16px;
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            }
+            &-right {
+              height: 100%;
+              display: flex;
+              align-items: center;
+              padding-right: 10px;
+              .image-box {
+                width: 100px;
+                height: 100px;
+              }
+            }
+          }
+        }
+      }
+      &-control{
+        width: 60px;
+        height: calc(100% - 50px);
+        background: rgba(0,0,0,.3);
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        font-size: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: .3s;
+        cursor: pointer;
+      }
+      &-control:hover{
+        background: rgba(0,0,0,.6);
+        //color: #fff;
+      }
+    }
     &-processes {
       width: 100%;
       display: flex;
       align-items: center;
-      height: 70px;
+      height: 50px;
       padding-left: 20px;
     }
     &-form {
       padding-left: 20px;
       width: 300px;
       display: flex;
-      margin-top: 14px;
+      margin-top: 10px;
       ::v-deep.el-input--medium {
         height: 50px !important;
         .el-input__inner {
@@ -320,7 +434,7 @@ export default {
     &-info {
       display: flex;
       padding-left: 20px;
-      margin-top: 20px;
+      margin-top: 24px;
       font-size: 18px;
       &-f {
         font-weight: bold;
@@ -332,7 +446,7 @@ export default {
   }
   &-content {
     width: 100%;
-    height: calc(100% - 260px);
+    height: calc(100% - 300px);
     padding-top: 10px;
     position: relative;
     &-cardBox {
@@ -409,6 +523,9 @@ export default {
   }
 }
 .get-in-content-cardBox::-webkit-scrollbar {
+  display: none;
+}
+.get-in-header-right-box::-webkit-scrollbar {
   display: none;
 }
 .get-in-title{

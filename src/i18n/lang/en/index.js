@@ -532,6 +532,10 @@ const en = {
   },
   //通用
   Generality: {
+    Ge_InStationProcess: "In Station Process",
+    Ge_Personnel: "Personnel",
+    Ge_OddNumbers: "Odd Numbers",
+    Ge_Site: "Site",
     Ge_CreateProductionTask: "CreateProductionTask",
     Ge_SaveEdits: "Save Edits",
     Ge_Chart: "Chart",
@@ -950,6 +954,7 @@ const en = {
   },
   //生产
   production: {
+    Pr_MachineToolOperationProcess:"Machine Tool Operation Process",
     Pr_ProgramingProcess: "Programing Process",
     Pr_ReportedDate: "ReportedDate",
     Pr_DeletedData: "Deleted Data",
