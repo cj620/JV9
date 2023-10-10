@@ -27,7 +27,19 @@
       </div>
     </div>
     <div class="more-func">
-      <el-dropdown @command="handleCommand">
+      <!-- 编程加工任务 -->
+      <el-dropdown @command="handleCommand" v-if="$route.name === 'ProgramProducingTask'">
+        <span>
+          <i class="el-icon-more el-icon--right" style="font-size: 20px"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="edit">
+            {{ $t('Generality.Ge_Edit') }}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <!-- 非编程加工任务 -->
+      <el-dropdown @command="handleCommand" v-else>
         <span>
           <i class="el-icon-more el-icon--right" style="font-size: 20px"></i>
         </span>
@@ -106,6 +118,15 @@
     >
     </addProjectTask>
 
+    <!-- 编程加工编辑 -->
+    <editProgramTask
+      :visible.sync="editProgramTaskDialogFormVisible"
+      v-if="editProgramTaskDialogFormVisible"
+      :transferData="transferData"
+      @confirmData="confirmData"
+      :confirmText="$t('Generality.Ge_Save')">
+    </editProgramTask>
+
     <distributionTaskDialog
       :visible.sync="distributionTaskDialogFormVisible"
       v-if="distributionTaskDialogFormVisible"
@@ -142,8 +163,10 @@ import addProjectTask from "@/views/workModule/project/projectTask/DetailsList/a
 import { project_task_get_children_item } from "@/api/workApi/project/projectTask";
 import distributionTaskDialog from "./distributionTaskDialog";
 import DetailModel from "./DetailModel/index.vue";
+import editProgramTask from "@/views/workModule/program/programProducingTaskList/editProgramTask.vue";
 export default {
   components: {
+    editProgramTask,
     addProjectTask,
     distributionTaskDialog,
     DetailModel,
@@ -153,6 +176,7 @@ export default {
       type: "edit",
       moreMsgShow: false,
       addProjectTaskDialogFormVisible: false,
+      editProgramTaskDialogFormVisible: false,
       distributionTaskDialogFormVisible: false,
       viewSubtasksDialogVisible: false,
       transferData: {},
@@ -178,15 +202,20 @@ export default {
     handleCommand(e) {
       if (e == "edit") {
         // alert("edit");
-        this.addProjectTaskDialogFormVisible = true;
-        this.transferData = JSON.parse(
-          JSON.stringify(
-            Object.assign({}, this.cdata, {
-              ItemPlanEnd: this.cdata.PlanEnd,
-              ItemPlanStart: this.cdata.PlanStart,
-            })
-          )
-        );
+        if (this.$route.name === 'ProgramProducingTask'){
+          this.editProgramTaskDialogFormVisible = true;
+          this.transferData = this.cdata
+        }else {
+          this.addProjectTaskDialogFormVisible = true;
+          this.transferData = JSON.parse(
+            JSON.stringify(
+              Object.assign({}, this.cdata, {
+                ItemPlanEnd: this.cdata.PlanEnd,
+                ItemPlanStart: this.cdata.PlanStart,
+              })
+            )
+          );
+        }
         console.log(this.transferData, 66656868);
       } else if (e == "distributionTask") {
         this.distributionTaskDialogFormVisible = true;
@@ -211,6 +240,7 @@ export default {
     },
     confirmData() {
       this.addProjectTaskDialogFormVisible = false;
+      this.editProgramTaskDialogFormVisible = false;
       // this.tableObj.getData();
       this.toFresh();
     },
