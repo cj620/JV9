@@ -49,7 +49,9 @@
         <div class="get-in-content-cardBox">
           <div style="display: flex;flex-wrap: wrap;width: 100%">
             <div class="get-in-content-cardBox-item" v-for="(item, i) in DataList" :key="i">
-              <div class="get-in-content-cardBox-item-title">{{ item.PartNo }}</div>
+              <div class="get-in-content-cardBox-item-title"
+                   :style="{background: ProcessState[item.State].color}"
+              >{{ item.PartNo }}</div>
               <div class="get-in-content-cardBox-item-content">
                 <div class="get-in-content-cardBox-item-content-left">
                   <div>{{$t('Generality.Ge_ProcessName')}}: <span style="font-weight: bold">{{item.Process}}</span></div>
@@ -100,12 +102,14 @@ import {
 import CImage from "@/components/CImage/index.vue";
 import inputQuantity from "@/views/workModule/production/productionReport/List/components/inputQuantity.vue";
 import selectProcess from "@/views/workModule/production/productionReport/List/components/selectProcess.vue";
+import ProcessState from '@/enum/workModule/production/ProcessState';
 
 export default {
   name: "ScanCodeToEnterTheStation",
   components: { selectProcess, inputQuantity, PageWrapper, CImage },
   data() {
     return {
+      ProcessState,
       SiteData: [],
       selectProcessDialogFormVisible: false,
       inputQuantityDialogFormVisible: false,
@@ -203,6 +207,8 @@ export default {
           this.TaskProcessId = res.Items[0].Id;
           this.defaultQuantity = res.Items[0].Quantity;
         }
+      }).catch(err => {
+        this.form.BillId = ""
       });
     },
     //确定要进战的工序
@@ -354,6 +360,8 @@ export default {
         border: 1px solid #eee;
         margin-bottom: 20px;
         margin-right: 20px;
+        border-radius: 8px;
+        overflow: hidden;
         &-title {
           width: 100%;
           height: 30px;

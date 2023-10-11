@@ -1026,7 +1026,7 @@ const en = {
     Pr_PleaseEnterEmployeeInfo: "Please enter employee info",
     Pr_PleaseSelectDevice: "Please select device",
     Pr_PleaseEnterWorkSheetInfo: "Please enter work sheet info",
-    Pr_WorkSheetNo: "Work Sheet No.",
+    Pr_WorkSheetNo: "Work Sheet No",
     Pr_EditDeliveryDate: "Edit delivery date",
     Pr_PlanningDevices: "Planning devices",
     Pr_MaximumNumberOfWorkSheet: "Maximum number of work sheet",

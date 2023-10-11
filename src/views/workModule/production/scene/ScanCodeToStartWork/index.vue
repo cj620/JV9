@@ -39,14 +39,15 @@
               }}</span>
             </div>
             <div>
-              {{$t("Generality.Ge_OddNumbers")}}：<span class="get-in-header-info-f">{{ form.BillId || '--' }}</span>
+              {{$t("DataV.Da_Equipment")}}：<span class="get-in-header-info-f">{{
+                form.DeviceNo || '--'
+              }}</span>
             </div>
+
           </div>
           <div class="get-in-header-info">
             <div>
-              {{$t("DataV.Da_Equipment")}}：<span class="get-in-header-info-f">{{
-                UserData.UserName || '--'
-              }}</span>
+              {{$t("production.Pr_WorkSheetNo")}}：<span class="get-in-header-info-f">{{ form.BillId || '--' }}</span>
             </div>
           </div>
         </div>
@@ -56,13 +57,18 @@
             {{$t("production.Pr_MachineToolOperationProcess")}}
           </div>
           <div class="get-in-header-right-box">
-              <div class="get-in-header-right-box-item" v-for="(item, i) in DataList" :key="i">
-                <div class="get-in-header-right-box-item-title">{{ item.PartNo }}</div>
+              <div class="get-in-header-right-box-item" v-for="(item, i) in DeviceList" :key="i">
+                <div class="get-in-header-right-box-item-title"
+                     :style="{background: ProcessState[item.State].color}"
+                >{{ item.PartNo }}</div>
                 <div class="get-in-header-right-box-item-content">
                   <div class="get-in-header-right-box-item-content-left">
                     <div>{{$t('Generality.Ge_ProcessName')}}: <span style="font-weight: bold">{{item.Process}}</span></div>
                     <div>{{$t('Generality.Ge_WorkHours')}}: <span style="font-weight: bold">{{item.PlanTime}}H</span> </div>
                     <div>{{$t('Generality.Ge_Quantity')}}: <span style="font-weight: bold">{{item.Quantity}}</span></div>
+                    <div
+                    style="position:absolute;bottom: 12px; width: 300px"
+                    >{{$t('Generality.Ge_ActualStart')}}: <span style="font-weight: bold">{{timeFormat(item.WorkDate,'MM-dd hh:mm:ss')}}</span></div>
                   </div>
                   <div class="get-in-header-right-box-item-content-right">
                     <div class="image-box">
@@ -72,7 +78,16 @@
                 </div>
               </div>
           </div>
-          <div class="get-in-header-right-control"><i class="el-icon-arrow-right"></i></div>
+<!--          <div class="get-in-header-right-control">-->
+          <div class="get-in-header-right-control-left get-in-header-right-control"
+              @click="setScrollTo('left')"
+               v-show="topControlShow"
+          ><i class="el-icon-arrow-left"></i></div>
+          <div class="get-in-header-right-control-right get-in-header-right-control"
+               @click="setScrollTo('right')"
+               v-show="topControlShow"
+          ><i class="el-icon-arrow-right"></i></div>
+<!--          </div>-->
         </div>
       </div>
 
@@ -82,7 +97,9 @@
         <div class="get-in-content-cardBox">
           <div style="display: flex;flex-wrap: wrap;width: 100%">
             <div class="get-in-content-cardBox-item" v-for="(item, i) in DataList" :key="i">
-              <div class="get-in-content-cardBox-item-title">{{ item.PartNo }}</div>
+              <div class="get-in-content-cardBox-item-title"
+              :style="{background: ProcessState[item.State].color}"
+              >{{ item.PartNo }}</div>
               <div class="get-in-content-cardBox-item-content">
                 <div class="get-in-content-cardBox-item-content-left">
                   <div>{{$t('Generality.Ge_ProcessName')}}: <span style="font-weight: bold;">{{item.Process}}</span></div>
@@ -106,18 +123,18 @@
       </div>
     </div>
 
-    <selectProcess
-      :visible.sync="selectProcessDialogFormVisible"
-      v-if="selectProcessDialogFormVisible"
-      :transferData="transferData"
-      @confirmSelectProcess="confirmSelectProcess"
-    ></selectProcess>
+<!--    <selectProcess-->
+<!--      :visible.sync="selectProcessDialogFormVisible"-->
+<!--      v-if="selectProcessDialogFormVisible"-->
+<!--      :transferData="transferData"-->
+<!--      @confirmSelectProcess="confirmSelectProcess"-->
+<!--    ></selectProcess>-->
 
     <inputQuantity
       :visible.sync="inputQuantityDialogFormVisible"
       v-if="inputQuantityDialogFormVisible"
-      @confirmQuantity="confirmQuantity"
       :defaultQuantity="defaultQuantity"
+      @confirmQuantity="confirmQuantity"
     ></inputQuantity>
   </page-wrapper>
 </template>
@@ -128,24 +145,34 @@ import { getUser, getUserConfig } from "@/api/basicApi/systemSettings/user";
 import {
   currentSiteList,
   inSite,
-  siteMatchingProcessList,
+  siteMatchingProcessList, upMachineCollection,
 } from "@/api/workApi/production/productionReport";
+import {
+  getByIdProductionDevice,
+} from "@/api/workApi/production/baseData";
+import { getProductionTask } from '@/api/workApi/production/productionTask';
+
 import CImage from "@/components/CImage/index.vue";
 import inputQuantity from "@/views/workModule/production/productionReport/List/components/inputQuantity.vue";
 import selectProcess from "@/views/workModule/production/productionReport/List/components/selectProcess.vue";
+import ProcessState from '@/enum/workModule/production/ProcessState';
+import timeFormat from '@/jv_doc/utils/time/timeFormat';
 
 export default {
-  name: "index",
+  name: "ScanCodeToStartWork",
   components: { selectProcess, inputQuantity, PageWrapper, CImage },
   data() {
     return {
+      ProcessState,
       SiteData: [],
       selectProcessDialogFormVisible: false,
       inputQuantityDialogFormVisible: false,
       TaskProcessId: "",
       transferData: [],
       DataList:[],
+      DeviceList: [],
       defaultQuantity: 1,
+      BillId: "",
       formData: "",
       UserData: {
         UserName: "",
@@ -153,9 +180,12 @@ export default {
       form: {
         UserId: "",
         BillId: "",
+        DeviceNo: "",
       },
       controlShow: false,
+      topControlShow: false,
       scrollNumber: 0,
+      topScrollNumber: 0,
     };
   },
   created() {
@@ -164,30 +194,46 @@ export default {
   },
   mounted() {
     this.watchScroll(); // 监听滚动条
+    this.watchTopScroll();
     this.setCardShow();
+    this.setTopCardShow();
     window.onresize = () => {
       this.setCardShow();
+      this.setTopCardShow();
     }
   },
   methods: {
+    timeFormat,
     watchScroll() {
       let cardBox = document.querySelector('.get-in-content-cardBox');
       cardBox.onscroll = () => {
         this.scrollNumber = cardBox.scrollTop;
       }
     },
+    watchTopScroll() {
+      let cardBox = document.querySelector('.get-in-header-right-box');
+      cardBox.onscroll = () => {
+        console.log(cardBox.scrollLeft)
+        // this.scrollNumber = cardBox.scrollTop;
+      }
+    },
     setCardShow() {
       let cardBox = document.querySelector('.get-in-content-cardBox');
       this.controlShow = cardBox.scrollHeight > cardBox.clientHeight;
+    },
+    setTopCardShow() {
+      let cardBox = document.querySelector('.get-in-header-right-box');
+      // console.log(cardBox.scrollWidth, cardBox.clientWidth, cardBox.scrollLeft)
+      this.topControlShow = cardBox.clientWidth < this.DeviceList.length * 320;
     },
     GetConfig() {
       getUserConfig({ ConfigKey: "UserStation" }).then((res) => {
         this.SiteData = JSON.parse(res.ConfigValue);
       });
     },
-    GetData() {
-      currentSiteList({ SelectType: 0 }).then((res) => {
-        this.DataList = res.Items;
+    GetData(SelectType = 0, DeviceNo = "") {
+      currentSiteList({ SelectType, DeviceNo }).then((res) => {
+          this.DataList = res.Items;
         console.log(this.DataList)
       });
     },
@@ -209,8 +255,32 @@ export default {
         this.formData.substring(3, 0) === "O!_" ||
         this.formData.substring(3, 0) === "o!_"
       ) {
-        this.form.BillId = this.formData.slice(3);
-        this.formData = "";
+        getProductionTask({BillId: this.formData.slice(3)}).then(res => {
+          this.form.BillId = this.formData.slice(3);
+          this.formData = "";
+        })
+
+      } else if(
+        this.formData.substring(3, 0) === "M!_" ||
+        this.formData.substring(3, 0) === "m!_"
+      ) {
+        getByIdProductionDevice({ DeviceNo: this.formData.slice(3) })
+          .then((res) => {
+            this.form.DeviceNo = this.formData.slice(3)
+            this.formData = "";
+            console.log(this.form.DeviceNo)
+            return currentSiteList({
+              DeviceNo: this.form.DeviceNo,
+              SelectType: 2,
+            });
+          })
+          .then((res) => {
+            this.DeviceList = res.Items;
+            this.setTopCardShow();
+          }).catch(err => {
+          this.DeviceList = [];
+          this.form.DeviceNo = "";
+        })
       } else {
         this.formData = "";
       }
@@ -222,66 +292,71 @@ export default {
         return this.$message.warning(
           this.$t("production.Pr_PleaseEnterWorkSheetInfo")
         );
-
-      this.IsOnBoard(this.form);
+      if (this.form.DeviceNo === "")
+        return this.$message.warning(
+          this.$t("production.Pr_PleaseSelectDevice")
+        );
+      this.BillId = this.form.BillId;
+      this.inputQuantityDialogFormVisible = true;
     },
     //查询要进战的工序
     IsOnBoard(e) {
-      siteMatchingProcessList({ BillId: e.BillId }).then((res) => {
-        if (res.Items.length > 1) {
-          this.transferData = res.Items;
-          this.selectProcessDialogFormVisible = true;
-        } else {
-          this.inputQuantityDialogFormVisible = true;
-          this.TaskProcessId = res.Items[0].Id;
-          this.defaultQuantity = res.Items[0].Quantity;
-        }
-      });
+      upMachineCollection(e).then((res) => {
+        console.log(res);
+        this.GetData();
+        this.form.UserId = "";
+        this.form.BillId = "";
+        this.form.DeviceNo = "";
+        this.UserData.PhotoUrl = "";
+        this.UserData.UserName = "";
+      })
     },
     //确定要进战的工序
-    confirmSelectProcess(e) {
-      this.selectProcessDialogFormVisible = false;
-      console.log(e);
-      const str = {
-        TaskProcesses: [
-          {
-            TaskProcessId: e.Data[0].Id,
-            Quantity: e.Quantity,
-          },
-        ],
-        UserId: this.form.UserId,
-      };
-      this.InSite(str);
-    },
+    // confirmSelectProcess(e) {
+    //   this.selectProcessDialogFormVisible = false;
+    //   console.log(e);
+    //   const str = {
+    //     TaskProcesses: [
+    //       {
+    //         TaskProcessId: e.Data[0].Id,
+    //         Quantity: e.Quantity,
+    //       },
+    //     ],
+    //     UserId: this.form.UserId,
+    //   };
+    //   this.InSite(str);
+    // },
     //确定要选择数据
     confirmQuantity(e) {
       const str = {
-        TaskProcesses: [
+        Bills: [
           {
-            TaskProcessId: this.TaskProcessId,
+            BillId: this.BillId,
             Quantity: e,
           },
         ],
         UserId: this.form.UserId,
+        DeviceNo: this.form.DeviceNo,
       };
-      this.InSite(str);
       this.inputQuantityDialogFormVisible = false;
+      this.IsOnBoard(str);
     },
 
     //进站
-    InSite(e) {
-      inSite(e).then((res) => {
-
-        this.GetData();
-        this.form.UserId = "";
-        this.form.BillId = "";
-        this.UserData.PhotoUrl = "";
-        this.UserData.UserName = "";
-      });
-    },
+    // InSite(e) {
+    //   inSite(e).then((res) => {
+    //
+    //     this.GetData();
+    //     this.form.UserId = "";
+    //     this.form.BillId = "";
+    //     this.UserData.PhotoUrl = "";
+    //     this.UserData.UserName = "";
+    //   });
+    // },
     // 设置滚动条
     setScrollTo(val) {
       let cardBox = document.querySelector('.get-in-content-cardBox');
+      let topCardBox = document.querySelector('.get-in-header-right-box');
       if(val === 'up') {
         this.scrollNumber = cardBox.scrollTop;
         console.log(cardBox.clientHeight + cardBox.scrollTop + 2, cardBox.scrollHeight)
@@ -298,7 +373,7 @@ export default {
           }
         }
         scrollToTop()
-      } else {
+      } else if(val === 'down') {
         this.scrollNumber = cardBox.scrollTop;
         this.scrollNumber+=210;
         const scrollToTop = () => {
@@ -313,6 +388,36 @@ export default {
           }
         }
         scrollToTop()
+      } else if( val === 'left') {
+        this.topScrollNumber = topCardBox.scrollLeft;
+        this.topScrollNumber -= 310
+        const scrollToLeft = () => {
+          const c = topCardBox.scrollLeft
+          if (c > this.topScrollNumber) {
+            if(!topCardBox.scrollLeft) return
+            window.requestAnimationFrame(scrollToLeft)
+            topCardBox.onscroll = null;
+            topCardBox.scrollTo(c - 15, 0)
+          } else {
+            this.watchTopScroll();
+          }
+        }
+        scrollToLeft()
+      } else if(val === 'right') {
+        this.topScrollNumber = topCardBox.scrollLeft;
+        this.topScrollNumber += 310
+        const scrollToLeft = () => {
+          let c = topCardBox.scrollLeft
+          if (c < this.topScrollNumber) {
+            if(topCardBox.clientWidth + topCardBox.scrollLeft + 2 >= topCardBox.scrollWidth) return
+            window.requestAnimationFrame(scrollToLeft)
+            topCardBox.onscroll = null;
+            topCardBox.scrollTo(c+15,0)
+          } else {
+            this.watchTopScroll();
+          }
+        }
+        scrollToLeft()
       }
     },
 
@@ -332,7 +437,7 @@ export default {
     border-bottom: 1px solid #eee;
     display: flex;
     &-left{
-      width: 400px;
+      width: 500px;
       height: 100%;
     }
     &-right:after {
@@ -345,7 +450,7 @@ export default {
       background: #eee;
     }
     &-right{
-      width: calc(100% - 400px);
+      width: calc(100% - 500px);
       height: 100%;
       padding-left: 20px;
       position: relative;
@@ -357,7 +462,7 @@ export default {
         height: 50px;
       }
       &-box{
-        width: calc(100% - 70px);
+        width: calc(100% - 20px);
         height: calc(100% - 50px);
         overflow-x: auto;
         display: -webkit-box;
@@ -366,6 +471,8 @@ export default {
           height: 100%;
           border: 1px solid #eee;
           margin-right: 20px;
+          border-radius: 8px;
+          overflow: hidden;
           &-title {
             width: 100%;
             height: 30px;
@@ -381,6 +488,7 @@ export default {
             &-left {
               text-indent: 1em;
               width: calc(100% - 110px);
+              position: relative;
               div {
                 margin-top: 16px;
                 width: 100%;
@@ -397,29 +505,35 @@ export default {
               .image-box {
                 width: 100px;
                 height: 100px;
+                margin-top: -24px;
               }
             }
           }
         }
       }
-      &-control{
-        width: 60px;
-        height: calc(100% - 50px);
-        background: rgba(0,0,0,.3);
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        font-size: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: .3s;
-        cursor: pointer;
-      }
       &-control:hover{
         background: rgba(0,0,0,.6);
-        //color: #fff;
       }
+      &-control{
+        position: absolute;
+        top: 50%;
+        width: 50px;
+        height: 50px;
+        background: rgba(0,0,0,.2);
+        text-align: center;
+        line-height: 50px;
+        border-radius: 50%;
+        color: #fff;
+        transition: .3s;
+        cursor: pointer;
+        &-left{
+          left: 10px;
+        }
+        &-right{
+          right: 10px;
+        }
+      }
+
     }
     &-processes {
       width: 100%;
@@ -447,10 +561,11 @@ export default {
       display: flex;
       padding-left: 20px;
       margin-top: 24px;
-      font-size: 22px;
+      font-size: 16px;
       &-f {
         font-weight: bold;
         color: #5657ed;
+        font-size: 22px;
       }
       div {
         margin-right: 20px;
@@ -478,6 +593,8 @@ export default {
         border: 1px solid #eee;
         margin-bottom: 20px;
         margin-right: 20px;
+        border-radius: 8px;
+        overflow: hidden;
         &-title {
           width: 100%;
           height: 30px;
@@ -539,7 +656,7 @@ export default {
   display: none;
 }
 .get-in-header-right-box::-webkit-scrollbar {
-  display: none;
+  //display: none;
 }
 .get-in-title{
   font-size: 20px;
