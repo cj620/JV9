@@ -144,7 +144,6 @@ export default {
         UserId: this.form.UserId,
 	    }).then((res) => {
 		    this.tableObj.tableData.push(obj1)
-		    console.log(res);
       })
 		  this.receiveNumDialogVisible = false;
     },
