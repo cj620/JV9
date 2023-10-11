@@ -91,6 +91,8 @@ const cn = {
     Pr_ProductionDispatch: "生产调度",
     Pr_WorkReport: "生产报工",
     Pr_ProductionPlan: "生产计划",
+    Pr_ProductionFitterReceive: "钳工收料",
+    Pr_ProductionFitterReceiveRecord: "钳工收料记录",
 
     Pr_Reports: "统计报表",
     Pr_ProgramTask: "编程任务",
@@ -963,6 +965,12 @@ const cn = {
   //生产
   production: {
     Pr_MachineToolOperationProcess:"机床作业工序",
+    Pr_receiveRecord: "收料记录",
+    Pr_received: "已收料",
+    Pr_pleaseEnterReceiveNumber: "请输入收料数量",
+    Pr_ToolingNo: "产品号",
+    Pr_Worker: "收料人",
+    Pr_CreationDate1: "收料时间",
     Pr_ProgramingProcess: "编程工艺",
     Pr_ReportedDate: "报工日期",
     Pr_DeletedData: "已删除数据",

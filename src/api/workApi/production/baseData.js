@@ -212,3 +212,20 @@ export function saveProcessTemplate(data) {
     data,
   });
 }
+
+// 获取钳工收料记录
+export function RCVRecordList(data){
+  return request({
+    url: "/production_assy/rcv_record/list",
+    method: "post",
+    data,
+  })
+}
+// 保存钳工收料记录
+export function saveRCVRecord(data){
+  return request({
+    url: "/production_assy/rcv_record/save",
+    method: "post",
+    data,
+  })
+}
