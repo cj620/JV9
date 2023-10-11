@@ -191,6 +191,9 @@ export default {
   created() {
     this.GetData();
     this.GetConfig();
+    this.$nextTick(() => {
+      this.$refs.refFocus.$el.querySelector("input").focus();
+    });
   },
   mounted() {
     this.watchScroll(); // 监听滚动条
@@ -566,6 +569,19 @@ export default {
         font-weight: bold;
         color: #5657ed;
         font-size: 22px;
+        position: relative;
+        display: inline-block;
+        text-align: center;
+        min-width: 100px;
+      }
+      &-f:after{
+        content: "";
+        height: 1px;
+        background: #000;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
       }
       div {
         margin-right: 20px;

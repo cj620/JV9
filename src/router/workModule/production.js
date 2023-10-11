@@ -431,7 +431,16 @@ const production = [
     path: "ScanCodeToStartWork",
     title:i18n.t("menu.Pr_ScanCodeToStartWork"),
   },
-
+  // 扫码完工
+  {
+    key: "Pr_ScanCodeCompletion",
+    component: () =>
+        import("@/views/workModule/production/scene/ScanCodeCompletion"),
+    Parent: "Pr_OnSiteOperations",
+    name: "ScanCodeCompletion",
+    path: "ScanCodeCompletion",
+    title:i18n.t("menu.Pr_ScanCodeCompletion"),
+  },
 ];
 
 export default production;

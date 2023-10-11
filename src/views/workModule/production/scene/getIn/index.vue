@@ -23,7 +23,6 @@
             :placeholder="
               $t('production.Pr_PleaseEnterEmployeeNoAndWorkSheetNo')
             "
-            autofocus
             @keyup.enter.native="onBoard($event)"
           ></el-input>
           <el-button @click="onBoard" style="margin-left: 15px; height: 50px">{{
@@ -132,6 +131,9 @@ export default {
   created() {
     this.GetData();
     this.GetConfig();
+    this.$nextTick(() => {
+      this.$refs.refFocus.$el.querySelector("input").focus();
+    });
   },
   mounted() {
     this.watchScroll(); // 监听滚动条
@@ -333,6 +335,19 @@ export default {
       &-f {
         font-weight: bold;
         color: #5657ed;
+        min-width: 100px;
+        display: inline-block;
+        position: relative;
+        text-align: center;
+      }
+      &-f:after{
+        content: "";
+        height: 1px;
+        background: #000;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
       }
       div {
         margin-right: 20px;
