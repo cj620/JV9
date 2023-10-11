@@ -5,15 +5,6 @@
       <div class="report-content-header">
         <UserImg :UserData="UserData"></UserImg>
         <div class="report-content-header-content-info">
-          <!--<div class="report-content-header-content-info-site">-->
-          <!--  <div-->
-          <!--    v-for="site in SiteData"-->
-          <!--    :key="site"-->
-          <!--    style="margin: 0 5px; display: inline-block"-->
-          <!--  >-->
-          <!--    <el-tag>{{ site }}</el-tag>-->
-          <!--  </div>-->
-          <!--</div>-->
           <div
             style="display: flex"
             class="report-content-header-content-info-confirm"
@@ -52,13 +43,12 @@
   </PageWrapper>
 </template>
 <script>
-import { Table } from "@/jv_doc/class/table";
-import { tableConfig } from "./config"
+import { Table } from "./config"
 import UserImg from "@/components/JVInternal/UserImg/index.vue";
-// import { getUserConfig } from "@/api/basicApi/systemSettings/user";
 import { getUser } from "@/api/basicApi/systemSettings/user";
 import { saveRCVRecord } from "@/api/workApi/production/baseData"
 import { getProductionTask } from "@/api/workApi/production/productionTask"
+import { timeFormat } from "~/utils/time";
 export default {
   name: "ProductionFitterReceive",
   components: { UserImg },
@@ -81,25 +71,10 @@ export default {
     }
   },
   created() {
-    // this.GetConfig();
-	  this.tableObj = new Table({
-		  tableSchema: tableConfig,
-		  pagination: false,
-		  sortCol: false,
-		  chooseCol: false,
-		  data: [],
-		  title: "",
-		  tableHeaderShow: false,
-		  operationCol: false,
-		  height: 350,
-	  });
+    this.tableObj = new Table()
+    this.tableObj.getData({ CreationDate: timeFormat(new Date(), "yyyy-MM-dd") })
   },
   methods: {
-    // GetConfig() {
-    //   getUserConfig({ ConfigKey: "UserStation" }).then((res) => {
-    //     this.SiteData = JSON.parse(res.ConfigValue);
-    //   });
-    // },
     receive() {
       if (this.formData.substring(3, 0) === "H!_") {
         this.form.UserId = this.formData.slice(3);
@@ -130,20 +105,12 @@ export default {
       })
     },
 	  receiveConfirm() {
-      const obj1 = {
-        BillId: this.billInfo.BillId,
-        ToolingNo: this.billInfo.ToolingNo,
-        PartName: this.billInfo.PartName,
-        Remarks: this.billInfo.Remarks,
-        Quantity: this.quantity,
-        Worker: this.form.UserId
-      }
 		  saveRCVRecord({
         PrTaskBillId: this.form.BillId,
         Quantity: this.quantity,
         UserId: this.form.UserId,
 	    }).then((res) => {
-		    this.tableObj.tableData.push(obj1)
+        this.tableObj.getData({ CreationDate: timeFormat(new Date(), "yyyy-MM-dd") })
       })
 		  this.receiveNumDialogVisible = false;
     },
@@ -178,6 +145,9 @@ export default {
     border-top: 1px #cccccc solid;
     margin-bottom: 5px;
     margin-top: 15px;
+  }
+  .report-content-table{
+    height:590px
   }
 }
 </style>

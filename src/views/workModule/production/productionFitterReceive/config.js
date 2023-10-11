@@ -1,38 +1,38 @@
 // 钳工收料表格配置
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 
-export const tableConfig = [
-	// 单号
-	{
-		prop: "BillId",
-		label: i18n.t("production.Pr_WorkSheetNo")
-	},
-	// 产品号
-	{
-		prop: "ToolingNo",
-		label: i18n.t("production.Pr_ToolingNo")
-	},
-	// 零件编号
-	{
-		prop: "PartName",
-		label: i18n.t("Generality.Ge_PartName"),
-	},
-	// 数量
-	{
-		prop: "Quantity",
-		label: i18n.t("Generality.Ge_Quantity")
-	},
-	// 收料人
-	{
-		prop: "Worker",
-		label: i18n.t("production.Pr_Worker")
-	},
-	// 备注
-	{
-		prop: "Remarks",
-		label: i18n.t("Generality.Ge_Remarks")
-	}
-]
+// export const tableConfig = [
+// 	// 单号
+// 	{
+// 		prop: "BillId",
+// 		label: i18n.t("production.Pr_WorkSheetNo")
+// 	},
+// 	// 产品号
+// 	{
+// 		prop: "ToolingNo",
+// 		label: i18n.t("production.Pr_ToolingNo")
+// 	},
+// 	// 零件编号
+// 	{
+// 		prop: "PartName",
+// 		label: i18n.t("Generality.Ge_PartName"),
+// 	},
+// 	// 数量
+// 	{
+// 		prop: "Quantity",
+// 		label: i18n.t("Generality.Ge_Quantity")
+// 	},
+// 	// 收料人
+// 	{
+// 		prop: "Worker",
+// 		label: i18n.t("production.Pr_Worker")
+// 	},
+// 	// 备注
+// 	{
+// 		prop: "Remarks",
+// 		label: i18n.t("Generality.Ge_Remarks")
+// 	}
+// ]
 // 钳工收料记录表格
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { RCVRecordList } from "@/api/workApi/production/baseData"
