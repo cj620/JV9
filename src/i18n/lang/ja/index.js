@@ -64,6 +64,8 @@ const ja = {
     Pr_ProductionDispatch: "生産スケジューリング",
     Pr_WorkReport: "生産報告",
     Pr_ProductionPlan: "生産計画",
+    Pr_ProductionFitterReceive: "クランプストック",
+    Pr_ProductionFitterReceiveRecord: "クランプ受入記録",
 
     Pr_Reports: "統計レポート",
     Pr_ProgramTask: "プログラミングタスク",
@@ -905,6 +907,12 @@ const ja = {
   },
   //生产
   production: {
+    Pr_receiveRecord: "受入記録",
+    Pr_received: "受入済",
+    Pr_pleaseEnterReceiveNumber: "受入数量を入力してください",
+    Pr_ToolingNo: "製品番号",
+    Pr_Worker: "受入人",
+    Pr_CreationDate1: "受入時間",
     Pr_ProgramingProcess: "プログラミングプロセス",
     Pr_DeletedData: "削除されたデータ",
     Pr_StaleWorkOrder: "期限切れ製造オーダ",

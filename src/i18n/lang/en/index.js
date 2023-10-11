@@ -75,6 +75,8 @@ const en = {
     Pr_ProductionDispatch: "Production Dispatch",
     Pr_WorkReport: "Work Report",
     Pr_ProductionPlan: "Production Plan",
+    Pr_ProductionFitterReceive: "Production Fitter Receive",
+    Pr_ProductionFitterReceiveRecord: "Production Fitter Receive Record",
     Pr_ProgramTask: "Program Task",
     Pr_Quality: "Quality",
     Pr_Report: "Report",
@@ -950,6 +952,12 @@ const en = {
   },
   //生产
   production: {
+    Pr_receiveRecord: "Receive Record",
+    Pr_received: "Received",
+    Pr_pleaseEnterReceiveNumber: "Please Enter Receive Number",
+    Pr_ToolingNo: "ToolingNo",
+    Pr_Worker: "Worker",
+    Pr_CreationDate1: "CreationDate",
     Pr_ProgramingProcess: "Programing Process",
     Pr_ReportedDate: "ReportedDate",
     Pr_DeletedData: "Deleted Data",
