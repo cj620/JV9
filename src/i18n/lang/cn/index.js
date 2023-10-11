@@ -549,6 +549,10 @@ const cn = {
   },
   //通用
   Generality: {
+    Ge_InStationProcess: "在站工序",
+    Ge_Personnel: "人员",
+    Ge_OddNumbers: "单号",
+    Ge_Site: "站点",
     Ge_CreateProductionTask: "创建生产任务",
     Ge_SaveEdits: "保存编辑",
     Ge_Chart: "图表",
@@ -960,6 +964,7 @@ const cn = {
   },
   //生产
   production: {
+    Pr_MachineToolOperationProcess:"机床作业工序",
     Pr_receiveRecord: "收料记录",
     Pr_received: "已收料",
     Pr_pleaseEnterReceiveNumber: "请输入收料数量",
