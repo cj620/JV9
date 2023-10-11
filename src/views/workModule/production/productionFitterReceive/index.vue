@@ -5,15 +5,15 @@
       <div class="report-content-header">
         <UserImg :UserData="UserData"></UserImg>
         <div class="report-content-header-content-info">
-          <div class="report-content-header-content-info-site">
-            <div
-              v-for="site in SiteData"
-              :key="site"
-              style="margin: 0 5px; display: inline-block"
-            >
-              <el-tag>{{ site }}</el-tag>
-            </div>
-          </div>
+          <!--<div class="report-content-header-content-info-site">-->
+          <!--  <div-->
+          <!--    v-for="site in SiteData"-->
+          <!--    :key="site"-->
+          <!--    style="margin: 0 5px; display: inline-block"-->
+          <!--  >-->
+          <!--    <el-tag>{{ site }}</el-tag>-->
+          <!--  </div>-->
+          <!--</div>-->
           <div
             style="display: flex"
             class="report-content-header-content-info-confirm"
@@ -55,7 +55,7 @@
 import { Table } from "@/jv_doc/class/table";
 import { tableConfig } from "./config"
 import UserImg from "@/components/JVInternal/UserImg/index.vue";
-import { getUserConfig } from "@/api/basicApi/systemSettings/user";
+// import { getUserConfig } from "@/api/basicApi/systemSettings/user";
 import { getUser } from "@/api/basicApi/systemSettings/user";
 import { saveRCVRecord } from "@/api/workApi/production/baseData"
 import { getProductionTask } from "@/api/workApi/production/productionTask"
@@ -81,7 +81,7 @@ export default {
     }
   },
   created() {
-    this.GetConfig();
+    // this.GetConfig();
 	  this.tableObj = new Table({
 		  tableSchema: tableConfig,
 		  pagination: false,
@@ -95,11 +95,11 @@ export default {
 	  });
   },
   methods: {
-    GetConfig() {
-      getUserConfig({ ConfigKey: "UserStation" }).then((res) => {
-        this.SiteData = JSON.parse(res.ConfigValue);
-      });
-    },
+    // GetConfig() {
+    //   getUserConfig({ ConfigKey: "UserStation" }).then((res) => {
+    //     this.SiteData = JSON.parse(res.ConfigValue);
+    //   });
+    // },
     receive() {
       if (this.formData.substring(3, 0) === "H!_") {
         this.form.UserId = this.formData.slice(3);
