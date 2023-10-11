@@ -240,7 +240,7 @@ export default {
     },
     // 新增资源组成员confirm
     ResourceMemberConfirm() {
-      let arr = []
+      let arr = this.tableData
       this.tableObj.selectData.datas.forEach( e =>{
         arr.push({ DeviceNo: e.DeviceNo, "Master": false })
       })
