@@ -1371,6 +1371,8 @@ const ja = {
     Create_purchase_request_below_safety_stock: "安全在庫下の購買要求の作成",
     User_web_socket: "ユーザメッセージプッシュ構成",
     User_web_socket_desc: "ユーザーがメッセージを受け入れるかどうか",
+    User_default_navigation_bar: "ユーザーのデフォルトナビゲーションバー",
+    User_device_configuration: "ユーザデバイスの構成",
     Aps_ordinary_bill_process_post_time_coefficient: "Aps普通手形処理後時間係数",
     Aps_urgent_bill_process_post_time_coefficient: "Aps緊急手形処理後時間係数",
     Aps_extra_urgent_bill_process_post_time_coefficient: "Aps超急手形処理後時間係数",

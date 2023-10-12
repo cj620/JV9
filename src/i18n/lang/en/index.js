@@ -1405,6 +1405,8 @@ const en = {
     Prohibit_skip_station_processes: "Prohibit skip station processes",
     User_web_socket: "User Message Push Configuration",
     User_web_socket_desc: "Does the user accept messages",
+    User_default_navigation_bar: "User default navigation bar",
+    User_device_configuration: "User device configuration",
     Create_purchase_request_below_safety_stock:
       "Create purchase request below safety stock",
     Aps_ordinary_bill_process_post_time_coefficient:

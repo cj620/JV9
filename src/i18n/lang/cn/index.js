@@ -1384,6 +1384,7 @@ const cn = {
     Standard_employee_work_time_desc: "员工每天的工作时间,单位为小时",
     User_station_name: "用户站点",
     User_station_desc: "用户站点配置",
+    User_default_navigation_bar: "用户默认导航栏",
     Ftp_file_management_admin_name: "项目文件管理员角色配置",
     Ftp_file_management_admin_desc: "该角色可以对项目文件的根目录具有读写权限 ",
     Ftp_file_management_backup_path_name: "项目文件备份路径",
@@ -1394,6 +1395,8 @@ const cn = {
     Create_purchase_request_below_safety_stock: "低于安全库存创建采购申请",
     User_web_socket: "用户消息推送配置",
     User_web_socket_desc: "用户是否接受消息",
+    User_default_navigation_bar: "用户默认导航栏",
+    User_device_configuration: "用户设备配置",
     Aps_ordinary_bill_process_post_time_coefficient:
       "自动排程普通工单工序后置时间系数",
     Aps_urgent_bill_process_post_time_coefficient:
