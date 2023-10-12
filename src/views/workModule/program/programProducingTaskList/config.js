@@ -61,8 +61,10 @@ const tableSchema = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_TaskStatus"),
-    customFilter: (value) => enumFilter(value, taskStateEnum),
-    width: "100px",
+    custom: true,
+    width: "115px",
+    // customFilter: (value) => enumFilter(value, taskStateEnum),
+    // width: "100px",
     align: "center",
   },
   /*工序名称*/
@@ -87,6 +89,8 @@ const tableSchema = [
   {
     prop: "Schedule",
     label: i18n.t("Generality.Ge_Schedule"),
+    width: "150px",
+    custom: true,
   },
   //   负责人
   {

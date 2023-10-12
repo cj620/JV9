@@ -14,7 +14,7 @@ const en = {
     Pr_ScanCodeToEnterTheStation: "ScanCode ToEnter The Station",
     Pr_ScanCodeToStartWork: "ScanCode ToStart Work",
     Pr_ScanCodeCompletion: "ScanCode Completion",
-    Pr_ToBeStarted: "ToBe Started",
+    Pr_ToBeStarted: "To Be Started",
     Pr_WorkReportRecords: "Work Report Records",
     Pr_OnSiteOperations: "On Site Operations",
     Se_ErrorPrompt: "Error Prompt",
