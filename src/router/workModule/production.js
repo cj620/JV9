@@ -441,6 +441,16 @@ const production = [
     path: "ScanCodeCompletion",
     title:i18n.t("menu.Pr_ScanCodeCompletion"),
   },
+  // 待加工
+  {
+    key: "Pr_ToBeStarted",
+    component: () =>
+        import("@/views/workModule/production/scene/ToBeStarted"),
+    Parent: "Pr_OnSiteOperations",
+    name: "ToBeStarted",
+    path: "ToBeStarted",
+    title:i18n.t("menu.Pr_ToBeStarted"),
+  }
 ];
 
 export default production;

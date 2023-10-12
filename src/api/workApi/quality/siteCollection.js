@@ -48,3 +48,19 @@ export function site_collection_production_task_record(data){
     data,
   })
 }
+// 车间工作列表
+export function site_collection_workshop_work_list(data){
+  return request({
+    url: "/site_collection/workshop_work_list",
+    method: "post",
+    data,
+  })
+}
+//车间工作待入站列表
+export function site_collection_workshop_pending_list(data){
+  return request({
+    url: "/site_collection/workshop_pending_ntry_list",
+    method: "post",
+    data,
+  })
+}
