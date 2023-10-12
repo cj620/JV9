@@ -2,6 +2,7 @@ import i18n from "@/i18n/i18n";
 import { enumFilter } from "~/utils/system/enumsPlugin";
 import ProcessState from "@/enum/workModule/production/ProcessState.js";
 export const tableConfig = [
+
 	{
 		//任务单号
 		prop: "BillId",
