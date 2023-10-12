@@ -126,28 +126,31 @@ export default {
 .report-page {
   height: 100%;
   background-color: #ffffff;
-  .report-content-header {
-    display: flex;
-    .report-content-header-content-info {
-      margin-left: 20px;
-      .report-content-header-content-info-site {
-      }
-      .report-content-header-content-info-confirm {
-        //margin: 10px 0;
+  .content{
+    height: 100%;
+    .report-content-header {
+      display: flex;
+      .report-content-header-content-info {
+        margin-left: 20px;
+        .report-content-header-content-info-site {
+        }
+        .report-content-header-content-info-confirm {
+          //margin: 10px 0;
+        }
       }
     }
-  }
-  .report-content-state1 {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px #cccccc solid;
-    border-top: 1px #cccccc solid;
-    margin-bottom: 5px;
-    margin-top: 15px;
-  }
-  .report-content-table{
-    height:590px
+    .report-content-state1 {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px #cccccc solid;
+      border-top: 1px #cccccc solid;
+      margin-bottom: 5px;
+      margin-top: 15px;
+    }
+    .report-content-table{
+      height: calc(100% - 246px);
+    }
   }
 }
 </style>
