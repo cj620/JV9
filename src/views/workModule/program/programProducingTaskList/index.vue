@@ -17,11 +17,15 @@
       </Action>
       <!-- 状态标签 -->
       <template #State="{ record }">
-        {{ record }}
+        <TaskState :state="record"></TaskState>
       </template>
-      <!-- 结束日期 -->
-      <template #ItemPlanEnd="{ record }">
-        {{ record }}{{ IsDelay(record) }}
+      <!--&lt;!&ndash; 结束日期 &ndash;&gt;-->
+      <!--<template #ItemPlanEnd="{ record }">-->
+      <!--  {{ record }}{{ IsDelay(record) }}-->
+      <!--</template>-->
+      <!-- 进度 -->
+      <template #Schedule="{ record }">
+        <el-progress :percentage="record"></el-progress>
       </template>
       <!-- operation操作列 -->
       <template #operation="{ row }">
@@ -109,10 +113,11 @@ import {
   project_task_delete_item,
 } from "@/api/workApi/project/projectTask";
 import { update_worker } from "@/api/workApi/production/productionTask"
+import TaskState from "@/components/JVInternal/TaskState";
 
 export default {
   name: "Pa_ProgramProducingTaskList",
-  components: { addProjectTask, editProgramTask, distributionTaskDialog },
+  components: { TaskState, addProjectTask, editProgramTask, distributionTaskDialog },
   computed: {
     IsDelay() {
       return (e) => {
