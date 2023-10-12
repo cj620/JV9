@@ -49,7 +49,7 @@ export default {
       tableSchema: tableConfig,
       pagination: false,
       sortCol: false,
-      chooseCol: false,
+      // chooseCol: false,
       data: [],
       title: "",
       tableHeaderShow: false,
@@ -87,6 +87,7 @@ export default {
       this.getData({
         ToolingNo: this.ToolingNo,
         PartNo: this.PartNo,
+        UserId: this.$store.state.user.userId
       })
     }
   }
