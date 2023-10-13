@@ -60,6 +60,7 @@ export default {
       tableObj1: {},
       tableObj2: {},
       BillInfo: {},
+      UserInfo: {},
     }
   },
   created() {
@@ -91,6 +92,9 @@ export default {
     this.getData({
       UserId: this.$store.state.user.userId
     })
+    getAllUserData().then((res) => {
+      this.UserInfo = res
+    })
   },
   methods: {
     getData(obj){
@@ -103,22 +107,20 @@ export default {
     },
     // 开工按钮
     oneStart(e){
-      getAllUserData().then((res) => {
-        let obj = res.Items.find( (value,index) => {
-          return value.UserName === e.Worker
-        })
-        this.BillInfo = {
-          Bills: [
-            {
-              BillId: e.BillId,
-              Quantity: e.Quantity,
-            },
-          ],
-          UserId: obj.UserId,
-          DeviceNo: e.PlanDevice,
-        }
-        upMachineCollection(this.BillInfo)
+      let obj = this.UserInfo.Items.find( (value,index) => {
+        return value.UserName === e.Worker
       })
+      this.BillInfo = {
+        Bills: [
+          {
+            BillId: e.BillId,
+            Quantity: e.Quantity,
+          },
+        ],
+        UserId: obj.UserId,
+        DeviceNo: e.PlanDevice,
+      }
+      upMachineCollection(this.BillInfo)
     },
     // 批量开工
     batchStart(){
