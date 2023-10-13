@@ -149,6 +149,10 @@ export default {
             this.formData = "";
             this.form.EndDate = new Date();
             this.GetData();
+          }).catch(err => {
+            this.UserData.UserName = "";
+            this.formData = "";
+            this.form.UserId = "";
           });
         }
       }

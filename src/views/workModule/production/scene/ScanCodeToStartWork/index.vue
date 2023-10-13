@@ -271,7 +271,11 @@ export default {
             // this.UserData.PhotoUrl = res.PhotoUrl;
             this.UserData.UserName = res.UserName;
             this.formData = "";
-          });
+          }).catch(err => {
+            this.form.UserId = "";
+            this.UserData.UserName = "";
+            this.formData = "";
+          })
         }
       } else if (
         this.formData.substring(3, 0) === "O!_" ||
@@ -279,6 +283,10 @@ export default {
       ) {
         getProductionTask({BillId: this.formData.slice(3)}).then(res => {
           this.form.BillId = this.formData.slice(3);
+          this.formData = "";
+        }).catch(err => {
+          this.form.BillId = ""
+          console.log(this.form.BillId)
           this.formData = "";
         })
 
@@ -301,6 +309,7 @@ export default {
             this.setTopCardShow();
           }).catch(err => {
           this.DeviceList = [];
+          this.formData = "";
           this.form.DeviceNo = "";
         })
       } else {

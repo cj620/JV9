@@ -126,6 +126,7 @@ export default {
       },
       controlShow: false,
       scrollNumber: 0,
+      response: true,
     };
   },
   created() {
@@ -176,7 +177,11 @@ export default {
             // this.UserData.PhotoUrl = res.PhotoUrl;
             this.UserData.UserName = res.UserName;
             this.formData = "";
-          });
+          }).catch(err => {
+            this.UserData.UserName = "";
+            this.form.UserId = "";
+            this.formData = "";
+          })
         }
       } else if (
         this.formData.substring(3, 0) === "O!_" ||
@@ -184,6 +189,8 @@ export default {
       ) {
         this.form.BillId = this.formData.slice(3);
         this.formData = "";
+        console.log('123123')
+        this.IsOnBoard(this.form);
       } else {
         this.formData = "";
       }
@@ -200,17 +207,30 @@ export default {
     },
     //查询要进战的工序
     IsOnBoard(e) {
+      if(!this.response) return
+      this.response = true
       siteMatchingProcessList({ BillId: e.BillId }).then((res) => {
         if (res.Items.length > 1) {
           this.transferData = res.Items;
+          if (this.form.UserId === "")
+            return this.$message.warning(
+              this.$t("production.Pr_PleaseEnterEmployeeInfo")
+            );
           this.selectProcessDialogFormVisible = true;
         } else {
+          if (this.form.UserId === "")
+            return this.$message.warning(
+              this.$t("production.Pr_PleaseEnterEmployeeInfo")
+            );
           this.inputQuantityDialogFormVisible = true;
           this.TaskProcessId = res.Items[0].Id;
           this.defaultQuantity = res.Items[0].Quantity;
         }
+        this.response = false;
       }).catch(err => {
         this.form.BillId = ""
+        this.formData = "";
+        this.response = false;
       });
     },
     //确定要进战的工序
