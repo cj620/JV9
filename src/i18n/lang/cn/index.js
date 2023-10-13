@@ -1098,6 +1098,9 @@ const cn = {
     Pr_HoursSummary: "工时汇总",
     Pr_IsOverstep: "是否超出时间段",
     Pr_ConfirmToDelete: "确定删除此资源组?",
+    Pr_PleaseEnterTheToolingNo: "请输入模具编号",
+    Pr_PleaseEnterThePartNo: "请输入零件编号",
+    Pr_PleaseSelectTheWorker: "请选择作业员",
   },
   quality: {
     Qc_CheckResult: "检验结果",

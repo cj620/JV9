@@ -4,20 +4,16 @@
       <!-- 顶部操作行 -->
       <div class="action-header">
         <div class="action-header-input">
-          <el-input placeholder="请输入模具编码" v-model="ToolingNo">
+          <el-input :placeholder="$t('production.Pr_PleaseEnterTheToolingNo')" v-model="ToolingNo">
           </el-input>
         </div>
         <div class="action-header-input">
-          <el-input placeholder="请输入零件编码" v-model="PartNo">
+          <el-input :placeholder="$t('production.Pr_PleaseEnterThePartNo')" v-model="PartNo">
           </el-input>
         </div>
-        <!--<div class="action-header-input">-->
-        <!--  <el-input placeholder="请输入作业员" v-model="WorkerName">-->
-        <!--  </el-input>-->
-        <!--</div>-->
         <el-form class="action-header-form">
             <el-form-item size="medium">
-                <el-select v-model="WorkerName" placeholder="请选择作业员">
+                <el-select v-model="WorkerName" :placeholder="$t('production.Pr_PleaseSelectTheWorker')">
                     <el-option
                         v-for="item in UserInfo"
                         :key="item.UserId"
@@ -35,23 +31,23 @@
       <!-- 表格 -->
       <div class="page-body">
         <div class="page-body-box">
-          <JvTable :table-obj="tableObj1" :row-style="{ height: '60px' }">
+          <JvTable :table-obj="tableObj1">
             <template #Start="{ row }">
               <el-button
                 @click="oneStart(row)"
                 size="medium"
-                style="width: 80%; height: 100%"
+                style="width: 80%; height: 50px"
                 v-if=" row.State === 'Received' || row.State === 'Pausing'"
               >
-                上机
+                {{ $t('production.Pr_UpToMachine') }}
               </el-button>
               <el-button
                 @click="oneDown(row)"
                 size="medium"
-                style="width: 80%; height: 100%"
+                style="width: 80%; height: 50px"
                 v-else
               >
-                下机
+                {{ $t('production.Pr_DownFromMachine') }}
               </el-button>
             </template>
           </JvTable>
@@ -62,10 +58,10 @@
                 <el-button
                     @click="oneInSite(row)"
                     size="medium"
-                    style="width: 80%; height: 100%"
+                    style="width: 80%; height: 50px"
                     :disabled="row.State !== 'ToBeReceived'"
                 >
-                    进站
+                  {{ $t('production.Pr_EnterStation') }}
                 </el-button>
             </template>
           </JvTable>
@@ -110,6 +106,9 @@ export default {
       title: "",
       tableHeaderShow: false,
       operationCol: false,
+      rowStyle:{
+        height:'70px'
+      }
     })
     this.tableObj2 = new Table({
       tableSchema: [{
@@ -125,6 +124,9 @@ export default {
       title: "",
       tableHeaderShow: false,
       operationCol: false,
+      rowStyle:{
+        height:'70px'
+      }
     })
     this.getData({
       UserId: this.$store.state.user.userId
@@ -132,6 +134,7 @@ export default {
     getAllUserData().then((res) => {
       this.UserInfo = res.Items
     })
+    console.log(this.tableObj1);
   },
   methods: {
     getData(obj){
@@ -245,6 +248,9 @@ export default {
   &-form{
     margin: 0 10px;
     height: 50px;
+    ::v-deep.el-input__inner {
+      height: 50px !important;
+    }
   }
 }
 .page-body {
