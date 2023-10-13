@@ -1091,6 +1091,9 @@ const en = {
     Pr_HoursSummary: "Hours summary",
     Pr_IsOverstep: "Is Overstep",
     Pr_ConfirmToDelete: "Are you sure to delete this resource group?",
+    Pr_PleaseEnterTheToolingNo: "Please Enter The ToolingNo",
+    Pr_PleaseEnterThePartNo: "Please Enter The PartNo",
+    Pr_PleaseSelectTheWorker: "Please Select The Worker",
   },
   quality: {
     Qc_CheckResult: "Check result",

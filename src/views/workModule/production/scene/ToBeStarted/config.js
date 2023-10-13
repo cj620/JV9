@@ -59,11 +59,13 @@ export const tableConfig = [
 		prop: "PlanStart",
 		label: i18n.t("Generality.Ge_PlanStart"),
 		filter: "time",
+		width: 150,
 	},
 	{
 		//计划结束
 		prop: "PlanEnd",
 		label: i18n.t("Generality.Ge_PlanEnd"),
 		filter: "time",
+		width: 150,
 	},
 ]

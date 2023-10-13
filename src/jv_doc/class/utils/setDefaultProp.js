@@ -83,6 +83,8 @@ export const defaultTableSchemProps = {
   treeProps: { children: "Children", hasChildren: "HasChildren" },
   // 最大高度
   maxHeight: 3000,
+  //行样式
+  rowStyle:{}
 };
 // 默认表格的表单参数
 const defaultFormProp = {

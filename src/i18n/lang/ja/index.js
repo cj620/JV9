@@ -1039,6 +1039,9 @@ const ja = {
     Pr_HoursSummary: "労働時間の要約",
     Pr_IsOverstep: "期間外かどうか",
     Pr_ConfirmToDelete: "このリソースグループを削除しますか？",
+    Pr_PleaseEnterTheToolingNo: "金型番号を入力してください",
+    Pr_PleaseEnterThePartNo: "部品番号を入力してください",
+    Pr_PleaseSelectTheWorker: "作業員を選択してください",
   },
   quality: {
     Qc_CheckResult: "検査結果",
