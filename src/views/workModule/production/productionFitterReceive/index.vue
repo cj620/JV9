@@ -82,11 +82,17 @@ export default {
           getUser({ UserId: this.form.UserId }).then((res) => {
             this.UserData.PhotoUrl = res.PhotoUrl;
             this.UserData.UserName = res.UserName;
-            this.formData = "";
-          });
+          }).catch(() => { this.form.UserId = ""});
+          this.formData = "";
         }
       } else if (this.formData.substring(3, 0) === "O!_") {
         this.form.BillId = this.formData.slice(3);
+        if (this.form.BillId !== "") {
+          getProductionTask({ BillId: this.form.BillId }).then((res) => {
+            this.billInfo = res;
+          }).catch(() => {
+            this.form.BillId = ""});
+        }
         this.formData = "";
       } else {
         this.formData = "";
@@ -99,10 +105,9 @@ export default {
         return this.$message.warning(
           this.$t("production.Pr_PleaseEnterWorkSheetInfo")
         );
-		  this.receiveNumDialogVisible = true;
-		  getProductionTask({ BillId: this.form.BillId }).then((res) => {
-        this.billInfo = res;
-      })
+      if (Object.keys(this.UserData).length && Object.keys(this.billInfo).length){
+        this.receiveNumDialogVisible = true;
+      }
     },
 	  receiveConfirm() {
 		  saveRCVRecord({

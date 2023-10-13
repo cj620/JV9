@@ -60,10 +60,10 @@ const tableSchema = [
 		prop: "PrTaskBillId",
 		label: i18n.t("production.Pr_WorkSheetNo"),
 	},
-	// 产品号
+	// 模具号
 	{
 		prop: "ToolingNo",
-		label: i18n.t("production.Pr_ToolingNo"),
+		label: i18n.t("Generality.Ge_ToolingNo"),
 	},
 	// 零件编号
 	{
