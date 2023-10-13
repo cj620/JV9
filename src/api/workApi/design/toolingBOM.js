@@ -89,3 +89,12 @@ export function quickly_create_task(data) {
     loading: true,
   });
 }
+
+//修改级别
+export function synchronize_material_state(data) {
+  return request({
+    url: "/tooling/synchronize_material_state",
+    method: "post",
+    data,
+  });
+}

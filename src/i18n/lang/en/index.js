@@ -160,6 +160,7 @@ const en = {
     De_SearchItem: "Search item",
     De_SubmitDemand: "Submit demand",
     De_InfoLinkage: "Information Linkage",
+    De_StateLinkage: "State Linkage",
     De_ProcessTemplate: "Process template",
     De_SetLevel: "Set level",
     De_DesignTaskRecord: "Design task record",

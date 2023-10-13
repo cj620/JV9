@@ -366,6 +366,7 @@ const ja = {
     De_SearchItem: "品目の検索",
     De_SubmitDemand: "資材所要量の発行",
     De_InfoLinkage: "部品情報の同期化",
+    De_StateLinkage: "同期品目ステータス",
     De_ProcessTemplate: "工程テンプレート",
     De_SetLevel: "レベルの設定",
     De_DesignTaskRecord: "設計タスクレコード",

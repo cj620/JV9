@@ -403,6 +403,7 @@ const cn = {
     De_SearchItem: "搜索物料",
     De_SubmitDemand: "提交物料需求",
     De_InfoLinkage: "同步零件信息",
+    De_StateLinkage: "同步物料状态",
     De_ProcessTemplate: "工序模板",
     De_SetLevel: "设置级别",
     De_DesignTaskRecord: "设计任务记录",

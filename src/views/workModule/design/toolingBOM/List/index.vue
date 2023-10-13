@@ -93,6 +93,11 @@
             disabled: IsTableDisabled,
             confirm: synchronizePart.bind(),
           },
+          {
+			      label: $t('design.De_StateLinkage'),
+			      disabled: IsTableEmpty,
+			      confirm: synchronizeState.bind(),
+          },
         ]"
       >
       </Action>
@@ -347,6 +352,7 @@ import {
   autoMatchMaterials,
   synchronizePart,
   quickly_create_task,
+	synchronize_material_state,
 } from "@/api/workApi/design/toolingBOM";
 import { getPartsByPartNo } from "@/api/workApi/production/productionTask";
 // 获取系统配置接口
@@ -444,6 +450,7 @@ export default {
         Creator: "",
         CreationDate: "",
         Remarks: "",
+		    IsPartProcess: false
       },
       exportTemplate: [
         {
@@ -538,6 +545,9 @@ export default {
     },
     IsSelectLength() {
       return this.eTableObj.selectData.datas.length > 0;
+    },
+    IsTableEmpty() {
+      return this.eTableObj.tableData.length === 0;
     },
     IsTableDisabled() {
       var IsHas = false;
@@ -876,6 +886,12 @@ export default {
           console.log(res);
         }
       );
+    },
+    //同步物料状态
+    synchronizeState() {
+		  synchronize_material_state(this.eTableObj.tableData).then((res) => {
+		    this.getData();
+      })
     },
     //导入BOM
     ImportBOM() {
