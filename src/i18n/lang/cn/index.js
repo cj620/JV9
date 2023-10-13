@@ -550,6 +550,7 @@ const cn = {
   },
   //通用
   Generality: {
+    Ge_LoadMore: "加载更多",
     Ge_InStationProcess: "在站工序",
     Ge_Personnel: "人员",
     Ge_OddNumbers: "单号",

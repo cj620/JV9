@@ -535,6 +535,7 @@ const en = {
   },
   //通用
   Generality: {
+    Ge_LoadMore: "Load More",
     Ge_InStationProcess: "In Station Process",
     Ge_Personnel: "Personnel",
     Ge_OddNumbers: "Odd Numbers",

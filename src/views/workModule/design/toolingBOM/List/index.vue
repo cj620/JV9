@@ -192,7 +192,7 @@
             $t("Generality.Ge_Delete")
           }}</span>
             <span  class="action-item">
-                <el-badge :is-dot="row.IsPartProcess.value">
+                <el-badge :is-dot="row.IsPartProcess ? row.IsPartProcess.value : false">
             <span @click="CraftDesign1(row)">{{
                 $t("program.Pr_ProcessPlanning")
                 }}</span>

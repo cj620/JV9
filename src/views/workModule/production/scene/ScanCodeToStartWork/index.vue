@@ -10,12 +10,13 @@
             <!--          <i class="el-icon-location-information"></i>-->
             <span>{{$t('Generality.Ge_Site')}}: </span>
             <div
-              v-for="site in SiteData"
+              v-for="site in SiteData.slice(0,3)"
               :key="site"
               style="margin: 0 5px; display: inline-block"
             >
               <el-tag>{{ site }}</el-tag>
             </div>
+            <el-button @click="LoadMore">{{$t('Generality.Ge_LoadMore')}}</el-button>
           </div>
           <!-- 表单，用来输入用户和任务单-->
           <div class="get-in-header-form">
@@ -130,6 +131,19 @@
 <!--      @confirmSelectProcess="confirmSelectProcess"-->
 <!--    ></selectProcess>-->
 
+    <JvDialog
+      :visible.sync="LoadMoreShow"
+      :title="$t('Generality.Ge_Site')"
+    >
+      <div
+        v-for="site in SiteData"
+        :key="site"
+        style="margin: 0 5px; display: inline-block"
+      >
+        <el-tag>{{ site }}</el-tag>
+      </div>
+    </JvDialog>
+
     <inputQuantity
       :visible.sync="inputQuantityDialogFormVisible"
       v-if="inputQuantityDialogFormVisible"
@@ -157,10 +171,11 @@ import inputQuantity from "@/views/workModule/production/productionReport/List/c
 import selectProcess from "@/views/workModule/production/productionReport/List/components/selectProcess.vue";
 import ProcessState from '@/enum/workModule/production/ProcessState';
 import timeFormat from '@/jv_doc/utils/time/timeFormat';
+import JvDialog from "~/cpn/JvDialog/index.vue";
 
 export default {
   name: "ScanCodeToStartWork",
-  components: { selectProcess, inputQuantity, PageWrapper, CImage },
+  components: {JvDialog, selectProcess, inputQuantity, PageWrapper, CImage },
   data() {
     return {
       ProcessState,
@@ -186,6 +201,7 @@ export default {
       topControlShow: false,
       scrollNumber: 0,
       topScrollNumber: 0,
+      LoadMoreShow: false,
     };
   },
   created() {
@@ -207,6 +223,9 @@ export default {
   },
   methods: {
     timeFormat,
+    LoadMore() {
+      this.LoadMoreShow = true;
+    },
     watchScroll() {
       let cardBox = document.querySelector('.get-in-content-cardBox');
       cardBox.onscroll = () => {
