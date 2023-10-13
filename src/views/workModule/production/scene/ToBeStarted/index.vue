@@ -22,7 +22,7 @@
                         v-for="item in UserInfo"
                         :key="item.UserId"
                         :label="item.UserName"
-                        :value="item.UserId"
+                        :value="item.UserName"
                     >
                     </el-option>
                 </el-select>
@@ -78,12 +78,11 @@
 import { Table } from "@/jv_doc/class/table"
 import { tableConfig } from "./config";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
-// 车间工作列表
-import { site_collection_workshop_work_list } from "@/api/workApi/quality/siteCollection"
-// 车间工作待入站列表
-import { site_collection_workshop_pending_list } from "@/api/workApi/quality/siteCollection"
-// 上机
-import { upMachineCollection } from "@/api/workApi/production/productionReport";
+import {
+  site_collection_workshop_work_list,
+  site_collection_workshop_pending_list,
+} from "@/api/workApi/quality/siteCollection"
+import { inSite, upMachineCollection, downMachineCollection } from "@/api/workApi/production/productionReport";
 export default {
   name: "ToBeStarted",
   data() {
@@ -93,7 +92,6 @@ export default {
       WorkerName: "",
       tableObj1: {},
       tableObj2: {},
-      BillInfo: {},
       UserInfo: [],
     }
   },
@@ -144,47 +142,82 @@ export default {
         this.tableObj2.setData(res.Items)
       })
     },
-    // 开工按钮
-    oneStart(e){
-      let obj = this.UserInfo.find( (value,index) => {
-        return value.UserName === e.Worker
+    // 根据userName查询userId
+    searchUserId(str){
+      if (str){
+        let obj = this.UserInfo.find( (value,index) => {
+          return value.UserName === str
+        })
+        return obj.UserId
+      } else {
+        return this.$store.state.user.userId
+      }
+    },
+    // 过滤
+    filter() {
+      this.getData({
+        ToolingNo: this.ToolingNo,
+        PartNo: this.PartNo,
+        UserId: this.searchUserId(this.WorkerName)
       })
-      this.BillInfo = {
+    },
+    // 进站按钮
+    oneInSite(e){
+      inSite(
+        {
+          TaskProcesses: [
+            {
+              TaskProcessId: e.Id,
+              Quantity: e.Quantity
+            }
+          ],
+          UserId: this.searchUserId(e.Worker)
+        }
+      ).then((res) =>{
+        this.getData({
+          ToolingNo: this.ToolingNo,
+          PartNo: this.PartNo,
+          UserId: this.searchUserId(this.WorkerName)
+        })
+      })
+    },
+    // 开工(上机)按钮
+    oneStart(e){
+      upMachineCollection({
         Bills: [
           {
             BillId: e.BillId,
             Quantity: e.Quantity,
           },
         ],
-        UserId: obj.UserId,
+        UserId: this.searchUserId(e.Worker),
         DeviceNo: e.PlanDevice,
-      }
-      upMachineCollection(this.BillInfo)
+      }).then((res) =>{
+        this.getData({
+          ToolingNo: this.ToolingNo,
+          PartNo: this.PartNo,
+          UserId: this.searchUserId(this.WorkerName)
+        })
+      })
     },
     // 下机按钮
     oneDown(e){
-		  console.log(e);
-    },
-    // 进站按钮
-    oneInSite(e){
-		  console.log(e);
-    },
-    // 过滤
-    filter(){
-      if (this.WorkerName === ""){
+      downMachineCollection({
+        DownMachineCollectionItem: [
+          {
+            TaskProcessId: e.Id,
+            DeviceNo: e.PlanDevice,
+          }
+        ],
+        UserId: this.searchUserId(e.Worker),
+      }).then((res) =>{
         this.getData({
           ToolingNo: this.ToolingNo,
           PartNo: this.PartNo,
-          UserId: this.$store.state.user.userId
+          UserId: this.searchUserId(this.WorkerName)
         })
-      } else {
-        this.getData({
-          ToolingNo: this.ToolingNo,
-          PartNo: this.PartNo,
-          UserId: this.WorkerName
-        })
-      }
-    }
+      })
+    },
   }
 }
 </script>
