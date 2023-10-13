@@ -3,9 +3,6 @@
     <div style="height: 100%; width: 100%; background-color: #fff;">
       <!-- 顶部操作行 -->
       <div class="action-header">
-        <el-button @click="batchStart" style="margin: 0 10px; height: 50px">
-          批量开工
-        </el-button>
         <div class="action-header-input">
           <el-input placeholder="请输入模具编码" v-model="ToolingNo">
           </el-input>
@@ -14,6 +11,23 @@
           <el-input placeholder="请输入零件编码" v-model="PartNo">
           </el-input>
         </div>
+        <!--<div class="action-header-input">-->
+        <!--  <el-input placeholder="请输入作业员" v-model="WorkerName">-->
+        <!--  </el-input>-->
+        <!--</div>-->
+        <el-form class="action-header-form">
+            <el-form-item size="medium">
+                <el-select v-model="WorkerName" placeholder="请选择作业员">
+                    <el-option
+                        v-for="item in UserInfo"
+                        :key="item.UserId"
+                        :label="item.UserName"
+                        :value="item.UserId"
+                    >
+                    </el-option>
+                </el-select>
+            </el-form-item>
+        </el-form>
         <el-button @click="filter" style="margin: 0 10px; height: 50px">
           过滤
         </el-button>
@@ -27,15 +41,34 @@
                 @click="oneStart(row)"
                 size="medium"
                 style="width: 80%; height: 100%"
-                :disabled="row.State !== 'Received' && row.State !== 'Processing' && row.State !== 'Pausing'"
+                v-if=" row.State === 'Received' || row.State === 'Pausing'"
               >
-                开工
+                上机
+              </el-button>
+              <el-button
+                @click="oneDown(row)"
+                size="medium"
+                style="width: 80%; height: 100%"
+                v-else
+              >
+                下机
               </el-button>
             </template>
           </JvTable>
         </div>
         <div class="page-body-box">
-          <JvTable :table-obj="tableObj2"></JvTable>
+          <JvTable :table-obj="tableObj2">
+            <template #Start="{ row }">
+                <el-button
+                    @click="oneInSite(row)"
+                    size="medium"
+                    style="width: 80%; height: 100%"
+                    :disabled="row.State !== 'ToBeReceived'"
+                >
+                    进站
+                </el-button>
+            </template>
+          </JvTable>
         </div>
       </div>
     </div>
@@ -57,10 +90,11 @@ export default {
     return {
       ToolingNo: "",
       PartNo: "",
+      WorkerName: "",
       tableObj1: {},
       tableObj2: {},
       BillInfo: {},
-      UserInfo: {},
+      UserInfo: [],
     }
   },
   created() {
@@ -73,14 +107,19 @@ export default {
       },...tableConfig],
       pagination: false,
       sortCol: false,
-      // chooseCol: false,
+      chooseCol: false,
       data: [],
       title: "",
       tableHeaderShow: false,
       operationCol: false,
     })
     this.tableObj2 = new Table({
-      tableSchema: tableConfig,
+      tableSchema: [{
+        prop: "Start",
+        label: "",
+        align: "center",
+        custom: true,
+      },...tableConfig],
       pagination: false,
       sortCol: false,
       chooseCol: false,
@@ -93,7 +132,7 @@ export default {
       UserId: this.$store.state.user.userId
     })
     getAllUserData().then((res) => {
-      this.UserInfo = res
+      this.UserInfo = res.Items
     })
   },
   methods: {
@@ -107,7 +146,7 @@ export default {
     },
     // 开工按钮
     oneStart(e){
-      let obj = this.UserInfo.Items.find( (value,index) => {
+      let obj = this.UserInfo.find( (value,index) => {
         return value.UserName === e.Worker
       })
       this.BillInfo = {
@@ -122,17 +161,29 @@ export default {
       }
       upMachineCollection(this.BillInfo)
     },
-    // 批量开工
-    batchStart(){
-      console.log('批量开工');
+    // 下机按钮
+    oneDown(e){
+		  console.log(e);
+    },
+    // 进站按钮
+    oneInSite(e){
+		  console.log(e);
     },
     // 过滤
     filter(){
-      this.getData({
-        ToolingNo: this.ToolingNo,
-        PartNo: this.PartNo,
-        UserId: this.$store.state.user.userId
-      })
+      if (this.WorkerName === ""){
+        this.getData({
+          ToolingNo: this.ToolingNo,
+          PartNo: this.PartNo,
+          UserId: this.$store.state.user.userId
+        })
+      } else {
+        this.getData({
+          ToolingNo: this.ToolingNo,
+          PartNo: this.PartNo,
+          UserId: this.WorkerName
+        })
+      }
     }
   }
 }
@@ -157,6 +208,10 @@ export default {
         height: 50px !important;
       }
     }
+  }
+  &-form{
+    margin: 0 10px;
+    height: 50px;
   }
 }
 .page-body {
