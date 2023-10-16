@@ -30,7 +30,7 @@
       </div>
       <!-- 表格 -->
       <div class="page-body">
-        <div class="page-body-box">
+        <div class="page-body-box" v-loading="loading1">
           <JvTable :table-obj="tableObj1">
             <template #Start="{ row }">
               <el-button
@@ -52,7 +52,7 @@
             </template>
           </JvTable>
         </div>
-        <div class="page-body-box">
+        <div class="page-body-box" v-loading="loading2">
           <JvTable :table-obj="tableObj2">
             <template #Start="{ row }">
                 <el-button
@@ -65,7 +65,7 @@
                 </el-button>
             </template>
           </JvTable>
-        </div>
+        </div  >
       </div>
     </div>
   </PageWrapper>
@@ -89,9 +89,13 @@ export default {
       tableObj1: {},
       tableObj2: {},
       UserInfo: [],
+      loading1: false,
+      loading2: false,
     }
   },
   created() {
+    this.loading1 = true
+    this.loading2 = true
     this.tableObj1 = new Table({
       tableSchema: [{
         prop: "Start",
@@ -128,21 +132,27 @@ export default {
         height:'70px'
       }
     })
-    this.getData({
-      UserId: this.$store.state.user.userId
-    })
     getAllUserData().then((res) => {
-      this.UserInfo = res.Items
+      this.UserInfo = res.Items;
+      this.WorkerName = this.UserInfo.find( (value,index) => {
+        return value.UserId === this.$store.state.user.userId
+      }).UserName;
+      this.getData({
+        UserId: this.$store.state.user.userId
+      })
     })
-    console.log(this.tableObj1);
   },
   methods: {
     getData(obj){
+      this.loading1 = true
+      this.loading2 = true
       site_collection_workshop_work_list(obj).then((res) => {
-        this.tableObj1.setData(res.Items)
+        this.tableObj1.setData(res.Items);
+        this.loading1 = false;
       })
       site_collection_workshop_pending_list(obj).then((res) => {
-        this.tableObj2.setData(res.Items)
+        this.tableObj2.setData(res.Items);
+        this.loading2 = false;
       })
     },
     // 根据userName查询userId
