@@ -45,7 +45,7 @@
 <script>
 import { Table } from "./config"
 import UserImg from "@/components/JVInternal/UserImg/index.vue";
-import { getUser } from "@/api/basicApi/systemSettings/user";
+import { getAllUserData, getUser } from "@/api/basicApi/systemSettings/user";
 import { saveRCVRecord } from "@/api/workApi/production/baseData"
 import { getProductionTask } from "@/api/workApi/production/productionTask"
 import { timeFormat } from "~/utils/time";
@@ -67,12 +67,16 @@ export default {
 		  receiveNumDialogVisible: false,
 		  quantity: 1,
       billInfo: {},
-		  tableObj: {}
+		  tableObj: {},
+      UserInfo: [],
     }
   },
   created() {
     this.tableObj = new Table()
     this.tableObj.getData({ CreationDate: timeFormat(new Date(), "yyyy-MM-dd") })
+    getAllUserData().then((res) => {
+      this.UserInfo = res.Items
+    })
   },
   methods: {
     receive() {
@@ -82,7 +86,10 @@ export default {
           getUser({ UserId: this.form.UserId }).then((res) => {
             this.UserData.PhotoUrl = res.PhotoUrl;
             this.UserData.UserName = res.UserName;
-          }).catch(() => { this.form.UserId = ""});
+			      this.canOpen();
+          }).catch(() => {
+            this.form.UserId = "";
+          });
           this.formData = "";
         }
       } else if (this.formData.substring(3, 0) === "O!_") {
@@ -90,30 +97,45 @@ export default {
         if (this.form.BillId !== "") {
           getProductionTask({ BillId: this.form.BillId }).then((res) => {
             this.billInfo = res;
+			      this.canOpen();
           }).catch(() => {
-            this.form.BillId = ""});
+            this.form.BillId = "";
+          });
         }
         this.formData = "";
       } else {
         this.formData = "";
       }
-      if (this.form.UserId === "")
-        return this.$message.warning(
-          this.$t("production.Pr_PleaseEnterEmployeeInfo")
-        );
-      if (this.form.BillId === "")
-        return this.$message.warning(
-          this.$t("production.Pr_PleaseEnterWorkSheetInfo")
-        );
+    },
+    // 判断是否需要弹窗
+    canOpen(){
       if (Object.keys(this.UserData).length && Object.keys(this.billInfo).length){
         this.receiveNumDialogVisible = true;
+      } else {
+        if (!Object.keys(this.UserData).length)
+          return this.$message.warning(
+            this.$t("production.Pr_PleaseEnterEmployeeInfo")
+          );
+        if (!Object.keys(this.billInfo).length)
+          return this.$message.warning(
+            this.$t("production.Pr_PleaseEnterWorkSheetInfo")
+          );
+      }
+    },
+    // 根据userName查询userId
+    searchUserId(str){
+      if (str){
+        let obj = this.UserInfo.find( (value,index) => {
+          return value.UserName === str
+        })
+        return obj.UserId
       }
     },
 	  receiveConfirm() {
 		  saveRCVRecord({
-        PrTaskBillId: this.form.BillId,
+        PrTaskBillId: this.billInfo.BillId,
         Quantity: this.quantity,
-        UserId: this.form.UserId,
+        UserId: this.searchUserId(this.UserData.UserName),
 	    }).then((res) => {
         this.tableObj.getData({ CreationDate: timeFormat(new Date(), "yyyy-MM-dd") })
       })
