@@ -98,6 +98,7 @@ import {
   inSite,
   siteMatchingProcessList,
 } from "@/api/workApi/production/productionReport";
+import { getProductionTask } from '@/api/workApi/production/productionTask';
 import CImage from "@/components/CImage/index.vue";
 import inputQuantity from "@/views/workModule/production/productionReport/List/components/inputQuantity.vue";
 import selectProcess from "@/views/workModule/production/productionReport/List/components/selectProcess.vue";
@@ -171,26 +172,33 @@ export default {
         this.formData.substring(3, 0) === "H!_" ||
         this.formData.substring(3, 0) === "h!_"
       ) {
-        this.form.UserId = this.formData.slice(3);
-        if (this.form.UserId !== "") {
-          getUser({ UserId: this.form.UserId }).then((res) => {
+
+        // if (this.form.UserId !== "") {
+          getUser({ UserId: this.formData.slice(3) }).then((res) => {
             // this.UserData.PhotoUrl = res.PhotoUrl;
+            this.form.UserId = this.formData.slice(3);
             this.UserData.UserName = res.UserName;
             this.formData = "";
+            this.IsOnBoard(this.form);
           }).catch(err => {
-            this.UserData.UserName = "";
-            this.form.UserId = "";
+            // this.UserData.UserName = "";
+            // this.form.UserId = "";
             this.formData = "";
           })
-        }
+        // }
       } else if (
         this.formData.substring(3, 0) === "O!_" ||
         this.formData.substring(3, 0) === "o!_"
       ) {
-        this.form.BillId = this.formData.slice(3);
-        this.formData = "";
-        console.log('123123')
-        this.IsOnBoard(this.form);
+        getProductionTask({BillId: this.formData.slice(3)}).then(res => {
+          this.form.BillId = this.formData.slice(3);
+          this.formData = "";
+          this.IsOnBoard(this.form);
+        }).catch(err => {
+          // this.form.BillId = ""
+          this.formData = "";
+        })
+
       } else {
         this.formData = "";
       }
@@ -207,9 +215,11 @@ export default {
     },
     //查询要进战的工序
     IsOnBoard(e) {
+      console.log(this.response)
       if(!this.response) return
-      this.response = true
+      this.response = false
       siteMatchingProcessList({ BillId: e.BillId }).then((res) => {
+        this.response = true;
         if (res.Items.length > 1) {
           this.transferData = res.Items;
           if (this.form.UserId === "")
@@ -226,11 +236,9 @@ export default {
           this.TaskProcessId = res.Items[0].Id;
           this.defaultQuantity = res.Items[0].Quantity;
         }
-        this.response = false;
       }).catch(err => {
-        this.form.BillId = ""
+        this.response = true;
         this.formData = "";
-        this.response = false;
       });
     },
     //确定要进战的工序
