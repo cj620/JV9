@@ -111,6 +111,7 @@ export default {
     canOpen(){
       if (Object.keys(this.UserData).length && Object.keys(this.billInfo).length){
         this.receiveNumDialogVisible = true;
+        this.quantity = this.billInfo.Quantity
       } else {
         if (!Object.keys(this.UserData).length)
           return this.$message.warning(
