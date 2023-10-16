@@ -17,7 +17,7 @@
           </el-form-item>
         </el-form>
         <el-button @click="filter" style="margin: 0 10px; height: 50px">
-          {{ $t('production.Pr_Filter') }}
+          {{ $t('Generality.Ge_Search') }}
         </el-button>
       </div>
       <!-- 表格 -->
