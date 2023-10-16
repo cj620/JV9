@@ -141,20 +141,21 @@ export default {
         this.formData.substring(3, 0) === "H!_" ||
         this.formData.substring(3, 0) === "h!_"
       ) {
-        this.form.UserId = this.formData.slice(3);
-        if (this.form.UserId !== "") {
-          getUser({ UserId: this.form.UserId }).then((res) => {
+
+        // if (this.form.UserId !== "") {
+          getUser({ UserId: this.formData.slice(3) }).then((res) => {
             // this.UserData.PhotoUrl = res.PhotoUrl;
+            this.form.UserId = this.formData.slice(3);
             this.UserData.UserName = res.UserName;
             this.formData = "";
             this.form.EndDate = new Date();
             this.GetData();
           }).catch(err => {
-            this.UserData.UserName = "";
+            // this.UserData.UserName = "";
             this.formData = "";
-            this.form.UserId = "";
+            // this.form.UserId = "";
           });
-        }
+        // }
       }
     },
     GetConfig() {

@@ -265,18 +265,20 @@ export default {
         this.formData.substring(3, 0) === "H!_" ||
         this.formData.substring(3, 0) === "h!_"
       ) {
-        this.form.UserId = this.formData.slice(3);
-        if (this.form.UserId !== "") {
-          getUser({ UserId: this.form.UserId }).then((res) => {
+
+        // if (this.form.UserId !== "") {
+          getUser({ UserId: this.formData.slice(3) }).then((res) => {
             // this.UserData.PhotoUrl = res.PhotoUrl;
+            this.form.UserId = this.formData.slice(3);
             this.UserData.UserName = res.UserName;
             this.formData = "";
+            this.setInputQuantityDialogFormVisible();
           }).catch(err => {
-            this.form.UserId = "";
-            this.UserData.UserName = "";
+            // this.form.UserId = "";
+            // this.UserData.UserName = "";
             this.formData = "";
           })
-        }
+        // }
       } else if (
         this.formData.substring(3, 0) === "O!_" ||
         this.formData.substring(3, 0) === "o!_"
@@ -284,9 +286,10 @@ export default {
         getProductionTask({BillId: this.formData.slice(3)}).then(res => {
           this.form.BillId = this.formData.slice(3);
           this.formData = "";
+          this.setInputQuantityDialogFormVisible();
         }).catch(err => {
-          this.form.BillId = ""
-          console.log(this.form.BillId)
+          // this.form.BillId = ""
+          // console.log(this.form.BillId)
           this.formData = "";
         })
 
@@ -307,28 +310,35 @@ export default {
           .then((res) => {
             this.DeviceList = res.Items;
             this.setTopCardShow();
+            this.setInputQuantityDialogFormVisible();
           }).catch(err => {
-          this.DeviceList = [];
+          // this.DeviceList = [];
           this.formData = "";
-          this.form.DeviceNo = "";
+          // this.form.DeviceNo = "";
         })
       } else {
         this.formData = "";
       }
-      if (this.form.UserId === "")
+
+      this.BillId = this.form.BillId;
+
+    },
+    setInputQuantityDialogFormVisible() {
+      if (this.form.UserId === "") {
         return this.$message.warning(
           this.$t("production.Pr_PleaseEnterEmployeeInfo")
-        );
-      if (this.form.BillId === "")
+        )
+      } else if (this.form.BillId === "") {
         return this.$message.warning(
           this.$t("production.Pr_PleaseEnterWorkSheetInfo")
-        );
-      if (this.form.DeviceNo === "")
+        )
+      } else if (this.form.DeviceNo === "") {
         return this.$message.warning(
           this.$t("production.Pr_PleaseSelectDevice")
-        );
-      this.BillId = this.form.BillId;
-      this.inputQuantityDialogFormVisible = true;
+        )
+      } else {
+        this.inputQuantityDialogFormVisible = true;
+      }
     },
     //查询要进战的工序
     IsOnBoard(e) {
