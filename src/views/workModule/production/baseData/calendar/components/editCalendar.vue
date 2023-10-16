@@ -33,6 +33,7 @@
           </template>
         </template>
       </el-form-item>
+<!--
       <el-form-item :label="$t('Generality.Ge_UsageStatus')" prop="WorkType">
         <el-select v-model="form.WorkType" style="width: 70%">
           <el-option
@@ -45,6 +46,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
+-->
       <el-form-item
         :label="$t('production.Pr_RepetitionType')"
         prop="RepeatType"

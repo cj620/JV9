@@ -25,7 +25,7 @@
             </el-form-item>
         </el-form>
         <el-button @click="filter" style="margin: 0 10px; height: 50px">
-          过滤
+          {{ $t('production.Pr_Filter') }}
         </el-button>
       </div>
       <!-- 表格 -->

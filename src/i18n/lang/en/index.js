@@ -958,6 +958,7 @@ const en = {
   },
   //生产
   production: {
+    Pr_Filter: "Filter",
     Pr_MachineToolOperationProcess:"Machine Tool Operation Process",
     Pr_receiveRecord: "Receive Record",
     Pr_received: "Received",
@@ -1464,6 +1465,7 @@ const en = {
     User_default_navigation_bar:"Default navigation bar",
     Default_navigation_bar_configuration:"Default navigation bar configuration",
     ERP_inventory_category_configuration:"ERP inventory category configuration",
+    User_device_configuration:"User device configuration",
   },
   ...enLocale,
 };
