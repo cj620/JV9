@@ -48,7 +48,7 @@ export default {
         {title: '部门综合看板', imgUrl: require('./TaskStatus.png'), url: '/TaskStatusSignage'},
         {title: '部门看板', imgUrl: require('./NC.jpg'), url: '/DepartmentSignboard'},
         {title: '销售大数据看板', imgUrl: require('./SaleSignage.png'), url: '/SaleSignage'},
-        {title: '模具机加综合看板', imgUrl: require('./muju.jpg'),url: '/MoldMachining'},
+        {title: '模具综合看板', imgUrl: require('./muju.jpg'),url: '/MoldMachining'},
         {title: '品质部门看板', imgUrl: require('./QualitySignage.png'), url: '/QualitySignage'},
         {title: '设备状态看板', imgUrl: require('./QualitySignage.png'), url: '/EquipmentOperation'},
       ]
