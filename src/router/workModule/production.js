@@ -450,6 +450,16 @@ const production = [
     name: "ToBeStarted",
     path: "ToBeStarted",
     title:i18n.t("menu.Pr_ToBeStarted"),
+  },
+  // 报工记录
+  {
+    key: "Pr_WorkReportRecords",
+    component: () =>
+        import("@/views/workModule/production/scene/WorkReportRecords"),
+    Parent: "Pr_OnSiteOperations",
+    name: "WorkReportRecords",
+    path: "WorkReportRecords",
+    title:i18n.t("menu.Pr_WorkReportRecords"),
   }
 ];
 

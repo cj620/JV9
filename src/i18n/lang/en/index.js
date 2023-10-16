@@ -958,6 +958,7 @@ const en = {
   },
   //生产
   production: {
+    Pr_Filter: "Filter",
     Pr_MachineToolOperationProcess:"Machine Tool Operation Process",
     Pr_receiveRecord: "Receive Record",
     Pr_received: "Received",

@@ -908,6 +908,8 @@ const ja = {
   },
   //生产
   production: {
+    Pr_Filter: "フィルタリング",
+    Pr_MachineToolOperationProcess:"工作機械の作業工程",
     Pr_receiveRecord: "受入記録",
     Pr_received: "受入済",
     Pr_pleaseEnterReceiveNumber: "受入数量を入力してください",

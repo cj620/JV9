@@ -966,6 +966,7 @@ const cn = {
   },
   //生产
   production: {
+    Pr_Filter: "过滤",
     Pr_MachineToolOperationProcess:"机床作业工序",
     Pr_receiveRecord: "收料记录",
     Pr_received: "已收料",
