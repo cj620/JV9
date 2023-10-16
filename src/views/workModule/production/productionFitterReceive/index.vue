@@ -33,6 +33,7 @@
     <JvDialog
       :visible.sync="receiveNumDialogVisible"
       :title="$t('production.Pr_pleaseEnterReceiveNumber')"
+      :autoFocus="true"
       v-if="receiveNumDialogVisible"
       @confirm="receiveConfirm"
       width="40%"
@@ -90,6 +91,7 @@ export default {
           }).catch(() => {
             this.form.UserId = "";
           });
+          this.form.UserId = "";
           this.formData = "";
         }
       } else if (this.formData.substring(3, 0) === "O!_") {
@@ -102,6 +104,7 @@ export default {
             this.form.BillId = "";
           });
         }
+        this.form.BillId = "";
         this.formData = "";
       } else {
         this.formData = "";
@@ -139,6 +142,13 @@ export default {
         UserId: this.searchUserId(this.UserData.UserName),
 	    }).then((res) => {
         this.tableObj.getData({ CreationDate: timeFormat(new Date(), "yyyy-MM-dd") })
+        this.UserData = {
+          UserName: "",
+          PhotoUrl: "",
+        };
+        this.billInfo = {};
+      }).catch(()=>{
+        this.billInfo = {};
       })
 		  this.receiveNumDialogVisible = false;
     },
