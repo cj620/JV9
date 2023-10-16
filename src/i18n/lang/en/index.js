@@ -445,7 +445,7 @@ const en = {
     Da_ActualCompletion: "Actual Completion",
     Da_DailyRatedHours: "Daily Rated Hours",
     Da_DailyPlannedHours: "Daily Planned Hours",
-    Da_NCDepartmentSignboard: "NC Department Signboard",
+    Da_NCDepartmentSignboard: "Department Signboard",
     Da_PlannedCompletions: "Planned Completions",
     Da_ActualCompletions: "Actual Completions",
     Da_PlannedTime: "Planned Time",

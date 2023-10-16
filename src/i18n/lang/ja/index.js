@@ -423,7 +423,7 @@ const ja = {
     Da_ActualCompletion: "実際の完了数",
     Da_DailyRatedHours: "日当たり定格工数",
     Da_DailyPlannedHours: "日計画工数",
-    Da_NCDepartmentSignboard: "NC部門カンバン",
+    Da_NCDepartmentSignboard: "部門カンバン",
     Da_PlannedCompletions: "計画完了数",
     Da_ActualCompletions: "実際の完了数",
     Da_PlannedTime: "計画工数",

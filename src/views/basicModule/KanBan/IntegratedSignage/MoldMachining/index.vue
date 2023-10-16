@@ -3,7 +3,7 @@
     <div class="data-v-content">
       <div class="data-v-content-header">
         <div>
-          <img src="./img/vkbLogo.png" />
+          <img src="../logo.png" />
         </div>
         <div class="data-v-content-header-title">模具机加综合看板</div>
         <formatted-time style="font-size: 20px" format="yyyy-MM-dd hh:mm" />

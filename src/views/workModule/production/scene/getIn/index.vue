@@ -179,7 +179,7 @@ export default {
             this.form.UserId = this.formData.slice(3);
             this.UserData.UserName = res.UserName;
             this.formData = "";
-            this.IsOnBoard(this.form);
+            this.setIsOnBoard();
           }).catch(err => {
             // this.UserData.UserName = "";
             // this.form.UserId = "";
@@ -193,25 +193,27 @@ export default {
         getProductionTask({BillId: this.formData.slice(3)}).then(res => {
           this.form.BillId = this.formData.slice(3);
           this.formData = "";
-          this.IsOnBoard(this.form);
+          this.setIsOnBoard();
         }).catch(err => {
           // this.form.BillId = ""
           this.formData = "";
         })
-
       } else {
         this.formData = "";
       }
-      if (this.form.UserId === "")
+    },
+    setIsOnBoard() {
+      if (this.form.UserId === "") {
         return this.$message.warning(
           this.$t("production.Pr_PleaseEnterEmployeeInfo")
         );
-      if (this.form.BillId === "")
+      } else if(this.form.BillId === "") {
         return this.$message.warning(
           this.$t("production.Pr_PleaseEnterWorkSheetInfo")
         );
-
-      this.IsOnBoard(this.form);
+      } else {
+        this.IsOnBoard(this.form);
+      }
     },
     //查询要进战的工序
     IsOnBoard(e) {

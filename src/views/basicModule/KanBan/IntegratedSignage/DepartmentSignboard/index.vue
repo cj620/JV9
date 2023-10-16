@@ -3,7 +3,9 @@
     <div class="department-signboard">
       <d-loading v-show="loading" />
       <div class="department-signboard-header">
-        <div class="department-signboard-header-left"></div>
+        <div class="department-signboard-header-left">
+          <img src="../logo.png" alt="">
+        </div>
         <div class="department-signboard-header-center">
           {{ $t("DataV.Da_NCDepartmentSignboard") }}
         </div>
@@ -256,6 +258,12 @@ export default {
       box-sizing: border-box;
       z-index: 1;
       width: 330px;
+      position: relative;
+      img{
+        width: 190px;
+        position: absolute;
+        bottom: -14px;
+      }
     }
     &-right {
       height: 100%;
