@@ -8,9 +8,9 @@
 <template>
   <PageWrapper :footer="false">
     <JvTable ref="BillTable" :table-obj="tableObj">
-      <template #WorkType="{ row }">
+<!--      <template #WorkType="{ row }">
         <span>{{ WorkTypeEnum[row.WorkType] }}</span>
-      </template>
+      </template>-->
       <template #RepeatType="{ row }">
         <span>{{ RepeatTypeEnum[row.RepeatType] }}</span>
       </template>

@@ -1401,7 +1401,11 @@ const ja = {
     Aps_ordinary_bill_process_lead_time_coefficient: "Aps普通手形処理リードタイム係数",
     Aps_urgent_bill_process_lead_time_coefficient: "Aps緊急手形処理リードタイム係数",
     Aps_extra_urgent_bill_process_lead_time_coefficient: "Aps超緊急手形処理リードタイム係数",
-    Message_notification_configuration:"メッセージ通知の設定"
+    Message_notification_configuration:"デフォルトのナビゲーションバー",
+    User_default_navigation_bar:"デフォルトのナビゲーションバー",
+    Default_navigation_bar_configuration:"デフォルトのナビゲーションバーメニュー",
+    ERP_inventory_category_configuration:"ERPコード化規則",
+    User_device_configuration:"ユーザデバイスの構成",
   },
 
   ...jaLocale,
