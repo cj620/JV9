@@ -1386,6 +1386,7 @@ const en = {
     P10197: "The previous process was not inspected",
     P10198: "The query criteria cannot be empty ",
     P10199: "Obtaining successful rows",
+    P10200: "Time anomaly",
   },
   program: {
     Pr_ProcessPlanning: "Process planning",

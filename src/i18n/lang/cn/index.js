@@ -1384,6 +1384,7 @@ const cn = {
     P10197: "上一道工序未质检! ",
     P10198: "查询条件不能为空! ",
     P10199: "获取成功行数! ",
+    P10200: "时间异常! ",
   },
   program: {
     Pr_ProcessPlanning: "工艺设计",
@@ -1463,6 +1464,7 @@ const cn = {
     Default_navigation_bar_configuration:"默认导航栏菜单",
     ERP_inventory_category_configuration:"ERP编码规则",
     User_device_configuration:"用户设备配置",
+
   },
 
   ...zhLocale,
