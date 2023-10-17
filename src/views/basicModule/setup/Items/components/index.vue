@@ -34,6 +34,7 @@ export default {
         ItemId: "",
         ItemName: "",
         Description: "",
+        Description2: "",
         Unit: "",
         ItemType: "",
         State: "Enable",
