@@ -162,7 +162,6 @@ export default {
         AssociatedNo: 0,
         NoTaxPrice: 0,
         TDA: 0,
-        Amount: 100,
       },
     };
   },
