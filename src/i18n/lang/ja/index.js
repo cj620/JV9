@@ -1074,6 +1074,7 @@ const ja = {
     Pr_ConfirmToDelete: "このリソースグループを削除しますか？",
     Pr_PleaseEnterTheToolingNo: "金型番号を入力してください",
     Pr_PleaseEnterThePartNo: "部品番号を入力してください",
+    Pr_PleaseEnterTheBillId: "请输入加工单号",
     Pr_PleaseSelectTheWorker: "作業員を選択してください",
   },
   quality: {
@@ -1363,6 +1364,9 @@ const ja = {
     P10195: "出荷可能数量が現在の数量より小さい",
     P10196: "返品可能数量が現在の数量より小さい",
     P10197: "前工程で品質検査が行われていない! ",
+    P10198: "クエリ条件を空にすることはできません! ",
+    P10199: "成功したローの取得! ",
+    P10200: "時間異常! ",
   },
   program: {
     Pr_ProcessPlanning: "プロセス設計",

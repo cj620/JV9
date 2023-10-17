@@ -1101,6 +1101,7 @@ const cn = {
     Pr_ConfirmToDelete: "确定删除此资源组?",
     Pr_PleaseEnterTheToolingNo: "请输入模具编号",
     Pr_PleaseEnterThePartNo: "请输入零件编号",
+    Pr_PleaseEnterTheBillId: "请输入加工单号",
     Pr_PleaseSelectTheWorker: "请选择作业员",
   },
   quality: {
@@ -1384,6 +1385,7 @@ const cn = {
     P10197: "上一道工序未质检! ",
     P10198: "查询条件不能为空! ",
     P10199: "获取成功行数! ",
+    P10200: "时间异常! ",
   },
   program: {
     Pr_ProcessPlanning: "工艺设计",

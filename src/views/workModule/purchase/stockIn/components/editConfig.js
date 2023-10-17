@@ -49,6 +49,14 @@ export const tableConfig = [
       disabled: true,
     },
   },
+  /*描述2*/
+  {
+    prop: "Description2",
+    label: i18n.t("design.De_Description2"),
+    editConfig: {
+      disabled: true,
+    },
+  },
   /*单位*/
   {
     prop: "Unit",

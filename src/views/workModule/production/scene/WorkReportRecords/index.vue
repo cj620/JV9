@@ -3,6 +3,14 @@
     <div style="height: 100%; width: 100%; background-color: #fff;">
       <!-- 顶部操作行 -->
       <div class="action-header">
+        <div class="action-header-input">
+          <el-input :placeholder="$t('production.Pr_PleaseEnterTheBillId')" v-model="BillId">
+          </el-input>
+        </div>
+        <div class="action-header-input">
+          <el-input :placeholder="$t('production.Pr_PleaseEnterThePartNo')" v-model="PartNo">
+          </el-input>
+        </div>
         <el-form class="action-header-form">
           <el-form-item size="medium">
             <el-select v-model="WorkerName" :placeholder="$t('production.Pr_PleaseSelectTheWorker')">
@@ -41,6 +49,8 @@ export default {
       UserInfo: [],
       WorkerName: "",
       tableObj: {},
+      BillId: "",
+      PartNo: "",
     }
   },
   created() {
@@ -56,7 +66,9 @@ export default {
   methods: {
     filter(){
       this.tableObj.getData({
-        UserName: this.WorkerName
+        UserName: this.WorkerName,
+        BillId: this.BillId,
+        PartNo: this.PartNo,
       })
     },
   },
@@ -73,6 +85,16 @@ export default {
   height: 60px;
   border-radius: 4px;
   align-items: center;
+  &-input{
+    margin: 0 10px;
+    height: 50px;
+    ::v-deep.el-input--medium {
+      height: 50px !important;
+      .el-input__inner {
+        height: 50px !important;
+      }
+    }
+  }
   &-form{
     margin: 0 10px;
     height: 50px;

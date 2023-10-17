@@ -1094,6 +1094,7 @@ const en = {
     Pr_ConfirmToDelete: "Are you sure to delete this resource group?",
     Pr_PleaseEnterTheToolingNo: "Please Enter The ToolingNo",
     Pr_PleaseEnterThePartNo: "Please Enter The PartNo",
+    Pr_PleaseEnterTheBillId: "Please Enter The BillId",
     Pr_PleaseSelectTheWorker: "Please Select The Worker",
   },
   quality: {
@@ -1386,6 +1387,7 @@ const en = {
     P10197: "The previous process was not inspected",
     P10198: "The query criteria cannot be empty ",
     P10199: "Obtaining successful rows",
+    P10200: "Time anomaly",
   },
   program: {
     Pr_ProcessPlanning: "Process planning",
