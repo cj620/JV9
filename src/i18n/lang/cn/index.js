@@ -1464,7 +1464,6 @@ const cn = {
     Default_navigation_bar_configuration:"默认导航栏菜单",
     ERP_inventory_category_configuration:"ERP编码规则",
     User_device_configuration:"用户设备配置",
-
   },
 
   ...zhLocale,
