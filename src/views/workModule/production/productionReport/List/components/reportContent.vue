@@ -183,18 +183,20 @@ export default {
       } else {
         this.formData = "";
       }
-      if (this.form.UserId === "")
+    },
+    setIsOnBoard() {
+      if (this.form.UserId === "") {
         return this.$message.warning(
           this.$t("production.Pr_PleaseEnterEmployeeInfo")
-        );
-      if (this.form.BillId === "")
+        )
+      } else if (this.form.BillId === "") {
         return this.$message.warning(
           this.$t("production.Pr_PleaseEnterWorkSheetInfo")
-        );
-
-      this.IsOnBoard(this.form);
+        )
+      } else {
+        this.IsOnBoard(this.form);
+      }
     },
-
     //查看加工图片和加工内容
     viewProcess(e){
       console.log(e)
