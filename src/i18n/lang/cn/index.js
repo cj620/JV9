@@ -1101,6 +1101,7 @@ const cn = {
     Pr_ConfirmToDelete: "确定删除此资源组?",
     Pr_PleaseEnterTheToolingNo: "请输入模具编号",
     Pr_PleaseEnterThePartNo: "请输入零件编号",
+    Pr_PleaseEnterTheBillId: "请输入加工单号",
     Pr_PleaseSelectTheWorker: "请选择作业员",
   },
   quality: {

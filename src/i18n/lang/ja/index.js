@@ -1074,6 +1074,7 @@ const ja = {
     Pr_ConfirmToDelete: "このリソースグループを削除しますか？",
     Pr_PleaseEnterTheToolingNo: "金型番号を入力してください",
     Pr_PleaseEnterThePartNo: "部品番号を入力してください",
+    Pr_PleaseEnterTheBillId: "请输入加工单号",
     Pr_PleaseSelectTheWorker: "作業員を選択してください",
   },
   quality: {

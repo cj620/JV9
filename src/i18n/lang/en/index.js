@@ -1094,6 +1094,7 @@ const en = {
     Pr_ConfirmToDelete: "Are you sure to delete this resource group?",
     Pr_PleaseEnterTheToolingNo: "Please Enter The ToolingNo",
     Pr_PleaseEnterThePartNo: "Please Enter The PartNo",
+    Pr_PleaseEnterTheBillId: "Please Enter The BillId",
     Pr_PleaseSelectTheWorker: "Please Select The Worker",
   },
   quality: {
