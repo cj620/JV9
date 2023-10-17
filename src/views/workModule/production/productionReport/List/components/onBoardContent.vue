@@ -187,8 +187,6 @@ export default {
         this.ProcessPicture = res.ProcessPicture
       })
     },
-
-
     //确定要选择数据
     confirmQuantity(e) {
       const str = {
@@ -243,22 +241,27 @@ export default {
       } else {
         this.formData = "";
       }
-      if (this.form.UserId === "")
+
+    },
+    setIsOnBoard() {
+      if (this.form.UserId === "") {
         return this.$message.warning(
           this.$t("production.Pr_PleaseEnterEmployeeInfo")
         );
-      if (this.form.DeviceNo === "")
+      } else if(this.form.DeviceNo === "") {
         return this.$message.warning(
           this.$t("production.Pr_PleaseSelectDevice")
         );
-
-      if (this.form.BillId === "")
+      } else if(this.form.BillId === "") {
         return this.$message.warning(
           this.$t("production.Pr_PleaseEnterWorkSheetInfo")
         );
-      this.BillId = this.form.BillId;
-      this.inputQuantityDialogFormVisible = true;
+      } else {
+        this.BillId = this.form.BillId;
+        this.inputQuantityDialogFormVisible = true;
+      }
     },
+
     //调用上机接口
     IsOnBoard(e) {
       console.log(e);
