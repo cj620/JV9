@@ -34,6 +34,12 @@ const dataV = [
         path: "/QualitySignage",
         component: () => import("@/views/basicModule/KanBan/IntegratedSignage/QualitySignage"),
         name: "QualitySignage",
+    },
+    //  设备运行看板
+    {
+        path: "/EquipmentOperation",
+        component: () => import("@/views/basicModule/KanBan/IntegratedSignage/EquipmentOperation"),
+        name: "EquipmentOperation",
     }
 ]
 export default dataV

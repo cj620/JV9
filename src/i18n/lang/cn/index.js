@@ -460,7 +460,7 @@ const cn = {
     Da_ActualCompletion: "实际完成数",
     Da_DailyRatedHours: "日额定工时",
     Da_DailyPlannedHours: "日计划工时",
-    Da_NCDepartmentSignboard: "NC部门看板",
+    Da_NCDepartmentSignboard: "部门看板",
     Da_PlannedCompletions: "计划完成数",
     Da_ActualCompletions: "实际完成数",
     Da_PlannedTime: "计划工时",

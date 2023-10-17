@@ -3,7 +3,7 @@
     <div class="TaskStatus-signage">
       <div class="TaskStatus-signage-header">
         <div class="TaskStatus-signage-header-left">
-          logo
+          <img src="../logo.png" alt="">
         </div>
         <div class="TaskStatus-signage-header-center">
           {{ $t("DataV.Da_DepartmentSignage") }}
@@ -120,6 +120,12 @@ export default {
       box-sizing: border-box;
       z-index: 1;
       width: 200px;
+      position: relative;
+      img{
+        width: 100%;
+        position: absolute;
+        bottom: -6px;
+      }
     }
     &-right {
       height: 100%;

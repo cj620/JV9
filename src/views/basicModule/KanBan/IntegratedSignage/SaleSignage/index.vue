@@ -4,7 +4,7 @@
       <!--页面头部-->
       <div class="Sale-signage-header">
         <div class="Sale-signage-header-left">
-          logo
+          <img src="../logo.png" alt="">
         </div>
         <div class="Sale-signage-header-center">
           {{ $t("DataV.Da_SaleSignage") }}
@@ -173,6 +173,12 @@ export default {
       box-sizing: border-box;
       z-index: 1;
       width: 200px;
+      position: relative;
+      img{
+        width: 100%;
+        position: absolute;
+        bottom: -6px;
+      }
     }
     &-right {
       height: 100%;
