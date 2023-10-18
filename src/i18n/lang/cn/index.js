@@ -1463,10 +1463,8 @@ const cn = {
     Aps_extra_urgent_bill_process_lead_time_coefficient:
       "自动排程特急工单工序前置时间系数",
       Message_notification_configuration:"消息通知配置",
-    User_default_navigation_bar:"默认导航栏",
     Default_navigation_bar_configuration:"默认导航栏菜单",
     ERP_inventory_category_configuration:"ERP编码规则",
-    User_device_configuration:"用户设备配置",
   },
 
   ...zhLocale,

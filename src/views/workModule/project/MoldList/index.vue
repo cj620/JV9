@@ -9,11 +9,7 @@
               {
                 label: $t('Generality.Ge_New'),
                 confirm: add,
-              },
-               {
-                label: '从erp获取模具',
-                confirm: getErpMaterial,
-              },
+              }
             ]"
           ></Action>
         </template>
@@ -179,16 +175,6 @@ export default {
     add() {
       this.formObj.reset();
       this.addDialogShow = true;
-    },
-    //拿取erp的模具数据
-    getErpMaterial(){
-      adaptor_synchronize_erp_material({
-      "SelectDate":"2023-09-01",
-        "Types":["02"]
-    }).then(res=>{
-        console.log(res)
-      })
-
     },
     confirmAdd() {
       this.formObj.form['PhotoUrl'] = this.ImgDataList.toString();

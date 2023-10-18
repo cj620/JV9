@@ -1466,10 +1466,8 @@ const en = {
     Aps_extra_urgent_bill_process_lead_time_coefficient:
       "Aps extra urgent bill process lead time coefficient",
       Message_notification_configuration:"Message notification configuration",
-    User_default_navigation_bar:"Default navigation bar",
     Default_navigation_bar_configuration:"Default navigation bar configuration",
     ERP_inventory_category_configuration:"ERP inventory category configuration",
-    User_device_configuration:"User device configuration",
   },
   ...enLocale,
 };

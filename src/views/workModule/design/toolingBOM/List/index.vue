@@ -996,18 +996,18 @@ export default {
       this.importShow = false;
       this.importDialogFormVisible = true;
 
-      let arr = this.handleExcelData(e);
+     // let arr = this.handleExcelData(e);
       console.log(arr, "arr");
-      // var arr = [];
-      // e.forEach((Titem) => {
-      //   var str = {};
-      //   this.exportTemplate.forEach((item) => {
-      //     if (Titem[item.label]) {
-      //       str[item.prop] = Titem[item.label];
-      //     }
-      //   });
-      //   arr.push(str);
-      // });
+      var arr = [];
+      e.forEach((Titem) => {
+        var str = {};
+        this.exportTemplate.forEach((item) => {
+          if (Titem[item.label]) {
+            str[item.prop] = Titem[item.label];
+          }
+        });
+        arr.push(str);
+      });
       this.importTableObj.setData(temMerge(this.saveData, arr));
     },
     handleExcelData(res = []) {
