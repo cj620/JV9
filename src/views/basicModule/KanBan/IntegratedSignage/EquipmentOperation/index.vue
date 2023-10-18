@@ -54,40 +54,43 @@
               :style="{ width: `calc(${100 / col}% - 10px)` }"
             >
               <dv-border-box-7>
-                <div class="Equipment-signage-content-item-header">
-                  <div
-                    class="Equipment-signage-content-item-header-state"
-                  ></div>
-                  <div class="Equipment-signage-content-item-header-title">
-                    {{ item.DeviceNo }}
-                  </div>
-                </div>
-                <div class="Equipment-signage-content-item-content">
-                  <div class="Equipment-signage-content-item-content-left">
-                    <div
-                      class="Equipment-signage-content-item-content-left-img"
-                    >
-                      <div class="image-box">
-                        <CImage :src="item.PhotoUrl"></CImage>
+                <div class="Equipment-signage-content-item-box">
+                  <div class="Equipment-signage-content-item-box-left">
+                    <div class="Equipment-signage-content-item-header">
+                      <div
+                        class="Equipment-signage-content-item-header-state"
+                      ></div>
+                      <div class="Equipment-signage-content-item-header-title">
+                        {{ item.DeviceNo }}
                       </div>
                     </div>
-                    <div
-                      class="Equipment-signage-content-item-content-left-device"
-                    >
-                      {{ item.Device }}
+                    <div class="Equipment-signage-content-item-box-content">
+                      <div
+                        class="Equipment-signage-content-item-box-content-img"
+                      >
+                        <div class="image-box">
+                          <CImage :src="item.PhotoUrl"></CImage>
+                        </div>
+                      </div>
+                      <div
+                        class="Equipment-signage-content-item-box-content-device"
+                      >
+                        {{ item.Device }}
+                      </div>
                     </div>
                   </div>
-                  <div class="Equipment-signage-content-item-content-right">
-                    <div>66%</div>
+
+                  <div class="Equipment-signage-content-item-right">
+                    <div style="height: 50px;line-height: 50px">66%</div>
                     <div
-                      class="Equipment-signage-content-item-content-right-progress-box"
+                      class="Equipment-signage-content-item-right-progress-box"
                     >
                       <div
-                        class="Equipment-signage-content-item-content-right-progress"
+                        class="Equipment-signage-content-item-right-progress"
                         :style="{ height: 66+'%' }"
                       ></div>
                     </div>
-                    <div>CEE</div>
+                    <div style="height: 40px;line-height: 40px">OEE</div>
                   </div>
                 </div>
               </dv-border-box-7>
@@ -238,6 +241,33 @@ export default {
       margin-left: 5px;
       color: #fff;
       margin-bottom: 10px;
+      &-box{
+        display: flex;
+        height: 100%;
+        &-left{
+          width: calc(100% - 50px);
+        }
+        &-content{
+          height: calc(100% - 40px);
+          &-img{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100% - 40px);
+            padding-top: 10px;
+          }
+          .image-box{
+            min-width: 150px;
+            height: 100%;
+          }
+          &-device{
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+          }
+        }
+      }
       &-header {
         height: 40px;
         line-height: 40px;
@@ -253,48 +283,22 @@ export default {
           border-radius: 50%;
         }
       }
-      &-content {
-        height: calc(100% - 40px);
+      &-right {
+        width: 50px;
         display: flex;
-        &-left {
-          height: 100%;
-          width: calc(100% - 50px);
-          &-img {
-            height: calc(100% - 30px);
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            .image-box {
-              //width: 90%;
-              min-width: 150px;
-              height: 90%;
-            }
-          }
-          &-device {
-            width: 100%;
-            text-align: center;
-            height: 30px;
-            line-height: 30px;
-          }
-        }
-        &-right {
-          width: 50px;
+        justify-content: space-between;
+        height: 100%;
+        flex-direction: column;
+        &-progress-box {
+          width: 30px;
+          height: calc(100% - 80px);
+          background: #a8b4c1;
           display: flex;
-          justify-content: space-between;
-          height: 100%;
-          flex-direction: column;
-          &-progress-box {
-            width: 30px;
-            height: 75%;
-            background: #a8b4c1;
-            display: flex;
-            align-items: flex-end;
-          }
-          &-progress {
-            width: 30px;
-            background: #3a7dd5;
-          }
+          align-items: flex-end;
+        }
+        &-progress {
+          width: 30px;
+          background: #3a7dd5;
         }
       }
     }
