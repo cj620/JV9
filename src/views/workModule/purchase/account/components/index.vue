@@ -152,6 +152,7 @@ export default {
         ItemId: "",
         ItemName: "",
         Description: "",
+        Description2: "",
         Unit: "",
         Quantity: 0,
         Price: 0,
@@ -161,7 +162,6 @@ export default {
         AssociatedNo: 0,
         NoTaxPrice: 0,
         TDA: 0,
-        Amount: 100,
       },
     };
   },

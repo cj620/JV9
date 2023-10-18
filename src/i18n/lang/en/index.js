@@ -327,6 +327,7 @@ const en = {
     CompulsoryInspection: "CompulsoryInspection",
   },
   sale: {
+    Sa_Bill: "Bill",
     Sa_DownTime: "Down Time",
     Sa_TotalAvailableTime: "TotalAvailable Time",
     Sa_PlannedLoad: "Planned Load",
@@ -958,6 +959,8 @@ const en = {
   },
   //生产
   production: {
+    Pr_DeletedBy: "Deleted By",
+    Pr_DeleteTime: "Delete Time",
     Pr_Filter: "Filter",
     Pr_MachineToolOperationProcess:"Machine Tool Operation Process",
     Pr_receiveRecord: "Receive Record",

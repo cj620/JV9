@@ -317,9 +317,19 @@ const ja = {
     PrintPreview: "印刷プレビュー",
     ConfirmPasswordReset: "パスワードのリセットを確認するか",
     Preview: "プレビュー",
+    IsCompulsoryInspection: "検査を強制するかどうか",
   },
   //销售
   sale: {
+    Sa_Bill: "オーダー",
+    Sa_DownTime: "ていしじかん",
+    Sa_TotalAvailableTime: "利用可能な時間",
+    Sa_PlannedLoad: "けいかくふか",
+    Sa_HoldingTime: "占有時間",
+    Sa_QuotationTime: "見積もり時間",
+    Sa_EvaluationTime: "評価時間",
+    Sa_Evaluation: "評価",
+    Sa_OrderEvaluation: "オーダー評価",
     Sa_CustomerId: "顧客番号",
     Sa_ShortName: "略称",
     Sa_FullName: "フルネーム",
@@ -939,6 +949,8 @@ const ja = {
   },
   //生产
   production: {
+    Pr_DeletedBy: "削除者",
+    Pr_DeleteTime: "削除時間",
     Pr_Filter: "フィルタリング",
     Pr_MachineToolOperationProcess:"工作機械の作業工程",
     Pr_receiveRecord: "受入記録",

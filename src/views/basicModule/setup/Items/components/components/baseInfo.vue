@@ -90,6 +90,13 @@
               >
                 <el-input v-model="value.Description"></el-input>
               </el-form-item>
+              <!--描述2-->
+              <el-form-item
+                :label="$t('design.De_Description2')"
+                prop="Description2"
+              >
+                <el-input v-model="value.Description2"></el-input>
+              </el-form-item>
               <!--标签-->
               <el-form-item
                 :label="$t('Generality.Ge_ItemType')"
