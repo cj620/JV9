@@ -5,21 +5,24 @@
 import { Table as BaseTable } from "@/jv_doc/class/table";
 export const detailConfig = [
   {
+    // 任务单号
     prop: "BillId",
-    label: "任务单号",
+    label: i18n.t('project.Pro_TaskSheetNo'),
     custom: true,
   },
   {
+    // 零件号
     prop: "ToolingNo",
-    label: "零件号",
+    label: i18n.t('design.De_ToolingNo'),
   },
   {
+    // 零件版本
     prop: "ProductVersion",
-    label: "零件版本",
+    label: i18n.t('design.De_ProductVersion'),
   },
   {
     prop: "ItemRemarks",
-    label: "备注",
+    label: i18n.t('Generality.Ge_Remarks'),
   },
 ];
 export class Table extends BaseTable {
@@ -35,7 +38,7 @@ export class Table extends BaseTable {
       sortCol: false,
       chooseCol: false,
       data: [],
-      title: "附件",
+      title: i18n.t('Generality.Ge_Annex'),
       // tableHeaderShow: false,
       operationCol: true,
       freshBar: false,
