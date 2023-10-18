@@ -1,4 +1,5 @@
 import Layout from "@/layout";
+import i18n from "@/i18n/i18n";
 console.log(window.global_config.showTestTab, 8585858585);
 // 销售模块
 const test = window.global_config.showTestTab
@@ -62,6 +63,14 @@ const test = window.global_config.showTestTab
             component: () => import("@/views/basicModule/demo/Test2"),
             name: "Test2",
             meta: { title: "websocket", icon: "dashboard" },
+          },
+          // 报错项
+          {
+            key: "Se_ErrorPrompt",
+            path: "Se_ErrorPrompt",
+            name: "Se_ErrorPrompt",
+            component: () => import("@/views/basicModule/setup/errorPrompt"),
+            meta: { title: "报错提示项", icon: "dashboard" },
           },
           //     {
           //       path: "test3",

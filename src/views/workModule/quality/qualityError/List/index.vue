@@ -13,9 +13,6 @@
           row.ToolingNo
         }}</el-link>
       </template>
-      <template #CheckResult="{ row }">
-        <span>{{ CheckResult[row.CheckResult] }}</span>
-      </template>
       <template #operation="{ row }">
         <TableAction
           :actions="[
@@ -52,10 +49,6 @@ export default {
   data() {
     return {
       tableObj: {},
-      CheckResult: {
-        Rework: this.$t("quality.Qc_Rework"),
-        Scrap: this.$t("setup.ReportWork"),
-      },
     };
   },
   methods: {

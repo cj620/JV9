@@ -29,7 +29,8 @@ export function saveItem(data) {
   return request({
     url: '/item/save',
     method: 'post',
-    data: data
+    data: data,
+    loading: true,
   })
 }
 //删除物料信息

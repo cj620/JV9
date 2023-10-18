@@ -10,6 +10,10 @@
                 label: $t('Generality.Ge_New'),
                 confirm: add,
               },
+               {
+                label: '从erp获取模具',
+                confirm: getErpMaterial,
+              },
             ]"
           ></Action>
         </template>
@@ -34,6 +38,7 @@
       width="35%"
       :title="$t('Generality.Ge_GenerateItems')"
       @confirm="confirmAdd"
+      destroy-on-close
     >
       <JvForm :formObj="formObj">
         <template #PhotoUrl>
@@ -52,6 +57,7 @@ import { delCpn, setCpn } from "~/maps";
 import Action from "~/cpn/JvAction/index.vue";
 import { Form } from "@/jv_doc/class/form";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
+import { adaptor_synchronize_erp_material } from "@/api/workApi/adaptor/material";
 import { get_basic_info_list } from '@/api/workApi/project/projectManage';
 import { saveItem } from "@/api/basicApi/systemSettings/Item";
 import JvUploadList from "@/components/JVInternal/JvUpload/List.vue";
@@ -171,8 +177,18 @@ export default {
   methods: {
     imgUrlPlugin,
     add() {
-
+      this.formObj.reset();
       this.addDialogShow = true;
+    },
+    //拿取erp的模具数据
+    getErpMaterial(){
+      adaptor_synchronize_erp_material({
+      "SelectDate":"2023-09-01",
+        "Types":["02"]
+    }).then(res=>{
+        console.log(res)
+      })
+
     },
     confirmAdd() {
       this.formObj.form['PhotoUrl'] = this.ImgDataList.toString();

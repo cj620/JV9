@@ -69,6 +69,7 @@
 <script>
 import { fullScreen } from "@/jv_doc/utils/system";
 import { design_or_program_task_list } from "@/api/workApi/design/designTask";
+import { production_programing_task_list } from "@/api/workApi/project/projectTask";
 import Popover from "@/jv_doc/cpn/JvTable/cpn/Popover.vue";
 import JvFooter from "@/jv_doc/cpn/JvFooter";
 import StaffCard from "./cpns/StaffCard.vue";
@@ -105,10 +106,17 @@ export default {
   computed: {},
   methods: {
     getData() {
-      design_or_program_task_list(this.form).then((res) => {
-        this.sourceData = res.Items;
-        this.Count = res.Count;
-      });
+      if (this.$route.name === 'ProgramProducingTask'){
+        production_programing_task_list(this.form).then((res) => {
+          this.sourceData = res.Items;
+          this.Count = res.Count;
+        });
+      }else {
+        design_or_program_task_list(this.form).then((res) => {
+          this.sourceData = res.Items;
+          this.Count = res.Count;
+        })
+      }
     },
     loadClcik(state = true) {
       let DataCount = this.form.CurrentPage * this.form.PageSize;

@@ -51,6 +51,20 @@
         <template #ProcessCode="{ prop }">
           <el-input :disabled="isEdit" v-model="formObj.form[prop]"></el-input>
         </template>
+        <template #ProgramingProcess="{ prop }">
+          <el-select
+            v-model="formObj.form[prop]"
+            filterable
+            size="mini"
+          >
+            <el-option
+              v-for="item in ProcessList"
+              :key="item.Process"
+              :label="item.Process"
+              :value="item.Process"
+            ></el-option>
+          </el-select>
+        </template>
       </JvForm>
     </JvDialog>
   </PageWrapper>
@@ -67,10 +81,22 @@ export default {
     return {
       tableObj: {},
       formObj: {},
+      ProcessList: [],
       dialogVisible: false,
       isEdit: false,
       processDialogTitle: "",
     };
+  },
+  created() {
+    this.tableObj = new Table();
+    this.tableObj.getData();
+    this.formObj = new Form({
+      formSchema,
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
   },
   methods: {
     deleteProcess(ids) {
@@ -81,6 +107,8 @@ export default {
       this.dialogVisible = true;
       this.isEdit = true;
       this.formObj.form = JSON.parse(JSON.stringify(row));
+      let arr1 = this.tableObj.tableData
+      this.ProcessList = arr1.filter(obj => obj.Process !== row.Process)
     },
     dialogConfirm() {
       this.formObj.validate((validate) => {
@@ -108,21 +136,6 @@ export default {
       this.isEdit = false;
     },
   },
-  created() {
-    this.tableObj = new Table();
-    this.tableObj.getData();
-    this.formObj = new Form({
-      formSchema,
-      baseColProps: {
-        span: 24,
-      },
-
-      labelWidth: "80px",
-    });
-  },
-  mounted() {},
-  computed: {},
-  components: {},
 };
 </script>
 

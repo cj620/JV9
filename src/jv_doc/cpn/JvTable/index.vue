@@ -260,6 +260,7 @@ export default {
       let cur_row_id = row[this.tableObj.props.rowId];
       let keys = this.tableObj.selectData.keys;
       return {
+        ...this.tableObj.props?.rowStyle??{},
         background: keys.includes(cur_row_id) ? "#FEF3C7" : "",
       };
     },

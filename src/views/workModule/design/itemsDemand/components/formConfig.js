@@ -27,3 +27,48 @@ export const formSchema = [
     },
   },
 ];
+export const mergeFormSchema = [
+  //   物料编号
+  {
+    prop: 'ItemId',
+    cpn: "FormInput",
+    label: i18n.t("Generality.Ge_ItemId"),
+    cpnProps: {
+      disabled: true,
+    },
+  },
+  //   名称
+  {
+    prop: 'ItemName',
+    cpn: "FormInput",
+    label: i18n.t("Generality.Ge_ItemName"),
+  },
+  //   描述
+  {
+    prop: 'Description',
+    cpn: "FormInput",
+    label: i18n.t("Generality.Ge_Describe"),
+  },
+  //   描述2
+  {
+    prop: 'Description2',
+    cpn: "FormInput",
+    label: i18n.t("design.De_Description2"),
+    cpnProps: {
+      disabled: true,
+    },
+  },
+  //   数量
+  {
+    prop: 'Quantity',
+    cpn: "FormInput",
+    label: i18n.t("Generality.Ge_Quantity"),
+    type: "number",
+  },
+  //   需求日期
+  {
+    prop: 'DemandDate',
+    cpn: "SingleTime",
+    label: i18n.t("Generality.Ge_DemandDate"),
+  },
+]

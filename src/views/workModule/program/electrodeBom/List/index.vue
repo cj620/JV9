@@ -77,6 +77,11 @@
             disabled: !IsSearchItemDisabled,
             confirm: CraftDesign.bind(),
           },
+          {
+			      label: $t('design.De_StateLinkage'),
+			      disabled: IsTableEmpty,
+			      confirm: synchronizeState.bind(),
+          },
         ]"
       >
       </Action>
@@ -129,7 +134,7 @@
         {{ partLevelMap[record] && partLevelMap[record].name }}
       </template>
                   <template #MaterialRequirementState="{ record }">
-              
+
         {{ demandStatusEnum[record] &&demandStatusEnum[record].name }}
       </template>
       <template #operation="{ row, row_index }">
@@ -195,12 +200,12 @@
         <JvEditTable
       :tableObj="importTableObj"
       highlight-current-row
-      
+
     >
      <template #operation="{ row, row_index }">
         <TableAction
           :actions="[
-            
+
             {
               label: $t('Generality.Ge_Delete'),
               confirm: i_delete.bind(null, row_index),
@@ -208,7 +213,7 @@
           ]"
         />
       </template>
-          
+
         </JvEditTable>
        </jv-dialog>
   </PageWrapper>
@@ -226,6 +231,7 @@ import {
   confirmSubmitMaterialRequirement,
   toolingTaskInfoList,
   autoMatchMaterials,
+  synchronize_material_state,
 } from "@/api/workApi/design/toolingBOM";
 import {
   getPoleBomById,
@@ -263,7 +269,7 @@ export default {
         },
       },
       eTableObj: {},
-      importTableObj:{}, 
+      importTableObj:{},
       toolId: "",
       ToolingNo: "",
       defaultUnit: "",
@@ -350,6 +356,9 @@ export default {
     },
     IsSelectLength() {
       return this.eTableObj.selectData.datas.length > 0;
+    },
+    IsTableEmpty() {
+      return this.eTableObj.tableData.length === 0;
     },
     IsTableDisabled() {
       var IsHas = false;
@@ -453,7 +462,7 @@ var saveData ={
     //批量复制一张单出来
     l_copy() {
       let arr = JSON.parse(JSON.stringify( this.eTableObj.selectData.datas))
-      
+
             arr.forEach(item=>{
         item.ItemId=''
       })
@@ -483,7 +492,12 @@ var saveData ={
           break;
       }
     },
-
+    //同步物料状态
+    synchronizeState() {
+      synchronize_material_state(this.eTableObj.tableData).then((res) => {
+        this.getData();
+      })
+    },
     //下载导入模板
     downExport2Excel() {
       var arr = [];
@@ -638,7 +652,7 @@ var saveData ={
        //确定导入的数据
     confirmImportData(){
 
-      
+
       if(this.importTableObj.selectData.datas.length>0){
        var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
      console.log(arr)
@@ -655,7 +669,7 @@ var saveData ={
               this.getData();
               this.importDialogFormVisible = false
             });
-        
+
 
       }else{
         this.$message.error(this.$t("Generality.Ge_PleaseAddData"));

@@ -7,6 +7,7 @@
  * @FilePath: \V9_Dev\src\views\workModule\project\projectManage\mouldDetail\config.js
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
+import { enumFilter } from "~/utils/system/enumsPlugin";
 // import { m_tableConfig as tableConfig } from "../Add/editConfig";
 // import { taskTypeEnum, enumToList } from "@/enum/workModule";
 // const newTableCongfig = [...tableConfig];
@@ -29,7 +30,22 @@ export class Table extends BaseTable {
     });
   }
 }
-
+export class Table1 extends BaseTable {
+  constructor() {
+    super({
+      tableSchema: tableConfig1,
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: false,
+      height: 350,
+    });
+  }
+}
+import { demandStatusEnum, taskTypeEnum } from "@/enum/workModule";
 export const detailConfig = [
   //   单据编号
   {
@@ -119,6 +135,58 @@ const tableConfig = [
   {
     prop: "BillFiles",
     label: i18n.t("Generality.Ge_PhotoUrl"),
-    custom:true,
+    custom: true,
   },
-]
+];
+const tableConfig1 = [
+  /*物料编号*/
+  {
+    prop: "ItemId",
+    label: i18n.t("Generality.Ge_ItemId"),
+  },
+  /*名称*/
+  {
+    prop: "ItemName",
+    label: i18n.t("Generality.Ge_ItemName"),
+  },
+  /*描述*/
+  {
+    prop: "Description",
+    label: i18n.t("Generality.Ge_Describe"),
+  },
+  /*单位*/
+  {
+    prop: "Unit",
+    label: i18n.t("Generality.Ge_Unit"),
+    width: "70px",
+  },
+  /*数量*/
+  {
+    prop: "Quantity",
+    label: i18n.t("Generality.Ge_Quantity"),
+    formCpn: "FormInput",
+    align: "right",
+    type: "number",
+    width: "100px",
+    filter: "amount",
+  },
+
+  /*需求日期*/
+  {
+    prop: "DemandDate",
+    label: i18n.t("Generality.Ge_DemandDate"),
+    filter: "date",
+    width: "130px",
+  },
+  /*状态*/
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    customFilter: (value) => enumFilter(value, demandStatusEnum),
+  },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  },
+];

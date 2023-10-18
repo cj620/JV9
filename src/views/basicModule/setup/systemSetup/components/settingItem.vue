@@ -7,38 +7,38 @@
 <template>
   <div class="setting-item">
     <span class="setting-item-title">{{ data && data[0].Category }}</span>
-    <div  class="setting-item-content">
-          <div
-      v-for="item in configData"
-      :key="item.ConfigKey"
-      class="setting-item-config"
-    >
-      <div class="setting-item-config-left">
-        <span class="setting-item-config-configName">{{
-          item.ConfigName
-        }}</span>
-        <span class="setting-item-config-description">{{
-          item.Description
-        }}</span>
-      </div>
+    <div class="setting-item-content">
+      <div
+        v-for="item in configData"
+        :key="item.ConfigKey"
+        class="setting-item-config"
+      >
+        <div class="setting-item-config-left">
+          <span class="setting-item-config-configName">{{
+            item.ConfigName
+          }}</span>
+          <span class="setting-item-config-description">{{
+            item.Description
+          }}</span>
+        </div>
 
-      <div style="padding-right: 30px">
-        <el-button
-          v-if="isDiaolog(item)"
-          type="text"
-          @click="openDialog(item)"
-          >{{ $t("menu.Se_Setup") }}</el-button
-        >
-        <el-switch
-          v-else
-          v-model="item.ConfigValue"
-          active-value="true"
-          inactive-value="false"
-          @change="changeConfigValue(item)"
-        >
-        </el-switch>
+        <div style="padding-right: 30px">
+          <el-button
+            v-if="isDiaolog(item)"
+            type="text"
+            @click="openDialog(item)"
+            >{{ $t("menu.Se_Setup") }}</el-button
+          >
+          <el-switch
+            v-else
+            v-model="item.ConfigValue"
+            active-value="true"
+            inactive-value="false"
+            @change="changeConfigValue(item)"
+          >
+          </el-switch>
+        </div>
       </div>
-    </div>
     </div>
 
     <JvDialog
@@ -57,20 +57,17 @@
       />
     </JvDialog>
 
-
-
-
-      <object-array-form
-        :title="dialogTitle"
-        :visible.sync="ObjectArrayDialogVisible"
-        v-if="ObjectArrayDialogVisible"
-        width="70%"
-        ref="objectArrayForm"
-        :ConfigKey="ConfigKey"
-        :formData="formObj"
-        @ObjectArrayConfirm="ObjectArrayConfirm"
-      >
-      </object-array-form>
+    <object-array-form
+      :title="dialogTitle"
+      :visible.sync="ObjectArrayDialogVisible"
+      v-if="ObjectArrayDialogVisible"
+      width="70%"
+      ref="objectArrayForm"
+      :ConfigKey="ConfigKey"
+      :formData="formObj"
+      @ObjectArrayConfirm="ObjectArrayConfirm"
+    >
+    </object-array-form>
 
     <array-object-table
       :title="dialogTitle"
@@ -104,7 +101,6 @@
       :formData="formObj"
       @StringArrayObjectConfirm="StringArrayObjectConfirm"
     >
-
     </string-array-object>
   </div>
 </template>
@@ -142,6 +138,7 @@ export default {
 
   methods: {
     isDiaolog(item) {
+      console.log(item.ConfigValueType,9898989);
       return (
         item.ConfigValueType === "String" ||
         item.ConfigValueType === "Number" ||
@@ -177,26 +174,24 @@ export default {
           this.formObj.ConfigValue = JSON.parse(item.ConfigValue).toString();
           this.DialogVisible = true;
         }
-      }else if(item.ConfigValueType==='ObjectArray'){
-        console.log(item)
-        this.ObjectArrayDialogVisible = true
-        this.formObj=item
-
-      }else if(item.ConfigValueType==='ArrayObject1'){
-        this.ArrayObjectDialogVisible= true
-        this.formObj=item
-      }else if(item.ConfigValueType==='StringSelect'){
-        this.selectFormDialogVisible= true
-        this.formObj=item
-      }else if(item.ConfigValueType==='StringArrayObject'){
-        this.stringArrayObjectDialogVisible= true
-        this.formObj=item
-      }else {
+      } else if (item.ConfigValueType === "ObjectArray") {
+        console.log(item);
+        this.ObjectArrayDialogVisible = true;
+        this.formObj = item;
+      } else if (item.ConfigValueType === "ArrayObject1") {
+        this.ArrayObjectDialogVisible = true;
+        this.formObj = item;
+      } else if (item.ConfigValueType === "StringSelect") {
+        this.selectFormDialogVisible = true;
+        this.formObj = item;
+      } else if (item.ConfigValueType === "StringArrayObject") {
+        this.stringArrayObjectDialogVisible = true;
+        this.formObj = item;
+      } else {
         this.formObj.ConfigValue = item.ConfigValue;
         this.DialogVisible = true;
       }
       this.curConfig = item;
-
     },
     confirm() {
       this.$refs.settingForm.updateValue();
@@ -207,29 +202,29 @@ export default {
         ConfigValue: this.ConfigValue,
       });
     },
-    ObjectArrayConfirm(e){
-      console.log(e,9898,this.curConfig);
-      this.ObjectArrayDialogVisible= false
-      this._Confirm(e)
+    ObjectArrayConfirm(e) {
+      console.log(e, 9898, this.curConfig);
+      this.ObjectArrayDialogVisible = false;
+      this._Confirm(e);
     },
-    ArrayObjectConfirm(e){
-      this.ArrayObjectDialogVisible= false
-      this._Confirm(e)
+    ArrayObjectConfirm(e) {
+      this.ArrayObjectDialogVisible = false;
+      this._Confirm(e);
     },
-    StringSelectConfirm(e){
-      this.selectFormDialogVisible= false
-      this._Confirm(e)
+    StringSelectConfirm(e) {
+      this.selectFormDialogVisible = false;
+      this._Confirm(e);
     },
-    StringArrayObjectConfirm(e){
-      this.stringArrayObjectDialogVisible= false
-      this._Confirm(e)
+    StringArrayObjectConfirm(e) {
+      this.stringArrayObjectDialogVisible = false;
+      this._Confirm(e);
     },
-    _Confirm(e){
+    _Confirm(e) {
       this.changeConfigValue({
         ConfigKey: this.curConfig.ConfigKey,
         ConfigValue: e,
       });
-    }
+    },
   },
   computed: {
     data() {
@@ -264,7 +259,7 @@ export default {
 .setting-item {
   background: #fff;
   height: calc(100vh - 125px);
-  padding: 16px 16px 23px 16px ;
+  padding: 16px 16px 23px 16px;
 
   &-title {
     font-size: 20px;
@@ -292,9 +287,8 @@ export default {
     }
   }
 }
-  .setting-item-content{
-    height: 100%;
-      overflow:auto;
-
-  }
+.setting-item-content {
+  height: 100%;
+  overflow: auto;
+}
 </style>

@@ -6,6 +6,8 @@
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
+import { enumFilter } from '~/utils/system/enumsPlugin'
+import { itemCategoryEnum } from "@/enum/baseModule";
 export class EditTable extends BaseTable {
   constructor() {
     super({
@@ -13,10 +15,13 @@ export class EditTable extends BaseTable {
       data: [],
       title: i18n.t("menu.De_ToolingBOM"),
       chooseCol: true,
-      operationWidth: 180,
+      operationWidth: 230,
       importBar: false,
       sortCol: false,
-      tid:'De_ToolingBOM'
+      tid:'De_ToolingBOM',
+      // selectable: (row, index) => {
+      //   return row.ItemCategory.value === 'Part';
+      // }
       // sortCol:false
     });
   }
@@ -70,7 +75,12 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_Describe"),
     formCpn: "FormInput",
   },
-
+  // 物料描述2
+  {
+    prop: "Description2",
+    label: i18n.t("design.De_Description2"),
+    formCpn: "FormInput",
+  },
   /*单位*/
   {
     prop: "Unit",
@@ -129,6 +139,19 @@ export const tableConfig = [
       disabled: true,
     },
   },
+
+  /*类别*/
+  {
+    prop: "ItemCategory",
+    label: i18n.t("Generality.Ge_ItemsCategory"),
+    formCpn: "FormInput",
+    customFilter: (value) => enumFilter(value, itemCategoryEnum),
+
+    width: 80,
+    editConfig: {
+      disabled: true,
+    },
+  },
   /*制单人*/
   {
     prop: "Creator",
@@ -170,5 +193,5 @@ export const tableConfig = [
     },
   },
 
-  
+
 ];

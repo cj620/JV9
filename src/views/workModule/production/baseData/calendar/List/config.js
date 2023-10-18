@@ -27,12 +27,12 @@ export class Table extends BaseTable {
 }
 
 export const tableConfig = [
-  /*日历类别*/
+/*   /!*日历类别*!/
   {
     prop: "WorkType",
     label: i18n.t("Generality.Ge_UsageStatus"),
     custom: true,
-  },
+  }, */
   /*重复类型*/
   {
     prop: "RepeatType",

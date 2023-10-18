@@ -35,11 +35,51 @@ const program = [
   {
     key: "Pa_ProgramTaskList",
     component: () =>
-      import("@/views/workModule/program/programTask/ProgramTaskList"),
+      import("@/views/workModule/program/ProgramTaskList"),
     Parent: "Pa_Program",
     name: "Pa_ProgramTaskList",
     path: "Pa_ProgramTaskList",
     title: i18n.t('menu.Pa_ProgramTaskList'),
+  },
+  // 编程加工任务
+  {
+    key: "Pa_ProgramProducingTask",
+    component: () =>
+      import("@/views/workModule/program/programProducingTask/List"),
+    Parent: "Pa_Program",
+    name: "ProgramProducingTask",
+    path: "programProducingTask",
+    title: i18n.t("menu.Pa_ProgramProducingTask"),
+  },
+  // 编程加工任务列表
+  {
+    key: "Pa_ProgramProducingTaskList",
+    component: () =>
+      import("@/views/workModule/program/programProducingTaskList"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramProducingTaskList",
+    path: "Pa_ProgramProducingTaskList",
+    title: i18n.t("menu.Pa_ProgramProducingTaskList"),
+  },
+  // 编程加工任务报工
+  {
+    key: "Pa_ProgramProducingTaskReport",
+    component: () =>
+        import("@/views/workModule/program/programProducingTaskReport"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramProducingTaskReport",
+    path: "Pa_ProgramProducingTaskReport",
+    title: i18n.t("menu.Pa_ProgramProducingTaskReport"),
+  },
+  // 编程加工任务记录
+  {
+    key: "Pa_ProgramProducingTaskReportRecord",
+    component: () =>
+      import("@/views/workModule/program/programProducingTaskList/programProducingTaskReportRecord.vue"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramProducingTaskReportRecord",
+    path: "Pa_ProgramProducingTaskReportRecord",
+    title: i18n.t("menu.Pa_ProgramProducingTaskReportRecord"),
   },
   // 编程任务记录
   {
@@ -117,5 +157,18 @@ const program = [
       i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+  // 电极物料需求明细
+  {
+    key: "Pa_ElectrodeDemand_Details_list",
+    component: () => import("@/views/workModule/program/electrodeDemand/DetailsList"),
+    Parent: "Pa_Program",
+    name: "Pa_ElectrodeDemand_Details_list",
+    path: "Pa_ElectrodeDemand_Details_list",
+    title:
+        i18n.t("menu.Pa_ElectrodeDemand") +
+        " " +
+        i18n.t('Generality.Ge_Details1'),
+    hidden: true,
+  }
 ];
 export default program;

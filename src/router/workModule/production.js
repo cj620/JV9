@@ -167,6 +167,26 @@ const production = [
     path: "quality",
     title: i18n.t("menu.Pr_Quality"),
   },*/
+
+  // 钳工收料
+  {
+    key: "Pr_ProductionFitterReceive",
+    component: () => import("@/views/workModule/production/productionFitterReceive"),
+    Parent: "Pr_Production",
+    name: "ProductionFitterReceive",
+    path: "productionFitterReceive",
+    title: i18n.t("menu.Pr_ProductionFitterReceive"),
+  },
+  // 钳工收料记录
+  {
+    key: "Pr_ProductionFitterReceiveRecord",
+    component: () => import("@/views/workModule/production/productionFitterReceive/productionFitterReceiveRecord.vue"),
+    Parent: "Pr_Production",
+    name: "ProductionFitterReceiveRecord",
+    path: "productionFitterReceiveRecord",
+    title: i18n.t("menu.Pr_ProductionFitterReceiveRecord"),
+  },
+
   // 统计报表
   {
     key: "Pr_Report",
@@ -372,6 +392,75 @@ const production = [
       i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+  // 现场作业
+  {
+    key: "Pr_OnSiteOperations",
+    component: () => import("@/views/workModule/production/scene"),
+    Parent: "Pr_Production",
+    name: "Pr_OnSiteOperations",
+    path: "scene",
+    title: i18n.t("menu.Pr_OnSiteOperations"),
+  },
+    // 扫码进站
+  {
+    key: "Pr_ScanCodeToEnterTheStation",
+    component: () =>
+        import("@/views/workModule/production/scene/getIn"),
+    Parent: "Pr_OnSiteOperations",
+    name: "ScanCodeToEnterTheStation",
+    path: "ScanCodeToEnterTheStation",
+    title:i18n.t("menu.Pr_ScanCodeToEnterTheStation"),
+  },
+    // 我的任务
+  {
+    key: "Pr_MyTasks",
+    component: () =>
+        import("@/views/workModule/production/scene/myTasks"),
+    Parent: "Pr_OnSiteOperations",
+    name: "myTasks",
+    path: "myTasks",
+    title:i18n.t("menu.Pr_MyTasks"),
+  },
+    // 扫码开工
+  {
+    key: "Pr_ScanCodeToStartWork",
+    component: () =>
+        import("@/views/workModule/production/scene/ScanCodeToStartWork"),
+    Parent: "Pr_OnSiteOperations",
+    name: "ScanCodeToStartWork",
+    path: "ScanCodeToStartWork",
+    title:i18n.t("menu.Pr_ScanCodeToStartWork"),
+  },
+  // 扫码完工
+  {
+    key: "Pr_ScanCodeCompletion",
+    component: () =>
+        import("@/views/workModule/production/scene/ScanCodeCompletion"),
+    Parent: "Pr_OnSiteOperations",
+    name: "ScanCodeCompletion",
+    path: "ScanCodeCompletion",
+    title:i18n.t("menu.Pr_ScanCodeCompletion"),
+  },
+  // 待加工
+  {
+    key: "Pr_ToBeStarted",
+    component: () =>
+        import("@/views/workModule/production/scene/ToBeStarted"),
+    Parent: "Pr_OnSiteOperations",
+    name: "ToBeStarted",
+    path: "ToBeStarted",
+    title:i18n.t("menu.Pr_ToBeStarted"),
+  },
+  // 报工记录
+  {
+    key: "Pr_WorkReportRecords",
+    component: () =>
+        import("@/views/workModule/production/scene/WorkReportRecords"),
+    Parent: "Pr_OnSiteOperations",
+    name: "WorkReportRecords",
+    path: "WorkReportRecords",
+    title:i18n.t("menu.Pr_WorkReportRecords"),
+  }
 ];
 
 export default production;

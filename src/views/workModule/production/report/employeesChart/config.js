@@ -30,13 +30,15 @@ export const tableConfig = [
   {
     prop: "TaskProcess",
     label: i18n.t("production.Pr_TaskProcess"),
+    align: "center",
+    width: 120,
   },
   /*数量*/
   {
     prop: "Quantity",
     label: i18n.t("Generality.Ge_Quantity"),
     align: "right",
-    width: 100,
+    width: 50,
   },
   /*实际开始*/
   {
@@ -57,6 +59,7 @@ export const tableConfig = [
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_ActualTime"),
     align: "right",
+    width: 100,
   },
   /*预计用时*/
   {

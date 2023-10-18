@@ -180,7 +180,7 @@ import DynamicList from "../../projectManage/mouldDetail/cpns/DynamicList.vue";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
 import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
 export default {
-  // name: "Pm_ProjectTask_Detail",
+   name: "Pm_ProjectTask_Detail",
   components: {
     JvUploadFile,
     JvRemark,
@@ -201,6 +201,8 @@ export default {
       DynamicInfo: [],
       // 编辑路由指向 谨慎删除
       editRouteName: "Pm_ProjectTask_Edit",
+      addRouteName: "Pm_ProjectTask_Add",
+
       printMod: "Pm_ProjectTask",
       taskTypeEnum,
       BillFiles: [],
@@ -264,6 +266,7 @@ export default {
         this.tableObj.setData(res.BillItems);
         this.DynamicInfo = res.DynamicInfo || [];
         this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
+        console.log(this.btnAction)
         this.btnAction.push({
           label: this.$t("Generality.Ge_Finished"),
           confirm: this.successProjectTask,

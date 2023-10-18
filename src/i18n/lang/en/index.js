@@ -10,8 +10,18 @@
 import enLocale from "element-ui/lib/locale/lang/en";
 const en = {
   menu: {
+    Pr_MyTasks: "My Tasks",
+    Pr_ScanCodeToEnterTheStation: "ScanCode ToEnter The Station",
+    Pr_ScanCodeToStartWork: "ScanCode ToStart Work",
+    Pr_ScanCodeCompletion: "ScanCode Completion",
+    Pr_ToBeStarted: "To Be Started",
+    Pr_WorkReportRecords: "Work Report Records",
+    Pr_OnSiteOperations: "On Site Operations",
     Se_ErrorPrompt: "Error Prompt",
     Pa_ProgramTaskList: "Program Task List",
+    Pa_ProgramProducingTaskList: "Program Producing Task List",
+    Pa_ProgramProducingTaskReport: "Program Producing Task Report",
+    Pa_ProgramProducingTaskReportRecord: "Program Producing Task Report Record",
     De_DesignTaskList: "Design Task List",
     De_ProcessTemplate: "Process template",
     Pu_Supplier: "Supplier",
@@ -45,6 +55,7 @@ const en = {
     De_DesignTask: "Design Task",
     Pa_Program: "Program",
     Pa_ProgramTask: "Program Task",
+    Pa_ProgramProducingTask: "Program Producing Task",
     Pa_ElectrodeBom: "Electrode Bom",
     Pa_ElectrodeDemand: "Electrode Demand",
     Pu_Purchase: "Purchase",
@@ -64,6 +75,8 @@ const en = {
     Pr_ProductionDispatch: "Production Dispatch",
     Pr_WorkReport: "Work Report",
     Pr_ProductionPlan: "Production Plan",
+    Pr_ProductionFitterReceive: "Production Fitter Receive",
+    Pr_ProductionFitterReceiveRecord: "Production Fitter Receive Record",
     Pr_ProgramTask: "Program Task",
     Pr_Quality: "Quality",
     Pr_Report: "Report",
@@ -147,6 +160,7 @@ const en = {
     De_SearchItem: "Search item",
     De_SubmitDemand: "Submit demand",
     De_InfoLinkage: "Information Linkage",
+    De_StateLinkage: "State Linkage",
     De_ProcessTemplate: "Process template",
     De_SetLevel: "Set level",
     De_DesignTaskRecord: "Design task record",
@@ -154,6 +168,8 @@ const en = {
     De_Allocated: "Allocated",
     De_Unallocated: "Unallocated",
     De_SelectPicking: "Select Material Picking",
+    De_Description2: "Description2",
+    De_MergeItems: "Merge Items",
   },
   //项目
   project: {
@@ -307,6 +323,8 @@ const en = {
     PrintPreview: "Print preview",
     ConfirmPasswordReset: "Confirm Password Reset",
     Preview: "Preview",
+    IsCompulsoryInspection: "IsCompulsoryInspection",
+    CompulsoryInspection: "CompulsoryInspection",
   },
   sale: {
     Sa_DownTime: "Down Time",
@@ -365,6 +383,7 @@ const en = {
     Pu_RequirementType: "Requirement Type",
 
     Pu_Outsourced: "Outsourced",
+    Pu_ConfirmToHandle: "Confirm to change the selected document status to",
   },
   // 仓库
   stockroom: {
@@ -426,7 +445,7 @@ const en = {
     Da_ActualCompletion: "Actual Completion",
     Da_DailyRatedHours: "Daily Rated Hours",
     Da_DailyPlannedHours: "Daily Planned Hours",
-    Da_NCDepartmentSignboard: "NC Department Signboard",
+    Da_NCDepartmentSignboard: "Department Signboard",
     Da_PlannedCompletions: "Planned Completions",
     Da_ActualCompletions: "Actual Completions",
     Da_PlannedTime: "Planned Time",
@@ -516,6 +535,12 @@ const en = {
   },
   //通用
   Generality: {
+    Ge_LoadMore: "Load More",
+    Ge_InStationProcess: "In Station Process",
+    Ge_Personnel: "Personnel",
+    Ge_OddNumbers: "Odd Numbers",
+    Ge_Site: "Site",
+    Ge_CreateProductionTask: "CreateProductionTask",
     Ge_SaveEdits: "Save Edits",
     Ge_Chart: "Chart",
     Ge_Gantt: "Gantt",
@@ -933,6 +958,15 @@ const en = {
   },
   //生产
   production: {
+    Pr_Filter: "Filter",
+    Pr_MachineToolOperationProcess:"Machine Tool Operation Process",
+    Pr_receiveRecord: "Receive Record",
+    Pr_received: "Received",
+    Pr_pleaseEnterReceiveNumber: "Please Enter Receive Number",
+    Pr_ToolingNo: "ToolingNo",
+    Pr_Worker: "Worker",
+    Pr_CreationDate1: "CreationDate",
+    Pr_ProgramingProcess: "Programing Process",
     Pr_ReportedDate: "ReportedDate",
     Pr_DeletedData: "Deleted Data",
     Pr_StaleWorkOrder: "Stale Order",
@@ -1003,7 +1037,7 @@ const en = {
     Pr_PleaseEnterEmployeeInfo: "Please enter employee info",
     Pr_PleaseSelectDevice: "Please select device",
     Pr_PleaseEnterWorkSheetInfo: "Please enter work sheet info",
-    Pr_WorkSheetNo: "Work Sheet No.",
+    Pr_WorkSheetNo: "Work Sheet No",
     Pr_EditDeliveryDate: "Edit delivery date",
     Pr_PlanningDevices: "Planning devices",
     Pr_MaximumNumberOfWorkSheet: "Maximum number of work sheet",
@@ -1058,6 +1092,10 @@ const en = {
     Pr_HoursSummary: "Hours summary",
     Pr_IsOverstep: "Is Overstep",
     Pr_ConfirmToDelete: "Are you sure to delete this resource group?",
+    Pr_PleaseEnterTheToolingNo: "Please Enter The ToolingNo",
+    Pr_PleaseEnterThePartNo: "Please Enter The PartNo",
+    Pr_PleaseEnterTheBillId: "Please Enter The BillId",
+    Pr_PleaseSelectTheWorker: "Please Select The Worker",
   },
   quality: {
     Qc_CheckResult: "Check result",
@@ -1346,10 +1384,16 @@ const en = {
     P10195:
       "The quantity that can be delivery is less than the current quantity",
     P10196: "Returnable quantity is less than the current quantity",
+    P10197: "The previous process was not inspected",
+    P10198: "The query criteria cannot be empty ",
+    P10199: "Obtaining successful rows",
+    P10200: "Time anomaly",
   },
   program: {
     Pr_ProcessPlanning: "Process planning",
     Pr_CAMTaskRecord: "CAM task record",
+    Pr_Receive: "Receive",
+    Pr_ReceiveConfirm: "Confirm to Receive?",
   },
   dashboard: {
     Da_ECNThisMonth: "ECN this month",
@@ -1421,7 +1465,11 @@ const en = {
       "Aps urgent bill process lead time coefficient",
     Aps_extra_urgent_bill_process_lead_time_coefficient:
       "Aps extra urgent bill process lead time coefficient",
-      Message_notification_configuration:"Message notification configuration"
+      Message_notification_configuration:"Message notification configuration",
+    User_default_navigation_bar:"Default navigation bar",
+    Default_navigation_bar_configuration:"Default navigation bar configuration",
+    ERP_inventory_category_configuration:"ERP inventory category configuration",
+    User_device_configuration:"User device configuration",
   },
   ...enLocale,
 };

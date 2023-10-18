@@ -150,6 +150,7 @@ function doEdit(params, $el) {
 }
 
 function doCopy(params, $el) {
+  console.log($el)
   return function () {
     // console.log($el.editRouteName);
     router.push({

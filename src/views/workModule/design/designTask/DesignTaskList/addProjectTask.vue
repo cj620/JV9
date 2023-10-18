@@ -83,6 +83,7 @@ import {
 } from "@/api/workApi/project/baseData";
 import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import { project_task_save_item } from "@/api/workApi/project/projectTask";
+import { production_programing_task_edit } from "@/api/workApi/project/projectTask";
 export default {
   name: "addProjectTask",
   data() {
@@ -213,10 +214,17 @@ export default {
     confirmAddProject() {
       this.formObj.validate((valid) => {
         if (valid) {
-          project_task_save_item([this.formObj.form]).then((res) => {
-            console.log(res);
-            this.$emit("confirmData", false);
-          });
+          if (this.$route.name === 'Pa_ProgramProducingTaskList'){
+            production_programing_task_edit([this.formObj.form]).then((res) => {
+              console.log(res);
+              this.$emit("confirmData", false);
+            });
+          }else {
+            project_task_save_item([this.formObj.form]).then((res) => {
+              console.log(res);
+              this.$emit("confirmData", false);
+            });
+          }
         }
       });
     },

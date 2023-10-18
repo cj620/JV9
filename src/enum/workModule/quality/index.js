@@ -49,14 +49,14 @@ export const FinishedProductCheckType = {
   },
 };
 export const ProcessingResult = {
-  //   Normal 正常
+  //   Qualified 合格
   // Rework 返工
   // Scrap 报废
   // AcceptOnDeviation 特采
 
-  Normal: {
-    name: i18n.t("production.Pr_Normal"),
-    value: "Normal",
+  Qualified: {
+    name: '合格',
+    value: "Qualified",
   },
   // 返工
   Rework: {

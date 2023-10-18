@@ -398,6 +398,9 @@ export default {
         // console.log(val, this.isEdit, 8989);
         if (this.isEdit) {
           this.form[this.cdata.prop].value = val;
+          if(this.cdata.rowChange){
+            this.cdata.rowChange(val, this.form);
+          }
         } else {
           console.log(this.treeSyncData, val, "lllll");
           // 获取当前选项

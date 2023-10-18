@@ -96,4 +96,20 @@ export const formSchema = [
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_PostTimeOfProcess"),
   },
+  // 是否强制校验
+  {
+    prop: "IsCompulsoryInspection",
+    label: i18n.t("setup.IsCompulsoryInspection"),
+    cpn: "FormSingleCheckBox",
+    options: {
+      CheckBoxlabel: ''
+    }
+  },
+  // 加工工艺
+  {
+    prop: "ProgramingProcess",
+    cpn: "FormSelect",
+    label: i18n.t("production.Pr_ProgramingProcess"),
+    custom: true,
+  },
 ];

@@ -49,3 +49,19 @@ export function checkPurchaseOutsourcingrRequirement(data) {
     data,
   });
 }
+// 处理委外需求
+export function handlePurchaseOutsourcingRequirement(data){
+  return request({
+    url: "./purchase_outsourcing_requirement/handle",
+    method: "post",
+    data
+  })
+}
+// 完成委外需求
+export function completedPurchaseOutsourcingRequirement(data){
+  return request({
+    url: "./purchase_outsourcing_requirement/completed",
+    method: "post",
+    data
+  })
+}

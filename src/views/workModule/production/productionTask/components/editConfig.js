@@ -6,6 +6,7 @@
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { ProcessState } from "@/enum/workModule";
+import { getAllProcess } from "@/api/workApi/production/baseData";
 
 export class EditTable extends BaseTable {
   constructor() {
@@ -69,6 +70,35 @@ export const tableConfig = [
     custom: true,
     formCpn: "customFormSelect",
     options: {},
+  },
+  /*是否强制校验*/
+  {
+    prop: "IsCompulsoryInspection",
+    label: i18n.t("setup.IsCompulsoryInspection"),
+    custom: true,
+    editConfig: {
+      disabled: true,
+    },
+  },
+  //   编程工艺
+  {
+    prop: "ProgramingProcess",
+    label: i18n.t("production.Pr_ProgramingProcess"),
+    formCpn: "SyncSelect",
+    api: getAllProcess,
+    apiOptions: {
+      immediate: true,
+      keyName: "Process",
+      valueName: "Process",
+    }
+  },
+  /*编程预计工时*/
+  {
+    prop: "ProgramingPlanTime",
+    label: '编程预计工时',
+    formCpn: "FormInput",
+    type: "number",
+    width: "140px",
   },
   /*资源组*/
   {

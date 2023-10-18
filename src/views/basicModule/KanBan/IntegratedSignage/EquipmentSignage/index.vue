@@ -2,7 +2,9 @@
   <dv-full-screen-container>
     <div class="Equipment-signage">
       <div class="Equipment-signage-header">
-        <div class="Equipment-signage-header-left">LOGO</div>
+        <div class="Equipment-signage-header-left">
+          <img src="../logo.png" alt="">
+        </div>
         <div class="Equipment-signage-header-center">
           {{ $t("DataV.Da_EquipmentSignage") }}
         </div>
@@ -184,6 +186,12 @@ export default {
       box-sizing: border-box;
       z-index: 1;
       width: 200px;
+      position: relative;
+      img{
+        width: 100%;
+        position: absolute;
+        bottom: -6px;
+      }
     }
     &-right {
       height: 100%;

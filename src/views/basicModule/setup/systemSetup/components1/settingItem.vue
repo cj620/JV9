@@ -85,6 +85,7 @@ export default {
         item.ConfigValueType === "String" ||
         item.ConfigValueType === "Number" ||
         item.ConfigValueType === "StringArray" ||
+        item.ConfigValueType === "StringSelect" ||
         item.ConfigValueType === "NumberArray"
       );
     },
@@ -105,8 +106,10 @@ export default {
             item.ConfigKey
           )
         ) {
-          this.formObj.ConfigValue = JSON.parse(item.ConfigValue);
+			console.log(1)
+			this.formObj.ConfigValue = JSON.parse(item.ConfigValue);
         } else {
+			console.log(2)
           // input框类型或者单选下拉框类型
           this.formObj.ConfigValue = JSON.parse(item.ConfigValue).toString();
         }
@@ -136,7 +139,7 @@ export default {
       const configType = this.curConfig.ConfigValueType;
       return configType === "StringArray" || configType === "NumberArray"
         ? JSON.stringify(
-            ["UserStation", "DesignUsers", "ProgramUsers",'ProhibitSkipStationProcesses'].includes(
+            ["UserStation", "DesignUsers", "ProgramUsers",'ProhibitSkipStationProcesses',"UserDefaultNavigationBar"].includes(
               this.curConfig.ConfigKey
             )
               ? this.formObj.ConfigValue

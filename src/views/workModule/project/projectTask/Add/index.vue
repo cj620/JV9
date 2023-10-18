@@ -41,36 +41,32 @@
         </Action>
       </div>
       <JvEditTable :tableObj="M_TableObj">
- <template #Worker="{ formBlur,row , cdata }">
-   <span v-if="row[cdata.prop].edit">
-
- <el-select
-            v-model="row.Worker.value"
-            style="width: 100%"
-            filterable
-            allow-create
-            size='mini'
-            :id="getPrefixId"
-            default-first-option
-            @visible-change="changeValue($event, row,formBlur)"
-            
-          >
-            <el-option
-              v-for="item in WorkerList"
-              :key="item.UserId"
-              :label="item.UserName"
-              :value="item.UserName "
+        <template #Worker="{ formBlur, row, cdata }">
+          <span v-if="row[cdata.prop].edit">
+            <el-select
+              v-model="row.Worker.value"
+              style="width: 100%"
+              filterable
+              allow-create
+              size="mini"
+              :id="getPrefixId"
+              default-first-option
+              @visible-change="changeValue($event, row, formBlur)"
             >
-            </el-option>
-             </el-select>
-   </span>
-  
-     <span v-else style="line-height: 28px">
-       {{row[cdata.prop].value}}
-       </span>
-           
-        </template>
+              <el-option
+                v-for="item in WorkerList"
+                :key="item.UserId"
+                :label="item.UserName"
+                :value="item.UserName"
+              >
+              </el-option>
+            </el-select>
+          </span>
 
+          <span v-else style="line-height: 28px">
+            {{ row[cdata.prop].value }}
+          </span>
+        </template>
 
         <template #operation="{ row_index }">
           <TableAction
@@ -125,7 +121,7 @@
 
 <script>
 import { formSchema } from "./formConfig";
-import { M_EditTable } from "./editConfig";
+import { M_EditTable, getRowIndex } from "./editConfig";
 import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
@@ -142,6 +138,7 @@ import { API as ProjectTask } from "@/api/workApi/project/projectTask";
 import { getAllProjectProcess } from "@/api/workApi/project/baseData";
 import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import closeTag from "@/utils/closeTag";
+import countEndDate from '@/jv_doc/utils/time/countEndDate';
 import {
   pushDoubleCol,
   insertDoubleCol,
@@ -166,14 +163,14 @@ export default {
   data() {
     return {
       cur_Id: this.$route.query.BillId,
-       dom_obj: new CellDom(),
+      dom_obj: new CellDom(),
       formObj: {},
       // 材料费用
       M_TableObj: {},
-      prefix:'',
+      prefix: "",
       detailRouteName: "Pm_ProjectTask_Detail",
       fileBillId: this.$route.query.BillId,
-      WorkerList:[],
+      WorkerList: [],
       ruleForm: {
         TaskType: 0,
         ToolingNo: "",
@@ -192,7 +189,7 @@ export default {
         Worker: "",
         PlanTime: 1,
         PlanStart: "",
-        BelongingDepartment:'',
+        BelongingDepartment: "",
         PlanEnd: "",
         Remarks: "",
         Progress: 0,
@@ -226,8 +223,8 @@ export default {
       return this.cur_Id ? `:  ${this.cur_Id}` : "";
     },
 
-     getPrefixId() {
-      return 'edit-form-item';
+    getPrefixId() {
+      return "edit-form-item";
     },
   },
   async created() {
@@ -246,9 +243,7 @@ export default {
     Object.assign(this.formObj.form, this.$route.params);
   },
   methods: {
-    test(e){
-
-
+    test(e) {
       console.log(e);
     },
     // 新增编辑行
@@ -291,29 +286,27 @@ export default {
       target.delItem(index);
     },
 
-  dataFilter() {
+    dataFilter() {
       return (type = "default", data) => {
         return filterMaps[type].func(data);
       };
     },
-//根据部门查找部门人员
-    changeValue(e,row,cb ){
-      console.log(e,row,row.BelongingDepartment);
-      if(e){
-
-get_by_department({Department:row.BelongingDepartment.value}).then(res=>{
-  console.log(res.Items);
-  this.WorkerList= res.Items
-})
-
-      }else{
-
-cb()
-this.prefix = ''
-
+    //根据部门查找部门人员
+    changeValue(e, row, cb) {
+      console.log(e, row, row.BelongingDepartment);
+      if (e) {
+        get_by_department({ Department: row.BelongingDepartment.value }).then(
+          (res) => {
+            console.log(res.Items);
+            this.WorkerList = res.Items;
+          }
+        );
+      } else {
+        cb();
+        this.prefix = "";
       }
 
-      console.log(e,row );
+      console.log(e, row, 5201314);
     },
     addItem(index, target) {
       let empty_row = target.getEmptyRow();
@@ -364,8 +357,8 @@ this.prefix = ''
   },
   watch: {
     "M_TableObj.tableData": {
-      handler(newV) {
-        newV.forEach((item) => {
+      handler(newV, oldV) {
+        newV.forEach((item, i) => {
           if (parseInt(item.PlanTime.value) < 0) {
             item.PlanTime.value = "0";
             this.$message.warning(
@@ -373,6 +366,15 @@ this.prefix = ''
             );
             return;
           }
+
+          if(i > getRowIndex() && getRowIndex() !== null) {
+            newV[i].PlanStart.value = newV[getRowIndex()].PlanEnd.value;
+            newV[i].PlanEnd.value = newV[getRowIndex()].PlanEnd.value;
+          }
+          // newV[getRowIndex()].
+          // console.log()
+          // item.PlanEnd.value =  countEndDate(item.PlanStart.value, Number(item.PlanTime.value))
+
         });
       },
       deep: true,

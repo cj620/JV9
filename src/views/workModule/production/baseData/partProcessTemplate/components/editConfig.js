@@ -12,6 +12,7 @@
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
+import { getAllProcess } from "@/api/workApi/production/baseData";
 
 export class EditTable extends BaseTable {
   constructor() {
@@ -62,7 +63,36 @@ export const tableConfig = [
       disabled: true,
     },
   },
-  /*工序图片*/
+  /*是否强制校验*/
+  {
+    prop: "IsCompulsoryInspection",
+    label: i18n.t("setup.IsCompulsoryInspection"),
+    custom: true,
+    editConfig: {
+      disabled: true,
+    },
+  },
+  //   编程工艺
+  {
+    prop: "ProgramingProcess",
+    label: i18n.t("production.Pr_ProgramingProcess"),
+    formCpn: "SyncSelect",
+    api: getAllProcess,
+    apiOptions: {
+      immediate: true,
+      keyName: "Process",
+      valueName: "Process",
+    }
+  },
+  /*编程预计工时*/
+  {
+    prop: "ProgramingPlanTime",
+    label: '编程预计工时',
+    formCpn: "FormInput",
+    type: "number",
+    width: "140px",
+  },
+  /*备注*/
   {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),

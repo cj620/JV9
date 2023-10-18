@@ -42,7 +42,7 @@ export default {
   created() {
     // 创建表格实例
     this.tableObj = new Table();
-    this.tableObj.getData();
+    this.tableObj.getData({ Category: 0 });
   },
 };
 </script>

@@ -32,3 +32,35 @@ export function site_collection_inspection_arrival(data) {
     data,
   });
 }
+//编辑工时报工
+export function site_collection_programing_time_collection(data){
+  return request({
+    url: "/site_collection/programing_time_collection",
+    method: "post",
+    data,
+  })
+}
+// 报工记录报表
+export function site_collection_production_task_record(data){
+  return request({
+    url: "/site_collection/production_task_record",
+    method: "post",
+    data,
+  })
+}
+// 车间工作列表
+export function site_collection_workshop_work_list(data){
+  return request({
+    url: "/site_collection/workshop_work_list",
+    method: "post",
+    data,
+  })
+}
+//车间工作待入站列表
+export function site_collection_workshop_pending_list(data){
+  return request({
+    url: "/site_collection/workshop_pending_ntry_list",
+    method: "post",
+    data,
+  })
+}

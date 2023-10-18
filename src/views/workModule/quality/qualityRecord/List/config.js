@@ -7,6 +7,8 @@
 
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getCheckRecord } from "@/api/workApi/quality/checkRecord";
+import { enumFilter } from '~/utils/system/enumsPlugin'
+import { CheckResulteEnum, ProcessCheckTypeEnum, ProcessingResult } from '@/enum/workModule'
 
 export class api extends TableAPI {
   getData = getCheckRecord;
@@ -70,7 +72,14 @@ export const tableConfig = [
     prop: "CheckResult",
     label: i18n.t("quality.Qc_CheckResult"),
     width: "120",
-    custom: true,
+    customFilter: (value) => enumFilter(value, ProcessingResult),
+  },
+  /*检验结果*/
+  {
+    prop: "CheckState",
+    label: '检验状态',
+    width: "120",
+    customFilter: (value) => enumFilter(value, CheckResulteEnum),
   },
   /*日期*/
   {

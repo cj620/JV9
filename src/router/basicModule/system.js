@@ -228,7 +228,7 @@ const system = [
     path: "se_AuditFlowSetup",
     title: i18n.t("Generality.Ge_Approve"),
   },
-  // 审核人配置
+  // 工作台
   {
     key: "Se_Desk",
     component: () => import("@/views/basicModule/system/desk"),
@@ -258,14 +258,15 @@ const system = [
     component: () => import("@/views/basicModule/OA"),
     title: "审核配置",
   },
-  {
-    key: "Se_ErrorPrompt",
-    path: "Se_ErrorPrompt",
-    name: "Se_ErrorPrompt",
-    Parent: "Se_Setup",
-    component: () => import("@/views/basicModule/setup/errorPrompt"),
-    title: i18n.t("menu.Se_ErrorPrompt"),
-  },
+    // 报错项
+  // {
+  //   key: "Se_ErrorPrompt",
+  //   path: "Se_ErrorPrompt",
+  //   name: "Se_ErrorPrompt",
+  //   Parent: "Se_Setup",
+  //   component: () => import("@/views/basicModule/setup/errorPrompt"),
+  //   title: i18n.t("menu.Se_ErrorPrompt"),
+  // },
   /*  // 模具进度看板
   {
     key: "Se_MoldProgressKanban",

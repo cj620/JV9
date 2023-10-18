@@ -10,7 +10,16 @@
 import zhLocale from "element-ui/lib/locale/lang/zh-CN";
 const cn = {
   menu: {
+    Pr_MyTasks: "我的任务",
+    Pr_ScanCodeToEnterTheStation: "扫码进站",
+    Pr_ScanCodeToStartWork: "扫码开工",
+    Pr_ScanCodeCompletion: "扫码完工",
+    Pr_ToBeStarted: "待开工",
+    Pr_WorkReportRecords: "报工记录",
+    Pr_OnSiteOperations: "现场作业",
+    Login: "登录",
     Se_ErrorPrompt: "报错提示项",
+    Automation: "自动化",
     CustomSammaryManage:'自定义汇总',
     PoleStock:'电极库位',
     ElectorExceptionPost: "电极异常",
@@ -27,6 +36,9 @@ const cn = {
     RfidData: "RFID编号管理",
     BaseData: "基础数据",
     Pa_ProgramTaskList: "编程任务列表",
+    Pa_ProgramProducingTaskList: "编程加工任务列表",
+    Pa_ProgramProducingTaskReport: "加工编程任务报工",
+    Pa_ProgramProducingTaskReportRecord: "加工编程任务报工记录",
     De_DesignTaskList: "设计任务列表",
     De_ProcessTemplate: "工序模板",
     Pu_Supplier: "供应商",
@@ -60,6 +72,7 @@ const cn = {
     De_DesignTask: "设计任务",
     Pa_Program: "编程",
     Pa_ProgramTask: "编程任务",
+    Pa_ProgramProducingTask: "编程加工任务",
     Pa_ElectrodeBom: "电极BOM表",
     Pa_ElectrodeDemand: "电极物料需求",
     Pu_Purchase: "采购",
@@ -78,6 +91,8 @@ const cn = {
     Pr_ProductionDispatch: "生产调度",
     Pr_WorkReport: "生产报工",
     Pr_ProductionPlan: "生产计划",
+    Pr_ProductionFitterReceive: "钳工收料",
+    Pr_ProductionFitterReceiveRecord: "钳工收料记录",
 
     Pr_Reports: "统计报表",
     Pr_ProgramTask: "编程任务",
@@ -159,6 +174,7 @@ const cn = {
     Pro_UpdateDate: "更新日期",
     Pro_CalculationMonth: "结算月份",
     Pro_Worker: "负责人",
+    Pro_Worker1: "创建人",
     Pro_ProcessingProgress: "加工进度",
     Pro_TaskSheetNo: "任务单号",
     Pro_AddProcedure: "增加工序",
@@ -302,6 +318,10 @@ const cn = {
     PrintPreview: "打印预览",
     ConfirmPasswordReset: "是否确认重置密码",
     Preview: "预览",
+    IsCompulsoryInspection: "是否强制检验",
+    IsCompulsoryPrograming: "是否强制编程",
+    CompulsoryInspection: "强制校验",
+    CompulsoryPrograming: "强制编程"
   },
   //销售
   sale: {
@@ -358,6 +378,7 @@ const cn = {
     Pu_RequirementType: "需求类别",
     Pu_PleaseChooseTheNeededSheetFirst: "请先勾选需要添加的单据",
     Pu_Outsourced: "已委外",
+    Pu_ConfirmToHandle: "是否将选中的单据状态改为",
   },
   // 仓库
   stockroom: {
@@ -382,6 +403,7 @@ const cn = {
     De_SearchItem: "搜索物料",
     De_SubmitDemand: "提交物料需求",
     De_InfoLinkage: "同步零件信息",
+    De_StateLinkage: "同步物料状态",
     De_ProcessTemplate: "工序模板",
     De_SetLevel: "设置级别",
     De_DesignTaskRecord: "设计任务记录",
@@ -389,6 +411,8 @@ const cn = {
     De_Allocated: "已分配",
     De_Unallocated: "未分配",
     De_SelectPicking: "选择领料",
+    De_Description2: "描述2",
+    De_MergeItems: "合并物料",
   },
   // 看板 （数据可视化）
   DataV: {
@@ -436,7 +460,7 @@ const cn = {
     Da_ActualCompletion: "实际完成数",
     Da_DailyRatedHours: "日额定工时",
     Da_DailyPlannedHours: "日计划工时",
-    Da_NCDepartmentSignboard: "NC部门看板",
+    Da_NCDepartmentSignboard: "部门看板",
     Da_PlannedCompletions: "计划完成数",
     Da_ActualCompletions: "实际完成数",
     Da_PlannedTime: "计划工时",
@@ -526,6 +550,12 @@ const cn = {
   },
   //通用
   Generality: {
+    Ge_LoadMore: "加载更多",
+    Ge_InStationProcess: "在站工序",
+    Ge_Personnel: "人员",
+    Ge_OddNumbers: "单号",
+    Ge_Site: "站点",
+    Ge_CreateProductionTask: "创建生产任务",
     Ge_SaveEdits: "保存编辑",
     Ge_Chart: "图表",
     Ge_Gantt: "甘特图",
@@ -936,6 +966,15 @@ const cn = {
   },
   //生产
   production: {
+    Pr_Filter: "过滤",
+    Pr_MachineToolOperationProcess:"机床作业工序",
+    Pr_receiveRecord: "收料记录",
+    Pr_received: "已收料",
+    Pr_pleaseEnterReceiveNumber: "请输入收料数量",
+    Pr_ToolingNo: "产品号",
+    Pr_Worker: "收料人",
+    Pr_CreationDate1: "收料时间",
+    Pr_ProgramingProcess: "编程工艺",
     Pr_ReportedDate: "报工日期",
     Pr_DeletedData: "已删除数据",
     Pr_StaleWorkOrder: "陈旧工单",
@@ -1060,6 +1099,10 @@ const cn = {
     Pr_HoursSummary: "工时汇总",
     Pr_IsOverstep: "是否超出时间段",
     Pr_ConfirmToDelete: "确定删除此资源组?",
+    Pr_PleaseEnterTheToolingNo: "请输入模具编号",
+    Pr_PleaseEnterThePartNo: "请输入零件编号",
+    Pr_PleaseEnterTheBillId: "请输入加工单号",
+    Pr_PleaseSelectTheWorker: "请选择作业员",
   },
   quality: {
     Qc_CheckResult: "检验结果",
@@ -1339,10 +1382,21 @@ const cn = {
     P10194: "可入库数量小于当前数量",
     P10195: "可发货数量小于当前数量",
     P10196: "可退货数量小于当前数量",
+    P10197: "上一道工序未质检! ",
+    P10198: "查询条件不能为空! ",
+    P10199: "获取成功行数! ",
+    P10200: "时间异常! ",
   },
   program: {
     Pr_ProcessPlanning: "工艺设计",
     Pr_CAMTaskRecord: "编程任务记录",
+    Pr_Receive: "领用",
+    Pr_ReceiveConfirm: "是否确定领用",
+    Pr_ProcessTaskCode: "任务工序代码",
+    Pr_CreationDate: "创建时间",
+    Pr_ProgramingTaskId: "生产加工编程任务单号",
+    Pr_ActualStart: "实际开始时间",
+    Pr_ActualEnd: "实际结束时间",
   },
   dashboard: {
     Da_ECNThisMonth: "本月设变",
@@ -1408,7 +1462,11 @@ const cn = {
       "自动排程紧急工单工序前置时间系数",
     Aps_extra_urgent_bill_process_lead_time_coefficient:
       "自动排程特急工单工序前置时间系数",
-      Message_notification_configuration:"消息通知配置"
+      Message_notification_configuration:"消息通知配置",
+    User_default_navigation_bar:"默认导航栏",
+    Default_navigation_bar_configuration:"默认导航栏菜单",
+    ERP_inventory_category_configuration:"ERP编码规则",
+    User_device_configuration:"用户设备配置",
   },
 
   ...zhLocale,
