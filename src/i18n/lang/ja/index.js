@@ -317,6 +317,7 @@ const ja = {
     PrintPreview: "印刷プレビュー",
     ConfirmPasswordReset: "パスワードのリセットを確認するか",
     Preview: "プレビュー",
+    IsCompulsoryInspection: "検査を強制するかどうか",
   },
   //销售
   sale: {
