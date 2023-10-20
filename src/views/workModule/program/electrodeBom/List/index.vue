@@ -494,7 +494,8 @@ var saveData ={
     },
     //同步物料状态
     synchronizeState() {
-      synchronize_material_state(this.eTableObj.tableData).then((res) => {
+      let arr = this.eTableObj.getTableData()
+      synchronize_material_state(arr).then((res) => {
         this.getData();
       })
     },
