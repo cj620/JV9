@@ -1397,6 +1397,10 @@ const en = {
     Pr_CAMTaskRecord: "CAM task record",
     Pr_Receive: "Receive",
     Pr_ReceiveConfirm: "Confirm to Receive?",
+    Pr_ElectrodeDescription1: "Material (precision)",
+    Pr_ElectrodeDescription2: "Material (rough)",
+    Pr_ElectrodeDescription3: "Material (medium)",
+    Pr_AssociationPartNo: "AssociationPartNo",
   },
   dashboard: {
     Da_ECNThisMonth: "ECN this month",

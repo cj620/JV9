@@ -1402,6 +1402,10 @@ const cn = {
     Pr_ProgramingTaskId: "生产加工编程任务单号",
     Pr_ActualStart: "实际开始时间",
     Pr_ActualEnd: "实际结束时间",
+    Pr_ElectrodeDescription1: "材质(精)",
+    Pr_ElectrodeDescription2: "材质(粗)",
+    Pr_ElectrodeDescription3: "材质(中)",
+    Pr_AssociationPartNo: "电极关联零件",
   },
   dashboard: {
     Da_ECNThisMonth: "本月设变",

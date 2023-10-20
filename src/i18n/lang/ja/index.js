@@ -1385,6 +1385,10 @@ const ja = {
     Pr_CAMTaskRecord: "プログラミングタスクレコード",
     Pr_Receive: "もらう",
     Pr_ReceiveConfirm: "受領確認していますか",
+    Pr_ElectrodeDescription1: "マテリアル（正確）",
+    Pr_ElectrodeDescription2: "マテリアル（粗い）",
+    Pr_ElectrodeDescription3: "マテリアル（中）",
+    Pr_AssociationPartNo: "電極関連部品",
   },
   dashboard: {
     Da_ECNThisMonth: "今月中に変更する",

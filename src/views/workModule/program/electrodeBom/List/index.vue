@@ -296,8 +296,10 @@ export default {
         ToolingNo: "",
         Creator: "",
         CreationDate: "",
-                MaterialRequirementState:'',
-
+        MaterialRequirementState:'',
+        ElectrodeDescription1: '',
+        ElectrodeDescription2: '',
+        ElectrodeDescription3: '',
         Remarks: "",
       },
       exportTemplate: [
