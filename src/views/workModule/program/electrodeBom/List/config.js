@@ -69,7 +69,12 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_Describe"),
     formCpn: "FormInput",
   },
-
+  /*描述*/
+  {
+    prop: "Description2",
+    label: i18n.t("design.De_Description2"),
+    formCpn: "FormInput",
+  },
   /*单位*/
   {
     prop: "Unit",
@@ -161,24 +166,32 @@ export const tableConfig = [
   {
     prop: "AssociationPartNo",
     label: i18n.t("program.Pr_AssociationPartNo"),
-    formCpn: "FormInput"
+    editConfig: {
+      disabled: true,
+    },
   },
   {
     //材质（精）
     prop: "ElectrodeDescription1",
     label: i18n.t("program.Pr_ElectrodeDescription1"),
-    formCpn: "FormInput",
+    editConfig: {
+      disabled: true,
+    },
   },
   {
     //材质（精）
     prop: "ElectrodeDescription2",
     label: i18n.t("program.Pr_ElectrodeDescription2"),
-    formCpn: "FormInput",
+    editConfig: {
+      disabled: true,
+    },
   },
   {
     //材质（精）
     prop: "ElectrodeDescription3",
     label: i18n.t("program.Pr_ElectrodeDescription3"),
-    formCpn: "FormInput",
+    editConfig: {
+      disabled: true,
+    },
   }
 ];

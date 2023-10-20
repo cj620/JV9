@@ -656,26 +656,22 @@ var saveData ={
     },
        //确定导入的数据
     confirmImportData(){
-
-
       if(this.importTableObj.selectData.datas.length>0){
-       var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
-     console.log(arr)
- var Boms = temMerge(
-        this.saveData,
-        this.mixinToolId(arr)
-      );
-      var saveData ={
-  ToolingNo:this.toolId,
-  Boms
-}
-     console.log(saveData)
-            savePartBom(saveData).then((res) => {
-              this.getData();
-              this.importDialogFormVisible = false
-            });
-
-
+        var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
+        console.log(arr)
+        var Boms = temMerge(
+          this.saveData,
+          this.mixinToolId(arr)
+        );
+        var saveData ={
+          ToolingNo:this.toolId,
+          Boms
+        }
+        console.log(saveData)
+        savePoleBom(saveData).then((res) => {
+          this.getData();
+          this.importDialogFormVisible = false
+        });
       }else{
         this.$message.error(this.$t("Generality.Ge_PleaseAddData"));
 

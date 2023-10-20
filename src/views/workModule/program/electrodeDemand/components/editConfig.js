@@ -77,25 +77,33 @@ export const tableConfig = [
     // 电极关联零件
     prop: "AssociationPartNo",
     label: i18n.t("program.Pr_AssociationPartNo"),
-    formCpn: "FormInput"
+    editConfig: {
+      disabled: true,
+    },
   },
   {
     //材质（精）
     prop: "ElectrodeDescription1",
     label: i18n.t("program.Pr_ElectrodeDescription1"),
-    formCpn: "FormInput",
+    editConfig: {
+      disabled: true,
+    },
   },
   {
     //材质（精）
     prop: "ElectrodeDescription2",
     label: i18n.t("program.Pr_ElectrodeDescription2"),
-    formCpn: "FormInput",
+    editConfig: {
+      disabled: true,
+    },
   },
   {
     //材质（精）
     prop: "ElectrodeDescription3",
     label: i18n.t("program.Pr_ElectrodeDescription3"),
-    formCpn: "FormInput",
+    editConfig: {
+      disabled: true,
+    },
   },
   /*备注*/
   {
