@@ -93,21 +93,6 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
   },
-  {
-    //材质（精）
-    prop: "ElectrodeDescription1",
-    label: i18n.t("program.Pr_ElectrodeDescription1"),
-  },
-  {
-    //材质（精）
-    prop: "ElectrodeDescription2",
-    label: i18n.t("program.Pr_ElectrodeDescription2"),
-  },
-  {
-    //材质（精）
-    prop: "ElectrodeDescription3",
-    label: i18n.t("program.Pr_ElectrodeDescription3"),
-  }
 ]
 // 表单配置
 export const formSchema = [
