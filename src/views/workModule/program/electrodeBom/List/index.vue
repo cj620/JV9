@@ -436,9 +436,9 @@ export default {
       this.eTableObj.insert(index, targetList);
     },
     l_delete(row, index) {
-      this.eTableObj.delItem(index);
+      this.eTableObj.delItem(row);
     },
-        i_delete(row, index) {
+    i_delete(row, index) {
       this.importTableObj.delItem(index);
     },
     l_save() {
