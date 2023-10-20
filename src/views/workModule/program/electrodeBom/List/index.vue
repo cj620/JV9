@@ -336,6 +336,26 @@ export default {
           prop: "Remarks",
           label: this.$t("Generality.Ge_Remarks"),
         },
+        {
+          // 电极关联零件
+          prop: "AssociationPartNo",
+          label: this.$t("program.Pr_AssociationPartNo"),
+        },
+        {
+          //材质（精）
+          prop: "ElectrodeDescription1",
+          label: this.$t("program.Pr_ElectrodeDescription1"),
+        },
+        {
+          //材质（精）
+          prop: "ElectrodeDescription2",
+          label: this.$t("program.Pr_ElectrodeDescription2"),
+        },
+        {
+          //材质（精）
+          prop: "ElectrodeDescription3",
+          label: this.$t("program.Pr_ElectrodeDescription3"),
+        },
       ],
       exportTemplateData: {
         checkData: [],
