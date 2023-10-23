@@ -325,6 +325,7 @@ const cn = {
   },
   //销售
   sale: {
+    Sa_Bill: "订单",
     Sa_DownTime: "停机时间",
     Sa_TotalAvailableTime: "可用时间",
     Sa_PlannedLoad: "计划负荷",
@@ -395,6 +396,8 @@ const cn = {
     St_Split: "拆分",
   },
   design: {
+    De_ToolingNo: "零件号",
+    De_ProductVersion: "零件版本",
     De_ShowInProjectManagementPage: "在项目管理页面展示",
     De_DoesnShowInProjectManagementPage: "在项目管理页面不展示",
     De_DownloadTemplate: "下载导入模板",
@@ -966,6 +969,8 @@ const cn = {
   },
   //生产
   production: {
+    Pr_DeletedBy: "删除人",
+    Pr_DeleteTime: "删除时间",
     Pr_Filter: "过滤",
     Pr_MachineToolOperationProcess:"机床作业工序",
     Pr_receiveRecord: "收料记录",
@@ -1397,6 +1402,10 @@ const cn = {
     Pr_ProgramingTaskId: "生产加工编程任务单号",
     Pr_ActualStart: "实际开始时间",
     Pr_ActualEnd: "实际结束时间",
+    Pr_ElectrodeDescription1: "材质(精)",
+    Pr_ElectrodeDescription2: "材质(粗)",
+    Pr_ElectrodeDescription3: "材质(中)",
+    Pr_AssociationPartNo: "电极关联零件",
   },
   dashboard: {
     Da_ECNThisMonth: "本月设变",

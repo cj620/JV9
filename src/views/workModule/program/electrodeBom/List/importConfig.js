@@ -24,7 +24,7 @@ export class importEditTable extends BaseTable {
 }
 
 export const tableConfig = [
- 
+
   /*编号*/
   {
     prop: "PartNo",
@@ -96,6 +96,30 @@ export const tableConfig = [
       colInit: true,
     },
   },
+  {
+    // 电极关联零件
+    prop: "AssociationPartNo",
+    label: i18n.t("program.Pr_AssociationPartNo"),
+    formCpn: "FormInput",
+  },
+  {
+    //材质（精）
+    prop: "ElectrodeDescription1",
+    label: i18n.t("program.Pr_ElectrodeDescription1"),
+    formCpn: "FormInput",
+  },
+  {
+    //材质（精）
+    prop: "ElectrodeDescription2",
+    label: i18n.t("program.Pr_ElectrodeDescription2"),
+    formCpn: "FormInput",
+  },
+  {
+    //材质（精）
+    prop: "ElectrodeDescription3",
+    label: i18n.t("program.Pr_ElectrodeDescription3"),
+    formCpn: "FormInput",
+  },
   /*备注*/
   {
     prop: "Remarks",
@@ -103,7 +127,7 @@ export const tableConfig = [
     formCpn: "FormInput",
     width: 80,
   },
-  
-  
-  
+
+
+
 ];

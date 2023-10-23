@@ -289,6 +289,7 @@ export default {
         PartName: "",
         ItemId: "",
         Description: "",
+        Description2: "",
         PartLevel: 1,
         Quantity: 0,
         BOMType: "Electrode",
@@ -296,8 +297,11 @@ export default {
         ToolingNo: "",
         Creator: "",
         CreationDate: "",
-                MaterialRequirementState:'',
-
+        MaterialRequirementState:'',
+        AssociationPartNo: '',
+        ElectrodeDescription1: '',
+        ElectrodeDescription2: '',
+        ElectrodeDescription3: '',
         Remarks: "",
       },
       exportTemplate: [
@@ -331,6 +335,26 @@ export default {
         {
           prop: "Remarks",
           label: this.$t("Generality.Ge_Remarks"),
+        },
+        {
+          // 电极关联零件
+          prop: "AssociationPartNo",
+          label: this.$t("program.Pr_AssociationPartNo"),
+        },
+        {
+          //材质（精）
+          prop: "ElectrodeDescription1",
+          label: this.$t("program.Pr_ElectrodeDescription1"),
+        },
+        {
+          //材质（精）
+          prop: "ElectrodeDescription2",
+          label: this.$t("program.Pr_ElectrodeDescription2"),
+        },
+        {
+          //材质（精）
+          prop: "ElectrodeDescription3",
+          label: this.$t("program.Pr_ElectrodeDescription3"),
         },
       ],
       exportTemplateData: {
@@ -432,9 +456,9 @@ export default {
       this.eTableObj.insert(index, targetList);
     },
     l_delete(row, index) {
-      this.eTableObj.delItem(index);
+      this.eTableObj.delItem(row);
     },
-        i_delete(row, index) {
+    i_delete(row, index) {
       this.importTableObj.delItem(index);
     },
     l_save() {
@@ -494,7 +518,8 @@ var saveData ={
     },
     //同步物料状态
     synchronizeState() {
-      synchronize_material_state(this.eTableObj.tableData).then((res) => {
+      let arr = this.eTableObj.getTableData()
+      synchronize_material_state(arr).then((res) => {
         this.getData();
       })
     },
@@ -651,26 +676,22 @@ var saveData ={
     },
        //确定导入的数据
     confirmImportData(){
-
-
       if(this.importTableObj.selectData.datas.length>0){
-       var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
-     console.log(arr)
- var Boms = temMerge(
-        this.saveData,
-        this.mixinToolId(arr)
-      );
-      var saveData ={
-  ToolingNo:this.toolId,
-  Boms
-}
-     console.log(saveData)
-            savePartBom(saveData).then((res) => {
-              this.getData();
-              this.importDialogFormVisible = false
-            });
-
-
+        var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
+        console.log(arr)
+        var Boms = temMerge(
+          this.saveData,
+          this.mixinToolId(arr)
+        );
+        var saveData ={
+          ToolingNo:this.toolId,
+          Boms
+        }
+        console.log(saveData)
+        savePoleBom(saveData).then((res) => {
+          this.getData();
+          this.importDialogFormVisible = false
+        });
       }else{
         this.$message.error(this.$t("Generality.Ge_PleaseAddData"));
 

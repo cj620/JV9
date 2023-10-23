@@ -46,6 +46,14 @@ export const tableConfig = [
       disabled:true,
     }
   },
+  /*描述2*/
+  {
+    prop: "Description2",
+    label:i18n.t("design.De_Description2"),
+    editConfig:{
+      disabled:true,
+    }
+  },
   /*单位*/
   {
     prop: "Unit",
@@ -65,7 +73,38 @@ export const tableConfig = [
     type:'number',
     filter: "amount",
   },
-
+  {
+    // 电极关联零件
+    prop: "AssociationPartNo",
+    label: i18n.t("program.Pr_AssociationPartNo"),
+    editConfig: {
+      disabled: true,
+    },
+  },
+  {
+    //材质（精）
+    prop: "ElectrodeDescription1",
+    label: i18n.t("program.Pr_ElectrodeDescription1"),
+    editConfig: {
+      disabled: true,
+    },
+  },
+  {
+    //材质（精）
+    prop: "ElectrodeDescription2",
+    label: i18n.t("program.Pr_ElectrodeDescription2"),
+    editConfig: {
+      disabled: true,
+    },
+  },
+  {
+    //材质（精）
+    prop: "ElectrodeDescription3",
+    label: i18n.t("program.Pr_ElectrodeDescription3"),
+    editConfig: {
+      disabled: true,
+    },
+  },
   /*备注*/
   {
     prop: "Remarks",

@@ -44,29 +44,29 @@ export const tableConfig = [
   //零件号
   {
     prop: "PartNo",
-    label: '零件号',
+    label: i18n.t('design.De_ToolingNo'),
   },
   //创建人
   {
     prop: "Creator",
-    label: '创建人',
+    label: i18n.t('project.Pro_Worker1'),
   },
   //创建时间
   {
     prop: "CreationDate",
-    label: '创建时间',
+    label: i18n.t('program.Pr_CreationDate'),
     filter: "time",
     width:'150px',
   },
   //删除人
   {
     prop: "DeletedBy",
-    label: '删除人',
+    label: i18n.t('production.Pr_DeletedBy'),
   },
   //删除时间
   {
     prop: "DeletedDate",
-    label: '删除时间',
+    label: i18n.t('production.Pr_DeleteTime'),
     filter: "time",
     width:'150px',
   },

@@ -131,17 +131,11 @@ export default {
       const arr = this.tableObj.selectData.datas.map(item => item.Id);
       if (this.dialogTip === 0) {
         handlePurchaseOutsourcingRequirement({ ItemIds: arr }).then(
-          setTimeout(() => {
-              this.tableObj.reset()
-            }
-            ,100)
+          this.tableObj.getData()
         )
       } else if (this.dialogTip === 1){
         completedPurchaseOutsourcingRequirement({ ItemIds: arr }).then(
-          setTimeout(() => {
-              this.tableObj.reset()
-            }
-            ,100)
+          this.tableObj.getData()
         )
       }
       this.confirmDialogShow = false

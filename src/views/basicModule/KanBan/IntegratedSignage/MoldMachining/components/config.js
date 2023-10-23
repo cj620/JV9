@@ -11,27 +11,27 @@ export const tableConfig = [
   /*单号*/
   {
     prop: "BillId",
-    label:'单号',
+    label: i18n.t('Generality.Ge_OddNumbers'),
   },
   /*产品号*/
   {
     prop: "ToolingNo",
-    label:'产品号',
+    label: i18n.t('production.Pr_ToolingNo'),
   },
   /*零件号*/
   {
     prop: "PartNo",
-    label:'零件号',
+    label: i18n.t('design.De_ToolingNo'),
   },
   /*零件名称*/
   {
     prop: "PartName",
-    label:'零件名称',
+    label: i18n.t('Generality.Ge_PartName'),
   },
   /*状态*/
   {
     prop: "State",
-    label:'状态',
+    label: i18n.t('Generality.Ge_State'),
   },
 ]
 

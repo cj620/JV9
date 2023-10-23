@@ -81,10 +81,8 @@ export default {
           this.params.CurrentPage++
           this.getData();
         }
-
       }, time);
     }
-
   },
   beforeDestroy() {
     clearInterval(this.timer);

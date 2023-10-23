@@ -17,8 +17,8 @@
       :actions="btnAction"
       :dropDownActions="[
         {
-          label: '订单',
-          disabled: !this.detailObj.detailData.State === 'Approved',
+          label: $t('sale.Sa_Bill'),
+          disabled: this.detailObj.detailData.State !== 'Approved',
           confirm: orderTransform.bind(
             null,
             'Sa_SaleOrder_Add',
