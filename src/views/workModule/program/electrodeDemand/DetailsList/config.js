@@ -113,21 +113,6 @@ const tableSchema = [
 		width: "115px",
 		customFilter: (value, row) => enumFilter(value, demandStatusEnum),
 	},
-	{
-		//材质（精）
-		prop: "ElectrodeDescription1",
-		label: i18n.t("program.Pr_ElectrodeDescription1"),
-	},
-	{
-		//材质（精）
-		prop: "ElectrodeDescription2",
-		label: i18n.t("program.Pr_ElectrodeDescription2"),
-	},
-	{
-		//材质（精）
-		prop: "ElectrodeDescription3",
-		label: i18n.t("program.Pr_ElectrodeDescription3"),
-	},
 	/*备注*/
 	{
 		prop: "ItemRemarks",
