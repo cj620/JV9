@@ -63,7 +63,6 @@
               :key="item.prop"
               v-bind="{ ...propsAfterHandle(item) }"
               show-overflow-tooltip
-
             >
               <template slot-scope="scope">
                 <slot
@@ -287,9 +286,11 @@ export default {
       }
     },
     formBlur() {
-      console.log(999999);
+      console.log({row: this.dom_obj.o_row, col: this.dom_obj.o_col});
       // this.dom_obj.editBlur();
+      this.$emit('cell-blur', {row: this.dom_obj.o_row, col: this.dom_obj.o_col})
       this.dom_obj.editBlur();
+
     },
     /*    formFocus(e){
       e.currentTarget.select()

@@ -64,7 +64,7 @@ export {
   WorkRecordsStateEnum,
   // 检测结果枚举
   StateEnum,
-  //成品检验枚举
+  //零件成品检验枚举
   ProcessingResult,
   //检验状态枚举
   CheckResulteEnum,
@@ -72,7 +72,7 @@ export {
   QcType,
   //过程检验类型
   ProcessCheckTypeEnum,
-  //成品检验类型
+  //零件成品检验类型
   FinishedProductCheckType,
   // 设备类型
   machineCategoryEnum,

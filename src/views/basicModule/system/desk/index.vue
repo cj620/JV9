@@ -60,8 +60,10 @@
           ]"
         >
         </Action>
-        <template #BillKey="{ record }">
-          {{ $t("menu." + record) }}
+        <template #BillKey="{ record,row }">
+          <span v-if="row.DynamicData==='Part'">{{'零件'}}{{ $t("menu." + record) }}</span>
+          <span v-else-if="row.DynamicData==='Electrode'">{{'电极'}}{{ $t("menu." + record) }}</span>
+          <span v-else>{{ $t("menu." + record) }}</span>
         </template>
         <template #BillId="{ record, row }">
           <el-link type="primary" @click="linkTo(row)">{{ record }}</el-link>
@@ -114,8 +116,10 @@
         <template #AuditState="{ record }">
           <MapBox :state="record" :map="auditEnum"></MapBox>
         </template>
-        <template #BillKey="{ record }">
-          {{ $t("menu." + record) }}
+        <template #BillKey="{ record,row }">
+          <span v-if="row.DynamicData==='Part'">{{'零件'}}{{ $t("menu." + record) }}</span>
+          <span v-else-if="row.DynamicData==='Electrode'">{{'电极'}}{{ $t("menu." + record) }}</span>
+          <span v-else>{{ $t("menu." + record) }}</span>
         </template>
       </JvTable>
     </JvDialog>
@@ -237,7 +241,34 @@ export default {
       });
     },
     linkTo(row) {
-      console.log(`${row.BillKey}_Detail`);
+      if(row.BillKey==='De_PartBomTable'){
+        console.log(1);
+        this.$router.push({
+        name:'ToolingBOM',
+        params: {
+          PartNo: row.DynamicData,
+        },
+      });
+
+      }else if(row.BillKey==='De_MaterialRequirement'){
+        if(row.DynamicData==='Part'){
+          this.$router.push({
+        name:'De_MaterialRequirement_Detail',
+        query: {
+          BillId: row.BillId,
+        },
+      });
+        }else if(row.DynamicData==='Electrode'){
+ this.$router.push({
+        name:'Pa_ElectrodeDemand_Detail',
+        query: {
+          BillId: row.BillId,
+        },
+      });
+        }
+
+      }else{
+        console.log(`${row.BillKey}_Detail`);
       const str =`${row.BillKey}_Detail`
       this.$router.push({
         name:str,
@@ -245,6 +276,8 @@ export default {
           BillId: row.BillId,
         },
       });
+      }
+
     },
   },
   watch: {

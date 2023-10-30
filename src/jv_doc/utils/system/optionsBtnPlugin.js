@@ -20,7 +20,7 @@ const optionsBtnPlugin={
     IsVoid: true,
   },
   //物料需求
-  De_ItemsDemand:{
+  De_MaterialRequirement:{
     //作废
     IsVoid: true,
   },

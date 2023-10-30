@@ -241,7 +241,7 @@ export default {
       } else {
         this.formData = "";
       }
-
+      this.setIsOnBoard();
     },
     setIsOnBoard() {
       if (this.form.UserId === "") {

@@ -41,7 +41,7 @@ export const ProcessCheckTypeEnum = {
     value: "FirstInspection",
   },
 };
-// 成品检验类型
+// 零件成品检验类型
 export const FinishedProductCheckType = {
   FirstInspection: {
     name: i18n.t("quality.Qc_FirstInspection"),
@@ -116,7 +116,7 @@ export const QcType = {
     name: i18n.t("menu.Qc_ProcessCheck"),
     value: "Qc_ProcessCheck",
   },
-  // 成品检验
+  // 零件成品检验
   Qc_FinishedProduct: {
     name: i18n.t("menu.Qc_FinishedProduct"),
     value: "Qc_FinishedProduct",

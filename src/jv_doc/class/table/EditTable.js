@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 11:15:29
- * @LastEditTime: 2022-09-01 11:00:56
+ * @LastEditTime: 2023-10-24 10:12:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \V9_Dev\src\jv_doc\class\table\EditTable.js
@@ -21,6 +21,7 @@ import { insertValidate, checkEditTable } from "../utils/editTableHelp";
 import { uuid } from "@/jv_doc/utils/common";
 import { Message } from "element-ui";
 import { cacheInit } from "../utils/editTableHelp";
+import { deepClone } from "@/jv_doc/utils/object";
 class EditTable {
   // row_disabled_map
   // row_edit_props_map
@@ -35,7 +36,7 @@ class EditTable {
   summaryRowResult = 0;
   constructor(props) {
     this.id = "editTable" + uuid(5);
-    this.initProps(props);
+    this.initProps(deepClone(props));
   }
   // 初始化参数
   initProps = (props) => {

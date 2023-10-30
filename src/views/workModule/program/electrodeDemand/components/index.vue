@@ -109,7 +109,7 @@ export default {
         ToolingNo: "",
         State: "",
         Remarks: "",
-        AssociatedNo: 0,
+        AssociatedNo: "",
         SaveAndSubmit: false,
         BillItems: [],
         BillFiles: [],
@@ -128,9 +128,9 @@ export default {
         Remarks: "",
         PartNo: "",
         AssociationPartNo: '',
-        ElectrodeDescription1: '',
-        ElectrodeDescription2: '',
-        ElectrodeDescription3: '',
+        // ElectrodeDescription1: '',
+        // ElectrodeDescription2: '',
+        // ElectrodeDescription3: '',
       },
     };
   },
@@ -157,12 +157,46 @@ export default {
         item.ItemName = item.PartName;
       });
       this.formObj.form.ToolingNo = this.$route.params.data[0].ToolingNo;
-      this.eTableObj.push(temMerge(this.BillItems, this.$route.params.data));
+      this.$route.params.PmTaskBillId
+          ? (this.formObj.form.PmTaskBillId = this.$route.params.PmTaskBillId)
+          : "";
+      // this.eTableObj.push(temMerge(this.BillItems, this.$route.params.data));
+      this.handleParams(this.$route.params.data)
     }
-    console.log(this.$route.params.data, "传数据过来");
   },
 
   methods: {
+    // 由BOM转至需求时数据处理
+    handleParams(e){
+      e.forEach((item) => {
+        const arr = [
+          {
+            ...item,
+            Description2: item.ElectrodeDescription1,
+            Quantity: item.ElectrodeQuantitySeiko,
+          },
+          {
+            ...item,
+            Description2: item.ElectrodeDescription2,
+            Quantity: item.ElectrodeQuantityRoughWork,
+          },
+          {
+            ...item,
+            Description2: item.ElectrodeDescription3,
+            Quantity: item.ElectrodeQuantityMiddleFinish,
+          }
+        ].filter(obj => obj.Description2 !== "");
+        const result = Object.values(arr.reduce((acc, curr) => {
+          if (acc[curr.Description2]) {
+            acc[curr.Description2].Quantity += curr.Quantity;
+          } else {
+            acc[curr.Description2] = { ...curr };
+          }
+          return acc;
+        }, {}));
+        this.eTableObj.push(temMerge(this.BillItems, result))
+      })
+    },
     //编辑的时候获取信息
     async GetData(Id) {
       await materialRequirement.api_get({ BillId: Id }).then((res) => {
@@ -216,7 +250,7 @@ export default {
                   .then((res) => {
                     let TagName = {
                       path: "/program/electrodeBomDetails",
-                      name: `Pa_ElectrodeDemand_Details`,
+                      name: `Pa_ElectrodeDemand_Detail`,
                       query: { BillId: res },
                       fullPath: "/program/electrodeBomDetails",
                     };

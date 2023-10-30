@@ -73,10 +73,18 @@ export default {
     }
   },
   created() {
+    this.$nextTick(() => {
+      this.$refs.refFocus.$el.querySelector("input").focus();
+    });
     this.tableObj = new Table()
     this.tableObj.getData({ CreationDate: timeFormat(new Date(), "yyyy-MM-dd") })
     getAllUserData().then((res) => {
       this.UserInfo = res.Items
+    })
+    // console.log(this.$store.state.user.userId)
+    getUser({ UserId: this.$store.state.user.userId }).then((res) => {
+          this.UserData.PhotoUrl = res.PhotoUrl;
+          this.UserData.UserName = res.UserName;
     })
   },
   methods: {

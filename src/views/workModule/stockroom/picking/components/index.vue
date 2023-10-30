@@ -74,7 +74,7 @@
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
       <div slot="extra">
         <el-button size="mini" @click="materialRequirements">{{
-          $t("menu.De_ItemsDemand")
+          $t("menu.De_MaterialRequirement")
         }}</el-button>
         <el-button size="mini" @click="selectItems">{{
           $t("Generality.Ge_SelectItems")

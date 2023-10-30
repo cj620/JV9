@@ -109,15 +109,33 @@ export const tableConfig = [
     formCpn: "FormInput",
   },
   {
-    //材质（精）
+    //材质（粗）
     prop: "ElectrodeDescription2",
     label: i18n.t("program.Pr_ElectrodeDescription2"),
     formCpn: "FormInput",
   },
   {
-    //材质（精）
+    //材质（中）
     prop: "ElectrodeDescription3",
     label: i18n.t("program.Pr_ElectrodeDescription3"),
+    formCpn: "FormInput",
+  },
+  {
+    //数量（精）
+    prop: "ElectrodeQuantitySeiko",
+    label: "数量(精)",
+    formCpn: "FormInput",
+  },
+  {
+    //数量（粗）
+    prop: "ElectrodeQuantityRoughWork",
+    label: "数量(粗)",
+    formCpn: "FormInput",
+  },
+  {
+    //数量（中）
+    prop: "ElectrodeQuantityMiddleFinish",
+    label: "数量(中)",
     formCpn: "FormInput",
   },
   /*备注*/

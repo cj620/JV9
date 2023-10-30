@@ -60,7 +60,7 @@ export const tableConfig = [
     prop: "PostTimeOfProcess",
     label: i18n.t("Generality.Ge_PostTimeOfProcess"),
   },
-  // 是否强制校验
+  // 是否强制检验
   {
     prop: "IsCompulsoryInspection",
     label: i18n.t("setup.IsCompulsoryInspection"),

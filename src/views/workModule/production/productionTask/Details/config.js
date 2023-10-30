@@ -178,6 +178,18 @@ export const detailConfig = [
     prop: "Quantity",
     label: i18n.t("Generality.Ge_Quantity"),
   },
+  {
+    // 是否需要成品检测
+    prop: "IsFinishedProductInspection",
+    label: "是否需要成品检测",
+    customFilter:(value,row)=>{
+      if(value){
+        return '是'
+      }else  if(value===false){
+        return '否'
+      }
+    },
+  }
 ];
 
 export const Qc_ProcessCheckTableConfig=[

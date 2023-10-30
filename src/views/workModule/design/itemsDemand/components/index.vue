@@ -274,10 +274,10 @@ export default {
                   .api_save(Object.assign({}, this.ruleForm, this.formObj.form))
                   .then((res) => {
                     let TagName = {
-                      path: "/design/itemsDemandDetails",
-                      name: `De_ItemsDemand_Details`,
+                      path: "/design/itemsDemandDetail",
+                      name: `De_MaterialRequirement_Detail`,
                       query: { BillId: res },
-                      fullPath: "/design/itemsDemandDetails",
+                      fullPath: "/design/itemsDemandDetail",
                     };
                     closeTag(this.current, TagName);
                   });

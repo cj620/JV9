@@ -30,13 +30,13 @@ export class Table extends BaseTable {
       // 行标识
       rowId: "BillId",
       // 表格标题
-      title: i18n.t("menu.De_ItemsDemand"),
+      title: i18n.t("menu.De_MaterialRequirement"),
       // 接口类
       api,
       // 操作列宽度
       operationWidth: 110,
       // 打印模块标识
-      printMod: "De_ItemsDemand",
+      printMod: "De_MaterialRequirement",
     });
   }
 }
@@ -50,7 +50,7 @@ export const tableConfig = [
 
     cpnProps: {
       // 路由名称
-      routeName: "De_ItemsDemand_Details",
+      routeName: "De_MaterialRequirement_Detail",
       // 路由路径（名称和路径二选一）
       // routePath:'/dashboard',
       // 路由传参方式 默认query

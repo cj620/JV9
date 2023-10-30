@@ -16,6 +16,75 @@ import { enumFilter } from "~/utils/system/enumsPlugin";
 //   label: i18n.t("Generality.Ge_Schedule"),
 //   custom: true,
 // });
+
+export const formSchema = [
+  {
+    prop: "TestMouldReason",
+    label: i18n.t("project.Pro_TestMouldReason"),
+    cpn: "FormInput",
+  },
+  {
+    prop: "TestMouldResult",
+    label: i18n.t("project.Pro_TestMouldResult"),
+    cpn: "FormSelect",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseSelect"),
+        trigger: ["change", "blur"],
+      },
+    ],
+    options: {
+      list: [
+        {
+          value: "OK",
+          label: "OK"
+        },
+        {
+          value: "NG",
+          label: "NG"
+        },
+        {
+          value: "Pending",
+          label: "待定"
+        }
+      ]
+    }
+  },
+  {
+    prop: "TestMouldColor",
+    label: i18n.t("project.Pro_TestMouldColor"),
+    cpn: "FormInput",
+  },
+  {
+    prop: "TestMouldMachine",
+    label: i18n.t("project.Pro_TestMouldMachine"),
+    cpn: "FormInput",
+  },
+    // 试模地点
+  {
+    prop: "TestMouldLocation",
+    label: i18n.t("project.Pro_TestMouldLocation"),
+    cpn: "FormInput",
+  },
+  {
+    prop: "TestMouldDate",
+    label: i18n.t("project.Pro_TestMouldDate"),
+    cpn: "SingleTime",
+  },
+  {
+    prop: "TestMouldUseTime",
+    label: i18n.t("project.Pro_TestMouldUseTime"),
+    cpn: "FormInput",
+    type: "number",
+  },
+  {
+    prop: "TestMouldInfo",
+    label: i18n.t("project.Pro_TestMouldInfo"),
+    cpn: "FormInput",
+  },
+]
+
 export class Table extends BaseTable {
   constructor() {
     super({

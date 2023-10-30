@@ -68,54 +68,56 @@ const design = [
 		title: i18n.t("program.Pr_ProcessPlanning"),
 		hidden: true,
 	},
+
+
 	// 物料需求
 	{
-		key: "De_ItemsDemand",
+		key: "De_MaterialRequirement",
 		component: () => import("@/views/workModule/design/itemsDemand/List"),
 		Parent: "De_Design",
 		name: "ItemsDemand",
 		path: "itemsDemand",
-		title: i18n.t("menu.De_ItemsDemand"),
+		title: i18n.t("menu.De_MaterialRequirement"),
 	},
 	// 新增物料需求
 	{
-		key: "De_ItemsDemand_Add",
+		key: "De_MaterialRequirement_Add",
 		component: () => import("@/views/workModule/design/itemsDemand/Add"),
 		Parent: "De_Design",
-		name: "De_ItemsDemand_Add",
-		path: "De_ItemsDemand_Add",
-		title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.De_ItemsDemand"),
+		name: "De_MaterialRequirement_Add",
+		path: "De_MaterialRequirement_Add",
+		title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.De_MaterialRequirement"),
 		hidden: true,
 	},
 	// 编辑物料需求
 	{
-		key: "De_ItemsDemand_Edit",
+		key: "De_MaterialRequirementuirement_Edit",
 		component: () => import("@/views/workModule/design/itemsDemand/Edit"),
 		Parent: "De_Design",
-		name: "De_ItemsDemand_Edit",
-		path: "De_ItemsDemand_Edit",
-		title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.De_ItemsDemand"),
+		name: "De_MaterialRequirement_Edit",
+		path: "De_MaterialRequirement_Edit",
+		title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.De_MaterialRequirement"),
 		hidden: true,
 	},
 	// 物料需求详情
 	{
-		key: "De_ItemsDemand_Details",
+		key: "De_MaterialRequirement_Detail",
 		component: () => import("@/views/workModule/design/itemsDemand/Details"),
 		Parent: "De_Design",
-		name: "De_ItemsDemand_Details",
-		path: "De_ItemsDemand_Details",
+		name: "De_MaterialRequirement_Detail",
+		path: "De_MaterialRequirement_Detail",
 		title:
-			i18n.t("menu.De_ItemsDemand") + "  " + i18n.t("Generality.Ge_Details"),
+			i18n.t("menu.De_MaterialRequirement") + "  " + i18n.t("Generality.Ge_Details"),
 		hidden: true,
 	},
 	//物料需求明细
 	{
-		key: "De_ItemsDemand_Detail_list",
+		key: "De_MaterialRequirement_Detail_list",
 		component: () => import("@/views/workModule/design/itemsDemand/DetailsList"),
 		Parent: "De_Design",
-		name: "De_ItemsDemand_Detail_list",
-		path: "De_ItemsDemand_Detail_list",
-		title: i18n.t("menu.De_ItemsDemand") + '   ' + i18n.t('Generality.Ge_Details1'),
+		name: "De_MaterialRequirement_Detail_list",
+		path: "De_MaterialRequirement_Detail_list",
+		title: i18n.t("menu.De_MaterialRequirement") + '   ' + i18n.t('Generality.Ge_Details1'),
 		hidden: true,
 	},
 	// 生产需求

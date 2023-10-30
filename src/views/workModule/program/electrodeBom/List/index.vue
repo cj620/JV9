@@ -44,6 +44,11 @@
         actionType="primary"
         :dropDownActions="[
           {
+            /*清除缓存重置表格*/
+            label: '恢复布局',
+            confirm: resetTable.bind(),
+          },
+          {
             /*设置级别*/
             label: $t('design.De_SetLevel'),
             confirm: l_setLevel.bind(),
@@ -184,9 +189,8 @@
       :setLevelData="setLevelData"
       @confirmSetLevel="confirmSetLevel"
     ></setLevel>
-     <!-- 导入数据 -->
-
-       <jv-dialog
+    <!-- 导入数据 -->
+    <jv-dialog
       :title="$t('Generality.Ge_Import')"
       width="60%"
       :close-on-click-modal="true"
@@ -197,15 +201,13 @@
       @confirm="confirmImportData"
       :autoFocus="true"
     >
-        <JvEditTable
+      <JvEditTable
       :tableObj="importTableObj"
       highlight-current-row
-
-    >
-     <template #operation="{ row, row_index }">
+      >
+      <template #operation="{ row, row_index }">
         <TableAction
           :actions="[
-
             {
               label: $t('Generality.Ge_Delete'),
               confirm: i_delete.bind(null, row_index),
@@ -213,9 +215,33 @@
           ]"
         />
       </template>
-
-        </JvEditTable>
-       </jv-dialog>
+      </JvEditTable>
+    </jv-dialog>
+<!--  选择任务单号  -->
+    <JvDialog
+        v-if="selectProjectFormVisible"
+        :visible.sync="selectProjectFormVisible"
+        destroy-on-close
+        :title="$t('project.Pro_TaskSheetNo')"
+        width="30%"
+        @confirm="confirmItem"
+    >
+      <JvForm :formObj="formObj">
+        <template #PmTaskBillId="{ prop }">
+          <el-select v-model="formObj.form[prop]" filterable>
+            <el-option
+                v-for="item in TaskListData"
+                :key="item.BillId"
+                :label="
+                item.BillId + '(' + taskTypeEnum[item.TaskType].name + ')'
+              "
+                :value="item.BillId"
+            >
+            </el-option>
+          </el-select>
+        </template>
+      </JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 
@@ -237,7 +263,7 @@ import {
   getPoleBomById,
   savePoleBom,
 } from "@/api/workApi/program/electrodeBom";
-import {  demandStatusEnum } from "@/enum/workModule";
+import {  demandStatusEnum, taskTypeEnum } from "@/enum/workModule";
 
 import { uploadImage } from "@/api/workApi/materials/fileUpload";
 import Popover from "@/jv_doc/cpn/JvTable/cpn/Popover.vue";
@@ -247,6 +273,8 @@ import ParseImg from "@/components/JVInternal/ParseImg";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
 // 获取系统配置接口
 import { batch_get } from "@/api/basicApi/systemSettings/sysSettings";
+import { Form } from "@/jv_doc/class/form";
+import { resetCache } from "~/class/utils/editTableHelp";
 export default {
   name: "ElectrodeBom",
   // 表格数据
@@ -259,6 +287,7 @@ export default {
   },
   data() {
     return {
+      taskTypeEnum,
       demandStatusEnum,
       partLevelMap: {
         0: {
@@ -268,6 +297,7 @@ export default {
           name: this.$t("Generality.Ge_Show"),
         },
       },
+      formObj: {},
       eTableObj: {},
       importTableObj:{},
       toolId: "",
@@ -277,19 +307,21 @@ export default {
       cur_toolId: "",
       importShow: false,
       defaultImgUrl: window.global_config.ImgBase_Url,
+      selectProjectFormVisible: false,
       searchItemDialogFormVisible: false,
       selectTaskDialogFormVisible: false,
       setLevelDialogFormVisible: false,
       importDialogFormVisible:false,
       GetData: [],
       taskData: [],
+      TaskListData: [],
       setLevelData: [],
       saveData: {
         PartNo: "",
         PartName: "",
         ItemId: "",
         Description: "",
-        Description2: "",
+        // Description2: "",
         PartLevel: 1,
         Quantity: 0,
         BOMType: "Electrode",
@@ -302,6 +334,9 @@ export default {
         ElectrodeDescription1: '',
         ElectrodeDescription2: '',
         ElectrodeDescription3: '',
+        ElectrodeQuantitySeiko: '',
+        ElectrodeQuantityRoughWork: '',
+        ElectrodeQuantityMiddleFinish: '',
         Remarks: "",
       },
       exportTemplate: [
@@ -326,21 +361,6 @@ export default {
           prop: "Quantity",
           label: this.$t("Generality.Ge_Quantity"),
         },
-        /*单位*/
-        {
-          prop: "Unit",
-          label: this.$t("Generality.Ge_Unit"),
-        },
-        /*数量*/
-        {
-          prop: "Remarks",
-          label: this.$t("Generality.Ge_Remarks"),
-        },
-        {
-          // 电极关联零件
-          prop: "AssociationPartNo",
-          label: this.$t("program.Pr_AssociationPartNo"),
-        },
         {
           //材质（精）
           prop: "ElectrodeDescription1",
@@ -356,6 +376,36 @@ export default {
           prop: "ElectrodeDescription3",
           label: this.$t("program.Pr_ElectrodeDescription3"),
         },
+        {
+          //数量（精）
+          prop: "ElectrodeQuantitySeiko",
+          label: "数量(精)",
+        },
+        {
+          //数量（精）
+          prop: "ElectrodeQuantityRoughWork",
+          label: "数量(粗)",
+        },
+        {
+          //数量（精）
+          prop: "ElectrodeQuantityMiddleFinish",
+          label: "数量(中)",
+        },
+        /*备注*/
+        {
+          prop: "Unit",
+          label: this.$t("Generality.Ge_Unit"),
+        },
+        /*数量*/
+        {
+          prop: "Remarks",
+          label: this.$t("Generality.Ge_Remarks"),
+        },
+        {
+          // 电极关联零件
+          prop: "AssociationPartNo",
+          label: this.$t("program.Pr_AssociationPartNo"),
+        },
       ],
       exportTemplateData: {
         checkData: [],
@@ -369,9 +419,30 @@ export default {
     };
   },
   created() {
+    this.formObj = new Form({
+      formSchema: [
+        {
+          prop: "PmTaskBillId",
+          cpn: "SyncSelect",
+          label: i18n.t("project.Pro_TaskSheetNo"),
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseEnter"),
+              trigger: ["change", "blur"],
+            },
+          ],
+          custom: true,
+        },
+      ],
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
     this.eTableObj = new EditTable();
-        this.importTableObj = new importEditTable
-
+    this.importTableObj = new importEditTable
     this.defaultConfig();
   },
   computed: {
@@ -429,6 +500,29 @@ export default {
        str.ItemId=''
       this.eTableObj.insert(index, format2source([str]));
     },
+    // 清除缓存重置表格
+    resetTable() {
+      this.$confirm(
+          this.$t("setup.IsResetCache"),
+          this.$t("Generality.Ge_Remind"),
+          {
+            confirmButtonText: this.$t("Generality.Ge_OK"),
+            cancelButtonText: this.$t("Generality.Ge_Cancel"),
+            type: "warning",
+          }
+      ).then(() => {
+        console.log(this.eTableObj)
+        resetCache(this.eTableObj.props.tid);
+        this.$store.dispatch("tagsView/delCachedView", this.$route).then(() => {
+          const { fullPath } = this.$route;
+          this.$nextTick(() => {
+            this.$router.replace({
+              path: "/redirect" + fullPath,
+            });
+          });
+        });
+      });
+    },
     //设置级别弹窗
     l_setLevel() {
       if (this.eTableObj.selectData.datas.length > 0) {
@@ -462,32 +556,28 @@ export default {
       this.importTableObj.delItem(index);
     },
     l_save() {
-    var Boms = temMerge(
-        this.saveData,
-        this.mixinToolId(this.eTableObj.getTableData())
-      );
-var saveData ={
-  ToolingNo:this.toolId,
-  Boms
-
-}
-
-        this.eTableObj.validate((valid) => {
-          if (valid) {
-            savePoleBom(saveData).then((res) => {
-              this.getData();
-            });
-          } else {
-            // alert("fail");
-          }
-        });
-
+      var Boms = temMerge(
+          this.saveData,
+          this.mixinToolId(this.eTableObj.getTableData())
+        );
+      var saveData ={
+        ToolingNo:this.toolId,
+        Boms
+      }
+      this.eTableObj.validate((valid) => {
+        if (valid) {
+          savePoleBom(saveData).then((res) => {
+            this.getData();
+          });
+        } else {
+          // alert("fail");
+        }
+      });
     },
     //批量复制一张单出来
     l_copy() {
       let arr = JSON.parse(JSON.stringify( this.eTableObj.selectData.datas))
-
-            arr.forEach(item=>{
+      arr.forEach(item=>{
         item.ItemId=''
       })
       this.eTableObj.push(format2source(arr));
@@ -496,7 +586,6 @@ var saveData ={
     //批量删除
     l_del() {
       this.eTableObj.setData(format2source(this.getNweArr(this.eTableObj.selectData.datas, this.eTableObj.tableData)));
-
     },
     getNweArr(a,b){
       const arr = [...a,...b];
@@ -567,10 +656,8 @@ var saveData ={
     },
     //自动对照物料和手动对照物料
     manualControlMaterial(e) {
-
       this.eTableObj.selectData.datas.forEach((item) => {
         e.forEach((Titem) => {
-
           item.Description.value = Titem.Description;
           item.ItemId.value = Titem.ItemId;
         });
@@ -581,32 +668,49 @@ var saveData ={
     submitItemsDemand() {
       var str = {
         ToolingNo: this.toolId,
+        SelectType: 0,
+      };
+      toolingTaskInfoList(str).then((res) => {
+        if (res.Count === 1) {
+          this.formObj.form.PmTaskBillId = res.Items[0].BillId;
+        } else {
+          this.formObj.form.PmTaskBillId = ""
+        }
+        this.TaskListData = res.Items;
+        this.selectProjectFormVisible = true;
+      });
+    },
+    // 选择任务号后判断是否提交过
+    confirmItem() {
+      var str = {
+        ToolingNo: this.toolId,
         Boms: format2source(this.eTableObj.selectData.datas),
+        PmTaskBillId: this.formObj.form.PmTaskBillId,
       };
       confirmSubmitMaterialRequirement(str).then((res) => {
-
         //判断有没有提交过物料需求
         if (res.length > 0) {
           this.$confirm(
-            res.toString() + this.$t("Generality.Ge_ContinueOrNot"),
-            {
-              confirmButtonText: this.$t("Generality.Ge_OK"),
-              cancelButtonText: this.$t("Generality.Ge_Cancel"),
-              type: "warning",
-            }
+              res.toString() + this.$t("Generality.Ge_ContinueOrNot"),
+              {
+                confirmButtonText: this.$t("Generality.Ge_OK"),
+                cancelButtonText: this.$t("Generality.Ge_Cancel"),
+                type: "warning",
+              }
           ).then(() => {
             //this.IsSubmitItemsDemand()
             this.confirmTask();
+            this.selectProjectFormVisible = false;
           });
         } else {
           //this.IsSubmitItemsDemand()
           this.confirmTask();
+          this.selectProjectFormVisible = false;
         }
       });
     },
     //判断需要关联的任务
     IsSubmitItemsDemand() {
-
       this.confirmTask(res.Items);
     },
 
@@ -617,6 +721,7 @@ var saveData ={
         params: {
           data: format2source(this.eTableObj.selectData.datas),
           AssociateTask: e,
+          PmTaskBillId: this.formObj.form.PmTaskBillId,
         },
       });
     },
@@ -628,7 +733,7 @@ var saveData ={
 
     //导入数据
     importComplete(e) {
- this.importShow = false;
+      this.importShow = false;
       this.importDialogFormVisible = true
       var arr = [];
       e.forEach((Titem) => {
@@ -640,29 +745,23 @@ var saveData ={
         });
         arr.push(str);
       });
-
-           this.importTableObj.setData(temMerge(this.saveData, arr));
+      this.importTableObj.setData(temMerge(this.saveData, arr));
     },
 
     //上传图片
     changeHandle(file) {
-
       var formData = new FormData();
       formData.append("file", file.file);
       uploadImage(formData).then((res) => {
-
         this.currentRow.PhotoUrl.value = res;
-
       });
     },
     handleCurrentChange(val) {
-
       this.currentRow = val;
     },
 
     //粘贴图片
     handlePasteData(e) {
-
       this.changeHandle({ file: e });
     },
     // 混入ToolingNo
@@ -674,7 +773,7 @@ var saveData ={
         return item;
       });
     },
-       //确定导入的数据
+    //确定导入的数据
     confirmImportData(){
       if(this.importTableObj.selectData.datas.length>0){
         var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
@@ -694,10 +793,7 @@ var saveData ={
         });
       }else{
         this.$message.error(this.$t("Generality.Ge_PleaseAddData"));
-
       }
-
-
     }
   },
 };

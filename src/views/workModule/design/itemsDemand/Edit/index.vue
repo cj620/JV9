@@ -11,7 +11,7 @@
 import EditCom from "../components/index";
 import { releaseEditLock } from "@/api/basicApi/systemSettings/billEditLock";
 export default {
-  name: 'De_ItemsDemand_Edit',
+  name: 'De_MaterialRequirement_Edit',
   components: {
     EditCom
   },

@@ -27,11 +27,11 @@ export class Table extends BaseTable {
       rowId: "Id",
       // 表格标题
       title:
-        i18n.t("menu.De_ItemsDemand") + "   " + i18n.t("Generality.Ge_Details1"),
+        i18n.t("menu.De_MaterialRequirement") + "   " + i18n.t("Generality.Ge_Details1"),
       // 接口类
       api,
       // 打印模块标识
-      printMod: "De_ItemsDemand_Detail_list",
+      printMod: "De_MaterialRequirement_Detail_list",
       operationCol: false,
       printBar: false,
     });
@@ -51,7 +51,7 @@ const tableSchema = [
     },
     cpnProps: {
       // 路由名称
-      routeName: "De_ItemsDemand_Details",
+      routeName: "De_MaterialRequirement_Details",
       // 路由路径（名称和路径二选一）
       // routePath:'/dashboard',
       // 路由传参方式 默认query

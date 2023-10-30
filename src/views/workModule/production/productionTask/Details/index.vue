@@ -169,7 +169,7 @@
         <el-tab-pane label="过程检验" name="Qc_ProcessCheckList">
           <JvTable :table-obj="Qc_ProcessCheckTableObj"> </JvTable>
         </el-tab-pane>
-        <el-tab-pane label="成品检验" name="Qc_FinishedProductList">
+        <el-tab-pane label="零件成品检验" name="Qc_FinishedProductList">
           <JvTable :table-obj="Qc_FinishedProductTableObj"> </JvTable>
         </el-tab-pane>
 

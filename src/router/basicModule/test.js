@@ -1,6 +1,5 @@
 import Layout from "@/layout";
 import i18n from "@/i18n/i18n";
-console.log(window.global_config.showTestTab, 8585858585);
 // 销售模块
 const test = window.global_config.showTestTab
   ? [

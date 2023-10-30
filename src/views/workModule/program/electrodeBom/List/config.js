@@ -16,6 +16,7 @@ export class EditTable extends BaseTable {
       operationWidth: 160,
       importBar: false,
       sortCol: false,
+      tid:'Pa_ElectrodeBom',
       // sortCol:false
     });
   }
@@ -69,12 +70,12 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_Describe"),
     formCpn: "FormInput",
   },
-  /*描述*/
-  {
-    prop: "Description2",
-    label: i18n.t("design.De_Description2"),
-    formCpn: "FormInput",
-  },
+  // /*描述2*/
+  // {
+  //   prop: "Description2",
+  //   label: i18n.t("design.De_Description2"),
+  //   formCpn: "FormInput",
+  // },
   /*单位*/
   {
     prop: "Unit",
@@ -114,6 +115,54 @@ export const tableConfig = [
       },
       colInit: true,
     },
+  },
+  {
+    //材质（精）
+    prop: "ElectrodeDescription1",
+    label: i18n.t("program.Pr_ElectrodeDescription1"),
+    formCpn: "FormInput",
+  },
+  {
+    //材质（精）
+    prop: "ElectrodeDescription2",
+    label: i18n.t("program.Pr_ElectrodeDescription2"),
+    formCpn: "FormInput",
+  },
+  {
+    //材质（精）
+    prop: "ElectrodeDescription3",
+    label: i18n.t("program.Pr_ElectrodeDescription3"),
+    formCpn: "FormInput",
+  },
+  {
+    //数量（精）
+    prop: "ElectrodeQuantitySeiko",
+    label: "数量(精)",
+    formCpn: "FormInput",
+    align: "right",
+    width: 120,
+    type: "number",
+    filter: "amount",
+  },
+  {
+    //数量（粗）
+    prop: "ElectrodeQuantityRoughWork",
+    label: "数量(粗)",
+    formCpn: "FormInput",
+    align: "right",
+    width: 120,
+    type: "number",
+    filter: "amount",
+  },
+  {
+    //数量（中）
+    prop: "ElectrodeQuantityMiddleFinish",
+    label: "数量(中)",
+    formCpn: "FormInput",
+    align: "right",
+    width: 120,
+    type: "number",
+    filter: "amount",
   },
   /*备注*/
   {
@@ -170,28 +219,5 @@ export const tableConfig = [
       disabled: true,
     },
   },
-  {
-    //材质（精）
-    prop: "ElectrodeDescription1",
-    label: i18n.t("program.Pr_ElectrodeDescription1"),
-    editConfig: {
-      disabled: true,
-    },
-  },
-  {
-    //材质（精）
-    prop: "ElectrodeDescription2",
-    label: i18n.t("program.Pr_ElectrodeDescription2"),
-    editConfig: {
-      disabled: true,
-    },
-  },
-  {
-    //材质（精）
-    prop: "ElectrodeDescription3",
-    label: i18n.t("program.Pr_ElectrodeDescription3"),
-    editConfig: {
-      disabled: true,
-    },
-  }
+
 ];

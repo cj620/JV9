@@ -40,7 +40,7 @@
         >
         </Action>
       </div>
-      <JvEditTable :tableObj="M_TableObj">
+      <JvEditTable :tableObj="M_TableObj" @cell-blur="cellBlur">
         <template #Worker="{ formBlur, row, cdata }">
           <span v-if="row[cdata.prop].edit">
             <el-select
@@ -67,6 +67,7 @@
             {{ row[cdata.prop].value }}
           </span>
         </template>
+
 
         <template #operation="{ row_index }">
           <TableAction
@@ -180,6 +181,7 @@ export default {
         Creator: "",
         CreationDate: "",
         Remarks: "",
+        ProjectTaskVersion:'',
         SaveAndSubmit: true,
         BillItems: [],
         BillFiles: [],
@@ -220,7 +222,7 @@ export default {
     }),
 
     BillIdShow() {
-      return this.cur_Id ? `:  ${this.cur_Id}` : "";
+      return this.cur_Id && this.$route.query.type !== "copy" ? `:  ${this.cur_Id}` : "";
     },
 
     getPrefixId() {
@@ -238,6 +240,16 @@ export default {
     });
     this.M_TableObj = new M_EditTable();
     // this.ruleForm
+    if (this.$route.query.type === "copy") {
+      console.log(this.cur_Id)
+      ProjectTask.api_get({ BillId: this.cur_Id }).then((res) => {
+        this.formObj.form.PlanEnd = res.PlanEnd
+        this.formObj.form.PlanStart = res.PlanStart
+        this.formObj.form.TaskType = res.TaskType
+        this.formObj.form.ToolingNo = res.ToolingNo
+        this.M_TableObj.setData(res.BillItems)
+      })
+    }
   },
   mounted() {
     Object.assign(this.formObj.form, this.$route.params);
@@ -245,6 +257,34 @@ export default {
   methods: {
     test(e) {
       console.log(e);
+    },
+    cellBlur(cellObj){
+      const _day = 86400000 / 8;
+      for(let i = cellObj.row; i < this.M_TableObj.tableData.length-1; i++) {
+        if(this.M_TableObj.tableData[i+1]) {
+          // 修改計劃開始
+          if(cellObj.col === 4 || cellObj.col === 5) {
+            this.M_TableObj.tableData[cellObj.row].PlanEnd.value = countEndDate(this.M_TableObj.tableData[cellObj.row].PlanStart.value, this.M_TableObj.tableData[cellObj.row].PlanTime.value);
+            this.M_TableObj.tableData[i+1].PlanStart.value = this.M_TableObj.tableData[i].PlanEnd.value;
+            this.M_TableObj.tableData[i+1].PlanEnd.value = this.M_TableObj.tableData[i].PlanEnd.value;
+          }
+          // 修改計劃结束
+          if(cellObj.col === 6) {
+            // let date = new Date(this.M_TableObj.tableData[i].PlanStart.value).getTime() + this.M_TableObj.tableData[i].PlanTime.value * _day
+            // this.M_TableObj.tableData[i].PlanEnd.value = timeFormat(date)
+            this.M_TableObj.tableData[i+1].PlanStart.value = this.M_TableObj.tableData[i].PlanEnd.value;
+            this.M_TableObj.tableData[i+1].PlanEnd.value = this.M_TableObj.tableData[i].PlanEnd.value;
+          }
+          // 修改預計工時
+          // if(cellObj.col === 4) {
+          //   this.M_TableObj.tableData[cellObj.row].PlanEnd.value = countEndDate(this.M_TableObj.tableData[cellObj.row].PlanStart.value, this.M_TableObj.tableData[cellObj.row].PlanTime.value);
+          //   this.M_TableObj.tableData[i+1].PlanStart.value = this.M_TableObj.tableData[i].PlanEnd.value;
+          //   this.M_TableObj.tableData[i+1].PlanEnd.value = this.M_TableObj.tableData[i].PlanEnd.value;
+          // }
+        }
+      }
+      // console.log(this.M_TableObj.tableData[cellObj.row], 'obj');
+      // console.log(cellObj,'cellBlur')
     },
     // 新增编辑行
     addEditRow() {
@@ -358,7 +398,9 @@ export default {
   watch: {
     "M_TableObj.tableData": {
       handler(newV, oldV) {
+        // console.log(newV)
         newV.forEach((item, i) => {
+          // console.log(i , getRowIndex() )
           if (parseInt(item.PlanTime.value) < 0) {
             item.PlanTime.value = "0";
             this.$message.warning(
@@ -366,11 +408,11 @@ export default {
             );
             return;
           }
-
-          if(i > getRowIndex() && getRowIndex() !== null) {
-            newV[i].PlanStart.value = newV[getRowIndex()].PlanEnd.value;
-            newV[i].PlanEnd.value = newV[getRowIndex()].PlanEnd.value;
-          }
+          // console.log(i > getRowIndex() && getRowIndex() !== null && getRowIndex() > 0)
+          // if(i > getRowIndex() && getRowIndex() !== null) {
+          //   newV[i].PlanStart.value = newV[getRowIndex()].PlanEnd.value;
+          //   newV[i].PlanEnd.value = newV[getRowIndex()].PlanEnd.value;
+          // }
           // newV[getRowIndex()].
           // console.log()
           // item.PlanEnd.value =  countEndDate(item.PlanStart.value, Number(item.PlanTime.value))

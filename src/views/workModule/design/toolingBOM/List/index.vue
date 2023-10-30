@@ -12,6 +12,7 @@
       highlight-current-row
       @current-change="handleCurrentChange"
     >
+
       <Action
         size="mini"
         slot="btn-list"
@@ -23,7 +24,7 @@
             confirm: l_addRow.bind(),
           },
           {
-            // 校验
+            // 保存
             label: $t('Generality.Ge_Save'),
             disabled: IsDisabled,
             confirm: l_save.bind(),
@@ -49,6 +50,11 @@
         ]"
         actionType="primary"
         :dropDownActions="[
+          {
+            /*清除缓存重置表格*/
+            label: '恢复布局',
+            confirm: resetTable.bind(),
+          },
           {
             /*设置级别*/
             label: $t('design.De_SetLevel'),
@@ -631,6 +637,28 @@ export default {
       if (list.length > 0) {
         list[list.length - 1].style.display = "none";
       }
+    },
+    // 清除缓存重置表格
+    resetTable() {
+      this.$confirm(
+          this.$t("setup.IsResetCache"),
+          this.$t("Generality.Ge_Remind"),
+          {
+            confirmButtonText: this.$t("Generality.Ge_OK"),
+            cancelButtonText: this.$t("Generality.Ge_Cancel"),
+            type: "warning",
+          }
+      ).then(() => {
+        resetCache(this.eTableObj.props.tid);
+        this.$store.dispatch("tagsView/delCachedView", this.$route).then(() => {
+          const { fullPath } = this.$route;
+          this.$nextTick(() => {
+            this.$router.replace({
+              path: "/redirect" + fullPath,
+            });
+          });
+        });
+      });
     },
     //获取默认配置
     defaultConfig() {

@@ -130,9 +130,9 @@ export default {
         },
       ],
       // 编辑路由指向 谨慎删除
-      editRouteName: "De_ItemsDemand_Edit",
+      editRouteName: "De_MaterialRequirement_Edit",
       // 打印模板标识 谨慎删除
-      printMod: "De_ItemsDemand",
+      printMod: "De_MaterialRequirement",
     };
   },
   async created() {

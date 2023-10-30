@@ -47,7 +47,7 @@ export const tableConfig = [
 
     cpnProps: {
       // 路由名称
-      routeName: "Pa_ElectrodeDemand_Details",
+      routeName: "Pa_ElectrodeDemand_Detail",
       // 路由路径（名称和路径二选一）
       // routePath:'/dashboard',
       // 路由传参方式 默认query

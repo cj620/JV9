@@ -11,12 +11,10 @@ import { Data } from "@/views/basicModule/demo/Detail/data";
 import countEndDate from '@/jv_doc/utils/time/countEndDate';
 let index = 0;
 function getRowChange(value, form){
+  // console.log(value,form)
+  // const _day = 86400000 / 8;
   form.PlanEnd.value = countEndDate(form.PlanStart.value, Number(form.PlanTime.value))
-  index = form.row_index;
-  let timer = setTimeout(() => {
-    index = null;
-    clearTimeout(timer)
-  }, 10)
+  // form.PlanEnd.value = new Date(form.PlanStart.value).getTime() + Number(form.PlanTime.value) * _day
 }
 export function getRowIndex() {
   return index
@@ -80,9 +78,6 @@ export const m_tableConfig = [
         required: true,
       },
     },
-    rowChange:(value, form)=>{
-      getRowChange(value, form)
-    }
   },
   /*计划开始*/
   {
@@ -97,9 +92,6 @@ export const m_tableConfig = [
         required: true,
       },
     },
-    rowChange:(value, form)=>{
-      getRowChange(value, form)
-    }
   },
   /*计划结束*/
   {

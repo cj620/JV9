@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-07-27 16:53:31
- * @LastEditTime: 2022-01-17 11:36:02
+ * @LastEditTime: 2023-10-24 14:30:45
  * @Description: file content
 -->
 <template>
@@ -44,7 +44,7 @@
         </el-form-item>
         <el-form-item
           :label="$t('Generality.Ge_DateFormat')"
-          v-show="currentNode.filter == 'date'"
+          v-if="currentNode.filter == 'date'"
         >
           <el-input
             v-model="currentNode.filterOptions"
@@ -59,6 +59,16 @@
           >
             <i class="el-icon-question"></i>
           </el-tooltip>
+        </el-form-item>
+        <el-form-item label="枚举类型" v-if="currentNode.filter == 'bizMap'">
+          <el-select v-model="currentNode.filterOptions">
+            <el-option
+              v-for="item in enumMap"
+              :key="item.label"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
         </el-form-item>
       </div>
 
@@ -108,12 +118,14 @@
 <script>
 import { mapState, mapMutations } from "vuex";
 import { alignArr, boldArr, filterEnums } from "../../../../enums";
+import { enumMap } from "@/enum/index";
 export default {
   data() {
     return {
       alignArr,
       boldArr,
       filterEnums,
+      enumMap,
     };
   },
   methods: {

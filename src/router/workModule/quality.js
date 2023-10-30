@@ -20,7 +20,7 @@ const quality = [
     title: i18n.t("menu.Qc_Quality"),
     icon: "quality",
   },
-  // 成品检验
+  // 零件成品检验
   {
     key: "Qc_FinishedProduct",
     component: () =>
@@ -31,7 +31,7 @@ const quality = [
     title: i18n.t("menu.Qc_FinishedProduct"),
   },
 
-  // 新增成品检验
+  // 新增零件成品检验
   {
     key: "Qc_FinishedProduct_Add",
     component: () =>
@@ -43,7 +43,7 @@ const quality = [
       i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.Qc_FinishedProduct"),
     hidden: true,
   },
-  // 成品检验详情
+  // 零件成品检验详情
   {
     key: "Qc_FinishedProduct_Detail",
     component: () =>
@@ -57,7 +57,7 @@ const quality = [
       i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
-  // 成品检验明细
+  // 零件成品检验明细
   {
     key: "Qc_FinishedProduct_Detail_list",
     component: () =>

@@ -15,6 +15,7 @@ async function getIndexNav() {
   });
   // console.log(JSON.parse(data.ConfigValue), "sadfasdfdsfsadfsafas");
   const arr = JSON.parse(data.ConfigValue) || [];
+
   let Items = [];
   arr.forEach((item) => {
     for (let key in item) {

@@ -14,4 +14,13 @@ export const formSchema = [
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_ToolingNo"),
   },
+  {
+    // 模具编号
+    prop: 'PmTaskBillId',
+    cpn: "FormInput",
+    label:i18n.t("project.Pro_TaskSheetNo"),
+    cpnProps: {
+      disabled: true,
+    },
+  },
 ];

@@ -130,7 +130,7 @@ export default {
         },
       });
     },
-    //点击成品检验单
+    //点击零件成品检验单
     toFinishedProduct(e) {
       this.$router.push({
         name: "Qc_FinishedProduct_Add",

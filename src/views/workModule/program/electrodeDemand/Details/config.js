@@ -66,24 +66,24 @@ export const tableConfig = [
     label: i18n.t("program.Pr_AssociationPartNo"),
     formCpn: "FormInput"
   },
-  {
-    //材质（精）
-    prop: "ElectrodeDescription1",
-    label: i18n.t("program.Pr_ElectrodeDescription1"),
-    formCpn: "FormInput",
-  },
-  {
-    //材质（精）
-    prop: "ElectrodeDescription2",
-    label: i18n.t("program.Pr_ElectrodeDescription2"),
-    formCpn: "FormInput",
-  },
-  {
-    //材质（精）
-    prop: "ElectrodeDescription3",
-    label: i18n.t("program.Pr_ElectrodeDescription3"),
-    formCpn: "FormInput",
-  },
+  // {
+  //   //材质（精）
+  //   prop: "ElectrodeDescription1",
+  //   label: i18n.t("program.Pr_ElectrodeDescription1"),
+  //   formCpn: "FormInput",
+  // },
+  // {
+  //   //材质（精）
+  //   prop: "ElectrodeDescription2",
+  //   label: i18n.t("program.Pr_ElectrodeDescription2"),
+  //   formCpn: "FormInput",
+  // },
+  // {
+  //   //材质（精）
+  //   prop: "ElectrodeDescription3",
+  //   label: i18n.t("program.Pr_ElectrodeDescription3"),
+  //   formCpn: "FormInput",
+  // },
   /*状态*/
   {
     prop: "State",

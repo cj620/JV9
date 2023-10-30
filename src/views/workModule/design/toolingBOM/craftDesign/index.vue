@@ -277,6 +277,7 @@ export default {
 
       var str = {
         PartNo: this.formObj.form.PartNo,
+        IsFinishedProductInspection: this.formObj.form.IsFinishedProductInspection,
         PartProcesses: arr,
       };
       savePartProcess(str).then((res) => {
@@ -284,6 +285,9 @@ export default {
           path: "/design/toolingBOM",
           name: `ToolingBOM`,
           fullPath: "/design/toolingBOM",
+          params:{
+            PartNo:this.formObj.form.PartNo
+          }
         };
         closeTag(this.current, TagName);
       });

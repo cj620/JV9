@@ -3,10 +3,12 @@ let result = '';
 function fn(startTime, dayNum) {
     // 获取开始时间的时间戳
     let date = new Date(startTime).getTime();
+    console.log(new Date(startTime))
     // 一共有多少天 乘以时间戳，得出结束的日期
     let endStamp = date + dayNum * 86400000;
     // 结束日期
     let endDate = new Date(endStamp)
+    console.log(endDate)
     // 有几天周末
     let remain = countWorkDay(startTime,endDate) ? dayNum - countWorkDay(startTime,endDate) + 1 : dayNum - countWorkDay(startTime,endDate)
     if(remain) {
@@ -42,12 +44,14 @@ function countWorkDay(date1, date2){
     return delta - weeks;
 }
 
-export default function countEndDate(startTime, planTime, unit = 10) {
+export default function countEndDate(startTime, planTime, unit = 8) {
     let dayNum = Math.floor(planTime/unit)-1
 
     // 这里是判断是不是正好只有一天 只有一天 就返回startTime
     dayNum = planTime % unit ? ++dayNum : dayNum;
+    console.log(dayNum, '天')
     if(dayNum < 1) return startTime
     fn(startTime, dayNum)
+    console.log(result)
     return result
 }

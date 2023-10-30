@@ -101,7 +101,7 @@ export default {
   methods: {
     toDetailsList() {
       this.$router.push({
-        name: "De_ItemsDemand_Detail_list",
+        name: "De_MaterialRequirement_Detail_list",
       });
     },
     //删除单据
@@ -113,7 +113,7 @@ export default {
     //新增
     add() {
       this.$router.push({
-        name: "De_ItemsDemand_Add",
+        name: "De_MaterialRequirement_Add",
         params: { type: "add", title: "addSaleOrder" },
       });
     },
@@ -123,7 +123,7 @@ export default {
       let { BillId } = row;
       this.tableObj.api.editLock({ BillId }).then((res) => {
         this.$router.push({
-          name: "De_ItemsDemand_Edit",
+          name: "De_MaterialRequirement_Edit",
           query: { BillId },
         });
       });

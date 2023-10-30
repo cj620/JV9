@@ -11,6 +11,7 @@ import zhLocale from "element-ui/lib/locale/lang/zh-CN";
 const cn = {
   menu: {
     Pr_MyTasks: "我的任务",
+    De_PartBomTable: "零件清单",
     Pr_ScanCodeToEnterTheStation: "扫码进站",
     Pr_ScanCodeToStartWork: "扫码开工",
     Pr_ScanCodeCompletion: "扫码完工",
@@ -67,7 +68,6 @@ const cn = {
     Pm_Estimate: "评审单 ",
     De_Design: "设计",
     De_ToolingBOM: "模具BOM",
-    De_ItemsDemand: "物料需求",
     De_ProductionDemand: "生产需求",
     De_DesignTask: "设计任务",
     Pa_Program: "编程",
@@ -107,7 +107,7 @@ const cn = {
     Pr_PersonnelHoursSummary: "员工工时汇总",
     Qc_Quality: "品质",
     Qc_ProductionCheck: "加工检验",
-    Qc_FinishedProduct: "成品检验",
+    Qc_FinishedProduct: "零件成品检验",
     Qc_ProcessCheck: "过程检验",
     Qc_QualityReport: "品质报表",
     Qc_QualityRecord: "检验记录",
@@ -320,7 +320,7 @@ const cn = {
     Preview: "预览",
     IsCompulsoryInspection: "是否强制检验",
     IsCompulsoryPrograming: "是否强制编程",
-    CompulsoryInspection: "强制校验",
+    CompulsoryInspection: "强制检验",
     CompulsoryPrograming: "强制编程"
   },
   //销售
@@ -1391,6 +1391,8 @@ const cn = {
     P10198: "查询条件不能为空! ",
     P10199: "获取成功行数! ",
     P10200: "时间异常! ",
+    P10201: "上一道工序未完成!  ",
+    P10202: "编程工序未配置资源组! ",
   },
   program: {
     Pr_ProcessPlanning: "工艺设计",
@@ -1457,8 +1459,6 @@ const cn = {
     Create_purchase_request_below_safety_stock: "低于安全库存创建采购申请",
     User_web_socket: "用户消息推送配置",
     User_web_socket_desc: "用户是否接受消息",
-    User_default_navigation_bar: "用户默认导航栏",
-    User_device_configuration: "用户设备配置",
     Aps_ordinary_bill_process_post_time_coefficient:
       "自动排程普通工单工序后置时间系数",
     Aps_urgent_bill_process_post_time_coefficient:
@@ -1472,8 +1472,10 @@ const cn = {
     Aps_extra_urgent_bill_process_lead_time_coefficient:
       "自动排程特急工单工序前置时间系数",
       Message_notification_configuration:"消息通知配置",
+    User_default_navigation_bar:"默认导航栏",
     Default_navigation_bar_configuration:"默认导航栏菜单",
     ERP_inventory_category_configuration:"ERP编码规则",
+    User_device_configuration:"用户设备配置",
   },
 
   ...zhLocale,

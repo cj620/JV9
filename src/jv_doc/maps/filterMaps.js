@@ -1,13 +1,14 @@
 /*
  * @Author: C.
  * @Date: 2021-08-13 10:37:49
- * @LastEditTime: 2022-01-17 10:47:45
+ * @LastEditTime: 2023-10-24 14:27:58
  * @Description: file content
  */
 import i18n from "@/i18n/i18n";
 import { timeFormat } from "../utils/time";
 import { amountFormat, thousandthFormat } from "../utils/handleData";
 import { any2rate } from "../utils/handleData";
+import { enumFilter } from "@/enum/workModule";
 export const filterMaps = {
   default: {
     type: "default",
@@ -41,6 +42,11 @@ export const filterMaps = {
     type: "thousandth",
     name: i18n.t("setup.Thousands"),
     func: thousandthFormat,
+  },
+  bizMap: {
+    type: "bizMap",
+    name: "枚举",
+    func: enumFilter,
   },
 };
 export const datafilter = (type, data) => {

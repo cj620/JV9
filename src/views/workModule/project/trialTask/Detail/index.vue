@@ -19,10 +19,13 @@
         :name="pane.name"
       ></el-tab-pane>
     </el-tabs>
-    <Action slot="sticky-extra" size="small"
+    <Action
+      slot="sticky-extra"
+      size="small"
       :actions="
         btnAction.filter((item) => item.label != $t('Generality.Ge_Copy'))
-    "></Action>
+      "
+    ></Action>
     <!-- 单据信息 -->
     <JvBlock
       :title="$t('Generality.Ge_BillInfo')"
@@ -34,16 +37,16 @@
       style="position: relative"
     >
       <div class="mould-img">
-      <el-image
-        :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
-        style="width: 100%; height: 100%"
-        :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
-        fit="cover"
-      >
-        <div slot="error" class="image-slot1">
-          <i class="el-icon-picture-outline"></i>
-        </div>
-      </el-image>
+        <el-image
+          :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
+          style="width: 100%; height: 100%"
+          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
+          fit="cover"
+        >
+          <div slot="error" class="image-slot1">
+            <i class="el-icon-picture-outline"></i>
+          </div>
+        </el-image>
       </div>
       <div style="position: relative">
         <JvDetail :detailObj="detailObj">
@@ -63,10 +66,10 @@
         <JvState :state="detailObj.detailData.State"></JvState>
       </div>
     </JvBlock>
-      <!--物料信息-->
-      <JvBlock title="试模用料" ref="second">
-          <JvTable :table-obj="tableObj1"> </JvTable>
-      </JvBlock>
+    <!--物料信息-->
+    <JvBlock title="试模用料" ref="second">
+      <JvTable :table-obj="tableObj1"> </JvTable>
+    </JvBlock>
     <!-- 试模问题点 -->
     <JvBlock :title="$t('project.Pro_TestMouldProblemPoints')" ref="second">
       <JvTable :tableObj="tableObj">
@@ -99,11 +102,11 @@
           size="mini"
           type="primary"
           @click="(_) => $refs.upLoad.upload()"
-        >{{ $t("Generality.Ge_Upload") }}</el-button
+          >{{ $t("Generality.Ge_Upload") }}</el-button
         >
-        <el-button size="mini" type="primary" @click="saveFiles"
-        >{{ $t("Generality.Ge_SaveEdits") }}</el-button
-        >
+        <el-button size="mini" type="primary" @click="saveFiles">{{
+          $t("Generality.Ge_SaveEdits")
+        }}</el-button>
       </div>
       <JvUploadFile
         @returnData="returnData"
@@ -130,12 +133,22 @@
       @dynamicConfirm="dynamicConfirm"
     >
     </Dynamic>
+    <JvDialog
+      :visible.sync="informationShow"
+      @confirm="informationConfirm"
+      width="35%"
+      title="填写试模信息"
+    >
+      <JvForm :form-obj="formObj"></JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
+import { save_trial_tooling_dynamic } from "@/api/workApi/project/projectTask";
 import { mapState } from "vuex";
-import { Table, detailConfig,Table1 } from "./config";
+import { Table, detailConfig, Table1, formSchema } from "./config";
+import { Form } from "@/jv_doc/class/form";
 import Detail from "@/jv_doc/class/detail/Detail";
 import {
   API as ProjectTask,
@@ -152,10 +165,12 @@ import Dynamic from "../../projectManage/mouldDetail/cpns/Dynamic.vue";
 import DynamicList from "../../projectManage/mouldDetail/cpns/DynamicList.vue";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
 import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
-import { format2source } from '~/class/utils/dataFormat'
+import { format2source } from "~/class/utils/dataFormat";
+import JvForm from "~/cpn/JvForm/index.vue";
 export default {
   name: "Pm_TrialTask_Detail",
   components: {
+    JvForm,
     JvUploadFile,
     JvRemark,
     JvFileExhibit,
@@ -169,7 +184,7 @@ export default {
       cur_Id: this.$route.query.BillId,
       detailObj: {},
       tableObj: {},
-		tableObj1: {},
+      tableObj1: {},
       DynamicInfo: [],
       btnAction: [],
       defaultImgUrl: window.global_config.ImgBase_Url,
@@ -177,10 +192,10 @@ export default {
       editRouteName: "Pm_TrialTask_Edit",
       printMod: "Pm_TrialTask_Detail",
       taskTypeEnum,
-      testMouldResultEnum:{
-        OK:{ name:'OK', value:'OK' },
-        NG:{ name:'NG', value:'NG' },
-        Pending:{ name:'待定', value:'Pending' },
+      testMouldResultEnum: {
+        OK: { name: "OK", value: "OK" },
+        NG: { name: "NG", value: "NG" },
+        Pending: { name: "待定", value: "Pending" },
       },
       tabPanes: [
         {
@@ -209,6 +224,8 @@ export default {
         },
       ],
       dynamicShow: false,
+      informationShow: false,
+      formObj: {},
     };
   },
   computed: {
@@ -221,19 +238,50 @@ export default {
   created() {
     // this.ruleForm
     this.tableObj = new Table();
-	  this.tableObj1 = new Table1();
+    this.tableObj1 = new Table1();
     this.detailObj = new Detail({
       data: {},
       schema: detailConfig,
       column: 3,
+    });
+    this.formObj = new Form({
+      formSchema,
+      autoFocus: true,
+      baseColProps: { span: 24 },
+      labelWidth: "80px",
     });
     this.getData();
   },
   mounted() {},
   methods: {
     imgUrlPlugin,
+    // 填写试模信息 确认
+    informationConfirm() {
+      this.formObj.validate((valid) => {
+        if(valid) {
+          save_trial_tooling_dynamic({
+            BillId: this.cur_Id,
+            ...this.formObj.form
+          }).then(res => {
+            this.informationShow = false;
+          }).catch(err => {
+            this.$message({
+              message: err,
+              type: 'warning'
+            });
+          })
+        }
+      })
+    },
+    // 填写试模 信息
+    information() {
+      this.informationShow = true;
+    },
     getData() {
       ProjectTask.api_get({ BillId: this.cur_Id }).then((res) => {
+        formSchema.forEach(item => {
+          this.formObj.form[item.prop] = res.TrialToolingDynamicData[item.prop]
+        })
         this.detailObj.setData(res);
         for (let key in res.TrialToolingDynamicData) {
           this.detailObj.detailData[key] = res.TrialToolingDynamicData[key];
@@ -242,19 +290,26 @@ export default {
         this.tableObj1.setData(res.TrialToolingMaterialDetails);
         this.DynamicInfo = res.DynamicInfo || [];
         this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
-        this.btnAction.push({
-          label: this.$t("Generality.Ge_Finished"),
-          confirm: this.successProjectTask,
-          disabled: this.detailObj.detailData.State !== "Approved",
-        },{
-			label: '物料需求',
-			confirm: this.toItemsDemand,
-			disabled: this.detailObj.detailData.State !== "Approved",
-		}/*,{
+        this.btnAction.push(
+          {
+            label: "填写试模信息",
+            confirm: this.information,
+          },
+          {
+            label: "物料需求",
+            confirm: this.toItemsDemand,
+            disabled: this.detailObj.detailData.State !== "Approved",
+          },
+          {
+            label: this.$t("Generality.Ge_Finished"),
+            confirm: this.successProjectTask,
+            disabled: this.detailObj.detailData.State !== "Approved",
+          } /*,{
           label: this.$t("stockroom.St_Picking"),
           confirm: this.toStockPicking,
           disabled: this.detailObj.detailData.State !== "Approved",
-        }*/);
+        }*/
+        );
       });
     },
     // 完成单据
@@ -263,22 +318,22 @@ export default {
         this.getData();
       });
     },
-    toStockPicking(){
+    toStockPicking() {
       this.$router.push({
         name: "St_Picking_Add",
         params: { trialToolingData: this.detailObj.detailData },
       });
     },
-      //跳转到物料需求
-	  toItemsDemand(){
-		this.$router.push({
-			name: "De_ItemsDemand_Add",
-			params: {
-		      ToolingNo:this.detailObj.detailData.ToolingNo,
+    //跳转到物料需求
+    toItemsDemand() {
+      this.$router.push({
+        name: "De_MaterialRequirement_Add",
+        params: {
+          ToolingNo: this.detailObj.detailData.ToolingNo,
           PmTaskBillId: this.cur_Id,
-          data:[]
-			},
-		});
+          data: [],
+        },
+      });
     },
     // 新增动态
     addDynamic() {
@@ -347,7 +402,7 @@ export default {
     }
   }
 }
-  .sum-text {
+.sum-text {
   display: inline-block;
   // padding-right: 100px;
   width: 200px;

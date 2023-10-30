@@ -132,4 +132,13 @@ export const formSchema = [
       disabled: true,
     },
   },
+  {
+    // 是否需要成品检测
+    prop: "IsFinishedProductInspection",
+    label: '是否需要成品检测',
+    cpn: "FormSingleCheckBox",
+    options: {
+      CheckBoxlabel: ''
+    },
+  }
 ];

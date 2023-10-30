@@ -44,6 +44,7 @@
                 title: $t('program.Pr_ReceiveConfirm'),
                 confirm: receive.bind(null, row),
               },
+              disabled: row.Worker,
             },
           ]"
         />

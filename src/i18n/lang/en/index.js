@@ -50,7 +50,6 @@ const en = {
     Pm_Estimate: "Estimate ",
     De_Design: "Design",
     De_ToolingBOM: "Tooling BOM",
-    De_ItemsDemand: "Items Demand",
     De_ProductionDemand: "Production Demand",
     De_DesignTask: "Design Task",
     Pa_Program: "Program",
@@ -1456,8 +1455,6 @@ const en = {
     Prohibit_skip_station_processes: "Prohibit skip station processes",
     User_web_socket: "User Message Push Configuration",
     User_web_socket_desc: "Does the user accept messages",
-    User_default_navigation_bar: "User default navigation bar",
-    User_device_configuration: "User device configuration",
     Create_purchase_request_below_safety_stock:
       "Create purchase request below safety stock",
     Aps_ordinary_bill_process_post_time_coefficient:
@@ -1473,8 +1470,10 @@ const en = {
     Aps_extra_urgent_bill_process_lead_time_coefficient:
       "Aps extra urgent bill process lead time coefficient",
       Message_notification_configuration:"Message notification configuration",
+    User_default_navigation_bar:"Default navigation bar",
     Default_navigation_bar_configuration:"Default navigation bar configuration",
     ERP_inventory_category_configuration:"ERP inventory category configuration",
+    User_device_configuration:"User device configuration",
   },
   ...enLocale,
 };

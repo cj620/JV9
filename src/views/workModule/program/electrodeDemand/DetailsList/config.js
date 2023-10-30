@@ -19,7 +19,7 @@ export class Table extends BaseTable {
 			rowId: "Id",
 			// 表格标题
 			title:
-				i18n.t("menu.De_ItemsDemand") + "   " + i18n.t("Generality.Ge_Details1"),
+				i18n.t("menu.De_MaterialRequirement") + "   " + i18n.t("Generality.Ge_Details1"),
 			// 接口类
 			api,
 			// 打印模块标识
@@ -43,7 +43,7 @@ const tableSchema = [
 		},
 		cpnProps: {
 			// 路由名称
-			routeName: "Pa_ElectrodeDemand_Details",
+			routeName: "Pa_ElectrodeDemand_Detail",
 			// 路由路径（名称和路径二选一）
 			// routePath:'/dashboard',
 			// 路由传参方式 默认query

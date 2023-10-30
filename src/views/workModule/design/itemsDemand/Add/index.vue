@@ -16,7 +16,7 @@
 import EditCom from "../components/index";
 
 export default {
-  name: "De_ItemsDemand_Add",
+  name: "De_MaterialRequirement_Add",
   components: {
     EditCom,
   },

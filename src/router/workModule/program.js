@@ -145,12 +145,12 @@ const program = [
   },
   // 电极物料需求详情
   {
-    key: "Pa_ElectrodeDemand_Details",
+    key: "Pa_ElectrodeDemand_Detail",
     component: () =>
       import("@/views/workModule/program/electrodeDemand/Details"),
     Parent: "De_Design",
-    name: "Pa_ElectrodeDemand_Details",
-    path: "Pa_ElectrodeDemand_Details",
+    name: "Pa_ElectrodeDemand_Detail",
+    path: "Pa_ElectrodeDemand_Detail",
     title:
       i18n.t("menu.Pa_ElectrodeDemand") +
       "  " +

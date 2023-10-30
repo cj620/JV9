@@ -55,6 +55,8 @@
 import { Table, RecordTable, formSchema1, detailConfig } from "./config"
 import { Form } from "~/class/form";
 import Detail from "@/jv_doc/class/detail/Detail";
+import { timeFormat } from "@/jv_doc/utils/time";
+
 import { site_collection_programing_time_collection } from "@/api/workApi/quality/siteCollection"
 export default {
   name: "Pa_ProgramProducingTaskReport",
@@ -99,6 +101,10 @@ export default {
     confirmToReport() {
       this.reportForm.validate((valid) => {
           if (valid) {
+              //element 自带bug，时区不在东八区，要加八个小时
+          this.reportForm.form.ActualStart =timeFormat(this.reportForm.form.ActualStart,'yyyy-MM-dd hh:mm:ss')
+          this.reportForm.form.ActualEnd =timeFormat(this.reportForm.form.ActualEnd,'yyyy-MM-dd hh:mm:ss')
+
             site_collection_programing_time_collection(this.reportForm.form).then((res) => {
               this.tableObj.getData();
               this.reportDialogVisible = false
