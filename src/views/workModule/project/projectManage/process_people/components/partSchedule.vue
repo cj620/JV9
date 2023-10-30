@@ -16,7 +16,7 @@
           <el-button size="mini">{{ $t("Generality.Ge_Search") }}</el-button>
         </div>
         <div class="part-schedule-header-left-box">
-          <el-button size="mini" @click="shareShow = !shareShow">{{
+          <el-button size="mini" @click="setShareShow">{{
             $t("project.Pro_Share")
           }}</el-button>
         </div>
@@ -192,10 +192,35 @@
       </div>
     </div>
     <JvDialog :title="$t('project.Pro_Share')" :visible.sync="shareShow"
+              :IsShowConfirmFooterBtn="false"
               destroy-on-close
     >
+      <div style="padding-bottom: 10px;padding-left: 10px">
+        <span style="font-weight: bold">已选择零件：</span><el-tag
+        style="margin-right: 10px;margin-bottom: 10px"
+        v-for="tag in PartNos"
+        :key="tag"
+        closable
+        @close="handleClose(tag)"
+      >
+        {{tag}}
+      </el-tag>
+      </div>
+      <JvTable :table-obj="tableObj">
+        <template #Progress="{ row }">
+          <el-progress
+            :style="{ width: setProgress(row['Progress']) }"
+            :percentage="row['Progress']"
+          ></el-progress>
+        </template>
+        <template #SelectPart="{ row }">
+          <div class="select-part" @click="addPartNos(row)">
+            <i class="el-icon-circle-plus"></i>
+          </div>
+        </template>
+      </JvTable>
       <div class="form-box">
-        <JvForm :formObj="formObj" style="padding-left: 30px"> </JvForm>
+        <JvForm :formObj="formObj" style="padding-left: 10px"> </JvForm>
         <div class="form-box-button">
           <Action
             slot="extra"
@@ -209,21 +234,14 @@
           ></Action>
         </div>
       </div>
-      <div style="padding: 0 30px 20px 30px">
+      <div style="padding: 0 10px 20px 10px">
         <el-input v-model="link" v-if="link">
           <div slot="append" style="cursor: pointer" @click="copyLink">
             {{ $t("Generality.Ge_Copy") }}
           </div>
         </el-input>
       </div>
-      <JvTable :table-obj="tableObj">
-        <template #Progress="{ row }">
-          <el-progress
-            :style="{ width: setProgress(row['Progress']) }"
-            :percentage="row['Progress']"
-          ></el-progress>
-        </template>
-      </JvTable>
+
     </JvDialog>
   </PageWrapper>
 </template>
@@ -267,6 +285,7 @@ export default {
       index: 0,
       List: [],
       tableObj: {},
+      PartNos: [],
     };
   },
   created() {
@@ -284,6 +303,19 @@ export default {
   methods: {
     timeFormat,
     imgUrlPlugin,
+    setShareShow() {
+      this.shareShow = !this.shareShow;
+      this.PartNos = [];
+      this.link = "";
+    },
+    handleClose(tag) {
+      this.PartNos.splice(this.PartNos.indexOf(tag), 1);
+    },
+    addPartNos(row) {
+      console.log(row)
+      this.PartNos.push(row.PartNo);
+      this.PartNos = [...new Set(this.PartNos)]
+    },
     shareInit() {
       this.tableObj = new Table();
 
@@ -327,7 +359,7 @@ export default {
     },
     createLink() {
       let obj = {
-        PartNos: this.tableObj.selectData.keys
+        PartNos: this.PartNos
       }
       Object.assign(obj, this.formObj.form)
       create_data_sharing(obj).then((res) => {
@@ -570,8 +602,11 @@ export default {
   width: 100%;
   &-button {
     position: absolute;
-    right: 0;
+    right: 10px;
     top: calc(25% + 9px);
   }
+}
+.select-part{
+  font-size: 30px;color: #1890ff; width: 100%;display: flex;justify-content: center;cursor:pointer;
 }
 </style>
