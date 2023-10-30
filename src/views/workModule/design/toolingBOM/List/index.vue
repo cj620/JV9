@@ -188,22 +188,30 @@
           ]"
         />-->
         <div class="bom-action">
-          <span @click="copy(row, row_index)"  class="action-item">{{
+          <span @click="copy(row, row_index)"
+                :class="{ 'action-item': true }"
+          >{{
             $t("Generality.Ge_Copy")
           }}</span>
-          <span @click="l_insert(row_index)"  class="action-item">{{
+          <span @click="l_insert(row_index)"
+                :class="{ 'action-item': true}"
+          >{{
             $t("Generality.Ge_Insert")
           }}</span>
-          <span @click="l_delete(row_index)"  class="action-item">{{
+          <span @click="l_delete(row_index)"
+                :class="{ 'action-item': true }"
+          >{{
             $t("Generality.Ge_Delete")
           }}</span>
-            <span  class="action-item">
-                <el-badge :is-dot="row.IsPartProcess ? row.IsPartProcess.value : false">
-            <span @click="CraftDesign1(row)">{{
-                $t("program.Pr_ProcessPlanning")
-                }}</span>
-                </el-badge>
-            </span>
+          <span  class="action-item">
+            <el-badge :is-dot="row.IsPartProcess ? row.IsPartProcess.value : false">
+              <span @click="CraftDesign1(row)"
+                    :class="{ 'disabled-button': bomState !== 'Approved' }"
+              >{{
+              $t("program.Pr_ProcessPlanning")
+              }}</span>
+            </el-badge>
+          </span>
         </div>
       </template>
     </JvEditTable>
@@ -371,6 +379,7 @@ import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
 import { format2source } from "@/jv_doc/class/utils/dataFormat";
 import ParseImg from "@/components/JVInternal/ParseImg";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
+import { resetCache } from "~/class/utils/editTableHelp";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 import JvDialog from "~/cpn/JvDialog/index.vue";
 import customUpload from "@/components/customUpload/index.vue";
@@ -791,6 +800,7 @@ export default {
           Unit: item.Unit.value,
           Quantity: item.Quantity.value,
           ToolingNo: item.ToolingNo.value,
+          IsFinishedProductInspection: item.IsFinishedProductInspection.value
         });
       });
       console.log(this.eTableObj.selectData.datas);
@@ -1005,7 +1015,7 @@ export default {
     //跳转到物料需求
     confirmTask(e) {
       this.$router.push({
-        name: "De_ItemsDemand_Add",
+        name: "De_MaterialRequirement_Add",
         params: {
           data: format2source(this.eTableObj.selectData.datas),
           AssociateTask: e,
@@ -1113,6 +1123,19 @@ export default {
         });
       } else {
         this.$message.error(this.$t("Generality.Ge_PleaseAddData"));
+      }
+    },
+  },
+  watch: {
+    $route(to, from) {
+      // 页面缓存的时候不刷新数据，监听路由刷新数据
+      // 判断路由监听的页面是不是本页面
+
+      if (to.name !== 'ToolingBOM') return;
+
+      // 判断传过来的数据不为空并且传过来的数据是一条新的数据
+      if (this.$route.params.PartNo !== undefined) {
+        this.getData();
       }
     },
   },
