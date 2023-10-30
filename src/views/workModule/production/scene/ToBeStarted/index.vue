@@ -221,7 +221,7 @@ export default {
         DownMachineCollectionItem: [
           {
             TaskProcessId: e.Id,
-            DeviceNo: e.PlanDevice,
+            DeviceNo: e.ActualDevice,
           }
         ],
         UserId: this.searchUserId(e.Worker),

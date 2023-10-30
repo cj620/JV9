@@ -6,7 +6,7 @@
 -->
 <template>
   <PageWrapper :footer="false">
-    <JvTable ref="BillTable" :table-obj="tableObj" @selection-change="canPick">
+    <JvTable ref="BillTable" :table-obj="tableObj">
       <template #Category="{ row }">
         {{ Category[row.Category] }}
       </template>
@@ -34,16 +34,6 @@
         slot="btn-list"
         :actions="[
           {
-            label: $t('project.Pro_Outsource'),
-            confirm: outsourcingBill.bind(),
-            disabled: isDisabled1
-          },
-          {
-            label: $t('Generality.Ge_Finished'),
-            confirm: completeBill.bind(),
-            disabled: isDisabled2
-          },
-          {
             label: $t('Generality.Ge_New'),
             confirm: add.bind(),
           },
@@ -51,15 +41,6 @@
       >
       </Action>
     </JvTable>
-    <JvDialog
-      :title="$t('Generality.Ge_Remind')"
-      :visible.sync="confirmDialogShow"
-      v-if="confirmDialogShow"
-      @confirm="confirmBill"
-      width="30%"
-    >
-      {{ $t("purchase.Pu_ConfirmToHandle") }}'{{ newState[dialogTip].name }}'?
-    </JvDialog>
   </PageWrapper>
 </template>
 
@@ -72,18 +53,7 @@ export default {
   data() {
     return {
       tableObj: {},
-      isDisabled1: true,
-      isDisabled2: true,
-      confirmDialogShow: false,
       dialogTip:"",
-      newState:{
-        0:{
-          name: this.$t('purchase.Pu_Outsourced'),
-        },
-        1:{
-          name: this.$t('Generality.Ge_Completed'),
-        }
-      },
       Category: {
         Part: this.$t("production.Pr_PartOutsourcing"),
         Process: this.$t("production.Pr_ProcessOutsourcing"),
@@ -119,36 +89,6 @@ export default {
         },
       });
     },
-    outsourcingBill(){
-      this.confirmDialogShow = true
-      this.dialogTip = 0
-    },
-    completeBill(){
-      this.confirmDialogShow = true
-      this.dialogTip = 1
-    },
-    confirmBill(){
-      const arr = this.tableObj.selectData.datas.map(item => item.Id);
-      if (this.dialogTip === 0) {
-        handlePurchaseOutsourcingRequirement({ ItemIds: arr }).then(
-          this.tableObj.getData()
-        )
-      } else if (this.dialogTip === 1){
-        completedPurchaseOutsourcingRequirement({ ItemIds: arr }).then(
-          this.tableObj.getData()
-        )
-      }
-      this.confirmDialogShow = false
-    },
-    canPick() {
-      const { datas } = this.tableObj.selectData;
-      this.isDisabled1 = !datas.every(item => item.State === "ToBeProcessed");
-      this.isDisabled2 = !datas.every(item => item.State === "Outsourced");
-      if (datas.length === 0) {
-        this.isDisabled1 = true;
-        this.isDisabled2 = true;
-      }
-    }
   },
 };
 </script>
