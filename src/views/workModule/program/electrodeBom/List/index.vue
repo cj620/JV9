@@ -82,11 +82,11 @@
             disabled: !IsSearchItemDisabled,
             confirm: CraftDesign.bind(),
           },
-          {
-			      label: $t('design.De_StateLinkage'),
-			      disabled: IsTableEmpty,
-			      confirm: synchronizeState.bind(),
-          },
+          // {
+			    //   label: $t('design.De_StateLinkage'),
+			    //   disabled: IsTableEmpty,
+			    //   confirm: synchronizeState.bind(),
+          // },
         ]"
       >
       </Action>
@@ -606,12 +606,12 @@ export default {
       }
     },
     //同步物料状态
-    synchronizeState() {
-      let arr = this.eTableObj.getTableData()
-      synchronize_material_state(arr).then((res) => {
-        this.getData();
-      })
-    },
+    // synchronizeState() {
+    //   let arr = this.eTableObj.getTableData()
+    //   synchronize_material_state(arr).then((res) => {
+    //     this.getData();
+    //   })
+    // },
     //下载导入模板
     downExport2Excel() {
       var arr = [];
