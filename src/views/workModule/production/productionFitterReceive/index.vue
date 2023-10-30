@@ -150,10 +150,10 @@ export default {
         UserId: this.searchUserId(this.UserData.UserName),
 	    }).then((res) => {
         this.tableObj.getData({ CreationDate: timeFormat(new Date(), "yyyy-MM-dd") })
-        this.UserData = {
-          UserName: "",
-          PhotoUrl: "",
-        };
+        // this.UserData = {
+        //   UserName: "",
+        //   PhotoUrl: "",
+        // };
         this.billInfo = {};
       }).catch(()=>{
         this.billInfo = {};
