@@ -148,6 +148,96 @@ const production = [
     path: "productionPlan",
     title: i18n.t("menu.Pr_ProductionPlan"),
   },
+  // 生产排程（新）
+  {
+    key: "Pr_NewProductionSchedule",
+    component: () =>
+        import("@/views/workModule/production/NewProductionSchedule"),
+    Parent: "Pr_Production",
+    name: "NewProductionSchedule",
+    path: "NewProductionSchedule",
+    title: i18n.t("menu.Pr_NewProductionSchedule"),
+  },
+  // 待排工单
+  {
+    key: "Pr_PendingWorkOrders",
+    component: () =>
+        import("@/views/workModule/production/NewProductionSchedule/PendingWorkOrders"),
+    Parent: "Pr_NewProductionSchedule",
+    name: "PendingWorkOrders",
+    path: "PendingWorkOrders",
+    title: i18n.t("menu.Pr_PendingWorkOrders"),
+  },
+  // 参排工单
+  {
+    key: "Pr_SchedulingworkOrders",
+    component: () =>
+        import("@/views/workModule/production/NewProductionSchedule/SchedulingworkOrders"),
+    Parent: "Pr_NewProductionSchedule",
+    name: "SchedulingWorkOrders",
+    path: "SchedulingWorkOrders",
+    title: i18n.t("menu.Pr_SchedulingworkOrders"),
+  },
+  // 超期工单
+  {
+    key: "Pr_OverdueWorkOrder",
+    component: () =>
+        import("@/views/workModule/production/NewProductionSchedule/OverdueWorkOrder"),
+    Parent: "Pr_NewProductionSchedule",
+    name: "OverdueWorkOrder",
+    path: "OverdueWorkOrder",
+    title: i18n.t("menu.Pr_OverdueWorkOrder"),
+  },
+  // 工序负荷
+  {
+    key: "Pr_ProcessLoad",
+    component: () =>
+        import("@/views/workModule/production/NewProductionSchedule/ProcessLoad"),
+    Parent: "Pr_NewProductionSchedule",
+    name: "ProcessLoad",
+    path: "ProcessLoad",
+    title: i18n.t("menu.Pr_ProcessLoad"),
+  },
+  // 生产调度
+  {
+    key: "Pr_ProductionScheduling",
+    component: () =>
+        import("@/views/workModule/production/NewProductionSchedule/ProductionScheduling"),
+    Parent: "Pr_NewProductionSchedule",
+    name: "ProductionScheduling",
+    path: "ProductionScheduling",
+    title: i18n.t("menu.Pr_ProductionScheduling"),
+  },
+  // 模拟排程
+  {
+    key: "Pr_SimulatedScheduling",
+    component: () =>
+        import("@/views/workModule/production/NewProductionSchedule/SimulatedScheduling"),
+    Parent: "Pr_NewProductionSchedule",
+    name: "SimulatedScheduling",
+    path: "SimulatedScheduling",
+    title: i18n.t("menu.Pr_SimulatedScheduling"),
+  },
+  // 甘特图
+  {
+    key: "Pr_GanttChart",
+    component: () =>
+        import("@/views/workModule/production/NewProductionSchedule/GanttChart"),
+    Parent: "Pr_NewProductionSchedule",
+    name: "GanttChart",
+    path: "GanttChart",
+    title: i18n.t("menu.Pr_GanttChart"),
+  },
+  // 执行排程
+  {
+    key: "Pr_ExecutionScheduling",
+    component: () =>
+        import("@/views/workModule/production/NewProductionSchedule/ExecutionScheduling"),
+    Parent: "Pr_NewProductionSchedule",
+    name: "ExecutionScheduling",
+    path: "ExecutionScheduling",
+    title: i18n.t("menu.Pr_ExecutionScheduling"),
+  },
 
   /*  // 编程任务
   {
