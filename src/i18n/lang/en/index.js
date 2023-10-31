@@ -10,6 +10,15 @@
 import enLocale from "element-ui/lib/locale/lang/en";
 const en = {
   menu: {
+    Pr_NewProductionSchedule: "Production Schedule",
+    Pr_PendingWorkOrders: "Pending Work Orders",
+    Pr_SchedulingworkOrders: "Scheduling work Orders",
+    Pr_OverdueWorkOrder: "Overdue Work Order",
+    Pr_ProcessLoad: "Process Load",
+    Pr_ProductionScheduling: "Production Scheduling",
+    Pr_SimulatedScheduling: "Simulated Scheduling",
+    Pr_GanttChart: "Gantt Chart",
+    Pr_ExecutionScheduling: "Execution Scheduling",
     Pr_MyTasks: "My Tasks",
     Pr_ScanCodeToEnterTheStation: "ScanCode ToEnter The Station",
     Pr_ScanCodeToStartWork: "ScanCode ToStart Work",
