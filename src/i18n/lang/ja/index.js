@@ -247,6 +247,8 @@ const ja = {
     Pro_ProblemPoints: "問題点",
     Pro_SuggestionsImprovement: "改善提案",
     Pro_VersionCode:"バージョン番号",
+    Pro_InputTestMouldInfo:"モデル試験情報の記入",
+    Pro_TestMouldMaterials:"金型材料のテスト",
   },
   //设置
   setup: {
@@ -329,6 +331,7 @@ const ja = {
     Sa_EvaluationTime: "評価時間",
     Sa_Evaluation: "評価",
     Sa_OrderEvaluation: "オーダー評価",
+    Sa_NoEvaluation: "評価なし",
     Sa_CustomerId: "顧客番号",
     Sa_ShortName: "略称",
     Sa_FullName: "フルネーム",
@@ -547,6 +550,7 @@ const ja = {
   },
   //通用
   Generality: {
+    Ge_Pending1: "保留中",
     Ge_LoadMore: "追加のロード",
     Ge_InStationProcess: "ステーション工程",
     Ge_Personnel: "ユーザ",

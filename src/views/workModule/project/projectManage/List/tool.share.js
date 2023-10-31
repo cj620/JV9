@@ -93,7 +93,7 @@ const formSchema=[
   },
   {
     prop: "Keyword",
-    label: '关键字',
+    label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
   }
 ]

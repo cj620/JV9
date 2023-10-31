@@ -18,7 +18,7 @@
         :model="form"
         label-width="80px"
       >
-        <el-form-item label="客户" prop="CustomerName">
+        <el-form-item :label="$t('menu.Sa_Customer')" prop="CustomerName">
           <el-select
             v-model="form.CustomerName"
             clearable
@@ -34,11 +34,11 @@
             </el-option>
           </el-select>
         </el-form-item >
-          <el-form-item label="模具" label-width="80px" prop="ToolingNo">
+          <el-form-item :label="$t('Generality.Ge_Tooling')" label-width="80px" prop="ToolingNo">
 
                   <el-select
             v-model="form.ToolingNo"
-            clearable 
+            clearable
             filterable
             remote
             reserve-keyword
@@ -55,9 +55,9 @@
           </el-select>
 
         </el-form-item>
-          <el-form-item label="物料" label-width="80px"  prop="Keyword">
+          <el-form-item :label="$t('Generality.Ge_Items')" label-width="80px"  prop="Keyword">
 <el-input v-model="form.Keyword" ></el-input>
-            
+
 
         </el-form-item>
         <el-form-item label="" label-width="20px">
@@ -69,7 +69,9 @@
           <el-button type="primary" size="mini" @click="searchForm">{{
             $t("Generality.Ge_Search")
           }}</el-button>
-            <el-button @click="resetForm('form')">重置</el-button>
+            <el-button @click="resetForm('form')">{{
+              $t('Generality.Ge_Reset')
+              }}</el-button>
         </el-form-item>
       </el-form>
       <!-- 表格 -->

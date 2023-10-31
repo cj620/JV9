@@ -260,6 +260,8 @@ const cn = {
     Pro_ProblemPoints: "问题点",
     Pro_SuggestionsImprovement: "改善建议",
     Pro_VersionCode:"版本编号",
+    Pro_InputTestMouldInfo:"填写试模信息",
+    Pro_TestMouldMaterials:"试模用料",
   },
   //设置
   setup: {
@@ -343,6 +345,7 @@ const cn = {
     Sa_EvaluationTime: "评估时间",
     Sa_Evaluation: "评估",
     Sa_OrderEvaluation: "订单评估",
+    Sa_NoEvaluation: "暂无评估",
     Sa_CustomerId: "客户编号",
     Sa_ShortName: "简称",
     Sa_FullName: "全称",
@@ -562,6 +565,7 @@ const cn = {
   },
   //通用
   Generality: {
+    Ge_Pending1: "待定",
     Ge_LoadMore: "加载更多",
     Ge_InStationProcess: "在站工序",
     Ge_Personnel: "人员",
