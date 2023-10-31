@@ -18,7 +18,8 @@ export class Table extends BaseTable {
       tableHeaderShow: false,
       operationCol: false,
       pagination: false,
-      height: '400px'
+      height: '400px',
+      chooseCol: false,
     });
   }
 }
@@ -47,5 +48,12 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_Schedule"),
     custom: true,
     width: '200px'
+  },
+  // 选择
+  {
+    prop: "SelectPart",
+    label: i18n.t("production.Pr_SelectPart"),
+    custom: true,
+    width: '80px'
   }
 ];

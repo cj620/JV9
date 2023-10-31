@@ -290,6 +290,7 @@ export default {
         Level: "Ordinary",
         Quantity: "",
         CurrentStation: "",
+        IsFinishedProductInspection: false,
         Remarks: "",
         Process: [],
         BillFiles: [],
