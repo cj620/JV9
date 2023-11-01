@@ -25,7 +25,7 @@ import screenFull from "screenfull";
 
 import { timeFormat } from "~/utils/time/index";
 import {Data} from './data';
-import { data_report_vkb_datav_dashboard } from "@/api/workApi/production/dataReport";
+import { comp_operations_dashboard } from "@/api/basicApi/dataV/kanban";
 import FormattedTime from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/components/formattedTime.vue";
 export default {
   name: "index",
@@ -40,11 +40,15 @@ export default {
       currentTime: timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss"),
       DataList: {},
       IsShow: false,
+      Data: {}
     };
   },
   created() {
     screenFull.toggle();
     this.getData();
+    // comp_operations_dashboard().then(res => {
+    //   console.log(res)
+    // })
   },
   methods: {
     getData() {
