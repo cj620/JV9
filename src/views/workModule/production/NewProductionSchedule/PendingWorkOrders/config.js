@@ -40,10 +40,10 @@ export const tableConfig = [
         label: i18n.t("production.Pr_WorkSheetNo"),
     },
     /*模具编号*/
-    // {
-    //     prop: "ToolingNo",
-    //     label: i18n.t("Generality.Ge_ToolingNo"),
-    // },
+    {
+        prop: "ToolingNo",
+        label: i18n.t("Generality.Ge_ToolingNo"),
+    },
     /*零件名称*/
     {
         prop: "PartName",
@@ -108,7 +108,7 @@ export const formSchema = [
     //模具编号
     {
         prop: "ToolingNo",
-        label: i18n.t("design.De_ToolingNo"),
+        label: i18n.t("Generality.Ge_ToolingNo"),
         cpn: "FormInput",
     },
     // 零件

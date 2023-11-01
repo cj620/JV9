@@ -1,9 +1,9 @@
 <template>
   <page-wrapper :footer="false">
     <JvTable ref="BillTable" :table-obj="obsoleteTableObj">
-      <template #titleBar
-        ><div class="subTitle">总计：{{ obsCount }}</div></template
-      >
+<!--      <template #titleBar-->
+<!--        ><div class="subTitle">总计：{{ obsCount }}</div></template-->
+<!--      >-->
       <template #LastReportingDays="{ record }">
         <div style="color: red; font-size: 20px; font-weight: bold">
           {{ record }}
@@ -71,17 +71,17 @@ export default {
     },
     // 修改超交期工单计划结束日期
     updatePlanEnd() {
-      this.loading = true;
+      // this.loading = true;
       update_plan_end({
         BillIds: [this.planData.billId],
         PlanEnd: this.planData.planEnd,
       })
         .then(() => {
-          this.loading = false;
-          this.tableChangeFn(true);
+          // this.loading = false;
+          this.obsoleteTableObj.getData();
         })
         .catch(() => {
-          this.loading = false;
+          // this.loading = false;
         });
       this.UpdatePlanEndFormVisible = false;
       this.planData = {
