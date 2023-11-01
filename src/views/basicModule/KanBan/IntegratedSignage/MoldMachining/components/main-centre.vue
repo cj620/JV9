@@ -88,7 +88,6 @@ export default {
     this.dataList=this.CentreDataList.Data4
     this.centreDataList=this.CentreDataList.Data5
     this.EmergencyProdTask=this.CentreDataList.Data6
-    console.log(this.centreDataList,98989898);
 
   },
   mounted() {
@@ -107,7 +106,6 @@ export default {
     changeData(){
       this.timer = setInterval(() => {
         this.dataList=this.shuffle(this.dataList)
-        console.log(11, this.dataList);
         this.msg=Math.random()
 
       }, 5000);

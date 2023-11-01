@@ -187,7 +187,7 @@ export default {
     search() {
       this.departmentName ? this.department = ['开发部', '销售部'] : this.department = ['销售部','生产部','采购部','设计部','编程部','开发部'];
       this.loading = true;
-      processing_department_kanban({Department: this.departmentName}).then(res => {
+      processing_department_kanban({Department: '生产部'}).then(res => {
         this.loading = false;
         this.infoRes = res['TopInfo'] || []; // 顶部信息
         this.LastSevenDaysRes = { ...res['WorkHourRecord'] } || {}; // 过去七天工时记录

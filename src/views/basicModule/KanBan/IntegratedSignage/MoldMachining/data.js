@@ -187,14 +187,14 @@ export const Data = {
         "Name": "本月试模"
     },
     {
-        "Value": "50/VKB:40",
-        "Name": "机加本月接单数"
+        "Value": "50",
+        "Name": "本月接单数"
     }
 ],
     "Data5": [
     {
         "Value": "40",
-        "Name": "本月机加下单",
+        "Name": "模具达成率",
         "Config": {
             "CircleColor": "#25a2f2",
             "CenterCircleBg": "#172342",
@@ -203,7 +203,7 @@ export const Data = {
     },
     {
         "Value": "38",
-        "Name": "本月机加在制工单",
+        "Name": "模具超期数",
         "Config": {
             "CircleColor": "#00e3d5",
             "CenterCircleBg": "#172342",
@@ -212,7 +212,7 @@ export const Data = {
     },
     {
         "Value": "30",
-        "Name": "本月模具下单",
+        "Name": "零件达成率",
         "Config": {
             "CircleColor": "#94b5ff",
             "CenterCircleBg": "#172342",
@@ -221,7 +221,7 @@ export const Data = {
     },
     {
         "Value": "43",
-        "Name": "本月模具在制工单",
+        "Name": "零件超期数",
         "Config": {
             "CircleColor": "#8585ff",
             "CenterCircleBg": "#172342",
@@ -230,7 +230,7 @@ export const Data = {
     },
     {
         "Value": "4",
-        "Name": "今日预计出货",
+        "Name": "试模达成率",
         "Config": {
             "CircleColor": "#e54e64",
             "CenterCircleBg": "#172342",
@@ -580,32 +580,18 @@ export const Data = {
 ],
     "Data8": [
     {
-        "Name": "机加出货(量产)",
+        "Name": "合格",
         "Code": null,
         "Value": "30",
         "Percentage": "19",
         "Color": "#f45868"
     },
     {
-        "Name": "机加出货(打样)",
+        "Name": "不合格",
         "Code": null,
         "Value": "40",
         "Percentage": "25",
         "Color": "#edc240"
     },
-    {
-        "Name": "模具出货",
-        "Code": null,
-        "Value": "50",
-        "Percentage": "31",
-        "Color": "#25a2f2"
-    },
-    {
-        "Name": "电极出货",
-        "Code": null,
-        "Value": "40",
-        "Percentage": "25",
-        "Color": "#00e3d5"
-    }
 ]
 }

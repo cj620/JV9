@@ -55,6 +55,7 @@ export function update_plan_end(data) {
     url: "/production_task/update_plan_end",
     method: "post",
     data,
+    loading: true
   });
 }
 // 修改加工单任务记录实际结束日期

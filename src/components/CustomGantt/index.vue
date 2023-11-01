@@ -462,6 +462,7 @@ export default {
 
       // 设置滚动条滚动到当前单位task列表最前面task的位置
       let timeObj = this.getMaxAndMinTime(this.result.Items, true);
+      if(!timeObj.firstNode || !timeObj.lastNode) return
       let left = timeObj.firstNode.offsetLeft;
       this.TimeRangeList = getTimeRangeList(
         timeObj.MinimumTime,
@@ -515,6 +516,14 @@ export default {
       };
       function formatt(time) {
         return new Date(timeFormat(time, "yyyy-MM-dd hh:mm:ss")).getTime();
+      }
+      if(!data.length) {
+        return {
+          MaximumTime: "2023-01-01 00:00:00",
+          MinimumTime: "2023-01-01 00:00:01",
+          firstNode: null,
+          lastNode: null,
+        }
       }
       data.forEach((item) => {
         item.Data.forEach((jtem) => {
@@ -589,6 +598,7 @@ export default {
       this.TimeRangeList = getTimeRangeList(MinimumTime, MaximumTime);
 
       this.setTableDateList(); // 赋值日期列表和每一格的长度 用来渲染
+
       // 赋值表头列表
       this.list = val.Items.map((item) => {
         return {
