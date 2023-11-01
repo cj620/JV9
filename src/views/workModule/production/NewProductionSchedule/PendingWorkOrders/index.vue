@@ -11,8 +11,13 @@
           size="mini"
           :actions="[
             {
-              label: '参排',
+              label: '添加至参排工单',
               confirm: GinsengPlatoon,
+              disabled: !tableObj.selectData.keys.length
+            },
+            {
+              label: '全部添加至参排工单',
+              confirm: GinsengPlatoon.bind(null, true),
             },
           ]"
         ></Action>
@@ -37,24 +42,22 @@ export default {
   },
   created() {
     this.tableObj = new Table();
-    this.tableObj.getData({ selectType: 2, CurrentPage: 1, PageSize: 10 });
+    this.tableObj.getData({ selectType: 2});
   },
   methods: {
-    GinsengPlatoon() {
-      if(!this.tableObj.selectData.datas.length) {
-        this.$confirm('是否全部添加到参排？', '提示', {
+    GinsengPlatoon(all) {
+      if(all) {
+        this.$confirm('是否全部添加到参排工单？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           update_is_partake_aps({UpdateAll: true}).then(res => {
-            console.log(res)
             this.tableObj.getData();
           })
         })
       } else {
         update_is_partake_aps({BillIds: this.tableObj.selectData.keys, IsPartakeAPS: "Normal"}).then(res => {
-          console.log(res)
           this.tableObj.getData();
         })
 
