@@ -436,6 +436,9 @@ const cn = {
     Da_DepartmentSignage: "部门综合看板",
     Da_SaleSignage: "销售大数据看板",
     Da_QualitySignage: "品质部门看板",
+    Da_MoldMachiningSignage: "模具综合看板",
+    Da_EquipmentStateSignage: "设备状态看板",
+    Da_ProjectTaskSignage: "项目任务看板",
     Da_EquipmentStatus: "设备状态",
     Da_AlarmSituation: "报警情况",
     Da_ShutdownCondition: "停机情况",
@@ -562,6 +565,11 @@ const cn = {
     Da_TotalSalesAmountThisMonth: "本月销售总金额",
     Da_TotalAmountNotShippedThisMonth: "本月未出货总金额",
     Da_ShippedAmountThisMonth: "本月已出货总金额",
+    Da_EmergencyOrder:'紧急工单',
+    Da_ExpectedCropTurnoverRateOfEachDepartmentThisMonth:'本月各部门预计稼动率',
+    Da_CropTurnoverRateOfEachDepartmentThisMonth:'本月各部门稼动率',
+    Da_ProjectProgressDisplay:'项目进度展示',
+    Da_AccumulatedShipmentStatusThisMonth:'本月累计出货情况',
   },
   //通用
   Generality: {

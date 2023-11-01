@@ -1,14 +1,18 @@
 <template>
   <div class="data-v-main-right">
     <div class="right-top">
-      <div class="right-top-title">项目进度展示</div>
+      <div class="right-top-title">{{
+          $t('DataV.Da_ProjectProgressDisplay')
+        }}</div>
       <dvScrollRankingBoard
         :config="config1"
         style="width: 460px; height: 350px"
       ></dvScrollRankingBoard>
     </div>
     <div class="right-bottom">
-      <div class="right-bottom-title">本月累计出货情况</div>
+      <div class="right-bottom-title">{{
+          $t('DataV.Da_AccumulatedShipmentStatusThisMonth')
+        }}</div>
       <div class="right-bottom-canvas">
         <canvas id="myCanvas"></canvas>
         <div class="slot-title" v-show="false">{{ msg }}</div>

@@ -439,6 +439,9 @@ const ja = {
     Da_DepartmentSignage: "部門総合看板",
     Da_SaleSignage: "ビッグデータカンバンの販売",
     Da_QualitySignage: "品質部門看板",
+    Da_MoldMachiningSignage: "金型総合看板",
+    Da_EquipmentStateSignage: "デバイスステータスカンバン",
+    Da_ProjectTaskSignage: "プロジェクトタスクカンバン",
     Da_EquipmentStatus: "デバイスの状態",
     Da_AlarmSituation: "アラーム状況",
     Da_ShutdownCondition: "停止状況",
@@ -565,6 +568,11 @@ const ja = {
     Da_TotalSalesAmountThisMonth: "今月の売上総額",
     Da_TotalAmountNotShippedThisMonth: "今月の未出荷総額",
     Da_ShippedAmountThisMonth: "今月出荷済み合計金額",
+    Da_EmergencyOrder:'緊急作業指示',
+    Da_ExpectedCropTurnoverRateOfEachDepartmentThisMonth:'今月の各部門の予想稼働率',
+    Da_CropTurnoverRateOfEachDepartmentThisMonth:'今月の部門別稼働率',
+    Da_ProjectProgressDisplay:'プロジェクトの進捗状況の表示',
+    Da_AccumulatedShipmentStatusThisMonth:'今月の累計出荷状況',
   },
   //通用
   Generality: {
