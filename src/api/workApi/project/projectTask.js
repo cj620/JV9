@@ -149,3 +149,12 @@ export function production_programing_task_edit(data) {
     data,
   });
 }
+// 保存试模任务动态扩充内容信息
+export function save_trial_tooling_dynamic(data) {
+  return request({
+    url: "/project_task/save_trial_tooling_dynamic",
+    method: "post",
+    data,
+    loading:true
+  });
+}

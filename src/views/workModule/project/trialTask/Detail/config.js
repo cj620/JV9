@@ -16,6 +16,11 @@ import { enumFilter } from "~/utils/system/enumsPlugin";
 //   label: i18n.t("Generality.Ge_Schedule"),
 //   custom: true,
 // });
+var testMouldResultEnum={
+  OK: { name: "OK", value: "OK" },
+  NG: { name: "NG", value: "NG" },
+  Pending: { name: i18n.t("Generality.Ge_Pending1"), value: "Pending" },
+}
 
 export const formSchema = [
   {
@@ -125,6 +130,17 @@ export const detailConfig = [
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
   },
+  //相关编号
+  {
+    prop: "RelationId",
+    label: i18n.t("sale.Sa_RelationId"),
+    custom: true,
+  },
+  //版本
+  {
+    prop: "ProjectTaskVersion",
+    label: i18n.t("production.Pr_Version"),
+  },
   {
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
@@ -135,12 +151,7 @@ export const detailConfig = [
     label: i18n.t("Generality.Ge_PlanEnd"),
     filter: "date",
   },
-  //相关编号
-  {
-    prop: "RelationId",
-    label: i18n.t("sale.Sa_RelationId"),
-    custom: true,
-  },
+
   //试模原因
   {
     prop: "TestMouldReason",
@@ -150,7 +161,7 @@ export const detailConfig = [
   {
     prop: "TestMouldResult",
     label: i18n.t("project.Pro_TestMouldResult"),
-    custom: true,
+    customFilter: (value, row) => enumFilter(value, testMouldResultEnum),
   },
   //试模颜色
   {

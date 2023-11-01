@@ -58,9 +58,6 @@
               {{ record }}
             </span>
           </template>
-          <template #TestMouldResult="{ record }">
-            {{ testMouldResultEnum[record].name }}
-          </template>
         </JvDetail>
         <!-- 状态标签 -->
         <JvState :state="detailObj.detailData.State"></JvState>
@@ -168,7 +165,7 @@ import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
 import { format2source } from "~/class/utils/dataFormat";
 import JvForm from "~/cpn/JvForm/index.vue";
 export default {
-  name: "Pm_TrialTask_Detail",
+  name: "index",
   components: {
     JvForm,
     JvUploadFile,
@@ -192,11 +189,6 @@ export default {
       editRouteName: "Pm_TrialTask_Edit",
       printMod: "Pm_TrialTask_Detail",
       taskTypeEnum,
-      testMouldResultEnum: {
-        OK: { name: "OK", value: "OK" },
-        NG: { name: "NG", value: "NG" },
-        Pending: { name: i18n.t("Generality.Ge_Pending1"), value: "Pending" },
-      },
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -264,6 +256,7 @@ export default {
             ...this.formObj.form
           }).then(res => {
             this.informationShow = false;
+            this.getData();
           }).catch(err => {
             this.$message({
               message: err,
