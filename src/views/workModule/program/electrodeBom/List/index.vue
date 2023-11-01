@@ -225,6 +225,7 @@
         :title="$t('project.Pro_TaskSheetNo')"
         width="30%"
         @confirm="confirmItem"
+        :confirmDisabled = "SelectedTaskId"
     >
       <JvForm :formObj="formObj">
         <template #PmTaskBillId="{ prop }">
@@ -475,6 +476,9 @@ export default {
     IsSearchItemDisabled() {
       return this.eTableObj.selectData.datas.length === 1;
     },
+    SelectedTaskId() {
+      return this.formObj.form.PmTaskBillId === ""
+    }
   },
   methods: {
     getData() {
