@@ -166,10 +166,10 @@
           </JvTable>
         </el-tab-pane>
 
-        <el-tab-pane label="过程检验" name="Qc_ProcessCheckList">
+        <el-tab-pane :label="$t('menu.Qc_ProcessCheck')" name="Qc_ProcessCheckList">
           <JvTable :table-obj="Qc_ProcessCheckTableObj"> </JvTable>
         </el-tab-pane>
-        <el-tab-pane label="零件成品检验" name="Qc_FinishedProductList">
+        <el-tab-pane :label="$t('menu.Qc_FinishedProduct')" name="Qc_FinishedProductList">
           <JvTable :table-obj="Qc_FinishedProductTableObj"> </JvTable>
         </el-tab-pane>
 

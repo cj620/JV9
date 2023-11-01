@@ -57,7 +57,7 @@ export const formSchema = [
   {
     // 是否需要成品检测
     prop: "IsFinishedProductInspection",
-    label: '是否需要成品检测',
+    label: i18n.t("Generality.Ge_IsFinishedProductInspection"),
     cpn: "FormSingleCheckBox",
     options: {
       CheckBoxlabel: ''

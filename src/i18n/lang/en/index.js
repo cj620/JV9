@@ -740,7 +740,9 @@ const en = {
     Ge_AddNewPicture: "Add new picture",
     Ge_ClickUploadPicture: "Click upload picture",
     Ge_UploadPicture: "Drag the picture here, or click upload",
+    Ge_UploadFile: "Drag the file here, or click to select a file",
     Ge_ClickPaste: "Click and paste",
+    Ge_ClearAll: "Clear All",
     Ge_InventoryInfo: "Inventory information",
     Ge_SearchUnitName: "Search unit name",
     Ge_WhetherToActivate: "Whether to activate ",
@@ -968,6 +970,9 @@ const en = {
     Ge_Fixture: "Fixture",
     Ge_ShowDetail: "Show Detail",
     Ge_DateRange: "Date Range",
+    Ge_IsFinishedProductInspection: "Finished Product Testing",
+    Ge_RestoreLayout: "Restore Layout",
+    Ge_ProgramingPlanTime: "Programming Estimated Hours",
   },
   //生产
   production: {
@@ -1413,6 +1418,10 @@ const en = {
     Pr_ElectrodeDescription2: "Material (rough)",
     Pr_ElectrodeDescription3: "Material (medium)",
     Pr_AssociationPartNo: "AssociationPartNo",
+    Pr_SubmitPurchase: "Submit Purchase",
+    Pr_ElectrodeQuantitySeiko: "Quantity (precision)",
+    Pr_ElectrodeQuantityRoughWork: "Quantity (Coarse)",
+    Pr_ElectrodeQuantityMiddleFinish: "Quantity (medium)",
   },
   dashboard: {
     Da_ECNThisMonth: "ECN this month",

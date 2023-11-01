@@ -9,7 +9,7 @@
           slot="btn-list"
           :actions="[
           {
-            label: '提交采购',
+            label: $t('program.Pr_SubmitPurchase'),
             confirm: submit,
             disabled: this.isDisabled
           },

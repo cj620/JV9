@@ -80,7 +80,7 @@ const tableSchema = [
 const formSchema = [
   {
     prop: "PlanDevice",
-    label: '设备',
+    label: i18n.t("production.Pr_Equipment"),
     cpn: "SyncSelect",
     api: getAllDevice,
     apiOptions: {

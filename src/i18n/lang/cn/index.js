@@ -758,7 +758,9 @@ const cn = {
     Ge_AddNewPicture: "新增图片",
     Ge_ClickUploadPicture: "点击上传图片",
     Ge_UploadPicture: "将图片拖到此处，或点击上传",
+    Ge_UploadFile: "将文件拖放到此处,或点击选择文件",
     Ge_ClickPaste: "点击然后粘贴",
+    Ge_ClearAll: "全部清除",
     Ge_InventoryInfo: "库存信息",
     Ge_SearchUnitName: "搜索单位名称",
     Ge_WhetherToActivate: "是否激活",
@@ -979,6 +981,9 @@ const cn = {
     Ge_Fixture: "夹具",
     Ge_ShowDetail: "查看详情",
     Ge_DateRange: "日期范围",
+    Ge_IsFinishedProductInspection: "是否需要成品检测",
+    Ge_RestoreLayout: "恢复布局",
+    Ge_ProgramingPlanTime: "编程预计工时",
   },
   //生产
   production: {
@@ -1421,6 +1426,10 @@ const cn = {
     Pr_ElectrodeDescription2: "材质(粗)",
     Pr_ElectrodeDescription3: "材质(中)",
     Pr_AssociationPartNo: "电极关联零件",
+    Pr_SubmitPurchase: "提交采购",
+    Pr_ElectrodeQuantitySeiko: "数量(精)",
+    Pr_ElectrodeQuantityRoughWork: "数量(粗)",
+    Pr_ElectrodeQuantityMiddleFinish: "数量(中)",
   },
   dashboard: {
     Da_ECNThisMonth: "本月设变",

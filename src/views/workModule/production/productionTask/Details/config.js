@@ -181,12 +181,12 @@ export const detailConfig = [
   {
     // 是否需要成品检测
     prop: "IsFinishedProductInspection",
-    label: "是否需要成品检测",
+    label: i18n.t("Generality.Ge_IsFinishedProductInspection"),
     customFilter:(value,row)=>{
       if(value){
-        return '是'
+        return i18n.t("Generality.Ge_Yes")
       }else  if(value===false){
-        return '否'
+        return i18n.t("Generality.Ge_No")
       }
     },
   }

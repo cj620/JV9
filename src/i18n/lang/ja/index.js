@@ -740,7 +740,10 @@ const ja = {
     Ge_ClickUploadPicture: "クリックして画像をアップロード",
     Ge_UploadPicture:
       "画像をここにドラッグするか、をクリックしてアップロードします",
+    Ge_UploadFile:
+        "ファイルをここにドラッグ＆ドロップするか、クリックしてファイルを選択します",
     Ge_ClickPaste: "クリックして貼り付け",
+    Ge_ClearAll: "すべてクリア",
     Ge_InventoryInfo: "在庫情報",
     Ge_SearchUnitName: "検索単位名",
     Ge_WhetherToActivate: "アクティブ化するかどうか",
@@ -949,6 +952,9 @@ const ja = {
     Ge_Fixture: "つかみ具",
     Ge_ShowDetail: "詳細の表示",
     Ge_DateRange: "日付範囲",
+    Ge_IsFinishedProductInspection: "最終品目検査が必要かどうか",
+    Ge_RestoreLayout: "レイアウトの復元",
+    Ge_ProgramingPlanTime: "プログラミング予定工数",
   },
   //生产
   production: {
@@ -1392,6 +1398,10 @@ const ja = {
     Pr_ElectrodeDescription2: "マテリアル（粗い）",
     Pr_ElectrodeDescription3: "マテリアル（中）",
     Pr_AssociationPartNo: "電極関連部品",
+    Pr_SubmitPurchase: "購買の発行",
+    Pr_ElectrodeQuantitySeiko: "数量(精)",
+    Pr_ElectrodeQuantityRoughWork: "数量(粗)",
+    Pr_ElectrodeQuantityMiddleFinish: "数量(中)",
   },
   dashboard: {
     Da_ECNThisMonth: "今月中に変更する",

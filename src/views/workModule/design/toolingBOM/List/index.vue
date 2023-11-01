@@ -52,7 +52,7 @@
         :dropDownActions="[
           {
             /*清除缓存重置表格*/
-            label: '恢复布局',
+            label: $t('Generality.Ge_RestoreLayout'),
             confirm: resetTable.bind(),
           },
           {
