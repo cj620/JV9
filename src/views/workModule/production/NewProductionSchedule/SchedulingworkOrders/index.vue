@@ -11,7 +11,7 @@
           size="mini"
           :actions="[
             {
-              label: '参排',
+              label: '待排',
               confirm: GinsengPlatoon,
               disabled: !tableObj.selectData.keys.length
             },
