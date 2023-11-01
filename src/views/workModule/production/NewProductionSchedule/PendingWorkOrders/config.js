@@ -59,6 +59,7 @@ export const tableConfig = [
     {
         prop: "Level",
         label: i18n.t("Generality.Ge_Level"),
+        custom: true,
     },
     /*工序*/
     // {

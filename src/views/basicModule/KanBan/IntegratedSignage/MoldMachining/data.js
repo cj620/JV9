@@ -580,32 +580,18 @@ export const Data = {
 ],
     "Data8": [
     {
-        "Name": "机加出货(量产)",
+        "Name": "合格",
         "Code": null,
         "Value": "30",
         "Percentage": "19",
         "Color": "#f45868"
     },
     {
-        "Name": "机加出货(打样)",
+        "Name": "不合格",
         "Code": null,
         "Value": "40",
         "Percentage": "25",
         "Color": "#edc240"
     },
-    {
-        "Name": "模具出货",
-        "Code": null,
-        "Value": "50",
-        "Percentage": "31",
-        "Color": "#25a2f2"
-    },
-    {
-        "Name": "电极出货",
-        "Code": null,
-        "Value": "40",
-        "Percentage": "25",
-        "Color": "#00e3d5"
-    }
 ]
 }
