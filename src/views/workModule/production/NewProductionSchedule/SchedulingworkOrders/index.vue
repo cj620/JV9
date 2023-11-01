@@ -11,7 +11,7 @@
           size="mini"
           :actions="[
             {
-              label: '待排',
+              label: '添加至待排工单',
               confirm: GinsengPlatoon,
               disabled: !tableObj.selectData.keys.length
             },
@@ -38,13 +38,11 @@ export default {
   },
   created() {
     this.tableObj = new Table();
-    console.log(this.tableObj.getData);
-    this.tableObj.getData({ selectType: 3, CurrentPage: 1, PageSize: 10 });
+    this.tableObj.getData({ selectType: 3 });
   },
   methods: {
     GinsengPlatoon() {
       update_is_partake_aps({BillIds: this.tableObj.selectData.keys, IsPartakeAPS: "ToBeArranged"}).then(res => {
-        console.log(res)
         this.tableObj.getData();
       })
     }
