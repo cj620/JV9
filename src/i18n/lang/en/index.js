@@ -262,6 +262,8 @@ const en = {
     Pro_ProblemPoints: "Problem Points",
     Pro_SuggestionsImprovement: "Suggestions Improvement",
     Pro_VersionCode:"Version Code",
+    Pro_InputTestMouldInfo:"Input Test Mould Info",
+    Pro_TestMouldMaterials:"Test Mould Materials",
   },
   setup: {
     Stockroom: "Stockroom",
@@ -344,6 +346,7 @@ const en = {
     Sa_EvaluationTime: "Evaluation Time",
     Sa_Evaluation: "Evaluation",
     Sa_OrderEvaluation: "Order Evaluation",
+    Sa_NoEvaluation: "No Evaluation Currently Available",
     Sa_CustomerId: "Customer No.",
     Sa_ShortName: "Short Name",
     Sa_FullName: "Full Name",
@@ -544,6 +547,7 @@ const en = {
   },
   //通用
   Generality: {
+    Ge_Pending1: "Pending",
     Ge_LoadMore: "Load More",
     Ge_InStationProcess: "In Station Process",
     Ge_Personnel: "Personnel",
@@ -846,7 +850,7 @@ const en = {
     Ge_FileType: "File type",
     Ge_SelectFile: "Slect file",
     Ge_FileSize: "File size",
-    Ge_KeyWords: "Key words",
+    Ge_KeyWords: "Keywords",
     Ge_PleaseCompleteTheFormAsRequired: "Please complete the form as required",
     Ge_WhetherToStartUsing: "Whether to start using?",
     Ge_PrintEditor: "Print editor",

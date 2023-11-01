@@ -67,7 +67,7 @@
       </div>
     </JvBlock>
     <!--物料信息-->
-    <JvBlock title="试模用料" ref="second">
+    <JvBlock :title="$t('project.Pro_TestMouldMaterials')" ref="second">
       <JvTable :table-obj="tableObj1"> </JvTable>
     </JvBlock>
     <!-- 试模问题点 -->
@@ -137,7 +137,7 @@
       :visible.sync="informationShow"
       @confirm="informationConfirm"
       width="35%"
-      title="填写试模信息"
+      :title="$t('project.Pro_InputTestMouldInfo')"
     >
       <JvForm :form-obj="formObj"></JvForm>
     </JvDialog>
@@ -195,7 +195,7 @@ export default {
       testMouldResultEnum: {
         OK: { name: "OK", value: "OK" },
         NG: { name: "NG", value: "NG" },
-        Pending: { name: "待定", value: "Pending" },
+        Pending: { name: i18n.t("Generality.Ge_Pending1"), value: "Pending" },
       },
       tabPanes: [
         {
@@ -292,11 +292,11 @@ export default {
         this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
         this.btnAction.push(
           {
-            label: "填写试模信息",
+            label: i18n.t('project.Pro_InputTestMouldInfo'),
             confirm: this.information,
           },
           {
-            label: "物料需求",
+            label: i18n.t('project.Pro_TestMouldMaterials'),
             confirm: this.toItemsDemand,
             disabled: this.detailObj.detailData.State !== "Approved",
           },
