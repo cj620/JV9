@@ -22,7 +22,7 @@
             >0</el-radio
           >
           <span style="color: gray">{{
-            `（${$t("design.De_DoesnShowInProjectManagementPage")}）`
+            `（${$t("design.De_DoesntShowInProjectManagementPage")}）`
           }}</span>
         </div>
         <div>
