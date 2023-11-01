@@ -75,7 +75,7 @@
                       <div
                         class="Equipment-signage-content-item-box-content-device"
                       >
-                        {{ item.Device }}
+                        {{ 'S20230807001-A01' }}
                       </div>
                     </div>
                   </div>
