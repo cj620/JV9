@@ -28,7 +28,7 @@ import LevelEnum from "@/enum/workModule/production/LevelEnum";
 import { update_is_partake_aps } from "@/api/workApi/production/productionSchedule";
 import Action from "~/cpn/JvAction/index.vue";
 export default {
-  name: "index",
+  name: "SchedulingWorkOrders",
   components: { Action },
   data() {
     return {

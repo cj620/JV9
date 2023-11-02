@@ -23,7 +23,6 @@
         <div class="name">{{ item.Name }}</div>
         <div class="dataValue">{{ item.Value }}</div>
         <div class="percentage">{{ item.Percentage }}%</div>
-        <div class="slot-title" v-show="false">{{ msg }}</div>
       </div>
 
       <div></div>
@@ -79,10 +78,10 @@ export default {
     this.changeData();
   },
   mounted() {
-    this.can = new CreateCircle("myCanvas", 200, 200, 90, 20, 10000);
-    this.can.drowCircle(this.list);
-    this.creteText(this.dataList);
-    this.changeData();
+    // this.can = new CreateCircle("myCanvas", 200, 200, 90, 20, 10000);
+    // this.can.drowCircle(this.list);
+    this.creteText();
+    // this.changeData();
   },
   methods: {
     changeData() {
@@ -91,7 +90,7 @@ export default {
         console.log(this.dataList);
 
         this.msg = Math.random();
-        this.creteText(this.dataList);
+        // this.creteText(this.dataList);
       }, 5000);
     },
     shuffle(array) {
@@ -105,24 +104,7 @@ export default {
     },
 
     creteText(e) {
-      // this.can.creteText(
-      //   {
-      //     px: "33px",
-      //     fontFamliy: "Medium",
-      //     txt: e[0].Value,
-      //     color: "#fff",
-      //     offsetTop: 91,
-      //   },
-      //   {
-      //     px: "16px",
-      //     fontFamliy: "Regular",
-      //     txt: e[0].Name,
-      //     color: "#fff",
-      //     offsetTop: 121,
-      //   }
-      // );
       let myChart = echarts.init(document.getElementById('m_chart'))
-      console.log(myChart)
       myChart.setOption({
         title: {
           text: 'Referer of a Website',
@@ -194,6 +176,8 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 100%;
+      height: 100%;
     }
     .right-bottom-value {
       display: flex;
