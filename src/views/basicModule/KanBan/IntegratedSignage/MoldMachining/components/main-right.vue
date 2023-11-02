@@ -1,17 +1,18 @@
 <template>
   <div class="data-v-main-right">
     <div class="right-top">
-      <div class="right-top-title">项目进度展示</div>
+      <div class="right-top-title">模具进度</div>
       <dvScrollRankingBoard
         :config="config1"
         style="width: 460px; height: 350px"
       ></dvScrollRankingBoard>
     </div>
     <div class="right-bottom">
-      <div class="right-bottom-title">本月累计出货情况</div>
+      <div class="right-bottom-title">本月质检情况</div>
       <div class="right-bottom-canvas">
-        <canvas id="myCanvas"></canvas>
-        <div class="slot-title" v-show="false">{{ msg }}</div>
+<!--        <canvas id="myCanvas"></canvas>-->
+<!--        <div class="slot-title" v-show="false">{{ msg }}</div>-->
+        <div id="m_chart"></div>
       </div>
       <div
         class="right-bottom-value"
@@ -33,6 +34,7 @@
 <script>
 import dvScrollRankingBoard from "./dvScrollRankingBoard.vue";
 import CreateCircle from "./util/createCircle";
+import * as echarts from "echarts";
 export default {
   name: "main-right",
   components: {
@@ -103,23 +105,59 @@ export default {
     },
 
     creteText(e) {
-      this.can.creteText(
-        {
-          px: "33px",
-          fontFamliy: "Medium",
-          txt: e[0].Value,
-          color: "#fff",
-          offsetTop: 91,
+      // this.can.creteText(
+      //   {
+      //     px: "33px",
+      //     fontFamliy: "Medium",
+      //     txt: e[0].Value,
+      //     color: "#fff",
+      //     offsetTop: 91,
+      //   },
+      //   {
+      //     px: "16px",
+      //     fontFamliy: "Regular",
+      //     txt: e[0].Name,
+      //     color: "#fff",
+      //     offsetTop: 121,
+      //   }
+      // );
+      let myChart = echarts.init(document.getElementById('m_chart'))
+      console.log(myChart)
+      myChart.setOption({
+        title: {
+          text: 'Referer of a Website',
+          subtext: 'Fake Data',
+          left: 'center'
         },
-        {
-          px: "16px",
-          fontFamliy: "Regular",
-          txt: e[0].Name,
-          color: "#fff",
-          offsetTop: 121,
-        }
-      );
-      console.log( this.can);
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left'
+        },
+        series: [
+          {
+            name: 'Access From',
+            type: 'pie',
+            radius: '50%',
+            data: [
+              { value: 1048, name: 'Search Engine' },
+              { value: 735, name: 'Direct' },
+              { value: 580, name: 'Email' },
+              { value: 484, name: 'Union Ads' },
+              { value: 300, name: 'Video Ads' }
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      })
     },
   },
 };

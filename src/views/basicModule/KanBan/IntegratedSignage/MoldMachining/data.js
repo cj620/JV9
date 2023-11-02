@@ -53,7 +53,7 @@ export const Data = {
 ],
     "Data3": [
     {
-        "Title": "前6个月电极数据图",
+        "Title": "零件每日合格率",
         "Date": [
             "2月",
             "3月",
@@ -82,7 +82,7 @@ export const Data = {
         ]
     },
     {
-        "Title": "前6个月模具数据图",
+        "Title": "零件每日合格率",
         "Date": [
             "2月",
             "3月",
@@ -111,7 +111,7 @@ export const Data = {
         ]
     },
     {
-        "Title": "前6个月机加量产数据图",
+        "Title": "零件每日合格率",
         "Date": [
             "2月",
             "3月",
@@ -194,7 +194,7 @@ export const Data = {
     "Data5": [
     {
         "Value": "40",
-        "Name": "本月机加下单",
+        "Name": "模具达成率",
         "Config": {
             "CircleColor": "#25a2f2",
             "CenterCircleBg": "#172342",
@@ -203,7 +203,7 @@ export const Data = {
     },
     {
         "Value": "38",
-        "Name": "本月机加在制工单",
+        "Name": "模具超期数",
         "Config": {
             "CircleColor": "#00e3d5",
             "CenterCircleBg": "#172342",
@@ -212,7 +212,7 @@ export const Data = {
     },
     {
         "Value": "30",
-        "Name": "本月模具下单",
+        "Name": "零件达成率",
         "Config": {
             "CircleColor": "#94b5ff",
             "CenterCircleBg": "#172342",
@@ -221,7 +221,7 @@ export const Data = {
     },
     {
         "Value": "43",
-        "Name": "本月模具在制工单",
+        "Name": "零件超期数",
         "Config": {
             "CircleColor": "#8585ff",
             "CenterCircleBg": "#172342",
@@ -230,7 +230,7 @@ export const Data = {
     },
     {
         "Value": "4",
-        "Name": "今日预计出货",
+        "Name": "试模达成率",
         "Config": {
             "CircleColor": "#e54e64",
             "CenterCircleBg": "#172342",

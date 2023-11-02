@@ -25,7 +25,7 @@
   </div>
   <div class="centre-bottom">
     <div  class="centre-bottom-title">
-      <div>紧急工单</div>
+      <div>在制工单</div>
       <div>共计：
       <span  class="centre-bottom-title-number">
         {{EmergencyProdTask.length}}

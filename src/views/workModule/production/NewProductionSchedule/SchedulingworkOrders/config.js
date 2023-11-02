@@ -15,7 +15,7 @@ export class Table extends BaseTable {
             // 行标识
             rowId: "BillId",
             // 表格标题
-            title: i18n.t("menu.Pr_PendingWorkOrders"),
+            title: i18n.t("menu.Pr_SchedulingworkOrders"),
             // 接口类
             api,
             // 操作列宽度
@@ -36,7 +36,24 @@ export const tableConfig = [
     /*加工单号*/
     {
         prop: "BillId",
-        label: i18n.t("production.Pr_WorkSheetNo"),
+        label: i18n.t("production.Pr_WorkOrderNumber"),
+        align: "center",
+        cpn: "Link",
+        innerSearch: {
+            prop: "BillId",
+            cpn: "FormInput",
+            label: i18n.t("production.Pr_WorkOrderNumber"),
+        },
+        cpnProps: {
+            // 路由名称
+            routeName: "ProductionTaskDetails",
+            // 路由路径（名称和路径二选一）
+            // routePath:'/dashboard',
+            // 路由传参方式 默认query
+            methods: "query",
+            // 传参的键名，值为当前数据
+            parameterKey: "BillId",
+        },
     },
     /*模具编号*/
     {
