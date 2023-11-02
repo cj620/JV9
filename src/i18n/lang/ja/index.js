@@ -441,7 +441,6 @@ const ja = {
     Da_QualitySignage: "品質部門看板",
     Da_MoldMachiningSignage: "金型総合看板",
     Da_EquipmentStateSignage: "デバイスステータスカンバン",
-    Da_ProjectTaskSignage: "プロジェクトタスクカンバン",
     Da_EquipmentStatus: "デバイスの状態",
     Da_AlarmSituation: "アラーム状況",
     Da_ShutdownCondition: "停止状況",
@@ -1144,6 +1143,9 @@ const ja = {
     Pr_PleaseEnterThePartNo: "部品番号を入力してください",
     Pr_PleaseEnterTheBillId: "请输入加工单号",
     Pr_PleaseSelectTheWorker: "作業員を選択してください",
+    Pr_AddToSchedulingWorkOrder: "パラメータ製造オーダに追加",
+    Pr_AddToSchedulingWorkOrderAll: "すべてパラメータ製造オーダに追加",
+    Pr_WhetherAddToSchedulingWorkOrderAll: "パラメータ製造オーダにすべて追加するかどうか?",
   },
   quality: {
     Qc_CheckResult: "検査結果",

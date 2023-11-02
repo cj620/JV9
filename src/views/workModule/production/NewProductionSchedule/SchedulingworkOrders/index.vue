@@ -11,7 +11,7 @@
           size="mini"
           :actions="[
             {
-              label: '添加至待排工单',
+              label: $t('production.Pr_AddToSchedulingWorkOrder'),
               confirm: GinsengPlatoon,
               disabled: !tableObj.selectData.keys.length
             },

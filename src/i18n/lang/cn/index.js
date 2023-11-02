@@ -438,7 +438,6 @@ const cn = {
     Da_QualitySignage: "品质部门看板",
     Da_MoldMachiningSignage: "模具综合看板",
     Da_EquipmentStateSignage: "设备状态看板",
-    Da_ProjectTaskSignage: "项目任务看板",
     Da_EquipmentStatus: "设备状态",
     Da_AlarmSituation: "报警情况",
     Da_ShutdownCondition: "停机情况",
@@ -1134,6 +1133,9 @@ const cn = {
     Pr_PleaseEnterThePartNo: "请输入零件编号",
     Pr_PleaseEnterTheBillId: "请输入加工单号",
     Pr_PleaseSelectTheWorker: "请选择作业员",
+    Pr_AddToSchedulingWorkOrder: "添加至参排工单",
+    Pr_AddToSchedulingWorkOrderAll: "全部添加至参排工单",
+    Pr_WhetherAddToSchedulingWorkOrderAll: "是否全部添加到参排工单?",
   },
   quality: {
     Qc_CheckResult: "检验结果",
