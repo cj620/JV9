@@ -45,7 +45,7 @@
         :dropDownActions="[
           {
             /*清除缓存重置表格*/
-            label: '恢复布局',
+            label: $t('Generality.Ge_RestoreLayout'),
             confirm: resetTable.bind(),
           },
           {
@@ -82,11 +82,11 @@
             disabled: !IsSearchItemDisabled,
             confirm: CraftDesign.bind(),
           },
-          {
-			      label: $t('design.De_StateLinkage'),
-			      disabled: IsTableEmpty,
-			      confirm: synchronizeState.bind(),
-          },
+          // {
+			    //   label: $t('design.De_StateLinkage'),
+			    //   disabled: IsTableEmpty,
+			    //   confirm: synchronizeState.bind(),
+          // },
         ]"
       >
       </Action>
@@ -225,6 +225,7 @@
         :title="$t('project.Pro_TaskSheetNo')"
         width="30%"
         @confirm="confirmItem"
+        :confirmDisabled = "SelectedTaskId"
     >
       <JvForm :formObj="formObj">
         <template #PmTaskBillId="{ prop }">
@@ -475,6 +476,9 @@ export default {
     IsSearchItemDisabled() {
       return this.eTableObj.selectData.datas.length === 1;
     },
+    SelectedTaskId() {
+      return this.formObj.form.PmTaskBillId === ""
+    }
   },
   methods: {
     getData() {
@@ -606,12 +610,12 @@ export default {
       }
     },
     //同步物料状态
-    synchronizeState() {
-      let arr = this.eTableObj.getTableData()
-      synchronize_material_state(arr).then((res) => {
-        this.getData();
-      })
-    },
+    // synchronizeState() {
+    //   let arr = this.eTableObj.getTableData()
+    //   synchronize_material_state(arr).then((res) => {
+    //     this.getData();
+    //   })
+    // },
     //下载导入模板
     downExport2Excel() {
       var arr = [];

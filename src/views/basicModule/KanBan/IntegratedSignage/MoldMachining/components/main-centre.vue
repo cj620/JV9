@@ -69,11 +69,11 @@ export default {
       EmergencyProdTask:[],
 
       tableConfig: [
-        {prop: 'BillId', label: "单号"},
-        {prop: 'ToolingNo', label: "产品号"},
-        {prop: 'PartNo', label: "零件号"},
-        {prop: 'PartName', label: "零件名称"},
-        {prop: 'State', label: "状态"},
+        {prop: 'BillId', label: i18n.t('Generality.Ge_BillId')},
+        {prop: 'ToolingNo', label: i18n.t('production.Pr_ToolingNo')},
+        {prop: 'PartNo', label: i18n.t('design.De_ToolingNo')},
+        {prop: 'PartName', label: i18n.t('Generality.Ge_PartName')},
+        {prop: 'State', label: i18n.t('Generality.Ge_State')},
       ]
     }
   },

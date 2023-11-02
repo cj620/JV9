@@ -37,7 +37,7 @@ export const tableConfig = [
   {
     id: "665487545",
     prop: "SubFolder",
-    label: i18n.t("setup.SubfolderName"),
+    label: i18n.t("setup.SubFolderName"),
     fixed: false,
     align: "center",
     filter: "default",

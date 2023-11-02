@@ -180,7 +180,7 @@ import DynamicList from "../../projectManage/mouldDetail/cpns/DynamicList.vue";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
 import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
 export default {
-   name: "Pm_ProjectTask_Detail",
+   //name: "Pm_ProjectTask_Detail",
   components: {
     JvUploadFile,
     JvRemark,

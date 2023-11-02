@@ -1,9 +1,14 @@
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
-import { taskTypeEnum, enumToList } from "@/enum/workModule";
+import { taskTypeEnum, enumToList, enumFilter } from "@/enum/workModule";
 // 单据接口
 import { API, trial_tooling_list } from "@/api/workApi/project/projectTask";
 import { itemList } from '@/api/basicApi/systemSettings/Item'
+var testMouldResultEnum={
+  OK: { name: "OK", value: "OK" },
+  NG: { name: "NG", value: "NG" },
+  Pending: { name: "待定", value: "Pending" },
+}
 let { api_delete } = API;
 class api extends TableAPI {
   // 获取列表
@@ -34,11 +39,6 @@ export class Table extends BaseTable {
   }
 }
 export const tableConfig = [
-  /*备注*/
-  {
-    prop: "Remarks",
-    label: i18n.t("Generality.Ge_Remarks"),
-  },
   /*图片*/
   {
     prop: "PhotoUrl",
@@ -67,18 +67,6 @@ export const tableConfig = [
       parameterKey: "BillId",
     },
   },
-
-  /*项目*/
-  {
-    prop: "Project",
-    label: i18n.t("menu.Pm_Project"),
-    width: "120px",
-    innerSearch: {
-      prop: "Project",
-      cpn: "FormInput",
-      label: i18n.t("menu.Pm_Project"),
-    },
-  },
   /*模具编号*/
   {
     prop: "ToolingNo",
@@ -89,21 +77,6 @@ export const tableConfig = [
       label: i18n.t("Generality.Ge_ToolingNo"),
     },
   },
-  /*任务类别*/
-  {
-    prop: "TaskType",
-    label: i18n.t("Generality.Ge_TaskType"),
-    custom: true,
-    innerSearch: {
-      prop: "TaskType",
-      cpn: "FormSelect",
-      label: i18n.t("Generality.Ge_TaskType"),
-      options: {
-        list: enumToList(taskTypeEnum),
-      },
-    },
-  },
-
   /*状态*/
   {
     prop: "State",
@@ -111,13 +84,39 @@ export const tableConfig = [
     custom: true,
     width: "115px",
   },
-
   /*计划交期*/
   {
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_DeliveryDate"),
     filter: "date",
     width: "120px",
+  },
+  /*试模机台*/
+  {
+    prop: "TestMouldMachine",
+    label: i18n.t("project.Pro_TestMouldMachine"),
+  },
+  /*试模原因*/
+  {
+    prop: "TestMouldReason",
+    label: i18n.t("project.Pro_TestMouldReason"),
+  },
+  /*试模结果*/
+  {
+    prop: "TestMouldResult",
+    label: i18n.t("project.Pro_TestMouldResult"),
+    customFilter: (value, row) => enumFilter(value, testMouldResultEnum),
+  },
+  /*试模日期*/
+  {
+    prop: "TestMouldDate",
+    label: i18n.t("project.Pro_TestMouldDate"),
+    filter: "date",
+  },
+  /*试模用时*/
+  {
+    prop: "TestMouldUseTime",
+    label: i18n.t("project.Pro_TestMouldUseTime"),
   },
   /*制单人*/
   {
@@ -132,7 +131,11 @@ export const tableConfig = [
     filter: "time",
     width: "150px",
   },
-
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  },
 ];
 export const formSchema = [
   //单号搜索

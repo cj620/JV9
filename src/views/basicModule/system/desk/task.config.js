@@ -125,6 +125,7 @@ const formSchema = [
     options: {
       list: enumToList(taskStateEnum),
     },
+    type: "multiple",
   },
 ];
 

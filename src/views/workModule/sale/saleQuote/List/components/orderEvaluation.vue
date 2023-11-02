@@ -21,7 +21,9 @@
           $t("sale.Sa_Evaluation")
         }}</el-button>
       </div>
-      <div class="placeholder-map" v-show="placeholderMap">暂无评估</div>
+      <div class="placeholder-map" v-show="placeholderMap">{{
+          $t("sale.Sa_NoEvaluation")
+        }}</div>
       <div class="order-evaluation-content">
         <div class="order-evaluation-content-top">
           <base-chart

@@ -1,7 +1,9 @@
 <template>
 <div class="data-v-main-left">
 <div class="left-top">
-  <div  class="left-top-title">本月各部门预计稼动率</div>
+  <div  class="left-top-title">{{
+      $t('DataV.Da_ExpectedCropTurnoverRateOfEachDepartmentThisMonth')
+    }}</div>
   <div   class="left-top-center">
     <div  class="left-top-center-left">
       <conic-press
@@ -32,7 +34,9 @@
   </div>
 </div>
   <div class="left-center">
-    <div  class="left-center-title">本月各部门稼动率</div>
+    <div  class="left-center-title">{{
+        $t('DataV.Da_CropTurnoverRateOfEachDepartmentThisMonth')
+      }}</div>
     <div   class="left-center-center">
       <div  class="left-center-center-left">
         <conic-press

@@ -6,7 +6,7 @@
           <img src="../logo.png" alt="" />
         </div>
         <div class="Equipment-signage-header-center">
-          {{ $t("DataV.Da_EquipmentSignage") }}
+          {{ $t("DataV.Da_EquipmentStateSignage") }}
         </div>
         <div class="Equipment-signage-header-right">
           <div
@@ -75,7 +75,7 @@
                       <div
                         class="Equipment-signage-content-item-box-content-device"
                       >
-                        {{ item.Device }}
+                        {{ 'S20230807001-A01' }}
                       </div>
                     </div>
                   </div>

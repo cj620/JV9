@@ -187,8 +187,8 @@ export const Data = {
         "Name": "本月试模"
     },
     {
-        "Value": "50/VKB:40",
-        "Name": "机加本月接单数"
+        "Value": "50",
+        "Name": "本月接单数"
     }
 ],
     "Data5": [

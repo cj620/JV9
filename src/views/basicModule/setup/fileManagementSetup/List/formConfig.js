@@ -22,7 +22,7 @@ export const formSchema = [
   },
   {
     prop: "SubFolder",
-    label: i18n.t("setup.SubfolderName"),
+    label: i18n.t("setup.SubFolderName"),
     cpn: "FormInput",
     rules: [
       {

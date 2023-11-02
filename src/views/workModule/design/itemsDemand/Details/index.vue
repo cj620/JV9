@@ -26,7 +26,11 @@
           ),
         },
       ]" -->
-    <Action slot="sticky-extra" size="small" :actions="btnAction"></Action>
+    <Action
+        slot="sticky-extra"
+        size="small"
+        :actions="btnAction.filter((item) => item.label != $t('Generality.Ge_Copy'))"
+    ></Action>
     <!--单据信息-->
     <JvBlock :title="cur_billId" ref="first">
       <!---->

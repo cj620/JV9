@@ -95,7 +95,7 @@ export const tableConfig = [
   /*编程预计工时*/
   {
     prop: "ProgramingPlanTime",
-    label: '编程预计工时',
+    label: i18n.t("Generality.Ge_ProgramingPlanTime"),
     formCpn: "FormInput",
     type: "number",
     width: "140px",

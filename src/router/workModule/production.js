@@ -176,7 +176,7 @@ const production = [
     Parent: "Pr_NewProductionSchedule",
     name: "SchedulingWorkOrders",
     path: "SchedulingWorkOrders",
-    title: i18n.t("menu.Pr_SchedulingworkOrders"),
+    title: i18n.t("menu.Pr_SchedulingWorkOrders"),
   },
   // 超期工单
   {
