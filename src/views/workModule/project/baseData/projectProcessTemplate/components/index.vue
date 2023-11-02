@@ -170,6 +170,8 @@ export default {
     //选择模板后返回的数据
     confirmProcessTemplate(e) {
       console.log(e);
+      this.eTableObj.push(temMerge(this.BillItems, e));
+      this.ProcessTemplateDialogFormVisible = false;
     },
     //选择工序后返回的数据
     selectProcessData(e) {

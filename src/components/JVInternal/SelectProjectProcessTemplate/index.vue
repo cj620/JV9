@@ -2,7 +2,7 @@
 <template>
     <div>
       <jv-dialog
-        :title="$t('Generality.Ge_SelectItems')"
+        :title="$t('project.Pro_SelectTemplate')"
         width="40%"
         :close-on-click-modal="true"
         :modal-append-to-body="false"

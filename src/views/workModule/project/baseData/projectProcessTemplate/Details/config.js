@@ -5,6 +5,8 @@
  * @Description:
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
+import { enumFilter } from '~/utils/system/enumsPlugin'
+import { processTypeEnum } from "@/enum/workModule/project/projectTask"
 export class Table extends BaseTable {
     constructor() {
         super({
@@ -19,25 +21,31 @@ export const tableConfig = [
         prop: "Process",
         label: i18n.t("Generality.Ge_Process"),
     },
-    /*预计工时*/
+    /*标准费率*/
     {
-        prop: "PlanTime",
-        label: i18n.t("Generality.Ge_PlanTime"),
+        prop: "CostRate",
+        label: i18n.t("production.Pr_CostRate"),
     },
-    /*工序内容*/
+    /*开始比例*/
     {
-        prop: "ProcessContent",
-        label: i18n.t("Generality.Ge_ProcessInfo"),
+        prop: "StartScale",
+        label: i18n.t("production.Pr_StartScale"),
     },
-    /*资源组*/
+    /*结束比例*/
     {
-        prop: "Resource",
-        label: i18n.t("Generality.Ge_Resource"),
+        prop: "EndScale",
+        label: i18n.t("production.Pr_EndScale"),
     },
-    /*备注*/
+    /*部门*/
     {
-        prop: "Remarks",
-        label: i18n.t("Generality.Ge_Remarks"),
+        prop: "BelongingDepartment",
+        label: i18n.t("menu.Se_Department"),
+    },
+    /*工序类别*/
+    {
+        prop: "ProcessType",
+        label: i18n.t("production.Pr_ProcessType"),
+        customFilter: (value) => enumFilter(value, processTypeEnum),
     },
 ];
 export const detailConfig = [
