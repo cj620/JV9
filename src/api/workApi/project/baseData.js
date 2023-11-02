@@ -50,3 +50,29 @@ export function updateSort(data) {
     data,
   });
 }
+
+// 获取所有项目工序模板
+export function getAllProjectProcessTemplate() {
+  return request({
+    url: "/project_process_template/get_all",
+    method: "get",
+  });
+}
+
+// 保存项目工序模板
+export function saveProjectProcessTemplate(data) {
+  return request({
+    url: "/project_process_template/save",
+    method: "post",
+    data,
+  });
+}
+
+// 删除项目工序模板
+export function deleteProjectProcessTemplate(data) {
+  return request({
+    url: "/project_process_template/delete",
+    method: "post",
+    data,
+  });
+}

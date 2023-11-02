@@ -72,6 +72,7 @@ const ja = {
     Pm_BaseData: "基礎データ",
     Pu_BaseData: "基礎データ",
     Pm_Processes: "プロジェクトタスク工程",
+    Pm_ProjectProcessTemplate: "プロジェクト工程テンプレート",
     Pm_BudgetCost: "原価予算表",
     Pm_MakeCalculation: "製造決算表",
     Pm_Estimate: "審査書 ",

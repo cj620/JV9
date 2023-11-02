@@ -72,6 +72,7 @@ const en = {
     Pm_BaseData: "Base Data",
     Pu_BaseData: "Base Data",
     Pm_Processes: "Processes",
+    Pm_ProjectProcessTemplate: "Project Process Template",
     Pm_BudgetCost: "Budget Cost",
     Pm_MakeCalculation: "Make Calculation",
     Pm_Estimate: "Estimate ",
