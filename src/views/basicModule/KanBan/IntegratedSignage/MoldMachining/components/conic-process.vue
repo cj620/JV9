@@ -36,7 +36,6 @@ export default {
       } else {
         rate = this.rate;
       }
-      console.log(rate,95595959);
       let endPos = `${rate}%`;
       let obj = Object.assign({}, this.defaultConfig, this.config);
       let rotate = `rotate(${3.6 * rate}deg)`;
