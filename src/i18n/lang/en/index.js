@@ -440,7 +440,6 @@ const en = {
     Da_QualitySignage: "Quality Signage",
     Da_MoldMachiningSignage: "Mold Machining Signage",
     Da_EquipmentStateSignage: "Equipment State Signage",
-    Da_ProjectTaskSignage: "Project Task Signage",
     Da_EquipmentStatus: "Equipment Status",
     Da_AlarmSituation: "Alarm Situation",
     Da_ShutdownCondition: "Shutdown Condition",
@@ -1146,6 +1145,9 @@ const en = {
     Pr_PleaseEnterThePartNo: "Please Enter The PartNo",
     Pr_PleaseEnterTheBillId: "Please Enter The BillId",
     Pr_PleaseSelectTheWorker: "Please Select The Worker",
+    Pr_AddToSchedulingWorkOrder: "Add To Scheduling Work Order",
+    Pr_AddToSchedulingWorkOrderAll: "Add To Scheduling Work Order All",
+    Pr_WhetherAddToSchedulingWorkOrderAll: "Whether Add To Scheduling Work Order All",
   },
   quality: {
     Qc_CheckResult: "Check result",

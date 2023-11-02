@@ -51,7 +51,6 @@ export default {
         {title: i18n.t("DataV.Da_MoldMachiningSignage"), imgUrl: require('./muju.jpg'),url: '/MoldMachining'},
         {title: i18n.t("DataV.Da_QualitySignage"), imgUrl: require('./QualitySignage.png'), url: '/QualitySignage'},
         {title: i18n.t("DataV.Da_EquipmentStateSignage"), imgUrl: require('./QualitySignage.png'), url: '/EquipmentOperation'},
-        {title: i18n.t("DataV.Da_ProjectTaskSignage"), imgUrl: require('./QualitySignage.png'),url: '/ProjectTaskSignage'},
       ]
     }
   },

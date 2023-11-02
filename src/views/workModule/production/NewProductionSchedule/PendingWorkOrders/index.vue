@@ -11,12 +11,12 @@
           size="mini"
           :actions="[
             {
-              label: '添加至参排工单',
+              label: $t('production.Pr_AddToSchedulingWorkOrder'),
               confirm: GinsengPlatoon,
               disabled: !tableObj.selectData.keys.length
             },
             {
-              label: '全部添加至参排工单',
+              label: $t('production.Pr_AddToSchedulingWorkOrderAll'),
               confirm: GinsengPlatoon.bind(null, true),
             },
           ]"
@@ -47,9 +47,11 @@ export default {
   methods: {
     GinsengPlatoon(all) {
       if(all) {
-        this.$confirm('是否全部添加到参排工单？', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(
+          this.$t("production.Pr_WhetherAddToSchedulingWorkOrderAll"),
+          this.$t("Generality.Ge_Remind"), {
+          confirmButtonText: this.$t("Generality.Ge_OK"),
+          cancelButtonText: this.$t("Generality.Ge_Cancel"),
           type: 'warning'
         }).then(() => {
           update_is_partake_aps({UpdateAll: true}).then(res => {
