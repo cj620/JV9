@@ -53,7 +53,7 @@ export const Data = {
 ],
     "Data3": [
     {
-        "Title": "前6个月电极数据图",
+        "Title": "零件每日合格率",
         "Date": [
             "2月",
             "3月",
@@ -82,7 +82,7 @@ export const Data = {
         ]
     },
     {
-        "Title": "前6个月模具数据图",
+        "Title": "零件每日合格率",
         "Date": [
             "2月",
             "3月",
@@ -111,7 +111,7 @@ export const Data = {
         ]
     },
     {
-        "Title": "前6个月机加量产数据图",
+        "Title": "零件每日合格率",
         "Date": [
             "2月",
             "3月",
