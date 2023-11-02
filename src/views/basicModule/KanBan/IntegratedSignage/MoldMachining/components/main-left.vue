@@ -156,13 +156,11 @@ export default {
       this.dataListObject2.Arr=arr.slice(1)
     },
     changeData3(arr){
-      console.log(arr,333);
 
       this.DateTime = arr[0].Date
     this.Data1 = arr[0].Data[0]
     this.Data2 = arr[0].Data[1]
     this.QualityTitle=arr[0].Title
-    console.log(this.QualityTitle,656565656);
     this.init();
     this.drawMiddleChart();
     },

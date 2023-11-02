@@ -32,7 +32,7 @@ import LevelEnum from "@/enum/workModule/production/LevelEnum";
 import Action from "~/cpn/JvAction/index.vue";
 import { update_is_partake_aps } from '@/api/workApi/production/productionSchedule'
 export default {
-  name: "index",
+  name: "PendingWorkOrders",
   components: { Action },
   data() {
     return {

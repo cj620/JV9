@@ -15,7 +15,7 @@ export class Table extends BaseTable {
             // 行标识
             rowId: "BillId",
             // 表格标题
-            title: i18n.t("menu.Pr_SchedulingworkOrders"),
+            title: i18n.t("menu.Pr_SchedulingWorkOrders"),
             // 接口类
             api,
             // 操作列宽度

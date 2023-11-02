@@ -12,7 +12,7 @@
       <div class="right-bottom-canvas">
 <!--        <canvas id="myCanvas"></canvas>-->
 <!--        <div class="slot-title" v-show="false">{{ msg }}</div>-->
-        <div id="m_chart"></div>
+        <div id="m_chart"  style="height:100%;width: 100%"></div>
       </div>
       <div
         class="right-bottom-value"
@@ -23,7 +23,6 @@
         <div class="name">{{ item.Name }}</div>
         <div class="dataValue">{{ item.Value }}</div>
         <div class="percentage">{{ item.Percentage }}%</div>
-        <div class="slot-title" v-show="false">{{ msg }}</div>
       </div>
 
       <div></div>
@@ -79,16 +78,15 @@ export default {
     this.changeData();
   },
   mounted() {
-    this.can = new CreateCircle("myCanvas", 200, 200, 90, 20, 10000);
-    this.can.drowCircle(this.list);
-    this.creteText(this.dataList);
-    this.changeData();
+    // this.can = new CreateCircle("myCanvas", 200, 200, 90, 20, 10000);
+    // this.can.drowCircle(this.list);
+    // this.changeData();
+    this.creteText(this.dataList)
   },
   methods: {
     changeData() {
       this.timer = setInterval(() => {
         this.dataList = this.shuffle(this.dataList);
-        console.log(this.dataList);
 
         this.msg = Math.random();
         this.creteText(this.dataList);
@@ -105,49 +103,23 @@ export default {
     },
 
     creteText(e) {
-      // this.can.creteText(
-      //   {
-      //     px: "33px",
-      //     fontFamliy: "Medium",
-      //     txt: e[0].Value,
-      //     color: "#fff",
-      //     offsetTop: 91,
-      //   },
-      //   {
-      //     px: "16px",
-      //     fontFamliy: "Regular",
-      //     txt: e[0].Name,
-      //     color: "#fff",
-      //     offsetTop: 121,
-      //   }
-      // );
+      let arr = e.map(item => {
+        return {
+          name: item.Name,
+          value: item.Value
+        }
+      })
       let myChart = echarts.init(document.getElementById('m_chart'))
-      console.log(myChart)
       myChart.setOption({
-        title: {
-          text: 'Referer of a Website',
-          subtext: 'Fake Data',
-          left: 'center'
-        },
         tooltip: {
           trigger: 'item'
-        },
-        legend: {
-          orient: 'vertical',
-          left: 'left'
         },
         series: [
           {
             name: 'Access From',
             type: 'pie',
-            radius: '50%',
-            data: [
-              { value: 1048, name: 'Search Engine' },
-              { value: 735, name: 'Direct' },
-              { value: 580, name: 'Email' },
-              { value: 484, name: 'Union Ads' },
-              { value: 300, name: 'Video Ads' }
-            ],
+            radius: '62%',
+            data: arr,
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
@@ -158,6 +130,7 @@ export default {
           }
         ]
       })
+      myChart.resize() // 图表自适应
     },
   },
 };
@@ -194,6 +167,8 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 100%;
+      height: 360px;
     }
     .right-bottom-value {
       display: flex;

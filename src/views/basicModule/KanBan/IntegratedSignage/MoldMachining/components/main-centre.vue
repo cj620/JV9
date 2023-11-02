@@ -9,9 +9,9 @@
 
   </div>
   <div  class="centre-center">
-    <div  class="centre-center-data" v-for="(item,index) in centreDataList" :key="index">
+    <div  class="centre-center-data" v-for="(item,index) in CentreDataList.Data5" :key="index">
       <div class="centre-center-data-pie">
-        <conic-gradient :rate="item.Value" :config=item.Config>
+        <conic-gradient :rate="Number(item.Value)" :config=item.Config>
         </conic-gradient>
       </div>
 
@@ -25,8 +25,8 @@
   </div>
   <div class="centre-bottom">
     <div  class="centre-bottom-title">
-      <div>{{ $t('DataV.Da_EmergencyOrder') }}</div>
-      <div>：
+      <div>在制工单</div>
+      <div>共计：
       <span  class="centre-bottom-title-number">
         {{EmergencyProdTask.length}}
       </span>
@@ -86,7 +86,7 @@ export default {
 
   created() {
     this.dataList=this.CentreDataList.Data4
-    this.centreDataList=this.CentreDataList.Data5
+    // this.centreDataList=this.CentreDataList.Data5
     this.EmergencyProdTask=this.CentreDataList.Data6
 
   },
@@ -94,7 +94,6 @@ export default {
     this.changeData();
   },
   activated() {
-    console.log("activated");
     this.changeData();
   },
   methods:{
