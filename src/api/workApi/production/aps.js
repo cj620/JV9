@@ -98,3 +98,12 @@ export function simulation_calculate(data) {
     data,
   });
 }
+// 排程结果工序负荷
+export function aps_result_process_load(data){
+  return request({
+    url: "/aps/aps_result_process_load",
+    method: "post",
+    loading: true,
+    data
+  })
+}
