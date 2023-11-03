@@ -9,6 +9,16 @@
           {{ record }}
         </div></template
       >
+      <template #btn-list>
+        <Action
+          size="mini"
+          :actions="[
+          {
+            label: '编辑工单为已完成',
+            confirm: EditTheJobAsCompleted
+          }
+        ]"></Action>
+      </template>
       <template #operation="{ row }">
         <TableAction
           :actions="[
@@ -42,6 +52,7 @@ import Action from "~/cpn/JvAction/index.vue";
 import {ObsoleteTable} from "@/views/workModule/production/productionSchedule/List/config";
 import {
   update_plan_end,
+  update_state
 } from "@/api/workApi/production/productionTask";
 
 export default {
@@ -63,6 +74,12 @@ export default {
     this.obsoleteTableObj.getData()
   },
   methods: {
+    // 编辑工单为已完成
+    EditTheJobAsCompleted() {
+      update_state({BillIds: this.obsoleteTableObj.selectData.keys}).then(res => {
+        this.obsoleteTableObj.getData()
+      })
+    },
     // 编辑
     obsoleteEdit(val) {
       this.UpdatePlanEndFormVisible = true;

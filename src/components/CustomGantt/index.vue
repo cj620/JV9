@@ -96,9 +96,9 @@
           <!-- <i class="el-icon-s-grid"></i> -->
         </div>
         <div
-          v-for="(item, i) in columns"
+          v-for="(item, i) in _columns"
           :key="item.name"
-          :style="{ width: item.width + 'px' }"
+          :style="{ width: item.width + 'px'}"
         >
           {{ item.label }}
         </div>
@@ -122,7 +122,7 @@
         >
           <div
             class="header-table-item-box"
-            :style="{ height: tableItemHeight - tableItemPadding * 2 + 'px' }"
+            :style="{ height: tableItemHeight - tableItemPadding * 2 + 'px', }"
           >
             <el-popover
               :placement="popoverOptions.placement"
@@ -139,11 +139,13 @@
                 <i class="el-icon-s-grid"></i>
               </div>
             </el-popover>
+            <div :style="{ width: detailIconWidth + 'px' }" v-if="!detailShow"></div>
             <div
-              v-for="(jtem, j) in columns"
+              v-for="(jtem, j) in _columns"
               :key="jtem.name"
               :style="{
                 width: jtem.width + 'px',
+                textAlign: 'center',
                 height: tableItemHeight - tableItemPadding * 2 + 'px',
               }"
             >
@@ -165,7 +167,7 @@
                 "
                 >{{ timeFormat(item[jtem.name]) }}</span
               >
-              <span class="beyond-hiding" v-else>{{ item[jtem.name] }}</span>
+              <span class="beyond-hiding" v-else>{{ item[jtem.name] || '--' }}</span>
             </div>
           </div>
         </div>
@@ -325,7 +327,9 @@ export default {
     // 设置任务条背景颜色的方法
     setTaskBackground: {
       type: Function,
-      default: null,
+      default: () => {
+        return {is: false, color: "#2a9bf1"}
+      },
     }
   },
   data() {
@@ -370,6 +374,7 @@ export default {
       clickTaskHint_Top: 0,
       clickState: false, // 鼠标是否点击table的状态，如果点击了 鼠标移开的时候 不隐藏task高亮。 只有当鼠标悬浮到别的item上面才会重置状态
       // scrollOffsetLeft: 0,
+      _columns: []
     };
   },
   created() {
@@ -380,8 +385,14 @@ export default {
         ? this.taskRadius
         : this.taskHeight / 2;
     // 获取表头宽度
+    this._columns = this.columns.map(item => {
+      return {
+        ...item,
+        width: item.width || 100,
+      }
+    })
     if(this.columns.length) {
-      this.tableHeaderWidth = this.columns
+      this.tableHeaderWidth = this._columns
         .map((item) => item.width)
         .reduce((a, b) => {
           return a + b;
