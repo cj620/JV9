@@ -261,7 +261,6 @@
     ></calculateTime>
     <!-- 排程日志弹窗 -->
     <apsLog
-      v-if="apsDialogFormVisible"
       :visible.sync="apsDialogFormVisible"
     ></apsLog>
     <!-- 提醒是否发布弹窗 -->

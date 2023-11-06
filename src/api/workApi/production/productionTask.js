@@ -58,6 +58,7 @@ export function update_plan_end(data) {
     loading: true
   });
 }
+
 // 修改加工单任务记录实际结束日期
 export function update_record_actual_end(data) {
   return request({
@@ -106,7 +107,7 @@ export function production_task_list_has_been_deleted(data) {
     data
   });
 }
-// 修改加工任务单状态
+// 修改加工任务单状态 // 编辑工单为已完成
 export function update_state(data){
   return request({
     url:"/production_task/update_state",

@@ -22,9 +22,9 @@ export class CreateGantt {
 
     this.popoverShow = options.popoverShow;
 
-    this.taskColor = options.taskColor || '#2a9bf1';
+    this.taskColor = options.taskColor;
 
-    this.setTaskBackground = options.setTaskBackground || function () {return {is: false, color: "#2a9bf1"}}
+    this.setTaskBackground = options.setTaskBackground;
 
     this.MinimumTime = null;
 
@@ -111,7 +111,7 @@ export class CreateGantt {
         let startY = count * this.tableItemHeight + (this.tableItemHeight - this.tableItemPadding*2 - this.taskHeight) / 2;
         let height = this.taskHeight;
         let taskRef = document.createElement("div");
-        taskRef.innerHTML = this.taskInnerHtml ? this.taskInnerHtml(jtem) : "";
+        taskRef.innerHTML = this.taskInnerHtml ? this.taskInnerHtml(jtem) : "--";
         taskRef.id = "custom-task-" + item.Id + "-" + j;
         taskRef.className = "custom-task custom-task-" + item.Id + "-" + j;
         taskRef.style.left = startX * this.stepSize + "px";

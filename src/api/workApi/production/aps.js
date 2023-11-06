@@ -40,6 +40,13 @@ export function do_aps(data) {
     data,
   });
 }
+export function do_aps1(data) {
+  return request({
+    url: "/aps/do_aps1",
+    method: "post",
+    data,
+  });
+}
 // 手动修改APS结果
 export function modify_aps_result(data) {
   return request({
@@ -94,6 +101,14 @@ export function table_list(data) {
 export function simulation_calculate(data) {
   return request({
     url: "/simulation_scheduling/calculate",
+    method: "post",
+    data,
+  });
+}
+// 以机床为单位的甘特图
+export function latest_device_gantt_chart(data) {
+  return request({
+    url: "/aps/latest_device_gantt_chart",
     method: "post",
     data,
   });
