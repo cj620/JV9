@@ -2,7 +2,7 @@
   <div class="machine-card">
     <div class="machine-card-left" style="justify-content:space-evenly">
       <div class="machine-message">
-        <i class="el-icon-alarm-clock"></i>
+        <i class="el-icon-time"></i>
         {{ message.TimeSpan }}
       </div>
       <div class="machine-message">

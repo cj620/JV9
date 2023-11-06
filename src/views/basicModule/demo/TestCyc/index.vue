@@ -99,7 +99,7 @@ export default {
     &-middle {
       height: 100%;
       width: calc(100% - 160px);
-      background-color: #f0f2f5;
+      background-color: white;
       &-header {
         width: 100%;
         height: 120px;
@@ -113,7 +113,7 @@ export default {
       }
       &-body {
         width: 100%;
-        height: calc(100% - 120px);
+        height: calc(100% - 140px);
         display: flex;
         &-box {
           flex: 1;
@@ -121,12 +121,12 @@ export default {
           min-width: 250px;
           height: 100%;
           display: flex;
-          justify-content: space-between;
+          gap: 10px;
           flex-direction: column;
           &-item {
             width: 100%;
-            height: 24%;
-            min-height: 178px;
+            height: 175px;
+            min-height: 175px;
           }
         }
       }
