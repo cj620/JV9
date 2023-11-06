@@ -4,7 +4,7 @@
  * @LastEditTime: 2023-07-25 17:11:22
  * @LastEditors: 勿忘 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \JvMmsV9Front\src\views\workModule\sale\saleQuote\Add\index.vue
+ * @FilePath: \JvMmsV9Front\src\views\workModule\sale\saleQuote\Add\c-menu.vue
 -->
 <!--新增-->
 <!--编辑销售订单-->

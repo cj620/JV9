@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-06-01 16:24:42
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\Edit\index.vue
+ * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\Edit\c-menu.vue
 -->
 <script>
 import Common from "../Add/index.vue";

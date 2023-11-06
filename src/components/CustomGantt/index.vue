@@ -314,6 +314,10 @@ export default {
       type: Object,
       default: null,
     },
+    MenuComponents: {
+      type: Object,
+      default: null,
+    },
     // task悬浮窗字符串模板
     popoverInnerHtml: {
       type: Function,
@@ -419,6 +423,7 @@ export default {
       popoverShow: !!(this.popoverInnerHtml || this.floatingWindow),
       popoverInnerHtml: this.popoverInnerHtml,
       Component: this.floatingWindow,
+      MenuComponents: this.MenuComponents,
       taskInnerHtml: this.taskInnerHtml,
     };
     this.gantt = new CreateGantt(options);

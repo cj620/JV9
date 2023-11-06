@@ -20,7 +20,7 @@ const equipment = [
   // {
   //   id: "25",
   //   component: () =>
-  //     import("@/views/workModule/equipment/equipmentResource/List/index.vue"),
+  //     import("@/views/workModule/equipment/equipmentResource/List/c-menu.vue"),
   //   parentid: "24"
   // },
   // 设备管理

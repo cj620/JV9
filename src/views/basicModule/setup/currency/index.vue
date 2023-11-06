@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-08-10 17:29:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \keitoolv9\src\views\basicModule\setup\currency\index.vue
+ * @FilePath: \keitoolv9\src\views\basicModule\setup\currency\c-menu.vue
 -->
 <!--货币-->
 <template>

@@ -34,6 +34,8 @@ export class CreateGantt {
 
     this.Vue = null;
 
+    this.MenuVue = null;
+
     /** =============================此处用来定义默认值============================= **/
     this.stepSize = 0.05; // 根据当前单位计算每分钟占多少像素
 
@@ -93,6 +95,7 @@ export class CreateGantt {
     // 右键菜单
     const RightMenu = document.createElement("div");
     RightMenu.className = "custom-menu";
+    RightMenu.style.display = 'none';
     RightMenu.style.opacity = 0;
     // popover.setAttribute("popover", "auto");
     // popover.popover = "auto";
@@ -142,6 +145,7 @@ export class CreateGantt {
         taskRef.addEventListener("mouseenter", (e) => {
           if(!this.isTaskHover) return
           // if (!this.popoverShow) return;
+          // 如果传的是组件，则把这条数据传进去，组件里可以获取到
           if (this.Components && !this.popoverInnerHtml) {
             this.Vue.$children[0].item = jtem;
           }
@@ -179,16 +183,40 @@ export class CreateGantt {
           // popover.hidePopover()
         });
         // 鼠标右击事件
-        // taskRef.oncontextmenu = function (e) {
-        //   console.log(e)
-        //   return false
-        // }
         const self = this;
         taskRef.addEventListener('contextmenu', function (e) {
           if(!self.isTaskRightClick) return;
-          console.log(e,1)
+          self.MenuVue.$children[0].item = jtem;
+          RightMenu.style.display = 'block';
+          RightMenu.style.opacity = 1;
+          let left = e.clientX;
+          let top = e.clientY + 10;
+          // 获取鼠标位置，根据鼠标位置动; 判断位置是否超出视口
+          if (left + RightMenu.clientWidth > document.body.clientWidth) {
+            RightMenu.style.left = left - RightMenu.clientWidth + "px";
+          } else {
+            RightMenu.style.left = left + "px";
+          }
+
+          if (top + RightMenu.clientHeight > document.body.clientHeight) {
+            RightMenu.style.top = top - RightMenu.clientHeight + "px";
+          } else {
+            RightMenu.style.top = top + "px";
+          }
+          console.log(e)
+          console.log(self.MenuVue)
           e.preventDefault();
         }, false)
+        // 隐藏菜单
+        document.onclick = function() {
+          RightMenu.style.opacity = 0;
+          RightMenu.style.display = 'none';
+        }
+        // 阻止事件冒泡
+        RightMenu.addEventListener('click', (e) => {
+          e.stopPropagation()
+        })
+
       });
       count++;
     });
@@ -212,7 +240,7 @@ export class CreateGantt {
       const menuChildren = document.createElement("div");
       menuChildren.id = "custom-menu";
       RightMenu.appendChild(menuChildren);
-      this.Vue = new Vue({
+      this.MenuVue = new Vue({
         el: "#custom-menu",
         render: (h) => h(this.MenuComponents),
       });
