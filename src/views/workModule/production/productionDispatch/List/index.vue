@@ -8,21 +8,45 @@
 -->
 <template>
   <div class="design-page" ref="designPage">
-    <!-- 左加载 -->
-    <div class="left-loadding loadding-bar" @click="loadClcik(false)">
-      <i class="el-icon-d-arrow-left"></i>
-    </div>
-    <!-- 右加载 -->
-    <div class="right-loadding loadding-bar" @click="loadClcik(true)">
-      <i class="el-icon-d-arrow-right"></i>
-    </div>
-    <div style="padding: 10px 50px 0px 50px">
-      <TableHeader
-        @fresh="M_tableObj.getData"
-        @openSearch="showSearchForm = true"
-        :tableObj="M_tableObj"
-      ></TableHeader>
-    </div>
+        <div class="left-loadding loadding-bar">
+            <el-popover
+              placement="right-start"
+              width="200"
+              trigger="click"
+              v-model="showPopover"
+              style="position: absolute;top: 40px;left: 12px;"
+            >
+              <JvForm :form-obj="M_tableObj.formObj">
+              </JvForm>
+                <el-button size="mini" type="text" @click="popoverButton(false)">
+                    {{ $t('Generality.Ge_Cancel') }}
+                </el-button>
+                <el-button
+                        type="primary"
+                        @click="popoverButton(true)"
+                        size="mini"
+                        style="position: absolute; right: 10px;"
+                >
+                    {{ $t('Generality.Ge_OK') }}
+                </el-button>
+              <el-button slot="reference" type="info" icon="el-icon-more" size="medium" circle >
+              </el-button>
+            </el-popover>
+          <screenFull style="top: 100px; position:absolute;"></screenFull>
+          <el-button @click="loadClcik(false)" type="info" icon="el-icon-arrow-left" size="medium" circle></el-button>
+        </div>
+        <div class="right-loadding loadding-bar">
+          <el-button type="info" @click="setScrollTo('up')" icon="el-icon-arrow-up" size="medium" circle style="top: 40px"></el-button>
+          <el-button type="info" @click="setScrollTo('down')" icon="el-icon-arrow-down" size="medium" circle style="top: 100px"></el-button>
+          <el-button @click="loadClcik(true)" type="info" icon="el-icon-arrow-right" size="medium" circle></el-button>
+        </div>
+<!--    <div style="padding: 10px 50px 0px 50px">-->
+<!--      <TableHeader-->
+<!--        @fresh="M_tableObj.getData"-->
+<!--        @openSearch="showSearchForm = true"-->
+<!--        :tableObj="M_tableObj"-->
+<!--      ></TableHeader>-->
+<!--    </div>-->
     <div class="staff-list list-box">
       <el-row>
         <el-col
@@ -58,20 +82,21 @@
       <JvForm :formObj="toggleMachineObj"> </JvForm>
     </JvDialog>
     <!-- 表单搜索抽屉 -->
-    <SearchForm
-      v-if="M_tableObj.props.searchBar"
-      :title="$t('Generality.Ge_SearchForm')"
-      :visible.sync="showSearchForm"
-      :form-obj="M_tableObj.formObj"
-      @search="formSubmit('search')"
-      @reset="formSubmit('reset')"
-    />
+<!--    <SearchForm-->
+<!--      v-if="M_tableObj.props.searchBar"-->
+<!--      :title="$t('Generality.Ge_SearchForm')"-->
+<!--      :visible.sync="showSearchForm"-->
+<!--      :form-obj="M_tableObj.formObj"-->
+<!--      @search="formSubmit('search')"-->
+<!--      @reset="formSubmit('reset')"-->
+<!--    />-->
   </div>
 </template>
 
 <script>
 import { M_Table, P_Table } from "./config";
 import TableHeader from "@/jv_doc/cpn/JvTable/cpn/TableHeader";
+import ScreenFull from "./cpns/roundScreenFull.vue";
 import SearchForm from "@/jv_doc/cpn/JvTable/cpn/SearchForm.vue";
 import JvFooter from "@/jv_doc/cpn/JvFooter";
 import MachineCard from "./cpns/MachineCard.vue";
@@ -91,9 +116,12 @@ export default {
     JvFooter,
     SearchForm,
     TableHeader,
+    ScreenFull,
   },
   data() {
     return {
+      showPopover: false,
+      scrollNumber: 0,
       // 设备列表对象
       M_tableObj: {},
       // 工序表格对象
@@ -119,6 +147,52 @@ export default {
 
   computed: {},
   methods: {
+    watchScroll() {
+        let taskListBox = document.querySelector('.task-list.list-box');
+        taskListBox.onscroll = () => {
+            this.scrollNumber = taskListBox.scrollTop;
+        }
+    },
+    setScrollTo(e) {
+        let taskListBox = document.querySelector('.task-list.list-box')
+        if (e === "up") {
+            this.scrollNumber = taskListBox.scrollTop;
+            this.scrollNumber -= 580;
+            const scrollToTop = () => {
+                const c = taskListBox.scrollTop
+                if (c > this.scrollNumber) {
+                    if(!taskListBox.scrollTop) return
+                    window.requestAnimationFrame(scrollToTop)
+                    taskListBox.onscroll = null;
+                    taskListBox.scrollTo(0, c - 15)
+                } else {
+                    this.watchScroll();
+                }
+            }
+            scrollToTop()
+        } else {
+            this.scrollNumber = taskListBox.scrollTop;
+            this.scrollNumber += 580;
+            const scrollToTop = () => {
+                let c = taskListBox.scrollTop
+                if (c < this.scrollNumber) {
+                    if(taskListBox.clientHeight + taskListBox.scrollTop + 2 >= taskListBox.scrollHeight) return
+                    window.requestAnimationFrame(scrollToTop)
+                    taskListBox.onscroll = null;
+                    taskListBox.scrollTo(0, c + 15)
+                } else {
+                    this.watchScroll();
+                }
+            }
+            scrollToTop()
+        }
+    },
+    popoverButton(e) {
+      this.showPopover = false
+        if (e) {
+          this.M_tableObj.getData()
+        }
+    },
     loadClcik(state = true) {
       let { Total, page, pageSize } = this.M_tableObj.pager;
       let isLast = page * pageSize >= Total;
@@ -256,7 +330,7 @@ export default {
   height: calc(100vh - 90px);
   width: 100%;
   position: relative;
-  background-color: #f0f2f5;
+  background-color: #ffffff;
   .extra {
     padding: 5px 60px;
     @include flexBox($jc: space-between);
@@ -292,30 +366,39 @@ export default {
   }
   .staff-list {
     height: 130px;
-    box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.4);
+    //box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.4);
     // border: 1px solid #000;
     background-color: #fff;
+    ::v-deep .staff-card {
+      background-color: orange;
+    }
   }
   .task-list {
     height: calc(100% - 180px);
     // background-color: rgb(235, 235, 235);
     overflow: auto;
-  }
+      ::v-deep .task-card {
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,0.4);
+      }
+    }
   .loadding-bar {
     position: absolute;
     top: 0;
     right: 0;
     height: 100%;
-    width: 50px;
-    background-color: rgb(218, 218, 218);
+    width: 60px;
+    background-color: white;
+    .el-button {
+      position: absolute;
+    }
     @include flexBox;
-    &:hover {
-      background-color: rgb(228, 238, 255);
+    .el-button + .el-button {
+      margin-left: 0;
     }
   }
   .right-loadding {
     right: 0;
-    z-index: 99;
+    z-index: 1;
   }
   .left-loadding {
     left: 0;

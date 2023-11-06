@@ -55,13 +55,20 @@ export default {
       this.rightTableObj.setData(e.Devices)
       this.bottomTableObj.setData(e.ApsResultItems)
     }
-  }
+  },
+  watch: {
+    'leftTableObj.tableData': function() {
+      this.$nextTick(function() {
+        this.leftTableObj.tableRef.setCurrentRow(this.leftTableObj.tableData[0])
+      })
+    }
+  },
 }
 </script>
 
 <style scoped lang="scss">
 .wrapper-top {
-  height: 49%;
+  height: 39%;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -72,7 +79,7 @@ export default {
   }
 }
 .wrapper-bottom {
-  height:49%;
+  height:59%;
   width: 100%;
   margin-top: 1%;
   background-color: white;
