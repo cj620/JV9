@@ -77,6 +77,7 @@ export const rightTableConfig = [
     //   设备负荷
     prop: "UtilizationRate",
     label: i18n.t("production.Pr_EquipmentLoad"),
+    custom: true,
   },
   {
     //   可用工时
@@ -112,6 +113,13 @@ export const bottomTableConfig = [
     //   单号
     prop: "BillId",
     label: i18n.t("Generality.Ge_OddNumbers"),
+    align: "center",
+    cpn: "Link",
+    cpnProps: {
+      routeName: "ProductionTaskDetails",
+      methods: "query",
+      parameterKey: "BillId",
+    },
   },
   {
     //   零件编号
