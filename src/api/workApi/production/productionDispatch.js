@@ -32,3 +32,11 @@ export function production_dispatching_change_device(data) {
     data
   });
 }
+// 生产调度锁定设备
+export function production_dispatching_lock_device(data) {
+  return request({
+    url: "/production_dispatching/lock_device",
+    method: "post",
+    data
+  });
+}

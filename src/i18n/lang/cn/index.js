@@ -992,6 +992,7 @@ const cn = {
     Ge_IsFinishedProductInspection: "是否需要成品检测",
     Ge_RestoreLayout: "恢复布局",
     Ge_ProgramingPlanTime: "编程预计工时",
+    Ge_lock: "锁定",
   },
   //生产
   production: {

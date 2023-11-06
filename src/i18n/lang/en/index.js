@@ -1003,6 +1003,7 @@ const en = {
     Ge_IsFinishedProductInspection: "Finished Product Testing",
     Ge_RestoreLayout: "Restore Layout",
     Ge_ProgramingPlanTime: "Programming Estimated Hours",
+    Ge_lock: "Lock",
   },
   //生产
   production: {
