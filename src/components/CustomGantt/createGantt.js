@@ -8,6 +8,8 @@ export class CreateGantt {
     /** ============================此处来定义数据=========================== **/
     this.isTaskHover = options.isTaskHover;
 
+    this.isTaskRightClick = options.isTaskRightClick;
+
     this.taskRadius = options.taskRadius;
 
     this.popoverShow = false;
@@ -17,6 +19,8 @@ export class CreateGantt {
     this.taskInnerHtml = options.taskInnerHtml;
 
     this.Components = options.Component;
+
+    this.MenuComponents = options.MenuComponents;
 
     this.popoverInnerHtml = options.popoverInnerHtml;
 
@@ -82,9 +86,14 @@ export class CreateGantt {
   // 创建task
   createTask(parent) {
     let count = 0; // 用于计算高度累加
+    // 悬浮窗
     const popover = document.createElement("div");
     popover.className = "custom-popover";
     popover.style.opacity = 0;
+    // 右键菜单
+    const RightMenu = document.createElement("div");
+    RightMenu.className = "custom-menu";
+    RightMenu.style.opacity = 0;
     // popover.setAttribute("popover", "auto");
     // popover.popover = "auto";
 
@@ -129,6 +138,7 @@ export class CreateGantt {
         }
         parent.appendChild(taskRef);
 
+        // 鼠标hover事件
         taskRef.addEventListener("mouseenter", (e) => {
           if(!this.isTaskHover) return
           // if (!this.popoverShow) return;
@@ -168,10 +178,23 @@ export class CreateGantt {
           }, 500);
           // popover.hidePopover()
         });
+        // 鼠标右击事件
+        // taskRef.oncontextmenu = function (e) {
+        //   console.log(e)
+        //   return false
+        // }
+        const self = this;
+        taskRef.addEventListener('contextmenu', function (e) {
+          if(!self.isTaskRightClick) return;
+          console.log(e,1)
+          e.preventDefault();
+        }, false)
       });
       count++;
     });
 
+
+    // 自定义弹窗组件
     parent.appendChild(popover);
     if (this.Components && !this.popoverInnerHtml) {
       const popoverChildren = document.createElement("div");
@@ -180,6 +203,18 @@ export class CreateGantt {
       this.Vue = new Vue({
         el: "#custom-popover",
         render: (h) => h(this.Components),
+      });
+    }
+
+    // 自定义右键菜单组件
+    parent.appendChild(RightMenu);
+    if (this.MenuComponents) {
+      const menuChildren = document.createElement("div");
+      menuChildren.id = "custom-menu";
+      RightMenu.appendChild(menuChildren);
+      this.Vue = new Vue({
+        el: "#custom-menu",
+        render: (h) => h(this.MenuComponents),
       });
     }
 
