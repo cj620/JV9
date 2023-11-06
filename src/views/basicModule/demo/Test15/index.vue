@@ -31,7 +31,7 @@
       isTaskLeftClick
       :taskRadius="8"
       :tableItemHeight="80"
-      :taskHeight="50"
+      :taskHeight="40"
       :menu-components="cMenu"
       :result="result"
       :columns="columns"
