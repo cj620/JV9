@@ -23,7 +23,7 @@
 
 <script>
 import { Table } from "./config";
-import {getAllProcessTemplate} from "@/api/workApi/production/baseData";
+import { getAllProjectProcessTemplate } from "@/api/workApi/project/baseData";
 
 export default {
   name: 'index',
@@ -39,7 +39,7 @@ export default {
   },
   methods:{
     GetData(){
-      getAllProcessTemplate().then(res=>{
+      getAllProjectProcessTemplate().then(res=>{
         console.log(res.Items)
         this.tableObj1.setData(res.Items);
       })

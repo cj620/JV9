@@ -274,6 +274,60 @@ const project = [
     path: "pm_Process",
     title: i18n.t("menu.Pm_Processes"),
   },
+  // 项目工序模板
+  {
+    key: "Pm_ProjectProcessTemplate",
+    component: () =>
+      import("@/views/workModule/project/baseData/projectProcessTemplate/List"),
+    Parent: "Pm_BaseData",
+    name: "Pm_ProjectProcessTemplate",
+    path: "pm_ProjectProcessTemplate",
+    title: i18n.t("menu.Pm_ProjectProcessTemplate"),
+  },
+  // 新增项目工序模板
+  {
+    key: "Pm_AddProjectProcessTemplate",
+    component: () =>
+        import("@/views/workModule/project/baseData/projectProcessTemplate/Add"),
+    Parent: "Pm_BaseData",
+    name: "AddProjectProcessTemplate",
+    path: "addProjectProcessTemplate",
+    title:
+        i18n.t("Generality.Ge_New") +
+        "  " +
+        i18n.t("menu.Pm_ProjectProcessTemplate"),
+    hidden: true,
+  },
+  // 编辑项目工序模板
+  {
+    key: "Pm_EditProjectProcessTemplate",
+    component: () =>
+        import("@/views/workModule/project/baseData/projectProcessTemplate/Edit"),
+    Parent: "Pm_BaseData",
+    name: "EditProjectProcessTemplate",
+    path: "editProjectProcessTemplate",
+    title:
+        i18n.t("Generality.Ge_Edit") +
+        "  " +
+        i18n.t("menu.Pm_ProjectProcessTemplate"),
+    hidden: true,
+  },
+  // 项目工序模板详情
+  {
+    key: "Pm_ProjectProcessTemplateDetails",
+    component: () =>
+        import(
+            "@/views/workModule/project/baseData/projectProcessTemplate/Details"
+            ),
+    Parent: "Pm_BaseData",
+    name: "ProjectProcessTemplateDetail",
+    path: "projectProcessTemplateDetail",
+    title:
+        i18n.t("menu.Pm_ProjectProcessTemplate") +
+        "  " +
+        i18n.t("Generality.Ge_Details"),
+    hidden: true,
+  },
   // 成本预算表
   {
     key: "Pm_BudgetCost",

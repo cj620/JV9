@@ -72,6 +72,7 @@ const cn = {
     Pm_BaseData: "基础数据",
     Pu_BaseData: "基础数据",
     Pm_Processes: "项目任务工序 ",
+    Pm_ProjectProcessTemplate: "项目工序模板",
     Pm_BudgetCost: "成本预算表 ",
     Pm_MakeCalculation: "制造结算表 ",
     Pm_Estimate: "评审单 ",

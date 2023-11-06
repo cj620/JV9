@@ -36,6 +36,10 @@
               label: $t('project.Pro_AddProcedure'),
               confirm: addEditRow,
             },
+            {
+              label: $t('project.Pro_SelectTemplate'),
+              confirm: selectProcessTemplate,
+            },
           ]"
         >
         </Action>
@@ -117,6 +121,12 @@
         $t("Generality.Ge_SaveAndSubmit")
       }}</el-button>
     </div>
+    <SelectProjectProcessTemplate
+        :visible.sync="ProcessTemplateDialogFormVisible"
+        v-if="ProcessTemplateDialogFormVisible"
+        @confirmProcessTemplate="confirmProcessTemplate"
+    >
+    </SelectProjectProcessTemplate>
   </PageWrapper>
 </template>
 
@@ -127,13 +137,13 @@ import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import CellDom from "@/jv_doc/class/dom/CellDom";
-
+import SelectProjectProcessTemplate from "@/components/JVInternal/SelectProjectProcessTemplate";
 import { mapState } from "vuex";
 import {
   amountFormat,
   amount2Number,
   temMerge,
-} from "@/jv_doc/utils/handleData/index";
+} from "@/jv_doc/utils/handleData";
 // 引入模块API接口
 import { API as ProjectTask } from "@/api/workApi/project/projectTask";
 import { getAllProjectProcess } from "@/api/workApi/project/baseData";
@@ -150,6 +160,7 @@ export default {
   name: "Pm_ProjectTask_Add",
   components: {
     JvUploadFile,
+    SelectProjectProcessTemplate,
   },
   props: {
     billData: {
@@ -169,6 +180,7 @@ export default {
       // 材料费用
       M_TableObj: {},
       prefix: "",
+      ProcessTemplateDialogFormVisible: false,
       detailRouteName: "Pm_ProjectTask_Detail",
       fileBillId: this.$route.query.BillId,
       WorkerList: [],
@@ -347,6 +359,16 @@ export default {
       }
 
       console.log(e, row, 5201314);
+    },
+    //选择工艺模板
+    selectProcessTemplate() {
+      this.ProcessTemplateDialogFormVisible = true;
+    },
+    //选择模板后返回的数据
+    confirmProcessTemplate(e) {
+      console.log(e);
+      this.M_TableObj.push(temMerge(this.BillItems, e));
+      this.ProcessTemplateDialogFormVisible = false;
     },
     addItem(index, target) {
       let empty_row = target.getEmptyRow();
