@@ -51,24 +51,32 @@
                     <el-table-column
                       :label="$t('Generality.Ge_PlanStart')"
                       prop="PlanStart"
-                      width="160"
+                      width="180"
                     >
                       <template slot-scope="scope">
-                        {{
-                          scope.row.PlanStart | timeFormat("yyyy-MM-dd hh:mm:ss")
-                        }}
+                        <span :style="{
+                          color: getTimeData(scope.row.PlanStart, props.row.PlanEnd) ? 'red' : '',
+                          fontSize: getTimeData(scope.row.PlanStart, props.row.PlanEnd) ? '16px' : '',
+                          fontWeight: getTimeData(scope.row.PlanStart, props.row.PlanEnd) ? 'bold' : ''
+                        }">{{
+                            scope.row.PlanStart | timeFormat("yyyy-MM-dd hh:mm:ss")
+                          }}</span>
                       </template>
                     </el-table-column>
                     <!--计划结束-->
                     <el-table-column
                       :label="$t('Generality.Ge_PlanEnd')"
                       prop="PlanEnd"
-                      width="160"
+                      width="180"
                     >
                       <template slot-scope="scope">
-                        {{
-                          scope.row.PlanEnd | timeFormat("yyyy-MM-dd hh:mm:ss")
-                        }}
+                        <span :style="{
+                          color: getTimeData(scope.row.PlanEnd, props.row.PlanEnd) ? 'red' : '',
+                          fontSize: getTimeData(scope.row.PlanEnd, props.row.PlanEnd) ? '16px' : '',
+                          fontWeight: getTimeData(scope.row.PlanEnd, props.row.PlanEnd) ? 'bold' : ''
+                        }">{{
+                            scope.row.PlanEnd | timeFormat("yyyy-MM-dd hh:mm:ss")
+                          }}</span>
                       </template>
                     </el-table-column>
                     <!--状态-->
@@ -85,6 +93,11 @@
                       :label="$t('production.Pr_PlanningDevices')"
                       prop="PlanDevice"
                     >
+                      <template slot-scope="scope">
+                        {{
+                          scope.row.PlanDevice || '--'
+                        }}
+                      </template>
                     </el-table-column>
                   </el-table>
                 </div>
@@ -253,7 +266,10 @@ export default {
     },
     //一键处理
     oneClick(){
-		  one_click_processing(this.tableData).then(()=>{
+		  one_click_processing(this.tableData).then((res)=>{
+        console.log(res)
+        this.$emit('setSchedulingResults');
+        this.$emit('StartAutomaticScheduling')
 		  })
     },
     //编辑负荷
@@ -298,6 +314,9 @@ export default {
       this.multipleSelection = val;
       this.$refs.BillTable.selection.length !== 0 ? this.isNotSelect = false : this.isNotSelect = true
     },
+    getTimeData(time, time1) {
+      return new Date(time).getTime() > new Date(time1).getTime();
+    }
   },
 };
 </script>

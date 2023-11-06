@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin-bottom: 10px; display: flex; justify-content: flex-end">
-      <el-button @click="execute">外协</el-button>
+      <el-button @click="execute" :disabled="!selectData.length">外协</el-button>
     </div>
     <el-table
       :header-cell-style="{
@@ -50,7 +50,6 @@ export default {
     timeFormat,
     handleSelectionChange(e) {
       this.selectData = e;
-      console.log(e);
     },
     execute() {
       let Items = this.selectData.map(item => {
@@ -61,9 +60,12 @@ export default {
         }
       })
       addOutsourcingrRequirement({"Category":"Process","Items":Items}).then(res => {
-        console.log(res)
+        let tab = this.tableData.map(item => item.Id);
+        this.selectData.forEach(item => {
+          let index = tab.indexOf(item.Id)
+          this.$emit('setTableData', index)
+        })
       })
-      console.log(this.selectData, Items);
     },
   },
 };

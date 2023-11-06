@@ -28,7 +28,7 @@
     </div>
     <CustomGantt
       isTaskHover
-      isTaskRightClick
+      isTaskLeftClick
       :menu-components="cMenu"
       :result="result"
       :columns="columns"

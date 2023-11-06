@@ -10,6 +10,8 @@ export class CreateGantt {
 
     this.isTaskRightClick = options.isTaskRightClick;
 
+    this.isTaskLeftClick = options.isTaskLeftClick;
+
     this.taskRadius = options.taskRadius;
 
     this.popoverShow = false;
@@ -88,6 +90,7 @@ export class CreateGantt {
   // 创建task
   createTask(parent) {
     let count = 0; // 用于计算高度累加
+    const self = this;
     // 悬浮窗
     const popover = document.createElement("div");
     popover.className = "custom-popover";
@@ -171,8 +174,13 @@ export class CreateGantt {
 
           // popover.showPopover()
         });
-        taskRef.addEventListener("click", () => {
-          this.setDialogVisible(jtem);
+        taskRef.addEventListener("click", (e) => {
+          if(this.isTaskLeftClick) {
+            setMenu(e)
+          } else {
+            this.setDialogVisible(jtem);
+          }
+          e.stopPropagation()
         });
         taskRef.addEventListener("mouseleave", () => {
           this.popoverShow = false;
@@ -183,9 +191,13 @@ export class CreateGantt {
           // popover.hidePopover()
         });
         // 鼠标右击事件
-        const self = this;
         taskRef.addEventListener('contextmenu', function (e) {
-          if(!self.isTaskRightClick) return;
+          if(self.isTaskRightClick) {
+            setMenu(e);
+          }
+        }, false);
+        function setMenu(e) {
+          if(!self.isTaskRightClick && !self.isTaskLeftClick) return;
           self.MenuVue.$children[0].item = jtem;
           RightMenu.style.display = 'block';
           RightMenu.style.opacity = 1;
@@ -203,10 +215,10 @@ export class CreateGantt {
           } else {
             RightMenu.style.top = top + "px";
           }
-          console.log(e)
+          console.log(RightMenu)
           console.log(self.MenuVue)
           e.preventDefault();
-        }, false)
+        }
         // 隐藏菜单
         document.onclick = function() {
           RightMenu.style.opacity = 0;
