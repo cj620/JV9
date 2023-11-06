@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-08-10 17:16:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \keitoolv9\src\views\workModule\purchase\baseData\supplier\List\index.vue
+ * @FilePath: \keitoolv9\src\views\workModule\purchase\baseData\supplier\List\c-menu.vue
 -->
 <!--客户-->
 <template>
@@ -98,12 +98,12 @@ export default {
         /*地址*/
         {
            prop: "Tel",
-        label: i18n.t("setup.Tel") /* 电话 */,  
+        label: i18n.t("setup.Tel") /* 电话 */,
           },
-     
+
              {
              prop: "Phone",
-            label: i18n.t("setup.Phone") /* 手机 */, 
+            label: i18n.t("setup.Phone") /* 手机 */,
            },
             {
            prop: "Email",

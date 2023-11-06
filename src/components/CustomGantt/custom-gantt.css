@@ -2,6 +2,21 @@
     cursor: pointer;
     filter:brightness(110%) contrast(105%);
 }
+.custom-menu{
+    min-width: 100px;
+    min-height: 100px;
+    line-height: 30px;
+    position: fixed;
+    margin: 0;
+    transition: .3s;
+    border: 0;
+    box-shadow: 3px 3px 10px 3px #ccc;
+    border-radius: 8px;
+    z-index: 10;
+    background-color: #fff;
+    overflow: hidden;
+}
+
 .custom-popover{
     min-width: 100px;
     min-height: 100px;

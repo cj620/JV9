@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin-bottom: 10px; display: flex; justify-content: flex-end">
-      <el-button @click="execute">执行</el-button>
+      <el-button @click="execute">外协</el-button>
     </div>
     <el-table
       :header-cell-style="{

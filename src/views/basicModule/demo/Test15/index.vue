@@ -27,8 +27,12 @@
       </div>
     </div>
     <CustomGantt
+      isTaskHover
+      isTaskRightClick
+      :menu-components="cMenu"
       :result="result"
       :columns="columns"
+      :popoverInnerHtml="popoverInnerHtml"
       :taskInnerHtml="taskInnerHtml"
       :ganttContainerHeight="ganttHeight"
       ref="CustomGantt"
@@ -58,11 +62,14 @@ import { latest_device_gantt_chart } from "@/api/workApi/production/aps";
 import CustomGantt from "@/components/CustomGantt";
 import { columns } from "./config";
 import Action from "~/cpn/JvAction/index.vue";
+import timeFormat from '@/jv_doc/utils/time/timeFormat';
+import cMenu from './components/c-menu.vue';
 export default {
   name: "index",
   components: { Action, CustomGantt },
   data() {
     return {
+      cMenu,
       result: {},
       columns,
       ganttHeight: 0,
@@ -91,11 +98,21 @@ export default {
   },
   mounted() {
     let mainContent = document.querySelector(".main-content");
-    this.ganttHeight = mainContent.clientHeight - 110;
+    this.ganttHeight = mainContent.clientHeight - 120;
   },
   methods: {
     taskInnerHtml(item) {
-      return item.ProcessName + `(${item.PlanTime}H)`;
+      return item.PartNo +'&nbsp;&nbsp;'+ item.ProcessName + `(${item.PlanTime}H)`;
+    },
+    popoverInnerHtml(item) {
+      return `
+        <div>生产单号：${item.BillId}</div>
+        <div>零件编号：${item.PartNo}</div>
+        <div>零件名称：${item.PartName}</div>
+        <div>工序名称：${item.ProcessName}</div>
+        <div>计划开始：${timeFormat(item.PlanStart, 'yyyy-MM-dd hh:mm:ss')}</div>
+        <div>计划结束：${timeFormat(item.PlanEnd, 'yyyy-MM-dd hh:mm:ss')}</div>
+      `
     },
     // 切换时间
     setGanttZoom(val) {
