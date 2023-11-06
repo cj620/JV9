@@ -45,6 +45,7 @@ export function do_aps1(data) {
     url: "/aps/do_aps1",
     method: "post",
     data,
+    loading: true
   });
 }
 // 手动修改APS结果
