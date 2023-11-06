@@ -25,7 +25,14 @@ export default {
   created() {
     // 创建表格实例
     this.tableObj = new Table();
-    this.tableObj.getData();
+    // this.tableObj.getData();
   },
+  watch: {
+    '$attrs.visible'(val) {
+      if(val) {
+        this.tableObj.getData();
+      }
+    }
+  }
 };
 </script>

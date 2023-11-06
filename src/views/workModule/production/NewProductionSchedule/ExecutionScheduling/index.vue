@@ -10,7 +10,7 @@
             v-model="StartDate"
             type="date"
             placeholder="选择开始日期"
-            value-format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd HH:mm:ss"
           >
           </el-date-picker>
         </div>
@@ -33,10 +33,14 @@
         </div>
         <!--发布排程结果-->
         <div class="execution-scheduling-header-item">
+<!--          <el-button-->
+<!--            :disabled="!SchedulingShow"-->
+<!--            @click="PublishSchedulingResults"-->
+<!--            >发布排程结果</el-button-->
+<!--          >-->
           <el-button
-            :disabled="!SchedulingShow"
             @click="PublishSchedulingResults"
-            >发布排程结果</el-button
+          >发布排程结果</el-button
           >
         </div>
         <!--排程日志-->
@@ -121,6 +125,7 @@ import { do_aps1, do_publish } from "@/api/workApi/production/aps";
 import calculate from "./components/calculate/index.vue";
 import WorkpieceOutsourcingTable from './components/WorkpieceOutsourcingTable/index.vue'
 import apsLog from "@/views/workModule/production/productionSchedule/List/components/apsLog.vue";
+import timeFormat from '@/jv_doc/utils/time/timeFormat';
 export default {
   name: "index",
   components: { apsLog, JvDialog, PageWrapper, calculate, WorkpieceOutsourcingTable },
@@ -150,7 +155,7 @@ export default {
     // 启动自动排程
     StartAutomaticScheduling() {
       do_aps1({
-        StartDate: this.StartDate,
+        StartDate: timeFormat(this.StartDate, 'yyyy-MM-dd hh:mm:ss'),
         SchedulingType: this.algorithm,
       }).then((res) => {
         this.$message({
