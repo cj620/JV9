@@ -21,6 +21,7 @@ export function addOutsourcingrRequirement(data) {
     url: "/purchase_outsourcing_requirement/add",
     method: "post",
     data,
+    loading: true,
   });
 }
 

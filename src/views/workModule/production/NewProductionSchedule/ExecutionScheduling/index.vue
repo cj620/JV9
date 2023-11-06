@@ -100,7 +100,9 @@
       v-if="WorkpieceOutsourcing"
       width="80%"
     >
-      <WorkpieceOutsourcingTable :tableData="WorkpieceOutsourcingData"></WorkpieceOutsourcingTable>
+      <WorkpieceOutsourcingTable :tableData="WorkpieceOutsourcingData"
+      @setTableData="setTableData"
+      ></WorkpieceOutsourcingTable>
     </JvDialog>
     <!-- 排程结果弹窗 -->
     <JvDialog
@@ -110,7 +112,9 @@
       v-if="SchedulingResults"
       width="80%"
     >
-      <calculate :data="calculateData"></calculate>
+      <calculate :data="calculateData"
+                 @setSchedulingResults="setSchedulingResults"
+                 @StartAutomaticScheduling="StartAutomaticScheduling"></calculate>
     </JvDialog>
     <!-- 排程日志弹窗 -->
     <apsLog :visible.sync="apsDialogFormVisible"></apsLog>
@@ -152,6 +156,14 @@ export default {
   },
   created() {},
   methods: {
+    setTableData(index) {
+      console.log(index)
+      this.WorkpieceOutsourcingData.splice(index, 1)
+    },
+    // 关闭交期推迟配置弹窗
+    setSchedulingResults() {
+      this.SchedulingResults = !this.SchedulingResults;
+    },
     // 启动自动排程
     StartAutomaticScheduling() {
       do_aps1({

@@ -304,6 +304,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    // task是否可以被左键点击
+    isTaskLeftClick: {
+      type: Boolean,
+      default: false,
+    },
     // task是否可以被点击
     isTaskClick: {
       type: Boolean,
@@ -414,6 +419,7 @@ export default {
       taskColor: this.taskColor,
       isTaskHover: this.isTaskHover,
       isTaskRightClick: this.isTaskRightClick,
+      isTaskLeftClick: this.isTaskLeftClick,
       tableItemHeight: this.tableItemHeight,
       taskHeight: this.taskHeight,
       tableItemPadding: this.tableItemPadding,

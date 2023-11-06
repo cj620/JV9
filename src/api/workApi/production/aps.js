@@ -62,6 +62,7 @@ export function do_publish(data) {
     url: "/aps/do_publish",
     method: "post",
     data,
+    loading: true,
   });
 }
 // 一键处理APS结果
@@ -70,6 +71,7 @@ export function one_click_processing(data) {
     url: "/aps/one_click_processing",
     method: "post",
     data,
+    loading: true,
   });
 }
 
