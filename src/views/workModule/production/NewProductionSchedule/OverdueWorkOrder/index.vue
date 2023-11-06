@@ -76,7 +76,7 @@ export default {
   methods: {
     // 编辑工单为已完成
     EditTheJobAsCompleted() {
-      update_state({BillIds: this.obsoleteTableObj.selectData.keys}).then(res => {
+      update_state({BillIds: this.obsoleteTableObj.selectData.keys, State: 'Processed'}).then(res => {
         this.obsoleteTableObj.getData()
       })
     },

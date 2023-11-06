@@ -151,7 +151,7 @@ export default {
     StartAutomaticScheduling() {
       do_aps1({
         StartDate: this.StartDate,
-        SchedulingType: this.SchedulingType,
+        SchedulingType: this.algorithm,
       }).then((res) => {
         this.$message({
           type: "success",
