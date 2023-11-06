@@ -29,6 +29,9 @@
     <CustomGantt
       isTaskHover
       isTaskLeftClick
+      :taskRadius="8"
+      :tableItemHeight="80"
+      :taskHeight="50"
       :menu-components="cMenu"
       :result="result"
       :columns="columns"
