@@ -12,7 +12,11 @@
       </div>
       <div class="wrapper-top-right">
         <JvTable ref="rightTable" :table-obj="rightTableObj">
-
+          <template #UtilizationRate="{ record }">
+            <el-progress
+              :percentage="parseFloat(record.toFixed(2))"
+            ></el-progress>
+          </template>
         </JvTable>
       </div>
     </div>
@@ -27,7 +31,6 @@
 <script>
 import { leftTable, rightTable, bottomTable } from "./config"
 import { aps_result_process_load } from "@/api/workApi/production/aps"
-import {loading} from "@jiaminghi/data-view";
 export default {
   name: "index",
   data(){
@@ -48,7 +51,6 @@ export default {
     })
   },
   methods: {
-    loading,
     clickToDetail(e){
       this.rightTableObj.setData(e.Devices)
       this.bottomTableObj.setData(e.ApsResultItems)
