@@ -9,7 +9,7 @@ export class leftTable extends BaseTable {
       formSchema: [],
       rowId: "Id",
       title: "",
-      printMod: "leftTable",
+      printMod: "leftTable1",
       printBar: false,
       tableHeaderShow: false,
       sortCol: false,

@@ -111,7 +111,7 @@ export const tableConfig = [
 export const formSchema = [
   {
     prop: "Keyword",
-    label: i18n.t("Generality.Ge_PleaseEnter")+' '+ i18n.t("Generality.Ge_KeyWords"),
+    label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
   },
   {
