@@ -1001,6 +1001,7 @@ const ja = {
     Ge_IsFinishedProductInspection: "最終品目検査が必要かどうか",
     Ge_RestoreLayout: "レイアウトの復元",
     Ge_ProgramingPlanTime: "プログラミング予定工数",
+    Ge_lock: "ロック",
   },
   //生产
   production: {

@@ -74,13 +74,21 @@
       </div>
     </transition>
     <JvDialog
-      :title="$t('production.Pr_SwitchDevice')"
+      :title="$t('Generality.Ge_Edit')"
       :visible.sync="dropVisible"
       width="30%"
       @confirm="toToggleMachine"
     >
       <JvForm :formObj="toggleMachineObj"> </JvForm>
     </JvDialog>
+    <!--   锁定设备   -->
+    <JvDialog
+      title="提示"
+      v-if= "lockDeviceShow"
+      :visible.sync= "lockDeviceShow"
+      width="30%"
+      @confirm="confirmLock"
+    >{{lockData.TaskProcessId}}是否确定锁定设备{{lockData.DeviceNo}}</JvDialog>
     <!-- 表单搜索抽屉 -->
 <!--    <SearchForm-->
 <!--      v-if="M_tableObj.props.searchBar"-->
@@ -105,9 +113,9 @@ import { Form } from "@/jv_doc/class/form";
 import {
   production_dispatching_topping,
   production_dispatching_change_device,
+  production_dispatching_lock_device,
 } from "@/api/workApi/production/productionDispatch";
 import { getResourceMember } from "@/api/workApi/production/baseData";
-import debounce from "@/jv_doc/utils/optimization/debounce";
 export default {
   name: "ProductionDispatch",
   components: {
@@ -121,11 +129,13 @@ export default {
   data() {
     return {
       showPopover: false,
+      lockDeviceShow: false,
       scrollNumber: 0,
       // 设备列表对象
       M_tableObj: {},
       // 工序表格对象
       P_tableObj: {},
+      lockData: {},
       showSearchForm: false,
       processData: [],
       // 切换机床
@@ -258,7 +268,7 @@ export default {
       // console.log(5684848, e, s, r, a);
     },
     dropCommand(e) {
-      if (e.Type == "toggle") {
+      if (e.Type === "toggle") {
         // console.log(e.Resource, 9999999999);
         this.dropVisible = true;
         // 切换机床表单
@@ -298,22 +308,58 @@ export default {
                 ],
               },
             },
+            {
+              // 计划开始
+              prop: "PlanStart",
+              cpn: "SingleDateTime",
+              label: i18n.t("Generality.Ge_PlanStart"),
+              rules: [
+                {
+                  required: true,
+                  message: i18n.t("Generality.Ge_PleaseEnter"),
+                  trigger: ["change", "blur"],
+                },
+              ],
+            },
+            {
+              // 计划结束
+              prop: "PlanEnd",
+              cpn: "SingleDateTime",
+              label: i18n.t("Generality.Ge_PlanEnd"),
+              rules: [
+                {
+                  required: true,
+                  message: i18n.t("Generality.Ge_PleaseEnter"),
+                  trigger: ["change", "blur"],
+                },
+              ],
+            },
           ],
           defaultForm: {
             TaskProcessId: e.TaskProcessId,
+            IsModifyDate: true,
           },
           labelPosition: "top",
         });
-      } else if (e.Type == "top") {
+      } else if (e.Type === "top") {
         production_dispatching_topping({ TaskProcessId: e.TaskProcessId }).then(
           (res) => {
             this.M_tableObj.pager.sizeChange(5);
           }
         );
+      } else if (e.Type === "lock") {
+          this.lockData.TaskProcessId = e.TaskProcessId
+          this.lockData.DeviceNo = e.PlanDevice
+          this.lockDeviceShow = true
       }
+    },
+    confirmLock() {
+        production_dispatching_lock_device(this.lockData)
+        this.lockDeviceShow = false
     },
     toToggleMachine() {
       // this.M_tableObj.getData();
+      console.log(this.toggleMachineObj.form)
       production_dispatching_change_device(this.toggleMachineObj.form).then(
         (res) => {
           this.M_tableObj.pager.sizeChange(5);

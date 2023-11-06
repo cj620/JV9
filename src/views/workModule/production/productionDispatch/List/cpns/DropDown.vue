@@ -14,7 +14,10 @@
         $t("production.Pr_Top")
       }}</el-dropdown-item>
       <el-dropdown-item command="toggle" :disabled="!funcOpt.switchDevice">{{
-        $t("production.Pr_SwitchDevice")
+        $t("Generality.Ge_Edit")
+      }}</el-dropdown-item>
+      <el-dropdown-item command="lock">{{
+        $t("Generality.Ge_lock")
       }}</el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
@@ -37,6 +40,8 @@ export default {
       console.log(this.cdata);
       this.$emit("command", {
         Type: e,
+        PlanStart: this.cdata.PlanStart,
+        PlanEnd: this.cdata.PlanEnd,
         TaskProcessId: this.cdata.Id,
         Resource: this.cdata.Resource,
         PlanDevice: this.cdata.PlanDevice,
