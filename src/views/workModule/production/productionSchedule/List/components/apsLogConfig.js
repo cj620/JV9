@@ -57,6 +57,7 @@ export const tableConfig = [
     prop: "ReleasedDate",
     label: "发布时间",
     filter: "time",
+    width: '140px'
   },
 
   /*发布人员*/

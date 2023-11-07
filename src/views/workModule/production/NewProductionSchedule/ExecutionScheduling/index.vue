@@ -131,7 +131,7 @@ import WorkpieceOutsourcingTable from './components/WorkpieceOutsourcingTable/in
 import apsLog from "@/views/workModule/production/productionSchedule/List/components/apsLog.vue";
 import timeFormat from '@/jv_doc/utils/time/timeFormat';
 export default {
-  name: "index",
+  name: "ExecutionScheduling",
   components: { apsLog, JvDialog, PageWrapper, calculate, WorkpieceOutsourcingTable },
   data() {
     return {
