@@ -39,12 +39,14 @@ export function tablePropInit(tableObj, props) {
   }
   // console.log(tableCache,66666666666666);
   if (props.printMod && tableCache) {
+    console.log(tableCache)
     // 合并schema
     if (resultProps.tableSchema)
       resultProps.tableSchema = mergeSchema(
         resultProps.tableSchema,
         tableCache.tableSchema
       );
+    console.log(resultProps.tableSchema)
     // resultProps.tableSchema &&
     //   mergeSchema(resultProps.tableSchema, tableCache.tableSchema);
   } else {
@@ -156,7 +158,10 @@ function mergeSchema(n = [], c = []) {
   for (let cKey in c) {
     for (let nKey in n) {
       if (isSameNode(n[nKey], c[cKey])) {
-        result.push(Object.assign({}, defaultTableSchemProp, n[nKey], c[cKey]));
+        if(!(cKey === 'bubbleSort' || nKey === 'bubbleSort')) {
+          result.push(Object.assign({}, defaultTableSchemProp, n[nKey], c[cKey]));
+        }
+
       }
     }
   }
