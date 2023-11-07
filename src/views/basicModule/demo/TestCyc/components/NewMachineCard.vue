@@ -1,32 +1,30 @@
 <template>
   <div class="machine-card">
-    <div class="machine-card-left" style="justify-content:space-evenly">
+    <div class="machine-card-left" style="justify-content: space-around">
+        <div>
+            <el-image
+                    style="width: 67px; height: 71px; border-radius: 5px;"
+                    :src="imgUrlPlugin(cdata.PhotoUrl)"
+                    :preview-src-list="[imgUrlPlugin(cdata.PhotoUrl)]"
+                    class="staff-avatar-Img-error"
+            >
+                <div slot="error" class="image-slot">
+                    <i class="el-icon-picture-outline error-icon"></i>
+                </div>
+            </el-image>
+        </div>
+    </div>
+    <div class="machine-card-right" style="justify-content:space-evenly; padding-top: 5px; padding-right: 20px">
       <div class="machine-message">
-        <i class="el-icon-time"></i>
-        {{ message.TimeSpan }}
+        <i class="el-icon-setting"></i>
+        {{ cdata.Device }}
       </div>
       <div class="machine-message">
         <i class="el-icon-finished"></i>
-        {{ message.Efficiency }}
+        {{ cdata.Efficency }}%
       </div>
     </div>
-    <div class="machine-card-right">
-      <div style="margin-top: 5px">
-        <el-image
-          style="width: 67px; height: 71px; border-radius: 5px;"
-          :src="imgUrlPlugin(message.PhotoUrl)"
-          :preview-src-list="[imgUrlPlugin(message.PhotoUrl)]"
-          class="staff-avatar-Img-error"
-        >
-          <div slot="error" class="image-slot">
-            <i class="el-icon-picture-outline error-icon"></i>
-          </div>
-        </el-image>
-      </div>
-      <div class="machine-message">
-        {{ message.DeviceNo }}
-      </div>
-    </div>
+
   </div>
 </template>
 <script>
@@ -34,12 +32,7 @@ import { imgUrlPlugin } from "@/jv_doc/utils/system";
 export default {
   data() {
     return {
-      message: {
-        PhotoUrl: "\\Files\\1478905072459972610.png",
-        DeviceNo: "C2",
-        TimeSpan: "8:00-20:00",
-        Efficiency: "0.00%",
-      }
+
     }
   },
   props: {
@@ -51,12 +44,17 @@ export default {
   methods: {
     imgUrlPlugin,
   },
+  created() {
+    console.log(this.cdata)
+  }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .machine-card {
-  width: 250px;
-  height: 90%;
+  //width: 250px;
+  width: 210px;
+  height: 115px;
+  //height: 90%;
   background-color: orange;
   box-shadow: 1px 1px 3px #888888;
   border-radius: 5px;

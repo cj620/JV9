@@ -18,21 +18,21 @@
             >
               <JvForm :form-obj="M_tableObj.formObj">
               </JvForm>
-                <el-button size="mini" type="text" @click="popoverButton(false)">
-                    {{ $t('Generality.Ge_Cancel') }}
+                <el-button size="mini" type="text" @click="formSubmit('reset')">
+                    {{ $t('Generality.Ge_Clear') }}
                 </el-button>
                 <el-button
                         type="primary"
-                        @click="popoverButton(true)"
+                        @click="formSubmit('search')"
                         size="mini"
                         style="position: absolute; right: 10px;"
                 >
-                    {{ $t('Generality.Ge_OK') }}
+                    {{ $t('Generality.Ge_Search') }}
                 </el-button>
               <el-button slot="reference" type="info" icon="el-icon-more" size="medium" circle >
               </el-button>
             </el-popover>
-          <screenFull style="top: 100px; position:absolute;"></screenFull>
+<!--          <screenFull style="top: 100px; position:absolute;"></screenFull>-->
           <el-button @click="loadClcik(false)" type="info" icon="el-icon-arrow-left" size="medium" circle></el-button>
         </div>
         <div class="right-loadding loadding-bar">
@@ -48,14 +48,15 @@
 <!--      ></TableHeader>-->
 <!--    </div>-->
     <div class="staff-list list-box">
-      <el-row>
+      <el-row style="padding-right: 5px">
         <el-col
           :span="4"
           v-for="item in M_tableObj.tableData"
           :key="item.UserId"
         >
           <div class="card-box">
-            <MachineCard :cdata="item"></MachineCard>
+<!--            <MachineCard :cdata="item"></MachineCard>-->
+            <NewMachineCard :cdata="item"></NewMachineCard>
           </div>
         </el-col>
       </el-row>
@@ -108,8 +109,10 @@ import ScreenFull from "./cpns/roundScreenFull.vue";
 import SearchForm from "@/jv_doc/cpn/JvTable/cpn/SearchForm.vue";
 import JvFooter from "@/jv_doc/cpn/JvFooter";
 import MachineCard from "./cpns/MachineCard.vue";
+import NewMachineCard from "@/views/basicModule/demo/TestCyc/components/NewMachineCard.vue";
 import TaskBox from "./cpns/TaskBox.vue";
 import { Form } from "@/jv_doc/class/form";
+import { timeFormat } from "@/jv_doc/utils/time";
 import {
   production_dispatching_topping,
   production_dispatching_change_device,
@@ -119,6 +122,7 @@ import { getResourceMember } from "@/api/workApi/production/baseData";
 export default {
   name: "ProductionDispatch",
   components: {
+    NewMachineCard,
     MachineCard,
     TaskBox,
     JvFooter,
@@ -197,12 +201,6 @@ export default {
             scrollToTop()
         }
     },
-    popoverButton(e) {
-      this.showPopover = false
-        if (e) {
-          this.M_tableObj.getData()
-        }
-    },
     loadClcik(state = true) {
       let { Total, page, pageSize } = this.M_tableObj.pager;
       let isLast = page * pageSize >= Total;
@@ -220,11 +218,12 @@ export default {
       if (type == "reset") {
         this.M_tableObj.formObj.form = Object.assign(
           JSON.parse(this.M_tableObj.copyForm),
-          { PageSize: 6 }
+          { PageSize: 5 }
         );
         this.M_tableObj.getData();
       } else {
         this.M_tableObj.getData();
+        this.showPopover = false
       }
       this.showSearchForm = false;
     },
@@ -269,9 +268,8 @@ export default {
     },
     dropCommand(e) {
       if (e.Type === "toggle") {
-        // console.log(e.Resource, 9999999999);
         this.dropVisible = true;
-        // 切换机床表单
+        // 编辑任务
         this.toggleMachineObj = new Form({
           formSchema: [
             {
@@ -287,25 +285,6 @@ export default {
                   ResourceId: e.Resource,
                 },
                 clearCache: true,
-              },
-            },
-            {
-              prop: "Topping",
-              label: this.$t("production.Pr_Top"),
-              cpn: "FormRadio",
-              default: true,
-              type: "button",
-              options: {
-                list: [
-                  {
-                    value: true,
-                    label: this.$t("Generality.Ge_Yes"),
-                  },
-                  {
-                    value: false,
-                    label: this.$t("Generality.Ge_No"),
-                  },
-                ],
               },
             },
             {
@@ -338,6 +317,8 @@ export default {
           defaultForm: {
             TaskProcessId: e.TaskProcessId,
             IsModifyDate: true,
+            PlanStart: timeFormat(e.PlanStart, "yyyy-MM-dd hh:mm"),
+            PlanEnd: timeFormat(e.PlanEnd, "yyyy-MM-dd hh:mm"),
           },
           labelPosition: "top",
         });
@@ -359,13 +340,16 @@ export default {
     },
     toToggleMachine() {
       // this.M_tableObj.getData();
-      console.log(this.toggleMachineObj.form)
-      production_dispatching_change_device(this.toggleMachineObj.form).then(
-        (res) => {
-          this.M_tableObj.pager.sizeChange(5);
-          this.dropVisible = false;
+      this.toggleMachineObj.validate((valid) => {
+        if (valid) {
+          production_dispatching_change_device(this.toggleMachineObj.form).then(
+            (res) => {
+              this.M_tableObj.pager.sizeChange(5);
+              this.dropVisible = false;
+            }
+          );
         }
-      );
+      })
     },
   },
 };
@@ -454,6 +438,9 @@ export default {
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
+}
+.el-col-4 {
+  width: 18%;
 }
 
 /*定义滑块 内阴影+圆角*/

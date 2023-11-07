@@ -74,12 +74,6 @@ export const rightTableConfig = [
     label: i18n.t("production.Pr_DeviceName"),
   },
   {
-    //   设备负荷
-    prop: "UtilizationRate",
-    label: i18n.t("production.Pr_EquipmentLoad"),
-    custom: true,
-  },
-  {
     //   可用工时
     prop: "AvailableTime",
     label: i18n.t("production.Pr_AvailableHours"),
@@ -88,6 +82,12 @@ export const rightTableConfig = [
     //   预计工时
     prop: "UsedTime",
     label: i18n.t("Generality.Ge_PlanTime"),
+  },
+  {
+    //   设备负荷
+    prop: "UtilizationRate",
+    label: i18n.t("production.Pr_EquipmentLoad"),
+    custom: true,
   },
 ]
 

@@ -84,7 +84,7 @@ export const m_tableConfig = [
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     formCpn: "SingleTime",
-    wdith: "120px",
+    width: "120px",
     filter: "date",
     editConfig: {
       colInit: true,
@@ -99,7 +99,7 @@ export const m_tableConfig = [
     label: i18n.t("Generality.Ge_PlanEnd"),
     formCpn: "SingleTime",
     filter: "date",
-    wdith: "120px",
+    width: "120px",
     editConfig: {
       colInit: true,
       rules: {

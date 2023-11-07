@@ -13,9 +13,7 @@
       <div class="wrapper-top-right">
         <JvTable ref="rightTable" :table-obj="rightTableObj">
           <template #UtilizationRate="{ record }">
-            <el-progress
-              :percentage="parseFloat(record.toFixed(2))"
-            ></el-progress>
+            {{ record }}%
           </template>
         </JvTable>
       </div>
