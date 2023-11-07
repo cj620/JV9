@@ -10,6 +10,7 @@
             v-model="StartDate"
             type="date"
             placeholder="选择开始日期"
+            :clearable="false"
             value-format="yyyy-MM-dd HH:mm:ss"
           >
           </el-date-picker>

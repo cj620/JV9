@@ -47,6 +47,15 @@ export function getAllDevice() {
     method: "get",
   });
 }
+
+// 获取所有设备
+export function equipment_status_dashboard(data) {
+  return request({
+    url: "/data_report/equipment_status_dashboard",
+    method: "get",
+    data,
+  });
+}
 // 分页获取设备
 export function production_device_list(data) {
   return request({

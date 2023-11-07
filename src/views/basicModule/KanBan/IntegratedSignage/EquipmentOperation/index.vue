@@ -59,6 +59,7 @@
                     <div class="Equipment-signage-content-item-header">
                       <div
                         class="Equipment-signage-content-item-header-state"
+                        :style="{ background: SignalLamp[item.DeviceState].color }"
                       ></div>
                       <div class="Equipment-signage-content-item-header-title">
                         {{ item.DeviceNo }}
@@ -75,22 +76,24 @@
                       <div
                         class="Equipment-signage-content-item-box-content-device"
                       >
-                        {{ 'S20230807001-A01' }}
+                        {{ item.ProcessingInfo }}
                       </div>
                     </div>
                   </div>
 
                   <div class="Equipment-signage-content-item-right">
-                    <div style="height: 50px;line-height: 50px">66%</div>
+                    <div style="height: 50px; line-height: 50px">
+                      {{ item.OEE }}%
+                    </div>
                     <div
                       class="Equipment-signage-content-item-right-progress-box"
                     >
                       <div
                         class="Equipment-signage-content-item-right-progress"
-                        :style="{ height: 66+'%' }"
+                        :style="{ height: item.OEE + '%' }"
                       ></div>
                     </div>
-                    <div style="height: 40px;line-height: 40px">OEE</div>
+                    <div style="height: 40px; line-height: 40px">OEE</div>
                   </div>
                 </div>
               </dv-border-box-7>
@@ -105,7 +108,8 @@
 <script>
 import FormattedTime from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/components/formattedTime.vue";
 import CImage from "@/components/CImage/index.vue";
-import { production_device_list } from "@/api/workApi/production/baseData";
+import { equipment_status_dashboard } from "@/api/workApi/production/baseData";
+import SignalLamp from "@/enum/workModule/production/SignalLamp";
 
 export default {
   name: "index",
@@ -118,6 +122,7 @@ export default {
       resultList: [],
       resize: true,
       commadList: [3, 4, 5, 6, 7],
+      SignalLamp
     };
   },
   created() {
@@ -140,7 +145,7 @@ export default {
       this.col = command;
     },
     getDeviceList() {
-      production_device_list({
+      equipment_status_dashboard({
         CurrentPage: 1,
         PageSize: 9999,
       }).then((res) => {
@@ -241,15 +246,15 @@ export default {
       margin-left: 5px;
       color: #fff;
       margin-bottom: 10px;
-      &-box{
+      &-box {
         display: flex;
         height: 100%;
-        &-left{
+        &-left {
           width: calc(100% - 50px);
         }
-        &-content{
+        &-content {
           height: calc(100% - 40px);
-          &-img{
+          &-img {
             width: 100%;
             display: flex;
             justify-content: center;
@@ -257,11 +262,11 @@ export default {
             height: calc(100% - 40px);
             padding-top: 10px;
           }
-          .image-box{
+          .image-box {
             min-width: 150px;
             height: 100%;
           }
-          &-device{
+          &-device {
             height: 40px;
             line-height: 40px;
             text-align: center;
