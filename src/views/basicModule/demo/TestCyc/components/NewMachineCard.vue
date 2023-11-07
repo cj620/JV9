@@ -53,7 +53,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .machine-card {
   width: 250px;
   height: 90%;

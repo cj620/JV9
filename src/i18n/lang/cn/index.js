@@ -601,6 +601,7 @@ const cn = {
     Ge_Reset: "重置",
     Ge_OK: "确定",
     Ge_Cancel: "取消",
+    Ge_Clear: "清空",
     Ge_Delete: "删除",
     Ge_Save: "保存",
     Ge_Approve: "审核",

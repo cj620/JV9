@@ -605,6 +605,7 @@ const en = {
     Ge_Reset: "Reset",
     Ge_OK: "OK",
     Ge_Cancel: "Cancel",
+    Ge_Clear: "Clear",
     Ge_Delete: "Delete",
     Ge_Save: "Save",
     Ge_Approve: "Approve",

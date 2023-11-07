@@ -604,6 +604,7 @@ const ja = {
     Ge_Reset: "リセット",
     Ge_OK: "を選択して、",
     Ge_Cancel: "キャンセル",
+    Ge_Clear: "クリアランス",
     Ge_Delete: "削除",
     Ge_Save: "保存",
     Ge_Approve: "レビュー",
