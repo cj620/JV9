@@ -40,22 +40,12 @@ export default {
 
 <template>
   <div style="width: 100%;height: 100%">
-    <div class="menu-item" v-for="(tram, i) in list" :key="i"
+    <div class="custom-menu-item" v-for="(tram, i) in list" :key="i"
     @click="clickMenuItem(i)"
     >{{tram}}</div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.menu-item{
-  height: 40px;
-  line-height: 40px;
-  cursor: pointer;
-  padding: 0 10px;
-  border-bottom: 1px solid #eee;
-  user-select: none;
-}
-.menu-item:hover{
-  background: #f5f5f5;
-}
+
 </style>

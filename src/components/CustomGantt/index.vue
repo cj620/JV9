@@ -319,6 +319,15 @@ export default {
       type: Object,
       default: null,
     },
+    MenuItems: {
+      type: Array,
+      default: () => {
+        return [{label: '测试菜单', event(item, e) {
+            console.log('当前数据：', item);
+            console.log('当前节点:', e)
+          }}]
+      },
+    },
     MenuComponents: {
       type: Object,
       default: null,
@@ -430,6 +439,7 @@ export default {
       popoverInnerHtml: this.popoverInnerHtml,
       Component: this.floatingWindow,
       MenuComponents: this.MenuComponents,
+      MenuItems: this.MenuItems,
       taskInnerHtml: this.taskInnerHtml,
     };
     this.gantt = new CreateGantt(options);

@@ -33,58 +33,26 @@
           </el-input>
         </div>
         <div>
-          <el-button size="mini" style="margin-left: 10px" type="primary">{{
-            $t("Generality.Ge_Search")
-          }}</el-button>
+          <el-button
+            size="mini"
+            style="margin-left: 10px"
+            type="primary"
+            @click="searchResult"
+            >{{ $t("Generality.Ge_Search") }}</el-button
+          >
         </div>
-<!--        <div class="apsVersionNo">-->
-<!--          {{ $t("production.Pr_Version") }}：{{ ApsVersionNo }}-->
-<!--        </div>-->
+        <div class="apsVersionNo" style="margin-left: 10px">
+          {{ $t("production.Pr_Version") }}：{{ ApsVersionNo }}
+        </div>
       </div>
-      <div class="action-header-right">
-<!--        <Action-->
-<!--          size="mini"-->
-<!--          :actions="[-->
-<!--            {-->
-<!--              label: $t('Generality.Ge_Refresh'),-->
-<!--              confirm: _refresh.bind(),-->
-<!--            },-->
-<!--            {-->
-<!--              label: $t('production.Pr_Calculate'),-->
-<!--              confirm: calculate.bind(),-->
-<!--            },-->
-<!--            {-->
-<!--              label: $t('production.Pr_SimulatedAPS'),-->
-<!--              confirm: simulatedCalculate.bind(),-->
-<!--            },-->
-<!--            {-->
-<!--              label: $t('production.Pr_CheckLoad'),-->
-<!--              confirm: equipmentLoad.bind(),-->
-<!--            },-->
-<!--            {-->
-<!--              label: $t('production.Pr_Release'),-->
-<!--              confirm: setSchedulingResultsVisible.bind(),-->
-<!--            },-->
-<!--            {-->
-<!--              label: $t('production.Pr_APSLog'),-->
-<!--              confirm: openApsLog.bind(),-->
-<!--            },-->
-<!--            {-->
-<!--              icon: 'el-icon-view',-->
-<!--              label: tableChangeGantt-->
-<!--                ? $t('Generality.Ge_TabularShow')-->
-<!--                : $t('Generality.Ge_GanttShow'),-->
-<!--              confirm: setTableChangeGantt.bind(),-->
-<!--            },-->
-<!--          ]"-->
-<!--        ></Action>-->
-      </div>
+      <div class="action-header-right"></div>
     </div>
     <CustomGantt
       ref="CustomGantt"
-      isTaskClick
       isTaskHover
+      isTaskLeftClick
       detailShow
+      :menu-items="MenuItems"
       :columns="GanttColumns"
       :loading="loading"
       :result="result"
@@ -96,22 +64,17 @@
       :setTaskBackground="setTaskBackground"
       taskDialogTitle="Process"
       taskRadius="25"
-      @taskClick="taskClick"
-      @taskDialogConfrim="taskDialogConfrim"
     >
       <template #popover="{ item }">
         <gantt-popover :item="item"></gantt-popover>
-      </template>
-      <template #taskDialogSlot="{ item }">
-        <JvForm :formObj="formObj"> </JvForm>
       </template>
     </CustomGantt>
     <!-- 分页器 -->
     <div class="custom-pagination">
       <div>
-<!--        <div class="custom-unfold" @click="setFold">-->
-<!--          <i :class="unfold_icon"></i>-->
-<!--        </div>-->
+        <!--        <div class="custom-unfold" @click="setFold">-->
+        <!--          <i :class="unfold_icon"></i>-->
+        <!--        </div>-->
       </div>
       <div class="custom-pagination-box">
         <el-pagination
@@ -126,27 +89,58 @@
         </el-pagination>
       </div>
     </div>
+
+    <JvDialog
+      :visible.sync="editeVisible"
+      v-if="editeVisible"
+      :title="editDialogTitle"
+      @confirm="updateProcess"
+    >
+      <JvForm :form-obj="formObj">
+        <template #PlanDevice>
+          <el-select v-model="formObj.form.PlanDevice" placeholder="请选择">
+            <el-option
+              v-for="item in deviceOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </template>
+      </JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
 import CustomGantt from "@/components/CustomGantt/index.vue";
 import GanttPopover from "@/views/workModule/production/productionSchedule/List/components/gantt-popover.vue";
-import { Table, GanttColumns, OldTable, ObsoleteTable } from "./config";
+import { GanttColumns } from "./config";
 import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
+import { production_dispatching_change_device } from '@/api/workApi/production/productionDispatch';
 import floatingWindow from "./components/floatingWindow.vue";
 import { Form } from "@/jv_doc/class/form";
 // 引入表单 配置
 import { formSchema } from "./formConfig";
 import Action from "~/cpn/JvAction/index.vue";
+import JvForm from "~/cpn/JvForm/index.vue";
+import { getResourceMember } from "@/api/workApi/production/baseData";
 export default {
-  name: "index",
-  components: { Action, GanttPopover, CustomGantt },
+  name: "GanttChart",
+  components: { JvForm, Action, GanttPopover, CustomGantt },
   data() {
     return {
+      editDialogTitle: '',
+      editeVisible: false,
+      ApsVersionNo: "",
       floatingWindow: floatingWindow,
       GanttColumns,
-      formObj: "", // 表单实例
+      formObj: {
+        form: {
+          PlanDevice: "",
+        }
+      }, // 表单实例
+      deviceOptions: [],
       loading: false,
       AlgorithmType: "ClassicalAlgorithm",
       partNumberValue: "", // 零件编号查询输入框
@@ -157,7 +151,6 @@ export default {
         trigger: "hover",
       },
       ganttContainerHeight: 650,
-      tableChangeGantt: true, // 甘特图和表格切换显示隐藏
       unitOfTime: "hour", // 默认时间单位
       unitOptions: [
         {
@@ -173,6 +166,13 @@ export default {
           label: i18n.t("Generality.Ge_Minute"),
         },
       ],
+      MenuItems: [
+        { label: "编辑"},
+        { label: "详细信息"},
+        { label: "外协"},
+        { label: "删除"},
+        { label: "锁定机床"},
+      ],
     };
   },
   created() {
@@ -186,12 +186,50 @@ export default {
       labelWidth: "80px",
     });
     this.setAlgorithmType();
+    this.setMenuItems();
   },
   mounted() {
     let mainContent = document.querySelector(".main-content");
     this.ganttContainerHeight = mainContent.clientHeight - 115;
   },
   methods: {
+    updateProcess() {
+      this.formObj.validate((valid) => {
+        if (valid) {
+          production_dispatching_change_device({
+            "DeviceName": this.formObj.form.PlanDevice,
+            "PlanStart": this.formObj.form.PlanStart,
+            "PlanEnd": this.formObj.form.PlanEnd,
+            "TaskProcessId": this.formObj.form.TaskProcessId,
+            "IsModifyDate": true,
+          })
+        }
+      });
+    },
+    setMenuItems() {
+      this.MenuItems[0].event = (item) => {
+        this.editeVisible = !this.editeVisible;
+        this.editDialogTitle = item.Process
+        this.deviceOptions = [];
+        getResourceMember({ResourceId: item['ResourceGroup'],}).then(res => {
+          res['Items'].forEach(item => {
+            this.deviceOptions.push({
+              value: item.DeviceNo,
+              label: item.DeviceNo
+            })
+          })
+          this.formObj.form.PlanDevice = item.PlanDevice
+        })
+        console.log(item)
+        this.formObj.form.TaskProcessId = item.TaskProcessId;
+        this.formObj.form.PlanStart = item.PlanStart;
+        this.formObj.form.PlanEnd = item.PlanEnd;
+      }
+      this.MenuItems[1].event = (item) => {console.log(2)}
+      this.MenuItems[2].event = (item) => {console.log(3)}
+      this.MenuItems[3].event = (item) => {console.log(4)}
+      this.MenuItems[4].event = (item) => {console.log(5)}
+    },
     // 分页切换
     handleCurrentChange(current) {
       this.current = current;
@@ -204,7 +242,11 @@ export default {
     },
     // 搜索
     searchChange() {
-      this.setAlgorithmType(this.pageSize,this.current);
+      this.setAlgorithmType(this.pageSize, this.current);
+    },
+    // 搜索
+    searchResult() {
+      this.setAlgorithmType(this.pageSize, this.current);
     },
     // 获取排程结果
     setAlgorithmType(size = 10, page = 1) {
@@ -236,12 +278,6 @@ export default {
           color: "#ffcc33",
         };
       }
-    },
-    // task点击事件
-    taskClick(data) {
-      Object.keys(this.formObj.form).forEach((item) => {
-        this.formObj.form[item] = data[item];
-      });
     },
     // task弹窗确认事件
     taskDialogConfrim(taskDetail) {

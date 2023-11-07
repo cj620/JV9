@@ -24,6 +24,8 @@ export class CreateGantt {
 
     this.MenuComponents = options.MenuComponents;
 
+    this.MenuItems = options.MenuItems;
+
     this.popoverInnerHtml = options.popoverInnerHtml;
 
     this.popoverShow = options.popoverShow;
@@ -198,7 +200,7 @@ export class CreateGantt {
         }, false);
         function setMenu(e) {
           if(!self.isTaskRightClick && !self.isTaskLeftClick) return;
-          self.MenuVue.$children[0].item = jtem;
+
           RightMenu.style.display = 'block';
           RightMenu.style.opacity = 1;
           let left = e.clientX;
@@ -215,8 +217,21 @@ export class CreateGantt {
           } else {
             RightMenu.style.top = top + "px";
           }
-          console.log(RightMenu)
-          console.log(self.MenuVue)
+          if (self.MenuComponents) {
+            self.MenuVue.$children[0].item = jtem;
+          } else {
+            RightMenu.innerHTML = '';
+            self.MenuItems.forEach(item => {
+              let MenuItem = document.createElement('div');
+              MenuItem.innerHTML = item.label;
+              MenuItem.className = 'custom-menu-item';
+              MenuItem.onclick = function (e) {
+                item.event(jtem, e)
+              }
+              RightMenu.appendChild(MenuItem);
+            })
+          }
+
           e.preventDefault();
         }
         // 隐藏菜单

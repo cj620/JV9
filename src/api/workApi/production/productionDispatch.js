@@ -29,7 +29,8 @@ export function production_dispatching_change_device(data) {
   return request({
     url: "/production_dispatching/change_device",
     method: "post",
-    data
+    data,
+    loading: true,
   });
 }
 // 生产调度锁定设备

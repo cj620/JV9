@@ -128,7 +128,7 @@ import JvDialog from "~/cpn/JvDialog/index.vue";
 import { do_aps1, do_publish } from "@/api/workApi/production/aps";
 import calculate from "./components/calculate/index.vue";
 import WorkpieceOutsourcingTable from './components/WorkpieceOutsourcingTable/index.vue'
-import apsLog from "@/views/workModule/production/productionSchedule/List/components/apsLog.vue";
+import apsLog from "./components/apsLog/apsLog.vue";
 import timeFormat from '@/jv_doc/utils/time/timeFormat';
 export default {
   name: "ExecutionScheduling",

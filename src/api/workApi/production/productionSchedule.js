@@ -7,6 +7,7 @@ export function simulation_scheduling_list(data) {
     url: "/aps/query_latest_gantt_chart",
     method: "post",
     data,
+    loading: true,
   });
 }
 // 生产排程·超期及陈旧加工任务单列表
