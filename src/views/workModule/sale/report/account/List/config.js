@@ -21,7 +21,7 @@ export class Table extends BaseTable {
       rowId: "BillId",
       title: i18n.t("menu.Sa_Account"),
       api,
-      operationWidth: 150,
+      operationWidth: 160,
       printMod: "Sa_Account",
     });
   }

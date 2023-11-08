@@ -10,7 +10,7 @@
 <template>
     <div>
       <jv-dialog
-      title="新增项目"
+      :title="$t('sale.Sa_AddProject')"
       width="35%"
       :close-on-click-modal="true"
       :modal-append-to-body="false"

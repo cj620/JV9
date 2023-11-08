@@ -5,7 +5,7 @@
       <div class="execution-scheduling-header">
         <!--开始时间-->
         <div class="execution-scheduling-header-item">
-          <div style="width: 80px">{{$t("Generality.Ge_StartTime")}}：</div>
+          <div style="min-width: 80px; max-width: 90px;">{{$t("Generality.Ge_StartTime")}}：</div>
           <el-date-picker
             v-model="StartDate"
             type="date"

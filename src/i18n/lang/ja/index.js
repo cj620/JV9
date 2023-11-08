@@ -391,6 +391,7 @@ const ja = {
     Sa_UserInformation: "ユーザー情報",
     Sa_Sum: "合計",
     Sa_PleaseInput1: "品目番号、名称を入力してください",
+    Sa_AddProject: "新規プロジェクト",
   },
   // 采购
   purchase: {

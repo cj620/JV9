@@ -413,6 +413,7 @@ const en = {
     Sa_UserInformation: "User information",
     Sa_Sum: "sum",
     Sa_PleaseInput1: "Please enter the material number and name",
+    Sa_AddProject: "Add a New Project",
   },
   // 采购
   purchase: {

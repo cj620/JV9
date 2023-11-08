@@ -390,6 +390,7 @@ const cn = {
     Sa_UserInformation: "用户信息",
     Sa_Sum: "合计",
     Sa_PleaseInput1: "请输入物料编号、名称",
+    Sa_AddProject: "新增项目",
   },
   // 采购
   purchase: {
