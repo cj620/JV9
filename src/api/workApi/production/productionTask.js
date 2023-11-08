@@ -91,6 +91,14 @@ export function update_is_partake_aps(data){
     data,
   })
 }
+// 查询待加工工艺
+export function production_task_process_list(data) {
+  return request({
+    url: "/production_task/process_list",
+    method: "post",
+    data
+  });
+}
 // 恢复已删除生产任务
 export function production_task_Recovery_list_has_been_deleted(data) {
   return request({

@@ -118,7 +118,9 @@
                  @StartAutomaticScheduling="StartAutomaticScheduling"></calculate>
     </JvDialog>
     <!-- 排程日志弹窗 -->
-    <apsLog :visible.sync="apsDialogFormVisible"></apsLog>
+    <apsLog :visible.sync="apsDialogFormVisible"
+    width="80%"
+    ></apsLog>
   </page-wrapper>
 </template>
 

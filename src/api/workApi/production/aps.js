@@ -42,7 +42,7 @@ export function do_aps(data) {
 }
 export function do_aps1(data) {
   return request({
-    url: "/aps/do_aps1",
+    url: "/aps/start_aps",
     method: "post",
     data,
     loading: true

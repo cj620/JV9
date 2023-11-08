@@ -10,6 +10,7 @@
 import enLocale from "element-ui/lib/locale/lang/en";
 const en = {
   menu: {
+    Pr_ToBeProcessedProcess: "To Be Processed Process",
     Pr_NewProductionSchedule: "Production Schedule",
     Pr_PendingWorkOrders: "Pending Work Orders",
     Pr_SchedulingWorkOrders: "Scheduling work Orders",

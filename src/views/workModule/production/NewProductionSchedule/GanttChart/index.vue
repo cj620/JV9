@@ -322,7 +322,7 @@ export default {
     setTaskBackground(item) {
       if (item) {
         return {
-          is: item.PlanDevice.indexOf("[Overload]") !== -1,
+          condition: item.PlanDevice.indexOf("[Overload]") !== -1,
           color: "#ffcc33",
         };
       }
