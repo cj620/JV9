@@ -48,8 +48,8 @@
         <el-carousel-item v-for="(term, t) in resultList" :key="t">
           <div class="Equipment-signage-content">
             <div
-              v-for="item in term"
-              :key="item"
+              v-for="(item,i) in term"
+              :key="i"
               class="Equipment-signage-content-item"
               :style="{ width: `calc(${100 / col}% - 10px)` }"
             >

@@ -125,6 +125,8 @@ import { formSchema } from "./formConfig";
 import Action from "~/cpn/JvAction/index.vue";
 import JvForm from "~/cpn/JvForm/index.vue";
 import { getResourceMember } from "@/api/workApi/production/baseData";
+import timeFormat from "../../../../../jv_doc/utils/time/timeFormat";
+import {addOutsourcingrRequirement} from "@/api/workApi/purchase/outsourcingRequirement";
 export default {
   name: "GanttChart",
   components: { JvForm, Action, GanttPopover, CustomGantt },
@@ -207,6 +209,7 @@ export default {
       });
     },
     setMenuItems() {
+      // 编辑
       this.MenuItems[0].event = (item) => {
         this.editeVisible = !this.editeVisible;
         this.editDialogTitle = item.Process
@@ -225,9 +228,54 @@ export default {
         this.formObj.form.PlanStart = item.PlanStart;
         this.formObj.form.PlanEnd = item.PlanEnd;
       }
-      this.MenuItems[1].event = (item) => {console.log(2)}
-      this.MenuItems[2].event = (item) => {console.log(3)}
-      this.MenuItems[3].event = (item) => {console.log(4)}
+      // 详细信息
+      this.MenuItems[1].event = (item) => {
+        const h = this.$createElement;
+        this.$msgbox({
+          title: item.Process,
+          message: h('p', null, [
+            h('div', null, '资源组：' + item.ResourceGroup),
+            h('div', null, '工序名称：' + item.Process),
+            h('div', null, '计划设备：' + item.PlanDevice),
+            h('div', null, '计划工时：' + item.PlanTime + 'H'),
+            h('div', null, '计划开始：' + timeFormat(item.PlanStart, 'yyyy-MM-dd hh:mm:ss')),
+            h('div', null, '计划结束：' + timeFormat(item.PlanEnd, 'yyyy-MM-dd hh:mm:ss')),
+          ]),
+          showCancelButton: true,
+          showConfirmButton: false,
+          cancelButtonText: '取消',
+        })
+      }
+      // 外协
+      this.MenuItems[2].event = (item) => {
+        this.$confirm('确认是否将此工件外协？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          addOutsourcingrRequirement({"Category":"Process","Items":[{
+              KeyId: item.Id,
+              Remarks: "",
+              Quantity: 1
+            }]}).then(res => {
+            console.log(res, '外协成功')
+          })
+        })
+      }
+      // 删除
+      this.MenuItems[3].event = (item) => {
+        this.$confirm('此操作将删除该道工件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        })
+      }
+      // 锁定机床
       this.MenuItems[4].event = (item) => {console.log(5)}
     },
     // 分页切换

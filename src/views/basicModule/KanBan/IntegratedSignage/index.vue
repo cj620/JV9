@@ -9,7 +9,7 @@
         </div>
         <div class="integrate-signage-header-right"></div>
       </div>
-      <el-carousel trigger="click" height="calc(90vh - 60px)" interval="100000">
+      <el-carousel trigger="click" height="calc(90vh - 60px)" :interval="100000">
         <el-carousel-item>
           <div class="integrate-signage-content">
             <div
@@ -50,7 +50,7 @@ export default {
         {title: i18n.t("DataV.Da_SaleSignage"), imgUrl: require('./SaleSignage.png'), url: '/SaleSignage'},
         {title: i18n.t("DataV.Da_MoldMachiningSignage"), imgUrl: require('./muju.jpg'),url: '/MoldMachining'},
         {title: i18n.t("DataV.Da_QualitySignage"), imgUrl: require('./QualitySignage.png'), url: '/QualitySignage'},
-        {title: i18n.t("DataV.Da_EquipmentStateSignage"), imgUrl: require('./QualitySignage.png'), url: '/EquipmentOperation'},
+        {title: i18n.t("DataV.Da_EquipmentStateSignage"), imgUrl: require('./EquipmentOperation.jpg'), url: '/EquipmentOperation'},
       ]
     }
   },
