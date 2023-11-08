@@ -46,6 +46,9 @@
               <el-button size="mini" @click="outsourcingPart">{{
                 $t("production.Pr_PartOutsourcing")
               }}</el-button>
+              <el-button size="mini" @click="goOverdueWorkOrder">{{
+                  $t("menu.Pr_OverdueWorkOrder")
+                }}</el-button>
               <el-button size="mini" @click="deletedData" v-if="IsShow">
                 {{ $t("production.Pr_DeletedData") }}
               </el-button>
@@ -364,6 +367,10 @@ export default {
   },
   methods: {
     imgUrlPlugin,
+    // 跳转到超期工单
+    goOverdueWorkOrder() {
+      this.$router.push({name: 'OverdueWorkOrder'})
+    },
     //已删除数据
     deletedData() {
       this.deletedDataListDialogFormVisible = true;
