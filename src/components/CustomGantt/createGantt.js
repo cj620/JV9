@@ -227,9 +227,29 @@ export class CreateGantt {
               MenuItem.innerHTML = item.label;
               MenuItem.className = 'custom-menu-item';
               MenuItem.onclick = function (e) {
+                if(item.disabled) {
+                  if(item.disabled()) {
+                    return
+                  }
+                }
                 item.event(jtem, e)
               }
-              RightMenu.appendChild(MenuItem);
+              // 判断显示隐藏
+              if(item.show) {
+                if(item.show(jtem)) {
+                  RightMenu.appendChild(MenuItem);
+                }
+              } else {
+                RightMenu.appendChild(MenuItem);
+              }
+              // 判断是否禁用
+              if(item.disabled) {
+                if(item.disabled(jtem)) {
+                  MenuItem.style.color = '#cecece';
+                  MenuItem.style.backgroundColor = '#f5f5f5';
+                  MenuItem.style.cursor = 'not-allowed';
+                }
+              }
             })
           }
 

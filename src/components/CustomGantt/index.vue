@@ -524,6 +524,7 @@ export default {
       this.headerTableIdx = idx;
       this.clickTaskHint_Top = this.tableItemHeight * idx - this.tableItemPadding;
       this.clickTaskHint = true; // task提示高亮显示
+      console.log(item.Id)
       let firstTask = document.getElementById(`custom-task-${item.Id}-0`);
 
       // this.scrollOffsetLeft = firstTask.offsetLeft;

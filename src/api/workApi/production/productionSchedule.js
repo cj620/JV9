@@ -10,6 +10,26 @@ export function simulation_scheduling_list(data) {
     loading: true,
   });
 }
+// 生产订单工序 零件甘特图 "api/data_report/part_gantt_chart"
+export function part_gantt_chart(data) {
+  return request({
+    // url: "/simulation_scheduling/gantt_chart",
+    url: "/data_report/part_gantt_chart",
+    method: "post",
+    data,
+    loading: true,
+  });
+}
+// 生产订单工序 设备甘特图 "api/data_report/device_gantt_chart"
+export function device_gantt_chart(data) {
+  return request({
+    // url: "/simulation_scheduling/gantt_chart",
+    url: "/data_report/device_gantt_chart",
+    method: "post",
+    data,
+    loading: true,
+  });
+}
 // 生产排程·超期及陈旧加工任务单列表
 export function overdue_and_obsolete_list(data) {
   return request({

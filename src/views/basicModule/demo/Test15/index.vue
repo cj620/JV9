@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { latest_device_gantt_chart } from "@/api/workApi/production/aps";
+import { device_gantt_chart } from "@/api/workApi/production/productionSchedule";
 import CustomGantt from "@/components/CustomGantt";
 import { columns } from "./config";
 import Action from "~/cpn/JvAction/index.vue";
@@ -133,7 +133,7 @@ export default {
     },
     // 获取甘特图数据
     getGanttChart() {
-      latest_device_gantt_chart({
+      device_gantt_chart({
         Keyword: "",
         PageSize: this.pageSize,
         CurrentPage: this.current,
