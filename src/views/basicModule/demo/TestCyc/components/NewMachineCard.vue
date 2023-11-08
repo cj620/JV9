@@ -21,7 +21,7 @@
       </div>
       <div class="machine-message">
         <i class="el-icon-finished"></i>
-        {{ cdata.Efficency }}%
+        {{ parseFloat(this.cdata.Efficency.toFixed(2)) }}%
       </div>
     </div>
 
@@ -45,7 +45,6 @@ export default {
     imgUrlPlugin,
   },
   created() {
-    console.log(this.cdata)
   }
 };
 </script>
