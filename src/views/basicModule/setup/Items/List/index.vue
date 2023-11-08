@@ -94,7 +94,7 @@
               $t("Generality.Ge_New")
             }}</el-button>
             <el-button size="mini" @click="syncErpData">
-              同步ERP数据
+              {{ $t("setup.SynchronizeERPData") }}
             </el-button>
             <el-button size="mini" @click="downExport2Excel">
               {{ $t("design.De_DownloadTemplate") }}

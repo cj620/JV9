@@ -256,7 +256,7 @@ const system = [
     Parent: "Se_Setup",
     hidden: true,
     component: () => import("@/views/basicModule/OA"),
-    title: "审核配置",
+    title: i18n.t("menu.Se_AuditConfiguration"),
   },
     // 报错项
   // {

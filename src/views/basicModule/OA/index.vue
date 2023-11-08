@@ -5,7 +5,7 @@
  * @Description: file content
 -->
 <template>
-  <PageWrapper :title="$t('menu.' + $route.query.BillKey)" content="审核流配置">
+  <PageWrapper :title="$t('menu.' + $route.query.BillKey)" :content="$t('setup.ApproveProcessConfiguration')">
     <div class="oa-designer">
       <div class="content">
         <div
@@ -17,7 +17,7 @@
           <AddNode :node="nodeItem" :processObj="processObj"></AddNode>
         </div>
         <div class="node-wrapper">
-          <div class="node-end">流程结束</div>
+          <div class="node-end">{{ $t('setup.EndProcess') }}</div>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
         size="medium"
         :primary="[
           {
-            label: '保存',
+            label: $t('Generality.Ge_Save'),
             confirm: toSave,
           },
         ]"
@@ -49,7 +49,7 @@ export default {
       activeName: "second",
       nodeList: [],
       processObj: {},
-      title: "审核流配置",
+      title: i18n.t('setup.ApproveProcessConfiguration'),
     };
   },
   created() {
