@@ -1163,7 +1163,15 @@ const en = {
     Pr_PleaseSelectTheWorker: "Please Select The Worker",
     Pr_AddToSchedulingWorkOrder: "Add To Scheduling Work Order",
     Pr_AddToSchedulingWorkOrderAll: "Add To Scheduling Work Order All",
-    Pr_WhetherAddToSchedulingWorkOrderAll: "Whether Add To Scheduling Work Order All",
+    Pr_WhetherAddToSchedulingWorkOrderAll: "Whether To Add To Scheduling Work Order All",
+    Pr_WhetherLockToTheDevice: "Whether To Lock To The Device",
+    Pr_EditTheJobAsCompleted: "Edit The Job As Completed",
+    Pr_IsOverload: "Is Overload",
+    Pr_PlanStart: "PlanStart",
+    Pr_PlanEnd: "PlanEnd",
+    Pr_ArrivalTime: "ArrivalTime",
+    Pr_Level: "Level",
+    Pr_TaskPlanEnd: "TaskPlanEnd"
   },
   quality: {
     Qc_CheckResult: "Check result",

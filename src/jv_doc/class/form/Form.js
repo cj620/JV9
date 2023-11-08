@@ -85,7 +85,6 @@ class Form {
   // 校验
   validate = (func = () => {}) => {
     if (!this.formRef) return;
-
     this.formRef
       .validate()
       .then((res) => {

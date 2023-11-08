@@ -28,7 +28,7 @@ export const leftTableConfig = [
   {
   //   设备信息
     prop: "DeviceInfo",
-    label: "设备信息",
+    label: i18n.t("menu.Pr_Devices"),
   },
   {
   //   可用时间
@@ -38,7 +38,7 @@ export const leftTableConfig = [
   {
   //   是否超负荷
     prop: "IsOverload",
-    label: '是否超负荷',
+    label: i18n.t("production.Pr_IsOverload"),
     customFilter(item) {
       return item ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No")
     }
@@ -144,31 +144,31 @@ export const bottomTableConfig = [
   {
     //   工序计划开始
     prop: "PlanStart",
-    label: '工序计划开始',
+    label: i18n.t("production.Pr_PlanStart"),
     filter: "time",
   },
   {
     //   工序计划结束
     prop: "PlanEnd",
-    label: '工序计划结束',
+    label: i18n.t("production.Pr_PlanEnd"),
     filter: "time",
   },
   {
     //   到料时间
     prop: "ArrivalTime",
-    label: '到料时间',
+    label: i18n.t("production.Pr_ArrivalTime"),
     filter: "time",
   },
   {
     //   任务级别
     prop: "Level",
-    label: '任务级别',
+    label: i18n.t("production.Pr_Level"),
     customFilter: (value) => enumFilter(value, LevelEnum)
   },
   {
     //   工单计划结束
     prop: "TaskPlanEnd",
-    label: '工单计划结束',
+    label: i18n.t("production.Pr_TaskPlanEnd"),
     filter: "time",
   },
 ]

@@ -1162,6 +1162,14 @@ const ja = {
     Pr_AddToSchedulingWorkOrder: "パラメータ製造オーダに追加",
     Pr_AddToSchedulingWorkOrderAll: "すべてパラメータ製造オーダに追加",
     Pr_WhetherAddToSchedulingWorkOrderAll: "パラメータ製造オーダにすべて追加するかどうか?",
+    Pr_WhetherLockToTheDevice: "デバイスにロックしてもよろしいですか",
+    Pr_EditTheJobAsCompleted: "製造オーダの編集が完了しました",
+    Pr_IsOverload: "過負荷かどうか",
+    Pr_PlanStart: "工程計画開始",
+    Pr_PlanEnd: "工程計画終了",
+    Pr_ArrivalTime: "材料到着時間",
+    Pr_Level: "タスクレベル",
+    Pr_TaskPlanEnd: "製造オーダ計画の終了"
   },
   quality: {
     Qc_CheckResult: "検査結果",

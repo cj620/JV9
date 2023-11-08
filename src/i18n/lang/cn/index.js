@@ -1152,6 +1152,14 @@ const cn = {
     Pr_AddToSchedulingWorkOrder: "添加至参排工单",
     Pr_AddToSchedulingWorkOrderAll: "全部添加至参排工单",
     Pr_WhetherAddToSchedulingWorkOrderAll: "是否全部添加到参排工单?",
+    Pr_WhetherLockToTheDevice: "是否确定锁定到设备",
+    Pr_EditTheJobAsCompleted: "编辑工单为已完成",
+    Pr_IsOverload: "是否超负荷",
+    Pr_PlanStart: "工序计划开始",
+    Pr_PlanEnd: "工序计划结束",
+    Pr_ArrivalTime: "到料时间",
+    Pr_Level: "任务级别",
+    Pr_TaskPlanEnd: "工单计划结束"
   },
   quality: {
     Qc_CheckResult: "检验结果",
