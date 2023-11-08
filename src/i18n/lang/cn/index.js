@@ -10,6 +10,7 @@
 import zhLocale from "element-ui/lib/locale/lang/zh-CN";
 const cn = {
   menu: {
+    Pr_ToBeProcessedProcess: "工序待加工汇总",
     Pr_NewProductionSchedule: "生产排程",
     Pr_PendingWorkOrders: "待排工单",
     Pr_SchedulingWorkOrders: "参排工单",

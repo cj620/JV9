@@ -351,7 +351,7 @@ export default {
     setTaskBackground: {
       type: Function,
       default: () => {
-        return {is: false, color: "#2a9bf1"}
+        return {condition: false, color: "#2a9bf1"}
       },
     }
   },

@@ -139,7 +139,8 @@ export class CreateGantt {
         taskRef.style.position = "absolute";
         taskRef.style.borderRadius = this.taskRadius + "px";
         let bgObj = this.setTaskBackground(jtem);
-        if(bgObj.is) {
+        // condition：判断条件
+        if(bgObj.condition) {
           taskRef.style.background = bgObj.color;
         } else {
           taskRef.style.background = this.taskColor;

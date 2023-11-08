@@ -239,6 +239,17 @@ const production = [
     title: i18n.t("menu.Pr_ExecutionScheduling"),
   },
 
+  // 工序待加工汇总
+  {
+    key: "Pr_ToBeProcessedProcess",
+    component: () =>
+        import("@/views/workModule/production/report/toBeProcessedProcess"),
+    Parent: "Pr_Report",
+    name: "Pr_ToBeProcessedProcess",
+    path: "Pr_ToBeProcessedProcess",
+    title: i18n.t("menu.Pr_ToBeProcessedProcess"),
+  },
+
   /*  // 编程任务
   {
     key: "Pr_ProgramTask",

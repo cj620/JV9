@@ -16,7 +16,14 @@ export function capacity_analysis(data) {
     data,
   });
 }
-
+// 待进站统计数据
+export function data_report_to_be_processed_process(data) {
+  return request({
+    url: "/data_report/to_be_processed_process",
+    method: "post",
+    data,
+  });
+}
 // 产能分析报表-懒加载接口 {Month ProcessName}
 export function capacity_analysis_items(data) {
   return request({
