@@ -8,12 +8,12 @@ import {  enumToList } from "@/enum/workModule";
 export const approverMap={
   // 指定成员
   'Personnel':{
-    name:'指定成员',
+    name: i18n.t('setup.DesignatedMembers'),
     value:'Personnel',
   },
 
   'Role':{
-    name:'角色',
+    name: i18n.t('menu.Se_Role'),
     value:'Role',
   },
 }

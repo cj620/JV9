@@ -77,6 +77,7 @@
     <JvDialog
       :title="$t('Generality.Ge_Edit')"
       :visible.sync="dropVisible"
+      v-if= "dropVisible"
       width="30%"
       @confirm="toToggleMachine"
     >
@@ -84,12 +85,12 @@
     </JvDialog>
     <!--   锁定设备   -->
     <JvDialog
-      title="提示"
+      :title="$t('Generality.Ge_Remind')"
       v-if= "lockDeviceShow"
       :visible.sync= "lockDeviceShow"
       width="30%"
       @confirm="confirmLock"
-    >{{lockData.TaskProcessId}}是否确定锁定设备{{lockData.DeviceNo}}</JvDialog>
+    >{{ $t('production.Pr_WhetherLockToTheDevice') }}{{lockData.DeviceNo}}</JvDialog>
     <!-- 表单搜索抽屉 -->
 <!--    <SearchForm-->
 <!--      v-if="M_tableObj.props.searchBar"-->

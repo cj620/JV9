@@ -45,7 +45,7 @@ export const formSchema = [
   },
   {
     prop: "RoleDefaultNavigationBar",
-    label: "默认首页",
+    label: i18n.t("setup.RoleDefaultNavigationBar"),
     cpn: "SyncSelect",
     api: getIndexNav,
     apiOptions: {
