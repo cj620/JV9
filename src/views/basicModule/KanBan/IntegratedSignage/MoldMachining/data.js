@@ -53,7 +53,7 @@ export const Data = {
 ],
     "Data3": [
     {
-        "Title": "零件每日合格率",
+        "Title": "Mo_DailyPartsQualifiedRate",
         "Date": [
             "2月",
             "3月",
@@ -172,29 +172,29 @@ export const Data = {
     "Data4": [
     {
         "Value": "30",
-        "Name": "本月新模"
+        "Name": "Mo_NewToolingThisMonth"
     },
     {
         "Value": "10",
-        "Name": "本月修模"
+        "Name": "Mo_CorrectingToolingThisMonth"
     },
     {
         "Value": "5",
-        "Name": "本月设变"
+        "Name": "Mo_DesignChangeThisMonth"
     },
     {
         "Value": "50",
-        "Name": "本月试模"
+        "Name": "Mo_TrialMoldThisMonth"
     },
     {
         "Value": "50",
-        "Name": "本月接单数"
+        "Name": "Mo_OrdersReceivedThisMonth"
     }
 ],
     "Data5": [
     {
         "Value": "40",
-        "Name": "模具达成率",
+        "Name": "Mo_MoldAchievementRate",
         "Config": {
             "CircleColor": "#25a2f2",
             "CenterCircleBg": "#172342",
@@ -203,7 +203,7 @@ export const Data = {
     },
     {
         "Value": "38",
-        "Name": "模具超期数",
+        "Name": "Mo_OverdueMolds",
         "Config": {
             "CircleColor": "#00e3d5",
             "CenterCircleBg": "#172342",
@@ -212,7 +212,7 @@ export const Data = {
     },
     {
         "Value": "30",
-        "Name": "零件达成率",
+        "Name": "Mo_PartAchievementRate",
         "Config": {
             "CircleColor": "#94b5ff",
             "CenterCircleBg": "#172342",
@@ -221,7 +221,7 @@ export const Data = {
     },
     {
         "Value": "43",
-        "Name": "零件超期数",
+        "Name": "Mo_OverdueParts",
         "Config": {
             "CircleColor": "#8585ff",
             "CenterCircleBg": "#172342",
@@ -230,7 +230,7 @@ export const Data = {
     },
     {
         "Value": "4",
-        "Name": "试模达成率",
+        "Name": "Mo_TrialMoldAchievementRate",
         "Config": {
             "CircleColor": "#e54e64",
             "CenterCircleBg": "#172342",

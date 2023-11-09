@@ -20,7 +20,7 @@
         :key="index"
       >
         <div class="circle" :style="{ backgroundColor: item.Color }"></div>
-        <div class="name">{{ item.Name }}</div>
+        <div class="name">{{ $t(`quality.Qc_${item.Name}`) }}</div>
         <div class="dataValue">{{ item.Value }}</div>
         <div class="percentage">{{ item.Percentage }}%</div>
       </div>
@@ -187,10 +187,11 @@ export default {
         width: 165px;
       }
       .dataValue {
-        width: 50px;
+        //width: 50px;
+        margin-right: 4px;
       }
       .percentage {
-        margin: 0 20px;
+        //margin: 0 20px;
       }
     }
   }
