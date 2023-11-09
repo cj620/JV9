@@ -20,7 +20,7 @@
       <el-table-column prop="PartNo" :label="$t('Generality.Ge_PartNo')" > </el-table-column>
       <el-table-column prop="Process" :label="$t('Generality.Ge_Process')"> </el-table-column>
       <el-table-column prop="PlanTime" :label="$t('Generality.Ge_PlanTime')"> </el-table-column>
-      <el-table-column prop="PlanDevice" :label="$t('Generality.Pr_PlanningDevices')"> </el-table-column>
+      <el-table-column prop="PlanDevice" :label="$t('production.Pr_PlanningDevices')"> </el-table-column>
       <el-table-column prop="PlanStart" :label="$t('Generality.Ge_PlanStart')">
         <template slot-scope="{ row, column, $index }">
           {{ timeFormat(row.PlanStart, "yyyy-MM-dd hh:mm:ss") }}

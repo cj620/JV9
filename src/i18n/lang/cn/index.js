@@ -586,6 +586,25 @@ const cn = {
     Da_ProjectProgressDisplay:'项目进度展示',
     Da_AccumulatedShipmentStatusThisMonth:'本月累计出货情况',
   },
+  // 模具综合看板
+  Mold: {
+    Mo_DailyPartsQualifiedRate:"零件每日合格率",
+    Mo_ExpectedDepartmentOEEThisMonth:"本月各部门预计稼动率",
+    Mo_DepartmentOEEThisMonth:"本月各部门稼动率",
+    Mo_MoldProgress:"模具进度",
+    Mo_QCThisMonth: "本月质检情况",
+    Mo_NewToolingThisMonth: "本月新模",
+    Mo_CorrectingToolingThisMonth: "本月修模",
+    Mo_TrialMoldThisMonth: "本月试模",
+    Mo_DesignChangeThisMonth: "本月设变",
+    Mo_OrdersReceivedThisMonth: "本月接单数",
+    Mo_MoldAchievementRate: "模具达成率",
+    Mo_OverdueMolds: "模具超期数",
+    Mo_PartAchievementRate: "零件达成率",
+    Mo_OverdueParts: "零件超期数",
+    Mo_TrialMoldAchievementRate: "试模达成率",
+    Mo_OngoingOrders: "在制工单",
+  },
   //通用
   Generality: {
     Ge_Pending1: "待定",
