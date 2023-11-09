@@ -246,6 +246,7 @@ export default {
       }
       // 详细信息
       this.MenuItems[1].event = (item) => {
+        console.log(item)
         const h = this.$createElement;
         this.$msgbox({
           title: item.Process,

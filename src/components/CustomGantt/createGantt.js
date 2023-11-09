@@ -226,13 +226,14 @@ export class CreateGantt {
               let MenuItem = document.createElement('div');
               MenuItem.innerHTML = item.label;
               MenuItem.className = 'custom-menu-item';
-              MenuItem.onclick = function (e) {
+              MenuItem.onclick = function (event) {
                 if(item.disabled) {
                   if(item.disabled()) {
                     return
                   }
                 }
-                item.event(jtem, e)
+                console.log(e)
+                item.event(jtem, event)
               }
               // 判断显示隐藏
               if(item.show) {
