@@ -39,6 +39,8 @@ export class Table extends BaseTable {
       title: i18n.t("project.Pro_projectMsgManager"),
       importBar: true,
       printMod: "Pm_ProjectManagement_Msg",
+      // 操作列宽度
+      operationWidth: 220,
       fullScreenBar: true,
       // 'default-expand-all':true,
       // 序号列

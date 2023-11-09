@@ -590,6 +590,25 @@ const en = {
     Da_ProjectProgressDisplay:'Project Progress Display',
     Da_AccumulatedShipmentStatusThisMonth:'Accumulated Shipment Status This Month',
   },
+  // 模具综合看板
+  Mold: {
+    Mo_DailyPartsQualifiedRate:"Daily Qualified Rate of Parts",
+    Mo_ExpectedDepartmentOEEThisMonth:"Expected Each Department's OEE This Month",
+    Mo_DepartmentOEEThisMonth:"Each Department's OEE This Month",
+    Mo_MoldProgress:"Mold Progress",
+    Mo_QCThisMonth: "Quality Control This Month",
+    Mo_NewToolingThisMonth: "New Tooling ThisMonth",
+    Mo_CorrectingToolingThisMonth: "Correcting Tooling This Month",
+    Mo_TrialMoldThisMonth: "Trial Mold This Month",
+    Mo_DesignChangeThisMonth: "Design Change This Month",
+    Mo_OrdersReceivedThisMonth: "Orders Received This Month",
+    Mo_MoldAchievementRate: "Mold Achievement Rate",
+    Mo_OverdueMolds: "Overdue Molds",
+    Mo_PartAchievementRate: "Part Achievement Rate",
+    Mo_OverdueParts: "Overdue Parts",
+    Mo_TrialMoldAchievementRate: "Trial Mold Achievement Rate",
+    Mo_OngoingOrders: "Ongoing Orders",
+  },
   //通用
   Generality: {
     Ge_Pending1: "Pending",

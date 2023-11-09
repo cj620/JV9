@@ -16,7 +16,7 @@
     <div class="right-loadding loadding-bar" @click="loadClcik(true)">
       <i class="el-icon-d-arrow-right"></i>
     </div>
-<!--    <div class="extra">
+    <div class="extra">
       <div>
         {{ pageDesc }}
         <Popover
@@ -43,7 +43,7 @@
           <div class="bar-icon el-icon-full-screen" @click="fullScreen" />
         </div>
       </div>
-    </div>-->
+    </div>
     <div class="staff-list list-box">
       <el-row>
         <el-col :span="4" v-for="item in sourceData" :key="item.UserId">

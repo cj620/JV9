@@ -588,6 +588,25 @@ const ja = {
     Da_ProjectProgressDisplay:'プロジェクトの進捗状況の表示',
     Da_AccumulatedShipmentStatusThisMonth:'今月の累計出荷状況',
   },
+  // 模具综合看板
+  Mold: {
+    Mo_DailyPartsQualifiedRate:"部品の日次合格率",
+    Mo_ExpectedDepartmentOEEThisMonth:"今月の各部門の予想稼働率",
+    Mo_DepartmentOEEThisMonth:"今月の部門別稼働率",
+    Mo_MoldProgress:"金型進度",
+    Mo_QCThisMonth: "今月の品質検査状況",
+    Mo_NewToolingThisMonth: "今月の新規モデル",
+    Mo_CorrectingToolingThisMonth: "今月の修型",
+    Mo_TrialMoldThisMonth: "今月のモデル試験",
+    Mo_DesignChangeThisMonth: "今月中に変更する",
+    Mo_OrdersReceivedThisMonth: "今月の受注数",
+    Mo_MoldAchievementRate: "金型達成率",
+    Mo_OverdueMolds: "金型タイムアウト数",
+    Mo_PartAchievementRate: "部品達成率",
+    Mo_OverdueParts: "部品のタイムアウト数",
+    Mo_TrialMoldAchievementRate: "試験モード達成率",
+    Mo_OngoingOrders: "製造オーダ",
+  },
   //通用
   Generality: {
     Ge_Pending1: "保留中",
