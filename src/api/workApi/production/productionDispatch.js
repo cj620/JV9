@@ -23,6 +23,14 @@ export function production_dispatching_topping(data) {
     data
   });
 }
+// 根据id去删除生产任务单里面的工序
+export function delete_process(data) {
+  return request({
+    url: "/production_task/delete_process",
+    method: "post",
+    data
+  });
+}
 // POST /api/production_dispatching/change_device
 // 生产调度修改设备
 export function production_dispatching_change_device(data) {

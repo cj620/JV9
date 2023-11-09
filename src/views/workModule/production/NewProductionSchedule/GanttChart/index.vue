@@ -41,9 +41,17 @@
             >{{ $t("Generality.Ge_Search") }}</el-button
           >
         </div>
-        <div class="apsVersionNo" style="margin-left: 10px">
-          {{ $t("production.Pr_Version") }}：{{ ApsVersionNo }}
+        <div>
+          <el-button
+            size="mini"
+            style="margin-left: 10px"
+            @click="RefreshGantt"
+          >刷新</el-button
+          >
         </div>
+<!--        <div class="apsVersionNo" style="margin-left: 10px">-->
+<!--          {{ $t("production.Pr_Version") }}：{{ ApsVersionNo }}-->
+<!--        </div>-->
       </div>
       <div class="action-header-right"></div>
     </div>
@@ -116,8 +124,8 @@
 import CustomGantt from "@/components/CustomGantt/index.vue";
 import GanttPopover from "@/views/workModule/production/productionSchedule/List/components/gantt-popover.vue";
 import { GanttColumns } from "./config";
-import { simulation_scheduling_list } from "@/api/workApi/production/productionSchedule";
-import { production_dispatching_change_device } from '@/api/workApi/production/productionDispatch';
+import { simulation_scheduling_list, part_gantt_chart } from "@/api/workApi/production/productionSchedule";
+import { production_dispatching_change_device, delete_process, production_dispatching_lock_device } from '@/api/workApi/production/productionDispatch';
 import floatingWindow from "./components/floatingWindow.vue";
 import { Form } from "@/jv_doc/class/form";
 // 引入表单 配置
@@ -174,6 +182,7 @@ export default {
         { label: "外协"},
         { label: "删除"},
         { label: "锁定机床"},
+        { label: "解锁"},
       ],
     };
   },
@@ -195,6 +204,10 @@ export default {
     this.ganttContainerHeight = mainContent.clientHeight - 115;
   },
   methods: {
+    RefreshGantt() {
+      this.partNumberValue = "";
+      this.setAlgorithmType();
+    },
     updateProcess() {
       this.formObj.validate((valid) => {
         if (valid) {
@@ -204,6 +217,9 @@ export default {
             "PlanEnd": this.formObj.form.PlanEnd,
             "TaskProcessId": this.formObj.form.TaskProcessId,
             "IsModifyDate": true,
+          }).then(res => {
+            this.editeVisible = !this.editeVisible;
+            this.setAlgorithmType();
           })
         }
       });
@@ -225,8 +241,8 @@ export default {
         })
         console.log(item)
         this.formObj.form.TaskProcessId = item.TaskProcessId;
-        this.formObj.form.PlanStart = item.PlanStart;
-        this.formObj.form.PlanEnd = item.PlanEnd;
+        this.formObj.form.PlanStart = new Date(item.PlanStart);
+        this.formObj.form.PlanEnd = new Date(item.PlanEnd);
       }
       // 详细信息
       this.MenuItems[1].event = (item) => {
@@ -248,35 +264,73 @@ export default {
       }
       // 外协
       this.MenuItems[2].event = (item) => {
-        this.$confirm('确认是否将此工件外协？', '提示', {
+        this.$confirm(`确认是否将此工件(${item.Process})外协？`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           addOutsourcingrRequirement({"Category":"Process","Items":[{
-              KeyId: item.Id,
+              KeyId: item.TaskProcessId,
               Remarks: "",
               Quantity: 1
             }]}).then(res => {
-            console.log(res, '外协成功')
+            this.setAlgorithmType();
           })
         })
       }
       // 删除
       this.MenuItems[3].event = (item) => {
-        this.$confirm('此操作将删除该道工件, 是否继续?', '提示', {
+        this.$confirm(`此操作将删除该道工件(${item.Process}), 是否继续?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
+          delete_process([item.TaskProcessId]).then(res => {
+            this.setAlgorithmType();
+          })
         })
       }
       // 锁定机床
-      this.MenuItems[4].event = (item) => {console.log(5)}
+      this.MenuItems[4].event = (item) => {
+        this.$confirm(`是否将该道工件(${item.Process})锁定机床?`, '提示', {
+          confirmButtonText: '确定',          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          production_dispatching_lock_device({
+            "TaskProcessId": item.TaskProcessId,
+            "DeviceNo": item.PlanDevice
+          }).then(res => {
+            this.setAlgorithmType();
+          })
+        })
+      }
+      // 锁定机床显示隐藏
+      this.MenuItems[4].show = (item) =>{
+        return !Boolean(item['FixedProcessingDevice'])
+      }
+      // 是否禁用
+      // this.MenuItems[4].disabled = () => {
+      //   return true
+      // }
+      // 解锁机床
+      this.MenuItems[5].event = (item) => {
+        this.$confirm(`是否将该道工件(${item.Process})锁定的机床进行解锁?`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          production_dispatching_lock_device({
+            "TaskProcessId": item.TaskProcessId,
+            "DeviceNo": null,
+          }).then(res => {
+            this.setAlgorithmType();
+          })
+        })
+      }
+      // 解锁机床显示隐藏
+      this.MenuItems[5].show = (item) =>{
+        return Boolean(item['FixedProcessingDevice'])
+      }
     },
     // 分页切换
     handleCurrentChange(current) {
@@ -296,10 +350,10 @@ export default {
     searchResult() {
       this.setAlgorithmType(this.pageSize, this.current);
     },
-    // 获取排程结果
+    // 获取甘特图数据
     setAlgorithmType(size = 10, page = 1) {
-      this.loading = true;
-      simulation_scheduling_list({
+      // this.loading = true;
+      part_gantt_chart({
         AlgorithmType: this.AlgorithmType,
         CurrentPage: page,
         PageSize: size,
@@ -308,7 +362,7 @@ export default {
         // SortOrder: 1,
       }).then((res) => {
         this.result = res;
-        this.loading = false;
+        // this.loading = false;
         this.ApsVersionNo = res.VersionNo;
       });
     },
