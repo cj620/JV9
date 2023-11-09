@@ -413,6 +413,7 @@ const en = {
     Sa_UserInformation: "User information",
     Sa_Sum: "sum",
     Sa_PleaseInput1: "Please enter the material number and name",
+    Sa_AddProject: "Add a New Project",
   },
   // 采购
   purchase: {
@@ -632,6 +633,7 @@ const en = {
     Ge_Login: "Login",
     Ge_Logout: "Logout",
     Ge_Operate: "Operate",
+    Ge_OperationSuccessful: "Operation successful!",
     Ge_AddChild: "Add Child",
     Ge_CreateDate: "CreateDate",
     Ge_Details: "Details",
@@ -1172,7 +1174,29 @@ const en = {
     Pr_PlanEnd: "PlanEnd",
     Pr_ArrivalTime: "ArrivalTime",
     Pr_Level: "Level",
-    Pr_TaskPlanEnd: "TaskPlanEnd"
+    Pr_TaskPlanEnd: "TaskPlanEnd",
+    Pr_SelectStartDate: "Select Start Date",
+    Pr_SelectAlgorithm: "Select Algorithm",
+    Pr_StartAutomaticAPS: "Start Automatic APS",
+    Pr_ReleaseAPSResults: "Release APS Results",
+    Pr_APSReport: "APS Report",
+    Pr_SystemAdvices: "The system suggests taking the following measures",
+    Pr_OutsourceFollowingWorkpieces: "Outsource the following workpieces",
+    Pr_NegotiateToPostponeFollowingMolds: "Negotiate to postpone the delivery date of the following molds",
+    Pr_WorkpieceOutsourcing: "Workpiece Outsourcing",
+    Pr_Outsourcing: "Outsourcing",
+    Pr_VersionNo: "APS Version No",
+    Pr_CalculateTime: "Calculate Time",
+    Pr_Calculator: "Calculator",
+    Pr_ReleaseTime: "Release Time",
+    Pr_ReleaseBy: "Release Engineer",
+    Pr_APSReportContent: {
+      str1: "Participated in the scheduling of ",
+      str2: " sets of molds, with a total of ",
+      str3: " parts, of which ",
+      str4: " sets of molds and ",
+      str5: " workpieces were unable to be delivered on schedule",
+    }
   },
   quality: {
     Qc_CheckResult: "Check result",

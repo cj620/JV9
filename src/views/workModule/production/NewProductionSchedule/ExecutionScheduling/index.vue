@@ -5,11 +5,11 @@
       <div class="execution-scheduling-header">
         <!--开始时间-->
         <div class="execution-scheduling-header-item">
-          <div style="width: 80px">开始时间：</div>
+          <div style="min-width: 80px; max-width: 90px;">{{$t("Generality.Ge_StartTime")}}：</div>
           <el-date-picker
             v-model="StartDate"
             type="date"
-            placeholder="选择开始日期"
+            :placeholder="$t('production.Pr_SelectStartDate')"
             :clearable="false"
             value-format="yyyy-MM-dd HH:mm:ss"
           >
@@ -17,8 +17,8 @@
         </div>
         <!--算法选择-->
         <div class="execution-scheduling-header-item">
-          <div style="min-width: 80px">算法选择：</div>
-          <el-select v-model="algorithm" placeholder="请选择">
+          <div style="min-width: 80px">{{$t("production.Pr_SelectAlgorithm")}}：</div>
+          <el-select v-model="algorithm">
             <el-option
               v-for="item in algorithmOptions"
               :key="item.value"
@@ -30,7 +30,7 @@
         </div>
         <!--启动自动排程-->
         <div class="execution-scheduling-header-item">
-          <el-button @click="StartAutomaticScheduling">启动自动排程</el-button>
+          <el-button @click="StartAutomaticScheduling">{{ $t('production.Pr_StartAutomaticAPS') }}</el-button>
         </div>
         <!--发布排程结果-->
         <div class="execution-scheduling-header-item">
@@ -41,35 +41,36 @@
 <!--          >-->
           <el-button
             @click="PublishSchedulingResults"
-          >发布排程结果</el-button
+          >{{ $t('production.Pr_ReleaseAPSResults') }}</el-button
           >
         </div>
         <!--排程日志-->
         <div class="execution-scheduling-header-item">
-          <el-button @click="ScheduleLog">排程日志</el-button>
+          <el-button @click="ScheduleLog">{{ $t('production.Pr_APSLog') }}</el-button>
         </div>
       </div>
       <!--内容-->
       <div class="execution-scheduling-content">
         <transition name="el-zoom-in-top">
           <div v-show="SchedulingShow">
-            <div class="execution-scheduling-content-title">排程报告</div>
+            <div class="execution-scheduling-content-title">{{ $t('production.Pr_APSReport') }}</div>
             <div class="execution-scheduling-content-info">
-              参与排程模具
-              <span class="blue-Highlight">{{ ToolingNoTotal }}</span> 套,
-              合计零件 <span class="blue-Highlight">{{ PartNoTotal }}</span> 件,
-              其中
+              {{ $t('production.Pr_APSReportContent.str1') }}
+              <span class="blue-Highlight">{{ ToolingNoTotal }}</span>
+              {{ $t('production.Pr_APSReportContent.str2') }}
+              <span class="blue-Highlight">{{ PartNoTotal }}</span>
+              {{ $t('production.Pr_APSReportContent.str3') }}
               <span class="red-Highlight">{{ OverdueToolingNoTotal }}</span>
-              套模具共
+              {{ $t('production.Pr_APSReportContent.str4') }}
               <span class="red-Highlight">{{ OverduePartNoTotal }}</span>
-              个工件无法按期交付
+              {{ $t('production.Pr_APSReportContent.str5') }}
             </div>
-            <div style="margin-top: 20px" v-show="ProcessList.length || PartList.length">系统建议采取以下几种措施:</div>
+            <div style="margin-top: 20px" v-show="ProcessList.length || PartList.length">{{ $t('production.Pr_SystemAdvices') }}:</div>
             <div style="margin-top: 10px"  v-show="ProcessList.length">
-              1.将以下工件外协
+              1.{{ $t('production.Pr_OutsourceFollowingWorkpieces') }}
               <span style="text-decoration: underline; cursor: pointer"
                     @click="WorkpieceOutsourcing = true"
-                >配置>></span
+                >{{ $t('Generality.Ge_Setup') }}>></span
               >
             </div>
             <div style="text-indent: 2em; color: red; margin-top: 10px"  v-show="ProcessList.length">
@@ -78,11 +79,11 @@
               </span>
             </div>
             <div style="margin-top: 20px" v-show="PartList.length">
-              2.协商将以下模具交期推迟
+              2.{{ $t('production.Pr_NegotiateToPostponeFollowingMolds') }}
               <span
                 style="text-decoration: underline; cursor: pointer"
                 @click="SchedulingResults = !SchedulingResults"
-                >配置>></span
+                >{{ $t('Generality.Ge_Setup') }}>></span
               >
             </div>
             <div style="text-indent: 2em; color: red; margin-top: 10px"  v-show="PartList.length">
@@ -95,7 +96,7 @@
 
     <!-- 工件外协弹窗 -->
     <JvDialog
-      title="工件外协"
+      :title="$t('production.Pr_WorkpieceOutsourcing')"
       :visible.sync="WorkpieceOutsourcing"
       :IsShowConfirmFooterBtn="false"
       v-if="WorkpieceOutsourcing"
@@ -107,7 +108,7 @@
     </JvDialog>
     <!-- 排程结果弹窗 -->
     <JvDialog
-      title="排程结果"
+      :title="$t('production.Pr_SchedulingResults')"
       :visible.sync="SchedulingResults"
       :IsShowConfirmFooterBtn="false"
       v-if="SchedulingResults"
@@ -175,7 +176,7 @@ export default {
       }).then((res) => {
         this.$message({
           type: "success",
-          message: "操作成功！",
+          message: this.$t('Generality.Ge_OperationSuccessful'),
         });
         this.SchedulingShow = true;
         this.setReportData(res);

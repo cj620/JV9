@@ -390,6 +390,7 @@ const cn = {
     Sa_UserInformation: "用户信息",
     Sa_Sum: "合计",
     Sa_PleaseInput1: "请输入物料编号、名称",
+    Sa_AddProject: "新增项目",
   },
   // 采购
   purchase: {
@@ -628,6 +629,7 @@ const cn = {
     Ge_Login: "登录",
     Ge_Logout: "注销",
     Ge_Operate: "操作",
+    Ge_OperationSuccessful: "操作成功!",
     Ge_AddChild: "新增下级",
     Ge_CreateDate: "创建日期",
     Ge_Details: "详情",
@@ -1160,7 +1162,29 @@ const cn = {
     Pr_PlanEnd: "工序计划结束",
     Pr_ArrivalTime: "到料时间",
     Pr_Level: "任务级别",
-    Pr_TaskPlanEnd: "工单计划结束"
+    Pr_TaskPlanEnd: "工单计划结束",
+    Pr_SelectStartDate: "选择开始日期",
+    Pr_SelectAlgorithm: "算法选择",
+    Pr_StartAutomaticAPS: "启动自动排程",
+    Pr_ReleaseAPSResults: "发布排程结果",
+    Pr_APSReport: "排程报告",
+    Pr_SystemAdvices: "系统建议采取以下几种措施",
+    Pr_OutsourceFollowingWorkpieces: "将以下工件外协",
+    Pr_NegotiateToPostponeFollowingMolds: "协商将以下模具交期推迟",
+    Pr_WorkpieceOutsourcing: "工件外协",
+    Pr_Outsourcing: "外协",
+    Pr_VersionNo: "排程版本号",
+    Pr_CalculateTime: "计算时间",
+    Pr_Calculator: "计算人员",
+    Pr_ReleaseTime: "发布时间",
+    Pr_ReleaseBy: "发布人员",
+    Pr_APSReportContent: {
+      str1: "参与排程模具",
+      str2: "套, 合计零件",
+      str3: "件, 其中",
+      str4: "套模具共",
+      str5: "个工件无法按期交付",
+    }
   },
   quality: {
     Qc_CheckResult: "检验结果",

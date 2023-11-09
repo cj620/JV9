@@ -32,7 +32,7 @@ export class Table extends BaseTable {
       // 接口类
       api,
       // 操作列宽度
-      operationWidth: 150,
+      operationWidth: 160,
       // 打印模块标识
       printMod: "Sa_SaleOrder",
     });
