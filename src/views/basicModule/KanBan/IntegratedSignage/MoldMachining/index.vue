@@ -46,18 +46,21 @@ export default {
     };
   },
   created() {
-    screenFull.toggle();
+    // screenFull.toggle();
     this.getData();
-    // comp_operations_dashboard().then(res => {
-    //   console.log(res)
-    // })
+
   },
   methods: {
     getData() {
-      setTimeout(() => {
+      comp_operations_dashboard().then(res => {
+        this.DataList = res;
         this.IsShow = true;
-        this.DataList = Data;
-      },800)
+        console.log(res)
+      })
+      // setTimeout(() => {
+      //   this.IsShow = true;
+      //   this.DataList = Data;
+      // },800)
       // data_report_vkb_datav_dashboard().then((res) => {
       //   console.log(res, 9898989);
       //   this.IsShow = true;
