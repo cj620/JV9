@@ -89,7 +89,7 @@ const en = {
     Pu_Purchase: "Purchase",
     Pu_Requisition: "Purchase requisition",
     Pu_Order: "Purchase Order",
-    Pu_StockIn: "Purchase stockIn",
+    Pu_StockIn: "Purchase StockIn",
     Pu_Return: "Purchase Return",
     Pu_Account: "Purchase Account",
     Pu_Outsourcing: "Purchase Outsourcing",
@@ -1218,6 +1218,7 @@ const en = {
     }
   },
   quality: {
+    Qc_CheckState: "Check State",
     Qc_CheckResult: "Check result",
     Qc_CheckDetailList: "Check detail list",
     Qc_Operator: "Operator",
