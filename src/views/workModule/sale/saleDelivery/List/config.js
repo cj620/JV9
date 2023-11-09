@@ -19,7 +19,7 @@ export class Table extends BaseTable {
       rowId: "BillId",
       title: i18n.t("menu.Sa_SaleDelivery"),
       api,
-      operationWidth: 150,
+      operationWidth: 160,
       // 打印模块标识
       printMod: "Sa_SaleDelivery",
     });

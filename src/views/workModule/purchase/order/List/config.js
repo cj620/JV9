@@ -21,7 +21,7 @@ export class Table extends BaseTable {
       rowId: "BillId",
       title: i18n.t("menu.Pu_Order"),
       api,
-      operationWidth: 150,
+      operationWidth: 160,
       printMod: "Pu_Order",
     });
   }

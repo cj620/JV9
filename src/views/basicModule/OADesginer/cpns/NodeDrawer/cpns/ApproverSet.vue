@@ -26,11 +26,11 @@
                  icon="el-icon-plus"
                  round
                  v-show="typeSet.addStaff"
-                 @click="addStaffShow=true">编辑成员</el-button>
+                 @click="addStaffShow=true">{{ $t('setup.EditMembers') }}</el-button>
       <el-button type="primary"
                  icon="el-icon-plus"
                  round
-                 v-show="typeSet.addRole">编辑角色</el-button>
+                 v-show="typeSet.addRole">{{ $t('setup.EditRoles') }}</el-button>
       <div>
         <el-tag v-for="tag in choosedStaff"
                 :key="tag.id"
@@ -41,7 +41,7 @@
         </el-tag>
         <el-link type="primary"
                  @click.native="choosedStaff=[]"
-                 v-show="choosedStaff.length!=0">清空</el-link>
+                 v-show="choosedStaff.length!=0">{{ $t('Generality.Ge_Clear') }}</el-link>
       </div>
       <!-- 选择主管 -->
       <div v-show="typeSet.directorSelect">

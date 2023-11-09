@@ -28,7 +28,7 @@
             :span="12"
             v-for="typeItem in approverTypeList"
             :key="typeItem.value"
-            style="margin-top: 15px"
+            style="margin-top: 15px;width: 100%"
           >
             <el-radio :key="typeItem.value" :label="typeItem.value">{{
               typeItem.label
@@ -45,7 +45,7 @@
           round
           @click="addStaffShow = true"
           v-if="nodeItem.ApproverType == 'Personnel'"
-          >编辑成员</el-button
+          >{{ $t('setup.EditMembers') }}</el-button
         >
         <!-- 编辑成员 -->
         <div v-show="nodeItem.ApproverType == 'Personnel'">
@@ -62,7 +62,7 @@
             type="primary"
             @click.native="choosedStaff = []"
             v-show="choosedStaff && choosedStaff.length != 0"
-            >清空</el-link
+            >{{ $t('Generality.Ge_Clear') }}</el-link
           >
         </div>
       </div>
@@ -113,7 +113,7 @@
     </div>
 
     <StaffSelect
-      title="编辑成员"
+      :title="$t('setup.EditMembers')"
       :visible.sync="addStaffShow"
       @complete="complete"
       :defaultStaff="choosedStaff"

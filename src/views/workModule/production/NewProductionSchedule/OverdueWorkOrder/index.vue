@@ -14,7 +14,7 @@
           size="mini"
           :actions="[
           {
-            label: '编辑工单为已完成',
+            label: $t('production.Pr_EditTheJobAsCompleted'),
             confirm: EditTheJobAsCompleted
           }
         ]"></Action>

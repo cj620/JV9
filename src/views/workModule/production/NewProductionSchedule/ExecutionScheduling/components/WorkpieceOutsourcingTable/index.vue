@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin-bottom: 10px; display: flex; justify-content: flex-end">
-      <el-button @click="execute" :disabled="!selectData.length">外协</el-button>
+      <el-button @click="execute" :disabled="!selectData.length">{{ $t('production.Pr_Outsourcing') }}</el-button>
     </div>
     <el-table
       :header-cell-style="{
@@ -17,16 +17,16 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55"> </el-table-column>
-      <el-table-column prop="PartNo" label="零件编号"> </el-table-column>
-      <el-table-column prop="Process" label="工序"> </el-table-column>
-      <el-table-column prop="PlanTime" label="预计工时"> </el-table-column>
-      <el-table-column prop="PlanDevice" label="计划设备"> </el-table-column>
-      <el-table-column prop="PlanStart" label="计划开始">
+      <el-table-column prop="PartNo" :label="$t('Generality.Ge_PartNo')" > </el-table-column>
+      <el-table-column prop="Process" :label="$t('Generality.Ge_Process')"> </el-table-column>
+      <el-table-column prop="PlanTime" :label="$t('Generality.Ge_PlanTime')"> </el-table-column>
+      <el-table-column prop="PlanDevice" :label="$t('Generality.Pr_PlanningDevices')"> </el-table-column>
+      <el-table-column prop="PlanStart" :label="$t('Generality.Ge_PlanStart')">
         <template slot-scope="{ row, column, $index }">
           {{ timeFormat(row.PlanStart, "yyyy-MM-dd hh:mm:ss") }}
         </template>
       </el-table-column>
-      <el-table-column prop="PlanEnd" label="计划结束">
+      <el-table-column prop="PlanEnd" :label="$t('Generality.Ge_PlanEnd')">
         <template slot-scope="{ row, column, $index }">
           {{ timeFormat(row.PlanEnd, "yyyy-MM-dd hh:mm:ss") }}
         </template>

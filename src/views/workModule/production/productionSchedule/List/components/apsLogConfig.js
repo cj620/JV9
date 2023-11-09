@@ -39,23 +39,23 @@ export const tableConfig = [
   {
     prop: "VersionNo",
     // label: i18n.t("production.Pr_WorkSheetNo"),
-    label: "排程版本号",
+    label: i18n.t("production.Pr_VersionNo"),
   },
   /*计算时间*/
   {
     prop: "CreationDate",
-    label: "计算时间",
+    label: i18n.t("production.Pr_CalculateTime"),
     filter: "time",
   },
   /*计算人员*/
   {
     prop: "Creator",
-    label: "计算人员",
+    label: i18n.t("production.Pr_Calculator"),
   },
   /*发布时间*/
   {
     prop: "ReleasedDate",
-    label: "发布时间",
+    label: i18n.t("production.Pr_ReleaseTime"),
     filter: "time",
     width: '140px'
   },
@@ -63,7 +63,7 @@ export const tableConfig = [
   /*发布人员*/
   {
     prop: "ReleasedBy",
-    label: "发布人员",
+    label: i18n.t("production.Pr_ReleaseBy"),
   },
 ];
 // 表单配置
@@ -71,7 +71,7 @@ export const formSchema = [
   //单号搜索
   {
     prop: "VersionNo",
-    label: "排程版本号",
+    label: i18n.t("production.Pr_VersionNo"),
     cpn: "FormInput",
   },
 ];

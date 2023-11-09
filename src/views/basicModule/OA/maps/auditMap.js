@@ -11,14 +11,14 @@
   //   value:'0'
   // },
   'JointlySign':{
-    label:'会签',
-    des:'（须所有审批人同意）',
+    label: i18n.t('setup.JointlySign'),
+    des: i18n.t('setup.JointlySignDes'),
     value:'JointlySign',
     color:'rgb(255, 148, 62)',
   },
   'OptionallySign':{
-    label:'或签',
-    des:'（一名审批人同意或拒绝即可）',
+    label: i18n.t('setup.OptionallySign'),
+    des: i18n.t('setup.OptionallySignDes'),
     value:'OptionallySign',
     color:'rgb(50, 150, 250)',
   }
@@ -27,7 +27,7 @@
 // 审批类型
  const auditMap={
   'multiplayer':{
-    title:'多人审批时采用的审批方式',
+    title: i18n.t('setup.multiplayerMode'),
     list:multiplayer
   }
 }
