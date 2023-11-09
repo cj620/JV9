@@ -1215,6 +1215,7 @@ const ja = {
     }
   },
   quality: {
+    Qc_CheckState: "検査状態",
     Qc_CheckResult: "検査結果",
     Qc_CheckDetailList: "検査明細",
     Qc_Operator: "検査人",

@@ -74,10 +74,10 @@ export const tableConfig = [
     width: "120",
     customFilter: (value) => enumFilter(value, ProcessingResult),
   },
-  /*检验结果*/
+  /*检验状态*/
   {
     prop: "CheckState",
-    label: '检验状态',
+    label: i18n.t("quality.Qc_CheckState"),
     width: "120",
     customFilter: (value) => enumFilter(value, CheckResulteEnum),
   },

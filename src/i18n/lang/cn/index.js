@@ -1206,6 +1206,7 @@ const cn = {
     }
   },
   quality: {
+    Qc_CheckState: "检验状态",
     Qc_CheckResult: "检验结果",
     Qc_CheckDetailList: "检验明细",
     Qc_Operator: "检验人",
