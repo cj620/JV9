@@ -19,7 +19,7 @@ export class Table extends BaseTable {
       operationCol: false,
       pagination: false,
       height: '400px',
-      chooseCol: false,
+      chooseCol: true,
     });
   }
 }
@@ -50,10 +50,10 @@ export const tableConfig = [
     width: '200px'
   },
   // 选择
-  {
-    prop: "SelectPart",
-    label: i18n.t("production.Pr_SelectPart"),
-    custom: true,
-    width: '80px'
-  }
+  // {
+  //   prop: "SelectPart",
+  //   label: i18n.t("production.Pr_SelectPart"),
+  //   custom: true,
+  //   width: '80px'
+  // }
 ];
