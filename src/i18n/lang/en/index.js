@@ -449,6 +449,7 @@ const en = {
   },
   // 看板 （数据可视化）
   DataV: {
+    Da_Department: "Department",
     Da_IntegratedSignage: "Integrated Signage",
     Da_EquipmentSignage: "Equipment Signage",
     Da_DepartmentSignage: "Department Comprehensive Signage",

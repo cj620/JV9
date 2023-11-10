@@ -447,6 +447,7 @@ const cn = {
   },
   // 看板 （数据可视化）
   DataV: {
+    Da_Department: "部门",
     Da_IntegratedSignage: "综合看板",
     Da_EquipmentSignage: "设备看板",
     Da_DepartmentSignage: "部门综合看板",

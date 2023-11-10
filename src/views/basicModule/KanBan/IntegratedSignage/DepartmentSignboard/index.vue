@@ -7,7 +7,7 @@
           <img src="../logo.png" alt="" />
         </div>
         <div class="department-signboard-header-center">
-          {{ $t("DataV.Da_NCDepartmentSignboard") }}
+          {{departmentName}}{{ $t("DataV.Da_Department") }}
         </div>
         <div class="department-signboard-header-right">
           <JvForm :form-obj="formObj"></JvForm>
