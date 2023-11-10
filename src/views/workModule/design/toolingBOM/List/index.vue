@@ -99,11 +99,11 @@
             disabled: IsTableDisabled,
             confirm: synchronizePart.bind(),
           },
-          {
-			      label: $t('design.De_StateLinkage'),
-			      disabled: IsTableEmpty,
-			      confirm: synchronizeState.bind(),
-          },
+          // {
+			    //   label: $t('design.De_StateLinkage'),
+			    //   disabled: IsTableEmpty,
+			    //   confirm: synchronizeState.bind(),
+          // },
         ]"
       >
       </Action>

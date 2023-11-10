@@ -424,6 +424,8 @@ const ja = {
     St_Direction: "方向",
     St_Assembly: "くみたて",
     St_Split: "分割ぶんかつ",
+    St_MainItems: "主品目情報",
+    St_SecondaryItems: "副資材情報",
   },
   design: {
     De_ToolingNo: "部品番号",
@@ -1037,6 +1039,7 @@ const ja = {
     Ge_RestoreLayout: "レイアウトの復元",
     Ge_ProgramingPlanTime: "プログラミング予定工数",
     Ge_lock: "ロック",
+    Ge_InputPlaceholder: "文書番号、名前、部門を入力してください",
   },
   //生产
   production: {

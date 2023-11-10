@@ -11,7 +11,7 @@ export const formSchema = [
     // 字段名
     prop: 'Stockroom',
     cpn: "FormInput",
-    label: i18n.t("Generality.Ge_Unit"),
+    label: i18n.t("setup.Stockroom"),
     rules: [
       {
         required: true,

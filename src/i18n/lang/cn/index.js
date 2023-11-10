@@ -422,6 +422,8 @@ const cn = {
     St_Direction: "方向",
     St_Assembly: "装配",
     St_Split: "拆分",
+    St_MainItems: "主物料信息",
+    St_SecondaryItems: "副物料信息",
   },
   design: {
     De_ToolingNo: "零件号",
@@ -1029,6 +1031,7 @@ const cn = {
     Ge_RestoreLayout: "恢复布局",
     Ge_ProgramingPlanTime: "编程预计工时",
     Ge_lock: "锁定",
+    Ge_InputPlaceholder: "请输入单据编号、名称、部门",
   },
   //生产
   production: {

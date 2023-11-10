@@ -81,7 +81,7 @@ export default {
         Keyword: "",
       },
       inputList: [
-        {label: 'Keyword', title:'请输入单据编号、名称、部门'}
+        {label: 'Keyword', title: this.$t('Generality.Ge_InputPlaceholder')}
       ],
     };
   },
