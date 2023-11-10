@@ -119,7 +119,7 @@ export default {
           {
             name: this.$t('DataV.Da_PassRate'),
             type: 'pie',
-            radius: '62%',
+            radius: ['50%', '70%'],
             data: arr,
             emphasis: {
               itemStyle: {
