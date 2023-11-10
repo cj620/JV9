@@ -1594,6 +1594,7 @@ const ja = {
     Default_navigation_bar_configuration:"デフォルトのナビゲーションバーメニュー",
     ERP_inventory_category_configuration:"ERPコード化規則",
     User_device_configuration:"ユーザデバイスの構成",
+    Tourist_virtually_dashboard_switch:"カンバン仮想データ構成",
   },
 
   ...jaLocale,
