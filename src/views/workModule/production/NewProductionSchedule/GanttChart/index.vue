@@ -46,7 +46,7 @@
             size="mini"
             style="margin-left: 10px"
             @click="RefreshGantt"
-          >刷新</el-button
+          >{{ $t("Generality.Ge_Refresh") }}</el-button
           >
         </div>
 <!--        <div class="apsVersionNo" style="margin-left: 10px">-->

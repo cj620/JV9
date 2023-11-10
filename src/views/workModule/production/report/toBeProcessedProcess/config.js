@@ -13,6 +13,7 @@ import { production_task_process_list } from "@/api/workApi/production/productio
 import {ProcessState, } from "@/enum/workModule";
   import { itemList } from "@/api/basicApi/systemSettings/Item";
   import { getAllProcess } from "@/api/workApi/production/baseData";
+import i18n from "@/i18n/i18n";
 
 export class api extends TableAPI {
   // 获取列表
@@ -68,40 +69,39 @@ export const tableConfig = [
   /*模具编号*/
   {
     prop: "ToolingNo",
-    label: '模具编号',
+    label: i18n.t("Generality.Ge_ToolingNo"),
   },
-    /*零件*/
-    {
-      prop: "PartNo",
-      label: '零件编号',
-    },
-        /*产品*/
+  /*零件*/
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+  },
+  /*产品*/
   {
     prop: "PartName",
-    label: '零件名称',
+    label: i18n.t("Generality.Ge_PartName"),
   },
-    /*状态*/
-    {
-        prop: "ItemState",
-        label: '状态',
-        customFilter: (value) => {
-            if (!value) return "";
-            return ProcessState[value].name;
-          },
-
-      },
+  /*状态*/
+  {
+    prop: "ItemState",
+    label: i18n.t("Generality.Ge_State"),
+    customFilter: (value) => {
+        if (!value) return "";
+        return ProcessState[value].name;
+    },
+  },
   {
     prop: "Process",
-    label: '工序',
+    label: i18n.t("Generality.Ge_Process"),
   },
   {
     prop: "PlanTime",
-    label: '预计工时',
+    label: i18n.t("Generality.Ge_PlanTime"),
   },
    /*计划开始*/
    {
     prop: "PlanStart",
-    label: '计划开始',
+    label: i18n.t("Generality.Ge_PlanStart"),
     filter: "time",
     width:'150px',
 
@@ -109,7 +109,7 @@ export const tableConfig = [
   /*计划结束*/
   {
     prop: "PlanEnd",
-    label: '计划结束',
+    label: i18n.t("Generality.Ge_PlanEnd"),
     filter: "time",
     width:'150px',
 
@@ -148,7 +148,7 @@ export const formSchema = [
     // 工序
     prop: "Processes",
     cpn: "SyncSelect",
-    label: '工序',
+    label: i18n.t("Generality.Ge_Process"),
     api: getAllProcess,
     type:'multiple',
     apiOptions: {
@@ -166,11 +166,11 @@ export const formSchema = [
       list: [
         {
           value: "ToBeReceived",
-          label: '待入站',
+          label: i18n.t("Generality.Ge_ToBeReceived"),
         },
         {
           value: "Received",
-          label: '已入站',
+          label: i18n.t("production.Pr_AlreadyInStation"),
         },
 
       ],
