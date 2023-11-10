@@ -4,7 +4,7 @@
       <div class="right-top-title">模具进度</div>
       <dvScrollRankingBoard
         :config="config1"
-        style="width: 460px; height: 350px"
+        style="width: 460px; height: 300px"
       ></dvScrollRankingBoard>
     </div>
     <div class="right-bottom">
@@ -16,16 +16,14 @@
       </div>
       <div
         class="right-bottom-value"
-        v-for="(item, index) in dataList"
+        v-for="(item, index) in dataList1"
         :key="index"
       >
-        <div class="circle" :style="{ backgroundColor: item.Color }"></div>
-        <div class="name">{{ $t(`quality.Qc_${item.Name}`) }}</div>
+        <div class="circle" :style="{ backgroundColor: '#e54e64' }"></div>
+        <div class="name">{{ item.Name }}</div>
         <div class="dataValue">{{ item.Value }}</div>
         <div class="percentage">{{ item.Percentage }}%</div>
       </div>
-
-      <div></div>
     </div>
   </div>
 </template>
@@ -46,6 +44,7 @@ export default {
       },
       msg: 20,
       dataList: [],
+      dataList1: [],
       list: [
         { c1: "#272d4b", c2: "#f45868", num: 2500 },
         { c1: "#272d4b", c2: "#edc240", num: 2500 },
@@ -72,6 +71,7 @@ export default {
     }
 
     this.dataList = this.RightDataList.Data8;
+    this.dataList1 = this.RightDataList.Data9;
   },
   activated() {
     // console.log("activated");
@@ -105,18 +105,19 @@ export default {
     creteText(e) {
       let arr = e.map(item => {
         return {
-          name: item.Name,
+          name: this.$t(`quality.Qc_${item.Name}`) ,
           value: item.Value
         }
       })
       let myChart = echarts.init(document.getElementById('m_chart'))
       myChart.setOption({
         tooltip: {
-          trigger: 'item'
+          trigger: 'item',
         },
+        color: ['#19d4ae','#fa6e86'],
         series: [
           {
-            name: 'Access From',
+            name: this.$t('DataV.Da_PassRate'),
             type: 'pie',
             radius: '62%',
             data: arr,
@@ -142,7 +143,7 @@ export default {
   height: 100%;
   margin-right: 10px;
   .right-top {
-    height: 418px;
+    height: 360px;
     width: 100%;
     padding: 18px;
     background-color: #242947;
@@ -154,28 +155,28 @@ export default {
     }
   }
   .right-bottom {
-    height: 535px;
+    height: 590px;
     width: 100%;
     background-color: #242947;
     padding: 35px;
+    padding-top: 10px;
     .right-bottom-title {
       font-size: 20px;
       font-weight: 500;
-      margin-bottom: 10px;
     }
     .right-bottom-canvas {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 360px;
+      height: 350px;
     }
     .right-bottom-value {
       display: flex;
       align-items: center;
       font-size: 16px;
       font-weight: 400;
-      margin-top: 25px;
+      margin-top: 20px;
 
       .circle {
         width: 8px;
@@ -187,8 +188,8 @@ export default {
         width: 165px;
       }
       .dataValue {
-        //width: 50px;
-        margin-right: 4px;
+        width: 50px;
+        margin-right: 20px;
       }
       .percentage {
         //margin: 0 20px;

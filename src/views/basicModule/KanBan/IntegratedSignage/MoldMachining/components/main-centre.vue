@@ -109,7 +109,7 @@ export default {
     this.dataList5 = this.CentreDataList.Data5.map(item => {
       return {
         ...item,
-        Name: menu[item.Name]
+        Name: menu1[item.Name]
       }
     })
     this.EmergencyProdTask=this.CentreDataList.Data6
