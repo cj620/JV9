@@ -234,6 +234,8 @@ export default {
           {
             label: {
               show: true,
+              textBorderColor: 'red',
+              color: '#fff',
             },
             name:  i18n.t('DataV.Da_PartNo'),
             type: 'line',
