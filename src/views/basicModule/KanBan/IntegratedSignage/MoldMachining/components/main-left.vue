@@ -184,9 +184,16 @@ export default {
       return array;
     },
     init() {
+      let data = this.LeftDataList.Data3.Data.map(item => {
+        return Number(item)
+      })
+      let date = this.LeftDataList.Data3.Date;
       this.middleChartExtend = {
         title: {
-          text: this.$t('Mold.Mo_DailyPartsQualifiedRate')
+          text: this.$t('Mold.Mo_DailyPartsQualifiedRate'),
+          textStyle: {
+            color: '#fff'
+          }
         },
         tooltip: {
           trigger: 'axis'
@@ -199,44 +206,39 @@ export default {
           containLabel: true
         },
         xAxis: {
+          nameTextStyle: {
+            color: '#fff'
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#fff'
+            }
+          },
           type: 'category',
           boundaryGap: false,
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: date
         },
         yAxis: {
-          type: 'value'
+          show: true,
+          type: 'value',
+          nameTextStyle: {
+            color: '#fff'
+          },
+          axisLine: {
+            lineStyle: {
+              color: '#fff'
+            }
+          },
         },
         series: [
           {
-            name: 'Email',
+            label: {
+              show: true,
+            },
+            name:  i18n.t('DataV.Da_PartNo'),
             type: 'line',
-            stack: 'Total',
-            data: [120, 132, 101, 134, 90, 230, 210]
+            data: data
           },
-          {
-            name: 'Union Ads',
-            type: 'line',
-            stack: 'Total',
-            data: [220, 182, 191, 234, 290, 330, 310]
-          },
-          {
-            name: 'Video Ads',
-            type: 'line',
-            stack: 'Total',
-            data: [150, 232, 201, 154, 190, 330, 410]
-          },
-          {
-            name: 'Direct',
-            type: 'line',
-            stack: 'Total',
-            data: [320, 332, 301, 334, 390, 330, 320]
-          },
-          {
-            name: 'Search Engine',
-            type: 'line',
-            stack: 'Total',
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
-          }
         ]
       };
     },

@@ -449,6 +449,7 @@ const ja = {
   },
   // 看板 （数据可视化）
   DataV: {
+    Da_Department: "セクション",
     Da_IntegratedSignage: "総合看板",
     Da_EquipmentSignage: "設備カンバン",
     Da_DepartmentSignage: "部門総合看板",
