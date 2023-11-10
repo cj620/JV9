@@ -368,7 +368,8 @@ export default {
     },
     createLink() {
       let obj = {
-        PartNos: this.PartNos
+        PartNos: this.PartNos,
+        PmTaskBillId: this.$route.query.BillId,
       }
       Object.assign(obj, this.formObj.form)
       create_data_sharing(obj).then((res) => {
@@ -411,6 +412,7 @@ export default {
       part_processing_node({
         ToolingNo: this.$route.query.ToolingNo,
         Keyword: this.searchValue,
+        PmTaskBillId: this.$route.query.BillId,
       }).then((res) => {
         this.List = res.Items;
         this.tableObj.setData(res.Items);
