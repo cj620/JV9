@@ -20,7 +20,8 @@ export class Table extends BaseTable {
       rowId: "BillId",
       title: i18n.t("menu.St_ProduceIn"),
       api,
-      operationWidth: 150,
+      // 操作列宽度
+      operationWidth: 160,
       // 打印模板标识 谨慎删除
       printMod: "St_ProduceIn",
     });

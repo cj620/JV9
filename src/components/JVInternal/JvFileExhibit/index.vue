@@ -5,12 +5,22 @@
         <template #operation="{ row }">
           <TableAction :actions="[
             {
-            label:$t('Generality.Ge_Download'),
-            confirm: download.bind(null,row)
-          }
+              label: $t('setup.Preview'),
+              hidden:![...P_inSite,...P_offSite].includes( row.FileType.toLocaleLowerCase() ),
+              confirm: preview.bind(null,row)
+            },
+            {
+              label:$t('Generality.Ge_Download'),
+              confirm: download.bind(null,row)
+            }
           ]"
           />
         </template></JvTable>
+        <el-image-viewer
+          v-if="showViewer"
+          :on-close="()=>{showViewer = false}"
+          :url-list="[preImgUrl]" >
+        </el-image-viewer>
     </div>
 </template>
 
@@ -19,12 +29,21 @@ import { Table } from "@/jv_doc/class/table";
 import {  tableConfig  } from "./config";
 import { getBillFile } from "@/api/basicApi/systemSettings/upload";
 import { getToken } from '@/utils/auth'
+import { P_inSite,P_offSite } from '@/enum/baseModule/fileEnum/previewEnum';
 import axios from 'axios'
+import {imgUrlPlugin} from "~/utils/system";
 export default {
   name: 'index',
+  components:{
+      'el-image-viewer':()=>import('element-ui/packages/image/src/image-viewer')
+  },
   data(){
     return{
       tableFileObj: {},
+      showViewer:false,
+      preImgUrl:'',
+      P_inSite,
+      P_offSite
     }
   },
   props:{
@@ -45,16 +64,25 @@ export default {
       operationCol:true,
       height:100,
     });
- 
+
     await  this.GetData()
 
   },
   methods:{
     async   GetData(){
       await  getBillFile({OwnerId:this.BillId}).then(res=>{
- 
+
         this.tableFileObj.setData(res.Items)
       })
+    },
+    //   预览
+    preview(row){
+      this.preImgUrl=imgUrlPlugin(row.FileUrl)
+      if(this.P_inSite.includes(row.FileType)){
+          this.showViewer=true
+      }else{
+          window.open(this.preImgUrl, "_blank");
+      }
     },
     //下载附件
     download(row){

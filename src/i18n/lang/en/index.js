@@ -446,6 +446,8 @@ const en = {
     St_Direction: "Direction",
     St_Assembly: "Assembly",
     St_Split: "Split",
+    St_MainItems: "Main Items",
+    St_SecondaryItems: "Secondary Items",
   },
   // 看板 （数据可视化）
   DataV: {
@@ -1041,6 +1043,7 @@ const en = {
     Ge_RestoreLayout: "Restore Layout",
     Ge_ProgramingPlanTime: "Programming Estimated Hours",
     Ge_lock: "Lock",
+    Ge_InputPlaceholder: "Please input the document number, name, and department",
   },
   //生产
   production: {
