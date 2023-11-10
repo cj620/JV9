@@ -222,7 +222,7 @@ const production = [
   {
     key: "Pr_GanttChart",
     component: () =>
-        import("@/views/workModule/production/NewProductionSchedule/GanttChart"),
+        import("@/views/workModule/production/NewProductionSchedule/GanttChart/index1.vue"),
     Parent: "Pr_NewProductionSchedule",
     name: "GanttChart",
     path: "GanttChart",
