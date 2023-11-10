@@ -142,7 +142,7 @@ const production = [
   {
     key: "Pr_ProductionPlan",
     component: () =>
-      import("@/views/workModule/production/productionPlan/List"),
+      import("@/views/workModule/production/productionPlan/List/index1.vue"),
     Parent: "Pr_Production",
     name: "ProductionPlan",
     path: "productionPlan",

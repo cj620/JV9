@@ -349,6 +349,7 @@ export default {
     console.log(this.formObj.form, new Date(), 5656);
     if (this.type === "edit") {
       this.editDisabled = true;
+      this.fileBillId = this.billData;
       await this.GetData(this.billData);
     }
   },
@@ -358,6 +359,7 @@ export default {
     async GetData(Id) {
       await getProductionTask({ BillId: Id }).then((res) => {
         this.ruleForm = res;
+        this.ruleForm = Object.assign({}, this.ruleForm, res);
         this.formObj.form = this.ruleForm;
         this.tableObj.setData(res.Parts);
         res.Process.forEach((item) => {

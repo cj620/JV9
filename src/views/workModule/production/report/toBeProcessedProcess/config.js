@@ -65,10 +65,10 @@ export const tableConfig = [
       ],
     }
   },
-  /*产品*/
+  /*模具编号*/
   {
     prop: "ToolingNo",
-    label: '产品',
+    label: '模具编号',
   },
     /*零件*/
     {

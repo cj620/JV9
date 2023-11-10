@@ -55,6 +55,7 @@
     </JvTable>
     <JvDialog
       :title="$t('Generality.Ge_Tooling') + $t('project.Pro_Share')"
+      v-if="toolingShareVisible"
       :visible.sync="toolingShareVisible"
       width="60%"
       @confirm="confirmToolingShare"
@@ -63,6 +64,7 @@
         v-for="tag in shareList"
         :key="tag"
         closable
+        @close="handleClose(tag)"
         style="margin-left: 5px"
       >
         {{ tag }}
@@ -152,6 +154,9 @@ export default {
         this.tableObj.tableRef?.clearSort();
       });
       this.getData();
+    },
+    handleClose(tag) {
+      this.shareList.splice(this.shareList.indexOf(tag), 1);
     },
     getData() {
       getProjectBillListDefault().then((res) => {

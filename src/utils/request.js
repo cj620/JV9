@@ -29,6 +29,7 @@ service.interceptors.request.use(
     }
     if(config.loading){
       // console.log(String(config.url),666555);
+      //判断是否重复请求
       if(!loadLock.put(window.global_config.Base_Url+config.url)){
         return Promise.reject(new Error('repeat submit！'))
       }

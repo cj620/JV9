@@ -196,15 +196,23 @@
               destroy-on-close
     >
       <div style="padding-bottom: 10px;padding-left: 10px">
-        <span style="font-weight: bold">已选择零件：</span><el-tag
-        style="margin-right: 10px;margin-bottom: 10px"
-        v-for="tag in PartNos"
-        :key="tag"
-        closable
-        @close="handleClose(tag)"
-      >
-        {{tag}}
-      </el-tag>
+        <span style="font-weight: bold">已选择零件：</span>
+<!--        <el-tag-->
+<!--          style="margin-right: 10px;margin-bottom: 10px"-->
+<!--          v-for="tag in PartNos"-->
+<!--          :key="tag"-->
+<!--          closable-->
+<!--          @close="handleClose(tag)"-->
+<!--        >-->
+<!--          {{tag}}-->
+<!--        </el-tag>-->
+          <el-tag
+            style="margin-right: 10px;margin-bottom: 10px"
+            v-for="tag in PartNos"
+            :key="tag"
+          >
+            {{tag}}
+          </el-tag>
       </div>
       <JvTable :table-obj="tableObj">
         <template #Progress="{ row }">
@@ -213,11 +221,11 @@
             :percentage="row['Progress']"
           ></el-progress>
         </template>
-        <template #SelectPart="{ row }">
-          <div class="select-part" @click="addPartNos(row)">
-            <i class="el-icon-circle-plus"></i>
-          </div>
-        </template>
+<!--        <template #SelectPart="{ row }">-->
+<!--          <div class="select-part" @click="addPartNos(row)">-->
+<!--            <i class="el-icon-circle-plus"></i>-->
+<!--          </div>-->
+<!--        </template>-->
       </JvTable>
       <div class="form-box">
         <JvForm :formObj="formObj" style="padding-left: 10px"> </JvForm>
@@ -313,6 +321,7 @@ export default {
     },
     addPartNos(row) {
       console.log(row)
+      this.PartNos = [...new Set(this.PartNos)]
       this.PartNos.push(row.PartNo);
       this.PartNos = [...new Set(this.PartNos)]
     },
@@ -427,6 +436,14 @@ export default {
       });
     },
   },
+  watch: {
+    'tableObj.selectData': {
+      deep: true,
+      handler(val) {
+        this.PartNos = val.keys;
+      }
+    }
+  }
 };
 </script>
 

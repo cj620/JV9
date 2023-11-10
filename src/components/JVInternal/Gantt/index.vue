@@ -36,6 +36,10 @@ import { timeFormat } from "@/jv_doc/utils/time";
 export default {
 	name: "index",
 	props: {
+    ImmediatelyApi: { // 是否立即调用api
+      type: Boolean,
+      default: true,
+    },
     readonly: {
       type: Boolean,
       default: true
@@ -572,7 +576,9 @@ export default {
 			gantt.ext.zoom.setLevel(this.unitValue);
 			gantt.init(this.$refs.gantt);
 			// this.foldoRunfold(); // 赋值数据
-      this.setGanttUpdate();
+      if(this.ImmediatelyApi) {
+        this.setGanttUpdate();
+      }
 			gantt.render();
 		},
 		// 折叠展开

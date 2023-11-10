@@ -451,6 +451,7 @@ const en = {
   },
   // 看板 （数据可视化）
   DataV: {
+    Da_Department: "Department",
     Da_IntegratedSignage: "Integrated Signage",
     Da_EquipmentSignage: "Equipment Signage",
     Da_DepartmentSignage: "Department Comprehensive Signage",
@@ -1602,6 +1603,8 @@ const en = {
     Default_navigation_bar_configuration:"Default navigation bar configuration",
     ERP_inventory_category_configuration:"ERP inventory category configuration",
     User_device_configuration:"User device configuration",
+    Tourist_virtually_dashboard_switch:"Tourist virtually dashboard switch",
+
   },
   ...enLocale,
 };

@@ -449,6 +449,7 @@ const cn = {
   },
   // 看板 （数据可视化）
   DataV: {
+    Da_Department: "部门",
     Da_IntegratedSignage: "综合看板",
     Da_EquipmentSignage: "设备看板",
     Da_DepartmentSignage: "部门综合看板",
@@ -1582,6 +1583,7 @@ const cn = {
     Default_navigation_bar_configuration:"默认导航栏菜单",
     ERP_inventory_category_configuration:"ERP编码规则",
     User_device_configuration:"用户设备配置",
+    Tourist_virtually_dashboard_switch:"看板虚拟数据配置",
   },
 
   ...zhLocale,

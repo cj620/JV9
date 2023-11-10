@@ -9,9 +9,9 @@
 
   </div>
   <div  class="centre-center">
-    <div  class="centre-center-data" v-for="(item,index) in CentreDataList.Data5" :key="index">
+    <div  class="centre-center-data" v-for="(item,index) in dataList5" :key="index">
       <div class="centre-center-data-pie">
-        <conic-gradient :rate="Number(item.Value)" :config=item.Config>
+        <conic-gradient :rate="item.Value" :config=item.Config>
         </conic-gradient>
       </div>
 
@@ -64,6 +64,7 @@ export default {
       dataList:[
 
       ],
+      dataList5:[],
       msg:1,
       centreDataList:[],
       EmergencyProdTask:[],
@@ -85,8 +86,32 @@ export default {
   },
 
   created() {
-    this.dataList=this.CentreDataList.Data4
-    // this.centreDataList=this.CentreDataList.Data5
+    const menu = {
+      Mo_DesignChangeThisMonth: this.$t('Mold.Mo_DesignChangeThisMonth'),
+      Mo_TrialMoldThisMonth: this.$t('Mold.Mo_TrialMoldThisMonth'),
+      Mo_OrdersReceivedThisMonth: this.$t('Mold.Mo_OrdersReceivedThisMonth'),
+      Mo_NewToolingThisMonth: this.$t('Mold.Mo_NewToolingThisMonth'),
+      Mo_CorrectingToolingThisMonth: this.$t('Mold.Mo_CorrectingToolingThisMonth'),
+    }
+    this.dataList=this.CentreDataList.Data4.map(item => {
+      return {
+        ...item,
+        Name: menu[item.Name]
+      }
+    })
+    const menu1 = {
+      "Mo_MoldAchievementRate": this.$t('Mold.Mo_MoldAchievementRate'),
+      "Mo_OverdueMolds": this.$t('Mold.Mo_OverdueMolds'),
+      "Mo_PartAchievementRate": this.$t('Mold.Mo_PartAchievementRate'),
+      "Mo_OverdueParts": this.$t('Mold.Mo_OverdueParts'),
+      "Mo_TrialMoldAchievementRate": this.$t('Mold.Mo_TrialMoldAchievementRate'),
+    }
+    this.dataList5 = this.CentreDataList.Data5.map(item => {
+      return {
+        ...item,
+        Name: menu1[item.Name]
+      }
+    })
     this.EmergencyProdTask=this.CentreDataList.Data6
 
   },

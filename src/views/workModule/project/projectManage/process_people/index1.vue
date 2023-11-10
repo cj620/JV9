@@ -180,6 +180,7 @@
         :tasks="tasks"
         :formSchema="formSchema"
         :_arguments="_arguments"
+        :ImmediatelyApi="false"
         :api="partProcessingPlan"
         :getData="GetData"
         :foldoRunfoldFlag="1"

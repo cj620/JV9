@@ -451,6 +451,7 @@ const ja = {
   },
   // 看板 （数据可视化）
   DataV: {
+    Da_Department: "セクション",
     Da_IntegratedSignage: "総合看板",
     Da_EquipmentSignage: "設備カンバン",
     Da_DepartmentSignage: "部門総合看板",
@@ -1599,6 +1600,7 @@ const ja = {
     Default_navigation_bar_configuration:"デフォルトのナビゲーションバーメニュー",
     ERP_inventory_category_configuration:"ERPコード化規則",
     User_device_configuration:"ユーザデバイスの構成",
+    Tourist_virtually_dashboard_switch:"カンバン仮想データ構成",
   },
 
   ...jaLocale,
