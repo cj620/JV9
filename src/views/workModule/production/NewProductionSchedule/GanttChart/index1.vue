@@ -47,7 +47,7 @@
             size="mini"
             style="margin-left: 10px"
             @click="RefreshGantt"
-          >刷新</el-button
+          >{{ $t("Generality.Ge_Refresh") }}</el-button
           >
         </div>
       </div>
@@ -92,7 +92,7 @@
     >
       <JvForm :form-obj="formObj">
         <template #PlanDevice>
-          <el-select v-model="formObj.form.PlanDevice" placeholder="请选择">
+          <el-select v-model="formObj.form.PlanDevice">
             <el-option
               v-for="item in deviceOptions"
               :key="item.value"
@@ -158,7 +158,7 @@ export default {
         }
       }, // 表单实例
       MenuItems: [
-        { label: "详细信息" },
+        { label: this.$t('Generality.Ge_DetailedInformation') },
       ],
     };
   },
@@ -182,11 +182,11 @@ export default {
   methods: {
     RefreshGantt() {
       this.partNumberValue = "";
-      this.setAlgorithmType();
+      this.getGanttChart();
     },
     // 搜索
     searchResult() {
-      this.setAlgorithmType(this.pageSize, this.current);
+      this.getGanttChart(this.pageSize, this.current);
     },
     // 搜索
     searchChange() {
@@ -215,15 +215,15 @@ export default {
     },
     popoverInnerHtml(item) {
       return `
-        <div>生产单号：${item.BillId}</div>
-        <div>零件编号：${item.PartNo}</div>
-        <div>零件名称：${item.PartName}</div>
-        <div>工序名称：${item.ProcessName}</div>
-        <div>计划开始：${timeFormat(
+        <div>${ i18n.t('project.Pro_TaskSheetNo') }：${item.BillId}</div>
+        <div>${ i18n.t('Generality.Ge_PartNo') }：${item.PartNo}</div>
+        <div>${ i18n.t('Generality.Ge_PartName') }：${item.PartName}</div>
+        <div>${ i18n.t('Generality.Ge_ProcessName') }：${item.ProcessName}</div>
+        <div>${ i18n.t('Generality.Ge_PlanStart') }：${timeFormat(
         item.PlanStart,
         "yyyy-MM-dd hh:mm:ss"
       )}</div>
-        <div>计划结束：${timeFormat(item.PlanEnd, "yyyy-MM-dd hh:mm:ss")}</div>
+        <div>${ i18n.t('Generality.Ge_PlanEnd') }：${timeFormat(item.PlanEnd, "yyyy-MM-dd hh:mm:ss")}</div>
       `;
     },
     // 切换时间
@@ -259,24 +259,24 @@ export default {
         this.$msgbox({
           title: item.Process,
           message: h("p", null, [
-            h("div", null, "资源组：" + item.ResourceGroup),
-            h("div", null, "工序名称：" + item.ProcessName),
-            h("div", null, "计划设备：" + item.PlanDevice),
-            h("div", null, "计划工时：" + item.PlanTime + "H"),
+            h("div", null, i18n.t('menu.Pr_Resources') +"：" + item.ResourceGroup),
+            h("div", null, i18n.t('Generality.Ge_ProcessName') +"：" + item.ProcessName),
+            h("div", null, i18n.t('production.Pr_PlanningDevices') +"：" + item.PlanDevice),
+            h("div", null, i18n.t('Generality.Ge_PlannedTime') +"：" + item.PlanTime + "H"),
             h(
               "div",
               null,
-              "计划开始：" + timeFormat(item.PlanStart, "yyyy-MM-dd hh:mm:ss")
+                i18n.t('Generality.Ge_PlanStart') +"：" + timeFormat(item.PlanStart, "yyyy-MM-dd hh:mm:ss")
             ),
             h(
               "div",
               null,
-              "计划结束：" + timeFormat(item.PlanEnd, "yyyy-MM-dd hh:mm:ss")
+                i18n.t('Generality.Ge_PlanEnd') +"："  + timeFormat(item.PlanEnd, "yyyy-MM-dd hh:mm:ss")
             ),
           ]),
           showCancelButton: true,
           showConfirmButton: false,
-          cancelButtonText: "取消",
+          cancelButtonText: this.$t('Generality.Ge_Cancel'),
         });
       };
     },

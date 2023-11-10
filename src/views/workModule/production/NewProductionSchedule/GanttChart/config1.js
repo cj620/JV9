@@ -1,5 +1,5 @@
 export const columns = [
-    {name:"PhotoUrl",label:"图片"},
-    {name:"DeviceNo",label:"设备编号"},
-    {name:"Device",label:"设备名称",width:100},
+    {name:"PhotoUrl",label: i18n.t('Generality.Ge_PhotoUrl')},
+    {name:"DeviceNo",label: i18n.t('production.Pr_DeviceNo')},
+    {name:"Device",label:i18n.t('production.Pr_DeviceName'),width:100},
 ]
