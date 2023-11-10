@@ -1047,6 +1047,8 @@ const en = {
   },
   //生产
   production: {
+    Pr_SummaryProcessesToBeProcessed: "Summary of Processes to Be Processed",
+    Pr_SummaryEstimatedWorkingHours: "Summary of Estimated Working Hours",
     Pr_DeletedBy: "Deleted By",
     Pr_DeleteTime: "Delete Time",
     Pr_Filter: "Filter",

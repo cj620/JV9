@@ -29,7 +29,7 @@ export class Table extends BaseTable {
       // 行标识
       rowId: 'Id',
       // 表格标题
-      title: '工序待加工汇总',
+      title: i18n.t('production.Pr_SummaryProcessesToBeProcessed'),
       // 接口类
       api,
       // 操作列宽度
@@ -72,9 +72,9 @@ export const tableConfig = [
   },
     /*零件*/
     {
-        prop: "PartNo",
-        label: '零件编号',
-      },
+      prop: "PartNo",
+      label: '零件编号',
+    },
         /*产品*/
   {
     prop: "PartName",

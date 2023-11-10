@@ -53,7 +53,7 @@ export default {
           console.log(res.Items, 6666);
           let Date = res.Items.map((x) => x.Process);
           let Data = res.Items.map((x) => x.PlanTime);
-          let DataList = { Date, Data, Name: "预计工时汇总" };
+          let DataList = { Date, Data, Name: this.$t('production.Pr_SummaryEstimatedWorkingHours') };
           this.lineList = createLineOptionList([DataList]);
           this.lineList[0].title.textStyle = {
             color: '#000',
