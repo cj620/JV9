@@ -117,17 +117,14 @@ export default {
         color: ['#19d4ae','#fa6e86'],
         series: [
           {
+            label: {
+              textBorderColor: 'red',
+              color: '#fff',
+            },
             name: this.$t('DataV.Da_PassRate'),
             type: 'pie',
             radius: ['50%', '70%'],
             data: arr,
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
-            }
           }
         ]
       })
