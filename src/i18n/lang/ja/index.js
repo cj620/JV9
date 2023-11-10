@@ -1043,6 +1043,8 @@ const ja = {
   },
   //生产
   production: {
+    Pr_SummaryProcessesToBeProcessed: "工程保留要約",
+    Pr_SummaryEstimatedWorkingHours: "予定工数要約",
     Pr_DeletedBy: "削除者",
     Pr_DeleteTime: "削除時間",
     Pr_Filter: "フィルタリング",

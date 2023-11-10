@@ -1035,6 +1035,8 @@ const cn = {
   },
   //生产
   production: {
+    Pr_SummaryProcessesToBeProcessed: "工序待加工汇总",
+    Pr_SummaryEstimatedWorkingHours: "预计工时汇总",
     Pr_DeletedBy: "删除人",
     Pr_DeleteTime: "删除时间",
     Pr_Filter: "过滤",
