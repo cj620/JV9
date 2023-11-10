@@ -14,6 +14,11 @@
           size="mini"
           :actions="[
           {
+            label: $t('production.Pr_EditDeliveryDate'),
+            confirm: multipleEditPlanEnd,
+            disabled: canMultipleEdit
+          },
+          {
             label: $t('production.Pr_EditTheJobAsCompleted'),
             confirm: EditTheJobAsCompleted
           }
@@ -39,7 +44,7 @@
     >
       <el-date-picker
         v-model="planData.planEnd"
-        type="date"
+        type="datetime"
         :placeholder="$t('production.Pr_SelectDate')"
       >
       </el-date-picker>
@@ -54,6 +59,7 @@ import {
   update_plan_end,
   update_state
 } from "@/api/workApi/production/productionTask";
+import {timeFormat} from "~/utils/time";
 
 export default {
   name: "index",
@@ -73,7 +79,22 @@ export default {
     this.obsoleteTableObj = new ObsoleteTable();
     this.obsoleteTableObj.getData()
   },
+  computed: {
+    canMultipleEdit(){
+      return this.obsoleteTableObj.selectData.datas.length === 0;
+    }
+  },
   methods: {
+    // 编辑交期
+    multipleEditPlanEnd(){
+      let arr = [];
+      this.obsoleteTableObj.selectData.datas.forEach((item) => {
+        arr.push(item.BillId)
+      })
+      this.planData.billId = arr
+      this.planData.planEnd = timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss")
+      this.UpdatePlanEndFormVisible = true;
+    },
     // 编辑工单为已完成
     EditTheJobAsCompleted() {
       update_state({BillIds: this.obsoleteTableObj.selectData.keys, State: 'Processed'}).then(res => {
@@ -82,16 +103,16 @@ export default {
     },
     // 编辑
     obsoleteEdit(val) {
-      this.UpdatePlanEndFormVisible = true;
       this.planData.planEnd = val.PlanEnd;
-      this.planData.billId = val.BillId;
+      this.planData.billId = [val.BillId];
+      this.UpdatePlanEndFormVisible = true;
     },
     // 修改超交期工单计划结束日期
     updatePlanEnd() {
       // this.loading = true;
       update_plan_end({
-        BillIds: [this.planData.billId],
-        PlanEnd: this.planData.planEnd,
+        BillIds: this.planData.billId,
+        PlanEnd: timeFormat(this.planData.planEnd, "yyyy-MM-dd hh:mm:ss"),
       })
         .then(() => {
           // this.loading = false;
