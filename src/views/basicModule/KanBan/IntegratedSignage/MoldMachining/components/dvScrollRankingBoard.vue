@@ -17,7 +17,7 @@
         </div>
 
 
-        <div class="ranking-value">{{ item.Value }}</div>
+<!--        <div class="ranking-value">{{ item.Value }}</div>-->
         <div  class="ranking-progress" >{{ item.Percentage }}%</div>
       </div>
 
@@ -238,6 +238,7 @@ $color: #1370fb;
         height: 24px;
         background-color: #5A5F75;
         width: 230px;
+        margin-right: 10px;
         border-radius:0 12px 12px 0;
         .shine {
           position: absolute;
