@@ -110,31 +110,31 @@
                 </div>
                 <div></div>
               </div>
-              <div class="info-box-item">
+              <div class="info-box-item" style="width: 300px;">
                 <div></div>
                 <div>
                   {{ $t("menu.Sa_Customer") }}: {{ item.ToolingInfo.CustomerName || '--' }}
                 </div>
                 <div>
-                  {{ $t("Generality.Ge_Category") }}:
-                  {{ TaskType[item.TaskWorkerList[0].TaskType] || '--' }}
+                   {{$t("Generality.Ge_TaskType")}}: {{ item.taskTypeValue || '--' }}
                 </div>
                 <div></div>
               </div>
-              <div class="info-box-item" v-if="item.TaskWorkerList.length">
-                <el-select v-model="item.taskTypeValue" :placeholder="$t('Generality.Ge_PleaseSelect')"
-                @change="changeTaskType(item, i)"
-                >
-                  <el-option
-                    v-for="item in setTaskWorkerListOptions(item.TaskWorkerList)"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
-              </div>
               <div class="go-details">
-                <el-button size="mini" @click="goDetails(item.ToolingInfo.ToolingNo, item.taskTypeValue.match(/\(.+?\)/g)[0].substring(1,item.taskTypeValue.match(/\(.+?\)/g)[0].length - 1)  )">{{$t("project.Pr_PartSchedule")}}</el-button>
+                <div class="info-box-item" v-if="item.TaskWorkerList.length">
+                  <el-select v-model="item.taskTypeValue" :placeholder="$t('Generality.Ge_PleaseSelect')"
+                             @change="changeTaskType(item, i)"
+                             size="mini"
+                  >
+                    <el-option
+                      v-for="item in setTaskWorkerListOptions(item.TaskWorkerList)"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </div>
+                <el-button size="mini" @click="goDetails(item.ToolingInfo.ToolingNo, item.taskTypeValue.match(/\(.+?\)/g)[0].substring(1,item.taskTypeValue.match(/\(.+?\)/g)[0].length - 1), item.taskTypeValue  )">{{$t("project.Pr_PartSchedule")}}</el-button>
               </div>
             </div>
           </div>
@@ -225,6 +225,7 @@ import { timeFormat } from "@/jv_doc/utils/time";
 import {project_gantt_progress, worker_progress} from '@/api/workApi/project/projectInfo';
 import i18n from "@/i18n/i18n";
 import PopoverTable from "@/views/workModule/project/projectManage/process_people/components/popover-table.vue";
+import { taskTypeEnum } from "@/enum/workModule";
 export default {
   // name: "ProjectManage_process_people",
   data() {
@@ -319,8 +320,8 @@ export default {
     setTaskWorkerListOptions(items) {
       return items.map(item => {
         return {
-          label: `${this.TaskType[item.TaskType]}(${item.BillId})`,
-          value: `${this.TaskType[item.TaskType]}(${item.BillId})`
+          label: `${taskTypeEnum[item.TaskType].name}(${item.BillId})`,
+          value: `${taskTypeEnum[item.TaskType].name}(${item.BillId})`
         }
       })
     },
@@ -329,7 +330,7 @@ export default {
     },
     setWorkerList(item, i) {
       let arr = item.TaskWorkerList.filter(jtem => {
-        return `${this.TaskType[jtem.TaskType]}(${jtem.BillId})` === item.taskTypeValue
+        return `${taskTypeEnum[jtem.TaskType].name}(${jtem.BillId})` === item.taskTypeValue
       })
       this.list[i].workerList = arr[0].WorkerList
     },
@@ -337,13 +338,14 @@ export default {
       this.showProjectTaskLogs = !this.showProjectTaskLogs;
       this.ProjectTaskLogs = item;
     },
-    goDetails(ToolingNo, BillId) {
+    goDetails(ToolingNo, BillId, taskTypeValue) {
       console.log(BillId)
       this.$router.push({
         path: "Pm_Project_PartSchedule",
         query: {
           ToolingNo: ToolingNo,
-          BillId: BillId
+          BillId: BillId,
+          TaskType: taskTypeValue
         }
       })
     },
@@ -356,7 +358,7 @@ export default {
           this.$set(item, 'taskTypeValue', item.TaskWorkerList[0].TaskType)
           this.$set(item, 'workerList', [])
 
-          item.taskTypeValue = `${this.TaskType[item.TaskWorkerList[0].TaskType]}(${item.TaskWorkerList[0].BillId})`;
+          item.taskTypeValue = `${taskTypeEnum[item.TaskWorkerList[0].TaskType].name}(${item.TaskWorkerList[0].BillId})`;
           this.setWorkerList(item, i)
         })
       });
