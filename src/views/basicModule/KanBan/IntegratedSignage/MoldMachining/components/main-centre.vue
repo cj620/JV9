@@ -25,8 +25,8 @@
   </div>
   <div class="centre-bottom">
     <div  class="centre-bottom-title">
-      <div>在制工单</div>
-      <div>共计：
+      <div>{{ $t('Mold.Mo_OngoingOrders') }}</div>
+      <div>{{ $t('Generality.Ge_total') }}：
       <span  class="centre-bottom-title-number">
         {{EmergencyProdTask.length}}
       </span>

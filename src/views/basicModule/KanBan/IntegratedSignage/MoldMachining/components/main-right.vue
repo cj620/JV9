@@ -1,14 +1,14 @@
 <template>
   <div class="data-v-main-right">
     <div class="right-top">
-      <div class="right-top-title">模具进度</div>
+      <div class="right-top-title">{{ $t('Mold.Mo_MoldProgress') }}</div>
       <dvScrollRankingBoard
         :config="config1"
         style="width: 460px; height: 300px"
       ></dvScrollRankingBoard>
     </div>
     <div class="right-bottom">
-      <div class="right-bottom-title">本月质检情况</div>
+      <div class="right-bottom-title">{{ $t('Mold.Mo_QCThisMonth') }}</div>
       <div class="right-bottom-canvas">
 <!--        <canvas id="myCanvas"></canvas>-->
 <!--        <div class="slot-title" v-show="false">{{ msg }}</div>-->

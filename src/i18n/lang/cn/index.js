@@ -450,13 +450,13 @@ const cn = {
   // 看板 （数据可视化）
   DataV: {
     Da_Department: "部门",
-    Da_IntegratedSignage: "综合看板",
-    Da_EquipmentSignage: "设备看板",
-    Da_DepartmentSignage: "部门综合看板",
-    Da_SaleSignage: "销售大数据看板",
-    Da_QualitySignage: "品质部门看板",
-    Da_MoldMachiningSignage: "模具综合看板",
-    Da_EquipmentStateSignage: "设备状态看板",
+    Da_DataBoard: "综合看板",
+    Da_EquipmentSignage: "设备",
+    Da_DepartmentSignage: "部门综合",
+    Da_SaleSignage: "销售大数据",
+    Da_QualitySignage: "品质部门",
+    Da_MoldMachiningSignage: "模具综合",
+    Da_EquipmentStateSignage: "设备状态",
     Da_EquipmentStatus: "设备状态",
     Da_AlarmSituation: "报警情况",
     Da_ShutdownCondition: "停机情况",
@@ -496,7 +496,7 @@ const cn = {
     Da_ActualCompletion: "实际完成数",
     Da_DailyRatedHours: "日额定工时",
     Da_DailyPlannedHours: "日计划工时",
-    Da_NCDepartmentSignboard: "部门看板",
+    Da_NCDepartmentSignboard: "NC部门",
     Da_PlannedCompletions: "计划完成数",
     Da_ActualCompletions: "实际完成数",
     Da_PlannedTime: "计划工时",
@@ -588,6 +588,7 @@ const cn = {
     Da_CropTurnoverRateOfEachDepartmentThisMonth:'本月各部门稼动率',
     Da_ProjectProgressDisplay:'项目进度展示',
     Da_AccumulatedShipmentStatusThisMonth:'本月累计出货情况',
+    Da_NoData: "暂无数据",
   },
   // 模具综合看板
   Mold: {
@@ -1033,6 +1034,7 @@ const cn = {
     Ge_ProgramingPlanTime: "编程预计工时",
     Ge_lock: "锁定",
     Ge_InputPlaceholder: "请输入单据编号、名称、部门",
+    Ge_total: "共计",
   },
   //生产
   production: {

@@ -5,7 +5,7 @@
       <div class="integrate-signage-header">
         <div class="integrate-signage-header-left"></div>
         <div class="integrate-signage-header-center">
-          {{$t('DataV.Da_IntegratedSignage')}}
+          {{$t('DataV.Da_DataBoard')}}
         </div>
         <div class="integrate-signage-header-right"></div>
       </div>

@@ -452,13 +452,13 @@ const ja = {
   // 看板 （数据可视化）
   DataV: {
     Da_Department: "セクション",
-    Da_IntegratedSignage: "総合看板",
-    Da_EquipmentSignage: "設備カンバン",
-    Da_DepartmentSignage: "部門総合看板",
-    Da_SaleSignage: "ビッグデータカンバンの販売",
-    Da_QualitySignage: "品質部門看板",
-    Da_MoldMachiningSignage: "金型総合看板",
-    Da_EquipmentStateSignage: "デバイスステータスカンバン",
+    Da_DataBoard: "総合",
+    Da_EquipmentSignage: "設備",
+    Da_DepartmentSignage: "部門総合",
+    Da_SaleSignage: "販売データ",
+    Da_QualitySignage: "品質部門",
+    Da_MoldMachiningSignage: "金型総合",
+    Da_EquipmentStateSignage: "デバイスの状態",
     Da_EquipmentStatus: "デバイスの状態",
     Da_AlarmSituation: "アラーム状況",
     Da_ShutdownCondition: "停止状況",
@@ -498,7 +498,7 @@ const ja = {
     Da_ActualCompletion: "実際の完了数",
     Da_DailyRatedHours: "日当たり定格工数",
     Da_DailyPlannedHours: "日計画工数",
-    Da_NCDepartmentSignboard: "部門カンバン",
+    Da_NCDepartmentSignboard: "NC部門",
     Da_PlannedCompletions: "計画完了数",
     Da_ActualCompletions: "実際の完了数",
     Da_PlannedTime: "計画工数",
@@ -590,6 +590,7 @@ const ja = {
     Da_CropTurnoverRateOfEachDepartmentThisMonth:'今月の部門別稼働率',
     Da_ProjectProgressDisplay:'プロジェクトの進捗状況の表示',
     Da_AccumulatedShipmentStatusThisMonth:'今月の累計出荷状況',
+    Da_NoData: "データが一時的にありません",
   },
   // 模具综合看板
   Mold: {
@@ -1041,6 +1042,7 @@ const ja = {
     Ge_ProgramingPlanTime: "プログラミング予定工数",
     Ge_lock: "ロック",
     Ge_InputPlaceholder: "文書番号、名前、部門を入力してください",
+    Ge_total: "合計",
   },
   //生产
   production: {
