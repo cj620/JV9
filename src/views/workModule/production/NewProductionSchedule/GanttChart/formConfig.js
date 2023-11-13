@@ -2,7 +2,7 @@ export const formSchema = [
   {
     prop: "PlanDevice",
     custom: true,
-    label: '机台',
+    label: i18n.t('production.Pr_Device'),
     rules: [
       {
         required: true,

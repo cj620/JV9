@@ -268,6 +268,11 @@ const cn = {
   },
   //设置
   setup: {
+    WhetherMarkAllRead: "是否将该类型消息全部标记为已读?",
+    ConfirmDeleteRoles: "确认删除角色？",
+    Configuration: "配置值",
+    Content: "内容",
+    MaterialCodeSegment: "物料代码段",
     multiplayerMode: "多人审批时采用的审批方式",
     JointlySign: "会签",
     JointlySignDes: "（须所有审批人同意）",
@@ -1038,6 +1043,9 @@ const cn = {
   },
   //生产
   production: {
+    Pr_Device: "机台",
+    Pr_Unlock: "解锁",
+    Pr_LockMachine: "锁定机床",
     Pr_SummaryProcessesToBeProcessed: "工序待加工汇总",
     Pr_SummaryEstimatedWorkingHours: "预计工时汇总",
     Pr_DeletedBy: "删除人",
@@ -1211,7 +1219,23 @@ const cn = {
       str3: "件, 其中",
       str4: "套模具共",
       str5: "个工件无法按期交付",
-    }
+    },
+    Pr_OutsourcingMsg: {
+      str1: "确认是否将此工件(",
+      str2: ")外协？",
+    },
+    Pr_DeleteMsg: {
+      str1: "此操作将删除该道工件(",
+      str2: "), 是否继续?",
+    },
+    Pr_LockMsg: {
+      str1: "是否将该道工件(",
+      str2: ")锁定机床?",
+    },
+    Pr_UnlockMsg: {
+      str1: "是否将该道工件(",
+      str2: ")锁定的机床进行解锁?",
+    },
   },
   quality: {
     Qc_CheckState: "检验状态",

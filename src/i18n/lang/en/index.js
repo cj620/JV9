@@ -289,6 +289,11 @@ const en = {
     Pro_TestMouldMaterials:"Test Mould Materials",
   },
   setup: {
+    WhetherMarkAllRead: "Mark all messages of this type as read?",
+    ConfirmDeleteRoles: "Are you sure to delete the role?",
+    Configuration: "Configuration Values",
+    Content: "Content",
+    MaterialCodeSegment: "Material Code Segment",
     multiplayerMode: "Approval method used when multiple people approve",
     JointlySign: "JointlySign",
     JointlySignDes: "(All approvers must agree)",
@@ -1049,6 +1054,9 @@ const en = {
   },
   //生产
   production: {
+    Pr_Device: "Machine",
+    Pr_Unlock: "Unlock",
+    Pr_LockMachine: "Lock the machine tool",
     Pr_SummaryProcessesToBeProcessed: "Summary of Processes to Be Processed",
     Pr_SummaryEstimatedWorkingHours: "Summary of Estimated Working Hours",
     Pr_DeletedBy: "Deleted By",
@@ -1223,7 +1231,23 @@ const en = {
       str3: " parts, of which ",
       str4: " sets of molds and ",
       str5: " workpieces were unable to be delivered on schedule",
-    }
+    },
+    Pr_OutsourcingMsg: {
+        str1: "Are you sure to outsource this workpiece (",
+        str2: ")?",
+    },
+    Pr_DeleteMsg: {
+        str1: "This operation will delete the workpiece (",
+        str2: "). Do you want to continue?",
+    },
+    Pr_LockMsg: {
+        str1: "Is the workpiece (",
+        str2: ") locked on the machine tool?",
+    },
+    Pr_UnlockMsg: {
+        str1: "Do you want to unlock the machine tool that has locked the workpiece (",
+        str2: ")?",
+    },
   },
   quality: {
     Qc_CheckState: "Check State",

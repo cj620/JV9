@@ -47,7 +47,7 @@
               size="mini"
               style="margin-left: 10px"
               @click="RefreshGantt"
-            >刷新</el-button
+            >{{ $t("Generality.Ge_Refresh") }}</el-button
             >
           </div>
           <div style="margin-left: 10px;">
@@ -95,7 +95,7 @@
       >
         <JvForm :form-obj="formObj">
           <template #PlanDevice>
-            <el-select v-model="formObj.form.PlanDevice" placeholder="请选择">
+            <el-select v-model="formObj.form.PlanDevice" :placeholder="$t('Generality.Ge_PleaseSelect')">
               <el-option
                 v-for="item in deviceOptions"
                 :key="item.value"
@@ -160,11 +160,11 @@ export default {
         }
       }, // 表单实例
       MenuItems: [
-        { label: "编辑" },
-        { label: "详细信息" },
-        { label: "外协" },
-        { label: "锁定机床" },
-        { label: "解锁" },
+        { label: this.$t('Generality.Ge_Edit') },
+        { label: this.$t('Generality.Ge_DetailedInformation') },
+        { label: this.$t('production.Pr_Outsourcing') },
+        { label: this.$t('production.Pr_LockMachine') },
+        { label: this.$t('production.Pr_Unlock') },
       ],
     };
   },
@@ -221,15 +221,15 @@ export default {
     },
     popoverInnerHtml(item) {
       return `
-        <div>生产单号：${item.BillId}</div>
-        <div>零件编号：${item.PartNo}</div>
-        <div>零件名称：${item.PartName}</div>
-        <div>工序名称：${item.ProcessName}</div>
-        <div>计划开始：${timeFormat(
+        <div>${ i18n.t('project.Pro_TaskSheetNo') }：${item.BillId}</div>
+        <div>${ i18n.t('Generality.Ge_PartNo') }：${item.PartNo}</div>
+        <div>${ i18n.t('Generality.Ge_PartName') }：${item.PartName}</div>
+        <div>${ i18n.t('Generality.Ge_ProcessName') }：${item.ProcessName}</div>
+        <div>${ i18n.t('Generality.Ge_PlanStart') }：${timeFormat(
           item.PlanStart,
           "yyyy-MM-dd hh:mm:ss"
-        )}</div>
-        <div>计划结束：${timeFormat(item.PlanEnd, "yyyy-MM-dd hh:mm:ss")}</div>
+      )}</div>
+        <div>${ i18n.t('Generality.Ge_PlanEnd') }：${timeFormat(item.PlanEnd, "yyyy-MM-dd hh:mm:ss")}</div>
       `;
     },
     // 切换时间
@@ -284,31 +284,32 @@ export default {
         this.$msgbox({
           title: item.Process,
           message: h("p", null, [
-            h("div", null, "资源组：" + item.ResourceGroup),
-            h("div", null, "工序名称：" + item.ProcessName),
-            h("div", null, "计划设备：" + item.PlanDevice),
-            h("div", null, "计划工时：" + item.PlanTime + "H"),
+            h("div", null, this.$t('menu.Pr_Resources') + '：'+ item.ResourceGroup),
+            h("div", null, this.$t('Generality.Ge_ProcessName') + '：' + item.ProcessName),
+            h("div", null, this.$t('production.Pr_PlanningDevices') + '：' + item.PlanDevice),
+            h("div", null, this.$t('Generality.Ge_PlannedTime') + '：' + item.PlanTime + "H"),
             h(
               "div",
               null,
-              "计划开始：" + timeFormat(item.PlanStart, "yyyy-MM-dd hh:mm:ss")
+              this.$t('Generality.Ge_PlanStart') + '：' + timeFormat(item.PlanStart, "yyyy-MM-dd hh:mm:ss")
             ),
             h(
               "div",
               null,
-              "计划结束：" + timeFormat(item.PlanEnd, "yyyy-MM-dd hh:mm:ss")
+              this.$t('Generality.Ge_PlanEnd') + '：' + timeFormat(item.PlanEnd, "yyyy-MM-dd hh:mm:ss")
             ),
           ]),
           showCancelButton: true,
           showConfirmButton: false,
-          cancelButtonText: "取消",
+          cancelButtonText: this.$t('Generality.Ge_Cancel'),
         });
       };
       // 外协
       this.MenuItems[2].event = (item) => {
-        this.$confirm(`确认是否将此工件(${item.ProcessName})外协？`, "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
+        this.$confirm(this.$t('production.Pr_OutsourcingMsg.str1') + item.ProcessName + this.$t('production.Pr_OutsourcingMsg.str2'),
+          this.$t('Generality.Ge_Remind'), {
+          confirmButtonText: this.$t('Generality.Ge_OK'),
+          cancelButtonText: this.$t('Generality.Ge_Cancel'),
           type: "warning",
         }).then(() => {
           addOutsourcingrRequirement({
@@ -327,9 +328,10 @@ export default {
       };
       // 锁定机床
       this.MenuItems[3].event = (item) => {
-        this.$confirm(`是否将该道工件(${item.ProcessName})锁定机床?`, "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
+        this.$confirm(this.$t('production.Pr_LockMsg.str1') + item.ProcessName + this.$t('production.Pr_LockMsg.str2'),
+          this.$t('Generality.Ge_Remind'), {
+          confirmButtonText: this.$t('Generality.Ge_OK'),
+          cancelButtonText: this.$t('Generality.Ge_Cancel'),
           type: "warning",
         }).then(() => {
           production_dispatching_lock_device({
@@ -350,12 +352,11 @@ export default {
       // }
       // 解锁机床
       this.MenuItems[4].event = (item) => {
-        this.$confirm(
-          `是否将该道工件(${item.ProcessName})锁定的机床进行解锁?`,
-          "提示",
+          this.$confirm(this.$t('production.Pr_UnlockMsg.str1') + item.ProcessName + this.$t('production.Pr_UnlockMsg.str2'),
+            this.$t('Generality.Ge_Remind'),
           {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
+            confirmButtonText: this.$t('Generality.Ge_OK'),
+            cancelButtonText: this.$t('Generality.Ge_Cancel'),
             type: "warning",
           }
         ).then(() => {

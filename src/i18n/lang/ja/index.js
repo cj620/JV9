@@ -266,6 +266,11 @@ const ja = {
   },
   //设置
   setup: {
+    WhetherMarkAllRead: "このタイプのメッセージをすべて既読としてマークしますか？",
+    ConfirmDeleteRoles: "ロールの削除を確認しますか？",
+    Configuration: "設定値",
+    Content: "内容",
+    MaterialCodeSegment: "品目コード・セグメント",
     multiplayerMode: "複数人承認時に使用する承認方法",
     JointlySign: "にサイン",
     JointlySignDes: "（すべての承認者の同意が必要）",
@@ -1046,6 +1051,9 @@ const ja = {
   },
   //生产
   production: {
+    Pr_Device: "テーブル台",
+    Pr_Unlock: "ロック解除",
+    Pr_LockMachine: "ロックマシン",
     Pr_SummaryProcessesToBeProcessed: "工程保留要約",
     Pr_SummaryEstimatedWorkingHours: "予定工数要約",
     Pr_DeletedBy: "削除者",
@@ -1220,7 +1228,23 @@ const ja = {
       str3: "件で、そのうち",
       str4: "セットの金型の",
       str5: "つのワークは期限通りに納品できない",
-    }
+    },
+    Pr_OutsourcingMsg: {
+        str1: "このワーク（",
+        str2: "）を外注していることを確認しますか？",
+    },
+    Pr_DeleteMsg: {
+        str1: "この操作により、このワークピース（",
+        str2: "）が削除されます。続行しますか？",
+    },
+    Pr_LockMsg: {
+        str1: "このワークピース（",
+        str2: "）を工作機械にロックしますか？",
+    },
+    Pr_UnlockMsg: {
+        str1: "このワークピース（",
+        str2: "）がロックされている工作機械をロック解除しますか？",
+    },
   },
   quality: {
     Qc_CheckState: "検査状態",

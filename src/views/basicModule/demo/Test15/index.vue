@@ -157,11 +157,11 @@ export default {
         }
       }, // 表单实例
       MenuItems: [
-        { label: "编辑" },
-        { label: "详细信息" },
-        { label: "外协" },
-        { label: "锁定机床" },
-        { label: "解锁" },
+        { label: this.$t('Generality.Ge_Edit') },
+        { label: this.$t('Generality.Ge_DetailedInformation') },
+        { label: this.$t('production.Pr_Outsourcing') },
+        { label: this.$t('production.Pr_LockMachine') },
+        { label: this.$t('production.Pr_Unlock') },
       ],
     };
   },
@@ -303,7 +303,7 @@ export default {
       };
       // 外协
       this.MenuItems[2].event = (item) => {
-        this.$confirm(`确认是否将此工件(${item.ProcessName})外协？`, "提示", {
+        this.$confirm(`确认是否将此工件(${item.ProcessName})外协？`, this.$t('Generality.Ge_Remind'), {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning",
@@ -324,7 +324,7 @@ export default {
       };
       // 锁定机床
       this.MenuItems[3].event = (item) => {
-        this.$confirm(`是否将该道工件(${item.ProcessName})锁定机床?`, "提示", {
+        this.$confirm(`是否将该道工件(${item.ProcessName})锁定机床?`, this.$t('Generality.Ge_Remind'), {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning",

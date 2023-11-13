@@ -2,7 +2,7 @@
 <template>
     <div>
       <jv-dialog
-        title="同步erp数据"
+        :title="$t('setup.SynchronizeERPData')"
         width="90%"
         :close-on-click-modal="true"
         :modal-append-to-body="false"
@@ -20,7 +20,7 @@
           label-width="120px"
           :rules="rules"
         >
-          <el-form-item label="物料代码段" prop="MaterialCodeSegment">
+          <el-form-item :label="$t('setup.MaterialCodeSegment')" prop="MaterialCodeSegment">
             <el-select v-model="form.MaterialCodeSegment" style="width: 300px" multiple>
               <el-option
                 v-for="item in options"
@@ -62,7 +62,7 @@ export default {
         },
         rules: {
           MaterialCodeSegment: [
-            {required: true, message: '请选择', trigger: 'blur'},
+            {required: true, message: this.$t('Generality.Ge_PleaseSelect'), trigger: 'blur'},
           ],
         }
       }

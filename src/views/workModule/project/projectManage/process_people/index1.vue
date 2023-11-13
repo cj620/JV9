@@ -116,12 +116,13 @@
                   {{ $t("menu.Sa_Customer") }}: {{ item.ToolingInfo.CustomerName || '--' }}
                 </div>
                 <div>
-                   类别: {{ TaskType[item.TaskWorkerList[0].TaskType] || '--' }}
+                  {{ $t("Generality.Ge_Category") }}:
+                  {{ TaskType[item.TaskWorkerList[0].TaskType] || '--' }}
                 </div>
                 <div></div>
               </div>
               <div class="info-box-item" v-if="item.TaskWorkerList.length">
-                <el-select v-model="item.taskTypeValue" placeholder="请选择"
+                <el-select v-model="item.taskTypeValue" :placeholder="$t('Generality.Ge_PleaseSelect')"
                 @change="changeTaskType(item, i)"
                 >
                   <el-option
