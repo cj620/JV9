@@ -115,10 +115,25 @@
                 <div>
                   {{ $t("menu.Sa_Customer") }}: {{ item.ToolingInfo.CustomerName || '--' }}
                 </div>
+                <div>
+                   类别: {{ TaskType[item.TaskWorkerList[0].TaskType] || '--' }}
+                </div>
                 <div></div>
               </div>
+              <div class="info-box-item" v-if="item.TaskWorkerList.length">
+                <el-select v-model="item.taskTypeValue" placeholder="请选择"
+                @change="changeTaskType(item, i)"
+                >
+                  <el-option
+                    v-for="item in setTaskWorkerListOptions(item.TaskWorkerList)"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </div>
               <div class="go-details">
-                <el-button size="mini" @click="goDetails(item.ToolingInfo.ToolingNo)">{{$t("project.Pr_PartSchedule")}}</el-button>
+                <el-button size="mini" @click="goDetails(item.ToolingInfo.ToolingNo, item.taskTypeValue.match(/\(.+?\)/g)[0].substring(1,item.taskTypeValue.match(/\(.+?\)/g)[0].length - 1)  )">{{$t("project.Pr_PartSchedule")}}</el-button>
               </div>
             </div>
           </div>
@@ -133,7 +148,7 @@
             <div
               :class="[children.State === hoverStateValue ? children.State : '']"
               class="details-box-children"
-              v-for="(children, c) in item.WorkerList"
+              v-for="(children, c) in item.workerList"
               @click="setProjectTaskLogs(children)"
             >
               <div>
@@ -213,6 +228,14 @@ export default {
   // name: "ProjectManage_process_people",
   data() {
     return {
+      TaskWorkeOptions: [
+        {label: '修模',value: 'ToolCorrection'},
+        {label: '新模',value: 'NewTooling'},
+      ],
+      TaskType: {
+        ToolCorrection: '修模',
+        NewTooling: '新模'
+      },
       _arguments: null,
       tasks: {
         data: [],
@@ -292,15 +315,34 @@ export default {
   methods: {
     imgUrlPlugin,
     timeFormat,
+    setTaskWorkerListOptions(items) {
+      return items.map(item => {
+        return {
+          label: `${this.TaskType[item.TaskType]}(${item.BillId})`,
+          value: `${this.TaskType[item.TaskType]}(${item.BillId})`
+        }
+      })
+    },
+    changeTaskType(item, i) {
+      this.setWorkerList(item, i)
+    },
+    setWorkerList(item, i) {
+      let arr = item.TaskWorkerList.filter(jtem => {
+        return `${this.TaskType[jtem.TaskType]}(${jtem.BillId})` === item.taskTypeValue
+      })
+      this.list[i].workerList = arr[0].WorkerList
+    },
     setProjectTaskLogs(item) {
       this.showProjectTaskLogs = !this.showProjectTaskLogs;
       this.ProjectTaskLogs = item;
     },
-    goDetails(ToolingNo) {
+    goDetails(ToolingNo, BillId) {
+      console.log(BillId)
       this.$router.push({
         path: "Pm_Project_PartSchedule",
         query: {
-          ToolingNo: ToolingNo
+          ToolingNo: ToolingNo,
+          BillId: BillId
         }
       })
     },
@@ -309,6 +351,13 @@ export default {
       worker_progress({"Project":Project,"ToolingNo":this.searchValue}).then(res => {
         console.log(res)
         this.list = res;
+        this.list.forEach((item, i) => {
+          this.$set(item, 'taskTypeValue', item.TaskWorkerList[0].TaskType)
+          this.$set(item, 'workerList', [])
+
+          item.taskTypeValue = `${this.TaskType[item.TaskWorkerList[0].TaskType]}(${item.TaskWorkerList[0].BillId})`;
+          this.setWorkerList(item, i)
+        })
       });
     },
     getChartBoxWidth() {
