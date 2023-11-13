@@ -194,7 +194,7 @@ export default {
     },
     // 删除角色
     deleteRole(id) {
-      this.$confirm("确认删除角色?", this.$t("Generality.Ge_DeleteData"), {
+      this.$confirm(this.$t("setup.ConfirmDeleteRoles"), this.$t("Generality.Ge_DeleteData"), {
         confirmButtonText: this.$t("Generality.Ge_OK"),
         cancelButtonText: this.$t("Generality.Ge_Cancel"),
         type: "warning",

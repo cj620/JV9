@@ -4,7 +4,9 @@
     v-bind="$attrs"
     v-on="$listeners"
     @confirm="confirmData">
-    <el-button @click="addItem" size="mini"  style="margin:0 0 10px 10px">添加</el-button>
+    <el-button @click="addItem" size="mini"  style="margin:0 0 10px 10px">
+      {{ $t('Generality.Ge_Add') }}
+    </el-button>
 
     <JvEditTable :tableObj="eTableObj">
       <template #operation="{ row_index }">
@@ -47,12 +49,12 @@ this.formatData()
       tableSchema:[
         {
           prop: "key",
-          label:'配置值',
+          label:this.$t('setup.Configuration'),
           formCpn: "FormInput",
         },
         {
           prop: "value",
-          label:'内容',
+          label: this.$t('setup.Content'),
           formCpn: "FormInput",
         }],
       data:[],

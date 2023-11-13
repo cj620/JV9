@@ -200,9 +200,9 @@ export default {
         },
         grid: {
           left: '1%',
-          right: '4%',
-          bottom: '6%',
-          top: '12%',
+          right: '8%',
+          bottom: '8%',
+          top: '15%',
           containLabel: true
         },
         xAxis: {

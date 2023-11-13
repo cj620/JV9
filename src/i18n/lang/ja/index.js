@@ -266,6 +266,11 @@ const ja = {
   },
   //设置
   setup: {
+    WhetherMarkAllRead: "このタイプのメッセージをすべて既読としてマークしますか？",
+    ConfirmDeleteRoles: "ロールの削除を確認しますか？",
+    Configuration: "設定値",
+    Content: "内容",
+    MaterialCodeSegment: "品目コード・セグメント",
     multiplayerMode: "複数人承認時に使用する承認方法",
     JointlySign: "にサイン",
     JointlySignDes: "（すべての承認者の同意が必要）",
@@ -452,13 +457,13 @@ const ja = {
   // 看板 （数据可视化）
   DataV: {
     Da_Department: "セクション",
-    Da_IntegratedSignage: "総合看板",
-    Da_EquipmentSignage: "設備カンバン",
-    Da_DepartmentSignage: "部門総合看板",
-    Da_SaleSignage: "ビッグデータカンバンの販売",
-    Da_QualitySignage: "品質部門看板",
-    Da_MoldMachiningSignage: "金型総合看板",
-    Da_EquipmentStateSignage: "デバイスステータスカンバン",
+    Da_DataBoard: "総合",
+    Da_EquipmentSignage: "設備",
+    Da_DepartmentSignage: "部門総合",
+    Da_SaleSignage: "販売データ",
+    Da_QualitySignage: "品質部門",
+    Da_MoldMachiningSignage: "金型総合",
+    Da_EquipmentStateSignage: "デバイスの状態",
     Da_EquipmentStatus: "デバイスの状態",
     Da_AlarmSituation: "アラーム状況",
     Da_ShutdownCondition: "停止状況",
@@ -498,7 +503,7 @@ const ja = {
     Da_ActualCompletion: "実際の完了数",
     Da_DailyRatedHours: "日当たり定格工数",
     Da_DailyPlannedHours: "日計画工数",
-    Da_NCDepartmentSignboard: "部門カンバン",
+    Da_NCDepartmentSignboard: "NC部門",
     Da_PlannedCompletions: "計画完了数",
     Da_ActualCompletions: "実際の完了数",
     Da_PlannedTime: "計画工数",
@@ -590,6 +595,7 @@ const ja = {
     Da_CropTurnoverRateOfEachDepartmentThisMonth:'今月の部門別稼働率',
     Da_ProjectProgressDisplay:'プロジェクトの進捗状況の表示',
     Da_AccumulatedShipmentStatusThisMonth:'今月の累計出荷状況',
+    Da_NoData: "データが一時的にありません",
   },
   // 模具综合看板
   Mold: {
@@ -1041,9 +1047,13 @@ const ja = {
     Ge_ProgramingPlanTime: "プログラミング予定工数",
     Ge_lock: "ロック",
     Ge_InputPlaceholder: "文書番号、名前、部門を入力してください",
+    Ge_total: "合計",
   },
   //生产
   production: {
+    Pr_Device: "テーブル台",
+    Pr_Unlock: "ロック解除",
+    Pr_LockMachine: "ロックマシン",
     Pr_SummaryProcessesToBeProcessed: "工程保留要約",
     Pr_SummaryEstimatedWorkingHours: "予定工数要約",
     Pr_DeletedBy: "削除者",
@@ -1218,7 +1228,23 @@ const ja = {
       str3: "件で、そのうち",
       str4: "セットの金型の",
       str5: "つのワークは期限通りに納品できない",
-    }
+    },
+    Pr_OutsourcingMsg: {
+        str1: "このワーク（",
+        str2: "）を外注していることを確認しますか？",
+    },
+    Pr_DeleteMsg: {
+        str1: "この操作により、このワークピース（",
+        str2: "）が削除されます。続行しますか？",
+    },
+    Pr_LockMsg: {
+        str1: "このワークピース（",
+        str2: "）を工作機械にロックしますか？",
+    },
+    Pr_UnlockMsg: {
+        str1: "このワークピース（",
+        str2: "）がロックされている工作機械をロック解除しますか？",
+    },
   },
   quality: {
     Qc_CheckState: "検査状態",

@@ -215,7 +215,7 @@
       <!-- <JvForm :formObj="formObj"> </JvForm> -->
     </JvDialog>
     <JvDialog
-      title="历史通知"
+      :title="$t('Generality.Ge_HistoryMsg')"
       :visible.sync="notifyVisible"
       width="60%"
       @confirm="notifyVisible = false"
@@ -430,9 +430,9 @@ export default {
       });
     },
     toMarkAll() {
-      this.$confirm("是否将该类型消息全部标记为已读?", "确认", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(this.$t('setup.WhetherMarkAllRead'), {
+        confirmButtonText: this.$t('Generality.Ge_OK'),
+        cancelButtonText: this.$t('Generality.Ge_Cancel'),
         type: "warning",
       }).then(() => {
         this.currentNotifyObj.markAllRead();

@@ -197,7 +197,7 @@ export default {
     },
     // 删除资源组
     del(ids) {
-      this.$confirm("确定删除此资源组?", "", {
+      this.$confirm( this.$t('production.Pr_ConfirmToDelete'), "", {
         confirmButtonText: this.$t("Generality.Ge_OK"),
         cancelButtonText: this.$t("Generality.Ge_Cancel"),
         type: "warning",

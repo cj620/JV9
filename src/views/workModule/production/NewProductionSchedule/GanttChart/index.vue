@@ -106,7 +106,7 @@
     >
       <JvForm :form-obj="formObj">
         <template #PlanDevice>
-          <el-select v-model="formObj.form.PlanDevice" placeholder="请选择">
+          <el-select v-model="formObj.form.PlanDevice" :placeholder="$t('Generality.Ge_PleaseSelect')">
             <el-option
               v-for="item in deviceOptions"
               :key="item.value"
@@ -177,12 +177,12 @@ export default {
         },
       ],
       MenuItems: [
-        { label: "编辑"},
-        { label: "详细信息"},
-        { label: "外协"},
-        { label: "删除"},
-        { label: "锁定机床"},
-        { label: "解锁"},
+          { label: this.$t('Generality.Ge_Edit') },
+          { label: this.$t('Generality.Ge_DetailedInformation') },
+          { label: this.$t('production.Pr_Outsourcing') },
+          { label: this.$t('Generality.Ge_Delete') },
+          { label: this.$t('production.Pr_LockMachine') },
+          { label: this.$t('production.Pr_Unlock') },
       ],
     };
   },
@@ -251,23 +251,24 @@ export default {
         this.$msgbox({
           title: item.Process,
           message: h('p', null, [
-            h('div', null, '资源组：' + item.ResourceGroup),
-            h('div', null, '工序名称：' + item.Process),
-            h('div', null, '计划设备：' + item.PlanDevice),
-            h('div', null, '计划工时：' + item.PlanTime + 'H'),
-            h('div', null, '计划开始：' + timeFormat(item.PlanStart, 'yyyy-MM-dd hh:mm:ss')),
-            h('div', null, '计划结束：' + timeFormat(item.PlanEnd, 'yyyy-MM-dd hh:mm:ss')),
+            h('div', null, this.$t('menu.Pr_Resources') + '：' + item.ResourceGroup),
+            h('div', null, this.$t('Generality.Ge_ProcessName') + '：' + item.Process),
+            h('div', null, this.$t('production.Pr_PlanningDevices') + '：' + item.PlanDevice),
+            h('div', null, this.$t('Generality.Ge_PlannedTime') + '：' + item.PlanTime + 'H'),
+            h('div', null, this.$t('Generality.Ge_PlanStart') + '：' + timeFormat(item.PlanStart, 'yyyy-MM-dd hh:mm:ss')),
+            h('div', null, this.$t('Generality.Ge_PlanEnd') + '：' + timeFormat(item.PlanEnd, 'yyyy-MM-dd hh:mm:ss')),
           ]),
           showCancelButton: true,
           showConfirmButton: false,
-          cancelButtonText: '取消',
+          cancelButtonText: this.$t('Generality.Ge_Cancel'),
         })
       }
       // 外协
       this.MenuItems[2].event = (item) => {
-        this.$confirm(`确认是否将此工件(${item.Process})外协？`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('production.Pr_OutsourcingMsg.str1') + item.Process + this.$t('production.Pr_OutsourcingMsg.str2'),
+          this.$t('Generality.Ge_Remind'), {
+          confirmButtonText: this.$t('Generality.Ge_OK'),
+          cancelButtonText: this.$t('Generality.Ge_Cancel'),
           type: 'warning'
         }).then(() => {
           addOutsourcingrRequirement({"Category":"Process","Items":[{
@@ -281,9 +282,10 @@ export default {
       }
       // 删除
       this.MenuItems[3].event = (item) => {
-        this.$confirm(`此操作将删除该道工件(${item.Process}), 是否继续?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('production.Pr_DeleteMsg.str1') + item.Process + this.$t('production.Pr_DeleteMsg.str2'),
+          this.$t('Generality.Ge_Remind'), {
+          confirmButtonText: this.$t('Generality.Ge_OK'),
+          cancelButtonText: this.$t('Generality.Ge_Cancel'),
           type: 'warning'
         }).then(() => {
           delete_process([item.TaskProcessId]).then(res => {
@@ -293,8 +295,10 @@ export default {
       }
       // 锁定机床
       this.MenuItems[4].event = (item) => {
-        this.$confirm(`是否将该道工件(${item.Process})锁定机床?`, '提示', {
-          confirmButtonText: '确定',          cancelButtonText: '取消',
+        this.$confirm(this.$t('production.Pr_LockMsg.str1') + item.Process + this.$t('production.Pr_LockMsg.str2'),
+          this.$t('Generality.Ge_Remind'), {
+          confirmButtonText: this.$t('Generality.Ge_OK'),
+          cancelButtonText: this.$t('Generality.Ge_Cancel'),
           type: 'warning'
         }).then(() => {
           production_dispatching_lock_device({
@@ -315,9 +319,10 @@ export default {
       // }
       // 解锁机床
       this.MenuItems[5].event = (item) => {
-        this.$confirm(`是否将该道工件(${item.Process})锁定的机床进行解锁?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm(this.$t('production.Pr_UnlockMsg.str1') + item.Process + this.$t('production.Pr_UnlockMsg.str2'),
+          this.$t('Generality.Ge_Remind'), {
+          confirmButtonText: this.$t('Generality.Ge_OK'),
+          cancelButtonText: this.$t('Generality.Ge_Cancel'),
           type: 'warning'
         }).then(() => {
           production_dispatching_lock_device({

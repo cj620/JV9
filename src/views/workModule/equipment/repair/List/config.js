@@ -166,7 +166,7 @@ export const formSchema = [
 //报修人
 {
   prop: "Repairer",
-  label: '报修人',
+  label: i18n.t("device.De_RepairApplicant"),
   cpn: "FormInput",
 },
 {

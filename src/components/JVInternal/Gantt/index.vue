@@ -176,9 +176,9 @@ export default {
 			gantt.attachEvent("onBeforeTaskUpdate", (id, new_item) => {
         if (this.isConfrim) return
 				var task = gantt.getTask(id);
-				this.$confirm('您当前修改了数据，是否提交修改?', '提示', {
-					confirmButtonText: '确定',
-					cancelButtonText: '取消',
+				this.$confirm('您当前修改了数据，是否提交修改?', this.$t('Generality.Ge_Remind'), {
+					confirmButtonText: this.$t('Generality.Ge_OK'),
+					cancelButtonText: this.$t('Generality.Ge_Cancel'),
 					type: 'warning'
 				}).then(() => {
 					this.setGanttUpdate(true); //甘特图数据更新

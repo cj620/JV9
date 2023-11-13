@@ -469,7 +469,7 @@ export default {
       if(!this.isTaskClick) return
       this.taskDetail = data;
       // 设置表单弹窗
-      this.dialogTitle = data[this.taskDialogTitle] + '' || "提示";
+      this.dialogTitle = data[this.taskDialogTitle] + '' || this.$t('Generality.Ge_Remind');
       this.$emit("taskClick", data);
       this.dialogVisible = true;
     },

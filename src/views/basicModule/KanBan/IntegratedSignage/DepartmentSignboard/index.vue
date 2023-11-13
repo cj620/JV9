@@ -7,7 +7,7 @@
           <img src="../logo.png" alt="" />
         </div>
         <div class="department-signboard-header-center">
-          {{departmentName}}{{ $t("DataV.Da_Department") }}
+          {{departmentName}} {{ $t("DataV.Da_Department") }}
         </div>
         <div class="department-signboard-header-right">
           <JvForm :form-obj="formObj"></JvForm>
@@ -26,7 +26,7 @@
               <div class="department-signboard-content-info-item-box">
                 <div style="margin-bottom: 10px">{{ item.label }}</div>
                 <div style="font-size: 20px; font-weight: bold">
-                  {{ infoRes[i] || '暂无数据' }}
+                  {{ infoRes[i] || $t('DataV.Da_NoData') }}
                 </div>
               </div>
             </dv-border-box-7>

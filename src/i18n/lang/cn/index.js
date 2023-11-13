@@ -268,6 +268,11 @@ const cn = {
   },
   //设置
   setup: {
+    WhetherMarkAllRead: "是否将该类型消息全部标记为已读?",
+    ConfirmDeleteRoles: "确认删除角色？",
+    Configuration: "配置值",
+    Content: "内容",
+    MaterialCodeSegment: "物料代码段",
     multiplayerMode: "多人审批时采用的审批方式",
     JointlySign: "会签",
     JointlySignDes: "（须所有审批人同意）",
@@ -450,13 +455,13 @@ const cn = {
   // 看板 （数据可视化）
   DataV: {
     Da_Department: "部门",
-    Da_IntegratedSignage: "综合看板",
-    Da_EquipmentSignage: "设备看板",
-    Da_DepartmentSignage: "部门综合看板",
-    Da_SaleSignage: "销售大数据看板",
-    Da_QualitySignage: "品质部门看板",
-    Da_MoldMachiningSignage: "模具综合看板",
-    Da_EquipmentStateSignage: "设备状态看板",
+    Da_DataBoard: "综合看板",
+    Da_EquipmentSignage: "设备",
+    Da_DepartmentSignage: "部门综合",
+    Da_SaleSignage: "销售大数据",
+    Da_QualitySignage: "品质部门",
+    Da_MoldMachiningSignage: "模具综合",
+    Da_EquipmentStateSignage: "设备状态",
     Da_EquipmentStatus: "设备状态",
     Da_AlarmSituation: "报警情况",
     Da_ShutdownCondition: "停机情况",
@@ -496,7 +501,7 @@ const cn = {
     Da_ActualCompletion: "实际完成数",
     Da_DailyRatedHours: "日额定工时",
     Da_DailyPlannedHours: "日计划工时",
-    Da_NCDepartmentSignboard: "部门看板",
+    Da_NCDepartmentSignboard: "NC部门",
     Da_PlannedCompletions: "计划完成数",
     Da_ActualCompletions: "实际完成数",
     Da_PlannedTime: "计划工时",
@@ -588,6 +593,7 @@ const cn = {
     Da_CropTurnoverRateOfEachDepartmentThisMonth:'本月各部门稼动率',
     Da_ProjectProgressDisplay:'项目进度展示',
     Da_AccumulatedShipmentStatusThisMonth:'本月累计出货情况',
+    Da_NoData: "暂无数据",
   },
   // 模具综合看板
   Mold: {
@@ -1033,9 +1039,13 @@ const cn = {
     Ge_ProgramingPlanTime: "编程预计工时",
     Ge_lock: "锁定",
     Ge_InputPlaceholder: "请输入单据编号、名称、部门",
+    Ge_total: "共计",
   },
   //生产
   production: {
+    Pr_Device: "机台",
+    Pr_Unlock: "解锁",
+    Pr_LockMachine: "锁定机床",
     Pr_SummaryProcessesToBeProcessed: "工序待加工汇总",
     Pr_SummaryEstimatedWorkingHours: "预计工时汇总",
     Pr_DeletedBy: "删除人",
@@ -1209,7 +1219,23 @@ const cn = {
       str3: "件, 其中",
       str4: "套模具共",
       str5: "个工件无法按期交付",
-    }
+    },
+    Pr_OutsourcingMsg: {
+      str1: "确认是否将此工件(",
+      str2: ")外协？",
+    },
+    Pr_DeleteMsg: {
+      str1: "此操作将删除该道工件(",
+      str2: "), 是否继续?",
+    },
+    Pr_LockMsg: {
+      str1: "是否将该道工件(",
+      str2: ")锁定机床?",
+    },
+    Pr_UnlockMsg: {
+      str1: "是否将该道工件(",
+      str2: ")锁定的机床进行解锁?",
+    },
   },
   quality: {
     Qc_CheckState: "检验状态",
