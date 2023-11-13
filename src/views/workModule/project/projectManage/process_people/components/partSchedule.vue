@@ -20,6 +20,9 @@
             $t("project.Pro_Share")
           }}</el-button>
         </div>
+        <div>
+          {{$t("Generality.Ge_TaskType")}}：{{$route.query.TaskType}}
+        </div>
       </div>
       <div></div>
     </div>
