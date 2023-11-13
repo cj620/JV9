@@ -1517,6 +1517,8 @@ const en = {
     P10198: "The query criteria cannot be empty ",
     P10199: "Obtaining successful rows",
     P10200: "Time anomaly",
+    P10201: "The previous process was not completed! ",
+    P10202: "The programming process has not configured a resource group! ",
   },
   program: {
     Pr_ProcessPlanning: "Process planning",
@@ -1558,6 +1560,8 @@ const en = {
     Auto_create_pr_on_SM_desc:
       "Auto create purchase application sheet on standard material",
     Bom_default_unit_name: "Bom default unit",
+    Default_display_level_of_BOM: "Default Display Level",
+    Auto_Create_Trial_Tooling_Task: "Automatically create trial mold tasks",
     Bom_default_unit_desc: "Bom default unit",
     Can_skip_station_name: "Can skip station",
     Can_skip_station_desc: "Can skip station",
