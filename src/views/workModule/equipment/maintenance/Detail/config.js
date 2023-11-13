@@ -74,9 +74,9 @@ export const m_tableConfig = [
     label: i18n.t("device.De_MaintenanceResults"),
     customFilter:(value,row)=>{
       if(value){
-        return '是'
+        return '已完成'
       }else  if(value===false){
-        return '否'
+        return '未完成'
       }
     },
   },
