@@ -82,7 +82,7 @@ export const RepairConfig = [
   // 报修人
   {
     prop: "RepairApplicant",
-    label: '报修人',
+    label: i18n.t("device.De_RepairApplicant"),
   },
   // 保修日期
   {
