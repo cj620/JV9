@@ -1056,6 +1056,10 @@ const en = {
     Ge_InputPlaceholder: "Please input the document number, name, and department",
     Ge_Total: "total",
     Ge_Select: "Select",
+    Ge_SelectedItems: {
+      str1: "",
+      str2: "pieces of data have been selected",
+    }
   },
   //生产
   production: {

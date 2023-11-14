@@ -13,7 +13,7 @@
       <el-form-item :label="$t('Generality.Ge_PrintTemplate')" prop="template">
         <el-select
           v-model="form.template"
-        
+
           @change="tmChange"
         >
           <el-option
@@ -44,8 +44,12 @@
       </el-form>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="addNewTmpShow = false">取消</el-button>
-        <el-button type="primary" @click="confirm">确定</el-button>
+        <el-button @click="addNewTmpShow = false">
+          {{ $t('Generality.Ge_Cancel') }}
+        </el-button>
+        <el-button type="primary" @click="confirm">
+          {{ $t('Generality.Ge_OK') }}
+        </el-button>
       </span>
     </el-dialog>
   </div>

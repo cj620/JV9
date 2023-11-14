@@ -12,15 +12,19 @@
       </div>
     </div>
     <div style="text-align: right; margin-top: 10px">
-      <el-button size="mini" type="text" @click="cancel">取消</el-button>
-      <el-button type="primary" size="mini" @click="clear">清除</el-button>
+      <el-button size="mini" type="text" @click="cancel">
+        {{ $t('Generality.Ge_Cancel') }}
+      </el-button>
+      <el-button type="primary" size="mini" @click="clear">
+        {{ $t('Generality.Ge_tagClose') }}
+      </el-button>
     </div>
 
     <template slot="reference">
       <div class="form-tag">
-        已选择
+        {{ $t('Generality.Ge_SelectedItems.str1') }}
         <span class="tag-count">{{ tableObj.selectData.keys.length }}</span>
-        条数据
+        {{ $t('Generality.Ge_SelectedItems.str2') }}
         <i class="el-icon-arrow-down a-down"></i>
         <i class="el-icon-circle-close a-close" @click.stop="clear"></i>
       </div>

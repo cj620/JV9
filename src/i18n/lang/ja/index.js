@@ -1052,6 +1052,10 @@ const ja = {
     Ge_InputPlaceholder: "文書番号、名前、部門を入力してください",
     Ge_Total: "合計",
     Ge_Select: "せんたく",
+    Ge_SelectedItems: {
+      str1: "",
+      str2: "つのデータが選択されました",
+    }
   },
   //生产
   production: {
