@@ -26,7 +26,7 @@
   <div class="centre-bottom">
     <div  class="centre-bottom-title">
       <div>{{ $t('Mold.Mo_OngoingOrders') }}</div>
-      <div>{{ $t('Generality.Ge_total') }}：
+      <div>{{ $t('Generality.Ge_Total') }}：
       <span  class="centre-bottom-title-number">
         {{EmergencyProdTask.length}}
       </span>

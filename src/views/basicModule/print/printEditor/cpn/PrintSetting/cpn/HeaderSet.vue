@@ -31,7 +31,7 @@
     </div>
     <el-dialog
       :append-to-body="true"
-      title="添加字段"
+      :title="$t('Generality.Ge_AddField')"
       :visible.sync="addFieldShow"
       width="30%"
       class="add-field-style"
@@ -79,13 +79,17 @@
       </el-form>
 
       <div slot="footer">
-        <el-button type="primary" @click="confirm" size="mini">确定</el-button>
-        <el-button @click="addFieldShow = false" size="mini">取消</el-button>
+        <el-button type="primary" @click="confirm" size="mini">
+          {{ $t('Generality.Ge_OK') }}
+        </el-button>
+        <el-button @click="addFieldShow = false" size="mini">
+          {{ $t('Generality.Ge_Cancel') }}
+        </el-button>
       </div>
     </el-dialog>
 
     <jv-dialog
-      title="插入图片"
+      :title="$t('Generality.Ge_InsertPicture')"
       width="35%"
       :visible.sync="uploadImgShow"
       v-if="uploadImgShow"

@@ -17,7 +17,7 @@
         $t("Generality.Ge_Edit")
       }}</el-dropdown-item>
       <el-dropdown-item command="lock">{{
-        $t("Generality.Ge_lock")
+        $t("Generality.Ge_Lock")
       }}</el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>

@@ -5,7 +5,7 @@ export default {
     /// 运行中
     /// </summary>
     Running: {
-        name: '运行中',
+        name: i18n.t('production.Pr_Running'),
         value: "Running",
         color: "#2ee438",
     },
@@ -13,7 +13,7 @@ export default {
     /// 待机中
     /// </summary>
     Standby: {
-        name: '待机中',
+        name: i18n.t('production.Pr_Standby'),
         value: "Standby",
         color: "#faad14",
     },
@@ -21,7 +21,7 @@ export default {
     /// 离线中
     /// </summary>
     OffLine: {
-        name: '离线中',
+        name: i18n.t('production.Pr_Offline'),
         value: "OffLine",
         color: "#cccccc",
     },

@@ -32,7 +32,7 @@ export const auditEnum = {
   // 审核中
 
   Approving: {
-    name: "审核中",
+    name: i18n.t("Generality.Ge_Approving"),
     value: "Approving",
     color: "#faad14",
     fcolor: "#fff",
@@ -65,7 +65,7 @@ export const auditEnum = {
   /// 跳过
   /// </summary>
   Skipped: {
-    name: "跳过",
+    name: i18n.t("Generality.Ge_Skipped"),
     value: "Skipped",
     color: "#eee",
     fcolor: "#fff",
@@ -74,7 +74,7 @@ export const auditEnum = {
   },
   // Cancelled
   Cancelled: {
-    name: "取消",
+    name: i18n.t("Generality.Ge_Cancelled"),
     value: "Cancelled",
     color: "#CCC",
     fcolor: "#fff",

@@ -17,7 +17,7 @@
     <el-row style="width: 100%" class="staff-select">
       <!-- 选择框 -->
       <el-col :span="12">
-        <div class="title">选择：</div>
+        <div class="title">{{ $t('Generality.Ge_Select') }}：</div>
         <div class="select-block">
           <!-- 搜索框 -->
           <el-input
