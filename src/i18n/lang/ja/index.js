@@ -173,6 +173,9 @@ const ja = {
     As_DeviceScrap: "設備廃棄",
     As_DeviceRepair: "設備修理",
     As_MaintenanceTPL: "メンテナンステンプレート",
+    As_MaintenancePlan: "保守方案",
+    As_DeviceSpotCheck: "設備点検",
+    As_AccessoryCheckOut: "スペア受領用",
   },
   login: {
     l_LogIn: "ログイン",
@@ -1339,6 +1342,8 @@ const ja = {
     De_AddUsageRecord: "使用履歴の追加",
     De_AddStockOpsRecord: "入出庫レコードの追加",
     De_StockOpsInfo: "宛先/ソース",
+    De_MaintenanceDate1: "点検日",
+    De_Operator: "点検人",
   },
   // 后端提示
   backendMessage: {

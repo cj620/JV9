@@ -175,6 +175,9 @@ const en = {
     As_DeviceScrap: "Device Scrap",
     As_DeviceRepair: "Device Repair",
     As_MaintenanceTPL: "Maintenance TPL",
+    As_MaintenancePlan: "Maintenance Plan",
+    As_DeviceSpotCheck: "Device Spot Check",
+    As_AccessoryCheckOut: "Accessory Check Out",
   },
   login: {
     l_LogIn: "Log in",
@@ -1345,6 +1348,8 @@ const en = {
     De_AddUsageRecord: "Add Usage Record",
     De_AddStockOpsRecord: "Add Stock Ops Record",
     De_StockOpsInfo: "Destination/Source",
+    De_MaintenanceDate1: "Inspection date",
+    De_Operator: "Checked By",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

@@ -33,6 +33,16 @@ const equipment = [
     path: "as_DeviceList",
     title: i18n.t("menu.As_DeviceList"),
   },
+  // 保养方案
+  {
+    key: "As_MaintenancePlan",
+    component: ()=>
+      import("@/views/workModule/equipment/maintenancePlan/List/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_MaintenancePlan",
+    path: "as_MaintenancePlan",
+    title: i18n.t("menu.As_MaintenancePlan"),
+  },
   // 设备保养
   {
     key: "As_DeviceMaintain",
@@ -202,6 +212,36 @@ const equipment = [
     name: "As_DeviceScrapDetail",
     path: "as_DeviceScrapDetail",
     title: i18n.t("menu.As_DeviceScrap") + "  " + i18n.t("Generality.Ge_Details"),
+  },
+  // 设备点检
+  {
+    key: "As_DeviceSpotCheck",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheck/List/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheck",
+    path: "as_DeviceSpotCheck",
+    title: i18n.t("menu.As_DeviceSpotCheck"),
+  },
+  // 设备点检详情
+  {
+    key: "As_DeviceSpotCheckDetail",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheck/Detail/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckDetail",
+    path: "as_DeviceSpotCheckDetail",
+    title: i18n.t("menu.As_DeviceSpotCheck")+ "  " + i18n.t("Generality.Ge_Details"),
+  },
+  // 备件领用
+  {
+    key: "As_AccessoryCheckOut",
+    component: ()=>
+      import("@/views/workModule/equipment/accessoryCheckOut/List/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_AccessoryCheckOut",
+    path: "as_AccessoryCheckOut",
+    title: i18n.t("menu.As_AccessoryCheckOut"),
   },
 ];
 

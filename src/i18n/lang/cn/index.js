@@ -174,6 +174,9 @@ const cn = {
     As_DeviceScrap: "设备报废",
     As_DeviceRepair: "设备报修",
     As_MaintenanceTPL: "保养模板",
+    As_MaintenancePlan: "保养方案",
+    As_DeviceSpotCheck: "设备点检",
+    As_AccessoryCheckOut: "备件领用",
   },
   login: {
     l_LogIn: "登录",
@@ -1329,6 +1332,8 @@ const cn = {
     De_AddUsageRecord: "添加使用记录",
     De_AddStockOpsRecord: "添加出入库记录",
     De_StockOpsInfo: "目的地/来源地",
+    De_MaintenanceDate1: "点检日期",
+    De_Operator: "点检人",
   },
   // 后端提示
   backendMessage: {
