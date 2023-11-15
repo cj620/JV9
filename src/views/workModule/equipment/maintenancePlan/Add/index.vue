@@ -108,6 +108,7 @@ import JvBlock from "~/cpn/JvBlock/index.vue";
 import JvEditTable from "~/cpn/JvEditTable/index.vue";
 import JvDialog from "~/cpn/JvDialog/index.vue";
 import closeTag from "@/utils/closeTag";
+import { mapState } from "vuex";
 
 export default {
   name: "As_MaintenancePlan_Add",
@@ -166,6 +167,11 @@ export default {
       ],
     }
   },
+  computed: {
+      ...mapState({
+          current: (state) => state.page.current,
+      })
+  },
   async created() {
     this.formObj = new Form({
       formSchema,
@@ -215,7 +221,6 @@ export default {
           this.ruleForm.BillMembers = this.eTableObj1.getTableData()
           this.ruleForm.BillItems = this.eTableObj2.getTableData()
           assets_device_maintenance_plan_save(this.ruleForm).then((res) => {
-            console.log(res)
             let TagName = {
               name: this.detailRouteName,
               query: { BillId: res },
