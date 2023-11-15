@@ -9,81 +9,101 @@
         :name="pane.name"
       ></el-tab-pane>
     </el-tabs>
-      <Action slot="sticky-extra" size="small" :actions="btnAction"></Action>
-      <!--单据信息-->
-      <JvBlock
-        :title="cur_billId"
-        ref="first"
-        :contentStyle="{
-          paddingLeft: '150px',
-          height: '180px',
-        }" style="position: relative">
-          <div slot="extra">
-            <el-button
-              size="mini"
-              type="primary"
-              @click="edit(detailObj.detailData)"
-            >
-              {{ $t("Generality.Ge_Edit") }}
-            </el-button>
-          </div>
-          <div class="mould-img">
-              <el-image :preview-src-list="[imgUrlPlugin(detailObj.detailData.DevicePhotoUrl)]" style="width: 100%; height: 100%"
-                        :src="imgUrlPlugin(detailObj.detailData.DevicePhotoUrl)" fit="cover" class="items-details-Img-error">
-                  <div slot="error" class="image-slot">
-                      <i class="el-icon-picture-outline"></i>
-                  </div>
-              </el-image>
-          </div>
-          <div style="position: relative; margin-left: 100px" >
-              <JvDetail :detailObj="detailObj"> </JvDetail>
-              <JvState :state="detailObj.detailData.State"></JvState>
-          </div>
-      </JvBlock>
+    <Action slot="sticky-extra" size="small" :actions="[
+      {
+        label: $t('Generality.Ge_Edit'),
+        confirm: edit,
+      },
+    ]"></Action>
+    <!--单据信息-->
+    <JvBlock
+      :title="cur_billId"
+      ref="first"
+      :contentStyle="{
+        paddingLeft: '150px',
+        height: '180px',
+      }" style="position: relative">
+        <div class="mould-img">
+          <el-image :preview-src-list="[imgUrlPlugin(detailObj.detailData.DevicePhotoUrl)]" style="width: 100%; height: 100%"
+                    :src="imgUrlPlugin(detailObj.detailData.DevicePhotoUrl)" fit="cover" class="items-details-Img-error">
+              <div slot="error" class="image-slot">
+                  <i class="el-icon-picture-outline"></i>
+              </div>
+          </el-image>
+        </div>
+        <div style="position: relative; margin-left: 100px" >
+            <JvDetail :detailObj="detailObj"> </JvDetail>
+            <JvState :state="detailObj.detailData.State"></JvState>
+        </div>
+    </JvBlock>
+    <!--物料信息-->
+    <JvBlock :title="$t('Generality.Ge_ItemsInfo')" ref="second">
+      <JvTable :table-obj="tableObj"> </JvTable>
+    </JvBlock>
+    <!--备注-->
+    <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
+      <JvRemark :RemarkData="RemarkData"></JvRemark>
+    </JvBlock>
+    <!--附件-->
+    <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
+      <JvFileExhibit :BillId="fileBillId"></JvFileExhibit>
+    </JvBlock>
+    <!--审核流程-->
+    <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
+      <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
+    </JvBlock>
   </PageWrapper>
 </template>
 
 <script>
-import JvState from "@/components/JVInternal/JvState/index.vue";
+import { tableConfig, detailConfig } from "./config"
 import Detail from "@/jv_doc/class/detail/Detail";
+import { Table } from "@/jv_doc/class/table";
 import { stateEnum } from "@/enum/workModule";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import { detailPageModel } from "@/jv_doc/utils/system";
-import { detailConfig } from "./config"
 import { assets_device_spot_check_get } from "@/api/workApi/equipment/spotCheck"
+import JvState from "@/components/JVInternal/JvState/index.vue";
+import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index.vue";
+import AuditProcess from "@/components/BasicModule/AuditProcess/index.vue";
+import JvRemark from "@/components/JVInternal/JvRemark/index.vue";
 import { mapState } from "vuex";
-import {API as Account} from "@/api/workApi/purchase/account";
+
 export default {
   name: "As_DeviceSpotCheckDetail",
   components: {
-      JvState,
+    JvRemark,
+    AuditProcess,
+    JvFileExhibit,
+    JvState,
   },
   data() {
     return {
       cur_billId: "",
       detailObj: {},
-      btnAction: [],
+      tableObj: {},
+      RemarkData: "",
+      fileBillId: "",
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
           name: "first",
         },
-        // {
-        //   label: this.$t("Generality.Ge_ItemsInfo"),
-        //   name: "second",
-        // },
-        // {
-        //   label: this.$t("Generality.Ge_Remarks"),
-        //   name: "third",
-        // },
-        // {
-        //   label: this.$t("Generality.Ge_Annex"),
-        //   name: "fourth",
-        // },
-        // {
-        //   label: this.$t("Generality.Ge_ApproveProcess"),
-        //   name: "fifth",
-        // },
+        {
+          label: this.$t("Generality.Ge_ItemsInfo"),
+          name: "second",
+        },
+        {
+          label: this.$t("Generality.Ge_Remarks"),
+          name: "third",
+        },
+        {
+          label: this.$t("Generality.Ge_Annex"),
+          name: "fourth",
+        },
+        {
+          label: this.$t("Generality.Ge_ApproveProcess"),
+          name: "fifth",
+        },
       ],
     }
   },
@@ -97,25 +117,65 @@ export default {
   },
   async created() {
     this.detailObj = new Detail({
-        data: {},
-        schema: detailConfig,
+      data: {},
+      schema: detailConfig,
+    });
+    this.tableObj = new Table({
+      tableSchema: tableConfig,
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: false,
+      height: 350,
     });
     await this.GetData();
   },
   methods: {
     async GetData() {
       await assets_device_spot_check_get({
-          BillId: this.$route.query.BillId
+        BillId: this.$route.query.BillId
       }).then((res) => {
-          this.detailObj.detailData = res;
-          this.cur_billId = res.BillId;
-          this.btnAction = detailPageModel(this, res, Account, this.GetData);
+        this.detailObj.detailData = res;
+        this.cur_billId = res.BillId;
+        this.tableObj.setData(res.BillItems);
       })
     },
     imgUrlPlugin,
     edit(){
 
-    }
+    },
+    tabClick(e) {
+      let top = this.$refs[e.name].offsetTop;
+      this.$refs.page.scrollTo(top);
+    },
   }
 }
 </script>
+<style lang="scss" scoped>
+.mould-img {
+  width: 120px;
+  height: 120px;
+  // background-color: pink;
+  position: absolute;
+  left: 10px;
+  right: 100px;
+}
+.items-details-Img-error {
+  background-color: rgb(231, 231, 231);
+  .image-slot {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // color: rgb(161, 161, 161);
+    .error-icon {
+      color: rgb(161, 161, 161);
+      font-size: 19px;
+    }
+  }
+}
+</style>
