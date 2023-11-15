@@ -1,3 +1,25 @@
+export const tableConfig = [
+    /*点检内容*/
+    {
+        prop: "SpotCheckContent",
+        label: "点检内容",
+    },
+    /*点检类型*/
+    {
+        prop: "SpotCheckType",
+        label: "点检类型",
+    },
+    /*点检结果*/
+    {
+        prop: "SpotCheckResult",
+        label: "点检结果",
+    },
+    /*备注*/
+    {
+        prop: "Remarks",
+        label: "备注",
+    },    /*点检内容*/
+]
 export const detailConfig = [
     {
         // 设备编号
