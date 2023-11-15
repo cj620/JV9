@@ -1543,6 +1543,7 @@ const en = {
     P10200: "Time anomaly",
     P10201: "The previous process was not completed! ",
     P10202: "The programming process has not configured a resource group! ",
+    P10203: "Content cannot be empty! ",
   },
   program: {
     Pr_ProcessPlanning: "Process planning",
