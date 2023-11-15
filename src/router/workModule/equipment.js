@@ -43,6 +43,37 @@ const equipment = [
     path: "as_MaintenancePlan",
     title: i18n.t("menu.As_MaintenancePlan"),
   },
+  // 新增保养方案
+  {
+    key: "As_MaintenancePlanAdd",
+    component: () => import("@/views/workModule/equipment/maintenancePlan/Add"),
+    Parent: "As_AssetsManage",
+    name: "As_MaintenancePlan_Add",
+    path: "as_MaintenancePlan_Add",
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_MaintenancePlan"),
+    hidden: true,
+  },
+  // 编辑保养方案
+  {
+    key: "As_MaintenancePlanEdit",
+    component: () => import("@/views/workModule/equipment/maintenancePlan/Edit"),
+    Parent: "As_AssetsManage",
+    name: "As_MaintenancePlan_Edit",
+    path: "as_MaintenancePlan_Edit",
+    title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.As_MaintenancePlan"),
+    hidden: true,
+  },
+  // 保养方案详情
+  {
+    key: "As_MaintenancePlanDetail",
+    component: () =>
+        import("@/views/workModule/equipment/maintenancePlan/Detail/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_MaintenancePlanDetail",
+    path: "as_MaintenancePlanDetail",
+    title: i18n.t("menu.As_MaintenancePlan") + "  " + i18n.t("Generality.Ge_Details"),
+    hidden: true,
+  },
   // 设备保养
   {
     key: "As_DeviceMaintain",
@@ -232,6 +263,7 @@ const equipment = [
     name: "As_DeviceSpotCheckDetail",
     path: "as_DeviceSpotCheckDetail",
     title: i18n.t("menu.As_DeviceSpotCheck")+ "  " + i18n.t("Generality.Ge_Details"),
+    hidden: true,
   },
   // 备件领用
   {
