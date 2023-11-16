@@ -26,20 +26,16 @@
       </div>
     </JvBlock>
     <!--设备信息-->
-    <JvBlock :title="$t('Generality.Ge_ItemsInfo')" ref="second">
+    <JvBlock :title="$t('device.De_DeviceInfo')" ref="second">
       <JvTable :table-obj="tableObj1"> </JvTable>
     </JvBlock>
     <!--保养信息-->
-    <JvBlock :title="$t('Generality.Ge_ItemsInfo')" ref="third">
+    <JvBlock :title="$t('device.De_MaintenanceInfo')" ref="third">
       <JvTable :table-obj="tableObj2"> </JvTable>
     </JvBlock>
     <!--附件-->
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
       <JvFileExhibit :BillId="fileBillId"></JvFileExhibit>
-    </JvBlock>
-    <!--审核流程-->
-    <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
-      <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
     </JvBlock>
   </PageWrapper>
 </template>
@@ -49,7 +45,6 @@ import { tableConfig1, tableConfig2, detailConfig } from "./config"
 import Detail from "@/jv_doc/class/detail/Detail";
 import { Table } from "@/jv_doc/class/table";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index.vue";
-import AuditProcess from "@/components/BasicModule/AuditProcess/index.vue";
 import {
   assets_device_maintenance_plan_get,
   assets_device_maintenance_plan_delete,
@@ -59,7 +54,7 @@ import {mapState} from "vuex";
 
 export default {
   name: "index",
-  components: { AuditProcess, JvFileExhibit },
+  components: { JvFileExhibit },
   data() {
     return {
       cur_billId: "",
@@ -84,10 +79,6 @@ export default {
         {
           label: this.$t("Generality.Ge_Annex"),
           name: "fourth",
-        },
-        {
-          label: this.$t("Generality.Ge_ApproveProcess"),
-          name: "fifth",
         },
       ],
     }
@@ -137,7 +128,6 @@ export default {
         this.cur_billId = res.BillId;
         this.tableObj1.setData(res.BillMembers);
         this.tableObj2.setData(res.BillItems);
-
       })
     },
     editBill() {
