@@ -1355,6 +1355,7 @@ const en = {
     De_Description: "Description",
     De_DeviceInfo: "Device Info",
     De_SelectDevice: "Select Device",
+    De_IntervalDays: "Interval Days/Interval Times",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

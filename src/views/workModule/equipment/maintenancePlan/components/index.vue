@@ -17,7 +17,7 @@
           paddingLeft: '30px',
           paddingRight: '30px',
           position: 'relative',
-          height: '160px',
+          height: '100px',
         }"
     >
       <JvForm :formObj="formObj">

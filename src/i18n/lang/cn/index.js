@@ -1339,6 +1339,7 @@ const cn = {
     De_Description: "方案说明",
     De_DeviceInfo: "设备信息",
     De_SelectDevice: "选择设备",
+    De_IntervalDays: "间隔天数/间隔次数",
   },
   // 后端提示
   backendMessage: {

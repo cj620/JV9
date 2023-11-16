@@ -1349,6 +1349,7 @@ const ja = {
     De_Description: "シナリオの説明",
     De_DeviceInfo: "デバイス情報",
     De_SelectDevice: "デバイスの選択",
+    De_IntervalDays: "間隔日数/間隔回数",
   },
   // 后端提示
   backendMessage: {

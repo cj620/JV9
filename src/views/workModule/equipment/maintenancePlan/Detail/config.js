@@ -48,7 +48,7 @@ export const detailConfig = [
     },
     {
         prop: "IntervalDays",
-        label: i18n.t('production.Pr_IntervalDays'),
+        label: i18n.t('device.De_IntervalDays'),
     },
     {
         prop: "State",
@@ -67,6 +67,6 @@ export const detailConfig = [
         // 制单日期
         prop: "CreationDate",
         label: i18n.t("Generality.Ge_CreationDate"),
-        filter: "date",
+        filter: "time",
     },
 ]

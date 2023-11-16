@@ -72,7 +72,7 @@ export const tableConfig = [
     },
     {
         prop: "IntervalDays",
-        label: i18n.t('production.Pr_IntervalDays'),
+        label: i18n.t('device.De_IntervalDays'),
     },
     {
         prop: "Creator",

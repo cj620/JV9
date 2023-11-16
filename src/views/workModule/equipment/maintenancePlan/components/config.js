@@ -106,7 +106,7 @@ export const formSchema = [
     {
         //间隔天数
         prop: "IntervalDays",
-        label: i18n.t('production.Pr_IntervalDays'),
+        label: i18n.t('device.De_IntervalDays'),
         cpn: "FormInput",
         rules: [
             {
@@ -116,20 +116,4 @@ export const formSchema = [
             },
         ],
     },
-    {
-        //     状态
-        prop: "State",
-        label: i18n.t("Generality.Ge_State"),
-        cpn: "FormSelect",
-        options: {
-            list: enumToList(maintenancePlanEnum),
-        },
-        rules: [
-            {
-                required: true,
-                message: i18n.t("Generality.Ge_PleaseSelect"),
-                trigger: ["blur"],
-            },
-        ]
-    }
 ]
