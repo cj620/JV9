@@ -21,7 +21,7 @@ const tableConfig1 = [
     /*设备编号*/
     {
         prop: "DeviceNo",
-        label: "设备编号",
+        label: i18n.t('production.Pr_DeviceNo'),
         editConfig:{
             disabled:true,
         }
@@ -29,7 +29,7 @@ const tableConfig1 = [
     /*设备名称*/
     {
         prop: "DeviceName",
-        label: "设备名称",
+        label: i18n.t('production.Pr_DeviceName'),
         editConfig:{
             disabled:true,
         }
@@ -37,7 +37,7 @@ const tableConfig1 = [
     /*规格型号*/
     {
         prop: "SpecModel",
-        label: "规格型号",
+        label: i18n.t('device.De_SpecModel'),
         formCpn: "FormInput",
         // editConfig:{
         //     disabled:true,
@@ -60,7 +60,7 @@ const tableConfig2 = [
     /*保养内容*/
     {
         prop: "MaintenanceContent",
-        label: "保养内容",
+        label: i18n.t('device.De_MaintenanceContent'),
         formCpn: "FormInput",
     },
 ]
@@ -68,7 +68,7 @@ export const formSchema = [
     {
         //方案名称
         prop: "PlanName",
-        label: "方案名称",
+        label: i18n.t('device.De_PlanName'),
         cpn: "FormInput",
         cpnProps: {
             disabled: false
@@ -84,7 +84,7 @@ export const formSchema = [
     {
         //方案说明
         prop: "Description",
-        label: "方案说明",
+        label: i18n.t('device.De_Description'),
         cpn: "FormInput",
     },
     {
@@ -106,7 +106,7 @@ export const formSchema = [
     {
         //间隔天数
         prop: "IntervalDays",
-        label: "间隔天数",
+        label: i18n.t('production.Pr_IntervalDays'),
         cpn: "FormInput",
         rules: [
             {
@@ -119,7 +119,7 @@ export const formSchema = [
     {
         //     状态
         prop: "State",
-        label: "状态",
+        label: i18n.t("Generality.Ge_State"),
         cpn: "FormSelect",
         options: {
             list: enumToList(maintenancePlanEnum),

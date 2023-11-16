@@ -74,11 +74,11 @@ export default {
           name: "first",
         },
         {
-          label: this.$t("Generality.Ge_ItemsInfo"),
+          label: this.$t('device.De_DeviceInfo'),
           name: "second",
         },
         {
-          label: this.$t("Generality.Ge_ItemsInfo"),
+          label: this.$t('device.De_MaintenanceInfo'),
           name: "third",
         },
         {

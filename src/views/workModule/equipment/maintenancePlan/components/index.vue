@@ -23,10 +23,10 @@
       <JvForm :formObj="formObj">
       </JvForm>
     </JvBlock>
-    <JvBlock title="设备信息" ref="second">
+    <JvBlock :title="$t('device.De_DeviceInfo')" ref="second">
       <div slot="extra">
         <el-button size="mini" @click="selectDevices">
-          选择设备
+          {{ $t('device.De_SelectDevice') }}
         </el-button>
       </div>
       <JvEditTable :tableObj="eTableObj1">
@@ -42,10 +42,10 @@
         </template>
       </JvEditTable>
     </JvBlock>
-    <JvBlock title="保养信息" ref="third">
+    <JvBlock :title="$t('device.De_MaintenanceInfo')" ref="third">
       <div slot="extra">
         <el-button size="mini" @click="newItems">
-          新增
+          {{ $t('Generality.Ge_New') }}
         </el-button>
       </div>
       <JvEditTable :tableObj="eTableObj2">
@@ -84,7 +84,7 @@
         }}</el-button>
     </div>
     <JvDialog
-        title= "选择设备"
+        :title= "$t('device.De_SelectDevice')"
         destroy-on-close
         width="35%"
         v-if="selectDevicesShow"
@@ -112,7 +112,6 @@ import {
 } from "@/api/workApi/equipment/maintenancePlan"
 import { deviceTable } from "./deviceTableConfig";
 import { formSchema, EditTable1, EditTable2 } from "./config"
-import { temMerge } from "~/utils/handleData";
 
 export default {
   name: "index",
@@ -167,11 +166,11 @@ export default {
           name: "first",
         },
         {
-          label: this.$t("Generality.Ge_ItemsInfo"),
+          label: this.$t('device.De_DeviceInfo'),
           name: "second",
         },
         {
-          label: this.$t("Generality.Ge_ItemsInfo"),
+          label: this.$t('device.De_MaintenanceInfo'),
           name: "third",
         },
         {

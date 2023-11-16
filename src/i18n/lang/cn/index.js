@@ -1334,6 +1334,11 @@ const cn = {
     De_StockOpsInfo: "目的地/来源地",
     De_MaintenanceDate1: "点检日期",
     De_Operator: "点检人",
+    De_SpecModel: "规格型号",
+    De_PlanName: "方案名称",
+    De_Description: "方案说明",
+    De_DeviceInfo: "设备信息",
+    De_SelectDevice: "选择设备",
   },
   // 后端提示
   backendMessage: {

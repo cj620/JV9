@@ -1,5 +1,5 @@
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
-import { maintenanceEnum, maintenancePlanEnum } from "@/enum/workModule";
+import {enumToList, maintenanceEnum, maintenancePlanEnum} from "@/enum/workModule";
 import {
     assets_device_maintenance_plan_list,
     assets_device_maintenance_plan_delete,
@@ -47,7 +47,7 @@ export const tableConfig = [
     },
     {
         prop: "PlanName",
-        label: "方案名称",
+        label: i18n.t('device.De_PlanName'),
     },
     {
         prop: "State",
@@ -60,11 +60,11 @@ export const tableConfig = [
     },
     {
         prop: "Description",
-        label: "方案说明",
+        label: i18n.t('device.De_Description'),
     },
     {
         prop: "MaintenanceMode",
-        label: "保养方式",
+        label: i18n.t("device.De_MaintenanceMode"),
         customFilter: (value) => {
             if (!value) return "";
             return maintenanceEnum[value].name;
@@ -72,7 +72,7 @@ export const tableConfig = [
     },
     {
         prop: "IntervalDays",
-        label: "间隔天数",
+        label: i18n.t('production.Pr_IntervalDays'),
     },
     {
         prop: "Creator",
@@ -91,4 +91,21 @@ export const formSchema = [
         label: i18n.t("Generality.Ge_KeyWords"),
         cpn: "FormInput",
     },
+    {
+        prop: "States",
+        label: i18n.t("Generality.Ge_State"),
+        cpn: "FormSelect",
+        type: "multiple",
+        options: {
+            list: enumToList(maintenancePlanEnum),
+        },
+    },
+    {
+        prop: "MaintenanceMode",
+        label: i18n.t("device.De_MaintenanceMode"),
+        cpn: "FormSelect",
+        options: {
+            list: enumToList(maintenanceEnum),
+        },
+    }
 ]

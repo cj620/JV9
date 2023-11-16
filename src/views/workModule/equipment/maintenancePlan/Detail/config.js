@@ -4,43 +4,43 @@ export const tableConfig1 = [
     /*设备编号*/
     {
         prop: "DeviceNo",
-        label: "设备编号",
+        label: i18n.t('production.Pr_DeviceNo'),
     },
     /*设备名称*/
     {
         prop: "DeviceName",
-        label: "设备名称",
+        label: i18n.t('production.Pr_DeviceName'),
     },
     /*规格型号*/
     {
         prop: "SpecModel",
-        label: "规格型号",
+        label: i18n.t('device.De_SpecModel'),
     },
 ]
 export const tableConfig2 = [
     /*排序*/
     {
         prop: "SortOrder",
-        label: "排序",
+        label: i18n.t('production.Pr_SortOrder'),
     },
     /*保养内容*/
     {
         prop: "MaintenanceContent",
-        label: "保养内容",
+        label: i18n.t('device.De_MaintenanceContent'),
     },
 ]
 export const detailConfig = [
     {
         prop: "PlanName",
-        label: "方案名称",
+        label: i18n.t('device.De_PlanName'),
     },
     {
         prop: "Description",
-        label: "方案说明",
+        label: i18n.t('device.De_Description'),
     },
     {
         prop: "MaintenanceMode",
-        label: "保养方式",
+        label: i18n.t("device.De_MaintenanceMode"),
         customFilter: (value) => {
             if (!value) return "";
             return maintenanceEnum[value].name;
@@ -48,11 +48,11 @@ export const detailConfig = [
     },
     {
         prop: "IntervalDays",
-        label: "间隔天数",
+        label: i18n.t('production.Pr_IntervalDays'),
     },
     {
         prop: "State",
-        label: "状态",
+        label: i18n.t("Generality.Ge_State"),
         customFilter: (value) => {
             if (!value) return "";
             return maintenancePlanEnum[value].name;
