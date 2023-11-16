@@ -112,6 +112,7 @@ import {
 } from "@/api/workApi/equipment/maintenancePlan"
 import { deviceTable } from "./deviceTableConfig";
 import { formSchema, EditTable1, EditTable2 } from "./config"
+import { temMerge } from "~/utils/handleData";
 
 export default {
   name: "index",
@@ -154,6 +155,11 @@ export default {
         BillItems: [],
         BillMembers: [],
         BillFiles: [],
+      },
+      BillItems: {
+        Id: 0,
+        BillGui: "",
+        MaintenanceContent: "",
       },
       tabPanes: [
         {
@@ -211,7 +217,7 @@ export default {
       this.eTableObj2.delItem(index)
     },
     newItems() {
-      this.eTableObj2.addEmptyRow();
+      this.eTableObj2.push([this.BillItems]);
     },
     selectDevices(){
       this.deviceTableObj = new deviceTable()
@@ -233,7 +239,6 @@ export default {
           Object.assign(this.ruleForm, this.formObj.form);
           this.ruleForm.BillMembers = this.eTableObj1.getTableData()
           this.ruleForm.BillItems = this.eTableObj2.getTableData()
-          console.log(this.ruleForm)
           assets_device_maintenance_plan_save(this.ruleForm).then((res) => {
             let TagName = {
               name: this.detailRouteName,

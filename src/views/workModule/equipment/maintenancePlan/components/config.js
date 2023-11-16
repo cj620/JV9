@@ -57,13 +57,6 @@ export class EditTable2 extends BaseTable {
     }
 }
 const tableConfig2 = [
-    /*排序*/
-    {
-        prop: "SortOrder",
-        label: "排序",
-        formCpn: "FormInput",
-        type: "number"
-    },
     /*保养内容*/
     {
         prop: "MaintenanceContent",
