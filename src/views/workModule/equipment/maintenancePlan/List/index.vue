@@ -39,12 +39,6 @@
           ]"
         />
       </template>
-      <template #State="{ record }">
-        {{ stateEnum[record]? stateEnum[record].name : "" }}
-      </template>
-      <template #MaintenanceMode="{ record }">
-        {{ modeEnum[record]? modeEnum[record].name : "" }}
-      </template>
     </JvTable>
   </PageWrapper>
 </template>
@@ -57,22 +51,6 @@ export default {
       tableObj: {},
       editRouterName: "As_MaintenancePlan_Edit",
       addRouterName: "As_MaintenancePlan_Add",
-      stateEnum: {
-        Using: {
-          name: "启用",
-        },
-        Disable: {
-          name: "停用",
-        },
-      },
-      modeEnum: {
-        FixedDate: {
-          name: "定时保养",
-        },
-        FixedUsedTime: {
-          name: "定量保养",
-        },
-      },
     }
   },
   created() {

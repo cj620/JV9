@@ -1,45 +1,33 @@
-<script>
-import Common from "../Add/index.vue";
-import {
-  assets_device_maintenance_plan_get,
-  assets_device_maintenance_plan_save
-} from "@/api/workApi/equipment/maintenancePlan"
-import closeTag from "@/utils/closeTag";
+<template>
+  <div>
+    <EditCom :billData="billData" :type="type" >
+    </EditCom>
+  </div>
+</template>
 
+<script>
+import EditCom from "../components/index";
+import { releaseEditLock } from "@/api/basicApi/systemSettings/billEditLock";
 export default {
   name: "As_MaintenancePlan_Edit",
-  extends: Common,
-  created() {
-    this.fileBillId = this.cur_Id;
-    this.getData()
+  components: {
+    EditCom
   },
-  methods: {
-    getData() {
-      assets_device_maintenance_plan_get({
-        BillId: this.$route.query.BillId
-      }).then((res) => {
-        this.formObj.form = res;
-        this.eTableObj1.setData(res.BillMembers)
-        this.eTableObj2.setData(res.BillItems)
-        this.ruleForm.BillFiles = res.BillFiles
-      })
-    },
-    save(){
-      this.formObj.validate((valid) => {
-        if (valid) {
-          Object.assign(this.ruleForm, this.formObj.form);
-          this.ruleForm.BillMembers = this.eTableObj1.getTableData()
-          this.ruleForm.BillItems = this.eTableObj2.getTableData()
-          assets_device_maintenance_plan_save(this.ruleForm).then((res) => {
-            let TagName = {
-              name: this.detailRouteName,
-              query: { BillId: res },
-            };
-            closeTag(this.current, TagName);
-          })
-        }
-      });
+  data() {
+    return {
+      type: 'edit',
+      billData: ''
     }
-  }
+  },
+  created() {
+    this.billData = this.$route.query.BillId
+  },
+  beforeDestroy() {
+    releaseEditLock({BillId: this.billData}).then(res => {
+    })
+  },
 }
 </script>
+<style lang="scss" scoped>
+
+</style>

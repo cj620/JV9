@@ -1,4 +1,5 @@
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
+import { maintenanceEnum, maintenancePlanEnum } from "@/enum/workModule";
 import {
     assets_device_maintenance_plan_list,
     assets_device_maintenance_plan_delete,
@@ -51,7 +52,10 @@ export const tableConfig = [
     {
         prop: "State",
         label: i18n.t("Generality.Ge_State"),
-        custom: true,
+        customFilter: (value) => {
+            if (!value) return "";
+            return maintenancePlanEnum[value].name;
+        },
         width: "120px",
     },
     {
@@ -61,7 +65,10 @@ export const tableConfig = [
     {
         prop: "MaintenanceMode",
         label: "保养方式",
-        custom: true,
+        customFilter: (value) => {
+            if (!value) return "";
+            return maintenanceEnum[value].name;
+        },
     },
     {
         prop: "IntervalDays",

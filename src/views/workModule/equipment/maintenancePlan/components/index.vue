@@ -110,8 +110,8 @@ import {
   assets_device_maintenance_plan_save,
   assets_device_maintenance_plan_get,
 } from "@/api/workApi/equipment/maintenancePlan"
-import { deviceTable } from "../Add/deviceTableConfig";
-import { formSchema, EditTable1, EditTable2 } from "../Add/config"
+import { deviceTable } from "./deviceTableConfig";
+import { formSchema, EditTable1, EditTable2 } from "./config"
 
 export default {
   name: "index",

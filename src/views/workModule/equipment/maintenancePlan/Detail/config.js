@@ -1,3 +1,5 @@
+import { maintenanceEnum, maintenancePlanEnum } from "@/enum/workModule";
+
 export const tableConfig1 = [
     /*设备编号*/
     {
@@ -39,6 +41,10 @@ export const detailConfig = [
     {
         prop: "MaintenanceMode",
         label: "保养方式",
+        customFilter: (value) => {
+            if (!value) return "";
+            return maintenanceEnum[value].name;
+        },
     },
     {
         prop: "IntervalDays",
@@ -47,6 +53,10 @@ export const detailConfig = [
     {
         prop: "State",
         label: "状态",
+        customFilter: (value) => {
+            if (!value) return "";
+            return maintenancePlanEnum[value].name;
+        },
     },
     {
         // 制单人

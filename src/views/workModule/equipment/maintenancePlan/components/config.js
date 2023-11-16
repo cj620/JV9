@@ -1,7 +1,9 @@
-import { EditTable as BaseTable } from "@/jv_doc/class/table";
+import { EditTable as BaseTable } from "~/class/table";
 import {
     tableConfigWrapper
-} from "@/jv_doc/utils/system/taxCount";
+} from "~/utils/system/taxCount";
+import { enumToList } from "~/utils/system/enumsPlugin";
+import { maintenanceEnum, maintenancePlanEnum } from "@/enum/workModule";
 
 export class EditTable1 extends BaseTable {
     constructor() {
@@ -95,8 +97,11 @@ export const formSchema = [
     {
         //保养方式
         prop: "MaintenanceMode",
-        label: "保养方式",
-        cpn: "FormInput",
+        label: i18n.t("device.De_MaintenanceMode"),
+        cpn: "FormSelect",
+        options: {
+            list: enumToList(maintenanceEnum),
+        },
         rules: [
             {
                 required: true,
@@ -119,10 +124,13 @@ export const formSchema = [
         ],
     },
     {
-    //     状态
+        //     状态
         prop: "State",
         label: "状态",
-        cpn: "FormInput",
+        cpn: "FormSelect",
+        options: {
+            list: enumToList(maintenancePlanEnum),
+        },
         rules: [
             {
                 required: true,

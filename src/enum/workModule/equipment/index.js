@@ -111,3 +111,17 @@ export const inventoryStateEnum = {
     value: "OutPut",
   },
 };
+
+// 保养方案状态
+export const maintenancePlanEnum = {
+    // 启用
+    Using: {
+        name: "启用",
+        value: "Using",
+    },
+    // 停用
+    Disable: {
+        name: "停用",
+        value: "Disable",
+    }
+}
