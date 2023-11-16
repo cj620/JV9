@@ -9,6 +9,16 @@
           :name="pane.name"
       ></el-tab-pane>
     </el-tabs>
+    <Action slot="sticky-extra" size="small" :actions="[
+      {
+        label: $t('Generality.Ge_Edit'),
+        confirm: editBill,
+      },
+      {
+        label: $t('Generality.Ge_Delete'),
+        confirm: deleteBill,
+      },
+    ]"></Action>
     <!--单据信息-->
     <JvBlock :title="cur_billId" ref="first">
       <div style="position: relative">
@@ -40,10 +50,15 @@ import Detail from "@/jv_doc/class/detail/Detail";
 import { Table } from "@/jv_doc/class/table";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index.vue";
 import AuditProcess from "@/components/BasicModule/AuditProcess/index.vue";
-import { assets_device_maintenance_plan_get } from "@/api/workApi/equipment/maintenancePlan"
+import {
+  assets_device_maintenance_plan_get,
+  assets_device_maintenance_plan_delete,
+} from "@/api/workApi/equipment/maintenancePlan"
+import closeTag from "@/utils/closeTag";
+import {mapState} from "vuex";
 
 export default {
-  name: "As_MaintenancePlanDetail",
+  name: "index",
   components: { AuditProcess, JvFileExhibit },
   data() {
     return {
@@ -52,6 +67,7 @@ export default {
       tableObj1: {},
       tableObj2: {},
       fileBillId: "",
+      editRouterName: "As_MaintenancePlan_Edit",
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -77,9 +93,13 @@ export default {
     }
   },
   computed: {
-
+    ...mapState({
+      current: (state) => state.page.current,
+    })
   },
   async created() {
+    this.cur_billId = this.$route.query.BillId;
+    this.fileBillId = this.$route.query.BillId;
     this.detailObj = new Detail({
       data: {},
       schema: detailConfig,
@@ -118,6 +138,20 @@ export default {
         this.tableObj1.setData(res.BillMembers);
         this.tableObj2.setData(res.BillItems);
 
+      })
+    },
+    editBill() {
+      this.$router.push({
+        name: this.editRouterName,
+        query: { BillId: this.cur_billId },
+      });
+    },
+    deleteBill() {
+      assets_device_maintenance_plan_delete({ BillIds: [this.cur_billId] }).then(() => {
+        let TagName = {
+          name: "As_MaintenancePlan"
+        }
+        closeTag(this.current, TagName);
       })
     },
     tabClick(e) {

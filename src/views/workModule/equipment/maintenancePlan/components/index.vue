@@ -84,12 +84,12 @@
         }}</el-button>
     </div>
     <JvDialog
-      title= "选择设备"
-      destroy-on-close
-      width="35%"
-      v-if="selectDevicesShow"
-      :visible.sync="selectDevicesShow"
-      @confirm="confirmDevices">
+        title= "选择设备"
+        destroy-on-close
+        width="35%"
+        v-if="selectDevicesShow"
+        :visible.sync="selectDevicesShow"
+        @confirm="confirmDevices">
       <JvTable
           :table-obj="deviceTableObj"
           ref="deviceTable"
@@ -99,23 +99,41 @@
   </PageWrapper>
 </template>
 <script>
-import { formSchema, EditTable1, EditTable2 } from "./config"
-import { Form } from "@/jv_doc/class/form";
-import { deviceTable } from "./deviceTableConfig";
-import { assets_device_maintenance_plan_save } from "@/api/workApi/equipment/maintenancePlan"
-import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
 import JvBlock from "~/cpn/JvBlock/index.vue";
-import JvEditTable from "~/cpn/JvEditTable/index.vue";
+import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
 import JvDialog from "~/cpn/JvDialog/index.vue";
-import closeTag from "@/utils/closeTag";
+import JvEditTable from "~/cpn/JvEditTable/index.vue";
 import { mapState } from "vuex";
+import { Form } from "@/jv_doc/class/form";
+import closeTag from "@/utils/closeTag";
+import {
+  assets_device_maintenance_plan_save,
+  assets_device_maintenance_plan_get,
+} from "@/api/workApi/equipment/maintenancePlan"
+import { deviceTable } from "../Add/deviceTableConfig";
+import { formSchema, EditTable1, EditTable2 } from "../Add/config"
 
 export default {
-  name: "As_MaintenancePlan_Add",
-  components: {JvDialog, JvEditTable, JvBlock, JvUploadFile},
+  name: "index",
+  components: { JvEditTable, JvDialog, JvUploadFile, JvBlock },
+  computed: {
+    ...mapState({
+      current: (state) => state.page.current,
+    }),
+  },
+  props: {
+    billData: {
+      type: String,
+      default: () => "",
+    },
+    type: {
+      type: String,
+      default: () => "",
+    },
+  },
   data(){
     return {
-      cur_Id: this.$route.query.BillId,
+      cur_Id: "",
       detailRouteName: "As_MaintenancePlanDetail",
       formObj: {},
       eTableObj1: {},
@@ -157,11 +175,6 @@ export default {
       ],
     }
   },
-  computed: {
-      ...mapState({
-          current: (state) => state.page.current,
-      })
-  },
   async created() {
     this.formObj = new Form({
       formSchema,
@@ -173,8 +186,24 @@ export default {
     });
     this.eTableObj1 = new EditTable1();
     this.eTableObj2 = new EditTable2();
+    if (this.type === 'edit'){
+      this.fileBillId = this.billData
+      this.cur_Id = this.billData
+      await this.GetData(this.fileBillId);
+    }
   },
   methods: {
+    async GetData(Id) {
+      await assets_device_maintenance_plan_get({ BillId: Id }).then((res) => {
+        this.ruleForm = Object.assign({}, this.ruleForm, res);
+        this.formObj.form = this.ruleForm;
+        this.eTableObj1.setData(res.BillMembers)
+        this.eTableObj2.setData(res.BillItems)
+      })
+    },
+    returnData(fileData) {
+      this.ruleForm.BillFiles = fileData;
+    },
     delItem1(index) {
       this.eTableObj1.delItem(index)
     },
@@ -190,17 +219,13 @@ export default {
       this.selectDevicesShow = true
     },
     confirmDevices(){
-      const str2 = this.deviceTableObj.selectData.datas.map(item => ({
+      const str1 = this.deviceTableObj.selectData.datas.map(item => ({
         "DeviceNo": item.DeviceNo,
         "DeviceName": item.Device,
         "SpecModel": ""
       }));
-      this.eTableObj1.push(str2)
+      this.eTableObj1.push(str1)
       this.selectDevicesShow = false
-    },
-    //上传文件返回的数据
-    returnData(fileData) {
-      this.ruleForm.BillFiles = fileData;
     },
     save(){
       this.formObj.validate((valid) => {
@@ -208,6 +233,7 @@ export default {
           Object.assign(this.ruleForm, this.formObj.form);
           this.ruleForm.BillMembers = this.eTableObj1.getTableData()
           this.ruleForm.BillItems = this.eTableObj2.getTableData()
+          console.log(this.ruleForm)
           assets_device_maintenance_plan_save(this.ruleForm).then((res) => {
             let TagName = {
               name: this.detailRouteName,
@@ -222,6 +248,18 @@ export default {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
     },
-  }
+  },
+  watch: {
+    $route(to, from) {
+      // 页面缓存的时候不刷新数据，监听路由刷新数据
+      // 判断路由监听的页面是不是本页面
+      if (to.name !== this.$options.name) return;
+      // 判断传过来的数据不为空并且传过来的数据是一条新的数据
+      if (this.$route.query.BillId !== undefined) {
+        this.billData = this.$route.query.BillId;
+        this.GetData(this.billData);
+      }
+    },
+  },
 }
 </script>

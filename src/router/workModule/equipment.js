@@ -46,7 +46,7 @@ const equipment = [
   // 新增保养方案
   {
     key: "As_MaintenancePlanAdd",
-    component: () => import("@/views/workModule/equipment/maintenancePlan/Add"),
+    component: () => import("@/views/workModule/equipment/maintenancePlan/Add/index1.vue"),
     Parent: "As_AssetsManage",
     name: "As_MaintenancePlan_Add",
     path: "as_MaintenancePlan_Add",
@@ -56,7 +56,7 @@ const equipment = [
   // 编辑保养方案
   {
     key: "As_MaintenancePlanEdit",
-    component: () => import("@/views/workModule/equipment/maintenancePlan/Edit"),
+    component: () => import("@/views/workModule/equipment/maintenancePlan/Edit/index1.vue"),
     Parent: "As_AssetsManage",
     name: "As_MaintenancePlan_Edit",
     path: "as_MaintenancePlan_Edit",
