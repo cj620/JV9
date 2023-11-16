@@ -1344,6 +1344,11 @@ const ja = {
     De_StockOpsInfo: "宛先/ソース",
     De_MaintenanceDate1: "点検日",
     De_Operator: "点検人",
+    De_SpecModel: "規格型番",
+    De_PlanName: "シナリオ名",
+    De_Description: "シナリオの説明",
+    De_DeviceInfo: "デバイス情報",
+    De_SelectDevice: "デバイスの選択",
   },
   // 后端提示
   backendMessage: {

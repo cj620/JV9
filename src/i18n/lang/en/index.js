@@ -1350,6 +1350,11 @@ const en = {
     De_StockOpsInfo: "Destination/Source",
     De_MaintenanceDate1: "Inspection date",
     De_Operator: "Checked By",
+    De_SpecModel: "Spec Model",
+    De_PlanName: "Plan Name",
+    De_Description: "Description",
+    De_DeviceInfo: "Device Info",
+    De_SelectDevice: "Select Device",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",
