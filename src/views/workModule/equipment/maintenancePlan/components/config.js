@@ -39,9 +39,9 @@ const tableConfig1 = [
         prop: "SpecModel",
         label: i18n.t('device.De_SpecModel'),
         formCpn: "FormInput",
-        // editConfig:{
-        //     disabled:true,
-        // }
+        editConfig:{
+            disabled:true,
+        }
     },
 ]
 export class EditTable2 extends BaseTable {

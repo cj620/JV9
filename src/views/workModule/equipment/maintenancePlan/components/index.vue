@@ -86,7 +86,7 @@
     <JvDialog
         :title= "$t('device.De_SelectDevice')"
         destroy-on-close
-        width="35%"
+        width="70%"
         v-if="selectDevicesShow"
         :visible.sync="selectDevicesShow"
         @confirm="confirmDevices">
@@ -220,14 +220,14 @@ export default {
     },
     selectDevices(){
       this.deviceTableObj = new deviceTable()
-      this.deviceTableObj.getData()
+      this.deviceTableObj.getData({ DeviceCategory: "Machine" })
       this.selectDevicesShow = true
     },
     confirmDevices(){
       const str1 = this.deviceTableObj.selectData.datas.map(item => ({
         "DeviceNo": item.DeviceNo,
-        "DeviceName": item.Device,
-        "SpecModel": ""
+        "DeviceName": item.DeviceName,
+        "SpecModel": item.SpecModel
       }));
       this.eTableObj1.push(str1)
       this.selectDevicesShow = false
