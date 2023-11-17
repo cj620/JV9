@@ -22,6 +22,7 @@ export const tableConfig2 = [
     {
         prop: "SortOrder",
         label: i18n.t('production.Pr_SortOrder'),
+        width: '80px',
     },
     /*保养内容*/
     {

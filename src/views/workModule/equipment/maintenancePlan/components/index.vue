@@ -195,6 +195,9 @@ export default {
       this.fileBillId = this.billData
       this.cur_Id = this.billData
       await this.GetData(this.fileBillId);
+    } else if(this.type === 'copy') {
+      this.fileBillId = this.billData
+      await this.GetData(this.fileBillId);
     }
   },
   methods: {

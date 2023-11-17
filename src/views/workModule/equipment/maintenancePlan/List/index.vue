@@ -36,6 +36,10 @@
         <TableAction
           :actions="[
             {
+              label: $t('Generality.Ge_Copy'),
+              confirm: copy.bind(null,row)
+            },
+            {
               label: $t('Generality.Ge_Edit'),
               confirm: edit.bind(null,row),
               disabled: row.State === 'Using',
@@ -120,9 +124,16 @@ export default {
         name: this.addRouterName,
       });
     },
+    // 复制
+    copy(row) {
+      console.log(row)
+      this.$router.push({
+          name: this.addRouterName,
+          query: {BillId: row.BillId,type: "copy"}
+      });
+    },
     // 编辑
     edit(row) {
-      console.log(row.BillId)
       this.$router.push({
         name: this.editRouterName,
         query: { BillId: row.BillId },
