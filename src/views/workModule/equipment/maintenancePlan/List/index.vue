@@ -105,7 +105,7 @@ export default {
       this.tableObj.selectData.datas.forEach((item) => {
         arr1.push(item.BillId)
       })
-      assets_device_maintenance_plan_update_state({BillIds:arr1,State:0}).then((res) => {
+      assets_device_maintenance_plan_update_state({BillIds:arr1.toString(),State:0}).then((res) => {
         this.tableObj.getData()
       })
     },
@@ -114,7 +114,7 @@ export default {
       this.tableObj.selectData.datas.forEach((item) => {
         arr2.push(item.BillId)
       })
-      assets_device_maintenance_plan_update_state({BillIds:arr2,State:1}).then((res) => {
+      assets_device_maintenance_plan_update_state({BillIds:arr2.toString(),State:1}).then((res) => {
         this.tableObj.getData()
       })
     },
