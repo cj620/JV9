@@ -38,3 +38,12 @@ export function assets_device_maintenance_plan_get(query) {
         params: query,
     });
 }
+
+// 保养方案编辑状态
+export function assets_device_maintenance_plan_update_state(data) {
+    return request({
+        url: "/assets_device_maintenance_plan/update_state",
+        method: "post",
+        data,
+    })
+}

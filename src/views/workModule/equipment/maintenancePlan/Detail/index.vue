@@ -20,9 +20,16 @@
       },
     ]"></Action>
     <!--单据信息-->
-    <JvBlock :title="cur_billId" ref="first">
+    <JvBlock :title="cur_billId" ref="first" style="position:relative;">
       <div style="position: relative">
-        <JvDetail :detailObj="detailObj"> </JvDetail>
+        <JvDetail :detailObj="detailObj">
+        </JvDetail>
+      </div>
+      <div class="stateTag">
+        <el-tag type="success" v-if="State === 'Using'">{{ maintenancePlanEnum[State].name }}</el-tag>
+        <el-tag type="danger" v-else>{{
+            maintenancePlanEnum[State]?maintenancePlanEnum[State].name: ""
+          }}</el-tag>
       </div>
     </JvBlock>
     <!--设备信息-->
@@ -49,6 +56,7 @@ import {
   assets_device_maintenance_plan_get,
   assets_device_maintenance_plan_delete,
 } from "@/api/workApi/equipment/maintenancePlan"
+import { maintenancePlanEnum } from "@/enum/workModule";
 import closeTag from "@/utils/closeTag";
 import {mapState} from "vuex";
 
@@ -57,11 +65,13 @@ export default {
   components: { JvFileExhibit },
   data() {
     return {
+      maintenancePlanEnum,
       cur_billId: "",
       detailObj: {},
       tableObj1: {},
       tableObj2: {},
       fileBillId: "",
+      State: "",
       editRouterName: "As_MaintenancePlan_Edit",
       tabPanes: [
         {
@@ -124,6 +134,7 @@ export default {
       await assets_device_maintenance_plan_get({
         BillId: this.$route.query.BillId
       }).then((res) => {
+        this.State = res.State;
         this.detailObj.detailData = res;
         this.cur_billId = res.BillId;
         this.tableObj1.setData(res.BillMembers);
@@ -152,3 +163,19 @@ export default {
 }
 
 </script>
+<style lang="scss" scoped>
+.stateTag {
+  position: absolute;
+  right: 60px;
+  top:50px;
+  width: 90px;
+  height: 46px;
+  .el-tag--light {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 9px;
+    font-size: 16px;
+  }
+}
+</style>

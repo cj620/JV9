@@ -50,14 +50,14 @@ export const detailConfig = [
         prop: "IntervalDays",
         label: i18n.t('device.De_IntervalDays'),
     },
-    {
-        prop: "State",
-        label: i18n.t("Generality.Ge_State"),
-        customFilter: (value) => {
-            if (!value) return "";
-            return maintenancePlanEnum[value].name;
-        },
-    },
+    // {
+    //     prop: "State",
+    //     label: i18n.t("Generality.Ge_State"),
+    //     customFilter: (value) => {
+    //         if (!value) return "";
+    //         return maintenancePlanEnum[value].name;
+    //     },
+    // },
     {
         // 制单人
         prop: "Creator",
