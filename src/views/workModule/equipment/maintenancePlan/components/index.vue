@@ -232,8 +232,16 @@ export default {
         "DeviceName": item.DeviceName,
         "SpecModel": item.SpecModel
       }));
-      this.eTableObj1.push(str1)
-      this.selectDevicesShow = false
+      const arr1 = str1.map(item => item.DeviceNo);
+      const arr2 = this.eTableObj1.getTableData().map(item => item.DeviceNo);
+      const arr3 = arr1.filter(item => arr2.includes(item));
+      if (arr3.length === 0) {
+        this.eTableObj1.push(str1);
+        this.selectDevicesShow = false;
+      } else {
+        // console.log('重复选择了设备：', arr3);
+        this.$message.error(`重复选择了设备: ${arr3}`);
+      }
     },
     save(){
       this.formObj.validate((valid) => {
