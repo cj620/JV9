@@ -240,7 +240,7 @@ export default {
         this.selectDevicesShow = false;
       } else {
         // console.log('重复选择了设备：', arr3);
-        this.$message.error(`重复选择了设备: ${arr3}`);
+        this.$message.error(`${i18n.t('device.De_RepeatedSelection')}:${arr3}`);
       }
     },
     save(){

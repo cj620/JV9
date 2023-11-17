@@ -1356,6 +1356,7 @@ const ja = {
     De_MaintenanceEndDate: "保养结束日期",
     De_Operator1: "保養者",
     De_MaintenanceTime: "保守時間（分）",
+    De_RepeatedSelection: "デバイスを繰り返し選択しました",
   },
   // 后端提示
   backendMessage: {

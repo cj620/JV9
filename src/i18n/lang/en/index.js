@@ -1362,6 +1362,7 @@ const en = {
     De_MaintenanceEndDate: "Maintenance End Date",
     De_Operator1: "Operator",
     De_MaintenanceTime: "MaintenanceTime(minutes)",
+    De_RepeatedSelection: "Repeated device selection",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

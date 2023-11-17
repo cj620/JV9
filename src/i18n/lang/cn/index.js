@@ -1346,6 +1346,7 @@ const cn = {
     De_MaintenanceEndDate: "保养结束日期",
     De_Operator1: "保养人",
     De_MaintenanceTime: "保养用时(分钟)",
+    De_RepeatedSelection: "重复选择了设备",
   },
   // 后端提示
   backendMessage: {
