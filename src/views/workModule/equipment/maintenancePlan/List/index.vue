@@ -126,7 +126,6 @@ export default {
     },
     // 复制
     copy(row) {
-      console.log(row)
       this.$router.push({
           name: this.addRouterName,
           query: {BillId: row.BillId,type: "copy"}

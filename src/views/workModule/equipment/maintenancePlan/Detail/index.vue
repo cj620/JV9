@@ -15,6 +15,10 @@
         confirm: editBill,
       },
       {
+        label: $t('Generality.Ge_Copy'),
+        confirm: copyBill,
+      },
+      {
         label: $t('Generality.Ge_Delete'),
         confirm: deleteBill,
       },
@@ -73,6 +77,7 @@ export default {
       fileBillId: "",
       State: "",
       editRouterName: "As_MaintenancePlan_Edit",
+      addRouterName: "As_MaintenancePlan_Add",
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -139,6 +144,12 @@ export default {
         this.cur_billId = res.BillId;
         this.tableObj1.setData(res.BillMembers);
         this.tableObj2.setData(res.BillItems);
+      })
+    },
+    copyBill() {
+      this.$router.push({
+        name: this.addRouterName,
+        query: {BillId: this.cur_billId,type: "copy"}
       })
     },
     editBill() {
