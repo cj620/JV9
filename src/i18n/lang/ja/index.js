@@ -1350,6 +1350,12 @@ const ja = {
     De_DeviceInfo: "デバイス情報",
     De_SelectDevice: "デバイスの選択",
     De_IntervalDays: "間隔日数/間隔回数",
+    De_Maintaining: "メンテナンス中",
+    De_Maintained: "メンテナンス済み",
+    De_MaintenanceStartDate: "保守開始日",
+    De_MaintenanceEndDate: "保养结束日期",
+    De_Operator1: "保養者",
+    De_MaintenanceTime: "保守時間（分）",
   },
   // 后端提示
   backendMessage: {

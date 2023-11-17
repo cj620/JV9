@@ -3,18 +3,13 @@
   <PageWrapper :footer="false">
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
-      <template #State="{ record }">
-        <!-- 状态标签 -->
-        <BillStateTags :state="record"></BillStateTags>
-      </template>
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction
           :actions="[
-
             {
               label: $t('Generality.Ge_Delete'),
-              disabled: getActionState(row.State, 'del'),
+              disabled: false,
               popConfirm: {
                 title: $t('Generality.Ge_DeleteConfirm'),
                 confirm: deleteOrder.bind(null, [row.BillId]),
@@ -28,11 +23,6 @@
         size="mini"
         slot="btn-list"
         :actions="[
-        // {
-        //     label:  $t('Generality.Ge_Category'),
-        //     confirm: mnageType,
-        //   },
-
           {
             label: $t('Generality.Ge_Delete'),
             disabled: canIsDel,
@@ -50,17 +40,9 @@
 <script>
 // 引入表格类
 import { Table } from "./config";
-// 引入单据状态的枚举
-import { stateEnum } from "@/enum/workModule";
-// 单据状态组件
-import BillStateTags from "@/components/WorkModule/BillStateTags";
 export default {
   // 页面的标识
   name: "As_DeviceMaintain",
-  components: {
-    // 单据状态组件
-    BillStateTags,
-  },
   data() {
     return {
       // 表格实例
@@ -71,7 +53,7 @@ export default {
   },
   created() {
     // 创建表格实例
-      this.tableObj = new Table();
+    this.tableObj = new Table();
     this.tableObj.formObj.form.DeviceCategory=this.machineCategory
     this.tableObj.getData();
   },
@@ -81,14 +63,8 @@ export default {
       let { datas } = this.tableObj.selectData;
       if (datas.length === 0) return true;
       return datas.some((item) => {
-        return !["Rejected", "Unsubmitted"].includes(item.State);
+        return !["ToBeMaintenance"].includes(item.State);
       });
-    },
-    // 获取按钮状态
-    getActionState() {
-      return (state, type) => {
-        return !stateEnum[state]?.operation?.[type];
-      };
     },
   },
   methods: {
@@ -111,15 +87,6 @@ export default {
     delBills() {
       this.deleteOrder(this.tableObj.selectData.keys);
     },
-
-    //跳转到类别
-    mnageType(){
-      this.$router.push({
-        name: "As_DeviceMaintenanceType",
-        query: { type:'MaintainType' },
-
-      });
-    }
   },
 };
 </script>

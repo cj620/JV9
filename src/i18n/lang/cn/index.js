@@ -1340,6 +1340,12 @@ const cn = {
     De_DeviceInfo: "设备信息",
     De_SelectDevice: "选择设备",
     De_IntervalDays: "间隔天数/间隔次数",
+    De_Maintaining: "保养中",
+    De_Maintained: "已保养",
+    De_MaintenanceStartDate: "保养开始日期",
+    De_MaintenanceEndDate: "保养结束日期",
+    De_Operator1: "保养人",
+    De_MaintenanceTime: "保养用时(分钟)",
   },
   // 后端提示
   backendMessage: {

@@ -36,6 +36,7 @@ import {
   scrapEnum,
   inventoryStateEnum,
   maintenancePlanEnum,
+  maintenanceStateEnum,
 } from "./equipment";
 export { enumToList, enumFilter } from "@/jv_doc/utils/system/enumsPlugin";
 export {
@@ -89,4 +90,6 @@ export {
   inventoryStateEnum,
   // 保养方案状态
   maintenancePlanEnum,
+  // 保养状态
+  maintenanceStateEnum,
 };

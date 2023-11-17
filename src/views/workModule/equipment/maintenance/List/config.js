@@ -8,9 +8,10 @@
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
 // 获取设备接口
 import { getAllDevice } from "@/api/workApi/production/baseData";
+import { assets_device_list } from "@/api/workApi/equipment/device"
 // 引入模块API接口
 import { API } from "@/api/workApi/equipment/maintenance";
-import { maintenanceEnum } from "@/enum/workModule";
+import { maintenanceStateEnum, maintenanceEnum, enumToList } from "@/enum/workModule";
 // 结构
 let {api_list,api_delete}=API
 export class api extends TableAPI {
@@ -41,11 +42,13 @@ export class Table extends BaseTable {
 }
 //  表格配置
 export const tableConfig = [
+  //   单据编号
   {
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
+    width: '200px',
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
@@ -73,97 +76,140 @@ export const tableConfig = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    custom:true,
-    width:'115px',
+    width:'100px',
+    customFilter: (value) => {
+        if (!value) return "";
+        return maintenanceStateEnum[value].name;
+    },
   },
-      {
-      prop: "DeviceNo",
-      label: i18n.t("production.Pr_DeviceNo"),
-
-
-      },
-      /*设备名称*/
-      {
-      prop: "DeviceName",
-      label: i18n.t("production.Pr_DeviceName"),
-      },
-
-      {
-      prop: "MaintenanceCategory",
-        label: i18n.t("Generality.Ge_Category"),
-        customFilter: (value) => {
-          if (!value) return "";
-          return maintenanceEnum[value] ? maintenanceEnum[value].name : value;
-        },
-      },
-      /*上次保养日期*/
-      {
-      prop: "MaintenanceDate",
-        label: i18n.t("device.De_MaintenanceDate"),
-      filter:'date'
-      },
-      {
-        // 制单人
-        prop: "Creator",
-        label: i18n.t("Generality.Ge_Creator"),
-      },
+  //   方案名称
+  {
+    prop: "PlanName",
+    label: i18n.t("device.De_PlanName"),
+    width:'100px',
+  },
+  //   设备编号
+  {
+    prop: "DeviceNo",
+    label: i18n.t("production.Pr_DeviceNo"),
+    width:'100px',
+  },
+  /*设备名称*/
+  {
+    prop: "DeviceName",
+    label: i18n.t("production.Pr_DeviceName"),
+    width:'100px',
+  },
+  //   关联编号
+  {
+    prop: "AssociatedNo",
+    label: i18n.t("Generality.Ge_AssociatedNo"),
+    width:'160px',
+  },
+  //   保养方式
+  {
+    prop: "MaintenanceMode",
+    label: i18n.t("device.De_MaintenanceMode"),
+    customFilter: (value) => {
+      if (!value) return "";
+      return maintenanceEnum[value].name;
+    },
+    width:'100px',
+  },
+  //   保养人
+  {
+    prop: "Operator",
+    label: i18n.t("device.De_Operator1"),
+    width:'100px',
+  },
+  /*保养开始日期*/
+  {
+    prop: "MaintenanceStartDate",
+    label: i18n.t("device.De_MaintenanceStartDate"),
+    filter:'date',
+    width: "140px",
+  },
+  /*保养结束日期*/
+  {
+    prop: "MaintenanceEndDate",
+    label: i18n.t("device.De_MaintenanceEndDate"),
+    filter:'date',
+    width: "140px",
+  },
+  //   保养用时(分钟)
+  {
+    prop: "MaintenanceTime",
+    label: i18n.t("device.De_MaintenanceTime"),
+    width: "120px",
+  },
+  {
+    // 制单人
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+    width:'100px',
+  },
   {
     // 制单日期
     prop: "CreationDate",
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
+    width: "140px",
   },
+  {
+  //   备注
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+    width:'200px',
+  }
 ]
 
 // 表单配置
 export const formSchema = [
-//单号搜索
-{
-  prop: "BillId",
-  label: i18n.t("Generality.Ge_BillId"),
-  cpn: "FormInput",
-},
-{
-  prop: "Keyword",
-  label: i18n.t("Generality.Ge_KeyWords"),
-  cpn: "FormInput",
-},
+  //单号搜索
+  {
+    prop: "BillId",
+    label: i18n.t("Generality.Ge_BillId"),
+    cpn: "FormInput",
+  },
+  {
+    prop: "Keyword",
+    label: i18n.t("Generality.Ge_KeyWords"),
+    cpn: "FormInput",
+  },
   {
     prop: "DeviceNo",
     label: i18n.t("production.Pr_DeviceNo"),
-    cpn: "SyncSelect",
-    api: getAllDevice,
+    cpn: "AsyncSearch",
+    api: assets_device_list,
     apiOptions: {
       keyName: "DeviceNo",
+      showValue: true,
       valueName: "DeviceNo",
+      params: {
+        PageSize: 20,
+        CurrentPage: 1,
+      },
     },
   },
-//单号搜索
-// {
-//   prop: "BillId",
-//   label: i18n.t("Generality.Ge_BillId"),
-//   cpn: "FormInput",
-// },
-{
-  // 计划开始
-  prop: "StartDate",
-  cpn: "SingleTime",
-  label: i18n.t("Generality.Ge_StartTime"),
-},
-{
-  // 计划开始
-  prop: "EndDate",
-  cpn: "SingleTime",
-  label: i18n.t("Generality.Ge_EndTime"),
-},
-  //报修类型
   {
-    prop: "DeviceCategory",
-    hidden:true,
-    label: i18n.t("Generality.Ge_Category"),
+    prop: "States",
+    label: i18n.t("Generality.Ge_State"),
     cpn: "FormSelect",
+    type: "multiple",
     options: {
-      list: []
+      list: enumToList(maintenanceStateEnum),
     },
+  },
+  {
+    // 计划开始
+    prop: "StartDate",
+    cpn: "SingleTime",
+    label: i18n.t("Generality.Ge_StartTime"),
+  },
+  {
+    // 计划开始
+    prop: "EndDate",
+    cpn: "SingleTime",
+    label: i18n.t("Generality.Ge_EndTime"),
   },
 ]

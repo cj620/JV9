@@ -116,12 +116,31 @@ export const inventoryStateEnum = {
 export const maintenancePlanEnum = {
     // 启用
     Using: {
-        name: "启用",
+        name: i18n.t("Generality.Ge_Enable"),
         value: "Using",
     },
     // 停用
     Disable: {
-        name: "停用",
+        name: i18n.t("production.Pr_StopUse"),
         value: "Disable",
+    }
+}
+
+//保养状态
+export const maintenanceStateEnum ={
+    //待保养
+    ToBeMaintenance: {
+        name: i18n.t("device.De_ToBeMaintained"),
+        value: "ToBeMaintenance",
+    },
+    //保养中
+    Maintenanceing: {
+        name: i18n.t("device.De_Maintaining"),
+        value: "Maintenanceing",
+    },
+    //已保养
+    Maintenanceed: {
+        name: i18n.t("device.De_Maintained"),
+        value: "Maintenanceed",
     }
 }
