@@ -24,7 +24,7 @@
       },
     ]"></Action>
     <!--单据信息-->
-    <JvBlock :title="cur_billId" ref="first" style="position:relative;">
+    <JvBlock :title="cur_billId" ref="first" style="position:relative;" :contentStyle="{ paddingLeft: '15px' }">
       <div style="position: relative">
         <JvDetail :detailObj="detailObj">
         </JvDetail>

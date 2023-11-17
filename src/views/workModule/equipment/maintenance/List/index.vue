@@ -8,8 +8,18 @@
         <TableAction
           :actions="[
             {
+              label: $t('device.De_StartMaintenance'),
+              confirm: startMaintenance.bind(null,row),
+              disabled: row.State !== 'ToBeMaintenance',
+            },
+            {
+              label: $t('device.De_EndMaintenance'),
+              confirm: endMaintenance.bind(null,row),
+              disabled: row.State !== 'Maintenanceing',
+            },
+            {
               label: $t('Generality.Ge_Delete'),
-              disabled: false,
+              disabled: row.State !== 'ToBeMaintenance',
               popConfirm: {
                 title: $t('Generality.Ge_DeleteConfirm'),
                 confirm: deleteOrder.bind(null, [row.BillId]),
@@ -40,6 +50,7 @@
 <script>
 // 引入表格类
 import { Table } from "./config";
+import { assets_device_maintenance_start,assets_device_maintenance_end } from "@/api/workApi/equipment/maintenance"
 export default {
   // 页面的标识
   name: "As_DeviceMaintain",
@@ -47,14 +58,12 @@ export default {
     return {
       // 表格实例
       tableObj: {},
-      machineCategory: 'Machine',
       editRouterName:  "As_DeviceMaintenanceEdit",
     };
   },
   created() {
     // 创建表格实例
     this.tableObj = new Table();
-    this.tableObj.formObj.form.DeviceCategory=this.machineCategory
     this.tableObj.getData();
   },
   computed: {
@@ -68,20 +77,21 @@ export default {
     },
   },
   methods: {
+    startMaintenance(row){
+      assets_device_maintenance_start({BillId: row.BillId}).then((res) => {
+        this.tableObj.getData();
+      })
+    },
+    endMaintenance(row){
+      assets_device_maintenance_end({BillId: row.BillId}).then((res) => {
+        this.tableObj.getData();
+      })
+    },
     //删除单据
     deleteOrder(ids) {
       this.tableObj.api.del({ BillIds: ids }).then((_) => {
         this.tableObj.getData();
       });
-    },
-    //编辑
-    editBill(row) {
-      console.log(123);
-      let { BillId } = row;
-      this.$router.push({
-          name:this.editRouterName,
-          query: { BillId },
-        });
     },
     //批量删除单据
     delBills() {

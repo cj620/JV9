@@ -7,16 +7,6 @@
         slot="btn-list"
         :actions="[
           {
-            label: $t('Generality.Ge_Enable'),
-            confirm: startToUse,
-            disabled: canIsDel,
-          },
-          {
-            label: $t('production.Pr_StopUse'),
-            confirm: endToUse,
-            disabled: canIsBan,
-          },
-          {
             label: $t('Generality.Ge_New'),
             confirm: add,
           },
@@ -27,7 +17,17 @@
               title: $t('Generality.Ge_DeleteConfirm'),
               confirm: delBills,
             },
-          }
+          },
+          {
+            label: $t('Generality.Ge_Enable'),
+            confirm: startToUse,
+            disabled: canIsDel,
+          },
+          {
+            label: $t('production.Pr_StopUse'),
+            confirm: endToUse,
+            disabled: canIsBan,
+          },
         ]"
       >
       </Action>

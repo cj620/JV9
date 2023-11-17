@@ -34,7 +34,7 @@ export class Table extends BaseTable {
       // 接口类
       api,
       // 操作列宽度
-      operationWidth:110,
+      operationWidth: 200,
       // 打印模块标识
       printMod:'As_DeviceMaintain',
     })
@@ -126,14 +126,14 @@ export const tableConfig = [
   {
     prop: "MaintenanceStartDate",
     label: i18n.t("device.De_MaintenanceStartDate"),
-    filter:'date',
+    filter:'time',
     width: "140px",
   },
   /*保养结束日期*/
   {
     prop: "MaintenanceEndDate",
     label: i18n.t("device.De_MaintenanceEndDate"),
-    filter:'date',
+    filter:'time',
     width: "140px",
   },
   //   保养用时(分钟)

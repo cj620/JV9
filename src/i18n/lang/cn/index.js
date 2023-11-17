@@ -721,6 +721,7 @@ const cn = {
     Ge_Reject: "拒绝",
     Ge_Deferred: "已延期",
     Ge_Completed: "已完成",
+    Ge_Incomplete: "未完成",
     Ge_ApproveProcess: "审核流程",
     Ge_MultipleSetup: "批量设置",
     Ge_SelectAll: "全选",
@@ -1347,6 +1348,8 @@ const cn = {
     De_Operator1: "保养人",
     De_MaintenanceTime: "保养用时(分钟)",
     De_RepeatedSelection: "重复选择了设备",
+    De_StartMaintenance: "开始保养",
+    De_EndMaintenance: "结束保养",
   },
   // 后端提示
   backendMessage: {

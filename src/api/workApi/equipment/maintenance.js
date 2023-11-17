@@ -40,4 +40,22 @@ export function assets_device_managetype_del(data) {
   });
 }
 
+// 开始保养
+export function assets_device_maintenance_start(data){
+  return request({
+    url: "/assets_device_maintenance/start",
+    method: "post",
+    data,
+  })
+}
+
+// 结束保养
+export function assets_device_maintenance_end(data){
+  return request({
+    url: "/assets_device_maintenance/end",
+    method: "post",
+    data,
+  })
+}
+
 

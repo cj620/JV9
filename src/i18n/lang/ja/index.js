@@ -724,6 +724,7 @@ const ja = {
     Ge_Reject: "拒否",
     Ge_Deferred: "延期",
     Ge_Completed: "完了",
+    Ge_Incomplete: "未完了",
     Ge_ApproveProcess: "レビュープロセス",
     Ge_MultipleSetup: "一括設定",
     Ge_SelectAll: "すべて選択",
@@ -1357,6 +1358,8 @@ const ja = {
     De_Operator1: "保養者",
     De_MaintenanceTime: "保守時間（分）",
     De_RepeatedSelection: "デバイスを繰り返し選択しました",
+    De_StartMaintenance: "メンテナンス開始",
+    De_EndMaintenance: "メンテナンス終了",
   },
   // 后端提示
   backendMessage: {

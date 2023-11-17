@@ -727,6 +727,7 @@ const en = {
     Ge_Approved: "Approved",
     Ge_Rejected: "Rejected",
     Ge_Completed: "Completed",
+    Ge_Incomplete: "Incomplete",
     Ge_ApproveProcess: "Approve Process",
     Ge_MultipleSetup: "Multiple Setup",
     Ge_SelectAll: "Select All",
@@ -1363,6 +1364,8 @@ const en = {
     De_Operator1: "Operator",
     De_MaintenanceTime: "MaintenanceTime(minutes)",
     De_RepeatedSelection: "Repeated device selection",
+    De_StartMaintenance: "Start Maintenance",
+    De_EndMaintenance: "End Maintenance",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",
