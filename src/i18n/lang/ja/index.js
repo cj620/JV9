@@ -1360,6 +1360,18 @@ const ja = {
     De_RepeatedSelection: "デバイスを繰り返し選択しました",
     De_StartMaintenance: "メンテナンス開始",
     De_EndMaintenance: "メンテナンス終了",
+    De_SelfRepair: "じこしゅうり",
+    De_OutsourcedRepair: "外注修理",
+    De_ToBeRepair: "修理待ち",
+    De_Repairing: "修理中",
+    De_BackTo: "リターンマッチ",
+    De_Accepted: "検収済み",
+    De_Repaired: "修理済み",
+    De_BeyondRepair: "修復できません",
+    De_RepairCategory: "修理カテゴリ",
+    De_MaintenancePersonnel: "整備士",
+    De_ProblemDescription: "問題の説明",
+    De_RepairResults: "修理結果",
   },
   // 后端提示
   backendMessage: {

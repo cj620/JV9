@@ -6,9 +6,9 @@
  */
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
-import { repairEnum, enumToList } from "@/enum/workModule";
+import {repairEnum1, enumToList, repairStateEnum, } from "@/enum/workModule";
 // 获取设备接口
-import { getAllDevice } from "@/api/workApi/production/baseData";
+import { assets_device_list } from "@/api/workApi/equipment/device"
 // 引入模块API接口
 import { API } from "@/api/workApi/equipment/repair";
 // 结构
@@ -46,16 +46,9 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
-    innerSearch: {
-      prop: "BillId",
-      cpn: "FormInput",
-      label: i18n.t("Generality.Ge_BillId")
-    },
     cpnProps: {
       // 路由名称
       routeName: "As_DeviceRepairDetail",
-      // 路由路径（名称和路径二选一）
-      // routePath:'/dashboard',
       // 路由传参方式 默认query
       methods: "query",
       // 传参的键名，值为当前数据
@@ -73,40 +66,29 @@ export const tableConfig = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    custom:true,
+    // customFilter: (value) => {
+    //   if (!value) return "";
+    //   return repairStateEnum[value].name;
+    // },
     width:'115px',
   },
-      {
-      prop: "DeviceNo",
-      label: i18n.t("production.Pr_DeviceNo"),
-
-      },
-      /*设备名称*/
-      {
-      prop: "Device",
-      label: i18n.t("production.Pr_DeviceName"),
-      },
-      /*描述*/
-      {
-      prop: "Remarks",
-      label: i18n.t("Generality.Ge_Describe"),
-      },
-      {
-      prop: "RepairCategory",
-        label: i18n.t("Generality.Ge_Category"),
-        custom: true,
-        innerSearch: {
-  //报修类型
-
+  {
+    prop: "DeviceNo",
+    label: i18n.t("production.Pr_DeviceNo"),
+  },
+  /*设备名称*/
+  {
+    prop: "DeviceName",
+    label: i18n.t("production.Pr_DeviceName"),
+  },
+  {
     prop: "RepairCategory",
-          label: i18n.t("Generality.Ge_Category"),
-    cpn: "FormSelect",
-    options: {
-      list: enumToList(repairEnum)
+    label: i18n.t("device.De_RepairCategory"),
+    customFilter: (value) => {
+      if (!value) return "";
+      return repairEnum1[value].name;
     },
-
-        }
-      },
+  },
   //修理厂商
   {
     prop: "Repairer",
@@ -117,70 +99,69 @@ export const tableConfig = [
     prop: "RepairApplicant",
     label: i18n.t("device.De_RepairApplicant"),
   },
-      /*报修日期*/
-      {
-      prop: "RepairDate",
-        label: i18n.t("device.De_RepairDate"),
-      filter:'date'
-      },
-      {
-        // 制单人
-        prop: "Creator",
-        label: i18n.t("Generality.Ge_Creator"),
-      },
-
+  /*报修日期*/
+  {
+    prop: "RepairDate",
+    label: i18n.t("device.De_RepairDate"),
+    filter:'time'
+  },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  },
 ]
 
 // 表单配置
 export const formSchema = [
-//单号搜索
-{
-  prop: "BillId",
-  label: i18n.t("Generality.Ge_BillId"),
-  cpn: "FormInput",
-},
-{
-  prop: "Keyword",
-  label: i18n.t("Generality.Ge_KeyWords"),
-  cpn: "FormInput",
-},
-{
-  prop: "DeviceNo",
-  label: i18n.t("production.Pr_DeviceNo"),
-  cpn: "SyncSelect",
-  api: getAllDevice,
-  apiOptions: {
-    keyName: "DeviceNo",
-    valueName: "DeviceNo",
+  {
+    prop: "Keyword",
+    label: i18n.t("Generality.Ge_KeyWords"),
+    cpn: "FormInput",
   },
-},
-//报修类型
-{
-  prop: "RepairCategory",
-  label: i18n.t("Generality.Ge_Category"),
-  cpn: "FormSelect",
-    options: {
-      list: enumToList(repairEnum)
+  {
+    prop: "DeviceNo",
+    label: i18n.t("production.Pr_DeviceNo"),
+    cpn: "AsyncSearch",
+    api: assets_device_list,
+    apiOptions: {
+      keyName: "DeviceNo",
+      showValue: true,
+      valueName: "DeviceNo",
+      params: {
+        PageSize: 20,
+        CurrentPage: 1,
+      },
     },
   },
-//报修人
-{
-  prop: "Repairer",
-  label: i18n.t("device.De_RepairApplicant"),
-  cpn: "FormInput",
-},
-{
-  // 计划开始
-  prop: "StartDate",
-  cpn: "SingleTime",
-  label: i18n.t("Generality.Ge_StartTime"),
-},
-{
-  // 计划开始
-  prop: "EndDate",
-  cpn: "SingleTime",
-  label: i18n.t("Generality.Ge_EndTime"),
-
-},
-
+  //报修类型
+  {
+    prop: "RepairCategory",
+    label: i18n.t("Generality.Ge_Category"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(repairEnum1)
+    },
+  },
+  {
+    prop: "States",
+    label: i18n.t("Generality.Ge_State"),
+    cpn: "FormSelect",
+    type: "multiple",
+    options: {
+      list: enumToList(repairStateEnum),
+    },
+  },
+  {
+    // 计划开始
+    prop: "StartDate",
+    cpn: "SingleTime",
+    label: i18n.t("Generality.Ge_StartTime"),
+  },
+  {
+    // 计划开始
+    prop: "EndDate",
+    cpn: "SingleTime",
+    label: i18n.t("Generality.Ge_EndTime"),
+  },
 ]

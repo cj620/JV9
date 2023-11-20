@@ -1350,6 +1350,18 @@ const cn = {
     De_RepeatedSelection: "重复选择了设备",
     De_StartMaintenance: "开始保养",
     De_EndMaintenance: "结束保养",
+    De_SelfRepair: "自修",
+    De_OutsourcedRepair: "委外维修",
+    De_ToBeRepair: "待维修",
+    De_Repairing: "维修中",
+    De_BackTo: "打回",
+    De_Accepted: "已验收",
+    De_Repaired: "已维修",
+    De_BeyondRepair: "无法修复",
+    De_RepairCategory: "报修类别",
+    De_MaintenancePersonnel: "维修人",
+    De_ProblemDescription: "问题描述",
+    De_RepairResults: "维修结果",
   },
   // 后端提示
   backendMessage: {

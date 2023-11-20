@@ -5,12 +5,12 @@
   <PageWrapper ref="page">
 
     <JvBlock
-      title="设备信息"
+      :title="$t('device.De_DeviceInfo')"
       ref="first"
       :contentStyle="{
         paddingLeft: '150px',
         position: 'relative',
-        height: '150px',
+        height: '250px',
       }"
     >
       <div class="mould-img">
@@ -20,14 +20,14 @@
         ></ImgUploader>
       </div>
       <JvForm :formObj="formObj">
-        <template #DeviceNo="{ prop }">
-          <el-input v-model="formObj.form[prop]" :disabled="IsDisabled">
-          </el-input>
-        </template>
-        <template #DeviceName="{ prop }">
-          <el-input v-model="formObj.form[prop]" :disabled="IsDisabled">
-          </el-input>
-        </template>
+<!--        <template #DeviceNo="{ prop }">-->
+<!--          <el-input v-model="formObj.form[prop]" :disabled="IsDisabled">-->
+<!--          </el-input>-->
+<!--        </template>-->
+<!--        <template #DeviceName="{ prop }">-->
+<!--          <el-input v-model="formObj.form[prop]" :disabled="IsDisabled">-->
+<!--          </el-input>-->
+<!--        </template>-->
       </JvForm>
     </JvBlock>
 
@@ -84,7 +84,7 @@ import {
 import closeTag from "@/utils/closeTag";
 import ImgUploader from "@/components/WorkModule/ImgUploader";
 export default {
-  name: "As_DeviceMaintainAdd",
+  name: "As_DeviceRepairAdd",
   components: {
     JvUploadFile,
     ImgUploader,
