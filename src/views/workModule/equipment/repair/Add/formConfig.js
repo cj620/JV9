@@ -24,6 +24,10 @@ export const formSchema =  [
          PageSize: 20,
          CurrentPage: 1,
        },
+       propChange:(e, form, targetItem)=>{
+         // console.log(e, form, targetItem.DeviceName)
+         form.DeviceName = targetItem.DeviceName
+       }
      },
      rules: [
        {
@@ -68,33 +72,54 @@ export const formSchema =  [
   {
     // 报修人
     prop: "RepairApplicant",
-    cpn: "SyncSelect",
     label: i18n.t("device.De_RepairApplicant"),
+    cpn: "SyncSelect",
     api: getAllUserData,
     apiOptions: {
-      immediate: true,
-      keyName: "UserName",
-      valueName: "UserName",
+        immediate: true,
+        keyName: "UserName",
+        valueName: "UserName",
     },
     rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseSelect"),
-        trigger: ["change", "blur"],
-      },
+        {
+            required: true,
+            message: i18n.t("Generality.Ge_PleaseSelect"),
+            trigger: ["change", "blur"],
+        },
     ],
+    // hidden: true,
   },
   {
     // 修理厂商
     prop: "Repairer",
     label: i18n.t("device.De_Repairer"),
     cpn: "FormInput",
+    rules: [
+        {
+            required: true,
+            message: i18n.t("Generality.Ge_PleaseSelect"),
+            trigger: ["change", "blur"],
+        },
+    ],
   },
   {
     // 维修人
     prop: "MaintenancePersonnel",
     label: i18n.t("device.De_MaintenancePersonnel"),
-    cpn: "FormInput",
+    cpn: "SyncSelect",
+    api: getAllUserData,
+    apiOptions: {
+        immediate: true,
+        keyName: "UserName",
+        valueName: "UserName",
+    },
+    rules: [
+        {
+            required: true,
+            message: i18n.t("Generality.Ge_PleaseSelect"),
+            trigger: ["change", "blur"],
+        },
+    ],
   },
   {
     // 级别
@@ -110,6 +135,12 @@ export const formSchema =  [
     prop: "ProblemDescription",
     label: i18n.t('device.De_ProblemDescription'),
     cpn: "FormInput",
+  },
+  {
+    // 预计完成日期
+    prop: "PlanCompletionDate",
+    label: i18n.t('device.De_PlanCompletionDate'),
+    cpn:'SingleDateTime',
   },
   {
     // 维修结果

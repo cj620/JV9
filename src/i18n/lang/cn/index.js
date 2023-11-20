@@ -1354,7 +1354,7 @@ const cn = {
     De_OutsourcedRepair: "委外维修",
     De_ToBeRepair: "待维修",
     De_Repairing: "维修中",
-    De_BackTo: "打回",
+    De_BackTo: "已打回",
     De_Accepted: "已验收",
     De_Repaired: "已维修",
     De_BeyondRepair: "无法修复",
@@ -1362,6 +1362,7 @@ const cn = {
     De_MaintenancePersonnel: "维修人",
     De_ProblemDescription: "问题描述",
     De_RepairResults: "维修结果",
+    De_PlanCompletionDate: "预计完成日期",
   },
   // 后端提示
   backendMessage: {

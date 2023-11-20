@@ -66,10 +66,10 @@ export const tableConfig = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    // customFilter: (value) => {
-    //   if (!value) return "";
-    //   return repairStateEnum[value].name;
-    // },
+    customFilter: (value) => {
+      if (!value) return "";
+      return repairStateEnum[value].name;
+    },
     width:'115px',
   },
   {

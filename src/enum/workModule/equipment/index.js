@@ -149,7 +149,7 @@ export const maintenanceStateEnum ={
 export const repairStateEnum = {
   // 待维修
   ToBeRepair: {
-    name: i18n.t("device.De_SelfRepair"),
+    name: i18n.t("device.De_ToBeRepair"),
     value: "ToBeRepair",
   },
   // 维修中
@@ -157,7 +157,7 @@ export const repairStateEnum = {
     name: i18n.t("device.De_Repairing"),
     value: "Repairing",
   },
-  // 打回
+  // 已打回
   BackTo: {
     name: i18n.t("device.De_BackTo"),
     value: "BackTo",

@@ -21,7 +21,6 @@
           ]"
         />
       </template>
-
       <!-- 表格操作行 -->
       <Action
         size="mini"
@@ -48,8 +47,6 @@
 <script>
 // 引入表格类
 import { Table } from "./config";
-// 引入单据状态的枚举
-import { repairEnum } from "@/enum/workModule";
 export default {
   // 页面的标识
   name: "As_DeviceRepair",
@@ -57,10 +54,8 @@ export default {
     return {
       // 表格实例
       tableObj: {},
-      machineCategory: 'Machine',
       editRouterName: "As_DeviceRepairEdit",
       addRouterName: "As_DeviceRepairAdd",
-      repairEnum,
     };
   },
   created() {

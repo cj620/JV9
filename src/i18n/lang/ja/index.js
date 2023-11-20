@@ -1372,6 +1372,7 @@ const ja = {
     De_MaintenancePersonnel: "整備士",
     De_ProblemDescription: "問題の説明",
     De_RepairResults: "修理結果",
+    De_PlanCompletionDate: "完了予定日",
   },
   // 后端提示
   backendMessage: {

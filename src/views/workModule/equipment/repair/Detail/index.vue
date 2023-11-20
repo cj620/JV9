@@ -63,10 +63,6 @@
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
       <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>
     </JvBlock>
-    <!--审核流程-->
-    <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
-      <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
-    </JvBlock>
   </PageWrapper>
 </template>
 
@@ -79,7 +75,6 @@ import { repairEnum } from "@/enum/workModule";
 import { imgUrlPlugin,detailPageModel } from "@/jv_doc/utils/system/index.js";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
-import AuditProcess from "@/components/BasicModule/AuditProcess";
 import JvState from "@/components/JVInternal/JvState/index";
 
 export default {
@@ -87,7 +82,6 @@ export default {
   components: {
     JvRemark,
     JvFileExhibit,
-    AuditProcess,
     JvState,
   },
   data() {
@@ -119,11 +113,6 @@ export default {
           label: this.$t("Generality.Ge_Annex"),
           name: "fourth",
         },
-        {
-          label: this.$t("Generality.Ge_ApproveProcess"),
-          name: "fifth",
-        },
-
       ],
       dynamicShow: false,
       dialogVisible: false,
