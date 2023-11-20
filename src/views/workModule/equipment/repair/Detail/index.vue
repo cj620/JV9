@@ -34,9 +34,9 @@
     >
       <div class="mould-img">
         <el-image
-          :preview-src-list="[imgUrlPlugin(detailObj.detailData.DevicePhotoUrl)]"
+          :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
           style="width: 100%; height: 100%"
-          :src="imgUrlPlugin(detailObj.detailData.DevicePhotoUrl)"
+          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
           fit="cover"
           class="items-details-Img-error"
         >
@@ -47,14 +47,14 @@
       </div>
       <div style="position: relative">
         <JvDetail :detailObj="detailObj">
-          <template #RepairCategory="{ record }">
-            {{ repairEnum[record] && repairEnum[record].name }}
-          </template>
         </JvDetail>
-        <JvState :state="detailObj.detailData.State"></JvState>
+<!--        <JvState :state="detailObj.detailData.State"></JvState>-->
       </div>
     </JvBlock>
-
+    <!--报修配件-->
+    <JvBlock :title="$t('device.De_DeviceRepairItem')" ref="second">
+      <JvTable :table-obj="tableObj"> </JvTable>
+    </JvBlock>
     <!--备注-->
     <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
       <JvRemark :RemarkData="detailObj.detailData.Remarks"></JvRemark>
@@ -69,16 +69,16 @@
 <script>
 import { mapState } from "vuex";
 import { API as Repair ,assets_device_repair_completed} from "@/api/workApi/equipment/repair";
-import { Table, detailConfig } from "./config";
+import { detailConfig, itemTableConfig } from "./config";
 import Detail from "@/jv_doc/class/detail/Detail";
 import { repairEnum } from "@/enum/workModule";
 import { imgUrlPlugin,detailPageModel } from "@/jv_doc/utils/system/index.js";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import JvState from "@/components/JVInternal/JvState/index";
+import { Table } from "~/class/table";
 
 export default {
-  // name: "Pm_ProjectTask_Detail",
   components: {
     JvRemark,
     JvFileExhibit,
@@ -89,11 +89,7 @@ export default {
       cur_Id: this.$route.query.BillId,
       repairEnum,
       detailObj: {},
-      // 工序
       tableObj: {},
-      maintenanceTableObj: {},
-      repairTableObj: {},
-      useTableObj: {},
       btnAction: [],
       DynamicInfo: [],
       // 编辑路由指向 谨慎删除
@@ -104,7 +100,10 @@ export default {
           label: this.$t("Generality.Ge_BillInfo"),
           name: "first",
         },
-
+        {
+          label: this.$t("device.De_DeviceRepairItem"),
+          name: "second",
+        },
         {
           label: this.$t("Generality.Ge_Remarks"),
           name: "third",
@@ -126,8 +125,17 @@ export default {
     BillIdShow() {},
   },
   created() {
-    // this.ruleForm
-    this.tableObj = new Table();
+    this.tableObj = new Table({
+      tableSchema: itemTableConfig,
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: false,
+      height: 350,
+    })
     this.detailObj = new Detail({
       data: {},
       schema: detailConfig,

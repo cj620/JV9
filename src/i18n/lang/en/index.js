@@ -1379,6 +1379,7 @@ const en = {
     De_ProblemDescription: "Problem Description",
     De_RepairResults: "Repair Results",
     De_PlanCompletionDate: "Plan Completion Date",
+    De_DeviceRepairItem: "Device Repair Item"
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",
