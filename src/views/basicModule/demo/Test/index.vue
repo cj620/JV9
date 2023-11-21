@@ -14,13 +14,38 @@
       accept=".xlsx"
       @change="handleClick"
     />
+
+
+    <div class="mxdiv" style="width: 100%;height: 90vh">
+      <canvas id="mxcad"></canvas>
+    </div>
   </PageWrapper>
 </template>
 <script>
 import XLSX from "xlsx";
+
+import  { MxFun }  from "mxdraw"
 export default {
   data() {
     return {};
+  },
+  mounted() {
+   /*  // 配置 鼠标点击图形 自定选中该图形对象
+    MxFun.setIniset({
+      // 启用对象选择功能.
+      EnableIntelliSelect: true,
+      // 选择类型
+      IntelliSelectType: 1,
+      // 是否开启多个选择
+      multipleSelect: false,
+    }); */
+    // 创建控件对象
+    MxFun.createMxObject({
+      canvasId: "mxcad", // canvas元素的id
+      cadFile: "./XYK20231019B.dwg",
+      useWebsocket: false,
+    });
+    console.log(MxFun,56789)
   },
   methods: {
     chooseFile() {
@@ -85,4 +110,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+
+</style>

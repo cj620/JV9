@@ -401,7 +401,7 @@ export default {
       console.log(row);
       this.dialogFormVisible = true;
       this.formObj.form.Id = row.Id;
-      this.formObj.form.ActualEnd = row.ActualEnd;
+      this.formObj.form.ActualEnd =row.ActualEnd ;
       console.log(this.formObj.form);
       /*11*/
     },

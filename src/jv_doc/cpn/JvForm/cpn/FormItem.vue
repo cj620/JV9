@@ -90,7 +90,6 @@
         type="datetime"
         size="mini"
         format="yyyy-MM-dd HH:mm"
-        value-format="yyyy-MM-dd HH:mm"
         :id="getPrefixId"
         @blur="formBlur"
         v-bind="getElFormItemProps(cdata)"
@@ -407,6 +406,7 @@ export default {
           const currentOption = this.treeSyncData.find(
             (item) => item[this.cdata.prop] === val
           );
+          console.log(5)
           this?.formObj?.eventBus.$emit(this.cdata.prop, val, currentOption);
           this.form[this.cdata.prop] = val;
         }
