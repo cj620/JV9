@@ -144,3 +144,60 @@ export const maintenanceStateEnum ={
         value: "Maintenanceed",
     }
 }
+
+// 维修状态
+export const repairStateEnum = {
+  // 待维修
+  ToBeRepair: {
+    name: i18n.t("device.De_ToBeRepair"),
+    value: "ToBeRepair",
+  },
+  // 维修中
+  Repairing: {
+    name: i18n.t("device.De_Repairing"),
+    value: "Repairing",
+  },
+  // 已打回
+  BackTo: {
+    name: i18n.t("device.De_BackTo"),
+    value: "BackTo",
+  },
+  // 已验收
+  Accepted: {
+    name: i18n.t("device.De_Accepted"),
+    value: "Accepted",
+  },
+  // 已维修
+  Repaired: {
+    name: i18n.t("device.De_Repaired"),
+    value: "Repaired",
+  },
+};
+
+// 维修类型
+export const repairEnum1 = {
+  //自修
+  FaultRepair: {
+    name: i18n.t("device.De_SelfRepair"),
+    value: "FaultRepair",
+  },
+  //委外维修
+  PrecisionRepair: {
+    name: i18n.t("device.De_OutsourcedRepair"),
+    value: "PrecisionRepair",
+  },
+};
+
+// 维修结果
+export const repairResultEnum = {
+  //完成
+  Complete: {
+    name: i18n.t("Generality.Ge_Completed"),
+    value: "Complete",
+  },
+  //无法修复
+  BeyondRepair: {
+    name: i18n.t("device.De_BeyondRepair"),
+    value: "BeyondRepair",
+  },
+};

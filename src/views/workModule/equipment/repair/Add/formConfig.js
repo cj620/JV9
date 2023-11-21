@@ -7,90 +7,154 @@
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleOrder\components\formConfig.js
  */
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
+import { assets_device_list } from "@/api/workApi/equipment/device"
+import { repairEnum1, enumToList, LevelEnum ,repairStateEnum, repairResultEnum } from "@/enum/workModule";
 export const formSchema =  [
-
- //设备编号
- {
-   prop: "DeviceNo",
-   label: i18n.t("production.Pr_DeviceNo"),
-   custom:true,
-   rules: [
-     {
-       required: true,
-       message: i18n.t("Generality.Ge_PleaseSelect"),
-       trigger: ["change", "blur"],
-     },
-   ],
- },
- //设备名称
- {
-   prop: "DeviceName",
-   label: i18n.t("production.Pr_DeviceName"),
-   custom:true,
-   rules: [
-     {
-       required: true,
-       message: i18n.t("Generality.Ge_PleaseSelect"),
-       trigger: ["change", "blur"],
-     },
-   ],
- },
-
- //报修类别
- {
-   prop: "RepairCategory",
-   label: i18n.t("Generality.Ge_Category"),
-   cpn: "FormSelect",
-   options: {
-     list:  [
-       {
-         value: "FaultRepair",
-         label: '故障维修',
+   {
+     //设备编号
+     prop: "DeviceNo",
+     label: i18n.t("production.Pr_DeviceNo"),
+     cpn: "AsyncSearch",
+     api: assets_device_list,
+     apiOptions: {
+       keyName: "DeviceNo",
+       showValue: false,
+       valueName: "DeviceNo",
+       params: {
+         PageSize: 20,
+         CurrentPage: 1,
        },
+       propChange:(e, form, targetItem)=>{
+         // console.log(e, form, targetItem.DeviceName)
+         form.DeviceName = targetItem.DeviceName
+       }
+     },
+     rules: [
        {
-         value: "PrecisionRepair",
-         label: '精度校准',
+         required: true,
+         message: i18n.t("Generality.Ge_PleaseSelect"),
+         trigger: ["change", "blur"],
        },
      ],
    },
-   rules: [
-     {
-       required: true,
-       message: i18n.t("Generality.Ge_PleaseSelect"),
-       trigger: ["change", "blur"],
-     },
-   ],
- },
-  //修理厂商
   {
-    prop: "Repairer",
-    label: i18n.t("device.De_Repairer"),
+    //设备名称
+    prop: "DeviceName",
+    label: i18n.t("production.Pr_DeviceName"),
     cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
+    },
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseSelect"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    //报修类别
+    prop: "RepairCategory",
+    label: i18n.t("device.De_RepairCategory"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(repairEnum1)
+    },
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseSelect"),
+        trigger: ["change", "blur"],
+      },
+    ],
   },
   {
     // 报修人
     prop: "RepairApplicant",
-    cpn: "SyncSelect",
     label: i18n.t("device.De_RepairApplicant"),
+    cpn: "SyncSelect",
     api: getAllUserData,
     apiOptions: {
-      immediate: true,
-      keyName: "UserName",
-      valueName: "UserName",
+        immediate: true,
+        keyName: "UserName",
+        valueName: "UserName",
+    },
+    rules: [
+        {
+            required: true,
+            message: i18n.t("Generality.Ge_PleaseSelect"),
+            trigger: ["change", "blur"],
+        },
+    ],
+    // hidden: true,
+  },
+  {
+    // 修理厂商
+    prop: "Repairer",
+    label: i18n.t("device.De_Repairer"),
+    cpn: "FormInput",
+    rules: [
+        {
+            required: true,
+            message: i18n.t("Generality.Ge_PleaseSelect"),
+            trigger: ["change", "blur"],
+        },
+    ],
+  },
+  {
+    // 维修人
+    prop: "MaintenancePersonnel",
+    label: i18n.t("device.De_MaintenancePersonnel"),
+    cpn: "SyncSelect",
+    api: getAllUserData,
+    apiOptions: {
+        immediate: true,
+        keyName: "UserName",
+        valueName: "UserName",
+    },
+    rules: [
+        {
+            required: true,
+            message: i18n.t("Generality.Ge_PleaseSelect"),
+            trigger: ["change", "blur"],
+        },
+    ],
+  },
+  {
+    // 级别
+    prop: "RepairLevel",
+    label: i18n.t('Generality.Ge_Level'),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(LevelEnum)
     },
   },
- {
-   // 报修日期
-   prop: "RepairDate",
-   label: i18n.t("device.De_RepairDate"),
-   cpn:'SingleTime',
-   rules: [
-     {
-       required: true,
-       message: i18n.t("Generality.Ge_PleaseSelect"),
-       trigger: ["change", "blur"],
-     },
-   ],
- }
-
+  {
+    // 问题描述
+    prop: "ProblemDescription",
+    label: i18n.t('device.De_ProblemDescription'),
+    cpn: "FormInput",
+  },
+  {
+    // 预计完成日期
+    prop: "PlanCompletionDate",
+    label: i18n.t('device.De_PlanCompletionDate'),
+    cpn:'SingleDateTime',
+  },
+  {
+    // 维修结果
+    prop: "RepairResults",
+    label: i18n.t('device.De_RepairResults'),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(repairResultEnum)
+    },
+  },
+  {
+    // 完成日期
+    prop: "CompletionDate",
+    label: i18n.t('device.De_CompletionDate'),
+    cpn:'SingleDateTime',
+  },
 ];

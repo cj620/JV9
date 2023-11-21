@@ -214,6 +214,16 @@ const equipment = [
     path: "as_DeviceRepairAdd",
     title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_DeviceRepair"),
   },
+  // 编辑保养模板
+  {
+    key: "As_DeviceRepairEdit",
+    component: () =>
+      import("@/views/workModule/equipment/repair/Edit/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceRepairEdit",
+    path: "as_DeviceRepairEdit",
+    title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.As_DeviceRepair"),
+  },
   // 报修信息详情
   {
     key: "As_DeviceRepairDetail",
