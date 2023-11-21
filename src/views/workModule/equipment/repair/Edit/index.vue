@@ -8,15 +8,8 @@
 -->
 <script>
 import Common from "../Add/index.vue";
-import { API as ProjectTask } from "@/api/workApi/project/projectTask";
-import {
-  getByIdProductionDevice,
-  AddDevice,
-  UpdateDevice,
-} from "@/api/workApi/production/baseData";
 // 引入模块API接口
 import { API } from "@/api/workApi/equipment/repair";
-import closeTag from "@/utils/closeTag";
 import { mapState } from "vuex";
 export default {
   name: "As_DeviceRepairEdit",
@@ -30,9 +23,8 @@ export default {
       API.api_get({ BillId: this.cur_Id }).then((res) => {
         this.formObj.form = res;
         this.ruleForm = res;
-        this.M_TableObj.setData(res.Items);
+        this.$delete(this.ruleForm,'State')
       });
-      console.log(this.cur_Id, 4444444);
     },
   },
 

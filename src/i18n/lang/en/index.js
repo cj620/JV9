@@ -1382,6 +1382,12 @@ const en = {
     De_DeviceRepairItem: "Device Repair Item",
     De_ToBeCollected: "ToBeCollected",
     De_Collected: "Collected",
+    De_DescriptionIsNull: "Description Is Null",
+    De_StartToRepair: "Start To Repair",
+    De_ReturnRepair: "Reject Application",
+    De_CompleteRepair: "Repair Completed",
+    De_AddItems: "Add Accessories",
+    De_CheckRepair: "Repair Acceptance",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

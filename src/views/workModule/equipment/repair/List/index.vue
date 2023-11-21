@@ -13,10 +13,12 @@
           :actions="[
             {
               label: $t('Generality.Ge_Edit'),
+              disabled: row.State !== 'ToBeRepair' && row.State !== 'BackTo',
               confirm: editBill.bind(null, row)
             },
             {
               label: $t('Generality.Ge_Delete'),
+              disabled: row.State !== 'ToBeRepair' && row.State !== 'BackTo',
               popConfirm: {
                 title: $t('Generality.Ge_DeleteConfirm'),
                 confirm: deleteOrder.bind(null, [row.BillId]),
@@ -41,7 +43,32 @@
               title: $t('Generality.Ge_DeleteConfirm'),
               confirm: delBills,
             },
-          }
+          },
+          {
+            label: $t('device.De_StartToRepair'),
+            disabled: canIsStart,
+            confirm: startRepair,
+          },
+          {
+            label: $t('device.De_ReturnRepair'),
+            disabled: canIsStart,
+            confirm: returnRepair,
+          },
+          {
+            label: $t('device.De_AddItems'),
+            disabled: canIsAdd,
+            confirm: addItems,
+          },
+          {
+            label: $t('device.De_CompleteRepair'),
+            disabled: canIsAdd,
+            confirm: completeRepair,
+          },
+          {
+            label: $t('device.De_CheckRepair'),
+            disabled: canIsCheck,
+            confirm: checkRepair,
+          },
         ]"
       >
       </Action>
@@ -80,6 +107,21 @@ export default {
         return !["ToBeRepair", "BackTo"].includes(item.State);
       });
     },
+    canIsStart() {
+      let { datas } = this.tableObj.selectData;
+      if (datas.length !== 1) return true;
+      return datas[0].State !== 'ToBeRepair'
+    },
+    canIsAdd() {
+      let { datas } = this.tableObj.selectData;
+      if (datas.length !== 1) return true;
+      return datas[0].State !== 'Repairing'
+    },
+    canIsCheck() {
+      let { datas } = this.tableObj.selectData;
+      if (datas.length !== 1) return true;
+      return datas[0].State !== 'Accepted'
+    }
   },
   methods: {
     //新增
@@ -105,6 +147,26 @@ export default {
     //批量删除单据
     delBills() {
       this.deleteOrder(this.tableObj.selectData.keys);
+    },
+    // 开始维修
+    startRepair() {
+      console.log(this.tableObj.selectData.keys[0])
+    },
+    // 打回维修
+    returnRepair() {
+
+    },
+    // 添加配件
+    addItems(row) {
+
+    },
+    // 验收维修
+    checkRepair(row) {
+
+    },
+    // 完成维修
+    completeRepair() {
+
     },
   },
 };

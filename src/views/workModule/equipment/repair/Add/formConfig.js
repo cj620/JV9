@@ -7,28 +7,13 @@
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleOrder\components\formConfig.js
  */
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
-import { assets_device_list } from "@/api/workApi/equipment/device"
 import { repairEnum1, enumToList, LevelEnum ,repairStateEnum, repairResultEnum } from "@/enum/workModule";
 export const formSchema =  [
    {
      //设备编号
      prop: "DeviceNo",
      label: i18n.t("production.Pr_DeviceNo"),
-     cpn: "AsyncSearch",
-     api: assets_device_list,
-     apiOptions: {
-       keyName: "DeviceNo",
-       showValue: false,
-       valueName: "DeviceNo",
-       params: {
-         PageSize: 20,
-         CurrentPage: 1,
-       },
-       propChange:(e, form, targetItem)=>{
-         // console.log(e, form, targetItem.DeviceName)
-         form.DeviceName = targetItem.DeviceName
-       }
-     },
+     custom: true,
      rules: [
        {
          required: true,
@@ -129,32 +114,5 @@ export const formSchema =  [
     options: {
       list: enumToList(LevelEnum)
     },
-  },
-  {
-    // 问题描述
-    prop: "ProblemDescription",
-    label: i18n.t('device.De_ProblemDescription'),
-    cpn: "FormInput",
-  },
-  {
-    // 预计完成日期
-    prop: "PlanCompletionDate",
-    label: i18n.t('device.De_PlanCompletionDate'),
-    cpn:'SingleDateTime',
-  },
-  {
-    // 维修结果
-    prop: "RepairResults",
-    label: i18n.t('device.De_RepairResults'),
-    cpn: "FormSelect",
-    options: {
-      list: enumToList(repairResultEnum)
-    },
-  },
-  {
-    // 完成日期
-    prop: "CompletionDate",
-    label: i18n.t('device.De_CompletionDate'),
-    cpn:'SingleDateTime',
   },
 ];

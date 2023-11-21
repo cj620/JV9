@@ -49,11 +49,6 @@ export const detailConfig = [
     prop: "RepairApplicant",
     label: i18n.t("device.De_RepairApplicant"),
   },
-  // 问题描述
-  {
-    prop: "ProblemDescription",
-    label: i18n.t('device.De_ProblemDescription'),
-  },
   // 报修类别
   {
     prop: "RepairCategory",

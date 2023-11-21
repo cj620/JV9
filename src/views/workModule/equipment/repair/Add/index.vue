@@ -9,7 +9,7 @@
       :contentStyle="{
         paddingLeft: '150px',
         position: 'relative',
-        height: '250px',
+        height: '175px',
       }"
     >
       <div class="mould-img">
@@ -19,7 +19,31 @@
         ></ImgUploader>
       </div>
       <JvForm :formObj="formObj">
+        <template #DeviceNo="{ prop }">
+          <el-select
+            v-model="formObj.form[prop]"
+            filterable
+            remote
+            reserve-keyword
+            clearable
+            :remote-method="remoteMethod"
+            @change="selectDevice"
+          >
+            <el-option
+              v-for="item in ListData"
+              :key="item.DeviceNo"
+              :label="item.DeviceNo"
+              :value="item.DeviceNo"
+            >
+            </el-option>
+          </el-select>
+        </template>
       </JvForm>
+    </JvBlock>
+    <!-- 问题描述 -->
+    <JvBlock :title="$t('device.De_ProblemDescription')" ref="second">
+      <el-input type="textarea" :rows="2" v-model="ruleForm.ProblemDescription">
+      </el-input>
     </JvBlock>
     <!-- 备注 -->
     <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
@@ -58,6 +82,8 @@ import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 
 // 引入模块API接口
 import { API as Repair } from "@/api/workApi/equipment/repair";
+import { timeFormat } from "~/utils/time/index";
+import { assets_device_list } from "@/api/workApi/equipment/device"
 import { mapState } from "vuex";
 import closeTag from "@/utils/closeTag";
 import ImgUploader from "@/components/WorkModule/ImgUploader";
@@ -67,30 +93,24 @@ export default {
     JvUploadFile,
     ImgUploader,
   },
-  props: {
-    billData: {
-      type: String,
-      default: () => "",
-    },
-    type: {
-      type: String,
-      default: () => "",
-    },
-  },
   data() {
     return {
+      cur_Id: this.$route.query.BillId,
       formObj: {},
       schema: {},
       detailRouteName: "As_DeviceRepairDetail",
       fileBillId: "",
+      ListData: [],
       ruleForm: {
         BillId: "",
         BillGui: "",
         DeviceNo: "",
         DeviceName: "",
         RepairCategory: "",
+        RepairResults: "",
         Repairer: "",
         RepairApplicant: "",
+        ProblemDescription: "",
         RepairDate: "",
         CompletionDate: "",
         PlanCompletionDate: "",
@@ -116,8 +136,11 @@ export default {
       labelWidth: "80px",
     });
     this.schema = formSchema;
-    this.formObj.form.RepairCategory = "FaultRepair";
-    this.formObj.form.RepairApplicant = this.$store.state.user.name;
+    this.remoteMethod("");
+    if (!this.cur_Id) {
+        this.formObj.form.RepairCategory = "FaultRepair";
+        this.formObj.form.RepairApplicant = this.$store.state.user.name;
+    }
   },
   methods: {
     //上传文件返回的数据
@@ -132,6 +155,9 @@ export default {
       this.formObj.submitAll([this.formObj.validate], (valid) => {
         if (valid) {
           Object.assign(this.ruleForm, this.formObj.form);
+          if (this.ruleForm.RepairDate === "") {
+            this.ruleForm.RepairDate = timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss")
+          }
           Repair.api_save(this.ruleForm).then((res) => {
             let TagName = {
               name: this.detailRouteName,
@@ -142,14 +168,32 @@ export default {
         }
       });
     },
+    remoteMethod(query){
+      const str = {
+          Keyword: query,
+          PageSize: 20,
+          CurrentPage: 1,
+      };
+      assets_device_list(str).then((res) => {
+        this.ListData = res.Items
+      })
+    },
+    selectDevice(e){
+      if (e) {
+        const item = this.ListData.find(obj => obj.DeviceNo === e)
+        this.formObj.form.DeviceName = item.DeviceName;
+      }
+    }
   },
   watch:{
     "formObj.form.RepairCategory": {
       handler(n, o) {
         if (n === "PrecisionRepair"){
           this.formObj.formSchema = this.schema.filter(item => item.prop !== "MaintenancePersonnel");
+          this.formObj.form.MaintenancePersonnel = ""
         } else if (n === "FaultRepair"){
           this.formObj.formSchema = this.schema.filter(item => item.prop !== "Repairer");
+          this.formObj.form.Repairer = ""
         } else {
           this.formObj.formSchema = this.schema
         }
