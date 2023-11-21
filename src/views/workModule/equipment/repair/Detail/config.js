@@ -8,7 +8,7 @@
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
 import { m_tableConfig as tableConfig } from "../Add/editConfig";
-import { repairEnum1 } from "@/enum/workModule";
+import { repairEnum1, repairItemState, repairResultEnum } from "@/enum/workModule";
 
 
 const newTableCongfig = [...tableConfig];
@@ -94,6 +94,10 @@ export const detailConfig = [
   {
     prop: "RepairResults",
     label: i18n.t('device.De_RepairResults'),
+    customFilter: (value) => {
+      if (!value) return "";
+      return repairResultEnum[value].name;
+    },
   },
   {
     // 制单人
@@ -142,10 +146,14 @@ export const itemTableConfig = [
     // 状态
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
+    customFilter: (value) => {
+      if (!value) return "";
+      return repairItemState[value].name;
+    },
   },
   {
     // 备注
-    prop: "ItemName",
+    prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
 ]

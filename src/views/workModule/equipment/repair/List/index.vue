@@ -3,6 +3,10 @@
   <PageWrapper :footer="false">
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
+      <template #State="{ record }">
+        <!-- 状态标签 -->
+        <RepairStateTags :state="record"></RepairStateTags>
+      </template>
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction
@@ -47,9 +51,13 @@
 <script>
 // 引入表格类
 import { Table } from "./config";
+import RepairStateTags from "../components/RepairStateTags.vue";
 export default {
   // 页面的标识
   name: "As_DeviceRepair",
+  components: {
+    RepairStateTags
+  },
   data() {
     return {
       // 表格实例

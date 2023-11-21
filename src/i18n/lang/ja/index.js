@@ -1373,7 +1373,9 @@ const ja = {
     De_ProblemDescription: "問題の説明",
     De_RepairResults: "修理結果",
     De_PlanCompletionDate: "完了予定日",
-    De_DeviceRepairItem: "修理依頼部品"
+    De_DeviceRepairItem: "修理依頼部品",
+    De_ToBeCollected: "受領待ち用",
+    De_Collected: "受領済み",
   },
   // 后端提示
   backendMessage: {

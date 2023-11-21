@@ -48,7 +48,7 @@
       <div style="position: relative">
         <JvDetail :detailObj="detailObj">
         </JvDetail>
-<!--        <JvState :state="detailObj.detailData.State"></JvState>-->
+        <RepairState :state="detailObj.detailData.State"></RepairState>
       </div>
     </JvBlock>
     <!--报修配件-->
@@ -71,30 +71,27 @@ import { mapState } from "vuex";
 import { API as Repair ,assets_device_repair_completed} from "@/api/workApi/equipment/repair";
 import { detailConfig, itemTableConfig } from "./config";
 import Detail from "@/jv_doc/class/detail/Detail";
-import { repairEnum } from "@/enum/workModule";
-import { imgUrlPlugin,detailPageModel } from "@/jv_doc/utils/system/index.js";
+import { repairStateEnum } from "@/enum/workModule";
+import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
-import JvState from "@/components/JVInternal/JvState/index";
+import RepairState from "../components/RepairState.vue"
 import { Table } from "~/class/table";
 
 export default {
   components: {
     JvRemark,
     JvFileExhibit,
-    JvState,
+    RepairState,
   },
   data() {
     return {
       cur_Id: this.$route.query.BillId,
-      repairEnum,
+      repairStateEnum,
       detailObj: {},
       tableObj: {},
       btnAction: [],
-      DynamicInfo: [],
-      // 编辑路由指向 谨慎删除
       editRouteName: "As_DeviceRepairEdit",
-      printMod: "As_DeviceRepair",
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -113,16 +110,12 @@ export default {
           name: "fourth",
         },
       ],
-      dynamicShow: false,
-      dialogVisible: false,
     };
   },
   computed: {
     ...mapState({
       current: (state) => state.page.current,
     }),
-
-    BillIdShow() {},
   },
   created() {
     this.tableObj = new Table({
@@ -149,14 +142,7 @@ export default {
     getData() {
       Repair.api_get({ BillId: this.cur_Id }).then((res) => {
         this.detailObj.setData(res);
-        // this.tableObj.setData(res.BillItems);
-         this.btnAction = detailPageModel(this, res, Repair, this.getData);
-        this.btnAction.splice(4,1);
-        this.btnAction.push({
-          label: this.$t("Generality.Ge_Finished"),
-          confirm: this.successOutsourcing,
-          disabled: this.detailObj.detailData.State !== "Approved",
-        });
+        this.tableObj.setData(res.BillItems);
       });
     },
     // 完成单据

@@ -151,26 +151,36 @@ export const repairStateEnum = {
   ToBeRepair: {
     name: i18n.t("device.De_ToBeRepair"),
     value: "ToBeRepair",
+    color: "#909399",
+    fcolor: "#fff",
   },
   // 维修中
   Repairing: {
     name: i18n.t("device.De_Repairing"),
     value: "Repairing",
+    color: "#faad14",
+    fcolor: "#fff",
   },
   // 已打回
   BackTo: {
     name: i18n.t("device.De_BackTo"),
     value: "BackTo",
+    color: "#000000",
+    fcolor: "#fff",
   },
   // 已验收
   Accepted: {
     name: i18n.t("device.De_Accepted"),
     value: "Accepted",
+    color: "#FE222D",
+    fcolor: "#fff",
   },
   // 已维修
   Repaired: {
     name: i18n.t("device.De_Repaired"),
     value: "Repaired",
+    color: "#39B54A",
+    fcolor: "#fff",
   },
 };
 
@@ -201,3 +211,17 @@ export const repairResultEnum = {
     value: "BeyondRepair",
   },
 };
+
+// 报修配件状态
+export const repairItemState = {
+  //   待领用
+  ToBeCollected: {
+    name: i18n.t("device.De_ToBeCollected"),
+    value: "ToBeCollected",
+  },
+  //   已领用
+  Collected: {
+    name: i18n.t("device.De_Collected"),
+    value: "Collected",
+  }
+}

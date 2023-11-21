@@ -40,6 +40,7 @@ import {
   repairStateEnum,
   repairEnum1,
   repairResultEnum,
+  repairItemState,
 } from "./equipment";
 export { enumToList, enumFilter } from "@/jv_doc/utils/system/enumsPlugin";
 export {
@@ -101,4 +102,6 @@ export {
   repairEnum1,
   // 维修结果
   repairResultEnum,
+  // 报修配件状态
+  repairItemState
 };

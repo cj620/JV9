@@ -1363,7 +1363,9 @@ const cn = {
     De_ProblemDescription: "问题描述",
     De_RepairResults: "维修结果",
     De_PlanCompletionDate: "预计完成日期",
-    De_DeviceRepairItem: "报修配件"
+    De_DeviceRepairItem: "报修配件",
+    De_ToBeCollected: "待领用",
+    De_Collected: "已领用",
   },
   // 后端提示
   backendMessage: {
