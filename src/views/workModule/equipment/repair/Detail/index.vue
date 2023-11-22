@@ -55,12 +55,16 @@
     <JvBlock :title="$t('device.De_DeviceRepairItem')" ref="second">
       <JvTable :table-obj="tableObj"> </JvTable>
     </JvBlock>
+    <!--问题描述-->
+    <JvBlock :title="$t('device.De_ProblemDescription')" ref="third">
+      <RepairDescription :DesData="detailObj.detailData.ProblemDescription"></RepairDescription>
+    </JvBlock>
     <!--备注-->
-    <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
+    <JvBlock :title="$t('Generality.Ge_Remarks')" ref="fourth">
       <JvRemark :RemarkData="detailObj.detailData.Remarks"></JvRemark>
     </JvBlock>
     <!--附件-->
-    <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
+    <JvBlock :title="$t('Generality.Ge_Annex')" ref="fifth">
       <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>
     </JvBlock>
   </PageWrapper>
@@ -75,6 +79,7 @@ import { repairStateEnum } from "@/enum/workModule";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
+import RepairDescription from "@/views/workModule/equipment/repair/components/RepairDescription.vue";
 import RepairState from "../components/RepairState.vue"
 import { Table } from "~/class/table";
 
@@ -82,6 +87,7 @@ export default {
   components: {
     JvRemark,
     JvFileExhibit,
+    RepairDescription,
     RepairState,
   },
   data() {
@@ -102,12 +108,16 @@ export default {
           name: "second",
         },
         {
+          label: this.$t('device.De_ProblemDescription'),
+          name: "third"
+        },
+        {
           label: this.$t("Generality.Ge_Remarks"),
-          name: "third",
+          name: "fourth",
         },
         {
           label: this.$t("Generality.Ge_Annex"),
-          name: "fourth",
+          name: "fifth",
         },
       ],
     };
@@ -168,16 +178,9 @@ export default {
   left: 10px;
   right: 200px;
 }
-
-.sum-text {
-  display: inline-block;
-  // padding-right: 100px;
-  width: 200px;
-  text-align: end;
-}
 .items-details-Img-error {
   background-color: rgb(231, 231, 231);
-  .image-slot {
+  ::v-deep .image-slot {
     width: 100%;
     height: 100%;
     display: flex;

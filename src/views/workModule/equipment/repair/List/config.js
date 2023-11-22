@@ -91,6 +91,11 @@ export const tableConfig = [
     prop: "Repairer",
     label: i18n.t("device.De_Repairer"),
   },
+  //维修人
+  {
+    prop: "MaintenancePersonnel",
+    label: i18n.t("device.De_MaintenancePersonnel"),
+  },
   //维修结果
   {
     prop: "RepairResults",

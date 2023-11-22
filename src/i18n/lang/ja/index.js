@@ -1376,6 +1376,12 @@ const ja = {
     De_DeviceRepairItem: "修理依頼部品",
     De_ToBeCollected: "受領待ち用",
     De_Collected: "受領済み",
+    De_DescriptionIsNull: "問題の説明はありません",
+    De_StartToRepair: "修理開始",
+    De_ReturnRepair: "請求書を返送する",
+    De_CompleteRepair: "修理完了",
+    De_AddItems: "継手の追加",
+    De_CheckRepair: "修理検収",
   },
   // 后端提示
   backendMessage: {

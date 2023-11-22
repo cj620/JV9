@@ -1366,6 +1366,12 @@ const cn = {
     De_DeviceRepairItem: "报修配件",
     De_ToBeCollected: "待领用",
     De_Collected: "已领用",
+    De_DescriptionIsNull: "暂无问题描述",
+    De_StartToRepair: "开始维修",
+    De_ReturnRepair: "打回申请",
+    De_CompleteRepair: "维修完成",
+    De_AddItems: "添加配件",
+    De_CheckRepair: "维修验收",
   },
   // 后端提示
   backendMessage: {
