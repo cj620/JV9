@@ -11,15 +11,17 @@
     </el-tabs>
     <Action slot="sticky-extra" size="small" :actions="[
       {
-        label: $t('Generality.Ge_Edit'),
-        confirm: editBill,
-      },
-      {
         label: $t('Generality.Ge_Copy'),
         confirm: copyBill,
       },
       {
+        label: $t('Generality.Ge_Edit'),
+        disabled: canIsEdit,
+        confirm: editBill,
+      },
+      {
         label: $t('Generality.Ge_Delete'),
+        disabled: canIsEdit,
         confirm: deleteBill,
       },
     ]"></Action>
@@ -98,10 +100,13 @@ export default {
       ],
     }
   },
-  computed: {
+  computed:{
     ...mapState({
       current: (state) => state.page.current,
-    })
+    }),
+    canIsEdit(){
+      return this.State === "Using"
+    }
   },
   async created() {
     this.cur_billId = this.$route.query.BillId;

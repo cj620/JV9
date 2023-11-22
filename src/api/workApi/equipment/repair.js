@@ -11,3 +11,17 @@ export function assets_device_repair_completed(data) {
     data,
   });
 }
+export function assets_device_repair_updateState(data){
+  return request({
+    url: "/assets_device_repair/updateState",
+    method: "post",
+    data
+  })
+}
+export function assets_device_repair_saveItems(data){
+  return request({
+    url: "/assets_device_repair/saveItmes",
+    method: "post",
+    data
+  })
+}

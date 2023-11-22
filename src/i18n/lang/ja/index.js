@@ -1059,7 +1059,8 @@ const ja = {
     Ge_SelectedItems: {
       str1: "",
       str2: "つのデータが選択されました",
-    }
+    },
+    Ge_SelectNeededItems:"追加する品目を先にチェックしてください",
   },
   //生产
   production: {
@@ -1382,6 +1383,7 @@ const ja = {
     De_CompleteRepair: "修理完了",
     De_AddItems: "継手の追加",
     De_CheckRepair: "修理検収",
+    De_AcceptDate: "検収日",
   },
   // 后端提示
   backendMessage: {

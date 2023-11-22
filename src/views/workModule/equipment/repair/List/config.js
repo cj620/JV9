@@ -170,7 +170,7 @@ export const formSchema = [
     label: i18n.t("Generality.Ge_StartTime"),
   },
   {
-    // 计划开始
+    // 计划结束
     prop: "EndDate",
     cpn: "SingleTime",
     label: i18n.t("Generality.Ge_EndTime"),

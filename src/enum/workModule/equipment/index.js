@@ -221,7 +221,7 @@ export const repairItemState = {
   },
   //   已领用
   Collected: {
-    name: i18n.t("device.De_Collected"),
-    value: "Collected",
+      name: i18n.t("device.De_Collected"),
+      value: "Collected",
   }
 }

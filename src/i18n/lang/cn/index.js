@@ -1050,7 +1050,8 @@ const cn = {
     Ge_SelectedItems: {
       str1: "已选择",
       str2: "条数据",
-    }
+    },
+    Ge_SelectNeededItems:"请先勾选需要添加的物料",
   },
   //生产
   production: {
@@ -1372,6 +1373,7 @@ const cn = {
     De_CompleteRepair: "维修完成",
     De_AddItems: "添加配件",
     De_CheckRepair: "维修验收",
+    De_AcceptDate: "验收日期",
   },
   // 后端提示
   backendMessage: {

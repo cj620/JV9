@@ -62,6 +62,7 @@ export const detailConfig = [
   {
     prop: "PlanCompletionDate",
     label: i18n.t('device.De_PlanCompletionDate'),
+    filter: "time",
   },
   //修理厂商
   {
@@ -80,9 +81,9 @@ export const detailConfig = [
     filter: "time",
   },
   {
-    // 完成日期
+    // 验收日期
     prop: "CompletionDate",
-    label: i18n.t("device.De_CompletionDate"),
+    label: i18n.t("device.De_AcceptDate"),
     filter: "time",
   },
   // 维修结果

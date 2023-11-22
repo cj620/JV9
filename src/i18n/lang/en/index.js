@@ -1063,7 +1063,8 @@ const en = {
     Ge_SelectedItems: {
       str1: "",
       str2: "pieces of data have been selected",
-    }
+    },
+    Ge_SelectNeededItems:"Please check the materials that need to be added first",
   },
   //生产
   production: {
@@ -1388,6 +1389,7 @@ const en = {
     De_CompleteRepair: "Repair Completed",
     De_AddItems: "Add Accessories",
     De_CheckRepair: "Repair Acceptance",
+    De_AcceptDate: "Acceptance Date",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",
