@@ -267,12 +267,11 @@ export default {
       }
       console.log(obj)
       assets_device_repair_saveItems(obj).then((res) => {
-        console.log(res)
-        // let TagName = {
-        //   name: this.detailRouteName,
-        //   query: { BillId: res },
-        // };
-        // closeTag(this.current, TagName);
+        let TagName = {
+          name: this.detailRouteName,
+          query: { BillId: this.tableObj.selectData.keys[0], },
+        };
+        closeTag(this.current, TagName);
       })
       this.ItemsFormVisible = false
     },
