@@ -36,8 +36,8 @@ export default {
 
     border: 1px solid #eee;
 
-    padding: 3px 15px;
-    margin-right: 10px;
+    padding: 3px 5px;
+    margin-right: 5px;
     border-radius: 15px;
   }
 }
