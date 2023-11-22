@@ -265,7 +265,6 @@ export default {
         BillGui:this.tableObj.selectData.datas[0].BillGui,
         Item: e
       }
-      console.log(obj)
       assets_device_repair_saveItems(obj).then((res) => {
         let TagName = {
           name: this.detailRouteName,
