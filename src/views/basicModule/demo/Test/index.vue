@@ -24,7 +24,7 @@
 <script>
 import XLSX from "xlsx";
 
-import  { MxFun }  from "mxdraw"
+// import  { MxFun }  from "mxdraw"
 export default {
   data() {
     return {};

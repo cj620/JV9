@@ -45,6 +45,15 @@
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
       <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>
     </JvBlock>
+    <JvDialog
+        :title="$t('device.De_StartMaintenance')"
+        v-if="startFormVisible"
+        :visible.sync="startFormVisible"
+        @confirm="confirmToStart"
+        width="30%">
+      <JvForm :form-obj="startFormObj">
+      </JvForm>
+    </JvDialog>
     <SelectRepairItems
         :visible.sync="ItemsFormVisible"
         v-if="ItemsFormVisible"
@@ -61,6 +70,7 @@ import { detailTable, detailConfig } from "./config";
 import { itemTableConfig } from "@/views/workModule/equipment/repair/Detail/config";
 import Detail from "@/jv_doc/class/detail/Detail";
 import { Table } from "~/class/table";
+import { Form } from "@/jv_doc/class/form";
 import { API as Maintenance } from "@/api/workApi/equipment/maintenance";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import MaintenanceState from "@/views/workModule/equipment/maintenance/components/MaintenanceState.vue";
@@ -69,6 +79,7 @@ import { assets_device_maintenance_start,
   assets_device_maintenance_save_accessory
 } from "@/api/workApi/equipment/maintenance"
 import SelectRepairItems from "@/views/workModule/equipment/repair/components/SelectRepairItems/SelectRepairItems.vue";
+import {timeFormat} from "~/utils/time";
 export default {
   name: "index",
   components: {
@@ -82,9 +93,11 @@ export default {
       detailObj: {},
       maintenanceTableObj: {},
       itemsTableObj: {},
+      startFormObj: {},
       transferData: [],
       btnAction: [],
       ItemsFormVisible: false,
+      startFormVisible: false,
       // 编辑路由指向 谨慎删除
       editRouteName: "As_DeviceMaintenanceEdit",
       printMod: "As_DeviceMaintenance",
@@ -133,6 +146,27 @@ export default {
       operationCol: false,
       height: 350,
     })
+    this.startFormObj = new Form({
+      formSchema: [
+        {
+          prop: "MaintenanceStartDate",
+          label: i18n.t('device.De_MaintenanceStartDate'),
+          cpn: "SingleDateTime",
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseEnter"),
+              trigger: ["change", "blur"],
+            },
+          ],
+        }
+      ],
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
     this.getData();
   },
   mounted() {},
@@ -147,7 +181,7 @@ export default {
           // 开始保养
           {
             label: this.$t('device.De_StartMaintenance'),
-            disabled: res.State !== "ToBeMaintained",
+            disabled: res.State !== "ToBeMaintenance",
             confirm: this.startMaintenance,
           },
           // 修改明细
@@ -173,8 +207,21 @@ export default {
     },
     // 开始保养
     startMaintenance() {
-      assets_device_maintenance_start({BillId: this.cur_Id}).then((res) => {
-        this.getData();
+      this.startFormVisible = true
+      this.startFormObj.form.MaintenanceStartDate = timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss")
+    },
+    // 确认开始
+    confirmToStart() {
+      this.startFormObj.validate((valid) => {
+        if (valid) {
+          assets_device_maintenance_start({
+            BillId: this.cur_Id,
+            MaintenanceStartDate: timeFormat(this.startFormObj.form.MaintenanceStartDate, "yyyy-MM-dd hh:mm:ss")
+          }).then((res) => {
+            this.getData();
+          })
+          this.startFormVisible = false
+        }
       })
     },
     // 选择物料

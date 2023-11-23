@@ -48,6 +48,15 @@
       >
       </Action>
     </JvTable>
+    <JvDialog
+        :title="$t('device.De_StartMaintenance')"
+        v-if="startFormVisible"
+        :visible.sync="startFormVisible"
+        @confirm="confirmToStart"
+        width="30%">
+      <JvForm :form-obj="startFormObj">
+      </JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 <script>
@@ -55,6 +64,8 @@
 import { Table } from "./config";
 import { assets_device_maintenance_start,assets_device_maintenance_end } from "@/api/workApi/equipment/maintenance"
 import MaintenanceStateTags from "@/views/workModule/equipment/maintenance/components/MaintenanceStateTags.vue";
+import { Form } from "@/jv_doc/class/form";
+import {timeFormat} from "~/utils/time";
 export default {
   // 页面的标识
   name: "As_DeviceMaintain",
@@ -65,6 +76,9 @@ export default {
     return {
       // 表格实例
       tableObj: {},
+      startFormObj: {},
+      selectedId: "",
+      startFormVisible: false,
       editRouterName:  "As_DeviceMaintenanceEdit",
     };
   },
@@ -72,6 +86,27 @@ export default {
     // 创建表格实例
     this.tableObj = new Table();
     this.tableObj.getData();
+    this.startFormObj = new Form({
+      formSchema: [
+        {
+          prop: "MaintenanceStartDate",
+          label: i18n.t('device.De_MaintenanceStartDate'),
+          cpn: "SingleDateTime",
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseEnter"),
+              trigger: ["change", "blur"],
+            },
+          ],
+        }
+      ],
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
   },
   computed: {
     // 是否可以批量删除
@@ -85,8 +120,21 @@ export default {
   },
   methods: {
     startMaintenance(row){
-      assets_device_maintenance_start({BillId: row.BillId}).then((res) => {
-        this.tableObj.getData();
+      this.selectedId = row.BillId
+      this.startFormVisible = true
+      this.startFormObj.form.MaintenanceStartDate = timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss")
+    },
+    confirmToStart(){
+      this.startFormObj.validate((valid) => {
+        if (valid) {
+          assets_device_maintenance_start({
+            BillId: this.selectedId,
+            MaintenanceStartDate: timeFormat(this.startFormObj.form.MaintenanceStartDate, "yyyy-MM-dd hh:mm:ss")
+          }).then((res) => {
+            this.tableObj.getData();
+          })
+          this.startFormVisible = false
+        }
       })
     },
     // endMaintenance(row){
