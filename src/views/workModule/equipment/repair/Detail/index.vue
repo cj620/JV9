@@ -139,6 +139,7 @@ export default {
       ItemsFormVisible: false,
       checkFormVisible: false,
       editRouteName: "As_DeviceRepairEdit",
+      addRouterName: "As_DeviceRepairAdd",
       listRouteName: "As_DeviceRepair",
       tabPanes: [
         {
@@ -228,6 +229,11 @@ export default {
         this.detailObj.setData(res);
         this.tableObj.setData(res.BillItems);
         this.btnAction = [
+          // 复制
+          {
+            label: this.$t('Generality.Ge_Copy'),
+            confirm: this.copyBill,
+          },
           // 编辑
           {
             label: this.$t("Generality.Ge_Edit"),
@@ -274,6 +280,15 @@ export default {
             confirm: this.checkRepair,
           },
         ]
+      });
+    },
+    copyBill(){
+      this.$router.push({
+        name: this.addRouterName,
+        query: {
+          BillId: this.cur_Id,
+          type: 'copy'
+        },
       });
     },
     editBill(){

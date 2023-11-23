@@ -16,18 +16,22 @@ export default {
   extends: Common,
   created() {
     console.log(this.cur_Id, 4444444);
-    this.getData();
+    // this.getData();
   },
   methods: {
-    getData() {
-      API.api_get({ BillId: this.cur_Id }).then((res) => {
-        this.formObj.form = res;
-        this.ruleForm = res;
-        this.$delete(this.ruleForm,'State')
-      });
-    },
+    // getData() {
+    //   this.fileBillId = this.cur_Id
+    //   API.api_get({ BillId: this.cur_Id }).then((res) => {
+    //     this.formObj.form = res;
+    //     this.ruleForm = res;
+    //     this.$delete(this.ruleForm,'State')
+    //     this.$delete(this.ruleForm,'AcceptedBy')
+    //     this.$delete(this.ruleForm,'CreationDate')
+    //     this.$delete(this.ruleForm,'Creator')
+    //     this.$delete(this.ruleForm,'DevicePhotoUrl')
+    //   });
+    // },
   },
-
   computed: {
     ...mapState({
       current: (state) => state.page.current,

@@ -12,8 +12,12 @@
         <TableAction
           :actions="[
             {
+              label: $t('Generality.Ge_Copy'),
+              confirm: copyBill.bind(null, row)
+            },
+            {
               label: $t('Generality.Ge_Edit'),
-              disabled: row.State !== 'ToBeRepair' && row.State !== 'BackTo',
+              disabled: row.State !== 'ToBeRepair',
               confirm: editBill.bind(null, row)
             },
             {
@@ -152,6 +156,13 @@ export default {
           prop: "PlanCompletionDate",
           label: i18n.t('device.De_PlanCompletionDate'),
           cpn: "SingleDateTime",
+          rules: [
+              {
+                  required: true,
+                  message: i18n.t("Generality.Ge_PleaseEnter"),
+                  trigger: ["change", "blur"],
+              },
+          ],
         }
       ],
       labelPosition: "top",
@@ -169,6 +180,13 @@ export default {
           options: {
             list: enumToList(repairResultEnum),
           },
+          rules: [
+              {
+                  required: true,
+                  message: i18n.t("Generality.Ge_PleaseEnter"),
+                  trigger: ["change", "blur"],
+              },
+          ],
         }
       ],
       labelPosition: "top",
@@ -219,6 +237,17 @@ export default {
         this.tableObj.getData();
       });
     },
+    //复制
+    copyBill(row) {
+      let { BillId } = row;
+      this.$router.push({
+          name: this.addRouterName,
+          query: {
+              BillId,
+              type: 'copy'
+          },
+      });
+    },
     //编辑
     editBill(row) {
       let { BillId } = row;
@@ -237,15 +266,19 @@ export default {
     },
     // 确认开始维修
     confirmStart() {
-      let obj1 = {
-        BillId: this.tableObj.selectData.keys[0],
-        State: 1,
-        PlanCompletionDate: timeFormat(this.startFormObj.form.PlanCompletionDate, "yyyy-MM-dd hh:mm:ss"),
-      };
-      assets_device_repair_updateState(obj1).then((res) => {
-        this.tableObj.getData();
-      });
-      this.startFormVisible = false;
+      this.startFormObj.validate((valid) => {
+        if (valid) {
+          let obj1 = {
+            BillId: this.tableObj.selectData.keys[0],
+            State: 1,
+            PlanCompletionDate: timeFormat(this.startFormObj.form.PlanCompletionDate, "yyyy-MM-dd hh:mm:ss"),
+          };
+          assets_device_repair_updateState(obj1).then((res) => {
+            this.tableObj.getData();
+          });
+          this.startFormVisible = false;
+        }
+      })
     },
     // 打回维修
     returnRepair() {
@@ -289,14 +322,18 @@ export default {
     },
     // 确认验收
     conformCheck() {
-      assets_device_repair_updateState({
-        BillId: this.tableObj.selectData.keys[0],
-        State: 3,
-        RepairResults: this.checkFormObj.form.RepairResults
-      }).then((res) => {
-        this.tableObj.getData();
+      this.checkFormObj.validate((valid) => {
+        if (valid) {
+          assets_device_repair_updateState({
+            BillId: this.tableObj.selectData.keys[0],
+            State: 3,
+            RepairResults: this.checkFormObj.form.RepairResults
+          }).then((res) => {
+            this.tableObj.getData();
+          });
+          this.checkFormVisible = false;
+        }
       });
-      this.checkFormVisible = false;
     },
   },
 };
