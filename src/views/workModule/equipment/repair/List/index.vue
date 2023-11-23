@@ -292,7 +292,9 @@ export default {
     // 添加配件
     addItems() {
       this.ItemsFormVisible = true
+      this.transferData = this.tableObj.selectData.datas[0].BillItems
     },
+    // 确认添加
     confirmData(e) {
       const obj = {
         BillGui:this.tableObj.selectData.datas[0].BillGui,

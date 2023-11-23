@@ -193,6 +193,13 @@ export default {
           prop: "PlanCompletionDate",
           label: i18n.t('device.De_PlanCompletionDate'),
           cpn: "SingleDateTime",
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseEnter"),
+              trigger: ["change", "blur"],
+            },
+          ],
         }
       ],
       labelPosition: "top",
@@ -210,6 +217,13 @@ export default {
           options: {
             list: enumToList(repairResultEnum),
           },
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseEnter"),
+              trigger: ["change", "blur"],
+            },
+          ],
         }
       ],
       labelPosition: "top",
@@ -226,6 +240,7 @@ export default {
     getData() {
       Repair.api_get({ BillId: this.cur_Id }).then((res) => {
         this.cur_BillGui = res.BillGui
+        this.transferData = res.BillItems
         this.detailObj.setData(res);
         this.tableObj.setData(res.BillItems);
         this.btnAction = [
@@ -282,6 +297,7 @@ export default {
         ]
       });
     },
+    // 复制
     copyBill(){
       this.$router.push({
         name: this.addRouterName,
@@ -291,12 +307,14 @@ export default {
         },
       });
     },
+    // 编辑
     editBill(){
       this.$router.push({
         name: this.editRouteName,
         query: { BillId: this.cur_Id },
       });
     },
+    // 删除
     deleteBill(){
       assets_device_repair_delete({ BillIds: [this.cur_Id] }).then((_) => {
         let TagName = {
@@ -305,20 +323,27 @@ export default {
         closeTag(this.current, TagName);
       });
     },
+    // 开始维修
     startRepair() {
       this.startFormVisible = true
     },
+    // 确认开始
     confirmStart() {
-      let obj1 = {
-        BillId: this.cur_Id,
-        State: 1,
-        PlanCompletionDate: timeFormat(this.startFormObj.form.PlanCompletionDate, "yyyy-MM-dd hh:mm:ss"),
-      };
-      assets_device_repair_updateState(obj1).then((res) => {
-        this.getData();
-      });
-      this.startFormVisible = false;
+      this.startFormObj.validate((valid) => {
+        if (valid) {
+          let obj1 = {
+            BillId: this.cur_Id,
+            State: 1,
+            PlanCompletionDate: timeFormat(this.startFormObj.form.PlanCompletionDate, "yyyy-MM-dd hh:mm:ss"),
+          };
+          assets_device_repair_updateState(obj1).then((res) => {
+            this.getData();
+          });
+          this.startFormVisible = false;
+        }
+      })
     },
+    // 打回
     returnRepair() {
       assets_device_repair_updateState({
         BillId: this.cur_Id,
@@ -327,9 +352,11 @@ export default {
         this.getData();
       });
     },
+    // 添加物料
     addItems() {
       this.ItemsFormVisible = true
     },
+    // 确认物料
     confirmData(e) {
       const obj = {
         BillGui: this.cur_BillGui,
@@ -340,6 +367,7 @@ export default {
       })
       this.ItemsFormVisible = false
     },
+    // 完成维修
     completeRepair() {
       assets_device_repair_updateState({
         BillId: this.cur_Id,
@@ -348,18 +376,24 @@ export default {
         this.getData();
       });
     },
+    // 验收维修
     checkRepair() {
       this.checkFormVisible = true;
     },
+    // 确认验收
     conformCheck() {
-      assets_device_repair_updateState({
-        BillId: this.cur_Id,
-        State: 3,
-        RepairResults: this.checkFormObj.form.RepairResults
-      }).then((res) => {
-        this.getData();
-      });
-      this.checkFormVisible = false;
+      this.checkFormObj.validate((valid) => {
+        if (valid) {
+          assets_device_repair_updateState({
+            BillId: this.cur_Id,
+            State: 3,
+            RepairResults: this.checkFormObj.form.RepairResults
+          }).then((res) => {
+            this.getData();
+          });
+          this.checkFormVisible = false;
+        }
+      })
     },
     // // 完成单据
     // successOutsourcing() {

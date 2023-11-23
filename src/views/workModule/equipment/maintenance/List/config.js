@@ -76,11 +76,12 @@ export const tableConfig = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    width:'100px',
-    customFilter: (value) => {
-        if (!value) return "";
-        return maintenanceStateEnum[value].name;
-    },
+    width:'120px',
+    custom: true,
+    // customFilter: (value) => {
+    //     if (!value) return "";
+    //     return maintenanceStateEnum[value].name;
+    // },
   },
   //   方案名称
   {

@@ -1374,6 +1374,9 @@ const cn = {
     De_AddItems: "添加配件",
     De_CheckRepair: "维修验收",
     De_AcceptDate: "验收日期",
+    De_MaintenanceItems: "保养配件",
+    De_MaintenanceDetail: "保养明细",
+    De_EditDetail: "修改明细",
   },
   // 后端提示
   backendMessage: {

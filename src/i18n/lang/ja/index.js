@@ -1384,6 +1384,9 @@ const ja = {
     De_AddItems: "継手の追加",
     De_CheckRepair: "修理検収",
     De_AcceptDate: "検収日",
+    De_MaintenanceItems: "保守部品",
+    De_MaintenanceDetail: "保守詳細",
+    De_EditDetail: "詳細の変更",
   },
   // 后端提示
   backendMessage: {

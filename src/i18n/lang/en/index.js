@@ -1390,6 +1390,9 @@ const en = {
     De_AddItems: "Add Accessories",
     De_CheckRepair: "Repair Acceptance",
     De_AcceptDate: "Acceptance Date",
+    De_MaintenanceItems: "Maintenance Accessories",
+    De_MaintenanceDetail: "Maintenance Detail",
+    De_EditDetail: "Edit Detail",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

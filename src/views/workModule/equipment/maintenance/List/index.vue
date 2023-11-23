@@ -3,6 +3,9 @@
   <PageWrapper :footer="false">
     <!-- 表格 -->
     <JvTable ref="BillTable" :table-obj="tableObj">
+      <template #State="{record}">
+        <MaintenanceStateTags :state="record"></MaintenanceStateTags>
+      </template>
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction
@@ -12,11 +15,11 @@
               confirm: startMaintenance.bind(null,row),
               disabled: row.State !== 'ToBeMaintenance',
             },
-            {
-              label: $t('device.De_EndMaintenance'),
-              confirm: endMaintenance.bind(null,row),
-              disabled: row.State !== 'Maintenanceing',
-            },
+            // {
+            //   label: $t('device.De_EndMaintenance'),
+            //   confirm: endMaintenance.bind(null,row),
+            //   disabled: row.State !== 'Maintenanceing',
+            // },
             {
               label: $t('Generality.Ge_Delete'),
               disabled: row.State !== 'ToBeMaintenance',
@@ -51,9 +54,13 @@
 // 引入表格类
 import { Table } from "./config";
 import { assets_device_maintenance_start,assets_device_maintenance_end } from "@/api/workApi/equipment/maintenance"
+import MaintenanceStateTags from "@/views/workModule/equipment/maintenance/components/MaintenanceStateTags.vue";
 export default {
   // 页面的标识
   name: "As_DeviceMaintain",
+  components: {
+    MaintenanceStateTags
+  },
   data() {
     return {
       // 表格实例
@@ -82,11 +89,11 @@ export default {
         this.tableObj.getData();
       })
     },
-    endMaintenance(row){
-      assets_device_maintenance_end({BillId: row.BillId}).then((res) => {
-        this.tableObj.getData();
-      })
-    },
+    // endMaintenance(row){
+    //   assets_device_maintenance_end({BillId: row.BillId}).then((res) => {
+    //     this.tableObj.getData();
+    //   })
+    // },
     //删除单据
     deleteOrder(ids) {
       this.tableObj.api.del({ BillIds: ids }).then((_) => {

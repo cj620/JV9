@@ -9,7 +9,7 @@
 import { Table as BaseTable } from "@/jv_doc/class/table";
 import { m_tableConfig as tableConfig } from "../Add/editConfig";
 import { maintenanceEnum, enumToList } from "@/enum/workModule";
-export class Table extends BaseTable {
+export class detailTable extends BaseTable {
   constructor() {
     super({
       tableSchema: m_tableConfig,
