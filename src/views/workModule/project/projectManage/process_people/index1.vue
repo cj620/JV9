@@ -337,7 +337,6 @@ export default {
       } else {
         this.list[i].workerList = []
       }
-
     },
     setProjectTaskLogs(item) {
       this.showProjectTaskLogs = !this.showProjectTaskLogs;
