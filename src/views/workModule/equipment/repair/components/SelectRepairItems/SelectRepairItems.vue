@@ -1,23 +1,23 @@
 <template>
   <div>
     <jv-dialog
-      :title="$t('Generality.Ge_SelectItems')"
-      width="70%"
-      :close-on-click-modal="true"
-      :modal-append-to-body="false"
-      :append-to-body="false"
-      v-bind="$attrs"
-      v-on="$listeners"
-      @confirm="confirmMaterial"
+        :title="$t('device.De_DeviceRepairItem')"
+        width="70%"
+        :close-on-click-modal="true"
+        :modal-append-to-body="false"
+        :append-to-body="false"
+        v-bind="$attrs"
+        v-on="$listeners"
+        @confirm="confirmMaterial"
     >
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="$t('Generality.Ge_Optional')" name="ToBeSelected">
           <div class="selected-material-filter">
             <span
-              v-for="(item, index) in ItemTypeList"
-              @click="clickItemType(item.ItemType, index)"
-              :key="index"
-              :class="[
+                v-for="(item, index) in ItemTypeList"
+                @click="clickItemType(item.ItemType, index)"
+                :key="index"
+                :class="[
                 isActive === index ? 'active' : '',
                 'selected-material-filter-condition-tag',
               ]"
@@ -27,12 +27,16 @@
           </div>
           <!-- 表格 -->
           <JvTable
-            ref="BillTable"
-            :table-obj="tableObj"
-            @selectionChange="handleSelectionChange"
+              ref="BillTable"
+              :table-obj="tableObj"
+              @selectionChange="handleSelectionChange"
           >
             <template #Quantity="{ row }">
-              <el-input v-model="row.Quantity" size="mini" style="width: 150px">
+              <el-input
+                  v-model="row.Quantity"
+                  size="mini"
+                  style="width: 125px"
+              >
                 <template slot="append"> {{ row.Unit }}</template>
               </el-input>
             </template>
@@ -44,12 +48,19 @@
             <JvTable ref="BillTable1" :table-obj="tableObj1">
               <template #Quantity="{ row }">
                 <el-input
-                  v-model="row.Quantity"
-                  size="mini"
-                  style="width: 150px"
+                    v-model="row.Quantity"
+                    size="mini"
+                    style="width: 125px"
                 >
                   <template slot="append"> {{ row.Unit }}</template>
                 </el-input>
+              </template>
+              <template #Remarks="{ row }">
+                <el-input
+                    v-model="row.Remarks"
+                    size="mini"
+                    style="width: 125px"
+                ></el-input>
               </template>
             </JvTable>
           </div>
@@ -99,6 +110,20 @@ export default {
       this.tableObj.props.selectType = "radio";
     }
     this.ConfigurationData();
+    this.tableObj.setCallBack((e) => {
+      e.Items.forEach((item) => {
+        if (!item.Quantity) {
+          this.$set(item, "Quantity", "1");
+        }
+      })
+      e.Items.map((item1) => {
+        const item2 = this.tableObj1.props.data.find((item3) => item3.ItemId === item1.ItemId);
+        if (item2) {
+          item1.Quantity = item2.Quantity
+        }
+        return item1;
+      });
+    })
   },
 
   methods: {
@@ -120,8 +145,21 @@ export default {
     handleClick(tab, event) {
       if (tab.name === "ToBeSelected") {
         this.doLayout();
+        this.tableObj.props.data.map((item1) => {
+          const item2 = this.tableObj1.props.data.find((item3) => item3.ItemId === item1.ItemId);
+          if (item2 && item2.Quantity !== item1.Quantity) {
+            item1.Quantity = item2.Quantity
+          }
+          return item1;
+        });
       } else if (tab.name === "selected") {
-        // this.doLayout()
+        this.tableObj1.props.data.map((item1) => {
+          const item2 = this.tableObj.props.data.find((item3) => item3.ItemId === item1.ItemId);
+          if (item2 && item2.Quantity !== item1.Quantity) {
+            item1.Quantity = item2.Quantity
+          }
+          return item1;
+        });
       }
     },
 
@@ -129,7 +167,23 @@ export default {
     confirmMaterial() {
       let IsRepeat = false;
       let repeatMateria = "";
-      const arr = this.tableObj1.props.data;
+      let numFalse = false;
+      const arr = this.tableObj1.props.data.map((item) => {
+        delete item.Description2
+        delete item.ItemCategory
+        delete item.ItemStockInfo
+        delete item.ItemStockRecord
+        delete item.ItemType
+        delete item.MaxStock
+        delete item.SafetyStock
+        delete item.PhotoUrl
+        delete item.Project
+        delete item.Project
+        delete item.State
+        this.$set(item, 'Id', 0)
+        this.$set(item, 'BillGui', "")
+        return item;
+      })
       if (arr.length > 0) {
         if (this.transferData.length > 0) {
           arr.forEach((item) => {
@@ -139,17 +193,37 @@ export default {
                 repeatMateria = item.ItemName;
               }
             });
+            if (item.Quantity <= 0) {
+              numFalse = true;
+            }
           });
           if (IsRepeat) {
             this.$message({
               type: "warning",
               message: this.$t("menu.Se_Item") + repeatMateria + " 重复!",
             });
+          } else if (numFalse) {
+            this.$message({
+              type: "warning",
+              message: this.$t("Generality.Ge_QuantityShouldBeGreaterThan"),
+            });
           } else {
             this.$emit("confirmData", arr);
           }
         } else {
-          this.$emit("confirmData", arr);
+          arr.forEach((item) => {
+            if (item.Quantity <= 0) {
+              numFalse = true;
+            }
+          })
+          if (numFalse) {
+            this.$message({
+              type: "warning",
+              message: this.$t("Generality.Ge_QuantityShouldBeGreaterThan"),
+            });
+          } else {
+            this.$emit("confirmData", arr);
+          }
         }
       } else {
         this.$message({
@@ -172,9 +246,6 @@ export default {
     },
 
     handleSelectionChange(e, keys) {
-      e.forEach((item) => {
-        this.$set(item, "Quantity", "1");
-      });
       this.tableObj1.props.data = e;
     },
   },

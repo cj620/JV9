@@ -67,24 +67,58 @@
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fifth">
       <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>
     </JvBlock>
+    <JvDialog
+        :title="$t('device.De_StartToRepair')"
+        v-if="startFormVisible"
+        :visible.sync="startFormVisible"
+        @confirm="confirmStart"
+        width="30%">
+      <JvForm :form-obj="startFormObj">
+      </JvForm>
+    </JvDialog>
+    <SelectRepairItems
+        :visible.sync="ItemsFormVisible"
+        v-if="ItemsFormVisible"
+        :transferData="transferData"
+        @confirmData="confirmData"
+    ></SelectRepairItems>
+    <JvDialog
+        :title="$t('device.De_CheckRepair')"
+        v-if="checkFormVisible"
+        :visible.sync="checkFormVisible"
+        @confirm="conformCheck"
+        width="30%">
+      <JvForm :form-obj="checkFormObj">
+      </JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import { API as Repair ,assets_device_repair_completed} from "@/api/workApi/equipment/repair";
+import {
+  API as Repair,
+  assets_device_repair_completed,
+  assets_device_repair_delete, assets_device_repair_saveItems,
+  assets_device_repair_updateState,
+} from "@/api/workApi/equipment/repair";
 import { detailConfig, itemTableConfig } from "./config";
 import Detail from "@/jv_doc/class/detail/Detail";
-import { repairStateEnum } from "@/enum/workModule";
+import {enumToList, repairResultEnum, repairStateEnum} from "@/enum/workModule";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import RepairDescription from "@/views/workModule/equipment/repair/components/RepairDescription.vue";
 import RepairState from "../components/RepairState.vue"
 import { Table } from "~/class/table";
+import closeTag from "@/utils/closeTag";
+import { Form } from "@/jv_doc/class/form";
+import { timeFormat } from "~/utils/time";
+import SelectRepairItems from "@/views/workModule/equipment/repair/components/SelectRepairItems/SelectRepairItems.vue";
 
 export default {
   components: {
+    SelectRepairItems,
     JvRemark,
     JvFileExhibit,
     RepairDescription,
@@ -93,11 +127,19 @@ export default {
   data() {
     return {
       cur_Id: this.$route.query.BillId,
+      cur_BillGui: 0,
       repairStateEnum,
       detailObj: {},
       tableObj: {},
+      startFormObj: {},
+      checkFormObj: {},
       btnAction: [],
+      transferData: [],//待处理，是否需要判断物料重复
+      startFormVisible: false,
+      ItemsFormVisible: false,
+      checkFormVisible: false,
       editRouteName: "As_DeviceRepairEdit",
+      listRouteName: "As_DeviceRepair",
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -144,6 +186,37 @@ export default {
       schema: detailConfig,
       column: 3,
     });
+    this.startFormObj = new Form({
+      formSchema: [
+        {
+          prop: "PlanCompletionDate",
+          label: i18n.t('device.De_PlanCompletionDate'),
+          cpn: "SingleDateTime",
+        }
+      ],
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
+    this.checkFormObj = new Form({
+      formSchema: [
+        {
+          prop: "RepairResults",
+          label: i18n.t('device.De_RepairResults'),
+          cpn: "FormSelect",
+          options: {
+            list: enumToList(repairResultEnum),
+          },
+        }
+      ],
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
     this.getData();
   },
   mounted() {},
@@ -151,16 +224,134 @@ export default {
     imgUrlPlugin,
     getData() {
       Repair.api_get({ BillId: this.cur_Id }).then((res) => {
+        this.cur_BillGui = res.BillGui
         this.detailObj.setData(res);
         this.tableObj.setData(res.BillItems);
+        this.btnAction = [
+          // 编辑
+          {
+            label: this.$t("Generality.Ge_Edit"),
+            disabled: res.State !== "ToBeRepair" && res.State !== "BackTo",
+            confirm: this.editBill,
+          },
+          // 删除
+          {
+            label: this.$t("Generality.Ge_Delete"),
+            disabled: res.State !== "ToBeRepair" && res.State !== "BackTo",
+            popConfirm: {
+              title: this.$t("Generality.Ge_DeleteConfirm"),
+              confirm: this.deleteBill
+            },
+          },
+          // 开始维修
+          {
+            label: this.$t('device.De_StartToRepair'),
+            disabled: res.State !== "ToBeRepair",
+            confirm: this.startRepair,
+          },
+          // 打回
+          {
+            label: this.$t('device.De_ReturnRepair'),
+            disabled: res.State !== "ToBeRepair",
+            confirm: this.returnRepair,
+          },
+          // 添加配件
+          {
+            label: this.$t('device.De_AddItems'),
+            disabled: res.State !== "Repairing",
+            confirm: this.addItems,
+          },
+          // 维修完成
+          {
+            label: this.$t('device.De_CompleteRepair'),
+            disabled: res.State !== "Repairing",
+            confirm: this.completeRepair,
+          },
+          // 维修验收
+          {
+            label: this.$t('device.De_CheckRepair'),
+            disabled: res.State !== "Repaired",
+            confirm: this.checkRepair,
+          },
+        ]
       });
     },
-    // 完成单据
-    successOutsourcing() {
-      assets_device_repair_completed({ BillId: this.cur_Id }).then(() => {
+    editBill(){
+      this.$router.push({
+        name: this.editRouteName,
+        query: { BillId: this.cur_Id },
+      });
+    },
+    deleteBill(){
+      assets_device_repair_delete({ BillIds: [this.cur_Id] }).then((_) => {
+        let TagName = {
+          name: this.listRouteName,
+        };
+        closeTag(this.current, TagName);
+      });
+    },
+    startRepair() {
+      this.startFormVisible = true
+    },
+    confirmStart() {
+      let obj1 = {
+        BillId: this.cur_Id,
+        State: 1,
+        PlanCompletionDate: timeFormat(this.startFormObj.form.PlanCompletionDate, "yyyy-MM-dd hh:mm:ss"),
+      };
+      assets_device_repair_updateState(obj1).then((res) => {
+        this.getData();
+      });
+      this.startFormVisible = false;
+    },
+    returnRepair() {
+      assets_device_repair_updateState({
+        BillId: this.cur_Id,
+        State: 2,
+      }).then((res) => {
         this.getData();
       });
     },
+    addItems() {
+      this.ItemsFormVisible = true
+    },
+    confirmData(e) {
+      const obj = {
+        BillGui: this.cur_BillGui,
+        Item: e
+      }
+      assets_device_repair_saveItems(obj).then((res) => {
+        this.getData();
+      })
+      this.ItemsFormVisible = false
+    },
+    completeRepair() {
+      assets_device_repair_updateState({
+        BillId: this.cur_Id,
+        State: 4,
+      }).then((res) => {
+        this.getData();
+      });
+    },
+    checkRepair() {
+      this.checkFormVisible = true;
+    },
+    conformCheck() {
+      assets_device_repair_updateState({
+        BillId: this.cur_Id,
+        State: 3,
+        RepairResults: this.checkFormObj.form.RepairResults
+      }).then((res) => {
+        this.getData();
+      });
+      this.checkFormVisible = false;
+    },
+    // // 完成单据
+    // successOutsourcing() {
+    //   assets_device_repair_completed({ BillId: this.cur_Id }).then(() => {
+    //     this.getData();
+    //   });
+    // },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
