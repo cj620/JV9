@@ -319,10 +319,10 @@ export default {
     timeFormat,
     setTaskWorkerListOptions(items) {
       return items.map(item => {
-        return {
-          label: `${taskTypeEnum[item.TaskType].name}(${item.BillId})`,
-          value: `${taskTypeEnum[item.TaskType].name}(${item.BillId})`
-        }
+          return {
+            label: `${taskTypeEnum[item.TaskType].name}(${item.BillId})`,
+            value: `${taskTypeEnum[item.TaskType].name}(${item.BillId})`
+          }
       })
     },
     changeTaskType(item, i) {
@@ -332,14 +332,18 @@ export default {
       let arr = item.TaskWorkerList.filter(jtem => {
         return `${taskTypeEnum[jtem.TaskType].name}(${jtem.BillId})` === item.taskTypeValue
       })
-      this.list[i].workerList = arr[0].WorkerList
+      if(arr[0]) {
+        this.list[i].workerList = arr[0].WorkerList
+      } else {
+        this.list[i].workerList = []
+      }
+
     },
     setProjectTaskLogs(item) {
       this.showProjectTaskLogs = !this.showProjectTaskLogs;
       this.ProjectTaskLogs = item;
     },
     goDetails(ToolingNo, BillId, taskTypeValue) {
-      console.log(BillId)
       this.$router.push({
         path: "Pm_Project_PartSchedule",
         query: {
@@ -352,13 +356,21 @@ export default {
     getWorkerProgress() {
       let Project = this.$route.query.Project;
       worker_progress({"Project":Project,"ToolingNo":this.searchValue}).then(res => {
-        console.log(res)
         this.list = res;
         this.list.forEach((item, i) => {
-          this.$set(item, 'taskTypeValue', item.TaskWorkerList[0].TaskType)
+          if(item.TaskWorkerList[0]) {
+            this.$set(item, 'taskTypeValue', item.TaskWorkerList[0].TaskType)
+          } else {
+            this.$set(item, 'taskTypeValue', "")
+          }
+
           this.$set(item, 'workerList', [])
 
-          item.taskTypeValue = `${taskTypeEnum[item.TaskWorkerList[0].TaskType].name}(${item.TaskWorkerList[0].BillId})`;
+          if(item.TaskWorkerList[0]) {
+            item.taskTypeValue = `${taskTypeEnum[item.TaskWorkerList[0].TaskType].name}(${item.TaskWorkerList[0].BillId})`;
+          } else {
+            item.taskTypeValue = "";
+          }
           this.setWorkerList(item, i)
         })
       });
