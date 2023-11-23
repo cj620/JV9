@@ -254,6 +254,27 @@ const equipment = [
     path: "as_DeviceScrapDetail",
     title: i18n.t("menu.As_DeviceScrap") + "  " + i18n.t("Generality.Ge_Details"),
   },
+
+  // 设备点检计划
+  {
+    key: "As_DeviceSpotCheckPlan",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheckPlan/List/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckPlan",
+    path: "As_DeviceSpotCheckPlan",
+    title:"设备点检计划",
+  },
+  // 设备点检计划
+  {
+    key: "As_DeviceSpotCheckPlan_Add",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheckPlan/Add/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckPlan_Add",
+    path: "As_DeviceSpotCheckPlan_Add",
+    title:"新增设备点检计划",
+  },
   // 设备点检
   {
     key: "As_DeviceSpotCheck",

@@ -350,6 +350,7 @@ export default {
   methods: {
     imgUrlPlugin,
     GetData() {
+      console.log(55,this.$route.query.BillId)
       getProductionTask({ BillId: this.$route.query.BillId }).then((res) => {
         this.detailObj.detailData = res;
         this.processData = res.Process;

@@ -83,6 +83,17 @@
         v-bind="getElFormItemProps(cdata)"
       />
     </template>
+    <!-- 日期选择 -->
+    <template v-else-if="getCpn === 'TimeSelect'">
+      <el-time-select
+          v-model="getFormProp"
+          size="mini"
+          :id="getPrefixId"
+          @blur="formBlur"
+          @change="getInputLabel"
+          v-bind="getElFormItemProps(cdata)"
+      />
+    </template>
     <!-- 日期时间选择 -->
     <template v-else-if="getCpn === 'SingleDateTime'">
       <el-date-picker
