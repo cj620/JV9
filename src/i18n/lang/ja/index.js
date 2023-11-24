@@ -1355,7 +1355,7 @@ const ja = {
     De_Maintaining: "メンテナンス中",
     De_Maintained: "メンテナンス済み",
     De_MaintenanceStartDate: "保守開始日",
-    De_MaintenanceEndDate: "保养结束日期",
+    De_MaintenanceEndDate: "メンテナンス終了日",
     De_Operator1: "保養者",
     De_MaintenanceTime: "保守時間（分）",
     De_RepeatedSelection: "デバイスを繰り返し選択しました",
@@ -1384,6 +1384,9 @@ const ja = {
     De_AddItems: "継手の追加",
     De_CheckRepair: "修理検収",
     De_AcceptDate: "検収日",
+    De_MaintenanceItems: "保守部品",
+    De_MaintenanceDetail: "保守詳細",
+    De_EditDetail: "詳細の変更",
   },
   // 后端提示
   backendMessage: {

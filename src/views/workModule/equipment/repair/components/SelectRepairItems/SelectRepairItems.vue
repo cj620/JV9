@@ -186,6 +186,7 @@ export default {
       })
       if (arr.length > 0) {
         if (this.transferData.length > 0) {
+          console.log(this.transferData,'21312313123')
           arr.forEach((item) => {
             this.transferData.forEach((Titem) => {
               if (item.ItemId === Titem.ItemId) {
@@ -208,7 +209,8 @@ export default {
               message: this.$t("Generality.Ge_QuantityShouldBeGreaterThan"),
             });
           } else {
-            this.$emit("confirmData", arr);
+            let arr1 = this.transferData.concat(arr)
+            this.$emit("confirmData", arr1);
           }
         } else {
           arr.forEach((item) => {

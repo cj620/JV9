@@ -16,18 +16,9 @@ export default {
   extends: Common,
   created() {
     console.log(this.cur_Id, 4444444);
-    this.getData();
   },
   methods: {
-    getData() {
-      API.api_get({ BillId: this.cur_Id }).then((res) => {
-        this.formObj.form = res;
-        this.ruleForm = res;
-        this.$delete(this.ruleForm,'State')
-      });
-    },
   },
-
   computed: {
     ...mapState({
       current: (state) => state.page.current,

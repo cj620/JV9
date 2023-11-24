@@ -132,16 +132,22 @@ export const maintenanceStateEnum ={
     ToBeMaintenance: {
         name: i18n.t("device.De_ToBeMaintained"),
         value: "ToBeMaintenance",
+        color: "#909399",
+        fcolor: "#fff",
     },
     //保养中
     Maintenanceing: {
         name: i18n.t("device.De_Maintaining"),
         value: "Maintenanceing",
+        color: "#faad14",
+        fcolor: "#fff",
     },
     //已保养
     Maintenanceed: {
         name: i18n.t("device.De_Maintained"),
         value: "Maintenanceed",
+        color: "#FE222D",
+        fcolor: "#fff",
     }
 }
 

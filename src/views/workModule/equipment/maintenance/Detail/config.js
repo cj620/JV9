@@ -9,7 +9,7 @@
 import { Table as BaseTable } from "@/jv_doc/class/table";
 import { m_tableConfig as tableConfig } from "../Add/editConfig";
 import { maintenanceEnum, enumToList } from "@/enum/workModule";
-export class Table extends BaseTable {
+export class detailTable extends BaseTable {
   constructor() {
     super({
       tableSchema: m_tableConfig,
@@ -105,6 +105,7 @@ export const m_tableConfig = [
   {
     prop: "MaintenanceContent",
     label: i18n.t("device.De_MaintenanceContent"),
+    width: "400px",
   },
   /*保养结果*/
   {
@@ -119,6 +120,7 @@ export const m_tableConfig = [
         return ""
       }
     },
+    width: "150px",
   },
   /*备注*/
   {
