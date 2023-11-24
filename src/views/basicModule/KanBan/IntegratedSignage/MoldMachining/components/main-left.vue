@@ -195,8 +195,10 @@ export default {
             color: '#fff'
           }
         },
-        tooltip: {
-          trigger: 'axis'
+        label: {
+          formatter: function (value, index) {
+            return value.value + '%';
+          }
         },
         grid: {
           left: '1%',
