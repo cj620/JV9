@@ -1355,7 +1355,7 @@ const ja = {
     De_Maintaining: "メンテナンス中",
     De_Maintained: "メンテナンス済み",
     De_MaintenanceStartDate: "保守開始日",
-    De_MaintenanceEndDate: "保养结束日期",
+    De_MaintenanceEndDate: "メンテナンス終了日",
     De_Operator1: "保養者",
     De_MaintenanceTime: "保守時間（分）",
     De_RepeatedSelection: "デバイスを繰り返し選択しました",

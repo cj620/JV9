@@ -45,6 +45,7 @@
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
       <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>
     </JvBlock>
+    <!--  开始保养选择日期  -->
     <JvDialog
         :title="$t('device.De_StartMaintenance')"
         v-if="startFormVisible"
@@ -54,6 +55,7 @@
       <JvForm :form-obj="startFormObj">
       </JvForm>
     </JvDialog>
+    <!--  添加配件  -->
     <SelectRepairItems
         :visible.sync="ItemsFormVisible"
         v-if="ItemsFormVisible"
@@ -61,6 +63,23 @@
         @confirmData="confirmData"
     >
     </SelectRepairItems>
+    <!--  修改明细  -->
+    <EditMaintenanceDetail
+      :visible.sync="editDetailVisible"
+      v-if="editDetailVisible"
+      :DetailData="DetailData"
+      @confirmData="confirmEditDetail"
+    >
+    </EditMaintenanceDetail>
+    <!--   结束保养   -->
+    <JvDialog
+      :title="$t('device.De_EndMaintenance')"
+      v-if="endFormVisible"
+      :visible.sync="endFormVisible"
+      @confirm="confirmToEnd"
+      width="30%">
+      <JvForm :form-obj="endFormObj"></JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 
@@ -76,16 +95,21 @@ import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import MaintenanceState from "@/views/workModule/equipment/maintenance/components/MaintenanceState.vue";
 import { assets_device_maintenance_start,
   assets_device_maintenance_end,
-  assets_device_maintenance_save_accessory
+  assets_device_maintenance_save_accessory,
+  assets_device_maintenance_save,
 } from "@/api/workApi/equipment/maintenance"
 import SelectRepairItems from "@/views/workModule/equipment/repair/components/SelectRepairItems/SelectRepairItems.vue";
+import EditMaintenanceDetail from "../components/EditMaintenanceDetail/EditMaintenanceDetail.vue";
 import {timeFormat} from "~/utils/time";
+import JvForm from "~/cpn/JvForm/index.vue";
 export default {
   name: "index",
   components: {
+      JvForm,
     JvFileExhibit,
     SelectRepairItems,
     MaintenanceState,
+    EditMaintenanceDetail,
   },
   data() {
     return {
@@ -94,10 +118,14 @@ export default {
       maintenanceTableObj: {},
       itemsTableObj: {},
       startFormObj: {},
+      endFormObj: {},
       transferData: [],
+      DetailData: [],
       btnAction: [],
       ItemsFormVisible: false,
       startFormVisible: false,
+      endFormVisible: false,
+      editDetailVisible: false,
       // 编辑路由指向 谨慎删除
       editRouteName: "As_DeviceMaintenanceEdit",
       printMod: "As_DeviceMaintenance",
@@ -127,6 +155,12 @@ export default {
     ...mapState({
       current: (state) => state.page.current,
     }),
+    // 明细是否全部完成
+    allCompleted() {
+      if (this.DetailData) {
+         return this.DetailData.every((item) => { return  item.MaintenanceResults === "Completed" })
+      } else { return true }
+    }
   },
   created() {
     this.detailObj = new Detail({
@@ -167,6 +201,49 @@ export default {
       },
       labelWidth: "80px",
     });
+    this.endFormObj = new Form({
+      formSchema: [
+        {
+          prop: "MaintenanceStartDate",
+          label: i18n.t('device.De_MaintenanceStartDate'),
+          cpn: "SingleDateTime",
+        },
+        {
+          prop: "MaintenanceEndDate",
+          label: i18n.t('device.De_MaintenanceEndDate'),
+          cpn: "SingleDateTime",
+          rules: [
+            {
+                required: true,
+                message: i18n.t("Generality.Ge_PleaseEnter"),
+                trigger: ["change", "blur"],
+            },
+          ],
+        },
+        {
+          prop: "MaintenanceTime",
+          label: i18n.t('device.De_MaintenanceTime'),
+          cpn: "FormInput",
+          rules: [
+            {
+                required: true,
+                message: i18n.t("Generality.Ge_PleaseEnter"),
+                trigger: ["change", "blur"],
+            },
+          ],
+        },
+        {
+          prop: "Remarks",
+          label: i18n.t("Generality.Ge_Remarks"),
+          cpn: "FormInput",
+        }
+      ],
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    })
     this.getData();
   },
   mounted() {},
@@ -175,6 +252,11 @@ export default {
       Maintenance.api_get({ BillId: this.cur_Id }).then((res) => {
         this.detailObj.setData(res);
         this.maintenanceTableObj.setData(res.BillItems);
+        this.DetailData = res.BillItems.map(item => {
+          return {
+            ...item
+          }
+        })
         this.itemsTableObj.setData(res.DeviceMaintainAccessories);
         this.transferData = res.DeviceMaintainAccessories
         this.btnAction = [
@@ -199,7 +281,7 @@ export default {
           // 结束保养
           {
             label: this.$t('device.De_EndMaintenance'),
-            disabled: res.State !== "Maintenanceing",
+            disabled: res.State !== "Maintenanceing" || !this.allCompleted,
             confirm: this.endMaintenance,
           },
         ]
@@ -230,7 +312,6 @@ export default {
     },
     // 确定物料
     confirmData(e) {
-      // console.log(e)
       const obj = {
         BillId: this.cur_Id,
         DeviceMaintainAccessories: e
@@ -242,21 +323,49 @@ export default {
     },
     // 修改明细
     editDetail() {
-      console.log(this.detailObj.detailData.BillItems)
+      console.log(this.DetailData)
+      this.editDetailVisible = true
     },
     // 确认修改明细
-    confirmEditDetail() {
-
+    confirmEditDetail(e) {
+      this.detailObj.detailData.BillItems = e
+      assets_device_maintenance_save(this.detailObj.detailData).then((res) => {
+        this.getData()
+      })
+      this.editDetailVisible = false
     },
     // 结束保养
     endMaintenance() {
-
+      this.endFormVisible = true
+      this.endFormObj.form.MaintenanceStartDate = timeFormat(this.detailObj.detailData.MaintenanceStartDate, "yyyy-MM-dd hh:mm:ss")
+      this.endFormObj.form.MaintenanceEndDate = timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss")
+    },
+    confirmToEnd() {
+      this.endFormObj.form.MaintenanceStartDate = timeFormat(this.endFormObj.form.MaintenanceStartDate, "yyyy-MM-dd hh:mm:ss")
+      this.endFormObj.form.MaintenanceEndDate = timeFormat(this.endFormObj.form.MaintenanceEndDate, "yyyy-MM-dd hh:mm:ss")
+      const obj = {
+          MaintenanceStartDate: this.endFormObj.form.MaintenanceStartDate,
+          MaintenanceEndDate: this.endFormObj.form.MaintenanceEndDate,
+          MaintenanceTime: this.endFormObj.form.MaintenanceTime,
+          BillId: this.detailObj.detailData.BillId,
+          Remarks: this.endFormObj.form.Remarks,
+      }
+      assets_device_maintenance_end(obj).then((res) => {
+          this.getData()
+      })
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
     },
   },
+  watch: {
+    'endFormObj.form.MaintenanceEndDate': function(newVal, oldVal) {
+      const endDate = new Date(newVal);
+      const startDate = new Date(this.endFormObj.form.MaintenanceStartDate);
+      this.endFormObj.form.MaintenanceTime = Math.floor((endDate - startDate) / (1000 * 60));
+    }
+  }
 };
 </script>
 

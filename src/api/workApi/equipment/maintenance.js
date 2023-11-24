@@ -60,11 +60,20 @@ export function assets_device_maintenance_end(data){
 
 //编辑保养单配件信息
 export function assets_device_maintenance_save_accessory(data){
-  return request(({
+  return request({
     url: "/assets_device_maintenance/save_accessory",
     method: "post",
     data,
-  }))
+  })
+}
+
+// 保养单保存
+export function assets_device_maintenance_save(data){
+  return request({
+    url: "/assets_device_maintenance/save",
+    method: "post",
+    data,
+  })
 }
 
 

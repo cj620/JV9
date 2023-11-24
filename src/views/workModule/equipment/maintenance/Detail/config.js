@@ -105,6 +105,7 @@ export const m_tableConfig = [
   {
     prop: "MaintenanceContent",
     label: i18n.t("device.De_MaintenanceContent"),
+    width: "400px",
   },
   /*保养结果*/
   {
@@ -119,6 +120,7 @@ export const m_tableConfig = [
         return ""
       }
     },
+    width: "150px",
   },
   /*备注*/
   {

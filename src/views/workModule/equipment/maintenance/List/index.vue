@@ -15,11 +15,16 @@
               confirm: startMaintenance.bind(null,row),
               disabled: row.State !== 'ToBeMaintenance',
             },
-            // {
-            //   label: $t('device.De_EndMaintenance'),
-            //   confirm: endMaintenance.bind(null,row),
-            //   disabled: row.State !== 'Maintenanceing',
-            // },
+            {
+              label: $t('device.De_EndMaintenance'),
+              confirm: endMaintenance.bind(null,row),
+              disabled: row.State !== 'Maintenanceing',
+            },
+            {
+              label: $t('device.De_AddItems'),
+              disabled: row.State !== 'Maintenanceing',
+              confirm: addItems.bind(null,row),
+            },
             {
               label: $t('Generality.Ge_Delete'),
               disabled: row.State !== 'ToBeMaintenance',
@@ -137,11 +142,14 @@ export default {
         }
       })
     },
-    // endMaintenance(row){
-    //   assets_device_maintenance_end({BillId: row.BillId}).then((res) => {
-    //     this.tableObj.getData();
-    //   })
-    // },
+    addItems(row) {
+        console.log(row)
+    },
+    endMaintenance(row){
+      assets_device_maintenance_end({BillId: row.BillId}).then((res) => {
+        this.tableObj.getData();
+      })
+    },
     //删除单据
     deleteOrder(ids) {
       this.tableObj.api.del({ BillIds: ids }).then((_) => {
