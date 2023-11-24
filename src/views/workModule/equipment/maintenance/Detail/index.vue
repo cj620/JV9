@@ -86,6 +86,7 @@
 <script>
 import { mapState } from "vuex";
 import { detailTable, detailConfig } from "./config";
+import { startFormConfig, endFormConfig } from "@/views/workModule/equipment/maintenance/components/startEndConfig";
 import { itemTableConfig } from "@/views/workModule/equipment/repair/Detail/config";
 import Detail from "@/jv_doc/class/detail/Detail";
 import { Table } from "~/class/table";
@@ -101,11 +102,10 @@ import { assets_device_maintenance_start,
 import SelectRepairItems from "@/views/workModule/equipment/repair/components/SelectRepairItems/SelectRepairItems.vue";
 import EditMaintenanceDetail from "../components/EditMaintenanceDetail/EditMaintenanceDetail.vue";
 import {timeFormat} from "~/utils/time";
-import JvForm from "~/cpn/JvForm/index.vue";
+
 export default {
   name: "index",
   components: {
-      JvForm,
     JvFileExhibit,
     SelectRepairItems,
     MaintenanceState,
@@ -181,20 +181,7 @@ export default {
       height: 350,
     })
     this.startFormObj = new Form({
-      formSchema: [
-        {
-          prop: "MaintenanceStartDate",
-          label: i18n.t('device.De_MaintenanceStartDate'),
-          cpn: "SingleDateTime",
-          rules: [
-            {
-              required: true,
-              message: i18n.t("Generality.Ge_PleaseEnter"),
-              trigger: ["change", "blur"],
-            },
-          ],
-        }
-      ],
+      formSchema: startFormConfig,
       labelPosition: "top",
       baseColProps: {
         span: 24,
@@ -202,42 +189,7 @@ export default {
       labelWidth: "80px",
     });
     this.endFormObj = new Form({
-      formSchema: [
-        {
-          prop: "MaintenanceStartDate",
-          label: i18n.t('device.De_MaintenanceStartDate'),
-          cpn: "SingleDateTime",
-        },
-        {
-          prop: "MaintenanceEndDate",
-          label: i18n.t('device.De_MaintenanceEndDate'),
-          cpn: "SingleDateTime",
-          rules: [
-            {
-                required: true,
-                message: i18n.t("Generality.Ge_PleaseEnter"),
-                trigger: ["change", "blur"],
-            },
-          ],
-        },
-        {
-          prop: "MaintenanceTime",
-          label: i18n.t('device.De_MaintenanceTime'),
-          cpn: "FormInput",
-          rules: [
-            {
-                required: true,
-                message: i18n.t("Generality.Ge_PleaseEnter"),
-                trigger: ["change", "blur"],
-            },
-          ],
-        },
-        {
-          prop: "Remarks",
-          label: i18n.t("Generality.Ge_Remarks"),
-          cpn: "FormInput",
-        }
-      ],
+      formSchema: endFormConfig,
       labelPosition: "top",
       baseColProps: {
         span: 24,
@@ -323,7 +275,6 @@ export default {
     },
     // 修改明细
     editDetail() {
-      console.log(this.DetailData)
       this.editDetailVisible = true
     },
     // 确认修改明细

@@ -54,27 +54,50 @@
       </Action>
     </JvTable>
     <JvDialog
-        :title="$t('device.De_StartMaintenance')"
-        v-if="startFormVisible"
-        :visible.sync="startFormVisible"
-        @confirm="confirmToStart"
-        width="30%">
+      :title="$t('device.De_StartMaintenance')"
+      v-if="startFormVisible"
+      :visible.sync="startFormVisible"
+      @confirm="confirmToStart"
+      width="30%">
       <JvForm :form-obj="startFormObj">
       </JvForm>
+    </JvDialog>
+    <SelectRepairItems
+      :visible.sync="ItemsFormVisible"
+      v-if="ItemsFormVisible"
+      :transferData="transferData"
+      @confirmData="confirmData"
+    >
+    </SelectRepairItems>
+    <!--   结束保养   -->
+    <JvDialog
+      :title="$t('device.De_EndMaintenance')"
+      v-if="endFormVisible"
+      :visible.sync="endFormVisible"
+      @confirm="confirmToEnd"
+      width="30%">
+      <JvForm :form-obj="endFormObj"></JvForm>
     </JvDialog>
   </PageWrapper>
 </template>
 <script>
 // 引入表格类
 import { Table } from "./config";
-import { assets_device_maintenance_start,assets_device_maintenance_end } from "@/api/workApi/equipment/maintenance"
+import {
+    assets_device_maintenance_start,
+    assets_device_maintenance_end,
+    assets_device_maintenance_save_accessory
+} from "@/api/workApi/equipment/maintenance"
 import MaintenanceStateTags from "@/views/workModule/equipment/maintenance/components/MaintenanceStateTags.vue";
 import { Form } from "@/jv_doc/class/form";
+import { startFormConfig, endFormConfig } from "@/views/workModule/equipment/maintenance/components/startEndConfig";
 import {timeFormat} from "~/utils/time";
+import SelectRepairItems from "@/views/workModule/equipment/repair/components/SelectRepairItems/SelectRepairItems.vue";
 export default {
   // 页面的标识
   name: "As_DeviceMaintain",
   components: {
+    SelectRepairItems,
     MaintenanceStateTags
   },
   data() {
@@ -82,8 +105,12 @@ export default {
       // 表格实例
       tableObj: {},
       startFormObj: {},
+      endFormObj: {},
+      transferData: [],
       selectedId: "",
       startFormVisible: false,
+      ItemsFormVisible: false,
+      endFormVisible: false,
       editRouterName:  "As_DeviceMaintenanceEdit",
     };
   },
@@ -92,26 +119,21 @@ export default {
     this.tableObj = new Table();
     this.tableObj.getData();
     this.startFormObj = new Form({
-      formSchema: [
-        {
-          prop: "MaintenanceStartDate",
-          label: i18n.t('device.De_MaintenanceStartDate'),
-          cpn: "SingleDateTime",
-          rules: [
-            {
-              required: true,
-              message: i18n.t("Generality.Ge_PleaseEnter"),
-              trigger: ["change", "blur"],
-            },
-          ],
-        }
-      ],
+      formSchema: startFormConfig,
       labelPosition: "top",
       baseColProps: {
         span: 24,
       },
       labelWidth: "80px",
     });
+    this.endFormObj = new Form({
+        formSchema: endFormConfig,
+        labelPosition: "top",
+        baseColProps: {
+            span: 24,
+        },
+        labelWidth: "80px",
+    })
   },
   computed: {
     // 是否可以批量删除
@@ -143,12 +165,43 @@ export default {
       })
     },
     addItems(row) {
-        console.log(row)
+      this.selectedId = row.BillId
+      row.DeviceMaintainAccessories ? this.transferData = row.DeviceMaintainAccessories : ""
+      this.ItemsFormVisible = true
     },
-    endMaintenance(row){
-      assets_device_maintenance_end({BillId: row.BillId}).then((res) => {
+    confirmData(e) {
+      const obj = {
+        BillId: this.selectedId,
+        DeviceMaintainAccessories: e
+      }
+      assets_device_maintenance_save_accessory(obj).then((res) => {
         this.tableObj.getData();
       })
+      this.ItemsFormVisible = false
+    },
+    endMaintenance(row){
+      this.selectedId = row.BillId
+      // if(row.MaintenanceStartDate) {
+      //   this.endFormObj.form.MaintenanceStartDate = timeFormat(row.MaintenanceStartDate, "yyyy-MM-dd hh:mm:ss")
+      // }
+      this.endFormObj.form.MaintenanceStartDate = timeFormat(row.MaintenanceStartDate, "yyyy-MM-dd hh:mm:ss")
+      this.endFormObj.form.MaintenanceEndDate = timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss")
+      this.endFormVisible = true
+    },
+    confirmToEnd() {
+      this.endFormObj.form.MaintenanceStartDate = timeFormat(this.endFormObj.form.MaintenanceStartDate, "yyyy-MM-dd hh:mm:ss")
+      this.endFormObj.form.MaintenanceEndDate = timeFormat(this.endFormObj.form.MaintenanceEndDate, "yyyy-MM-dd hh:mm:ss")
+      const obj = {
+        MaintenanceStartDate: this.endFormObj.form.MaintenanceStartDate,
+        MaintenanceEndDate: this.endFormObj.form.MaintenanceEndDate,
+        MaintenanceTime: this.endFormObj.form.MaintenanceTime,
+        BillId: this.selectedId,
+        Remarks: this.endFormObj.form.Remarks,
+      }
+      assets_device_maintenance_end(obj).then((res) => {
+        this.tableObj.getData();
+      })
+      this.endFormVisible = false
     },
     //删除单据
     deleteOrder(ids) {
@@ -161,5 +214,17 @@ export default {
       this.deleteOrder(this.tableObj.selectData.keys);
     },
   },
+  watch: {
+    'endFormObj.form.MaintenanceEndDate': function(newVal, oldVal) {
+      // if (this.endFormObj.form.MaintenanceStartDate !== ""){
+      //   const endDate = new Date(newVal);
+      //   const startDate = new Date(this.endFormObj.form.MaintenanceStartDate);
+      //   this.endFormObj.form.MaintenanceTime = Math.floor((endDate - startDate) / (1000 * 60));
+      // }
+      const endDate = new Date(newVal);
+      const startDate = new Date(this.endFormObj.form.MaintenanceStartDate);
+      this.endFormObj.form.MaintenanceTime = Math.floor((endDate - startDate) / (1000 * 60));
+    }
+  }
 };
 </script>
