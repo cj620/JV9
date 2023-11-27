@@ -41,10 +41,6 @@
     <JvBlock :title="$t('device.De_MaintenanceItems')" ref="third">
       <JvTable :table-obj="itemsTableObj"> </JvTable>
     </JvBlock>
-    <!--附件-->
-    <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
-      <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>
-    </JvBlock>
     <!--  开始保养选择日期  -->
     <JvDialog
         :title="$t('device.De_StartMaintenance')"
@@ -141,10 +137,6 @@ export default {
         {
           label: this.$t("device.De_MaintenanceItems"),
           name: "third",
-        },
-        {
-          label: this.$t("Generality.Ge_Annex"),
-          name: "fourth",
         },
       ],
       dynamicShow: false,
@@ -304,6 +296,7 @@ export default {
       assets_device_maintenance_end(obj).then((res) => {
           this.getData()
       })
+      this.endFormVisible = false
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;

@@ -1387,6 +1387,7 @@ const ja = {
     De_MaintenanceItems: "保守部品",
     De_MaintenanceDetail: "保守詳細",
     De_EditDetail: "詳細の変更",
+    De_EditNumber: "数量の変更",
   },
   // 后端提示
   backendMessage: {
