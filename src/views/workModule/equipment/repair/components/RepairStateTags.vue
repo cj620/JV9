@@ -33,6 +33,7 @@ export default {
 @import "~@/jv_doc/style/mixin.scss";
 .repairStateTags-style {
   @include flexBox;
+  filter:opacity(90%);
   width: 100px;
   padding: 3px;
   border-radius: 5px;

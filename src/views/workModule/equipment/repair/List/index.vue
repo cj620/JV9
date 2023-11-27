@@ -7,14 +7,14 @@
         <!-- 状态标签 -->
         <RepairStateTags :state="record" :enum="repairStateEnum"></RepairStateTags>
       </template>
-      <template #RepairLevel="{ record }">
-        <!-- 级别标签 -->
-        <RepairStateTags :state="record" :enum="repairLevelEnum"></RepairStateTags>
-      </template>
-      <template #RepairCategory="{ record }">
-        <!-- 类别标签 -->
-        <RepairStateTags :state="record" :enum="repairEnum1"></RepairStateTags>
-      </template>
+<!--      <template #RepairLevel="{ record }">-->
+<!--        &lt;!&ndash; 级别标签 &ndash;&gt;-->
+<!--        <RepairStateTags :state="record" :enum="repairLevelEnum"></RepairStateTags>-->
+<!--      </template>-->
+<!--      <template #RepairCategory="{ record }">-->
+<!--        &lt;!&ndash; 类别标签 &ndash;&gt;-->
+<!--        <RepairStateTags :state="record" :enum="repairEnum1"></RepairStateTags>-->
+<!--      </template>-->
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction
