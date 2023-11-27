@@ -241,21 +241,21 @@ export const repairLevelEnum = {
     'Ordinary': {
         name: i18n.t("Generality.Ge_Ordinary"),
         value: 'Ordinary',
-        color: '#909399',
+        color: '#4bc0ac',
         fcolor: "#fff",
     },
     /// 紧急
     'Urgent': {
         name: i18n.t("Generality.Ge_Urgent"),
         value: 'Urgent',
-        color: '#faad14',
+        color: '#f48b56',
         fcolor: "#fff",
     },
     /// 特急
     'ExtraUrgent': {
         name: i18n.t("Generality.Ge_ExtraUrgent"),
         value: 'ExtraUrgent',
-        color: '#faad14',
+        color: '#f76368',
         fcolor: "#fff",
     },
 }

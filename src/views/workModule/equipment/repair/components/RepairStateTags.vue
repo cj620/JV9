@@ -1,5 +1,5 @@
 <script>
-import { repairStateEnum } from "@/enum/workModule";
+// import { repairStateEnum } from "@/enum/workModule";
 export default {
   name: "RepairStateTags",
   props: {
@@ -7,10 +7,14 @@ export default {
       type: String,
       default: "Fail",
     },
+    enum: {
+      type: Object,
+      default: null,
+    }
   },
   methods: {},
   render(h) {
-    const stateMap = repairStateEnum[this.state];
+    const stateMap = this.enum[this.state];
     const style = {
       // padding: "2px 7px",
       background: stateMap?.color,

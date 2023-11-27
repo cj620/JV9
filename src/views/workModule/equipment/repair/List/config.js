@@ -82,18 +82,22 @@ export const tableConfig = [
   {
     prop: "RepairLevel",
     label: i18n.t("Generality.Ge_Level"),
-    customFilter: (value) => {
-      if (!value) return "";
-      return repairLevelEnum[value].name;
-    },
+    width:'120px',
+    custom: true,
+    // customFilter: (value) => {
+    //   if (!value) return "";
+    //   return repairLevelEnum[value].name;
+    // },
   },
   {
     prop: "RepairCategory",
     label: i18n.t("device.De_RepairCategory"),
-    customFilter: (value) => {
-      if (!value) return "";
-      return repairEnum1[value].name;
-    },
+    width:'120px',
+    custom: true,
+    // customFilter: (value) => {
+    //   if (!value) return "";
+    //   return repairEnum1[value].name;
+    // },
   },
   //修理厂商
   {
