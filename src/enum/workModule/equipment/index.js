@@ -236,6 +236,7 @@ export const repairItemState = {
   }
 }
 
+// 修理等级枚举
 export const repairLevelEnum = {
     /// 普通
     'Ordinary': {
@@ -257,5 +258,19 @@ export const repairLevelEnum = {
         value: 'ExtraUrgent',
         color: '#f76368',
         fcolor: "#fff",
+    },
+}
+
+// 报废类型枚举
+export const ScrapCategoryEnum = {
+    // 损坏报废
+    'DamageScrap': {
+        name: i18n.t("device.De_DamageScrap"),
+        value: "DamageScrap",
+    },
+    // 到期报废
+    'DueScrap': {
+        name: i18n.t("device.De_DueScrap"),
+        value: "DueScrap",
     },
 }

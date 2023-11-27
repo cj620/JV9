@@ -1378,6 +1378,9 @@ const cn = {
     De_MaintenanceDetail: "保养明细",
     De_EditDetail: "修改明细",
     De_EditItem: "编辑配件",
+    De_ScrapCategory: "报废类型",
+    De_DamageScrap: "损坏报废",
+    De_DueScrap: "到期报废",
   },
   // 后端提示
   backendMessage: {

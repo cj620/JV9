@@ -1394,6 +1394,9 @@ const en = {
     De_MaintenanceDetail: "Maintenance Detail",
     De_EditDetail: "Edit Detail",
     De_EditItem: "Edit Item",
+    De_ScrapCategory: "Scrap Category",
+    De_DamageScrap: "Damage Scrap",
+    De_DueScrap: "Due Scrap",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

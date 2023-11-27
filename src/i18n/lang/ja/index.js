@@ -1388,6 +1388,9 @@ const ja = {
     De_MaintenanceDetail: "保守詳細",
     De_EditDetail: "詳細の変更",
     De_EditItem: "継手の編集",
+    De_ScrapCategory: "除・売却タイプ",
+    De_DamageScrap: "破損廃棄",
+    De_DueScrap: "期限付き廃棄",
   },
   // 后端提示
   backendMessage: {
