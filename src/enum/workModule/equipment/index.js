@@ -157,35 +157,35 @@ export const repairStateEnum = {
   ToBeRepair: {
     name: i18n.t("device.De_ToBeRepair"),
     value: "ToBeRepair",
-    color: "#909399",
+    color: "#A8B6EF",
     fcolor: "#fff",
   },
   // 维修中
   Repairing: {
     name: i18n.t("device.De_Repairing"),
     value: "Repairing",
-    color: "#faad14",
+    color: "#FFCC66",
     fcolor: "#fff",
   },
   // 已打回
   BackTo: {
     name: i18n.t("device.De_BackTo"),
     value: "BackTo",
-    color: "#000000",
+    color: "#7A7D84",
     fcolor: "#fff",
   },
   // 已验收
   Accepted: {
     name: i18n.t("device.De_Accepted"),
     value: "Accepted",
-    color: "#FE222D",
+    color: "#96DE6C",
     fcolor: "#fff",
   },
   // 已维修
   Repaired: {
     name: i18n.t("device.De_Repaired"),
     value: "Repaired",
-    color: "#39B54A",
+    color: "#FF6666",
     fcolor: "#fff",
   },
 };
@@ -196,11 +196,15 @@ export const repairEnum1 = {
   FaultRepair: {
     name: i18n.t("device.De_SelfRepair"),
     value: "FaultRepair",
+    color: "#FAAD14",
+    fcolor: "#fff",
   },
   //委外维修
   PrecisionRepair: {
     name: i18n.t("device.De_OutsourcedRepair"),
     value: "PrecisionRepair",
+    color: "#CCCCFF",
+    fcolor: "#fff",
   },
 };
 
@@ -227,7 +231,31 @@ export const repairItemState = {
   },
   //   已领用
   Collected: {
-      name: i18n.t("device.De_Collected"),
-      value: "Collected",
+    name: i18n.t("device.De_Collected"),
+    value: "Collected",
   }
+}
+
+export const repairLevelEnum = {
+    /// 普通
+    'Ordinary': {
+        name: i18n.t("Generality.Ge_Ordinary"),
+        value: 'Ordinary',
+        color: '#909399',
+        fcolor: "#fff",
+    },
+    /// 紧急
+    'Urgent': {
+        name: i18n.t("Generality.Ge_Urgent"),
+        value: 'Urgent',
+        color: '#faad14',
+        fcolor: "#fff",
+    },
+    /// 特急
+    'ExtraUrgent': {
+        name: i18n.t("Generality.Ge_ExtraUrgent"),
+        value: 'ExtraUrgent',
+        color: '#faad14',
+        fcolor: "#fff",
+    },
 }

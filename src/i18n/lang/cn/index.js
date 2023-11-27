@@ -1377,7 +1377,7 @@ const cn = {
     De_MaintenanceItems: "保养配件",
     De_MaintenanceDetail: "保养明细",
     De_EditDetail: "修改明细",
-    De_EditNumber: "修改数量",
+    De_EditItem: "编辑配件",
   },
   // 后端提示
   backendMessage: {

@@ -6,7 +6,7 @@
  */
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
-import {repairEnum1, enumToList, repairStateEnum, repairResultEnum } from "@/enum/workModule";
+import {repairEnum1, enumToList, repairStateEnum, repairResultEnum, repairLevelEnum } from "@/enum/workModule";
 // 获取设备接口
 import { assets_device_list } from "@/api/workApi/equipment/device"
 // 引入模块API接口
@@ -77,6 +77,15 @@ export const tableConfig = [
   {
     prop: "DeviceName",
     label: i18n.t("production.Pr_DeviceName"),
+  },
+  /*级别*/
+  {
+    prop: "RepairLevel",
+    label: i18n.t("Generality.Ge_Level"),
+    customFilter: (value) => {
+      if (!value) return "";
+      return repairLevelEnum[value].name;
+    },
   },
   {
     prop: "RepairCategory",

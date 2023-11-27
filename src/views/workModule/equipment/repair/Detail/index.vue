@@ -58,7 +58,7 @@
               $t("device.De_AddItems")
               }}</el-button>
           <el-button size="mini" @click="editNumber" :disabled="canEditItems">{{
-              $t("device.De_EditNumber")
+              $t("device.De_EditItem")
               }}</el-button>
       </div>
       <JvTable :table-obj="tableObj"> </JvTable>
@@ -102,19 +102,29 @@
       <JvForm :form-obj="checkFormObj">
       </JvForm>
     </JvDialog>
-    <!--修改配件数量-->
+    <!--编辑配件-->
     <JvDialog
-        :title="$t('device.De_EditNumber')"
+        :title="$t('device.De_EditItem')"
         v-if="editNumVisible"
         :visible.sync="editNumVisible"
         @confirm="confirmToEdit"
-        width="35%">
+        width="45%">
         <JvTable :table-obj="editTableObj">
+          <template #operation="{ row }">
+            <TableAction
+              :actions="[
+                {
+                  label: $t('Generality.Ge_Delete'),
+                  confirm: deleteItems.bind(null, row)
+                },
+              ]"
+            ></TableAction>
+          </template>
           <template #Quantity="{ row }">
             <el-input
               v-model="row.Quantity"
               size="mini"
-              style="width: 150px"
+              style="width: 158px"
             ></el-input>
           </template>
         </JvTable>
@@ -164,6 +174,7 @@ export default {
       checkFormObj: {},
       btnAction: [],
       state: "",
+      BillItems: [],
       transferData: [],//待处理，是否需要判断物料重复
       startFormVisible: false,
       ItemsFormVisible: false,
@@ -280,6 +291,7 @@ export default {
           prop: "Quantity",
           label: i18n.t("Generality.Ge_Quantity"),
           custom: true,
+          width: "180px",
         },
       ],
       pagination: false,
@@ -287,8 +299,8 @@ export default {
       chooseCol: false,
       data: [],
       title: "",
+      operationWidth: 100,
       tableHeaderShow: false,
-      operationCol: false,
     })
     this.getData();
   },
@@ -300,13 +312,14 @@ export default {
         this.cur_BillGui = res.BillGui
         this.state = res.State
         this.transferData = res.BillItems
+        this.BillItems = res.BillItems.map(item => {
+          return {
+            ...item
+          }
+        })
         this.detailObj.setData(res);
         this.tableObj.setData(res.BillItems);
-        this.editTableObj.setData(res.BillItems.map(item => {
-            return {
-                ...item
-            }
-        }));
+        this.editTableObj.setData(this.BillItems);
         this.btnAction = [
           // 复制
           {
@@ -425,9 +438,15 @@ export default {
       })
       this.ItemsFormVisible = false
     },
-    // 修改物料
+    // 修改配件
     editNumber() {
       this.editNumVisible = true
+      this.editTableObj.setData(this.BillItems);
+    },
+    // 删除配件
+    deleteItems(row) {
+      const arr = this.editTableObj.getTableData()
+      this.editTableObj.setData(arr.filter(item => item.ItemId !== row.ItemId))
     },
     // 确认修改
     confirmToEdit() {

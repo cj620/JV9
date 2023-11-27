@@ -17,6 +17,9 @@ export const endFormConfig = [
         prop: "MaintenanceStartDate",
         label: i18n.t('device.De_MaintenanceStartDate'),
         cpn: "SingleDateTime",
+        cpnProps: {
+            disabled: true,
+        },
     },
     {
         prop: "MaintenanceEndDate",

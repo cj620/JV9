@@ -8,7 +8,7 @@
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
 import { m_tableConfig as tableConfig } from "../Add/editConfig";
-import { repairEnum1, repairItemState, repairResultEnum } from "@/enum/workModule";
+import {repairLevelEnum, repairEnum1, repairItemState, repairResultEnum} from "@/enum/workModule";
 
 
 const newTableCongfig = [...tableConfig];
@@ -106,6 +106,15 @@ export const detailConfig = [
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
   },
+  {
+    // 级别
+    prop: "RepairLevel",
+    label: i18n.t("Generality.Ge_Level"),
+    customFilter: (value) => {
+      if (!value) return "";
+      return repairLevelEnum[value].name;
+    },
+  }
 ];
 export const itemTableConfig = [
   {
