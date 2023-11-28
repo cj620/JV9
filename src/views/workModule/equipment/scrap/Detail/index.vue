@@ -26,7 +26,7 @@
       ref="first"
       :contentStyle="{
         paddingLeft: '150px',
-        height: '200px',
+        height: '140px',
       }"
       style="position: relative"
     >

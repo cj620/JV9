@@ -35,15 +35,24 @@
     </JvBlock>
     <!-- 保养明细 -->
     <JvBlock :title="$t('device.De_MaintenanceDetail')" ref="second">
+      <div slot="extra">
+        <el-button size="mini" @click="editDetail" :disabled="canEditDetails">{{
+            $t("device.De_EditDetail")
+          }}</el-button>
+      </div>
       <JvTable :tableObj="maintenanceTableObj"> </JvTable>
     </JvBlock>
     <!--保养配件-->
     <JvBlock :title="$t('device.De_MaintenanceItems')" ref="third">
+      <div slot="extra">
+        <el-button size="mini" @click="selectMaintenanceItems" :disabled="canEditDetails">{{
+            $t("device.De_AddItems")
+          }}</el-button>
+        <el-button size="mini" @click="editMaintenanceItems" :disabled="canEditDetails">{{
+            $t("device.De_EditItem")
+          }}</el-button>
+      </div>
       <JvTable :table-obj="itemsTableObj"> </JvTable>
-    </JvBlock>
-    <!--附件-->
-    <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
-      <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>
     </JvBlock>
     <!--  开始保养选择日期  -->
     <JvDialog
@@ -63,6 +72,33 @@
         @confirmData="confirmData"
     >
     </SelectRepairItems>
+    <!--编辑配件-->
+    <JvDialog
+        :title="$t('device.De_EditItem')"
+        v-if="editItemsVisible"
+        :visible.sync="editItemsVisible"
+        @confirm="confirmToEdit"
+        width="45%">
+      <JvTable :table-obj="editTableObj">
+        <template #operation="{ row }">
+          <TableAction
+              :actions="[
+                {
+                  label: $t('Generality.Ge_Delete'),
+                  confirm: deleteItems.bind(null, row)
+                },
+              ]"
+          ></TableAction>
+        </template>
+        <template #Quantity="{ row }">
+          <el-input
+              v-model="row.Quantity"
+              size="mini"
+              style="width: 158px"
+          ></el-input>
+        </template>
+      </JvTable>
+    </JvDialog>
     <!--  修改明细  -->
     <EditMaintenanceDetail
       :visible.sync="editDetailVisible"
@@ -102,6 +138,7 @@ import { assets_device_maintenance_start,
 import SelectRepairItems from "@/views/workModule/equipment/repair/components/SelectRepairItems/SelectRepairItems.vue";
 import EditMaintenanceDetail from "../components/EditMaintenanceDetail/EditMaintenanceDetail.vue";
 import {timeFormat} from "~/utils/time";
+import {log} from "qrcode/lib/core/galois-field";
 
 export default {
   name: "index",
@@ -119,13 +156,17 @@ export default {
       itemsTableObj: {},
       startFormObj: {},
       endFormObj: {},
+      editTableObj: {},
       transferData: [],
       DetailData: [],
       btnAction: [],
+      state: "",
+      DeviceMaintainAccessories: [],
       ItemsFormVisible: false,
       startFormVisible: false,
       endFormVisible: false,
       editDetailVisible: false,
+      editItemsVisible: false,
       // 编辑路由指向 谨慎删除
       editRouteName: "As_DeviceMaintenanceEdit",
       printMod: "As_DeviceMaintenance",
@@ -142,10 +183,6 @@ export default {
           label: this.$t("device.De_MaintenanceItems"),
           name: "third",
         },
-        {
-          label: this.$t("Generality.Ge_Annex"),
-          name: "fourth",
-        },
       ],
       dynamicShow: false,
       dialogVisible: false,
@@ -160,7 +197,10 @@ export default {
       if (this.DetailData) {
          return this.DetailData.every((item) => { return  item.MaintenanceResults === "Completed" })
       } else { return true }
-    }
+    },
+    canEditDetails(){
+      return this.state !== "Maintenanceing"
+    },
   },
   created() {
     this.detailObj = new Detail({
@@ -196,12 +236,38 @@ export default {
       },
       labelWidth: "80px",
     })
+    this.editTableObj = new Table({
+      tableSchema: [
+        {
+          prop: "ItemId",
+          label: i18n.t("Generality.Ge_ItemId"),
+        },
+        {
+          prop: "ItemName",
+          label: i18n.t("Generality.Ge_ItemName"),
+        },
+        {
+          prop: "Quantity",
+          label: i18n.t("Generality.Ge_Quantity"),
+          custom: true,
+          width: "180px",
+        },
+      ],
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      operationWidth: 100,
+      tableHeaderShow: false,
+    })
     this.getData();
   },
   mounted() {},
   methods: {
     getData() {
       Maintenance.api_get({ BillId: this.cur_Id }).then((res) => {
+        this.state = res.State;
         this.detailObj.setData(res);
         this.maintenanceTableObj.setData(res.BillItems);
         this.DetailData = res.BillItems.map(item => {
@@ -209,6 +275,12 @@ export default {
             ...item
           }
         })
+        this.DeviceMaintainAccessories = res.DeviceMaintainAccessories.map(item => {
+          return {
+            ...item
+          }
+        })
+        this.editTableObj.setData(this.DeviceMaintainAccessories)
         this.itemsTableObj.setData(res.DeviceMaintainAccessories);
         this.transferData = res.DeviceMaintainAccessories
         this.btnAction = [
@@ -217,18 +289,6 @@ export default {
             label: this.$t('device.De_StartMaintenance'),
             disabled: res.State !== "ToBeMaintenance",
             confirm: this.startMaintenance,
-          },
-          // 修改明细
-          {
-            label: this.$t('device.De_EditDetail'),
-            disabled: res.State !== "Maintenanceing",
-            confirm: this.editDetail,
-          },
-          // 添加配件
-          {
-            label: this.$t('device.De_AddItems'),
-            disabled: res.State !== "Maintenanceing",
-            confirm: this.selectMaintenanceItems,
           },
           // 结束保养
           {
@@ -273,6 +333,27 @@ export default {
       })
       this.ItemsFormVisible = false
     },
+    // 编辑配件
+    editMaintenanceItems() {
+      this.editItemsVisible = true
+      this.editTableObj.setData(this.DeviceMaintainAccessories);
+    },
+    // 删除配件
+    deleteItems(row) {
+      const arr = this.editTableObj.getTableData()
+      this.editTableObj.setData(arr.filter(item => item.ItemId !== row.ItemId))
+    },
+    // 确认编辑配件
+    confirmToEdit() {
+      const obj = {
+        BillId: this.cur_Id,
+        DeviceMaintainAccessories: this.editTableObj.getTableData()
+      }
+      assets_device_maintenance_save_accessory(obj).then((res) => {
+        this.getData();
+      })
+      this.editItemsVisible = false
+    },
     // 修改明细
     editDetail() {
       this.editDetailVisible = true
@@ -304,6 +385,7 @@ export default {
       assets_device_maintenance_end(obj).then((res) => {
           this.getData()
       })
+      this.endFormVisible = false
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;

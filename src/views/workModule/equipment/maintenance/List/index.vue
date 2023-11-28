@@ -18,7 +18,7 @@
             {
               label: $t('device.De_EndMaintenance'),
               confirm: endMaintenance.bind(null,row),
-              disabled: row.State !== 'Maintenanceing',
+              disabled: !(row.State === 'Maintenanceing' && row.BillItems.every((item) => item.MaintenanceResults === 'Completed')),
             },
             {
               label: $t('device.De_AddItems'),
@@ -181,9 +181,6 @@ export default {
     },
     endMaintenance(row){
       this.selectedId = row.BillId
-      // if(row.MaintenanceStartDate) {
-      //   this.endFormObj.form.MaintenanceStartDate = timeFormat(row.MaintenanceStartDate, "yyyy-MM-dd hh:mm:ss")
-      // }
       this.endFormObj.form.MaintenanceStartDate = timeFormat(row.MaintenanceStartDate, "yyyy-MM-dd hh:mm:ss")
       this.endFormObj.form.MaintenanceEndDate = timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss")
       this.endFormVisible = true
@@ -216,11 +213,6 @@ export default {
   },
   watch: {
     'endFormObj.form.MaintenanceEndDate': function(newVal, oldVal) {
-      // if (this.endFormObj.form.MaintenanceStartDate !== ""){
-      //   const endDate = new Date(newVal);
-      //   const startDate = new Date(this.endFormObj.form.MaintenanceStartDate);
-      //   this.endFormObj.form.MaintenanceTime = Math.floor((endDate - startDate) / (1000 * 60));
-      // }
       const endDate = new Date(newVal);
       const startDate = new Date(this.endFormObj.form.MaintenanceStartDate);
       this.endFormObj.form.MaintenanceTime = Math.floor((endDate - startDate) / (1000 * 60));

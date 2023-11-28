@@ -53,6 +53,14 @@
     </JvBlock>
     <!--报修配件-->
     <JvBlock :title="$t('device.De_DeviceRepairItem')" ref="second">
+      <div slot="extra">
+          <el-button size="mini" @click="addItems" :disabled="canEditItems">{{
+              $t("device.De_AddItems")
+              }}</el-button>
+          <el-button size="mini" @click="editNumber" :disabled="canEditItems">{{
+              $t("device.De_EditItem")
+              }}</el-button>
+      </div>
       <JvTable :table-obj="tableObj"> </JvTable>
     </JvBlock>
     <!--问题描述-->
@@ -67,6 +75,7 @@
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fifth">
       <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>
     </JvBlock>
+    <!--开始检修-->
     <JvDialog
         :title="$t('device.De_StartToRepair')"
         v-if="startFormVisible"
@@ -76,12 +85,14 @@
       <JvForm :form-obj="startFormObj">
       </JvForm>
     </JvDialog>
+    <!--选择配件-->
     <SelectRepairItems
         :visible.sync="ItemsFormVisible"
         v-if="ItemsFormVisible"
         :transferData="transferData"
         @confirmData="confirmData"
     ></SelectRepairItems>
+    <!--维修验收-->
     <JvDialog
         :title="$t('device.De_CheckRepair')"
         v-if="checkFormVisible"
@@ -90,6 +101,33 @@
         width="30%">
       <JvForm :form-obj="checkFormObj">
       </JvForm>
+    </JvDialog>
+    <!--编辑配件-->
+    <JvDialog
+        :title="$t('device.De_EditItem')"
+        v-if="editNumVisible"
+        :visible.sync="editNumVisible"
+        @confirm="confirmToEdit"
+        width="45%">
+        <JvTable :table-obj="editTableObj">
+          <template #operation="{ row }">
+            <TableAction
+              :actions="[
+                {
+                  label: $t('Generality.Ge_Delete'),
+                  confirm: deleteItems.bind(null, row)
+                },
+              ]"
+            ></TableAction>
+          </template>
+          <template #Quantity="{ row }">
+            <el-input
+              v-model="row.Quantity"
+              size="mini"
+              style="width: 158px"
+            ></el-input>
+          </template>
+        </JvTable>
     </JvDialog>
   </PageWrapper>
 </template>
@@ -126,18 +164,22 @@ export default {
   },
   data() {
     return {
+      repairStateEnum,
       cur_Id: this.$route.query.BillId,
       cur_BillGui: 0,
-      repairStateEnum,
       detailObj: {},
       tableObj: {},
       startFormObj: {},
+      editTableObj: {},
       checkFormObj: {},
       btnAction: [],
+      state: "",
+      BillItems: [],
       transferData: [],//待处理，是否需要判断物料重复
       startFormVisible: false,
       ItemsFormVisible: false,
       checkFormVisible: false,
+      editNumVisible: false,
       editRouteName: "As_DeviceRepairEdit",
       addRouterName: "As_DeviceRepairAdd",
       listRouteName: "As_DeviceRepair",
@@ -169,6 +211,9 @@ export default {
     ...mapState({
       current: (state) => state.page.current,
     }),
+    canEditItems(){
+      return this.state !== "Repairing"
+    }
   },
   created() {
     this.tableObj = new Table({
@@ -232,6 +277,31 @@ export default {
       },
       labelWidth: "80px",
     });
+    this.editTableObj = new Table({
+      tableSchema: [
+        {
+          prop: "ItemId",
+          label: i18n.t("Generality.Ge_ItemId"),
+        },
+        {
+          prop: "ItemName",
+          label: i18n.t("Generality.Ge_ItemName"),
+        },
+        {
+          prop: "Quantity",
+          label: i18n.t("Generality.Ge_Quantity"),
+          custom: true,
+          width: "180px",
+        },
+      ],
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      operationWidth: 100,
+      tableHeaderShow: false,
+    })
     this.getData();
   },
   mounted() {},
@@ -240,9 +310,16 @@ export default {
     getData() {
       Repair.api_get({ BillId: this.cur_Id }).then((res) => {
         this.cur_BillGui = res.BillGui
+        this.state = res.State
         this.transferData = res.BillItems
+        this.BillItems = res.BillItems.map(item => {
+          return {
+            ...item
+          }
+        })
         this.detailObj.setData(res);
         this.tableObj.setData(res.BillItems);
+        this.editTableObj.setData(this.BillItems);
         this.btnAction = [
           // 复制
           {
@@ -275,12 +352,6 @@ export default {
             label: this.$t('device.De_ReturnRepair'),
             disabled: res.State !== "ToBeRepair",
             confirm: this.returnRepair,
-          },
-          // 添加配件
-          {
-            label: this.$t('device.De_AddItems'),
-            disabled: res.State !== "Repairing",
-            confirm: this.addItems,
           },
           // 维修完成
           {
@@ -366,6 +437,27 @@ export default {
         this.getData();
       })
       this.ItemsFormVisible = false
+    },
+    // 修改配件
+    editNumber() {
+      this.editNumVisible = true
+      this.editTableObj.setData(this.BillItems);
+    },
+    // 删除配件
+    deleteItems(row) {
+      const arr = this.editTableObj.getTableData()
+      this.editTableObj.setData(arr.filter(item => item.ItemId !== row.ItemId))
+    },
+    // 确认修改
+    confirmToEdit() {
+      const obj = {
+        BillGui: this.cur_BillGui,
+        Item: this.editTableObj.getTableData()
+      }
+      assets_device_repair_saveItems(obj).then((res) => {
+        this.getData();
+      })
+      this.editNumVisible = false
     },
     // 完成维修
     completeRepair() {

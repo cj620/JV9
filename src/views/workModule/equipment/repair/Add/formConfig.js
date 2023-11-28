@@ -7,7 +7,7 @@
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleOrder\components\formConfig.js
  */
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
-import { repairEnum1, enumToList, LevelEnum ,repairStateEnum, repairResultEnum } from "@/enum/workModule";
+import { repairEnum1, enumToList, repairLevelEnum } from "@/enum/workModule";
 export const formSchema =  [
    {
      //设备编号
@@ -112,7 +112,7 @@ export const formSchema =  [
     label: i18n.t('Generality.Ge_Level'),
     cpn: "FormSelect",
     options: {
-      list: enumToList(LevelEnum)
+      list: enumToList(repairLevelEnum)
     },
   },
 ];

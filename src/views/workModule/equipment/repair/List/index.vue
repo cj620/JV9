@@ -5,8 +5,16 @@
     <JvTable ref="BillTable" :table-obj="tableObj">
       <template #State="{ record }">
         <!-- 状态标签 -->
-        <RepairStateTags :state="record"></RepairStateTags>
+        <RepairStateTags :state="record" :enum="repairStateEnum"></RepairStateTags>
       </template>
+<!--      <template #RepairLevel="{ record }">-->
+<!--        &lt;!&ndash; 级别标签 &ndash;&gt;-->
+<!--        <RepairStateTags :state="record" :enum="repairLevelEnum"></RepairStateTags>-->
+<!--      </template>-->
+<!--      <template #RepairCategory="{ record }">-->
+<!--        &lt;!&ndash; 类别标签 &ndash;&gt;-->
+<!--        <RepairStateTags :state="record" :enum="repairEnum1"></RepairStateTags>-->
+<!--      </template>-->
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction
@@ -110,7 +118,7 @@ import { Form } from "@/jv_doc/class/form";
 import RepairStateTags from "../components/RepairStateTags.vue";
 import { timeFormat } from "~/utils/time";
 import { assets_device_repair_updateState, assets_device_repair_saveItems } from "@/api/workApi/equipment/repair";
-import { enumToList, repairResultEnum } from "@/enum/workModule";
+import {enumToList, repairResultEnum, repairStateEnum, repairLevelEnum, repairEnum1} from "@/enum/workModule";
 import SelectRepairItems from "@/views/workModule/equipment/repair/components/SelectRepairItems/SelectRepairItems.vue";
 import closeTag from "@/utils/closeTag";
 import {mapState} from "vuex";
@@ -197,6 +205,15 @@ export default {
     });
   },
   computed: {
+    repairEnum1() {
+      return repairEnum1
+    },
+    repairLevelEnum() {
+      return repairLevelEnum
+    },
+    repairStateEnum() {
+      return repairStateEnum
+    },
     ...mapState({
       current: (state) => state.page.current,
     }),

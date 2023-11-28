@@ -42,6 +42,8 @@ import {
   repairEnum1,
   repairResultEnum,
   repairItemState,
+  repairLevelEnum,
+  ScrapCategoryEnum,
 } from "./equipment";
 export { enumToList, enumFilter } from "@/jv_doc/utils/system/enumsPlugin";
 export {
@@ -105,12 +107,16 @@ export {
   repairResultEnum,
   // 报修配件状态
   repairItemState,
-  //点检类型
+  // 报修级别
+  repairLevelEnum,
+  // 点检类型
   planTypeEnum,
-  //计划类型
+  // 计划类型
   SpotCheckTypeEnum,
-  //点检计划状态
+  // 点检计划状态
   spotCheckStateEnum,
-  //超时处理
+  // 超时处理
   afterTimeOutEnum,
+  // 报废类型
+  ScrapCategoryEnum,
 };

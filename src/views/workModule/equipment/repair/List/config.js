@@ -6,7 +6,7 @@
  */
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
-import {repairEnum1, enumToList, repairStateEnum, repairResultEnum } from "@/enum/workModule";
+import {repairEnum1, enumToList, repairStateEnum, repairResultEnum, repairLevelEnum } from "@/enum/workModule";
 // 获取设备接口
 import { assets_device_list } from "@/api/workApi/equipment/device"
 // 引入模块API接口
@@ -46,6 +46,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
+    width:'140px',
     cpnProps: {
       // 路由名称
       routeName: "As_DeviceRepairDetail",
@@ -78,9 +79,22 @@ export const tableConfig = [
     prop: "DeviceName",
     label: i18n.t("production.Pr_DeviceName"),
   },
+  /*级别*/
+  {
+    prop: "RepairLevel",
+    label: i18n.t("Generality.Ge_Level"),
+    width:'120px',
+    // custom: true,
+    customFilter: (value) => {
+      if (!value) return "";
+      return repairLevelEnum[value].name;
+    },
+  },
   {
     prop: "RepairCategory",
     label: i18n.t("device.De_RepairCategory"),
+    width:'120px',
+    // custom: true,
     customFilter: (value) => {
       if (!value) return "";
       return repairEnum1[value].name;
@@ -114,7 +128,8 @@ export const tableConfig = [
   {
     prop: "RepairDate",
     label: i18n.t("device.De_RepairDate"),
-    filter:'time'
+    filter:'time',
+    width:'140px',
   },
   /*备注*/
   {
