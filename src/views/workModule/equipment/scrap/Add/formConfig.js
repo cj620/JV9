@@ -6,7 +6,7 @@
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleOrder\components\formConfig.js
  */
-import { taskTypeEnum,machineCategoryEnum,scrapEnum,maintenanceEnum, enumToList } from "@/enum/workModule";
+import { ScrapCategoryEnum, enumToList } from "@/enum/workModule";
 
 export const formSchema = [
   //设备编号
@@ -46,7 +46,7 @@ export const formSchema = [
   {
     prop: "ScrapDate",
     label: i18n.t("device.De_ScrapDate"),
-    cpn: "SingleTime",
+    cpn: "SingleDateTime",
     rules: [
       {
         required: true,
@@ -56,19 +56,21 @@ export const formSchema = [
     ],
   },
   //报废类别
-  // {
-  //   prop: "ScrapCategory",
-  //   label: i18n.t("Generality.Ge_Category"),
-  //   cpn: "FormSelect",
-  //   custom:true,
-  //   rules: [
-  //     {
-  //       required: true,
-  //       message: i18n.t("Generality.Ge_PleaseSelect"),
-  //       trigger: ["change", "blur"],
-  //     },
-  //   ],
-  // },
+  {
+    prop: "ScrapCategory",
+    label: i18n.t("device.De_ScrapCategory"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(ScrapCategoryEnum),
+    },
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseSelect"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
 
 
 ];
