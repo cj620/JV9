@@ -114,6 +114,12 @@ export default {
         tooltip: {
           trigger: 'item',
         },
+        label: {
+          formatter: function (value, index) {
+            console.log(value)
+            return value.name + ':' + value.value + '%';
+          }
+        },
         color: ['#19d4ae','#fa6e86'],
         series: [
           {
