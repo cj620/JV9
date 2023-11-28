@@ -16,3 +16,11 @@ export function assets_device_spot_check_plan_delete(data) {
     data,
   });
 }
+//点检单计划列表
+export function assets_device_spot_check_plan_get(query) {
+  return request({
+    url: "/assets_device_spot_check_plan/get",
+    method: "get",
+    params: query,
+  });
+}

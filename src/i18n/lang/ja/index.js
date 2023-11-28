@@ -175,6 +175,7 @@ const ja = {
     As_MaintenanceTPL: "メンテナンステンプレート",
     As_MaintenancePlan: "保守方案",
     As_DeviceSpotCheck: "設備点検",
+    As_DeviceSpotCheckPlan: "設備点検計画",
     As_AccessoryCheckOut: "スペア受領用",
   },
   login: {
@@ -1391,6 +1392,16 @@ const ja = {
     De_ScrapCategory: "除・売却タイプ",
     De_DamageScrap: "破損廃棄",
     De_DueScrap: "期限付き廃棄",
+    De_PlanInfo: "計画情報",
+    De_PlanName1: "計画名",
+    De_PlanType: "計画タイプ",
+    De_SpotCheckType: "点検タイプ",
+    De_ExecutionTime: "じっこうじかん",
+    De_TimeOut: "タイムアウト時間",
+    De_AfterTimeOut: "タイムアウト処理",
+    De_PlanItem: "計画の詳細",
+    De_PlanMember: "計画メンバー",
+    De_SpotCheckContent: "点検内容",
   },
   // 后端提示
   backendMessage: {

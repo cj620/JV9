@@ -176,6 +176,7 @@ const cn = {
     As_MaintenanceTPL: "保养模板",
     As_MaintenancePlan: "保养方案",
     As_DeviceSpotCheck: "设备点检",
+    As_DeviceSpotCheckPlan: "设备点检计划",
     As_AccessoryCheckOut: "备件领用",
   },
   login: {
@@ -1381,6 +1382,16 @@ const cn = {
     De_ScrapCategory: "报废类型",
     De_DamageScrap: "损坏报废",
     De_DueScrap: "到期报废",
+    De_PlanInfo: "计划信息",
+    De_PlanName1: "计划名称",
+    De_PlanType: "计划类型",
+    De_SpotCheckType: "点检类型",
+    De_ExecutionTime: "执行时间",
+    De_TimeOut: "超时时间",
+    De_AfterTimeOut: "超时处理",
+    De_PlanItem: "计划明细",
+    De_PlanMember: "计划成员",
+    De_SpotCheckContent: "点检内容",
   },
   // 后端提示
   backendMessage: {

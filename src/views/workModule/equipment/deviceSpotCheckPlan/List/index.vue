@@ -22,7 +22,7 @@
         slot="btn-list"
         :actions="[
             {
-            label:'新增',
+            label:$t('Generality.Ge_New'),
             confirm: add,
           },
           {
@@ -36,23 +36,28 @@
         ]"
       >
       </Action>
+      <template #State="{ record }">
+        <el-tag type="success" v-if="record === 'Using'">{{ spotCheckStateEnum[record].name }}</el-tag>
+        <el-tag type="danger" v-else>{{ spotCheckStateEnum[record].name }}</el-tag>
+      </template>
     </JvTable>
   </PageWrapper>
 </template>
 <script>
 import { Table } from "./config";
 import { stateEnum } from "@/enum/workModule";
-import BillStateTags from "@/components/WorkModule/BillStateTags";
+import { spotCheckStateEnum } from "@/enum/workModule";
 export default {
-  name: "As_DeviceSpotCheck",
+  name: "As_DeviceSpotCheckPlan",
   components:{
-    BillStateTags
+
   },
   data() {
     return {
+      spotCheckStateEnum,
       tableObj: {},
-    // 新增路由
-    AddRoute: "Sa_SaleOrder_Add",
+      // 新增路由
+      AddRoute: "As_DeviceSpotCheckPlan_Add",
     }
   },
   created() {
@@ -95,3 +100,10 @@ export default {
 }
 
 </script>
+<style lang="scss" scoped>
+.el-tag--light {
+  width: 100%;
+  max-width: 100px;
+  text-align: center;
+}
+</style>

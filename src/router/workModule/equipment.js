@@ -263,9 +263,19 @@ const equipment = [
     Parent: "As_AssetsManage",
     name: "As_DeviceSpotCheckPlan",
     path: "As_DeviceSpotCheckPlan",
-    title:"设备点检计划",
+    title: i18n.t("menu.As_DeviceSpotCheckPlan")
   },
-  // 设备点检计划
+  // 设备点检计划详情
+  {
+    key: "As_DeviceSpotCheckPlanDetail",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheckPlan/Detail/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckPlanDetail",
+    path: "As_DeviceSpotCheckPlanDetail",
+    title: i18n.t("menu.As_DeviceSpotCheckPlan")+ "  " + i18n.t("Generality.Ge_Details"),
+  },
+  // 新增设备点检计划
   {
     key: "As_DeviceSpotCheckPlan_Add",
     component: ()=>
@@ -273,7 +283,7 @@ const equipment = [
     Parent: "As_AssetsManage",
     name: "As_DeviceSpotCheckPlan_Add",
     path: "As_DeviceSpotCheckPlan_Add",
-    title:"新增设备点检计划",
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_DeviceSpotCheckPlan"),
   },
   // 设备点检
   {

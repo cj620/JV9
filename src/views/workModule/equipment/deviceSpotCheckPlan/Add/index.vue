@@ -13,7 +13,7 @@
       ></el-tab-pane>
     </el-tabs>
     <JvBlock
-      title="计划信息"
+      :title="$t('device.De_PlanInfo')"
       ref="first"
 
     >
