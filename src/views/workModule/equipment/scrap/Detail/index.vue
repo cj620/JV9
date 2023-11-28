@@ -50,8 +50,8 @@
     </JvBlock>
 
     <!--备注-->
-    <JvBlock :title="$t('device.De_ScrapDescription')" ref="third">
-      <JvRemark :RemarkData="detailObj.detailData.ScrapDescription"></JvRemark>
+    <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
+      <JvRemark :RemarkData="detailObj.detailData.Remarks"></JvRemark>
     </JvBlock>
     <!--附件-->
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">

@@ -12,6 +12,7 @@
 // 量具(MeasuringTool)，
 // 夹具(Fixture)
 import i18n from "@/i18n/i18n";
+import {exp} from "qrcode/lib/core/galois-field";
 
 export const machineCategoryEnum = {
     // 设备
@@ -273,4 +274,18 @@ export const ScrapCategoryEnum = {
         name: i18n.t("device.De_DueScrap"),
         value: "DueScrap",
     },
+}
+
+// 领料类别
+export const PickingTypeEnum1 = {
+    // 保养
+    'Maintenance': {
+        name: i18n.t("device.De_Maintenance"),
+        value: "Maintenance",
+    },
+    // 维修
+    'Repair': {
+        name: i18n.t("device.De_Repair"),
+        value: "Repair",
+    }
 }

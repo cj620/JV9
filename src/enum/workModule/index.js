@@ -44,6 +44,7 @@ import {
   repairItemState,
   repairLevelEnum,
   ScrapCategoryEnum,
+  PickingTypeEnum1
 } from "./equipment";
 export { enumToList, enumFilter } from "@/jv_doc/utils/system/enumsPlugin";
 export {
@@ -119,4 +120,6 @@ export {
   afterTimeOutEnum,
   // 报废类型
   ScrapCategoryEnum,
+  // 领料类别
+  PickingTypeEnum1
 };
