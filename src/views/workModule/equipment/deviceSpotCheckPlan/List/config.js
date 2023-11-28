@@ -8,7 +8,7 @@ import {
   SpotCheckTypeEnum,
   spotCheckStateEnum,
   afterTimeOutEnum,
-  enumFilter,
+  enumFilter, enumToList,
 } from "@/enum/workModule";
 export class api extends TableAPI {
   getData = assets_device_spot_check_plan_list;
@@ -110,4 +110,29 @@ export const formSchema = [
     label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
   },
+  {
+    prop: "States",
+    label: i18n.t("Generality.Ge_State"),
+    cpn: "FormSelect",
+    type: "multiple",
+    options: {
+      list: enumToList(spotCheckStateEnum)
+    }
+  },
+  {
+    prop: "PlanType",
+    label: i18n.t("device.De_PlanType"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(planTypeEnum)
+    }
+  },
+  {
+    prop: "SpotCheckType",
+    label: i18n.t("device.De_SpotCheckType"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(SpotCheckTypeEnum)
+    }
+  }
 ]

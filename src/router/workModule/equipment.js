@@ -285,6 +285,16 @@ const equipment = [
     path: "As_DeviceSpotCheckPlan_Add",
     title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_DeviceSpotCheckPlan"),
   },
+  // 编辑设备点检计划
+  {
+    key: "As_DeviceSpotCheckPlan_Edit",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheckPlan/Edit/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckPlan_Edit",
+    path: "As_DeviceSpotCheckPlan_Edit",
+    title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.As_DeviceSpotCheckPlan"),
+  },
   // 设备点检
   {
     key: "As_DeviceSpotCheck",

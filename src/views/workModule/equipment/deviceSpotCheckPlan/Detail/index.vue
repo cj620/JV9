@@ -9,6 +9,22 @@
           :name="pane.name"
       ></el-tab-pane>
     </el-tabs>
+    <Action slot="sticky-extra" size="small" :actions="[
+      {
+        label: $t('Generality.Ge_Copy'),
+        confirm: copyBill,
+      },
+      {
+        label: $t('Generality.Ge_Edit'),
+        disabled: canIsEdit,
+        confirm: editBill,
+      },
+      {
+        label: $t('Generality.Ge_Delete'),
+        disabled: canIsEdit,
+        confirm: deleteBill,
+      },
+    ]"></Action>
     <!--单据信息-->
     <JvBlock :title="cur_billId" ref="first" style="position:relative;" :contentStyle="{ paddingLeft: '15px' }">
       <div style="position: relative">
@@ -42,8 +58,12 @@ import { mapState } from "vuex";
 import { detailConfig, itemTableConfig, memberTableConfig } from "./config"
 import Detail from "@/jv_doc/class/detail/Detail";
 import { Table } from "@/jv_doc/class/table";
-import { assets_device_spot_check_plan_get } from "@/api/workApi/equipment/spotCheckPlan";
+import {
+  assets_device_spot_check_plan_get,
+  assets_device_spot_check_plan_delete
+} from "@/api/workApi/equipment/spotCheckPlan";
 import { spotCheckStateEnum } from "@/enum/workModule";
+import closeTag from "@/utils/closeTag";
 export default {
   name: "index",
   components: { JvFileExhibit },
@@ -56,6 +76,8 @@ export default {
       detailObj: {},
       itemTableObj: {},
       memberTableObj: {},
+      editRouterName: "As_DeviceSpotCheckPlan_Edit",
+      addRouterName: "As_DeviceSpotCheckPlan_Add",
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -80,6 +102,9 @@ export default {
     ...mapState({
       current: (state) => state.page.current,
     }),
+    canIsEdit(){
+      return this.State === "Using"
+    }
   },
   async created() {
     this.cur_billId = this.$route.query.BillId;
@@ -122,6 +147,26 @@ export default {
         this.cur_billId = res.BillId;
         this.itemTableObj.setData(res.BillItems);
         this.memberTableObj.setData(res.BillMembers);
+      })
+    },
+    editBill() {
+      this.$router.push({
+        name: this.editRouterName,
+        query: { BillId: this.cur_billId },
+      });
+    },
+    copyBill() {
+      this.$router.push({
+        name: this.addRouterName,
+        query: {BillId: this.cur_billId,type: "copy"}
+      })
+    },
+    deleteBill() {
+      assets_device_spot_check_plan_delete({ BillIds: [this.cur_billId] }).then(() => {
+        let TagName = {
+          name: "As_DeviceSpotCheckPlan"
+        }
+        closeTag(this.current, TagName);
       })
     },
     tabClick(e) {
