@@ -121,26 +121,20 @@ import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 
 import { mapState } from "vuex";
 // 引入模块API接口
-import { assets_device_spot_check_plan_save } from "@/api/workApi/equipment/spotCheckPlan"
+import {
+  assets_device_spot_check_plan_get,
+  assets_device_spot_check_plan_save
+} from "@/api/workApi/equipment/spotCheckPlan"
 import closeTag from "@/utils/closeTag";
 export default {
   name: "As_DeviceSpotCheckPlan_Add",
   components: {
     JvUploadFile,
   },
-  props: {
-    billData: {
-      type: String,
-      default: () => "",
-    },
-    type: {
-      type: String,
-      default: () => "",
-    },
-  },
   data() {
     return {
       cur_Id: this.$route.query.BillId,
+      type: this.$route.query.type,
       defaultImgUrl: window.global_config.ImgBase_Url,
       fileBillId: "",
       selectDevicesShow: false,
@@ -214,13 +208,21 @@ export default {
     });
     this.memberTableObj = new memberTable()
     this.itemTableObj = new itemTable()
-    // this.formObj.formSchema[0].cpnProps.disabled=false
-    // this.formObj.formSchema[1].cpnProps.disabled=false
-  },
-  mounted() {
-    Object.assign(this.formObj.form, this.$route.params);
+    if (this.type === "copy") {
+      this.fileBillId = this.cur_Id
+      this.GetData()
+    }
   },
   methods: {
+    // copy时获取数据
+    GetData() {
+      assets_device_spot_check_plan_get({ BillId: this.cur_Id }).then((res) => {
+        this.formObj.form = res;
+        this.ruleForm = res;
+        this.itemTableObj.setData(res.BillItems)
+        this.memberTableObj.setData(res.BillMembers)
+      });
+    },
     // 选择成员
     selectDevice() {
       this.deviceTableObj = new deviceTable()
@@ -274,6 +276,10 @@ export default {
                 this.ruleForm.BillMembers = this.memberTableObj.getTableData()
                 this.ruleForm.BillItems = this.itemTableObj.getTableData()
                 this.ruleForm.TimeOut = parseInt(this.ruleForm.TimeOut)
+                if (this.type === "copy") {
+                  this.ruleForm.BillId = ""
+                  this.ruleForm.BillGui = ""
+                }
                 assets_device_spot_check_plan_save(this.ruleForm).then((res) => {
                     let TagName = {
                         name: this.detailRouteName,

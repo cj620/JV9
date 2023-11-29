@@ -14,6 +14,16 @@ export class memberTable extends BaseTable {
     }
 }
 const memberConfig = [
+    /*图片*/
+    {
+        prop: "PhotoUrl",
+        label: i18n.t('Generality.Ge_PhotoUrl'),
+        width: "75px",
+        custom: true,
+        editConfig:{
+            disabled:true,
+        }
+    },
     /*设备编号*/
     {
         prop: "DeviceNo",
@@ -39,16 +49,6 @@ const memberConfig = [
             disabled:true,
         }
     },
-    /*图片*/
-    {
-        prop: "PhotoUrl",
-        label: i18n.t('Generality.Ge_PhotoUrl'),
-        width: "75px",
-        custom: true,
-        editConfig:{
-            disabled:true,
-        }
-    }
 ]
 export class itemTable extends BaseTable {
     constructor() {
