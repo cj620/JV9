@@ -246,20 +246,24 @@ export default {
     save(){
       this.formObj.validate((valid) => {
         if (valid) {
-          if (this.eTableObj1.getTableData().length > 0 && this.eTableObj2.getTableData().length > 0){
-            Object.assign(this.ruleForm, this.formObj.form);
-            this.ruleForm.BillMembers = this.eTableObj1.getTableData()
-            this.ruleForm.BillItems = this.eTableObj2.getTableData()
-            assets_device_maintenance_plan_save(this.ruleForm).then((res) => {
-              let TagName = {
-                name: this.detailRouteName,
-                query: { BillId: res },
-              };
-              closeTag(this.current, TagName);
-            })
-          } else {
-            this.$message.warning(this.$t("Generality.Ge_PleaseAddItems"));
-          }
+          this.eTableObj2.validate((valid) => {
+            if (valid) {
+              if (this.eTableObj1.getTableData().length > 0 && this.eTableObj2.getTableData().length > 0){
+                Object.assign(this.ruleForm, this.formObj.form);
+                this.ruleForm.BillMembers = this.eTableObj1.getTableData()
+                this.ruleForm.BillItems = this.eTableObj2.getTableData()
+                assets_device_maintenance_plan_save(this.ruleForm).then((res) => {
+                  let TagName = {
+                    name: this.detailRouteName,
+                    query: { BillId: res },
+                  };
+                  closeTag(this.current, TagName);
+                })
+              } else {
+                this.$message.warning(this.$t("Generality.Ge_PleaseAddItems"));
+              }
+            }
+          })
         }
       });
     },

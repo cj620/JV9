@@ -29,14 +29,23 @@
       }"
              style="position: relative">
       <div style="position: relative">
-      <JvDetail :detailObj="detailObj"> </JvDetail>
+      <JvDetail :detailObj="detailObj">
+        <template #AssociatedNo="{ record }">
+            <span
+                style="color: #409eff; cursor: pointer"
+                @click="linkToProject(record)"
+            >
+              {{ record }}
+            </span>
+        </template>
+      </JvDetail>
       <MaintenanceState :state="detailObj.detailData.State"></MaintenanceState>
       </div>
     </JvBlock>
     <!-- 保养明细 -->
     <JvBlock :title="$t('device.De_MaintenanceDetail')" ref="second">
       <div slot="extra">
-        <el-button size="mini" @click="editDetail" :disabled="canEditDetails">{{
+        <el-button size="mini" @click="editDetail" :disabled="canAddDetails">{{
             $t("device.De_EditDetail")
           }}</el-button>
       </div>
@@ -45,7 +54,7 @@
     <!--保养配件-->
     <JvBlock :title="$t('device.De_MaintenanceItems')" ref="third">
       <div slot="extra">
-        <el-button size="mini" @click="selectMaintenanceItems" :disabled="canEditDetails">{{
+        <el-button size="mini" @click="selectMaintenanceItems" :disabled="canAddDetails">{{
             $t("device.De_AddItems")
           }}</el-button>
         <el-button size="mini" @click="editMaintenanceItems" :disabled="canEditDetails">{{
@@ -138,7 +147,6 @@ import { assets_device_maintenance_start,
 import SelectRepairItems from "@/views/workModule/equipment/repair/components/SelectRepairItems/SelectRepairItems.vue";
 import EditMaintenanceDetail from "../components/EditMaintenanceDetail/EditMaintenanceDetail.vue";
 import {timeFormat} from "~/utils/time";
-import {log} from "qrcode/lib/core/galois-field";
 
 export default {
   name: "index",
@@ -198,8 +206,11 @@ export default {
          return this.DetailData.every((item) => { return  item.MaintenanceResults === "Completed" })
       } else { return true }
     },
-    canEditDetails(){
+    canAddDetails(){
       return this.state !== "Maintenanceing"
+    },
+    canEditDetails(){
+      return this.state !== "Maintenanceing" || this.itemsTableObj.tableData.length === 0
     },
   },
   created() {
@@ -297,6 +308,7 @@ export default {
             confirm: this.endMaintenance,
           },
         ]
+        console.log(this.itemsTableObj)
       });
     },
     // 开始保养
@@ -386,6 +398,13 @@ export default {
           this.getData()
       })
       this.endFormVisible = false
+    },
+    // 关联编号跳转
+    linkToProject(BillId) {
+      this.$router.push({
+        name: "As_MaintenancePlanDetail",
+        query: { BillId },
+      });
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;

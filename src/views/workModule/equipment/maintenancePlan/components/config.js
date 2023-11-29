@@ -62,6 +62,11 @@ const tableConfig2 = [
         prop: "MaintenanceContent",
         label: i18n.t('device.De_MaintenanceContent'),
         formCpn: "FormInput",
+        editConfig: {
+            rules: {
+                required: true,
+            },
+        },
     },
 ]
 export const formSchema = [
