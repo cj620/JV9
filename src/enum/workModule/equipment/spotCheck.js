@@ -64,3 +64,26 @@ export const afterTimeOutEnum = {
     value: "AutoCompletion",
   }
 }
+
+export const spotCheckListStateEnum = {
+  // 待检验
+  ToBeInspected: {
+    name: "待检验",
+    value: "ToBeInspected"
+  },
+  // 检验中
+  UnderInspection: {
+    name: "检验中",
+    value: "UnderInspection"
+  },
+  // 已检验
+  Verified: {
+    name: "已检验",
+    value: "Verified"
+  },
+  // 超期
+  Overdue: {
+    name: "超期",
+    value: "Overdue"
+  }
+}

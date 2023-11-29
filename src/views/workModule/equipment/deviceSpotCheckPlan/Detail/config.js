@@ -68,7 +68,7 @@ export const detailConfig = [
     },
     /*超时处理*/
     {
-        prop: "AfterTimeOut ",
+        prop: "AfterTimeOut",
         label: i18n.t("device.De_AfterTimeOut"),
         customFilter: (value, row) => enumFilter(value, afterTimeOutEnum),
     },

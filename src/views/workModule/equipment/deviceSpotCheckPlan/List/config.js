@@ -24,7 +24,7 @@ export class Table extends BaseTable {
       // 行标识
       rowId: 'BillId',
       // 表格标题
-      title: '设备点检计划',
+      title: i18n.t("menu.As_DeviceSpotCheckPlan"),
       // 接口类
       api,
       // 操作列宽度
@@ -84,7 +84,7 @@ export const tableConfig = [
     label: i18n.t("device.De_TimeOut"),
   },
   {
-    prop: "AfterTimeOut ",
+    prop: "AfterTimeOut",
     label: i18n.t("device.De_AfterTimeOut"),
     customFilter: (value, row) => enumFilter(value, afterTimeOutEnum),
   },

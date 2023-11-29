@@ -1408,6 +1408,9 @@ const en = {
     De_PlanItem: "Plan Item",
     De_PlanMember: "Plan Member",
     De_SpotCheckContent: "Spot Check Content",
+    De_ShouldBeginTime: "Should Begin Time",
+    De_CheckStartDate: "Check Start Date",
+    De_CheckEndDate: "Check End Date",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

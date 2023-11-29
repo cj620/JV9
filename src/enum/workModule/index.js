@@ -8,7 +8,7 @@
  */
 import { stateEnum, demandStatusEnum } from "./Generality";
 import { pickingTypeEnum, splitAssembleTypeEnum } from "./Stockroom";
-import { planTypeEnum, SpotCheckTypeEnum,spotCheckStateEnum,afterTimeOutEnum } from "./equipment/spotCheck";
+import { planTypeEnum, SpotCheckTypeEnum,spotCheckStateEnum,afterTimeOutEnum,spotCheckListStateEnum } from "./equipment/spotCheck";
 import {
   projectTypeEnum,
   processTypeEnum,
@@ -44,7 +44,7 @@ import {
   repairItemState,
   repairLevelEnum,
   ScrapCategoryEnum,
-  PickingTypeEnum1
+  PickingTypeEnum1,
 } from "./equipment";
 export { enumToList, enumFilter } from "@/jv_doc/utils/system/enumsPlugin";
 export {
@@ -121,5 +121,7 @@ export {
   // 报废类型
   ScrapCategoryEnum,
   // 领料类别
-  PickingTypeEnum1
+  PickingTypeEnum1,
+  // 点检单据状态
+  spotCheckListStateEnum
 };

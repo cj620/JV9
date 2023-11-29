@@ -1392,6 +1392,9 @@ const cn = {
     De_PlanItem: "计划明细",
     De_PlanMember: "计划成员",
     De_SpotCheckContent: "点检内容",
+    De_ShouldBeginTime: "应开始时间",
+    De_CheckStartDate: "检验开始时间",
+    De_CheckEndDate: "检验结束时间",
   },
   // 后端提示
   backendMessage: {

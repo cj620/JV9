@@ -44,14 +44,6 @@
     <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
       <JvRemark :RemarkData="RemarkData"></JvRemark>
     </JvBlock>
-    <!--附件-->
-    <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
-      <JvFileExhibit :BillId="fileBillId"></JvFileExhibit>
-    </JvBlock>
-    <!--审核流程-->
-    <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
-      <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
-    </JvBlock>
   </PageWrapper>
 </template>
 
@@ -63,8 +55,6 @@ import { stateEnum } from "@/enum/workModule";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { assets_device_spot_check_get } from "@/api/workApi/equipment/spotCheck"
 import JvState from "@/components/JVInternal/JvState/index.vue";
-import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index.vue";
-import AuditProcess from "@/components/BasicModule/AuditProcess/index.vue";
 import JvRemark from "@/components/JVInternal/JvRemark/index.vue";
 import { mapState } from "vuex";
 
@@ -72,8 +62,6 @@ export default {
   name: "As_DeviceSpotCheckDetail",
   components: {
     JvRemark,
-    AuditProcess,
-    JvFileExhibit,
     JvState,
   },
   data() {
@@ -95,14 +83,6 @@ export default {
         {
           label: this.$t("Generality.Ge_Remarks"),
           name: "third",
-        },
-        {
-          label: this.$t("Generality.Ge_Annex"),
-          name: "fourth",
-        },
-        {
-          label: this.$t("Generality.Ge_ApproveProcess"),
-          name: "fifth",
         },
       ],
     }
