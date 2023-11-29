@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-27 14:55:20
- * @LastEditTime: 2022-09-01 10:28:15
+ * @LastEditTime: 2023-11-29 13:41:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \V9_Dev\src\jv_doc\cpn\JvEditTable\c-menu.vue
@@ -238,7 +238,6 @@ export default {
       // this.dom_obj.editBlur();
       // 当前节点聚焦
       this.dom_obj.tableId = this.tableObj.id;
-      console.log(this.dom_obj.col, this.dom_obj.row, this.dom_obj);
       this.dom_obj.editFocus();
       this.changeEditState(true);
     },
@@ -286,11 +285,13 @@ export default {
       }
     },
     formBlur() {
-      console.log({row: this.dom_obj.o_row, col: this.dom_obj.o_col});
+      console.log({ row: this.dom_obj.o_row, col: this.dom_obj.o_col });
       // this.dom_obj.editBlur();
-      this.$emit('cell-blur', {row: this.dom_obj.o_row, col: this.dom_obj.o_col})
+      this.$emit("cell-blur", {
+        row: this.dom_obj.o_row,
+        col: this.dom_obj.o_col,
+      });
       this.dom_obj.editBlur();
-
     },
     /*    formFocus(e){
       e.currentTarget.select()

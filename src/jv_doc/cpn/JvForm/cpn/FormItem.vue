@@ -86,12 +86,12 @@
     <!-- 日期选择 -->
     <template v-else-if="getCpn === 'TimeSelect'">
       <el-time-select
-          v-model="getFormProp"
-          size="mini"
-          :id="getPrefixId"
-          @blur="formBlur"
-          @change="getInputLabel"
-          v-bind="getElFormItemProps(cdata)"
+        v-model="getFormProp"
+        size="mini"
+        :id="getPrefixId"
+        @blur="formBlur"
+        @change="getInputLabel"
+        v-bind="getElFormItemProps(cdata)"
       />
     </template>
     <!-- 日期时间选择 -->
@@ -408,7 +408,7 @@ export default {
         // console.log(val, this.isEdit, 8989);
         if (this.isEdit) {
           this.form[this.cdata.prop].value = val;
-          if(this.cdata.rowChange){
+          if (this.cdata.rowChange) {
             this.cdata.rowChange(val, this.form);
           }
         } else {
@@ -417,7 +417,7 @@ export default {
           const currentOption = this.treeSyncData.find(
             (item) => item[this.cdata.prop] === val
           );
-          console.log(5)
+          console.log(5);
           this?.formObj?.eventBus.$emit(this.cdata.prop, val, currentOption);
           this.form[this.cdata.prop] = val;
         }
@@ -475,6 +475,7 @@ export default {
         CurrentPage: 1,
       });
     },
+
     // selectFocus(api) {
     //   if (this.cdata?.apiOptions?.clearCache) {
     //     this.syncData = [];
