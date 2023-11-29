@@ -46,6 +46,7 @@ export const detailConfig = [
   {
     prop: "AssociatedNo",
     label: i18n.t("Generality.Ge_AssociatedNo"),
+    custom: true,
   },
   //   保养方式
   {

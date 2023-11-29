@@ -115,7 +115,7 @@ export default {
     copy(row) {
       this.$router.push({
         name: this.addRouterName,
-        query: {BillId: row.BillId,type: "copy"}
+        query: {BillId: row.BillId, type: "copy"}
       });
     },
     edit(row) {

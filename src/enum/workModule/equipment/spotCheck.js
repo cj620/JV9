@@ -19,9 +19,9 @@ export const SpotCheckTypeEnum = {
     value: "DayCheck",
   },
   //   周检
-  Collected: {
+  WeekCheck: {
     name: '周检',
-    value: "Collected",
+    value: "WeekCheck",
   },
   //   月检
   MonthCheck: {

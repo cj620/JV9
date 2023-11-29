@@ -11,12 +11,10 @@
       @confirm="confirmEdit"
     >
       <!-- 表格 -->
-      <JvTable
-        ref="BillTable"
-        :table-obj="tableObj">
+      <JvEditTable ref="BillTable" :table-obj="tableObj">
         <template #MaintenanceResults="{ row }">
           <el-select
-            v-model="row.MaintenanceResults"
+            v-model="row.MaintenanceResults.value"
             size="mini"
             style="width: 125px"
           >
@@ -29,19 +27,13 @@
             </el-option>
           </el-select>
         </template>
-        <template #Remarks="{ row }">
-          <el-input
-            v-model="row.Remarks"
-            size="mini"
-            style="width: 675px"
-          ></el-input>
-        </template>
-      </JvTable>
+      </JvEditTable>
     </jv-dialog>
   </div>
 </template>
 <script>
-import { detailTable } from "./config"
+// import { detailTable } from "./config"
+import { EditTable } from "./config"
 export default {
   name: "index",
   data() {
@@ -66,13 +58,17 @@ export default {
     },
   },
   created() {
-    this.tableObj = new detailTable()
+    this.tableObj = new EditTable()
     this.tableObj.setData(this.DetailData);
   },
   methods: {
     confirmEdit() {
-      let arr = this.DetailData;
-      this.$emit("confirmData", arr);
+      let arr = this.tableObj.getTableData()
+      this.tableObj.validate((valid) => {
+        if (valid) {
+          this.$emit("confirmData", arr);
+        }
+      })
     }
   },
 }
