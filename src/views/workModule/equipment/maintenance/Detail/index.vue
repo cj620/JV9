@@ -311,7 +311,6 @@ export default {
             confirm: this.endMaintenance,
           },
         ]
-        console.log(this.itemsTableObj)
       });
     },
     // 开始保养

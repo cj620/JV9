@@ -219,7 +219,6 @@ export default {
     },
   },
   created() {
-    console.log(this.$store.state.user.name)
     this.tableObj = new Table({
       tableSchema: itemTableConfig,
       pagination: false,
