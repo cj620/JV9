@@ -1405,6 +1405,7 @@ const ja = {
     De_ShouldBeginTime: "開始すべき時間",
     De_CheckStartDate: "検査開始時間",
     De_CheckEndDate: "検査終了時間",
+    De_AcceptedBy: "検収人",
   },
   // 后端提示
   backendMessage: {
