@@ -56,21 +56,9 @@ export const detailConfig = [
   //     if (!value) return "";
   //     return machineCategoryEnum[value].name;
   //   },
-  // }, 
-  //保养方式
-  {
-    prop: "MaintenanceMode",
-    label: i18n.t("device.De_MaintenanceMode"),
-    customFilter: (value) => {
-      if (!value) return "";
-      return maintenanceEnum[value].name;
-    },
-  },
-  //间隔天数/累计小时/累计次数
-  {
-    prop: "IntervalDays",
-    label: i18n.t("device.De_Interval"),
-  }, //上次保养日期
+  // },
+
+ //上次保养日期
   {
     prop: "LastMaintenanceDate",
     label: i18n.t("device.De_LastMaintenanceDate"),
@@ -126,9 +114,5 @@ export const detailConfig = [
   label: '预计寿命',
 
 },*/
-  // MaintenanceTplId
-  {
-    prop: "MaintenanceTplName",
-    label: i18n.t("device.De_MaintenanceTemplate"),
-  },
+
 ];

@@ -78,47 +78,7 @@ export const formSchema = [
   //     },
   //   ],
   // },
-  //保养方式
-  {
-    prop: "MaintenanceMode",
-    label: i18n.t("device.De_MaintenanceMode"),
-    cpn: "FormSelect",
-    options: {
-      list: enumToList(maintenanceEnum),
-    },
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseSelect"),
-        trigger: ["blur"],
-      },
-    ],
-  },
-  //间隔天数/累计小时/累计次数
-  {
-    prop: "IntervalDays",
-    label: i18n.t("device.De_Interval"),
-    cpn: "FormInput",
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseSelect"),
-        trigger: ["blur"],
-      },
-    ],
-  }, //上次保养日期
-  {
-    prop: "LastMaintenanceDate",
-    label: i18n.t("device.De_LastMaintenanceDate"),
-    cpn: "SingleTime",
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseSelect"),
-        trigger: ["blur"],
-      },
-    ],
-  },
+
   //购置日期
   {
     prop: "AcquisitionDate",
@@ -145,23 +105,7 @@ export const formSchema = [
   //     },
   //   ],
   // },
-  //状态
-  {
-    prop: "State",
-    label: i18n.t("Generality.Ge_State"),
-    // deviceStateEnum
-    cpn: "FormSelect",
-    options: {
-      list: enumToList(deviceStateEnum),
-    },
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseSelect"),
-        trigger: ["blur"],
-      },
-    ],
-  },
+
   //使用部门
   {
     prop: "UserDepartment",
@@ -184,11 +128,7 @@ export const formSchema = [
       },
     ],
   },
-  {
-    prop: "MaintenanceTplId",
-    label: i18n.t("device.De_MaintenanceTemplate"),
-    custom: true,
-  },
+
   /*  //寿命设定
   {
     prop: "LifeSetting",
