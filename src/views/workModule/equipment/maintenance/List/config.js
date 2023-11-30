@@ -49,11 +49,6 @@ export const tableConfig = [
     align: "center",
     cpn: "Link",
     width: '200px',
-    innerSearch: {
-      prop: "BillId",
-      cpn: "FormInput",
-      label: i18n.t("Generality.Ge_BillId")
-    },
     cpnProps: {
       // 路由名称
       routeName: "As_DeviceMaintenanceDetail",
