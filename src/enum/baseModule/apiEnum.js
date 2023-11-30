@@ -38,7 +38,8 @@ export const apiEnum={
   // 审核  2^5
   32:{
     name:'audit',
-    type:'post'
+    type:'post',
+    loading:true
   },
   // 撤审  2^6
   64:{
