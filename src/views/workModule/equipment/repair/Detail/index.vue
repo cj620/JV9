@@ -54,7 +54,7 @@
     <!--报修配件-->
     <JvBlock :title="$t('device.De_DeviceRepairItem')" ref="second">
       <div slot="extra">
-          <el-button size="mini" @click="addItems" :disabled="canEditItems">{{
+          <el-button size="mini" @click="addItems" :disabled="canAddItems">{{
               $t("device.De_AddItems")
               }}</el-button>
           <el-button size="mini" @click="editNumber" :disabled="canEditItems">{{
@@ -211,11 +211,15 @@ export default {
     ...mapState({
       current: (state) => state.page.current,
     }),
+    canAddItems(){
+      return this.state !== "Repairing" || this.detailObj.detailData.MaintenancePersonnel !== this.$store.state.user.name
+    },
     canEditItems(){
-      return this.state !== "Repairing"
-    }
+      return this.state !== "Repairing" || this.tableObj.tableData.length === 0 || this.detailObj.detailData.MaintenancePersonnel !== this.$store.state.user.name
+    },
   },
   created() {
+    console.log(this.$store.state.user.name)
     this.tableObj = new Table({
       tableSchema: itemTableConfig,
       pagination: false,
@@ -329,13 +333,15 @@ export default {
           // 编辑
           {
             label: this.$t("Generality.Ge_Edit"),
-            disabled: res.State !== "ToBeRepair" && res.State !== "BackTo",
+            disabled: !((res.State === "ToBeRepair" || res.State === "BackTo") &&
+                res.RepairApplicant === this.$store.state.user.name),
             confirm: this.editBill,
           },
           // 删除
           {
             label: this.$t("Generality.Ge_Delete"),
-            disabled: res.State !== "ToBeRepair" && res.State !== "BackTo",
+            disabled: !((res.State === "ToBeRepair" || res.State === "BackTo") &&
+                res.RepairApplicant === this.$store.state.user.name),
             popConfirm: {
               title: this.$t("Generality.Ge_DeleteConfirm"),
               confirm: this.deleteBill
@@ -344,25 +350,25 @@ export default {
           // 开始维修
           {
             label: this.$t('device.De_StartToRepair'),
-            disabled: res.State !== "ToBeRepair",
+            disabled: !(res.State === "ToBeRepair" && res.MaintenancePersonnel === this.$store.state.user.name),
             confirm: this.startRepair,
           },
           // 打回
           {
             label: this.$t('device.De_ReturnRepair'),
-            disabled: res.State !== "ToBeRepair",
+            disabled: !(res.State === "ToBeRepair" && res.MaintenancePersonnel === this.$store.state.user.name),
             confirm: this.returnRepair,
           },
           // 维修完成
           {
             label: this.$t('device.De_CompleteRepair'),
-            disabled: res.State !== "Repairing",
+            disabled: !(res.State === "Repairing" && res.MaintenancePersonnel === this.$store.state.user.name),
             confirm: this.completeRepair,
           },
           // 维修验收
           {
             label: this.$t('device.De_CheckRepair'),
-            disabled: res.State !== "Repaired",
+            disabled: !(res.State === "Repaired" && res.RepairApplicant === this.$store.state.user.name),
             confirm: this.checkRepair,
           },
         ]

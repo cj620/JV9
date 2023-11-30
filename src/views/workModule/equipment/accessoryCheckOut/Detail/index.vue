@@ -122,7 +122,6 @@ export default {
   methods: {
     async GetData() {
       await API.api_get({ BillId: this.$route.query.BillId }).then((res) => {
-        console.log(res)
         this.detailObj.detailData = res;
         this.tableObj.setData(res.BillItems);
         this.btnAction = detailPageModel(this, res, API, this.GetData)
