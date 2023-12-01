@@ -1316,6 +1316,7 @@ const en = {
   device: {
     De_Repair: "Repair",
     De_Maintenance: "Maintenance",
+    De_SpotCheck: "Spot Check",
     De_MaintenanceInfo: "Maintenance Info",
     De_MaintenanceDate: "Maintenance Date",
     De_MaintenanceMode: "Maintenance Mode",
@@ -1412,6 +1413,10 @@ const en = {
     De_CheckStartDate: "Check Start Date",
     De_CheckEndDate: "Check End Date",
     De_AcceptedBy: "Accepted By",
+    De_SpotCheckResult: "Spot Check Result",
+    De_CheckedDate: "Checked Date",
+    De_Normal: "Normal",
+    De_Abnormal: "Abnormal",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

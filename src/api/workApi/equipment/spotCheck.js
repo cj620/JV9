@@ -26,3 +26,12 @@ export function assets_device_spot_check_get(query) {
     params: query,
   });
 }
+
+// 保存点检单结果
+export function assets_device_spot_check_save_result(data) {
+  return request({
+    url: "/assets_device_spot_check/save_result",
+    method: "post",
+    data,
+  })
+}

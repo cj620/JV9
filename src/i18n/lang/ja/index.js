@@ -1310,6 +1310,7 @@ const ja = {
   device: {
     De_Repair: "しゅうりょう",
     De_Maintenance: "メンテナンス",
+    De_SpotCheck: "点検",
     De_MaintenanceInfo: "メンテナンス情報",
     De_MaintenanceDate: "メンテナンス日付",
     De_MaintenanceMode: "メンテナンス方式",
@@ -1406,6 +1407,10 @@ const ja = {
     De_CheckStartDate: "検査開始時間",
     De_CheckEndDate: "検査終了時間",
     De_AcceptedBy: "検収人",
+    De_SpotCheckResult: "点検結果",
+    De_CheckedDate: "点検時間",
+    De_Normal: "通常",
+    De_Abnormal: "例外",
   },
   // 后端提示
   backendMessage: {

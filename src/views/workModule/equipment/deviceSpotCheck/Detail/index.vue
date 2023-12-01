@@ -9,41 +9,40 @@
         :name="pane.name"
       ></el-tab-pane>
     </el-tabs>
-    <Action slot="sticky-extra" size="small" :actions="[
-      {
-        label: $t('Generality.Ge_Edit'),
-        confirm: edit,
-      },
-    ]"></Action>
     <!--单据信息-->
     <JvBlock
       :title="cur_billId"
       ref="first"
       :contentStyle="{
-        paddingLeft: '150px',
-        height: '180px',
+        height: '230px',
       }" style="position: relative">
-        <div class="mould-img">
-          <el-image :preview-src-list="[imgUrlPlugin(detailObj.detailData.DevicePhotoUrl)]" style="width: 100%; height: 100%"
-                    :src="imgUrlPlugin(detailObj.detailData.DevicePhotoUrl)" fit="cover" class="items-details-Img-error">
-              <div slot="error" class="image-slot">
-                  <i class="el-icon-picture-outline"></i>
-              </div>
-          </el-image>
-        </div>
-        <div style="position: relative; margin-left: 100px" >
+        <div style="position: relative; margin-left: 30px">
             <JvDetail :detailObj="detailObj"> </JvDetail>
-            <JvState :state="detailObj.detailData.State"></JvState>
+            <SpotCheckStateTags :state="detailObj.detailData.State"></SpotCheckStateTags>
         </div>
     </JvBlock>
-    <!--物料信息-->
-    <JvBlock :title="$t('Generality.Ge_ItemsInfo')" ref="second">
-      <JvTable :table-obj="tableObj"> </JvTable>
+    <!--设备信息-->
+    <JvBlock :title="$t('menu.Pr_Devices')" ref="second">
+      <JvTable ref="BillTable" :table-obj="tableObj">
+        <template #operation="{ row }">
+          <TableAction
+              :actions="[
+              {
+                label: $t('device.De_SpotCheck'),
+                confirm: spotCheckMember.bind(null, row),
+              },
+            ]"
+          />
+        </template>
+      </JvTable>
     </JvBlock>
-    <!--备注-->
-    <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
-      <JvRemark :RemarkData="RemarkData"></JvRemark>
-    </JvBlock>
+    <SpotCheckItem
+        :visible.sync="spotCheckVisible"
+        v-if="spotCheckVisible"
+        :DetailData="DetailData"
+        @confirmData="confirmSpotCheck"
+    >
+    </SpotCheckItem>
   </PageWrapper>
 </template>
 
@@ -51,26 +50,30 @@
 import { tableConfig, detailConfig } from "./config"
 import Detail from "@/jv_doc/class/detail/Detail";
 import { Table } from "@/jv_doc/class/table";
-import { stateEnum } from "@/enum/workModule";
+import SpotCheckStateTags from "@/views/workModule/equipment/deviceSpotCheck/components/SpotCheckStateTags.vue";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import { assets_device_spot_check_get } from "@/api/workApi/equipment/spotCheck"
-import JvState from "@/components/JVInternal/JvState/index.vue";
-import JvRemark from "@/components/JVInternal/JvRemark/index.vue";
+import {
+  assets_device_spot_check_get,
+  assets_device_spot_check_save_result,
+} from "@/api/workApi/equipment/spotCheck"
 import { mapState } from "vuex";
+import SpotCheckItem from "@/views/workModule/equipment/deviceSpotCheck/components/SpotCheckItem/SpotCheckItem.vue";
 
 export default {
-  name: "As_DeviceSpotCheckDetail",
+  name: "index",
   components: {
-    JvRemark,
-    JvState,
+    SpotCheckItem,
+    SpotCheckStateTags,
   },
   data() {
     return {
       cur_billId: "",
       detailObj: {},
       tableObj: {},
+      DetailData: [],
       RemarkData: "",
       fileBillId: "",
+      spotCheckVisible: false,
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -80,10 +83,6 @@ export default {
           label: this.$t("Generality.Ge_ItemsInfo"),
           name: "second",
         },
-        {
-          label: this.$t("Generality.Ge_Remarks"),
-          name: "third",
-        },
       ],
     }
   },
@@ -91,9 +90,6 @@ export default {
     ...mapState({
         current: (state) => state.page.current,
     }),
-    stateMap() {
-        return stateEnum[this.detailObj.detailData.State];
-    },
   },
   async created() {
     this.detailObj = new Detail({
@@ -108,7 +104,7 @@ export default {
       data: [],
       title: "",
       tableHeaderShow: false,
-      operationCol: false,
+      operationWidth: '100px',
       height: 350,
     });
     await this.GetData();
@@ -120,12 +116,19 @@ export default {
       }).then((res) => {
         this.detailObj.detailData = res;
         this.cur_billId = res.BillId;
-        this.tableObj.setData(res.BillItems);
+        this.tableObj.setData(res.BillMembers);
       })
     },
     imgUrlPlugin,
-    edit(){
-
+    spotCheckMember(row) {
+      this.DetailData = row
+      this.spotCheckVisible = true
+    },
+    confirmSpotCheck(e) {
+      assets_device_spot_check_save_result(e).then((res) => {
+        this.GetData();
+      })
+      this.spotCheckVisible = false
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
@@ -135,27 +138,27 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.mould-img {
-  width: 120px;
-  height: 120px;
-  // background-color: pink;
-  position: absolute;
-  left: 10px;
-  right: 100px;
-}
-.items-details-Img-error {
-  background-color: rgb(231, 231, 231);
-  .image-slot {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // color: rgb(161, 161, 161);
-    .error-icon {
-      color: rgb(161, 161, 161);
-      font-size: 19px;
-    }
-  }
-}
+//.mould-img {
+//  width: 120px;
+//  height: 120px;
+//  // background-color: pink;
+//  position: absolute;
+//  left: 10px;
+//  right: 100px;
+//}
+//.items-details-Img-error {
+//  background-color: rgb(231, 231, 231);
+//  .image-slot {
+//    width: 100%;
+//    height: 100%;
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+//    // color: rgb(161, 161, 161);
+//    .error-icon {
+//      color: rgb(161, 161, 161);
+//      font-size: 19px;
+//    }
+//  }
+//}
 </style>

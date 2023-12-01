@@ -1300,6 +1300,7 @@ const cn = {
   device: {
     De_Repair: "报修",
     De_Maintenance: "保养",
+    De_SpotCheck: "点检",
     De_MaintenanceInfo: "保养信息",
     De_MaintenanceDate: "保养日期",
     De_MaintenanceMode: "保养方式",
@@ -1396,6 +1397,10 @@ const cn = {
     De_CheckStartDate: "检验开始时间",
     De_CheckEndDate: "检验结束时间",
     De_AcceptedBy: "验收人",
+    De_SpotCheckResult: "点检结果",
+    De_CheckedDate: "点检时间",
+    De_Normal: "正常",
+    De_Abnormal: "异常",
   },
   // 后端提示
   backendMessage: {

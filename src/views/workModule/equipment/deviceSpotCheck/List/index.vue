@@ -16,6 +16,10 @@
           ]"
         />
       </template>
+      <template #State="{ record }">
+        <!-- 状态标签 -->
+        <RepairStateTags :state="record" :enum="spotCheckListStateEnum"></RepairStateTags>
+      </template>
       <!-- 表格操作行 -->
       <Action
         size="mini"
@@ -37,9 +41,13 @@
 </template>
 <script>
 import { Table } from "./config";
-import { stateEnum } from "@/enum/workModule";
+import RepairStateTags from "@/views/workModule/equipment/repair/components/RepairStateTags.vue";
+import { spotCheckListStateEnum } from '@/enum/workModule'
 export default {
   name: "As_DeviceSpotCheck",
+  components: {
+    RepairStateTags,
+  },
   data() {
     return {
       tableObj: {}
@@ -50,6 +58,9 @@ export default {
     this.tableObj.getData()
   },
   computed: {
+    spotCheckListStateEnum() {
+      return spotCheckListStateEnum
+    },
     // 批量删除
     canIsDel() {
       let { datas } = this.tableObj.selectData;

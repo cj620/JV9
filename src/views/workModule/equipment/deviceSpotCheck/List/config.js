@@ -61,7 +61,8 @@ export const tableConfig = [
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
     width: "120px",
-    customFilter: (value, row) => enumFilter(value, spotCheckListStateEnum),
+    custom: true,
+    // customFilter: (value, row) => enumFilter(value, spotCheckListStateEnum),
   },
   {
     // 计划类型

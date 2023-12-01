@@ -69,21 +69,29 @@ export const spotCheckListStateEnum = {
   // 待检验
   ToBeInspected: {
     name: "待检验",
-    value: "ToBeInspected"
+    value: "ToBeInspected",
+    color: "#909399",
+    fcolor: "#fff",
   },
   // 检验中
   UnderInspection: {
     name: "检验中",
-    value: "UnderInspection"
+    value: "UnderInspection",
+    color: "#faad14",
+    fcolor: "#fff",
   },
   // 已检验
   Verified: {
     name: "已检验",
-    value: "Verified"
+    value: "Verified",
+    color: "#FE222D",
+    fcolor: "#fff",
   },
   // 超期
   Overdue: {
     name: "超期",
-    value: "Overdue"
+    value: "Overdue",
+    color: "#000000",
+    fcolor: "#fff",
   }
 }
