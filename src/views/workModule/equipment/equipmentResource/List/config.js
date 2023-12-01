@@ -109,14 +109,14 @@ export const tableConfig = [
     },
 
   // 状态
-  // {
-  //   prop: "State",
-  //   label: '状态',
-  //   customFilter: (value) =>  {
-  //     if(!value) return ""
-  //     return deviceStateEnum[value].name
-  //   }
-  // },
+  {
+    prop: "State",
+    label: '状态',
+    customFilter: (value) =>  {
+      if(!value) return ""
+      return deviceStateEnum[value].name
+    }
+  },
   //出入库状态
   {
     prop: "InventoryState",
@@ -155,7 +155,11 @@ export const tableConfig = [
      label: i18n.t("production.Pr_CreationDate"),
     filter:'date'
   },
-
+  // 寿命设定
+  {
+    prop: "SpecModel",
+    label:'规格型号',
+  },
   // 寿命设定
   {
     prop: "LifeSetting",

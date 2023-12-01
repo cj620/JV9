@@ -57,14 +57,24 @@ export const maintenanceEnum = {
   export const deviceStateEnum = {
     // 正常
     Normal: {
-      name: i18n.t("production.Pr_Normal"),
+      name: "正常",
       value: "Normal",
     },
     // 报废
     Scrap: {
-        name: i18n.t("quality.Qc_Scrapped"),
-        value: "Scrap",
-      },
+      name: "报废",
+      value: "Scrap",
+    },
+    // 维修中
+    Repairing: {
+      name: "维修中",
+      value: "Repairing",
+    },
+    // 保养中
+    Maintenanceing: {
+      name: "保养中",
+      value: "Maintenanceing",
+    },
   };
 // 1． 故障维修（FaultRepair)
 // 2． 精度校准(PrecisionRepair)

@@ -9,9 +9,6 @@
 import { Table as BaseTable } from "@/jv_doc/class/table";
 import { m_tableConfig as tableConfig } from "../Add/editConfig";
 import {
-  machineCategoryEnum,
-  maintenanceEnum,
-  enumToList,
   deviceStateEnum,
   inventoryStateEnum,
 } from "@/enum/workModule";
@@ -48,15 +45,7 @@ export const detailConfig = [
     prop: "Manufacture",
     label: i18n.t("device.De_Manufacturer"),
   },
-  //设备类别
-  // {
-  //   prop: "DeviceCategory",
-  //   label: i18n.t("Generality.Ge_Category"),
-  //   customFilter: (value) => {
-  //     if (!value) return "";
-  //     return machineCategoryEnum[value].name;
-  //   },
-  // },
+
 
  //上次保养日期
   {
@@ -102,6 +91,13 @@ export const detailConfig = [
     prop: "UserDepartment",
     label: i18n.t("device.De_UserDepartment"),
   },
+  //规格型号
+  {
+    prop: "SpecModel",
+    label: '规格型号',
+  },
+
+
   /* //当前寿命
  {
   prop: "DeviceCurrentLife",

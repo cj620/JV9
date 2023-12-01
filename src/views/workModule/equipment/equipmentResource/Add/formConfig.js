@@ -128,7 +128,12 @@ export const formSchema = [
       },
     ],
   },
-
+   //规格型号
+  {
+    prop: "SpecModel",
+    label:'规格型号',
+    cpn: "FormInput",
+  },
   /*  //寿命设定
   {
     prop: "LifeSetting",

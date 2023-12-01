@@ -46,15 +46,6 @@
       </div>
       <div style="position: relative">
         <JvDetail :detailObj="detailObj">
-          <template #MaintenanceTplId>
-            <el-select v-model="Main_tpl" :placeholder="$t('Generality.Ge_PleaseSelect')">
-              <el-option v-for="item in Maintenance_tpl_list" :key="item.Id" :label="item.TemplateName" :value="item.Id">
-              </el-option>
-            </el-select>
-            <el-button type="primary" @click="chooseTPL" style="margin-left: 7px">
-                {{ $t('Generality.Ge_Select') }}
-            </el-button>
-          </template>
           <template #DeviceCurrentLife="{ record }">
             {{ record }}
           </template>
