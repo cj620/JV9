@@ -52,7 +52,8 @@ import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index.vue";
 import AuditProcess from "@/components/BasicModule/AuditProcess/index.vue";
 import { mapState } from "vuex";
 import { stateEnum } from "@/enum/workModule";
-import { detailPageModel } from "~/utils/system";
+import { auditPlugin } from "@/jv_doc/utils/system/index";
+import { detailPageModel } from "@/jv_doc/utils/system";
 
 export default {
   name: "index",
@@ -66,8 +67,9 @@ export default {
     return {
       detailObj: {},
       tableObj: {},
-      cur_billId: this.$route.query.BillId,
+      cur_billId: "",
       btnAction: [],
+      stateForm: {},
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -90,16 +92,10 @@ export default {
           name: "fifth",
         },
       ],
+      editRouteName: "As_AccessoryCheckOutEdit",
+      addRouteName: "As_AccessoryCheckOutAdd",
       printMod: "As_AccessoryCheckOutDetail",
     }
-  },
-  computed: {
-    ...mapState({
-      current: (state) => state.page.current,
-    }),
-    stateMap() {
-      return stateEnum[this.detailObj.detailData.State];
-    },
   },
   async created() {
     this.detailObj = new Detail({
@@ -119,13 +115,22 @@ export default {
     });
     await this.GetData();
   },
+  computed: {
+    ...mapState({
+      current: (state) => state.page.current,
+    }),
+    stateMap() {
+      return stateEnum[this.detailObj.detailData.State];
+    },
+  },
   methods: {
     async GetData() {
-      await API.api_get({ BillId: this.$route.query.BillId }).then((res) => {
+       API.api_get({ BillId: this.$route.query.BillId }).then((res) => {
+        this.cur_billId = res.BillId;
         this.detailObj.detailData = res;
+        this.stateForm = auditPlugin(res);
         this.tableObj.setData(res.BillItems);
         this.btnAction = detailPageModel(this, res, API, this.GetData)
-        this.btnAction.splice(6,1);
       })
     },
     tabClick(e) {

@@ -1,14 +1,5 @@
 <template>
   <PageWrapper ref="page">
-    <el-tabs @tab-click="tabClick" slot="sticky-tabs">
-      <!-- tab 导航栏  -->
-      <el-tab-pane
-        v-for="pane in tabPanes"
-        :key="pane.name"
-        :label="pane.label"
-        :name="pane.name"
-      ></el-tab-pane>
-    </el-tabs>
     <!--单据信息-->
     <JvBlock
       :title="cur_billId"
@@ -101,16 +92,6 @@ export default {
       fileBillId: "",
       spotCheckVisible: false,
       spotCheckMsgVisible: false,
-      tabPanes: [
-        {
-          label: this.$t("Generality.Ge_BillInfo"),
-          name: "first",
-        },
-        {
-          label: this.$t("device.De_SpotCheckMember"),
-          name: "second",
-        },
-      ],
     }
   },
   computed: {
@@ -180,10 +161,6 @@ export default {
         this.GetData();
       })
       this.spotCheckVisible = false
-    },
-    tabClick(e) {
-      let top = this.$refs[e.name].offsetTop;
-      this.$refs.page.scrollTo(top);
     },
   }
 }
