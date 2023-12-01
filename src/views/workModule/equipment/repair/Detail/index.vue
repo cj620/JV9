@@ -175,7 +175,7 @@ export default {
       btnAction: [],
       state: "",
       BillItems: [],
-      transferData: [],//待处理，是否需要判断物料重复
+      transferData: [],
       startFormVisible: false,
       ItemsFormVisible: false,
       checkFormVisible: false,

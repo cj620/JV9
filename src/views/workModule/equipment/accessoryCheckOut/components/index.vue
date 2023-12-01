@@ -25,8 +25,22 @@
     </JvBlock>
     <!-- 物料信息 -->
     <JvBlock :title="$t('Generality.Ge_ItemsInfo')">
+      <div slot="extra">
+        <el-button size="mini" @click="addItems">{{
+            $t("device.De_AddItems")
+          }}</el-button>
+      </div>
       <JvEditTable :tableObj="eTableObj">
-
+        <template #operation="{ row_index }">
+          <TableAction
+              :actions="[
+              {
+                icon: 'el-icon-delete',
+                confirm: delItem.bind(null, row_index),
+              },
+            ]"
+          />
+        </template>
       </JvEditTable>
     </JvBlock>
     <!-- 备注 -->
@@ -57,6 +71,13 @@
           $t("Generality.Ge_SaveAndSubmit")
         }}</el-button>
     </div>
+    <!--选择配件-->
+    <SelectRepairItems
+        :visible.sync="ItemsFormVisible"
+        v-if="ItemsFormVisible"
+        :transferData="transferData"
+        @confirmData="confirmData"
+    ></SelectRepairItems>
   </PageWrapper>
 </template>
 
@@ -68,9 +89,11 @@ import { assets_device_list } from "@/api/workApi/equipment/device";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
 import { mapState } from "vuex";
 import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
+import SelectRepairItems from "@/views/workModule/equipment/repair/components/SelectRepairItems/SelectRepairItems.vue";
+import closeTag from "@/utils/closeTag";
 
 export default {
-  components: { JvUploadFile },
+  components: {SelectRepairItems, JvUploadFile },
   props: {
     billData: {
       type: String,
@@ -92,6 +115,8 @@ export default {
       eTableObj: {},
       fileBillId: "",
       ListData: [],
+      transferData: [],
+      ItemsFormVisible: false,
       ruleForm: {
         BillId: "",
         BillGui: "",
@@ -111,7 +136,7 @@ export default {
         ItemId: "",
         ItemName: "",
         Description: "",
-        Quantity: 0,
+        Quantity: 1,
         Unit: "",
         AssociatedNo: 0,
         Remarks: "",
@@ -140,6 +165,7 @@ export default {
         if (this.type === "copy") {
           res = handleBillContent(res);
         }
+        this.transferData = res.BillItems;
         this.ruleForm = Object.assign({}, this.ruleForm, res);
         this.formObj.form = this.ruleForm;
         this.eTableObj.setData(res.BillItems);
@@ -159,6 +185,27 @@ export default {
     returnData(fileData) {
       this.ruleForm.BillFiles = fileData;
     },
+    // 添加备件
+    addItems() {
+      this.formObj.validate((valid) => {
+        if (valid) {
+          this.ItemsFormVisible = true
+        }
+      })
+    },
+    // 确认备件
+    confirmData(e) {
+      e.forEach((item) => {
+        if (!item.hasOwnProperty('Remarks')) {
+          this.$set(item, 'Remarks', "")
+        }
+      })
+      this.eTableObj.setData(e)
+      this.ItemsFormVisible = false
+    },
+    delItem(index) {
+      this.eTableObj.delItem(index);
+    },
     //保存单据
     save() {
       this.ruleForm.SaveAndSubmit = false;
@@ -172,10 +219,34 @@ export default {
     IsSave() {
       this.formObj.validate((valid) => {
         if (valid) {
-          console.log(1122131)
+          if (this.eTableObj.getTableData().length > 0) {
+            this.ruleForm.BillItems = this.eTableObj.getTableData();
+            this.eTableObj.validate((valid1) => {
+              if (valid1) {
+                ACK.api_save(Object.assign({}, this.ruleForm, this.formObj.form)).then((res) => {
+                  let TagName = {
+                    name: `As_AccessoryCheckOutDetail`,
+                    query: { BillId: res },
+                  };
+                  closeTag(this.current, TagName);
+                });
+              }
+            })
+          } else {
+            this.$message.warning(this.$t("Generality.Ge_PleaseAddItems"));
+          }
         }
       })
     }
+  },
+  watch: {
+    $route(to, from) {
+      if (to.name !== this.$parent.$options.name) return;
+      if (this.$route.query.BillId !== undefined) {
+        this.billData = this.$route.query.BillId;
+        this.GetData(this.billData);
+      }
+    },
   }
 }
 </script>
