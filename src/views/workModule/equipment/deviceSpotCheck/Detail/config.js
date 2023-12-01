@@ -34,6 +34,7 @@ export const detailConfig = [
         // 关联编号
         prop: "AssociatedNo",
         label: i18n.t('Generality.Ge_AssociatedNo'),
+        custom: true,
     },
     {
         // 超时时间

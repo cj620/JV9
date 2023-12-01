@@ -17,7 +17,15 @@
         height: '230px',
       }" style="position: relative">
         <div style="position: relative; margin-left: 30px">
-            <JvDetail :detailObj="detailObj"> </JvDetail>
+            <JvDetail :detailObj="detailObj">
+              <template #AssociatedNo="{ record }">
+            <span
+                style="color: #409eff; cursor: pointer"
+                @click="linkToProject(record)"
+            >
+              {{ record }}
+            </span>
+              </template></JvDetail>
             <SpotCheckStateTags :state="detailObj.detailData.State"></SpotCheckStateTags>
         </div>
     </JvBlock>
@@ -150,6 +158,13 @@ export default {
       })
     },
     imgUrlPlugin,
+    // 关联编号跳转
+    linkToProject(BillId) {
+      this.$router.push({
+        name: "As_DeviceSpotCheckPlanDetail",
+        query: { BillId },
+      });
+    },
     spotCheckMsg(row) {
       this.spotCheckMsgVisible = true
       assets_device_spot_check_get_member({Id: row.Id}).then((res) => {
