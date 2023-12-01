@@ -1,5 +1,11 @@
 import { enumFilter } from "~/utils/system/enumsPlugin";
-import { afterTimeOutEnum, planTypeEnum, SpotCheckTypeEnum, spotCheckListStateEnum } from "@/enum/workModule";
+import {
+  afterTimeOutEnum,
+  planTypeEnum,
+  SpotCheckTypeEnum,
+  spotCheckListStateEnum,
+  spotCheckResultEnum,
+} from "@/enum/workModule";
 
 export const detailConfig = [
     {
@@ -98,4 +104,23 @@ export const tableConfig = [
         prop: "Remarks",
         label: i18n.t("Generality.Ge_Remarks"),
     },
+]
+
+export const msgTableConfig = [
+    /*点检内容*/
+    {
+        prop: "SpotCheckContent",
+        label: i18n.t("device.De_SpotCheckContent"),
+    },
+    /*点检结果*/
+    {
+        prop: "SpotCheckResult",
+        label: i18n.t("device.De_SpotCheckResult"),
+        customFilter: (value, row) => enumFilter(value, spotCheckResultEnum),
+    },
+    /*备注*/
+    {
+        prop: "Remarks",
+        label: i18n.t('Generality.Ge_Remarks'),
+    }
 ]

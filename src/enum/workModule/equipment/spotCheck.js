@@ -95,3 +95,15 @@ export const spotCheckListStateEnum = {
     fcolor: "#fff",
   }
 }
+
+// 点检结果
+export const spotCheckResultEnum = {
+  Normal: {
+    name: i18n.t('device.De_Normal'),
+    value: "Normal",
+  },
+  Abnormal: {
+    name: i18n.t('device.De_Abnormal'),
+    value: "Abnormal",
+  }
+}

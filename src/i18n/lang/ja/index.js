@@ -1403,6 +1403,8 @@ const ja = {
     De_PlanItem: "計画の詳細",
     De_PlanMember: "計画メンバー",
     De_SpotCheckContent: "点検内容",
+    De_SpotCheckMember: "メンバーの点検",
+    De_SpotCheckMsg: "点検情報",
     De_ShouldBeginTime: "開始すべき時間",
     De_CheckStartDate: "検査開始時間",
     De_CheckEndDate: "検査終了時間",

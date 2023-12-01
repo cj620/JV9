@@ -1409,6 +1409,8 @@ const en = {
     De_PlanItem: "Plan Item",
     De_PlanMember: "Plan Member",
     De_SpotCheckContent: "Spot Check Content",
+    De_SpotCheckMember: "Spot Check Member",
+    De_SpotCheckMsg: "Spot Check Msg",
     De_ShouldBeginTime: "Should Begin Time",
     De_CheckStartDate: "Check Start Date",
     De_CheckEndDate: "Check End Date",

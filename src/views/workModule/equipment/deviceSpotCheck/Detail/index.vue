@@ -22,14 +22,19 @@
         </div>
     </JvBlock>
     <!--设备信息-->
-    <JvBlock :title="$t('menu.Pr_Devices')" ref="second">
+    <JvBlock :title="$t('device.De_SpotCheckMember')" ref="second">
       <JvTable ref="BillTable" :table-obj="tableObj">
         <template #operation="{ row }">
           <TableAction
               :actions="[
               {
                 label: $t('device.De_SpotCheck'),
+                disabled: row.State === 'Verified',
                 confirm: spotCheckMember.bind(null, row),
+              },
+              {
+                label: $t('device.De_SpotCheckMsg'),
+                confirm: spotCheckMsg.bind(null, row),
               },
             ]"
           />
@@ -43,21 +48,33 @@
         @confirmData="confirmSpotCheck"
     >
     </SpotCheckItem>
+    <JvDialog
+        :visible.sync="spotCheckMsgVisible"
+        v-if="spotCheckMsgVisible"
+        :title="$t('device.De_SpotCheckMsg')"
+        width="60%"
+        :close-on-click-modal="false"
+        :modal-append-to-body="false"
+        :append-to-body="false"
+    >
+      <JvTable :table-obj="msgTableObj"></JvTable>
+    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
-import { tableConfig, detailConfig } from "./config"
+import { tableConfig, detailConfig, msgTableConfig } from "./config"
 import Detail from "@/jv_doc/class/detail/Detail";
 import { Table } from "@/jv_doc/class/table";
 import SpotCheckStateTags from "@/views/workModule/equipment/deviceSpotCheck/components/SpotCheckStateTags.vue";
+import SpotCheckItem from "@/views/workModule/equipment/deviceSpotCheck/components/SpotCheckItem/SpotCheckItem.vue";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import {
   assets_device_spot_check_get,
   assets_device_spot_check_save_result,
+  assets_device_spot_check_get_member,
 } from "@/api/workApi/equipment/spotCheck"
 import { mapState } from "vuex";
-import SpotCheckItem from "@/views/workModule/equipment/deviceSpotCheck/components/SpotCheckItem/SpotCheckItem.vue";
 
 export default {
   name: "index",
@@ -70,17 +87,19 @@ export default {
       cur_billId: "",
       detailObj: {},
       tableObj: {},
+      msgTableObj: {},
       DetailData: [],
       RemarkData: "",
       fileBillId: "",
       spotCheckVisible: false,
+      spotCheckMsgVisible: false,
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
           name: "first",
         },
         {
-          label: this.$t("Generality.Ge_ItemsInfo"),
+          label: this.$t("device.De_SpotCheckMember"),
           name: "second",
         },
       ],
@@ -104,9 +123,20 @@ export default {
       data: [],
       title: "",
       tableHeaderShow: false,
-      operationWidth: '100px',
+      operationWidth: '150px',
       height: 350,
     });
+    this.msgTableObj = new Table({
+      tableSchema: msgTableConfig,
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: false,
+      height: 200,
+    })
     await this.GetData();
   },
   methods: {
@@ -120,6 +150,12 @@ export default {
       })
     },
     imgUrlPlugin,
+    spotCheckMsg(row) {
+      this.spotCheckMsgVisible = true
+      assets_device_spot_check_get_member({Id: row.Id}).then((res) => {
+        this.msgTableObj.setData(res.BillItems)
+      })
+    },
     spotCheckMember(row) {
       this.DetailData = row
       this.spotCheckVisible = true

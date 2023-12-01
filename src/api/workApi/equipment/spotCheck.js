@@ -35,3 +35,12 @@ export function assets_device_spot_check_save_result(data) {
     data,
   })
 }
+
+//点检单成员详情
+export function assets_device_spot_check_get_member(query) {
+  return request({
+    url: "/assets_device_spot_check/get_member",
+    method: "get",
+    params: query,
+  })
+}

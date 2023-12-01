@@ -8,7 +8,14 @@
  */
 import { stateEnum, demandStatusEnum } from "./Generality";
 import { pickingTypeEnum, splitAssembleTypeEnum } from "./Stockroom";
-import { planTypeEnum, SpotCheckTypeEnum,spotCheckStateEnum,afterTimeOutEnum,spotCheckListStateEnum } from "./equipment/spotCheck";
+import {
+  planTypeEnum,
+  SpotCheckTypeEnum,
+  spotCheckStateEnum,
+  afterTimeOutEnum,
+  spotCheckListStateEnum,
+  spotCheckResultEnum
+} from "./equipment/spotCheck";
 import {
   projectTypeEnum,
   processTypeEnum,
@@ -123,5 +130,7 @@ export {
   // 领料类别
   PickingTypeEnum1,
   // 点检单据状态
-  spotCheckListStateEnum
+  spotCheckListStateEnum,
+  // 点检结果
+  spotCheckResultEnum,
 };
