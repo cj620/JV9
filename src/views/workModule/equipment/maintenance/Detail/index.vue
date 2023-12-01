@@ -169,6 +169,7 @@ export default {
       DetailData: [],
       btnAction: [],
       state: "",
+      BillGui: "",
       DeviceMaintainAccessories: [],
       ItemsFormVisible: false,
       startFormVisible: false,
@@ -282,6 +283,7 @@ export default {
     getData() {
       Maintenance.api_get({ BillId: this.cur_Id }).then((res) => {
         this.state = res.State;
+        this.BillGui = res.BillGui;
         this.detailObj.setData(res);
         this.maintenanceTableObj.setData(res.BillItems);
         this.DetailData = res.BillItems.map(item => {
@@ -339,7 +341,7 @@ export default {
     // 确定物料
     confirmData(e) {
       const obj = {
-        BillId: this.cur_Id,
+        BillGui: this.BillGui,
         DeviceMaintainAccessories: e
       }
       assets_device_maintenance_save_accessory(obj).then((res) => {
@@ -360,7 +362,7 @@ export default {
     // 确认编辑配件
     confirmToEdit() {
       const obj = {
-        BillId: this.cur_Id,
+        BillGui: this.BillGui,
         DeviceMaintainAccessories: this.editTableObj.getTableData()
       }
       assets_device_maintenance_save_accessory(obj).then((res) => {

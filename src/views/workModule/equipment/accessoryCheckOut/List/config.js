@@ -10,7 +10,7 @@ export class api extends TableAPI {
   // 获取列表
   getData = api_list;
   // 删除单据
-  del=api_delete
+  del = api_delete
 }
 
 export class Table extends BaseTable {
@@ -27,7 +27,7 @@ export class Table extends BaseTable {
       // 接口类
       api,
       // 操作列宽度
-      operationWidth: 280,
+      operationWidth: 160,
       // 打印模块标识
       printMod:'As_AccessoryCheckOut',
     })

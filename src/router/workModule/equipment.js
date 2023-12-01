@@ -337,6 +337,36 @@ const equipment = [
     title: i18n.t("menu.As_AccessoryCheckOut")+ "  " + i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+  // 新增备件领用
+  {
+    key: "As_AccessoryCheckOutAdd",
+    component: () =>
+        import("@/views/workModule/equipment/accessoryCheckOut/Add/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_AccessoryCheckOutAdd",
+    path: "as_AccessoryCheckOutAdd",
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_AccessoryCheckOut"),
+  },
+  // 编辑备件领用
+  {
+    key: "As_AccessoryCheckOutEdit",
+    component: () =>
+        import("@/views/workModule/equipment/accessoryCheckOut/Edit/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_AccessoryCheckOutEdit",
+    path: "as_AccessoryCheckOutEdit",
+    title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.As_AccessoryCheckOut"),
+  },
+  // 备件领用明细列表
+  {
+    key: "As_AccessoryCheckOutDetailList",
+    component: ()=>
+      import("@/views/workModule/equipment/accessoryCheckOut/DetailList/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_AccessoryCheckOutDetailList",
+    path: "as_AccessoryCheckOutDetailList",
+    title: i18n.t("menu.As_AccessoryCheckOut")+ "  " + i18n.t('Generality.Ge_Details1'),
+  },
 ];
 
 export default equipment;

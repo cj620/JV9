@@ -165,13 +165,13 @@ export default {
       })
     },
     addItems(row) {
-      this.selectedId = row.BillId
+      this.selectedId = row.BillGui
       row.DeviceMaintainAccessories ? this.transferData = row.DeviceMaintainAccessories : ""
       this.ItemsFormVisible = true
     },
     confirmData(e) {
       const obj = {
-        BillId: this.selectedId,
+        BillGui: this.selectedId,
         DeviceMaintainAccessories: e
       }
       assets_device_maintenance_save_accessory(obj).then((res) => {
