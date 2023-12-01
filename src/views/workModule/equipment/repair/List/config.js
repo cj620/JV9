@@ -79,6 +79,11 @@ export const tableConfig = [
     prop: "DeviceName",
     label: i18n.t("production.Pr_DeviceName"),
   },
+  // 问题描述
+  {
+    prop: "ProblemDescription",
+    label: i18n.t("device.De_ProblemDescription"),
+  },
   /*级别*/
   {
     prop: "RepairLevel",
@@ -128,6 +133,32 @@ export const tableConfig = [
   {
     prop: "RepairDate",
     label: i18n.t("device.De_RepairDate"),
+    filter:'time',
+    width:'140px',
+  },
+  //预计完成日期
+  {
+    prop: "PlanCompletionDate",
+    label: i18n.t("device.De_PlanCompletionDate"),
+    filter:'time',
+    width:'140px',
+  },
+  //验收日期
+  {
+    prop: "CompletionDate",
+    label: i18n.t("device.De_AcceptDate"),
+    filter:'time',
+    width:'140px',
+  },
+  //制单人
+  {
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+  },
+  //制单日期
+  {
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
     filter:'time',
     width:'140px',
   },

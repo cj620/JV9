@@ -81,6 +81,11 @@ export const detailConfig = [
     filter: "time",
   },
   {
+    //验收人
+    prop: "AcceptedBy",
+    label: i18n.t("device.De_AcceptedBy"),
+  },
+  {
     // 验收日期
     prop: "CompletionDate",
     label: i18n.t("device.De_AcceptDate"),

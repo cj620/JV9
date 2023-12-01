@@ -54,10 +54,10 @@
     <!--保养配件-->
     <JvBlock :title="$t('device.De_MaintenanceItems')" ref="third">
       <div slot="extra">
-        <el-button size="mini" @click="selectMaintenanceItems" :disabled="canAddDetails">{{
+        <el-button size="mini" @click="selectMaintenanceItems" :disabled="canAddItems">{{
             $t("device.De_AddItems")
           }}</el-button>
-        <el-button size="mini" @click="editMaintenanceItems" :disabled="canEditDetails">{{
+        <el-button size="mini" @click="editMaintenanceItems" :disabled="canEditItems">{{
             $t("device.De_EditItem")
           }}</el-button>
       </div>
@@ -207,9 +207,12 @@ export default {
       } else { return true }
     },
     canAddDetails(){
+      return this.state !== "Maintenanceing" || this.maintenanceTableObj.tableData.length === 0
+    },
+    canAddItems(){
       return this.state !== "Maintenanceing"
     },
-    canEditDetails(){
+    canEditItems(){
       return this.state !== "Maintenanceing" || this.itemsTableObj.tableData.length === 0
     },
   },
@@ -308,7 +311,6 @@ export default {
             confirm: this.endMaintenance,
           },
         ]
-        console.log(this.itemsTableObj)
       });
     },
     // 开始保养

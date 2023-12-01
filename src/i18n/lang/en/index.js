@@ -1411,6 +1411,7 @@ const en = {
     De_ShouldBeginTime: "Should Begin Time",
     De_CheckStartDate: "Check Start Date",
     De_CheckEndDate: "Check End Date",
+    De_AcceptedBy: "Accepted By",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

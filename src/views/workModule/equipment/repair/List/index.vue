@@ -7,14 +7,6 @@
         <!-- 状态标签 -->
         <RepairStateTags :state="record" :enum="repairStateEnum"></RepairStateTags>
       </template>
-<!--      <template #RepairLevel="{ record }">-->
-<!--        &lt;!&ndash; 级别标签 &ndash;&gt;-->
-<!--        <RepairStateTags :state="record" :enum="repairLevelEnum"></RepairStateTags>-->
-<!--      </template>-->
-<!--      <template #RepairCategory="{ record }">-->
-<!--        &lt;!&ndash; 类别标签 &ndash;&gt;-->
-<!--        <RepairStateTags :state="record" :enum="repairEnum1"></RepairStateTags>-->
-<!--      </template>-->
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction
@@ -25,12 +17,12 @@
             },
             {
               label: $t('Generality.Ge_Edit'),
-              disabled: row.State !== 'ToBeRepair',
+              disabled: !(row.State === 'ToBeRepair' && row.RepairApplicant === $store.state.user.name),
               confirm: editBill.bind(null, row)
             },
             {
               label: $t('Generality.Ge_Delete'),
-              disabled: row.State !== 'ToBeRepair' && row.State !== 'BackTo',
+              disabled: !((row.State === 'ToBeRepair' || row.State === 'BackTo') && row.RepairApplicant === $store.state.user.name),
               popConfirm: {
                 title: $t('Generality.Ge_DeleteConfirm'),
                 confirm: deleteOrder.bind(null, [row.BillId]),
@@ -118,7 +110,7 @@ import { Form } from "@/jv_doc/class/form";
 import RepairStateTags from "../components/RepairStateTags.vue";
 import { timeFormat } from "~/utils/time";
 import { assets_device_repair_updateState, assets_device_repair_saveItems } from "@/api/workApi/equipment/repair";
-import {enumToList, repairResultEnum, repairStateEnum, repairLevelEnum, repairEnum1} from "@/enum/workModule";
+import {enumToList, repairResultEnum, repairStateEnum } from "@/enum/workModule";
 import SelectRepairItems from "@/views/workModule/equipment/repair/components/SelectRepairItems/SelectRepairItems.vue";
 import closeTag from "@/utils/closeTag";
 import {mapState} from "vuex";
@@ -205,12 +197,6 @@ export default {
     });
   },
   computed: {
-    repairEnum1() {
-      return repairEnum1
-    },
-    repairLevelEnum() {
-      return repairLevelEnum
-    },
     repairStateEnum() {
       return repairStateEnum
     },
@@ -222,23 +208,25 @@ export default {
       let { datas } = this.tableObj.selectData;
       if (datas.length === 0) return true;
       return datas.some((item) => {
+        return item.RepairApplicant !== this.$store.state.user.name
+        }) || datas.some((item) => {
         return !["ToBeRepair", "BackTo"].includes(item.State);
       });
     },
     canIsStart() {
       let { datas } = this.tableObj.selectData;
       if (datas.length !== 1) return true;
-      return datas[0].State !== 'ToBeRepair'
+      return !(datas[0].State === 'ToBeRepair' && datas[0].MaintenancePersonnel === this.$store.state.user.name)
     },
     canIsAdd() {
       let { datas } = this.tableObj.selectData;
       if (datas.length !== 1) return true;
-      return datas[0].State !== 'Repairing'
+      return !(datas[0].State === 'Repairing' && datas[0].MaintenancePersonnel === this.$store.state.user.name)
     },
     canIsCheck() {
       let { datas } = this.tableObj.selectData;
       if (datas.length !== 1) return true;
-      return datas[0].State !== 'Repaired'
+      return !(datas[0].State === 'Repaired' && datas[0].RepairApplicant === this.$store.state.user.name)
     }
   },
   methods: {

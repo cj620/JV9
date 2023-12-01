@@ -326,6 +326,17 @@ const equipment = [
     path: "as_AccessoryCheckOut",
     title: i18n.t("menu.As_AccessoryCheckOut"),
   },
+  // 备件领用详情
+  {
+    key: "As_AccessoryCheckOutDetail",
+    component: ()=>
+      import("@/views/workModule/equipment/accessoryCheckOut/Detail/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_AccessoryCheckOutDetail",
+    path: "as_AccessoryCheckOutDetail",
+    title: i18n.t("menu.As_AccessoryCheckOut")+ "  " + i18n.t("Generality.Ge_Details"),
+    hidden: true,
+  },
 ];
 
 export default equipment;

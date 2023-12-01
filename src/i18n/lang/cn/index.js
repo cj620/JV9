@@ -1395,6 +1395,7 @@ const cn = {
     De_ShouldBeginTime: "应开始时间",
     De_CheckStartDate: "检验开始时间",
     De_CheckEndDate: "检验结束时间",
+    De_AcceptedBy: "验收人",
   },
   // 后端提示
   backendMessage: {

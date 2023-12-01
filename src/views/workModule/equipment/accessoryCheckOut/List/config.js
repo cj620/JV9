@@ -35,12 +35,16 @@ export class Table extends BaseTable {
 }
 export const tableConfig = [
   {
-    // 单据编号
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
     width: '200px',
+    cpnProps: {
+      routeName: "As_AccessoryCheckOutDetail",
+      methods: "query",
+      parameterKey: "BillId",
+    }
   },
   {
     // 状态
