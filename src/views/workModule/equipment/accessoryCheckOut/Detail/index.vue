@@ -67,7 +67,7 @@ export default {
     return {
       detailObj: {},
       tableObj: {},
-      cur_billId: "",
+      cur_billId: this.$route.query.BillId,
       btnAction: [],
       stateForm: {},
       tabPanes: [
@@ -126,11 +126,11 @@ export default {
   methods: {
     async GetData() {
        API.api_get({ BillId: this.$route.query.BillId }).then((res) => {
-        this.cur_billId = res.BillId;
         this.detailObj.detailData = res;
         this.stateForm = auditPlugin(res);
         this.tableObj.setData(res.BillItems);
         this.btnAction = detailPageModel(this, res, API, this.GetData)
+         console.log(this.btnAction)
       })
     },
     tabClick(e) {
