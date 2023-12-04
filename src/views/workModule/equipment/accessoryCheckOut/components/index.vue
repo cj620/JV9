@@ -162,6 +162,11 @@ export default {
         this.formObj.form.Submitter = this.$store.state.user.name
         this.formObj.form.DeviceNo = this.$route.params.DeviceNo
         this.formObj.form.PickingType = this.$route.params.type
+        this.$route.params.ItemData.forEach((item) => {
+            item.AssociatedNo = item.Id;
+            item.Id = "";
+            item.BillGui = "";
+        })
         this.eTableObj.setData(this.$route.params.ItemData)
     }
 

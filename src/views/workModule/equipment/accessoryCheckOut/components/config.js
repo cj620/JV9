@@ -136,4 +136,12 @@ export const tableConfig = [
         label:i18n.t("Generality.Ge_Remarks"),
         formCpn: "FormInput",
     },
+    {
+        //     关联编号
+        prop: "AssociatedNo",
+        label: i18n.t("Generality.Ge_AssociatedNo"),
+        editConfig:{
+            disabled:true,
+        }
+    }
 ]
