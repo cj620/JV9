@@ -29,20 +29,6 @@
       </div>
       <JvForm :formObj="formObj">
 
-        <template #MaintenanceTplId="{ prop }">
-          <el-select
-            v-model="formObj.form[prop]"
-            filterable
-          >
-            <el-option
-              v-for="item in Maintenance_tpl_list"
-              :key="item.Id"
-              :label="item.TemplateName"
-              :value="item.Id"
-            >
-            </el-option>
-          </el-select>
-        </template>
       </JvForm>
     </JvBlock>
     <!-- 备注 -->
@@ -84,9 +70,6 @@ import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import { mapState } from "vuex";
 // 引入模块API接口
 import { API,assets_device_add } from "@/api/workApi/equipment/device";
-import {
-  API as Maintenance_tpl,
-} from "@/api/workApi/equipment/maintenance_tpl";
 import closeTag from "@/utils/closeTag";
 import ImgUploader from "@/components/WorkModule/ImgUploader";
 export default {
@@ -111,7 +94,6 @@ export default {
       formObj: {},
       detailRouteName: "As_DeviceDetail",
       fileBillId: "",
-      Maintenance_tpl_list: [],
       machineCategory: 'Machine',
       ruleForm: {
         DeviceNo: "",
@@ -124,6 +106,7 @@ export default {
         Description: "",
         DeviceCategory: '',
         MaintenanceMode: "",
+        SpecModel: "",
         LastMaintenanceDate: "",
         CumulativeTime: 0,
         IntervalDays: 0,
@@ -175,12 +158,6 @@ export default {
     Object.assign(this.formObj.form, this.$route.params);
   },
   methods: {
-    GetTplData(){
-      Maintenance_tpl.api_list({ CurrentPage: 1, PageSize: 99 }).then((res) => {
-        console.log(res, 78978978989);
-        this.Maintenance_tpl_list = res.Items;
-      });
-    },
     //上传文件返回的数据
     returnData(fileData) {
       this.ruleForm.BillFiles = fileData;
