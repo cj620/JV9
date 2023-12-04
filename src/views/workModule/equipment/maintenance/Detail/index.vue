@@ -60,6 +60,9 @@
         <el-button size="mini" @click="editMaintenanceItems" :disabled="canEditItems">{{
             $t("device.De_EditItem")
           }}</el-button>
+        <el-button size="mini" @click="checkOutItems" :disabled="canCheckOut">{{
+            $t("menu.As_AccessoryCheckOut")
+          }}</el-button>
       </div>
       <JvTable :table-obj="itemsTableObj"> </JvTable>
     </JvBlock>
@@ -216,6 +219,9 @@ export default {
     canEditItems(){
       return this.state !== "Maintenanceing" || this.itemsTableObj.tableData.length === 0
     },
+    canCheckOut(){
+      return this.itemsTableObj.selectData.datas.length === 0
+    }
   },
   created() {
     this.detailObj = new Detail({
@@ -228,7 +234,7 @@ export default {
       tableSchema: itemTableConfig,
       pagination: false,
       sortCol: false,
-      chooseCol: false,
+      // chooseCol: false,
       data: [],
       title: "",
       tableHeaderShow: false,
@@ -369,6 +375,17 @@ export default {
         this.getData();
       })
       this.editItemsVisible = false
+    },
+    // 备件领用
+    checkOutItems() {
+      this.$router.push({
+        name: "As_AccessoryCheckOutAdd",
+        params: {
+          type: "Maintenance",
+          DeviceNo: this.detailObj.detailData.DeviceNo,
+          ItemData: this.itemsTableObj.selectData.datas,
+        },
+      });
     },
     // 修改明细
     editDetail() {

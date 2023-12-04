@@ -158,6 +158,13 @@ export default {
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
     }
+    if (this.$route.params.type === "Maintenance" || this.$route.params.type === "Repair"){
+        this.formObj.form.Submitter = this.$store.state.user.name
+        this.formObj.form.DeviceNo = this.$route.params.DeviceNo
+        this.formObj.form.PickingType = this.$route.params.type
+        this.eTableObj.setData(this.$route.params.ItemData)
+    }
+
   },
   methods: {
     async GetData(Id) {

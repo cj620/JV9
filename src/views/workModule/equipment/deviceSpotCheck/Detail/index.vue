@@ -55,6 +55,7 @@
         :close-on-click-modal="false"
         :modal-append-to-body="false"
         :append-to-body="false"
+        :IsShowFooterBtn="false"
     >
       <JvTable :table-obj="msgTableObj"></JvTable>
     </JvDialog>
@@ -113,7 +114,7 @@ export default {
       title: "",
       tableHeaderShow: false,
       operationWidth: '150px',
-      height: 350,
+      height: 450,
     });
     this.msgTableObj = new Table({
       tableSchema: msgTableConfig,
