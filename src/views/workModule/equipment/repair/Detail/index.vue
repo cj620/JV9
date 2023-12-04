@@ -221,7 +221,11 @@ export default {
       return this.state !== "Repairing" || this.tableObj.tableData.length === 0 || this.detailObj.detailData.MaintenancePersonnel !== this.$store.state.user.name
     },
     canCheckOut(){
-      return this.tableObj.selectData.datas.length === 0
+      let { datas } = this.tableObj.selectData;
+      if (datas.length === 0) return true;
+      return datas.some((item) => {
+        return !["ToBeCollected"].includes(item.State);
+      });
     }
   },
   created() {
@@ -472,6 +476,9 @@ export default {
     },
     // 备件领用
     checkOutItems() {
+      this.tableObj.selectData.datas.forEach((item) => {
+        item.Quantity = item.Quantity - item.TakeAwayQuantity
+      })
       this.$router.push({
         name: "As_AccessoryCheckOutAdd",
         params: {

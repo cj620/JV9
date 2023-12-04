@@ -220,7 +220,11 @@ export default {
       return this.state !== "Maintenanceing" || this.itemsTableObj.tableData.length === 0
     },
     canCheckOut(){
-      return this.itemsTableObj.selectData.datas.length === 0
+      let { datas } = this.itemsTableObj.selectData;
+      if (datas.length === 0) return true;
+      return datas.some((item) => {
+        return !["ToBeCollected"].includes(item.State);
+      });
     }
   },
   created() {
@@ -378,6 +382,9 @@ export default {
     },
     // 备件领用
     checkOutItems() {
+      this.itemsTableObj.selectData.datas.forEach((item) => {
+        item.Quantity = item.Quantity - item.TakeAwayQuantity
+      })
       this.$router.push({
         name: "As_AccessoryCheckOutAdd",
         params: {
