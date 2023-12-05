@@ -49,7 +49,14 @@ export const formSchema = [
         trigger: ["blur"],
       },
     ],
-  }, //厂商
+  },
+  //规格型号
+  {
+    prop: "SpecModel",
+    label:'规格型号',
+    cpn: "FormInput",
+  },
+  //厂商
   {
     prop: "Manufacture",
     label: i18n.t("device.De_Manufacturer"),
@@ -128,12 +135,7 @@ export const formSchema = [
       },
     ],
   },
-   //规格型号
-  {
-    prop: "SpecModel",
-    label:'规格型号',
-    cpn: "FormInput",
-  },
+
   /*  //寿命设定
   {
     prop: "LifeSetting",
