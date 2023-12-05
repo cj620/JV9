@@ -252,6 +252,10 @@ export default {
                 Object.assign(this.ruleForm, this.formObj.form);
                 this.ruleForm.BillMembers = this.eTableObj1.getTableData()
                 this.ruleForm.BillItems = this.eTableObj2.getTableData()
+                if (this.type === "copy") {
+                  this.ruleForm.BillId = ""
+                  this.ruleForm.BillGui = ""
+                }
                 assets_device_maintenance_plan_save(this.ruleForm).then((res) => {
                   let TagName = {
                     name: this.detailRouteName,

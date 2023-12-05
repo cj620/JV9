@@ -114,6 +114,7 @@ export default {
           return false;
         }
       });
+      this.dialogFormVisible = false;
     },
     //删除单位
     del(id) {
