@@ -12,6 +12,7 @@ import {
 } from "@/api/workApi/production/productionReport";
 import { productionTaskList } from "@/api/workApi/production/productionTask";
 import {
+  processingInspectionInSite,
   listInspectionTobechecked,
   processingInspectionQualified,
 } from "@/api/workApi/quality/siteCollection";
@@ -29,7 +30,7 @@ function getCheckdata(BillId) {
       });
   });
 }
-export async function autoCreate(BillId, UserId, Count) {
+export async function autoCreate1(BillId, UserId, Count) {
   return new Promise(async (r) => {
     try {
       // const processes = await siteMatchingProcessList({ BillId });
@@ -88,14 +89,15 @@ export async function autoCreate(BillId, UserId, Count) {
       });
       console.log("下机成功··");
       // 检验列表
-      const checkList = await listInspectionTobechecked({
-        CurrentPage: 1,
-        PageSize: 10,
-        UserId,
-      });
-      const IdList = checkList.Items.map((item) => item.Id);
+      // const checkList = await listInspectionTobechecked({
+      //   CurrentPage: 1,
+      //   PageSize: 10,
+      //   UserId,
+      // });
+      // const IdList = checkList.Items.map((item) => item.Id);
       //检验
-      await processingInspectionQualified({ Ids: IdList });
+      // await processingInspectionQualified({ Ids: IdList });
+      await processingInspectionInSite({ BillIds: [BillId], UserId });
       console.log("检验成功··", BillId);
       setTimeout(() => {
         autoCreate(BillId, UserId, Count);
@@ -104,6 +106,27 @@ export async function autoCreate(BillId, UserId, Count) {
       r(true);
     }
   });
+}
+export async function autoCreate(BillId, UserId) {
+  const list = await productionTaskList({
+    CurrentPage: 1,
+    PageSize: 99,
+    Keyword: BillId,
+    States: ["ToBeProcessed", "Processing"],
+  });
+  var scheduler = new Scheduler();
+  list.Items.forEach((item) => {
+    // console.log(item.BillId);
+    item.Process.forEach((v) => {
+      // ToBeReceived
+      if (v.State == "ToBeReceived" || v.State == "Processing") {
+        console.log(item.BillId);
+        scheduler.add(() => autoCreate2(item.BillId, "mt-001"));
+        // console.log(v.Process);
+      }
+    });
+  });
+  scheduler.taskStart();
 }
 export async function autoCreate2(BillId, UserId, Count) {
   return new Promise(async (r) => {
@@ -158,6 +181,8 @@ export async function autoCreate2(BillId, UserId, Count) {
       UserId,
     });
     console.log("下机成功··");
+
+    await processingInspectionInSite({ BillIds: [BillId], UserId });
     // 检验列表
     const checkList = await listInspectionTobechecked({
       CurrentPage: 1,
@@ -166,7 +191,7 @@ export async function autoCreate2(BillId, UserId, Count) {
     });
     const IdList = checkList.Items.map((item) => item.Id);
     //检验
-    await processingInspectionQualified({ Ids: IdList });
+    await processingInspectionQualified({ Ids: IdList[0] });
     console.log("检验成功··", BillId);
     r(true);
   });
@@ -214,7 +239,6 @@ function Scheduler() {
       });
   }
 }
-
 export async function batchCreate11(mBill) {
   const list = await productionTaskList({
     ToolingNo: mBill,
