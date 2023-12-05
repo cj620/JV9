@@ -81,7 +81,7 @@ import { Form } from "@/jv_doc/class/form";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 
 // 引入模块API接口
-import { API as Repair } from "@/api/workApi/equipment/repair";
+import {API, API as Repair} from "@/api/workApi/equipment/repair";
 import { timeFormat } from "~/utils/time/index";
 import { assets_device_list } from "@/api/workApi/equipment/device"
 import { mapState } from "vuex";
@@ -107,15 +107,17 @@ export default {
         DeviceNo: "",
         DeviceName: "",
         RepairCategory: "",
-        RepairResults: "",
         Repairer: "",
         RepairApplicant: "",
-        ProblemDescription: "",
         RepairDate: "",
         CompletionDate: "",
         PlanCompletionDate: "",
         Remarks: "",
         PhotoUrl: "",
+        MaintenancePersonnel: "",
+        RepairLevel: "",
+        ProblemDescription: "",
+        RepairResults: "",
         BillFiles: [],
         BillItems: [],
       },
@@ -140,9 +142,24 @@ export default {
     if (!this.cur_Id) {
         this.formObj.form.RepairCategory = "FaultRepair";
         this.formObj.form.RepairApplicant = this.$store.state.user.name;
+    } else {
+      this.getData()
     }
   },
   methods: {
+    // 复制或编辑时获取数据
+    getData() {
+      this.fileBillId = this.cur_Id
+      API.api_get({ BillId: this.cur_Id }).then((res) => {
+        this.formObj.form = res;
+        this.ruleForm = res;
+        this.$delete(this.ruleForm,'State')
+        this.$delete(this.ruleForm,'AcceptedBy')
+        this.$delete(this.ruleForm,'CreationDate')
+        this.$delete(this.ruleForm,'Creator')
+        this.$delete(this.ruleForm,'DevicePhotoUrl')
+      })
+    },
     //上传文件返回的数据
     returnData(fileData) {
       this.ruleForm.BillFiles = fileData;
@@ -157,6 +174,13 @@ export default {
           Object.assign(this.ruleForm, this.formObj.form);
           if (this.ruleForm.RepairDate === "") {
             this.ruleForm.RepairDate = timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss")
+          }
+          this.ruleForm.PlanCompletionDate = ""
+          this.ruleForm.CompletionDate = ""
+          if (this.$route.query.type === "copy"){
+            this.ruleForm.BillGui = ""
+            this.ruleForm.BillId = ""
+            this.ruleForm.RepairResults = ""
           }
           Repair.api_save(this.ruleForm).then((res) => {
             let TagName = {

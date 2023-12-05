@@ -6,8 +6,17 @@
         <TableAction
           :actions="[
             {
+              label: $t('Generality.Ge_Copy'),
+              confirm: copy.bind(null,row)
+            },
+            {
+              label: $t('Generality.Ge_Edit'),
+              confirm: edit.bind(null,row),
+              disabled: row.State === 'Using',
+            },
+            {
               label: $t('Generality.Ge_Delete'),
-              disabled: getActionState(row.State, 'del'),
+              disabled: row.State === 'Using',
               popConfirm: {
                 title: $t('Generality.Ge_DeleteConfirm'),
                 confirm: deleteOrder.bind(null, [row.BillId]),
@@ -22,7 +31,7 @@
         slot="btn-list"
         :actions="[
             {
-            label:'新增',
+            label:$t('Generality.Ge_New'),
             confirm: add,
           },
           {
@@ -32,27 +41,41 @@
               title: $t('Generality.Ge_DeleteConfirm'),
               confirm: delBills,
             },
-          }
+          },
+          {
+            label: $t('Generality.Ge_Enable'),
+            confirm: startToUse,
+            disabled: canIsDel,
+          },
+          {
+            label: $t('production.Pr_StopUse'),
+            confirm: endToUse,
+            disabled: canIsBan,
+          },
         ]"
       >
       </Action>
+      <template #State="{ record }">
+        <el-tag type="success" v-if="record === 'Using'">{{ spotCheckStateEnum[record].name }}</el-tag>
+        <el-tag type="danger" v-else>{{ spotCheckStateEnum[record].name }}</el-tag>
+      </template>
     </JvTable>
   </PageWrapper>
 </template>
 <script>
 import { Table } from "./config";
 import { stateEnum } from "@/enum/workModule";
-import BillStateTags from "@/components/WorkModule/BillStateTags";
+import { spotCheckStateEnum } from "@/enum/workModule";
+import { assets_device_spot_check_plan_update_state } from "@/api/workApi/equipment/spotCheckPlan";
 export default {
-  name: "As_DeviceSpotCheck",
-  components:{
-    BillStateTags
-  },
+  name: "As_DeviceSpotCheckPlan",
   data() {
     return {
+      spotCheckStateEnum,
       tableObj: {},
-    // 新增路由
-    AddRoute: "Sa_SaleOrder_Add",
+      // 新增路由
+      editRouterName: "As_DeviceSpotCheckPlan_Edit",
+      addRouterName: "As_DeviceSpotCheckPlan_Add",
     }
   },
   created() {
@@ -65,7 +88,15 @@ export default {
       let { datas } = this.tableObj.selectData;
       if (datas.length === 0) return true;
       return datas.some((item) => {
-        return !["Rejected", "Unsubmitted"].includes(item.State);
+        return !["Disable"].includes(item.State);
+      });
+    },
+    // 批量禁用
+    canIsBan() {
+      let { datas } = this.tableObj.selectData;
+      if (datas.length === 0) return true;
+      return datas.some((item) => {
+        return !["Using"].includes(item.State);
       });
     },
     // 获取按钮状态
@@ -78,7 +109,19 @@ export default {
   methods: {
     add(){
       this.$router.push({
-        name: 'As_DeviceSpotCheckPlan_Add',
+        name: this.addRouterName,
+      });
+    },
+    copy(row) {
+      this.$router.push({
+        name: this.addRouterName,
+        query: {BillId: row.BillId, type: "copy"}
+      });
+    },
+    edit(row) {
+      this.$router.push({
+        name: this.editRouterName,
+        query: { BillId: row.BillId },
       });
     },
     // 删除
@@ -91,7 +134,34 @@ export default {
     delBills() {
       this.deleteOrder(this.tableObj.selectData.keys);
     },
+    // 启用
+    startToUse() {
+      let arr1 = [];
+      this.tableObj.selectData.datas.forEach((item) => {
+        arr1.push(item.BillId)
+      })
+      assets_device_spot_check_plan_update_state({BillIds:arr1,State:0}).then((res) => {
+        this.tableObj.getData()
+      })
+    },
+    // 停用
+    endToUse() {
+      let arr2 = [];
+      this.tableObj.selectData.datas.forEach((item) => {
+        arr2.push(item.BillId)
+      })
+      assets_device_spot_check_plan_update_state({BillIds:arr2,State:1}).then((res) => {
+        this.tableObj.getData()
+      })
+    }
   }
 }
 
 </script>
+<style lang="scss" scoped>
+.el-tag--light {
+  width: 100%;
+  max-width: 100px;
+  text-align: center;
+}
+</style>

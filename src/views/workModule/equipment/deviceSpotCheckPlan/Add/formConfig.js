@@ -6,22 +6,14 @@
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleOrder\components\formConfig.js
  */
-import {
-  machineCategoryEnum,
-  maintenanceEnum,
-  deviceStateEnum,
-  enumToList, taskTypeEnum, planTypeEnum, SpotCheckTypeEnum, afterTimeOutEnum
-} from '@/enum/workModule'
-import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
+import { enumToList, planTypeEnum, SpotCheckTypeEnum, afterTimeOutEnum } from '@/enum/workModule'
+import { getAllRole } from "@/api/basicApi/systemSettings/role";
 
-
-// 引入模块API接口
-// import { API as Maintenance_tpl } from "@/api/workApi/equipment/maintenance_tpl";
 export const formSchema = [
   //计划名称
   {
     prop: "PlanName",
-    label: '计划名称',
+    label: i18n.t("device.De_PlanName1"),
     cpn: "FormInput",
     rules: [
       {
@@ -33,7 +25,7 @@ export const formSchema = [
   //计划类型
   {
     prop: "PlanType",
-    label: '计划类型',
+    label: i18n.t("device.De_PlanType"),
     cpn: "FormSelect",
     options: {
       list: enumToList(planTypeEnum),
@@ -48,7 +40,7 @@ export const formSchema = [
   //点检类型
   {
     prop: "SpotCheckType",
-    label: '点检类型',
+    label: i18n.t("device.De_SpotCheckType"),
     cpn: "FormSelect",
     options: {
       list: enumToList(SpotCheckTypeEnum),
@@ -63,10 +55,13 @@ export const formSchema = [
   //角色
   {
     prop: "RoleName",
-    label: '角色',
-    cpn: "FormSelect",
-    options: {
-      list: enumToList(SpotCheckTypeEnum),
+    label: i18n.t("menu.Se_Role"),
+    cpn: "SyncSelect",
+    api: getAllRole,
+    apiOptions: {
+      immediate: true,
+      keyName: "RoleName",
+      valueName: "RoleName",
     },
     rules: [
       {
@@ -78,7 +73,7 @@ export const formSchema = [
   //执行时间
   {
     prop: "ExecutionTime",
-    label: '执行时间',
+    label: i18n.t("device.De_ExecutionTime"),
     cpn: "TimeSelect",
     cpnProps:{
       pickerOptions:{
@@ -86,7 +81,6 @@ export const formSchema = [
         end: '24:00'
       },
     },
-
     rules: [
       {
         required: true,
@@ -98,17 +92,18 @@ export const formSchema = [
     // 超时时间
     prop: "TimeOut",
     cpn: "FormInput",
-    label: '超时时间',
+    label: i18n.t("device.De_TimeOut"),
+    type:'number',
     options: {
       suffixSlot: {
-        label: "小时",
+        label: i18n.t("Generality.Ge_Hour"),
       },
     },
   },
   //超时处理
   {
     prop: "AfterTimeOut",
-    label: '超时处理',
+    label: i18n.t("device.De_AfterTimeOut"),
     cpn: "FormSelect",
     options: {
       list: enumToList(afterTimeOutEnum),

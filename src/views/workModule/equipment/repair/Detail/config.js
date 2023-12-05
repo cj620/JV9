@@ -8,7 +8,7 @@
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
 import { m_tableConfig as tableConfig } from "../Add/editConfig";
-import { repairEnum1, repairItemState, repairResultEnum } from "@/enum/workModule";
+import {repairLevelEnum, repairEnum1, repairItemState, repairResultEnum} from "@/enum/workModule";
 
 
 const newTableCongfig = [...tableConfig];
@@ -62,6 +62,7 @@ export const detailConfig = [
   {
     prop: "PlanCompletionDate",
     label: i18n.t('device.De_PlanCompletionDate'),
+    filter: "time",
   },
   //修理厂商
   {
@@ -80,9 +81,14 @@ export const detailConfig = [
     filter: "time",
   },
   {
-    // 完成日期
+    //验收人
+    prop: "AcceptedBy",
+    label: i18n.t("device.De_AcceptedBy"),
+  },
+  {
+    // 验收日期
     prop: "CompletionDate",
-    label: i18n.t("device.De_CompletionDate"),
+    label: i18n.t("device.De_AcceptDate"),
     filter: "time",
   },
   // 维修结果
@@ -105,6 +111,15 @@ export const detailConfig = [
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
   },
+  {
+    // 级别
+    prop: "RepairLevel",
+    label: i18n.t("Generality.Ge_Level"),
+    customFilter: (value) => {
+      if (!value) return "";
+      return repairLevelEnum[value].name;
+    },
+  }
 ];
 export const itemTableConfig = [
   {

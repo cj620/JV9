@@ -8,7 +8,7 @@
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
 import { m_tableConfig as tableConfig } from "../Add/editConfig";
-import { machineCategoryEnum,maintenanceEnum, enumToList } from "@/enum/workModule";
+import {machineCategoryEnum, maintenanceEnum, enumToList, ScrapCategoryEnum} from "@/enum/workModule";
 
 
 
@@ -22,7 +22,7 @@ export const detailConfig = [
   },
   //设备名称
   {
-    prop: "Device",
+    prop: "DeviceName",
     label: i18n.t("production.Pr_DeviceName"),
   },
   //报废日期
@@ -35,6 +35,10 @@ export const detailConfig = [
   {
     prop: "ScrapCategory",
     label: i18n.t("Generality.Ge_Category"),
+    customFilter: (value) => {
+      if (ScrapCategoryEnum[value]) return ScrapCategoryEnum[value].name;
+      else return value
+    },
   },
 
   {

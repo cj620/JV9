@@ -3,6 +3,13 @@ import {
   assets_device_spot_check_list,
   assets_device_spot_check_delete,
 } from "@/api/workApi/equipment/spotCheck";
+import {enumFilter, enumToList} from "~/utils/system/enumsPlugin";
+import {
+  afterTimeOutEnum,
+  planTypeEnum,
+  SpotCheckTypeEnum,
+  spotCheckListStateEnum,
+} from "@/enum/workModule";
 
 export class api extends TableAPI {
   getData = assets_device_spot_check_list;
@@ -45,48 +52,114 @@ export const tableConfig = [
     }
   },
   {
-    prop: "DeviceNo",
-    label: i18n.t("production.Pr_DeviceNo"),
+    // 点检计划名称
+    prop: "PlanName",
+    label: i18n.t("device.De_PlanName1"),
   },
   {
+    // 状态
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    cpn: "BillStateTags",
     width: "120px",
+    custom: true,
+    // customFilter: (value, row) => enumFilter(value, spotCheckListStateEnum),
   },
   {
-    prop: "DeviceName",
-    label: i18n.t('DataV.Da_DeviceName'),
+    // 计划类型
+    prop: "PlanType",
+    label: i18n.t("device.De_PlanType"),
+    customFilter: (value, row) => enumFilter(value, planTypeEnum),
   },
   {
-    prop: "MaintenanceDate",
-    label: i18n.t('device.De_MaintenanceDate1'),
-    filter: "time",
-    width: "150px",
+    // 点检类型
+    prop: "SpotCheckType",
+    label: i18n.t("device.De_SpotCheckType"),
+    customFilter: (value, row) => enumFilter(value, SpotCheckTypeEnum),
   },
   {
-    prop: "Operator",
-    label: i18n.t('device.De_Operator'),
+    // 关联编号
+    prop: "AssociatedNo",
+    label: i18n.t('Generality.Ge_AssociatedNo'),
   },
   {
-    prop: "Creator",
-    label: i18n.t("Generality.Ge_Creator"),
+    // 角色
+    prop: "RoleName",
+    label: i18n.t("menu.Se_Role"),
   },
   {
-    prop: "CreationDate",
-    label: i18n.t("Generality.Ge_CreationDate"),
-    filter: "time",
-    width: "150px",
+    // 超时时间
+    prop: "TimeOut",
+    label: i18n.t("device.De_TimeOut"),
   },
   {
-    prop: "Remarks",
-    label: i18n.t("Generality.Ge_Remarks"),
+    // 超时处理
+    prop: "AfterTimeOut",
+    label: i18n.t("device.De_AfterTimeOut"),
+    customFilter: (value, row) => enumFilter(value, afterTimeOutEnum),
   },
+  {
+    // 应开始时间
+    prop: "ShouldBeginTime",
+    label: i18n.t("device.De_ShouldBeginTime"),
+    filter:'time',
+    width: "140px",
+  },
+  {
+    // 检验开始时间
+    prop: "CheckStartDate",
+    label: i18n.t("device.De_CheckStartDate"),
+    filter:'time',
+    width: "140px",
+  },
+  {
+    // 检验结束时间
+    prop: "CheckEndDate",
+    label: i18n.t("device.De_CheckEndDate"),
+    filter:'time',
+    width: "140px",
+  }
 ]
 export const formSchema = [
   {
     prop: "Keyword",
     label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
+  },
+  {
+    prop: "PlanType",
+    label: i18n.t("device.De_PlanType"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(planTypeEnum)
+    }
+  },
+  {
+    prop: "SpotCheckType",
+    label: i18n.t("device.De_SpotCheckType"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(SpotCheckTypeEnum)
+    }
+  },
+  {
+    prop: "States",
+    label: i18n.t("Generality.Ge_State"),
+    cpn: "FormSelect",
+    type: "multiple",
+    options: {
+      list: enumToList(spotCheckListStateEnum)
+    }
+  },
+  {
+    // 计划开始
+    prop: "StartDate",
+    cpn: "SingleTime",
+    label: i18n.t("Generality.Ge_StartTime"),
+  },
+  {
+    // 计划开始
+    prop: "EndDate",
+    cpn: "SingleTime",
+    label: i18n.t("Generality.Ge_EndTime"),
   },
 ]

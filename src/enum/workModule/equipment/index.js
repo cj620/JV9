@@ -12,6 +12,7 @@
 // 量具(MeasuringTool)，
 // 夹具(Fixture)
 import i18n from "@/i18n/i18n";
+import {exp} from "qrcode/lib/core/galois-field";
 
 export const machineCategoryEnum = {
     // 设备
@@ -56,14 +57,24 @@ export const maintenanceEnum = {
   export const deviceStateEnum = {
     // 正常
     Normal: {
-      name: i18n.t("production.Pr_Normal"),
+      name: "正常",
       value: "Normal",
     },
     // 报废
     Scrap: {
-        name: i18n.t("quality.Qc_Scrapped"),
-        value: "Scrap",
-      },
+      name: "报废",
+      value: "Scrap",
+    },
+    // 维修中
+    Repairing: {
+      name: "维修中",
+      value: "Repairing",
+    },
+    // 保养中
+    Maintenanceing: {
+      name: "保养中",
+      value: "Maintenanceing",
+    },
   };
 // 1． 故障维修（FaultRepair)
 // 2． 精度校准(PrecisionRepair)
@@ -132,16 +143,22 @@ export const maintenanceStateEnum ={
     ToBeMaintenance: {
         name: i18n.t("device.De_ToBeMaintained"),
         value: "ToBeMaintenance",
+        color: "#909399",
+        fcolor: "#fff",
     },
     //保养中
     Maintenanceing: {
         name: i18n.t("device.De_Maintaining"),
         value: "Maintenanceing",
+        color: "#faad14",
+        fcolor: "#fff",
     },
     //已保养
     Maintenanceed: {
         name: i18n.t("device.De_Maintained"),
         value: "Maintenanceed",
+        color: "#FE222D",
+        fcolor: "#fff",
     }
 }
 
@@ -151,35 +168,35 @@ export const repairStateEnum = {
   ToBeRepair: {
     name: i18n.t("device.De_ToBeRepair"),
     value: "ToBeRepair",
-    color: "#909399",
+    color: "#A8B6EF",
     fcolor: "#fff",
   },
   // 维修中
   Repairing: {
     name: i18n.t("device.De_Repairing"),
     value: "Repairing",
-    color: "#faad14",
+    color: "#FFCC66",
     fcolor: "#fff",
   },
   // 已打回
   BackTo: {
     name: i18n.t("device.De_BackTo"),
     value: "BackTo",
-    color: "#000000",
+    color: "#7A7D84",
     fcolor: "#fff",
   },
   // 已验收
   Accepted: {
     name: i18n.t("device.De_Accepted"),
     value: "Accepted",
-    color: "#FE222D",
+    color: "#96DE6C",
     fcolor: "#fff",
   },
   // 已维修
   Repaired: {
     name: i18n.t("device.De_Repaired"),
     value: "Repaired",
-    color: "#39B54A",
+    color: "#FF6666",
     fcolor: "#fff",
   },
 };
@@ -190,11 +207,15 @@ export const repairEnum1 = {
   FaultRepair: {
     name: i18n.t("device.De_SelfRepair"),
     value: "FaultRepair",
+    color: "#FAAD14",
+    fcolor: "#fff",
   },
   //委外维修
   PrecisionRepair: {
     name: i18n.t("device.De_OutsourcedRepair"),
     value: "PrecisionRepair",
+    color: "#CCCCFF",
+    fcolor: "#fff",
   },
 };
 
@@ -224,4 +245,57 @@ export const repairItemState = {
     name: i18n.t("device.De_Collected"),
     value: "Collected",
   }
+}
+
+// 修理等级枚举
+export const repairLevelEnum = {
+    /// 普通
+    'Ordinary': {
+        name: i18n.t("Generality.Ge_Ordinary"),
+        value: 'Ordinary',
+        color: '#4bc0ac',
+        fcolor: "#fff",
+    },
+    /// 紧急
+    'Urgent': {
+        name: i18n.t("Generality.Ge_Urgent"),
+        value: 'Urgent',
+        color: '#f48b56',
+        fcolor: "#fff",
+    },
+    /// 特急
+    'ExtraUrgent': {
+        name: i18n.t("Generality.Ge_ExtraUrgent"),
+        value: 'ExtraUrgent',
+        color: '#f76368',
+        fcolor: "#fff",
+    },
+}
+
+// 报废类型枚举
+export const ScrapCategoryEnum = {
+    // 损坏报废
+    'DamageScrap': {
+        name: i18n.t("device.De_DamageScrap"),
+        value: "DamageScrap",
+    },
+    // 到期报废
+    'DueScrap': {
+        name: i18n.t("device.De_DueScrap"),
+        value: "DueScrap",
+    },
+}
+
+// 领料类别
+export const PickingTypeEnum1 = {
+    // 保养
+    'Maintenance': {
+        name: i18n.t("device.De_Maintenance"),
+        value: "Maintenance",
+    },
+    // 维修
+    'Repair': {
+        name: i18n.t("device.De_Repair"),
+        value: "Repair",
+    }
 }

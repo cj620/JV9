@@ -7,7 +7,7 @@
           :actions="[
             {
               label: $t('Generality.Ge_Delete'),
-              disabled: getActionState(row.State, 'del'),
+              disabled: row.State !== 'ToBeInspected',
               popConfirm: {
                 title: $t('Generality.Ge_DeleteConfirm'),
                 confirm: deleteOrder.bind(null, [row.BillId]),
@@ -15,6 +15,10 @@
             },
           ]"
         />
+      </template>
+      <template #State="{ record }">
+        <!-- 状态标签 -->
+        <RepairStateTags :state="record" :enum="spotCheckListStateEnum"></RepairStateTags>
       </template>
       <!-- 表格操作行 -->
       <Action
@@ -37,12 +41,12 @@
 </template>
 <script>
 import { Table } from "./config";
-import { stateEnum } from "@/enum/workModule";
-import BillStateTags from "@/components/WorkModule/BillStateTags";
+import RepairStateTags from "@/views/workModule/equipment/repair/components/RepairStateTags.vue";
+import { spotCheckListStateEnum } from '@/enum/workModule'
 export default {
   name: "As_DeviceSpotCheck",
-  components:{
-    BillStateTags
+  components: {
+    RepairStateTags,
   },
   data() {
     return {
@@ -54,19 +58,16 @@ export default {
     this.tableObj.getData()
   },
   computed: {
+    spotCheckListStateEnum() {
+      return spotCheckListStateEnum
+    },
     // 批量删除
     canIsDel() {
       let { datas } = this.tableObj.selectData;
       if (datas.length === 0) return true;
       return datas.some((item) => {
-        return !["Rejected", "Unsubmitted"].includes(item.State);
+        return !["ToBeInspected"].includes(item.State);
       });
-    },
-    // 获取按钮状态
-    getActionState() {
-      return (state, type) => {
-        return !stateEnum[state]?.operation?.[type];
-      };
     },
   },
   methods: {

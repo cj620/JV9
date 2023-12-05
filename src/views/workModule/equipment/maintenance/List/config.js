@@ -34,7 +34,7 @@ export class Table extends BaseTable {
       // 接口类
       api,
       // 操作列宽度
-      operationWidth: 200,
+      operationWidth: 280,
       // 打印模块标识
       printMod:'As_DeviceMaintain',
     })
@@ -49,11 +49,6 @@ export const tableConfig = [
     align: "center",
     cpn: "Link",
     width: '200px',
-    innerSearch: {
-      prop: "BillId",
-      cpn: "FormInput",
-      label: i18n.t("Generality.Ge_BillId")
-    },
     cpnProps: {
       // 路由名称
       routeName: "As_DeviceMaintenanceDetail",
@@ -76,11 +71,12 @@ export const tableConfig = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    width:'100px',
-    customFilter: (value) => {
-        if (!value) return "";
-        return maintenanceStateEnum[value].name;
-    },
+    width:'120px',
+    custom: true,
+    // customFilter: (value) => {
+    //     if (!value) return "";
+    //     return maintenanceStateEnum[value].name;
+    // },
   },
   //   方案名称
   {

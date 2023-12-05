@@ -8,7 +8,7 @@ import {
   SpotCheckTypeEnum,
   spotCheckStateEnum,
   afterTimeOutEnum,
-  enumFilter,
+  enumFilter, enumToList,
 } from "@/enum/workModule";
 export class api extends TableAPI {
   getData = assets_device_spot_check_plan_list;
@@ -24,7 +24,7 @@ export class Table extends BaseTable {
       // 行标识
       rowId: 'BillId',
       // 表格标题
-      title: '设备点检计划',
+      title: i18n.t("menu.As_DeviceSpotCheckPlan"),
       // 接口类
       api,
       // 操作列宽度
@@ -41,7 +41,7 @@ export const tableConfig = [
     cpn: "Link",
     cpnProps: {
       // 路由名称
-      routeName: "As_DeviceSpotCheckDetail",
+      routeName: "As_DeviceSpotCheckPlanDetail",
       // 路由路径（名称和路径二选一）
       // routePath:'/dashboard',
       // 路由传参方式 默认query
@@ -52,38 +52,41 @@ export const tableConfig = [
   },
   {
     prop: "PlanName",
-    label: '计划名称',
+    label: i18n.t("device.De_PlanName1"),
+  },
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    // customFilter: (value, row) => enumFilter(value, spotCheckStateEnum),
+    custom: true,
+    width: "120px",
   },
   {
     prop: "RoleName",
-    label: '角色',
+    label: i18n.t("menu.Se_Role"),
   },
   {
     prop: "PlanType",
-    label: '计划类型',
+    label: i18n.t("device.De_PlanType"),
     customFilter: (value, row) => enumFilter(value, planTypeEnum),
   },
   {
     prop: "SpotCheckType",
-    label: '点检类型',
+    label: i18n.t("device.De_SpotCheckType"),
     customFilter: (value, row) => enumFilter(value, SpotCheckTypeEnum),
-  },  {
+  },
+  {
     prop: "ExecutionTime",
-    label: '执行时间',
+    label: i18n.t("device.De_ExecutionTime"),
   },
   {
     prop: "TimeOut",
-    label: '超时时间',
+    label: i18n.t("device.De_TimeOut"),
   },
   {
-    prop: "AfterTimeOut ",
-    label: '超时处理',
+    prop: "AfterTimeOut",
+    label: i18n.t("device.De_AfterTimeOut"),
     customFilter: (value, row) => enumFilter(value, afterTimeOutEnum),
-  },
-  {
-    prop: "State",
-    label: '状态',
-    customFilter: (value, row) => enumFilter(value, spotCheckStateEnum),
   },
   /*制单人*/
   {
@@ -107,4 +110,29 @@ export const formSchema = [
     label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
   },
+  {
+    prop: "States",
+    label: i18n.t("Generality.Ge_State"),
+    cpn: "FormSelect",
+    type: "multiple",
+    options: {
+      list: enumToList(spotCheckStateEnum)
+    }
+  },
+  {
+    prop: "PlanType",
+    label: i18n.t("device.De_PlanType"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(planTypeEnum)
+    }
+  },
+  {
+    prop: "SpotCheckType",
+    label: i18n.t("device.De_SpotCheckType"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(SpotCheckTypeEnum)
+    }
+  }
 ]

@@ -1,119 +1,104 @@
 <template>
   <PageWrapper ref="page">
-    <el-tabs @tab-click="tabClick" slot="sticky-tabs">
-      <!-- tab 导航栏  -->
-      <el-tab-pane
-        v-for="pane in tabPanes"
-        :key="pane.name"
-        :label="pane.label"
-        :name="pane.name"
-      ></el-tab-pane>
-    </el-tabs>
-    <Action slot="sticky-extra" size="small" :actions="[
-      {
-        label: $t('Generality.Ge_Edit'),
-        confirm: edit,
-      },
-    ]"></Action>
     <!--单据信息-->
     <JvBlock
       :title="cur_billId"
       ref="first"
       :contentStyle="{
-        paddingLeft: '150px',
-        height: '180px',
+        height: '230px',
       }" style="position: relative">
-        <div class="mould-img">
-          <el-image :preview-src-list="[imgUrlPlugin(detailObj.detailData.DevicePhotoUrl)]" style="width: 100%; height: 100%"
-                    :src="imgUrlPlugin(detailObj.detailData.DevicePhotoUrl)" fit="cover" class="items-details-Img-error">
-              <div slot="error" class="image-slot">
-                  <i class="el-icon-picture-outline"></i>
-              </div>
-          </el-image>
+        <div style="position: relative; margin-left: 30px">
+            <JvDetail :detailObj="detailObj">
+              <template #AssociatedNo="{ record }">
+            <span
+                style="color: #409eff; cursor: pointer"
+                @click="linkToProject(record)"
+            >
+              {{ record }}
+            </span>
+              </template></JvDetail>
+            <SpotCheckStateTags :state="detailObj.detailData.State"></SpotCheckStateTags>
         </div>
-        <div style="position: relative; margin-left: 100px" >
-            <JvDetail :detailObj="detailObj"> </JvDetail>
-            <JvState :state="detailObj.detailData.State"></JvState>
-        </div>
     </JvBlock>
-    <!--物料信息-->
-    <JvBlock :title="$t('Generality.Ge_ItemsInfo')" ref="second">
-      <JvTable :table-obj="tableObj"> </JvTable>
+    <!--设备信息-->
+    <JvBlock :title="$t('device.De_SpotCheckMember')" ref="second">
+      <JvTable ref="BillTable" :table-obj="tableObj">
+        <template #operation="{ row }">
+          <TableAction
+              :actions="[
+              {
+                label: $t('device.De_SpotCheck'),
+                disabled: row.State === 'Verified',
+                confirm: spotCheckMember.bind(null, row),
+              },
+              {
+                label: $t('device.De_SpotCheckMsg'),
+                confirm: spotCheckMsg.bind(null, row),
+              },
+            ]"
+          />
+        </template>
+      </JvTable>
     </JvBlock>
-    <!--备注-->
-    <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
-      <JvRemark :RemarkData="RemarkData"></JvRemark>
-    </JvBlock>
-    <!--附件-->
-    <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
-      <JvFileExhibit :BillId="fileBillId"></JvFileExhibit>
-    </JvBlock>
-    <!--审核流程-->
-    <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
-      <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
-    </JvBlock>
+    <SpotCheckItem
+        :visible.sync="spotCheckVisible"
+        v-if="spotCheckVisible"
+        :DetailData="DetailData"
+        @confirmData="confirmSpotCheck"
+    >
+    </SpotCheckItem>
+    <JvDialog
+        :visible.sync="spotCheckMsgVisible"
+        v-if="spotCheckMsgVisible"
+        :title="$t('device.De_SpotCheckMsg')"
+        width="60%"
+        :close-on-click-modal="false"
+        :modal-append-to-body="false"
+        :append-to-body="false"
+        :IsShowFooterBtn="false"
+    >
+      <JvTable :table-obj="msgTableObj"></JvTable>
+    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
-import { tableConfig, detailConfig } from "./config"
+import { tableConfig, detailConfig, msgTableConfig } from "./config"
 import Detail from "@/jv_doc/class/detail/Detail";
 import { Table } from "@/jv_doc/class/table";
-import { stateEnum } from "@/enum/workModule";
+import SpotCheckStateTags from "@/views/workModule/equipment/deviceSpotCheck/components/SpotCheckStateTags.vue";
+import SpotCheckItem from "@/views/workModule/equipment/deviceSpotCheck/components/SpotCheckItem/SpotCheckItem.vue";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import { assets_device_spot_check_get } from "@/api/workApi/equipment/spotCheck"
-import JvState from "@/components/JVInternal/JvState/index.vue";
-import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index.vue";
-import AuditProcess from "@/components/BasicModule/AuditProcess/index.vue";
-import JvRemark from "@/components/JVInternal/JvRemark/index.vue";
+import {
+  assets_device_spot_check_get,
+  assets_device_spot_check_save_result,
+  assets_device_spot_check_get_member,
+} from "@/api/workApi/equipment/spotCheck"
 import { mapState } from "vuex";
 
 export default {
-  name: "As_DeviceSpotCheckDetail",
+  name: "index",
   components: {
-    JvRemark,
-    AuditProcess,
-    JvFileExhibit,
-    JvState,
+    SpotCheckItem,
+    SpotCheckStateTags,
   },
   data() {
     return {
       cur_billId: "",
       detailObj: {},
       tableObj: {},
+      msgTableObj: {},
+      DetailData: [],
       RemarkData: "",
       fileBillId: "",
-      tabPanes: [
-        {
-          label: this.$t("Generality.Ge_BillInfo"),
-          name: "first",
-        },
-        {
-          label: this.$t("Generality.Ge_ItemsInfo"),
-          name: "second",
-        },
-        {
-          label: this.$t("Generality.Ge_Remarks"),
-          name: "third",
-        },
-        {
-          label: this.$t("Generality.Ge_Annex"),
-          name: "fourth",
-        },
-        {
-          label: this.$t("Generality.Ge_ApproveProcess"),
-          name: "fifth",
-        },
-      ],
+      spotCheckVisible: false,
+      spotCheckMsgVisible: false,
     }
   },
   computed: {
     ...mapState({
         current: (state) => state.page.current,
     }),
-    stateMap() {
-        return stateEnum[this.detailObj.detailData.State];
-    },
   },
   async created() {
     this.detailObj = new Detail({
@@ -128,9 +113,20 @@ export default {
       data: [],
       title: "",
       tableHeaderShow: false,
-      operationCol: false,
-      height: 350,
+      operationWidth: '150px',
+      height: 450,
     });
+    this.msgTableObj = new Table({
+      tableSchema: msgTableConfig,
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: false,
+      height: 200,
+    })
     await this.GetData();
   },
   methods: {
@@ -140,42 +136,58 @@ export default {
       }).then((res) => {
         this.detailObj.detailData = res;
         this.cur_billId = res.BillId;
-        this.tableObj.setData(res.BillItems);
+        this.tableObj.setData(res.BillMembers);
       })
     },
     imgUrlPlugin,
-    edit(){
-
+    // 关联编号跳转
+    linkToProject(BillId) {
+      this.$router.push({
+        name: "As_DeviceSpotCheckPlanDetail",
+        query: { BillId },
+      });
     },
-    tabClick(e) {
-      let top = this.$refs[e.name].offsetTop;
-      this.$refs.page.scrollTo(top);
+    spotCheckMsg(row) {
+      this.spotCheckMsgVisible = true
+      assets_device_spot_check_get_member({Id: row.Id}).then((res) => {
+        this.msgTableObj.setData(res.BillItems)
+      })
+    },
+    spotCheckMember(row) {
+      this.DetailData = row
+      this.spotCheckVisible = true
+    },
+    confirmSpotCheck(e) {
+      assets_device_spot_check_save_result(e).then((res) => {
+        this.GetData();
+      })
+      this.spotCheckVisible = false
     },
   }
 }
 </script>
 <style lang="scss" scoped>
-.mould-img {
-  width: 120px;
-  height: 120px;
-  // background-color: pink;
-  position: absolute;
-  left: 10px;
-  right: 100px;
-}
-.items-details-Img-error {
-  background-color: rgb(231, 231, 231);
-  .image-slot {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // color: rgb(161, 161, 161);
-    .error-icon {
-      color: rgb(161, 161, 161);
-      font-size: 19px;
-    }
-  }
-}
+//.mould-img {
+//  width: 120px;
+//  height: 120px;
+//  // background-color: pink;
+//  position: absolute;
+//  left: 10px;
+//  right: 100px;
+//}
+//.items-details-Img-error {
+//  background-color: rgb(231, 231, 231);
+//  .image-slot {
+//    width: 100%;
+//    height: 100%;
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+//    // color: rgb(161, 161, 161);
+//    .error-icon {
+//      color: rgb(161, 161, 161);
+//      font-size: 19px;
+//    }
+//  }
+//}
 </style>
