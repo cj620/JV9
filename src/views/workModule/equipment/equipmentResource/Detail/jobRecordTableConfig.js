@@ -55,7 +55,7 @@ export class MaintenanceTable extends BaseTable {
       // 操作列宽度
       operationWidth:110,
       // 打印模块标识
-      printMod:'As_DeviceMaintain',
+      printMod:'As_DeviceMaintain_MaintenanceTable',
       height:null,
       operationCol:false
     });
@@ -107,7 +107,7 @@ export class RepairTable extends BaseTable {
       // 操作列宽度
       operationWidth:110,
       // 打印模块标识
-      printMod:'As_DeviceMaintain',
+      printMod:'As_DeviceMaintain_RepairTable',
       height:null,
       operationCol:false
     });
@@ -170,7 +170,7 @@ export class UseTable extends BaseTable {
       // 操作列宽度
       operationWidth:110,
       // 打印模块标识
-      printMod:'As_DeviceMaintain',
+      printMod:'As_DeviceMaintain_UseTable',
       height:null,
       operationCol:true
     });
@@ -222,7 +222,7 @@ export class StockOpsTable extends BaseTable {
       // 操作列宽度
       operationWidth:110,
       // 打印模块标识
-      printMod:'As_DeviceMaintain',
+      printMod:'As_DeviceMaintain_StockOpsTable',
       height:null,
       operationCol:true
     });
