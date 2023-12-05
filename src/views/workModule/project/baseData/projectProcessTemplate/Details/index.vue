@@ -8,6 +8,7 @@
           :label="pane.label"
           :name="pane.name"
       ></el-tab-pane>
+    </el-tabs>
       <!--单据信息-->
       <JvBlock :title="$t('Generality.Ge_TemplateInfo')"  ref="first">
         <JvDetail :detailObj="detailObj"></JvDetail>
@@ -22,7 +23,6 @@
       <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
         <JvRemark :RemarkData="RemarkData"></JvRemark>
       </JvBlock>
-    </el-tabs>
   </PageWrapper>
 </template>
 <script>

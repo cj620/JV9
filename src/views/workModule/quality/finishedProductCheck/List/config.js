@@ -66,6 +66,7 @@ export const tableConfig = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
+    width: "115px",
     custom: true,
   },
   {

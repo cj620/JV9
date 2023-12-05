@@ -87,7 +87,7 @@ export const tableConfig = [
   /*任务单号*/
   {
     prop: "PmTaskBillId",
-    label: i18n.t("Generality.Ge_TaskType"),
+    label: i18n.t("project.Pro_TaskSheetNo"),
   },
   /*任务类别*/
   {

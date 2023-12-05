@@ -216,7 +216,7 @@ export default {
     printKTMPR(){
       printPlugin({
         ids: [this.cur_billId],
-        category: "Pu_Order_PR_2",
+        category: "Pu_Order_PR_3",
       });
     },
     //添加不同的模板
