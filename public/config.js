@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-10 09:12:58
- * @LastEditTime: 2023-07-26 14:15:59
+ * @LastEditTime: 2023-12-05 14:53:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-element-admin-master\public\config.js

@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-07-13 10:34:24
- * @LastEditTime: 2022-01-20 18:04:40
+ * @LastEditTime: 2023-12-05 19:28:40
  * @Description: file content
 -->
 <template>
@@ -16,7 +16,7 @@
     >
       <template #titleBar>
         <Popover
-          @confirm="tableObj.getData()"
+          @confirm="getTableData"
           @reset="tableObj.formObj.form.Month = ''"
           style="margin: 0 10px"
         >
@@ -28,11 +28,9 @@
           >
           </el-date-picker>
         </Popover>
-        <span>
-          {{ tableObj.formObj.form.Month | timeFormat("yyyy.MM") }}</span
-        >
+        <span> {{ tableObj.formObj.form.Month | timeFormat("yyyy.MM") }}</span>
       </template>
-      <template #Resource="{ record, row }" >
+      <template #Resource="{ record, row }">
         <span v-if="row.Flag == '0'">{{ record }}</span>
         <div v-else style="padding-left: 30px">
           <div>{{ record }}</div>
@@ -81,9 +79,10 @@ export default {
       tableObj: {},
       detailTableObj: {},
       detailDataView: false,
+      currenMoth: new Date(),
       ApsSheetsMap: {
         Normal: {
-          name: this.$t("production.Pr_Normal")
+          name: this.$t("production.Pr_Normal"),
         },
         Overdue: {
           name: this.$t("production.Pr_OverdueWorkSheet"),
@@ -106,19 +105,23 @@ export default {
     init() {
       this.tableObj = new Table();
       this.tableObj.getData();
-      this.detailTableObj = new DetailTable
-	  },
+      this.detailTableObj = new DetailTable();
+    },
+    getTableData() {
+      this.currenMoth = this.tableObj.formObj.form.Month;
+      this.tableObj.getData();
+    },
     clickToDetail(row, column) {
-      const columnLabel = "Data" + column.label
-      if (row[columnLabel] && row[columnLabel].length !== 0){
-        this.detailTableObj.setData(row[columnLabel])
-        this.detailDataView = true
+      const columnLabel = "Data" + column.label;
+      if (row[columnLabel] && row[columnLabel].length !== 0) {
+        this.detailTableObj.setData(row[columnLabel]);
+        this.detailDataView = true;
       }
     },
     imgUrlPlugin,
     headerClass(e) {
       if (e.columnIndex == 0) return;
-      let col_date = timeFormat(new Date(), "yyyy-MM-") + e.column.label;
+      let col_date = timeFormat(this.currenMoth, "yyyy-MM-") + e.column.label;
       let dt = new Date(col_date).getDay();
       if (dt % 7 == 6 || dt % 7 == 0) {
         return {
