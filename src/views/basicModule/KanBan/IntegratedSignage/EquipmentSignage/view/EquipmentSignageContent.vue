@@ -36,7 +36,7 @@
                v-for="(item, i) in contentResult.EquipmentOperationTimeline" :key="i"
           >
             <div class="content-table-content-item-Equipment content-table-content-item-common">
-              <CImage :src="item.PhotoUrl" :preview-src-list="item.PhotoUrl"/>
+              <CImage :src="item.PhotoUrl" :preview-src-list="item.PhotoUrl" style="width: 50px;margin-left: 14px"/>
             </div>
             <div class="content-table-content-item-DeviceName content-table-content-item-common">{{item['Equipment']}}</div>
             <div class="content-table-content-item-time">
