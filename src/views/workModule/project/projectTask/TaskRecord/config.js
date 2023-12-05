@@ -58,7 +58,12 @@ export const tableConfig = [
       },
     },
   },
-
+  /*工时*/
+  {
+    prop: "Process",
+    label: '工序',
+    width: "90px",
+  },
   /*开始时间*/
   {
     prop: "ActualStart",
@@ -96,11 +101,6 @@ export const tableConfig = [
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
     width: "95px",
-  },
-  /*币种*/
-  {
-    prop: "Curdfdsfrency",
-    label: i18n.t("menu.Se_Department"),
   },
   /*日期*/
   {
