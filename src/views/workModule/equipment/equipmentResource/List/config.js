@@ -89,6 +89,11 @@ export const tableConfig = [
     prop: "DeviceName",
     label: i18n.t("production.Pr_DeviceName"),
   },
+  // 规格型号
+  {
+    prop: "SpecModel",
+    label:'规格型号',
+  },
    /*设备厂商*/
    {
     prop: "Manufacture",
@@ -155,11 +160,7 @@ export const tableConfig = [
      label: i18n.t("production.Pr_CreationDate"),
     filter:'date'
   },
-  // 寿命设定
-  {
-    prop: "SpecModel",
-    label:'规格型号',
-  },
+
   // 寿命设定
   {
     prop: "LifeSetting",
