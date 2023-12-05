@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 10:44:15
- * @LastEditTime: 2022-01-20 17:16:36
+ * @LastEditTime: 2023-12-05 16:19:25
  * @Description: 生产报工
 -->
 
@@ -48,12 +48,12 @@ import reportContent from "./components/reportContent";
 import onBoardContent from "./components/onBoardContent";
 import disembark from "./components/disembark";
 import { getUserConfig } from "@/api/basicApi/systemSettings/user";
+import { autoCreate } from "./auto";
 export default {
   name: "ProductionReport",
   data() {
     return {
       SiteData: [],
-
       activeName: "first",
     };
   },
@@ -70,6 +70,9 @@ export default {
     onBoardContent,
   },
   methods: {
+    autoCreateBill() {
+      autoCreate(this.mbill, this.userId);
+    },
     GetConfig() {
       getUserConfig({ ConfigKey: "UserStation" }).then((res) => {
         this.SiteData = JSON.parse(res.ConfigValue);

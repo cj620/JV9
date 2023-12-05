@@ -1,13 +1,21 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 10:24:11
- * @LastEditTime: 2022-11-30 15:28:51
+ * @LastEditTime: 2023-12-05 19:29:39
  * @LastEditTime: 2022-01-20 17:17:19
  * @Description: 生产任务
 -->
 
 <template>
   <PageWrapper :footer="false">
+    <div v-if="false">
+      userId <el-input v-model="userId"></el-input> billId<el-input
+        v-model="mbill"
+      ></el-input>
+      模号<el-input v-model="modBill"></el-input>
+      <el-button @click="autoCreateBill">任务完成</el-button>
+      <el-button @click="autoBatchCreate">模号生成</el-button>
+    </div>
     <div class="productionTask" v-loading="loading">
       <div class="productionTask-header">
         <div>
@@ -47,8 +55,8 @@
                 $t("production.Pr_PartOutsourcing")
               }}</el-button>
               <el-button size="mini" @click="goOverdueWorkOrder">{{
-                  $t("menu.Pr_OverdueWorkOrder")
-                }}</el-button>
+                $t("menu.Pr_OverdueWorkOrder")
+              }}</el-button>
               <el-button size="mini" @click="deletedData" v-if="IsShow">
                 {{ $t("production.Pr_DeletedData") }}
               </el-button>
@@ -317,12 +325,16 @@ import {
 import { addOutsourcingrRequirement } from "@/api/workApi/purchase/outsourcingRequirement";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 import { imgUrlPlugin, printPlugin } from "@/jv_doc/utils/system/index.js";
+import { autoCreate, batchCreate } from "../../productionReport/List/auto";
 export default {
   // 页面的标识
   name: "ProductionTask",
   data() {
     return {
       dataList: [],
+      userId: "mt-001",
+      mbill: "",
+      modBill: "",
       ProductionTaskStateList: [
         "ToBeReceived",
         "Received",
@@ -366,10 +378,16 @@ export default {
     this.GetData();
   },
   methods: {
+    autoBatchCreate() {
+      batchCreate(this.modBill);
+    },
+    autoCreateBill() {
+      autoCreate(this.mbill, this.userId);
+    },
     imgUrlPlugin,
     // 跳转到超期工单
     goOverdueWorkOrder() {
-      this.$router.push({name: 'OverdueWorkOrder'})
+      this.$router.push({ name: "OverdueWorkOrder" });
     },
     //已删除数据
     deletedData() {
