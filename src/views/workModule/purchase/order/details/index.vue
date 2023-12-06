@@ -25,6 +25,10 @@
           confirm: printKTMPR,
         },
         {
+          label: $t('Generality.Ge_Print') + ' KTV ' + $t('menu.Pu_Order_PR'),
+          confirm: printKTVPR,
+        },
+        {
           label: $t('purchase.Pu_EnterStorage'),
           disabled: !stateForm.transform,
           confirm: validateIsCompleted,
@@ -214,6 +218,13 @@ export default {
     },
     //打印马来西亚询价单
     printKTMPR(){
+      printPlugin({
+        ids: [this.cur_billId],
+        category: "Pu_Order_PR_2",
+      });
+    },
+
+    printKTVPR(){
       printPlugin({
         ids: [this.cur_billId],
         category: "Pu_Order_PR_3",
