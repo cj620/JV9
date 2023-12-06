@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="content-table-content">
-        <RollList :step="cWindow.global_config.DataVStep">
+        <RollList :step="cWindow.global_config.DataVStep" :num="14">
           <div class="content-table-content-item"
                v-for="(item, i) in contentResult.EquipmentOperationTimeline" :key="i"
           >

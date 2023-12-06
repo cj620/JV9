@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="rework-Details-table-content">
-        <RollList v-if="result.length" id="newRoll" :step="$window.global_config.DataVStep">
+        <RollList v-if="result.length" id="newRoll" :step="$window.global_config.DataVStep" :num="8">
           <div
             class="rework-Details-table-content-item"
             v-for="(parent, p) in result"

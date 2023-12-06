@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="daily-processing-task-table-content">
-        <RollList v-if="result.length" :step="cWindow.global_config.DataVStep">
+        <RollList v-if="result.length" :step="cWindow.global_config.DataVStep" :num="8">
           <div
             class="daily-processing-task-table-content-item"
             v-for="(parent, p) in result"
