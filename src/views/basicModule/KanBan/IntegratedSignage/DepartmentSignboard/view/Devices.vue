@@ -162,10 +162,10 @@ export default {
         }
         &-img{
           padding: 4px 0 10px 20px;
-          width: 158px;
+          width: 110px;
         }
         &-left{
-
+          margin-left: 44px;
         }
         &-right{
 
