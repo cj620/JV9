@@ -1385,6 +1385,7 @@ const en = {
     De_DeviceRepairItem: "Device Repair Item",
     De_ToBeCollected: "ToBeCollected",
     De_Collected: "Collected",
+    De_PartialRequisition: "Partial Requisition",
     De_DescriptionIsNull: "Description Is Null",
     De_StartToRepair: "Start To Repair",
     De_ReturnRepair: "Reject Application",

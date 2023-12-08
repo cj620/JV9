@@ -224,7 +224,7 @@ export default {
       let { datas } = this.tableObj.selectData;
       if (datas.length === 0) return true;
       return datas.some((item) => {
-        return !["ToBeCollected"].includes(item.State);
+        return !["ToBeCollected","PartialRequisition"].includes(item.State);
       });
     }
   },

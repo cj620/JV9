@@ -1379,6 +1379,7 @@ const ja = {
     De_DeviceRepairItem: "修理依頼部品",
     De_ToBeCollected: "受領待ち用",
     De_Collected: "受領済み",
+    De_PartialRequisition: "部分カラー",
     De_DescriptionIsNull: "問題の説明はありません",
     De_StartToRepair: "修理開始",
     De_ReturnRepair: "請求書を返送する",

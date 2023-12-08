@@ -1369,6 +1369,7 @@ const cn = {
     De_DeviceRepairItem: "报修备件",
     De_ToBeCollected: "待领用",
     De_Collected: "已领用",
+    De_PartialRequisition: "部分领用",
     De_DescriptionIsNull: "暂无问题描述",
     De_StartToRepair: "开始维修",
     De_ReturnRepair: "打回申请",

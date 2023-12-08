@@ -240,6 +240,11 @@ export const repairItemState = {
     name: i18n.t("device.De_ToBeCollected"),
     value: "ToBeCollected",
   },
+  // 部分领用
+  PartialRequisition: {
+    name: i18n.t("device.De_PartialRequisition"),
+    value: "PartialRequisition",
+  },
   //   已领用
   Collected: {
     name: i18n.t("device.De_Collected"),
