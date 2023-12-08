@@ -33,8 +33,7 @@
     <Action slot="sticky-extra" size="small" :actions="btnAction"></Action>
     <JvBlock :title="$t('menu.Pr_Devices')" ref="first" :contentStyle="{
       paddingLeft: '150px',
-      height: '140px',
-      height: '300px',
+      height: '230px',
     }" style="position: relative">
       <div class="mould-img">
         <el-image :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]" style="width: 100%; height: 100%"
@@ -64,16 +63,24 @@
     </JvBlock>
     <!-- 保养 -->
     <JvBlock :title="$t('device.De_Maintenance')" ref="maintainance">
-      <JvTable :tableObj="maintenanceTableObj"> </JvTable>
-      <div slot="extra">
-        <el-button size="mini" type="primary" @click="toMaintenance">
-            {{ $t('device.De_Maintenance') }}
-        </el-button>
-      </div>
+      <JvTable :tableObj="maintenanceTableObj">
+        <template #State="{ record }">
+          <RepairStateTags :state="record" :enum="maintenanceStateEnum"></RepairStateTags>
+        </template>
+      </JvTable>
+<!--      <div slot="extra">-->
+<!--        <el-button size="mini" type="primary" @click="toMaintenance">-->
+<!--            {{ $t('device.De_Maintenance') }}-->
+<!--        </el-button>-->
+<!--      </div>-->
     </JvBlock>
     <!-- 报修 -->
     <JvBlock :title="$t('device.De_Repair')" ref="repair">
-      <JvTable :tableObj="repairTableObj"> </JvTable>
+      <JvTable :tableObj="repairTableObj">
+        <template #State="{ record }">
+          <RepairStateTags :state="record" :enum="repairStateEnum"></RepairStateTags>
+        </template>
+      </JvTable>
       <div slot="extra">
         <el-button size="mini" type="primary" @click="toRepair">
             {{ $t('device.De_Repair') }}
@@ -148,14 +155,16 @@ import { getJobRecord, } from "@/api/workApi/project/projectTask";
 import { API, assets_device_get } from "@/api/workApi/equipment/device";
 import { Form } from "@/jv_doc/class/form";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import { taskTypeEnum } from "@/enum/workModule";
+import { maintenanceStateEnum, repairStateEnum, taskTypeEnum} from "@/enum/workModule";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
 import { assets_device_usage_record_add, assets_device_usage_record_delete } from "@/api/workApi/equipment/record";
 import addStockOps from "./addStockOps";
+import RepairStateTags from "@/views/workModule/equipment/repair/components/RepairStateTags.vue";
 export default {
   // name: "Pm_ProjectTask_Detail",
   components: {
+    RepairStateTags,
     JvRemark,
     JvFileExhibit,
     addStockOps,
@@ -225,6 +234,12 @@ export default {
     ...mapState({
       current: (state) => state.page.current,
     }),
+    repairStateEnum() {
+      return repairStateEnum
+    },
+    maintenanceStateEnum() {
+      return maintenanceStateEnum
+    },
     ...mapGetters(["name"]),
     BillIdShow() { },
   },
@@ -266,8 +281,8 @@ export default {
     getData() {
       assets_device_get({ DeviceNo: this.cur_Id }).then((res) => {
         this.detailObj.setData(res);
-        this.maintenanceTableObj.getData({ States: ["Approved", "Completed"] });
-        this.repairTableObj.getData({ States: ["Approved", "Completed"] });
+        this.maintenanceTableObj.getData();
+        this.repairTableObj.getData();
         this.useTableObj.getData({ States: ["Approved", "Completed"] });
         this.stockOpsTableObj.getData({ States: ["Approved", "Completed"] });
         this.Main_tpl = res.MaintenanceTplId;

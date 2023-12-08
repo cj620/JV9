@@ -140,8 +140,13 @@ export default {
     this.schema = formSchema;
     this.remoteMethod("");
     if (!this.cur_Id) {
-        this.formObj.form.RepairCategory = "FaultRepair";
-        this.formObj.form.RepairApplicant = this.$store.state.user.name;
+      this.formObj.form.RepairCategory = "FaultRepair";
+      this.formObj.form.RepairApplicant = this.$store.state.user.name;
+      if (this.$route.params.type === "toRepair") {
+        this.formObj.form.DeviceNo = this.$route.params.cdata.DeviceNo
+        this.formObj.form.DeviceName = this.$route.params.cdata.DeviceName
+        this.ruleForm.PhotoUrl = this.$route.params.cdata.PhotoUrl
+      }
     } else {
       this.getData()
     }

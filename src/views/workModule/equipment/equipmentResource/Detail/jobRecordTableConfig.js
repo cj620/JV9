@@ -66,11 +66,34 @@ export const MaintenanceConfig = [
   {
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
+    align: "center",
+    cpn: "Link",
+    width:'140px',
+    cpnProps: {
+      // 路由名称
+      routeName: "As_DeviceMaintenanceDetail",
+      // 路由传参方式 默认query
+      methods: "query",
+      // 传参的键名，值为当前数据
+      parameterKey: "BillId",
+    }
+  },
+  /*状态*/
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    width:'120px',
+    custom: true,
+  },
+  // 保养方案
+  {
+    prop: "PlanName",
+    label: i18n.t("menu.As_MaintenancePlan")
   },
   // 保养类型
   {
-    prop: "MaintenanceCategory",
-    label: i18n.t("Generality.Ge_Category"),
+    prop: "MaintenanceMode",
+    label: i18n.t("production.Pr_MaintenanceMode"),
     customFilter: (value) => {
       if(!value) return;
       return maintenanceEnum[value].name;
@@ -80,13 +103,17 @@ export const MaintenanceConfig = [
   {
     prop: "MaintenanceDate",
     label: i18n.t("device.De_MaintenanceDate"),
-    width:'120px',
-    filter:'date'
+    filter:'time'
   },
   // 操作者
   {
     prop: "Creator",
     label: i18n.t("device.De_Handlers"),
+  },
+  // 备注
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
   },
 ];
 export const formSchema = [];
@@ -118,6 +145,24 @@ export const RepairConfig = [
   {
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
+    align: "center",
+    cpn: "Link",
+    width:'140px',
+    cpnProps: {
+      // 路由名称
+      routeName: "As_DeviceRepairDetail",
+      // 路由传参方式 默认query
+      methods: "query",
+      // 传参的键名，值为当前数据
+      parameterKey: "BillId",
+    }
+  },
+  /*状态*/
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    width:'120px',
+    custom: true,
   },
   // 类别
   {
@@ -128,7 +173,12 @@ export const RepairConfig = [
       return repairEnum[value].name;
     }
   },
-
+  // 修理人
+  {
+    // 维修人
+    prop: "MaintenancePersonnel",
+    label: i18n.t("device.De_MaintenancePersonnel"),
+  },
   // 修理厂商
   {
     prop: "Repairer",
@@ -138,7 +188,7 @@ export const RepairConfig = [
   {
     prop: "CompletionDate",
     label: i18n.t("device.De_CompletionDate"),
-    filter:'date'
+    filter:'time'
   },
   // 报修人
   {
@@ -149,7 +199,7 @@ export const RepairConfig = [
   {
     prop: "RepairDate",
     label: i18n.t("device.De_RepairDate"),
-    filter:'date',
+    filter:'time',
     width:'120px'
   },
 ];
@@ -186,8 +236,8 @@ export const UseConfig = [
   {
     prop: "UseDate",
     label: i18n.t("Generality.Ge_Date"),
-    filter:'date',
-    width:'120px'
+    filter: 'time',
+    width:'200px'
   },
   // 数量
   {
@@ -199,10 +249,10 @@ export const UseConfig = [
     prop: "Operator",
     label: i18n.t("device.De_Handlers"),
   },
-  // 类别
+  // 备注
   {
-    prop: "Category",
-    label: i18n.t("Generality.Ge_Category"),
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
   },
 ];
 
@@ -220,11 +270,11 @@ export class StockOpsTable extends BaseTable {
       // 接口类
       api:stockOpsAPI,
       // 操作列宽度
-      operationWidth:110,
+      // operationWidth:110,
       // 打印模块标识
       printMod:'As_DeviceMaintain_StockOpsTable',
       height:null,
-      operationCol:true
+      operationCol: false
     });
   }
 }
