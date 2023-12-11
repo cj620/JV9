@@ -126,6 +126,10 @@ export default {
     };
   },
   created() {
+    const col = localStorage.getItem('jv_EquipmentOperation');
+    if(col) {
+      this.col = Number(col);
+    }
     this.getDeviceList();
   },
   watch: {
@@ -142,6 +146,7 @@ export default {
   },
   methods: {
     handleCommand(command) {
+      localStorage.setItem('jv_EquipmentOperation', command)
       this.col = command;
     },
     getDeviceList() {
@@ -151,6 +156,7 @@ export default {
       }).then((res) => {
         this.list = res.Items;
         this.total = res.Count;
+        this.resultList = [];
         this.computedList();
       });
     },
