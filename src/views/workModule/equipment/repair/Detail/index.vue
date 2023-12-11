@@ -126,6 +126,7 @@
           <template #Quantity="{ row }">
             <el-input
               v-model="row.Quantity"
+              :disabled="row.State !== 'ToBeCollected'"
               size="mini"
               style="width: 158px"
             ></el-input>
