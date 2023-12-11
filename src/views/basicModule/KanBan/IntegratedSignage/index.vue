@@ -1,5 +1,5 @@
 <template>
-  <dv-full-screen-container>
+  <dv-full-screen-container style="width: 100vw;height: 100vh">
     <div class="integrate-signage">
       <!-- 标题 -->
       <div class="integrate-signage-header">
@@ -9,7 +9,7 @@
         </div>
         <div class="integrate-signage-header-right"></div>
       </div>
-      <el-carousel trigger="click" height="calc(90vh - 60px)" :interval="100000">
+      <el-carousel trigger="click" height="920px" :interval="100000">
         <el-carousel-item>
           <div class="integrate-signage-content">
             <div
@@ -84,12 +84,14 @@ export default {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    height: calc(100% - 60px);
+    box-sizing: border-box;
+    padding-left: 3%;
     .dataV-item{
-      width: 610px;
-      height: 400px;
-      margin-right: 15px;
-      margin-left: 15px;
-      margin-bottom: 20px;
+      height: 46%;
+      width: 30%;
+      margin-top: 2%;
+      margin-right: 3%;
       cursor: pointer;
       .el-image{
         margin-top: 50px;
