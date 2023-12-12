@@ -142,6 +142,7 @@ export const tableConfig = [
         label: i18n.t("Generality.Ge_AssociatedNo"),
         editConfig:{
             disabled:true,
-        }
+        },
+        hidden: true,
     }
 ]
