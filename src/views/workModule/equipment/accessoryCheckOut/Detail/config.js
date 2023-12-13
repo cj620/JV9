@@ -68,9 +68,4 @@ export const tableConfig = [
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
-  {
-    // 关联编号
-    prop: "AssociatedNo",
-    label: i18n.t("Generality.Ge_AssociatedNo"),
-  },
 ]
