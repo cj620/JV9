@@ -94,11 +94,11 @@ export default {
       let width = 0;
       if(i === 0) {
         let str = date.getFullYear() +'-'+ (date.getMonth()+1) +'-'+ (date.getDate()-1);
-        let timestamp = new Date(str).getTime(); // 昨天00:00:00的时间戳
+        let timestamp = new Date(str + 'T00:00:00').getTime(); // 昨天00:00:00的时间戳
         width = (new Date(item.EndTime).getTime() - timestamp) * num
       } else if(i === parent.Values.length - 1) {
         let str = date.getFullYear() +'-'+ (date.getMonth()+1) +'-'+ date.getDate();
-        let timestamp = new Date(str).getTime(); // 今天00:00:00的时间戳
+        let timestamp = new Date(str + 'T00:00:00').getTime(); // 今天00:00:00的时间戳
         width = (timestamp - new Date(item.StartTime).getTime()) * num
       } else {
         width = (new Date(item.EndTime).getTime() - new Date(item.StartTime).getTime()) * num
