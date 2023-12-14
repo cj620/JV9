@@ -67,7 +67,7 @@ export default {
           {
             name: '2011',
             type: 'bar',
-            data: val.Date ? val.Date.reverse() : val.Date,
+            data: val.Data ? val.Data.reverse() : val.Data,
             label: {
               show: true,
               position: 'right',

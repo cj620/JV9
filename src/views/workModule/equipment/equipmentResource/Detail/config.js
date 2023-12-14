@@ -9,9 +9,6 @@
 import { Table as BaseTable } from "@/jv_doc/class/table";
 import { m_tableConfig as tableConfig } from "../Add/editConfig";
 import {
-  machineCategoryEnum,
-  maintenanceEnum,
-  enumToList,
   deviceStateEnum,
   inventoryStateEnum,
 } from "@/enum/workModule";
@@ -48,29 +45,9 @@ export const detailConfig = [
     prop: "Manufacture",
     label: i18n.t("device.De_Manufacturer"),
   },
-  //设备类别
-  // {
-  //   prop: "DeviceCategory",
-  //   label: i18n.t("Generality.Ge_Category"),
-  //   customFilter: (value) => {
-  //     if (!value) return "";
-  //     return machineCategoryEnum[value].name;
-  //   },
-  // }, 
-  //保养方式
-  {
-    prop: "MaintenanceMode",
-    label: i18n.t("device.De_MaintenanceMode"),
-    customFilter: (value) => {
-      if (!value) return "";
-      return maintenanceEnum[value].name;
-    },
-  },
-  //间隔天数/累计小时/累计次数
-  {
-    prop: "IntervalDays",
-    label: i18n.t("device.De_Interval"),
-  }, //上次保养日期
+
+
+ //上次保养日期
   {
     prop: "LastMaintenanceDate",
     label: i18n.t("device.De_LastMaintenanceDate"),
@@ -114,6 +91,13 @@ export const detailConfig = [
     prop: "UserDepartment",
     label: i18n.t("device.De_UserDepartment"),
   },
+  //规格型号
+  {
+    prop: "SpecModel",
+    label: '规格型号',
+  },
+
+
   /* //当前寿命
  {
   prop: "DeviceCurrentLife",
@@ -126,9 +110,5 @@ export const detailConfig = [
   label: '预计寿命',
 
 },*/
-  // MaintenanceTplId
-  {
-    prop: "MaintenanceTplName",
-    label: i18n.t("device.De_MaintenanceTemplate"),
-  },
+
 ];

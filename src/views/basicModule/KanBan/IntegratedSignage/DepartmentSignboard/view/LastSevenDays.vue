@@ -29,9 +29,15 @@ export default {
       // const xAxisData = val.XAxis.map(item => {
       //   return Month[item].numberName
       // })
-      const xAxisData = val.Data.map((item) => {
-        return timeFormat(item, "MM-dd");
-      });
+      let xAxisData;
+      if(val.Data) {
+        xAxisData = val.Data.map((item) => {
+          return timeFormat(item, "MM-dd");
+        });
+      } else {
+        xAxisData = ['11-01', '11-02', '11-03', '11-04', '11-05', '11-06', '11-07']
+      }
+
       // const series = val.Data.map((item) => {
       //   return {
       //     name: item.Name,

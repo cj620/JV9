@@ -20,7 +20,7 @@ const equipment = [
   // {
   //   id: "25",
   //   component: () =>
-  //     import("@/views/workModule/equipment/equipmentResource/List/index.vue"),
+  //     import("@/views/workModule/equipment/equipmentResource/List/c-menu.vue"),
   //   parentid: "24"
   // },
   // 设备管理
@@ -32,6 +32,47 @@ const equipment = [
     name: "As_DeviceList",
     path: "as_DeviceList",
     title: i18n.t("menu.As_DeviceList"),
+  },
+  // 保养方案
+  {
+    key: "As_MaintenancePlan",
+    component: ()=>
+      import("@/views/workModule/equipment/maintenancePlan/List/index.vue"),
+      Parent: "As_AssetsManage",
+    name: "As_MaintenancePlan",
+    path: "as_MaintenancePlan",
+    title: i18n.t("menu.As_MaintenancePlan"),
+  },
+  // 新增保养方案
+  {
+    key: "As_MaintenancePlanAdd",
+    component: () => import("@/views/workModule/equipment/maintenancePlan/Add/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_MaintenancePlan_Add",
+    path: "as_MaintenancePlan_Add",
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_MaintenancePlan"),
+    hidden: true,
+  },
+  // 编辑保养方案
+  {
+    key: "As_MaintenancePlanEdit",
+    component: () => import("@/views/workModule/equipment/maintenancePlan/Edit/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_MaintenancePlan_Edit",
+    path: "as_MaintenancePlan_Edit",
+    title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.As_MaintenancePlan"),
+    hidden: true,
+  },
+  // 保养方案详情
+  {
+    key: "As_MaintenancePlanDetail",
+    component: () =>
+        import("@/views/workModule/equipment/maintenancePlan/Detail/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_MaintenancePlanDetail",
+    path: "as_MaintenancePlanDetail",
+    title: i18n.t("menu.As_MaintenancePlan") + "  " + i18n.t("Generality.Ge_Details"),
+    hidden: true,
   },
   // 设备保养
   {
@@ -173,6 +214,16 @@ const equipment = [
     path: "as_DeviceRepairAdd",
     title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_DeviceRepair"),
   },
+  // 编辑保养模板
+  {
+    key: "As_DeviceRepairEdit",
+    component: () =>
+      import("@/views/workModule/equipment/repair/Edit/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceRepairEdit",
+    path: "as_DeviceRepairEdit",
+    title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.As_DeviceRepair"),
+  },
   // 报修信息详情
   {
     key: "As_DeviceRepairDetail",
@@ -202,6 +253,119 @@ const equipment = [
     name: "As_DeviceScrapDetail",
     path: "as_DeviceScrapDetail",
     title: i18n.t("menu.As_DeviceScrap") + "  " + i18n.t("Generality.Ge_Details"),
+  },
+
+  // 设备点检计划
+  {
+    key: "As_DeviceSpotCheckPlan",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheckPlan/List/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckPlan",
+    path: "As_DeviceSpotCheckPlan",
+    title: i18n.t("menu.As_DeviceSpotCheckPlan")
+  },
+  // 设备点检计划详情
+  {
+    key: "As_DeviceSpotCheckPlanDetail",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheckPlan/Detail/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckPlanDetail",
+    path: "As_DeviceSpotCheckPlanDetail",
+    title: i18n.t("menu.As_DeviceSpotCheckPlan")+ "  " + i18n.t("Generality.Ge_Details"),
+  },
+  // 新增设备点检计划
+  {
+    key: "As_DeviceSpotCheckPlan_Add",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheckPlan/Add/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckPlan_Add",
+    path: "As_DeviceSpotCheckPlan_Add",
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_DeviceSpotCheckPlan"),
+  },
+  // 编辑设备点检计划
+  {
+    key: "As_DeviceSpotCheckPlan_Edit",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheckPlan/Edit/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckPlan_Edit",
+    path: "As_DeviceSpotCheckPlan_Edit",
+    title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.As_DeviceSpotCheckPlan"),
+  },
+  // 设备点检
+  {
+    key: "As_DeviceSpotCheck",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheck/List/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheck",
+    path: "as_DeviceSpotCheck",
+    title: i18n.t("menu.As_DeviceSpotCheck"),
+  },
+  // 设备点检详情
+  {
+    key: "As_DeviceSpotCheckDetail",
+    component: ()=>
+      import("@/views/workModule/equipment/deviceSpotCheck/Detail/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckDetail",
+    path: "as_DeviceSpotCheckDetail",
+    title: i18n.t("menu.As_DeviceSpotCheck")+ "  " + i18n.t("Generality.Ge_Details"),
+    hidden: true,
+  },
+  // 备件领用
+  {
+    key: "As_AccessoryCheckOut",
+    component: ()=>
+      import("@/views/workModule/equipment/accessoryCheckOut/List/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_AccessoryCheckOut",
+    path: "as_AccessoryCheckOut",
+    title: i18n.t("menu.As_AccessoryCheckOut"),
+  },
+  // 备件领用详情
+  {
+    key: "As_AccessoryCheckOutDetail",
+    component: ()=>
+      import("@/views/workModule/equipment/accessoryCheckOut/Detail/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_AccessoryCheckOutDetail",
+    path: "as_AccessoryCheckOutDetail",
+    title: i18n.t("menu.As_AccessoryCheckOut")+ "  " + i18n.t("Generality.Ge_Details"),
+    hidden: true,
+  },
+  // 新增备件领用
+  {
+    key: "As_AccessoryCheckOutAdd",
+    component: () =>
+        import("@/views/workModule/equipment/accessoryCheckOut/Add/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_AccessoryCheckOutAdd",
+    path: "as_AccessoryCheckOutAdd",
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.As_AccessoryCheckOut"),
+  },
+  // 编辑备件领用
+  {
+    key: "As_AccessoryCheckOutEdit",
+    component: () =>
+        import("@/views/workModule/equipment/accessoryCheckOut/Edit/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_AccessoryCheckOutEdit",
+    path: "as_AccessoryCheckOutEdit",
+    title: i18n.t("Generality.Ge_Edit") + "  " + i18n.t("menu.As_AccessoryCheckOut"),
+  },
+  // 备件领用明细列表
+  {
+    key: "As_AccessoryCheckOutDetailList",
+    component: ()=>
+      import("@/views/workModule/equipment/accessoryCheckOut/DetailList/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_AccessoryCheckOutDetailList",
+    path: "as_AccessoryCheckOutDetailList",
+    title: i18n.t("menu.As_AccessoryCheckOut")+ "  " + i18n.t('Generality.Ge_Details1'),
   },
 ];
 

@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-06-17 08:46:59
  * @LastEditors: 勿忘 208760845@qq.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\List\index.vue
+ * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\List\c-menu.vue
 -->
 <!--销售订单-->
 <template>
@@ -55,6 +55,7 @@
     </JvTable>
     <JvDialog
       :title="$t('Generality.Ge_Tooling') + $t('project.Pro_Share')"
+      v-if="toolingShareVisible"
       :visible.sync="toolingShareVisible"
       width="60%"
       @confirm="confirmToolingShare"
@@ -63,6 +64,7 @@
         v-for="tag in shareList"
         :key="tag"
         closable
+        @close="handleClose(tag)"
         style="margin-left: 5px"
       >
         {{ tag }}
@@ -152,6 +154,9 @@ export default {
         this.tableObj.tableRef?.clearSort();
       });
       this.getData();
+    },
+    handleClose(tag) {
+      this.shareList.splice(this.shareList.indexOf(tag), 1);
     },
     getData() {
       getProjectBillListDefault().then((res) => {

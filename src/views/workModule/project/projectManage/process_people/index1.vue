@@ -110,15 +110,31 @@
                 </div>
                 <div></div>
               </div>
-              <div class="info-box-item">
+              <div class="info-box-item" style="width: 300px;">
                 <div></div>
                 <div>
                   {{ $t("menu.Sa_Customer") }}: {{ item.ToolingInfo.CustomerName || '--' }}
                 </div>
+                <div>
+                   {{$t("Generality.Ge_TaskType")}}: {{ item.taskTypeValue || '--' }}
+                </div>
                 <div></div>
               </div>
               <div class="go-details">
-                <el-button size="mini" @click="goDetails(item.ToolingInfo.ToolingNo)">{{$t("project.Pr_PartSchedule")}}</el-button>
+                <div class="info-box-item" v-if="item.TaskWorkerList.length">
+                  <el-select v-model="item.taskTypeValue" :placeholder="$t('Generality.Ge_PleaseSelect')"
+                             @change="changeTaskType(item, i)"
+                             size="mini"
+                  >
+                    <el-option
+                      v-for="item in setTaskWorkerListOptions(item.TaskWorkerList)"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+                </div>
+                <el-button size="mini" @click="goDetails(item.ToolingInfo.ToolingNo, item.taskTypeValue.match(/\(.+?\)/g)[0].substring(1,item.taskTypeValue.match(/\(.+?\)/g)[0].length - 1), item.taskTypeValue  )">{{$t("project.Pr_PartSchedule")}}</el-button>
               </div>
             </div>
           </div>
@@ -133,7 +149,7 @@
             <div
               :class="[children.State === hoverStateValue ? children.State : '']"
               class="details-box-children"
-              v-for="(children, c) in item.WorkerList"
+              v-for="(children, c) in item.workerList"
               @click="setProjectTaskLogs(children)"
             >
               <div>
@@ -181,6 +197,7 @@
         :ImmediatelyApi="false"
         :formSchema="formSchema"
         :_arguments="_arguments"
+        :ImmediatelyApi="false"
         :api="partProcessingPlan"
         :getData="GetData"
         :foldoRunfoldFlag="1"
@@ -209,10 +226,19 @@ import { timeFormat } from "@/jv_doc/utils/time";
 import {project_gantt_progress, worker_progress} from '@/api/workApi/project/projectInfo';
 import i18n from "@/i18n/i18n";
 import PopoverTable from "@/views/workModule/project/projectManage/process_people/components/popover-table.vue";
+import { taskTypeEnum } from "@/enum/workModule";
 export default {
   // name: "ProjectManage_process_people",
   data() {
     return {
+      TaskWorkeOptions: [
+        {label: '修模',value: 'ToolCorrection'},
+        {label: '新模',value: 'NewTooling'},
+      ],
+      TaskType: {
+        ToolCorrection: '修模',
+        NewTooling: '新模'
+      },
       _arguments: null,
       tasks: {
         data: [],
@@ -292,23 +318,61 @@ export default {
   methods: {
     imgUrlPlugin,
     timeFormat,
+    setTaskWorkerListOptions(items) {
+      return items.map(item => {
+          return {
+            label: `${taskTypeEnum[item.TaskType].name}(${item.BillId})`,
+            value: `${taskTypeEnum[item.TaskType].name}(${item.BillId})`
+          }
+      })
+    },
+    changeTaskType(item, i) {
+      this.setWorkerList(item, i)
+    },
+    setWorkerList(item, i) {
+      let arr = item.TaskWorkerList.filter(jtem => {
+        return `${taskTypeEnum[jtem.TaskType].name}(${jtem.BillId})` === item.taskTypeValue
+      })
+      if(arr[0]) {
+        this.list[i].workerList = arr[0].WorkerList
+      } else {
+        this.list[i].workerList = []
+      }
+    },
     setProjectTaskLogs(item) {
       this.showProjectTaskLogs = !this.showProjectTaskLogs;
       this.ProjectTaskLogs = item;
     },
-    goDetails(ToolingNo) {
+    goDetails(ToolingNo, BillId, taskTypeValue) {
       this.$router.push({
         path: "Pm_Project_PartSchedule",
         query: {
-          ToolingNo: ToolingNo
+          ToolingNo: ToolingNo,
+          BillId: BillId,
+          TaskType: taskTypeValue
         }
       })
     },
     getWorkerProgress() {
       let Project = this.$route.query.Project;
       worker_progress({"Project":Project,"ToolingNo":this.searchValue}).then(res => {
-        console.log(res)
         this.list = res;
+        this.list.forEach((item, i) => {
+          if(item.TaskWorkerList[0]) {
+            this.$set(item, 'taskTypeValue', item.TaskWorkerList[0].TaskType)
+          } else {
+            this.$set(item, 'taskTypeValue', "")
+          }
+
+          this.$set(item, 'workerList', [])
+
+          if(item.TaskWorkerList[0]) {
+            item.taskTypeValue = `${taskTypeEnum[item.TaskWorkerList[0].TaskType].name}(${item.TaskWorkerList[0].BillId})`;
+          } else {
+            item.taskTypeValue = "";
+          }
+          this.setWorkerList(item, i)
+        })
       });
     },
     getChartBoxWidth() {

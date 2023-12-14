@@ -1,31 +1,29 @@
 <template>
   <div class="data-v-main-right">
     <div class="right-top">
-      <div class="right-top-title">项目进度展示</div>
+      <div class="right-top-title">{{ $t('Mold.Mo_MoldProgress') }}</div>
       <dvScrollRankingBoard
         :config="config1"
-        style="width: 460px; height: 350px"
+        style="width: 460px; height: 300px"
       ></dvScrollRankingBoard>
     </div>
     <div class="right-bottom">
-      <div class="right-bottom-title">本月累计出货情况</div>
+      <div class="right-bottom-title">{{ $t('Mold.Mo_QCThisMonth') }}</div>
       <div class="right-bottom-canvas">
-        <canvas id="myCanvas"></canvas>
-        <div class="slot-title" v-show="false">{{ msg }}</div>
+<!--        <canvas id="myCanvas"></canvas>-->
+<!--        <div class="slot-title" v-show="false">{{ msg }}</div>-->
+        <div id="m_chart"  style="height:100%;width: 100%"></div>
       </div>
       <div
         class="right-bottom-value"
-        v-for="(item, index) in dataList"
+        v-for="(item, index) in dataList1"
         :key="index"
       >
-        <div class="circle" :style="{ backgroundColor: item.Color }"></div>
+        <div class="circle" :style="{ backgroundColor: '#e54e64' }"></div>
         <div class="name">{{ item.Name }}</div>
         <div class="dataValue">{{ item.Value }}</div>
         <div class="percentage">{{ item.Percentage }}%</div>
-        <div class="slot-title" v-show="false">{{ msg }}</div>
       </div>
-
-      <div></div>
     </div>
   </div>
 </template>
@@ -33,6 +31,7 @@
 <script>
 import dvScrollRankingBoard from "./dvScrollRankingBoard.vue";
 import CreateCircle from "./util/createCircle";
+import * as echarts from "echarts";
 export default {
   name: "main-right",
   components: {
@@ -45,6 +44,7 @@ export default {
       },
       msg: 20,
       dataList: [],
+      dataList1: [],
       list: [
         { c1: "#272d4b", c2: "#f45868", num: 2500 },
         { c1: "#272d4b", c2: "#edc240", num: 2500 },
@@ -71,22 +71,22 @@ export default {
     }
 
     this.dataList = this.RightDataList.Data8;
+    this.dataList1 = this.RightDataList.Data9;
   },
   activated() {
     // console.log("activated");
     this.changeData();
   },
   mounted() {
-    this.can = new CreateCircle("myCanvas", 200, 200, 90, 20, 10000);
-    this.can.drowCircle(this.list);
-    this.creteText(this.dataList);
-    this.changeData();
+    // this.can = new CreateCircle("myCanvas", 200, 200, 90, 20, 10000);
+    // this.can.drowCircle(this.list);
+    // this.changeData();
+    this.creteText(this.dataList)
   },
   methods: {
     changeData() {
       this.timer = setInterval(() => {
         this.dataList = this.shuffle(this.dataList);
-        console.log(this.dataList);
 
         this.msg = Math.random();
         this.creteText(this.dataList);
@@ -103,23 +103,38 @@ export default {
     },
 
     creteText(e) {
-      this.can.creteText(
-        {
-          px: "33px",
-          fontFamliy: "Medium",
-          txt: e[0].Value,
-          color: "#fff",
-          offsetTop: 91,
-        },
-        {
-          px: "16px",
-          fontFamliy: "Regular",
-          txt: e[0].Name,
-          color: "#fff",
-          offsetTop: 121,
+      let arr = e.map(item => {
+        return {
+          name: this.$t(`quality.Qc_${item.Name}`) ,
+          value: item.Value
         }
-      );
-      console.log( this.can);
+      })
+      let myChart = echarts.init(document.getElementById('m_chart'))
+      myChart.setOption({
+        tooltip: {
+          trigger: 'item',
+        },
+        label: {
+          formatter: function (value, index) {
+            console.log(value)
+            return value.name + ':' + value.value + '%';
+          }
+        },
+        color: ['#19d4ae','#fa6e86'],
+        series: [
+          {
+            label: {
+              textBorderColor: 'red',
+              color: '#fff',
+            },
+            name: this.$t('DataV.Da_PassRate'),
+            type: 'pie',
+            radius: ['50%', '70%'],
+            data: arr,
+          }
+        ]
+      })
+      myChart.resize() // 图表自适应
     },
   },
 };
@@ -131,7 +146,7 @@ export default {
   height: 100%;
   margin-right: 10px;
   .right-top {
-    height: 418px;
+    height: 360px;
     width: 100%;
     padding: 18px;
     background-color: #242947;
@@ -143,26 +158,28 @@ export default {
     }
   }
   .right-bottom {
-    height: 535px;
+    height: 590px;
     width: 100%;
     background-color: #242947;
     padding: 35px;
+    padding-top: 10px;
     .right-bottom-title {
       font-size: 20px;
       font-weight: 500;
-      margin-bottom: 10px;
     }
     .right-bottom-canvas {
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 100%;
+      height: 350px;
     }
     .right-bottom-value {
       display: flex;
       align-items: center;
       font-size: 16px;
       font-weight: 400;
-      margin-top: 25px;
+      margin-top: 20px;
 
       .circle {
         width: 8px;
@@ -175,9 +192,10 @@ export default {
       }
       .dataValue {
         width: 50px;
+        margin-right: 20px;
       }
       .percentage {
-        margin: 0 20px;
+        //margin: 0 20px;
       }
     }
   }

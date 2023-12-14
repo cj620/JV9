@@ -13,13 +13,15 @@
     </el-upload>
     <div v-if="fileList.length !== 0">
       <JvTable :table-obj="tableFileObj">
-        <template #operation="{ row, row_index }">
+        <template #operation="{ row, scope }">
           <TableAction
             :actions="[
               {
                 label: $t('setup.Preview'),
-                hidden:![...P_inSite,...P_offSite].includes( row.FileType.toLocaleLowerCase() ),
-                confirm: preview.bind(null, row,),
+                hidden: ![...P_inSite, ...P_offSite].includes(
+                  row.FileType.toLocaleLowerCase()
+                ),
+                confirm: preview.bind(null, row),
               },
               {
                 label: $t('Generality.Ge_Download'),
@@ -27,7 +29,7 @@
               },
               {
                 label: $t('Generality.Ge_Delete'),
-                confirm: handleRemove.bind(null, row, row_index),
+                confirm: handleRemove.bind(null, scope),
               },
             ]"
           /> </template
@@ -41,8 +43,13 @@
     </el-empty>
     <el-image-viewer
       v-if="showViewer"
-      :on-close="()=>{showViewer=false}"
-      :url-list="[preImgUrl]" />
+      :on-close="
+        () => {
+          showViewer = false;
+        }
+      "
+      :url-list="[preImgUrl]"
+    />
   </div>
 </template>
 
@@ -52,21 +59,22 @@ import { tableConfig } from "./config";
 import { uploadFiles, getBillFile } from "@/api/basicApi/systemSettings/upload";
 import { getToken } from "@/utils/auth";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import {P_inSite,P_offSite} from '@/enum/baseModule/fileEnum/previewEnum';
+import { P_inSite, P_offSite } from "@/enum/baseModule/fileEnum/previewEnum";
 import axios from "axios";
 export default {
   name: "index",
-  components:{
-    'el-image-viewer':()=>import('element-ui/packages/image/src/image-viewer')
+  components: {
+    "el-image-viewer": () =>
+      import("element-ui/packages/image/src/image-viewer"),
   },
   data() {
     return {
       tableFileObj: {},
-      showViewer:false,
+      showViewer: false,
       fileList: [],
-      preImgUrl:'',
+      preImgUrl: "",
       P_inSite,
-      P_offSite
+      P_offSite,
     };
   },
   props: {
@@ -102,8 +110,8 @@ export default {
         this.returnFileData(this.tableFileObj.tableData);
       });
     },
-    handleRemove(row, index) {
-      this.tableFileObj.delItem(index);
+    handleRemove(scope) {
+      this.tableFileObj.delItem(scope.$index);
       this.fileList = this.tableFileObj.tableData;
       this.returnFileData(this.tableFileObj.tableData);
       console.log(this.tableFileObj, this.fileList);
@@ -165,15 +173,15 @@ export default {
         fileData.map((x) => x.FileUrl)
       );
     },
-    preview(row, scope){
-      console.log(row)
-      this.preImgUrl=imgUrlPlugin(row.FileUrl)
-      if(this.P_inSite.includes(row.FileType)){
-        this.showViewer=true
-      }else{
+    preview(row, scope) {
+      console.log(row);
+      this.preImgUrl = imgUrlPlugin(row.FileUrl);
+      if (this.P_inSite.includes(row.FileType)) {
+        this.showViewer = true;
+      } else {
         window.open(this.preImgUrl, "_blank");
       }
-    }
+    },
   },
 };
 </script>

@@ -21,7 +21,8 @@ export class Table extends BaseTable {
       rowId: "BillId",
       title: i18n.t("menu.St_OtherOut"),
       api,
-      operationWidth: 150,
+      // 操作列宽度
+      operationWidth: 160,
       printMod: "St_OtherOut",
     });
   }

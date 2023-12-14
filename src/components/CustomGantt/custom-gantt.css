@@ -2,6 +2,21 @@
     cursor: pointer;
     filter:brightness(110%) contrast(105%);
 }
+.custom-menu{
+    min-width: 100px;
+    min-height: 40px;
+    line-height: 30px;
+    position: fixed;
+    margin: 0;
+    transition: .3s;
+    border: 0;
+    box-shadow: 3px 3px 10px 3px #ccc;
+    border-radius: 8px;
+    z-index: 10;
+    background-color: #fff;
+    overflow: hidden;
+}
+
 .custom-popover{
     min-width: 100px;
     min-height: 100px;
@@ -53,4 +68,14 @@
     white-space: nowrap;
     text-align: center;
 }
-
+.custom-menu-item{
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    padding: 0 10px;
+    border-bottom: 1px solid #eee;
+    user-select: none;
+}
+.custom-menu-item:hover{
+    background: #f5f5f5;
+}

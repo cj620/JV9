@@ -6,12 +6,16 @@
     @confirm="confirmData">
 
 
-  <el-button @click="add" size="mini"  style="margin-bottom: 10px">添加</el-button>
+  <el-button @click="add" size="mini"  style="margin-bottom: 10px">
+    {{ $t('Generality.Ge_Add') }}
+  </el-button>
   <div  v-for="(item,index) in DataList" :key="index" style="margin-bottom: 10px">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>{{item.label}}</span>
-        <el-button style="float: right; padding: 3px 10px" type="text" @click="delCard(item,index)">删除</el-button>
+        <el-button style="float: right; padding: 3px 10px" type="text" @click="delCard(item,index)">
+          {{ $t('Generality.Ge_Delete') }}
+        </el-button>
         <el-button style="float: right; padding: 3px 0" type="text" @click="editCard(item)">编辑</el-button>
 
       </div>
@@ -22,13 +26,15 @@
   </div>
 
   <JvDialog
-    title="编辑"
+    :title="$t('Generality.Ge_Edit')"
     :visible.sync="editDialogVisible"
     v-if="editDialogVisible"
     width="70%"
     @confirm="confirm">
     <el-input v-model="titleLabel" style="width: 220px;margin:0 10px "  size="mini"></el-input>
-    <el-button @click="addItem" size="mini"  style="margin-bottom: 10px">添加</el-button>
+    <el-button @click="addItem" size="mini"  style="margin-bottom: 10px">
+      {{ $t('Generality.Ge_Add') }}
+    </el-button>
 
     <JvEditTable :tableObj="eTableObj">
       <template #operation="{ row_index }">
@@ -107,7 +113,7 @@ export default {
         tableSchema:[
           {
             prop: "key1",
-            label:'内容',
+            label: this.$t('setup.Content'),
             formCpn: "FormInput",
           }],
         data:[],

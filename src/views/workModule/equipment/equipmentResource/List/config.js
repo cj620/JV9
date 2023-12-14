@@ -89,6 +89,11 @@ export const tableConfig = [
     prop: "DeviceName",
     label: i18n.t("production.Pr_DeviceName"),
   },
+  // 规格型号
+  {
+    prop: "SpecModel",
+    label:'规格型号',
+  },
    /*设备厂商*/
    {
     prop: "Manufacture",
@@ -107,24 +112,16 @@ export const tableConfig = [
       prop: "UserDepartment",
       label: i18n.t("device.De_UserDepartment"),
     },
-  /*保养方式*/
-  {
-    prop: "MaintenanceMode",
-    label: i18n.t("production.Pr_MaintenanceMode"),
-    customFilter: (value) => {
-      if (!value) return "";
-      return maintenanceEnum[value].name;
-    },
-  },
+
   // 状态
-  // {
-  //   prop: "State",
-  //   label: '状态',
-  //   customFilter: (value) =>  {
-  //     if(!value) return ""
-  //     return deviceStateEnum[value].name
-  //   }
-  // },
+  {
+    prop: "State",
+    label: '状态',
+    customFilter: (value) =>  {
+      if(!value) return ""
+      return deviceStateEnum[value].name
+    }
+  },
   //出入库状态
   {
     prop: "InventoryState",
@@ -163,23 +160,13 @@ export const tableConfig = [
      label: i18n.t("production.Pr_CreationDate"),
     filter:'date'
   },
-  // 间隔天数
-  {
-    prop: "IntervalDays",
-    label: i18n.t("production.Pr_IntervalDays"),
-  },
+
   // 寿命设定
   {
     prop: "LifeSetting",
     label: i18n.t("production.Pr_LifeSetting"),
   },
-  /*保养进度*/
-  // {
-  //   prop: "UsageRate",
-  //   label: i18n.t("device.De_CumulativeTime"),
-  //   width:'150px',
-  //   custom:true,
-  // },
+
   /*备注*/
   {
     prop: "Remarks",

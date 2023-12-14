@@ -55,8 +55,10 @@ export function update_plan_end(data) {
     url: "/production_task/update_plan_end",
     method: "post",
     data,
+    loading: true
   });
 }
+
 // 修改加工单任务记录实际结束日期
 export function update_record_actual_end(data) {
   return request({
@@ -89,6 +91,14 @@ export function update_is_partake_aps(data){
     data,
   })
 }
+// 查询待加工工艺
+export function production_task_process_list(data) {
+  return request({
+    url: "/production_task/process_list",
+    method: "post",
+    data
+  });
+}
 // 恢复已删除生产任务
 export function production_task_Recovery_list_has_been_deleted(data) {
   return request({
@@ -105,7 +115,7 @@ export function production_task_list_has_been_deleted(data) {
     data
   });
 }
-// 修改加工任务单状态
+// 修改加工任务单状态 // 编辑工单为已完成
 export function update_state(data){
   return request({
     url:"/production_task/update_state",

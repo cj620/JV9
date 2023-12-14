@@ -4,7 +4,7 @@
     v-bind="$attrs"
     v-on="$listeners"
     @confirm="confirmData">
-    <el-select v-model="value" placeholder="请选择">
+    <el-select v-model="value" :placeholder="$t('Generality.Ge_PleaseSelect')">
       <el-option
         v-for="item in options"
         :key="item.value"

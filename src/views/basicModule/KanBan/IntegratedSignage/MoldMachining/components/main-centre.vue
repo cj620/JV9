@@ -9,7 +9,7 @@
 
   </div>
   <div  class="centre-center">
-    <div  class="centre-center-data" v-for="(item,index) in centreDataList" :key="index">
+    <div  class="centre-center-data" v-for="(item,index) in dataList5" :key="index">
       <div class="centre-center-data-pie">
         <conic-gradient :rate="item.Value" :config=item.Config>
         </conic-gradient>
@@ -25,8 +25,8 @@
   </div>
   <div class="centre-bottom">
     <div  class="centre-bottom-title">
-      <div>紧急工单</div>
-      <div>共计：
+      <div>{{ $t('Mold.Mo_OngoingOrders') }}</div>
+      <div>{{ $t('Generality.Ge_Total') }}：
       <span  class="centre-bottom-title-number">
         {{EmergencyProdTask.length}}
       </span>
@@ -64,16 +64,17 @@ export default {
       dataList:[
 
       ],
+      dataList5:[],
       msg:1,
       centreDataList:[],
       EmergencyProdTask:[],
 
       tableConfig: [
-        {prop: 'BillId', label: "单号"},
-        {prop: 'ToolingNo', label: "产品号"},
-        {prop: 'PartNo', label: "零件号"},
-        {prop: 'PartName', label: "零件名称"},
-        {prop: 'State', label: "状态"},
+        {prop: 'BillId', label: i18n.t('Generality.Ge_BillId')},
+        {prop: 'ToolingNo', label: i18n.t('production.Pr_ToolingNo')},
+        {prop: 'PartNo', label: i18n.t('design.De_ToolingNo')},
+        {prop: 'PartName', label: i18n.t('Generality.Ge_PartName')},
+        {prop: 'State', label: i18n.t('Generality.Ge_State')},
       ]
     }
   },
@@ -85,17 +86,39 @@ export default {
   },
 
   created() {
-    this.dataList=this.CentreDataList.Data4
-    this.centreDataList=this.CentreDataList.Data5
+    const menu = {
+      Mo_DesignChangeThisMonth: this.$t('Mold.Mo_DesignChangeThisMonth'),
+      Mo_TrialMoldThisMonth: this.$t('Mold.Mo_TrialMoldThisMonth'),
+      Mo_OrdersReceivedThisMonth: this.$t('Mold.Mo_OrdersReceivedThisMonth'),
+      Mo_NewToolingThisMonth: this.$t('Mold.Mo_NewToolingThisMonth'),
+      Mo_CorrectingToolingThisMonth: this.$t('Mold.Mo_CorrectingToolingThisMonth'),
+    }
+    this.dataList=this.CentreDataList.Data4.map(item => {
+      return {
+        ...item,
+        Name: menu[item.Name]
+      }
+    })
+    const menu1 = {
+      "Mo_MoldAchievementRate": this.$t('Mold.Mo_MoldAchievementRate'),
+      "Mo_OverdueMolds": this.$t('Mold.Mo_OverdueMolds'),
+      "Mo_PartAchievementRate": this.$t('Mold.Mo_PartAchievementRate'),
+      "Mo_OverdueParts": this.$t('Mold.Mo_OverdueParts'),
+      "Mo_TrialMoldAchievementRate": this.$t('Mold.Mo_TrialMoldAchievementRate'),
+    }
+    this.dataList5 = this.CentreDataList.Data5.map(item => {
+      return {
+        ...item,
+        Name: menu1[item.Name]
+      }
+    })
     this.EmergencyProdTask=this.CentreDataList.Data6
-    console.log(this.centreDataList,98989898);
 
   },
   mounted() {
     this.changeData();
   },
   activated() {
-    console.log("activated");
     this.changeData();
   },
   methods:{
@@ -107,7 +130,6 @@ export default {
     changeData(){
       this.timer = setInterval(() => {
         this.dataList=this.shuffle(this.dataList)
-        console.log(11, this.dataList);
         this.msg=Math.random()
 
       }, 5000);

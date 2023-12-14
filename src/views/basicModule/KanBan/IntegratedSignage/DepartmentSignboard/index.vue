@@ -4,44 +4,13 @@
       <d-loading v-show="loading" />
       <div class="department-signboard-header">
         <div class="department-signboard-header-left">
-          <img src="../logo.png" alt="">
+          <img src="../logo.png" alt="" />
         </div>
         <div class="department-signboard-header-center">
-          {{ $t("DataV.Da_NCDepartmentSignboard") }}
+          {{departmentName}} {{ $t("DataV.Da_Department") }}
         </div>
         <div class="department-signboard-header-right">
-          <el-dropdown trigger="click" @command="selectDepartment">
-            <div class="department-signboard-header-right-select-department">
-              <span
-                ><input
-                  type="text"
-                  :placeholder="$t('DataV.Da_SelectDepartment')"
-                  @input="departmentChange"
-                  @compositionstart="compositionstart"
-                  @compositionend="compositionend"
-                  @focus="departmentFocus"
-                  @blur="departmentBlur"
-                  autofocus
-                  ref="departmentRef"
-                  v-model="departmentName"
-              /></span>
-              <i class="el-icon-caret-bottom" v-show="!clearable"></i>
-              <i
-                class="el-icon-error"
-                v-show="clearable"
-                @click="clearDepartmentName"
-              ></i>
-            </div>
-            <el-dropdown-menu slot="dropdown">
-              <d-loading v-show="departmentLoading"></d-loading>
-              <el-dropdown-item
-                v-for="(item, i) in department"
-                :key="i"
-                :command="item"
-                >{{ item }}
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+          <JvForm :form-obj="formObj"></JvForm>
           <formatted-time />
         </div>
       </div>
@@ -57,7 +26,7 @@
               <div class="department-signboard-content-info-item-box">
                 <div style="margin-bottom: 10px">{{ item.label }}</div>
                 <div style="font-size: 20px; font-weight: bold">
-                  {{ infoRes[i] }}
+                  {{ infoRes[i] || $t('DataV.Da_NoData') }}
                 </div>
               </div>
             </dv-border-box-7>
@@ -69,12 +38,20 @@
             <!-- 上面的柱状图 -->
             <div class="department-signboard-content-left-top">
               <LastSevenDays :result="LastSevenDaysRes" />
+<!--              <div class="None-data"  v-show="(JSON.stringify(LastSevenDaysRes) === '{}')">-->
+<!--                <div class="LastSevenDays-title">{{$t('DataV.Da_RecordOfWorkingHoursInThePastSevenDays')}}</div>-->
+<!--                暂无数据-->
+<!--              </div>-->
             </div>
             <!-- 下面的柱状图和表 -->
             <div class="department-signboard-content-left-bottom">
               <!-- 每日加工任务 -->
               <div class="daily-processing-task">
                 <DailyProcessingTask :result="DailyProcessingTaskList" />
+<!--                <div class="None-data"  v-show="(JSON.stringify(DailyProcessingTaskList) === '[]')">-->
+<!--                  <div class="daily-processing-task-title">{{$t('DataV.Da_DailyProcessingTasks')}}</div>-->
+<!--                  暂无数据-->
+<!--                </div>-->
               </div>
               <!-- 昨日报工工时排序 -->
               <div class="sort-of-hours-reported-yesterday">
@@ -100,13 +77,17 @@ import FormattedTime from "@/views/basicModule/KanBan/IntegratedSignage/Equipmen
 import LastSevenDays from "@/views/basicModule/KanBan/IntegratedSignage/DepartmentSignboard/view/LastSevenDays.vue";
 import DailyProcessingTask from "@/views/basicModule/KanBan/IntegratedSignage/DepartmentSignboard/view/Daily-processing-task.vue";
 import SortOfHoursReportedYesterday from "@/views/basicModule/KanBan/IntegratedSignage/DepartmentSignboard/view/Sort-of-hours-reported-yesterday.vue";
-import dLoading from '../EquipmentSignage/components/d-loading.vue';
-import screenFull from 'screenfull';
-import { getDepartmentList } from '@/api/basicApi/systemSettings/department';
-import { processing_department_kanban } from '@/api/basicApi/dataV/kanban';
+import dLoading from "../EquipmentSignage/components/d-loading.vue";
+import screenFull from "screenfull";
+import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
+import { processing_department_kanban } from "@/api/basicApi/dataV/kanban";
+import { Form } from "~/class/form";
+import JvForm from "~/cpn/JvForm/index.vue";
+import { formSchema } from './config'
 export default {
   name: "DepartmentSignboard",
   components: {
+    JvForm,
     SortOfHoursReportedYesterday,
     DailyProcessingTask,
     LastSevenDays,
@@ -144,85 +125,68 @@ export default {
       DailyProcessingTaskList: [], // 每日加工任务
       SortOfHoursReportedYesterdayRes: {}, // 昨日报工工时排序
       DevicesRes: {}, // 设备列表
-      department: ['销售部','生产部','采购部','设计部','编程部','开发部'], // 部门列表
-      departmentName: '', // 部门
+      department: ["销售部", "生产部", "采购部", "设计部", "编程部", "开发部"], // 部门列表
+      departmentName: "", // 部门
       isComposition: false, // 是否开始输入中文
       clearable: false, // 清除按钮
+      formObj: {},
     };
   },
   created() {
     screenFull.toggle(); // 全屏
-    this.search();
+    this.formObj = new Form({
+      formSchema,
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "0px",
+      labelPosition: "left",
+    });
+    // 获取部门
+    getDepartmentList()
+      .then((res) => {
+        this.department = res.Items.map((item) => {
+          return item.Department;
+        });
+        this.departmentName = this.department[0];
+        this.formObj.form.DepartmentName = this.department[0];
+        this.search();
+        this.departmentLoading = false;
+      })
+      .catch((err) => {
+        this.departmentLoading = false;
+      });
   },
   methods: {
-    // 输入部门change事件
-    departmentChange() {
-
-    },
-    // 选择部门
-    selectDepartment(val) {
-      this.departmentName = val;
-    },
-    // 中文输入开始
-    compositionstart() {
-      this.isComposition = true;
-    },
-    // 中文输入结束
-    compositionend() {
-      this.isComposition = false;
-      // 因为v-model后执行 此时还没有拿到最新的departmentName的值，所以要加个异步处理
-      let timer = setTimeout(() => {
-        this.departmentLoading = true;
-        // 获取部门
-        getDepartmentList().then(res => {
-          this.departmentLoading = false;
-        }).catch(err => {
-          this.departmentLoading = false;
-        })
-        // this.search();
-        clearTimeout(timer);
-      })
-    },
     // 搜索方法
     search() {
-      this.departmentName ? this.department = ['开发部', '销售部'] : this.department = ['销售部','生产部','采购部','设计部','编程部','开发部'];
       this.loading = true;
-      processing_department_kanban({Department: this.departmentName}).then(res => {
-        this.loading = false;
-        this.infoRes = res['TopInfo'] || []; // 顶部信息
-        this.LastSevenDaysRes = { ...res['WorkHourRecord'] } || {}; // 过去七天工时记录
-        this.DailyProcessingTaskList = res['ProcessingTask'] || []; // 每日加工任务
-        this.SortOfHoursReportedYesterdayRes = {...res['WorkHoursReported']} || {}; // 昨日报工工时排序
-        this.DevicesRes = {...res['Devices']} || {}; // 设备列表
-      }).catch(err => {
-        this.loading = false;
-      })
+      processing_department_kanban({ Department: this.departmentName })
+        .then((res) => {
+          this.loading = false;
+          this.infoRes = res["TopInfo"] || []; // 顶部信息
+          this.LastSevenDaysRes = { ...res["WorkHourRecord"] } || {}; // 过去七天工时记录
+          this.DailyProcessingTaskList = res["ProcessingTask"] || []; // 每日加工任务
+          this.SortOfHoursReportedYesterdayRes =
+            { ...res["WorkHoursReported"] } || {}; // 昨日报工工时排序
+          this.DevicesRes = { ...res["Devices"] } || {}; // 设备列表
+        })
+        .catch((err) => {
+          this.loading = false;
+        });
     },
-    // 聚焦事件
-    departmentFocus() {
-      if(this.departmentName) {
-        this.clearable = true;
-      }
-    },
-    // 失焦事件
-    departmentBlur() {
-      let timer = setTimeout(() => {
-        this.clearable = false;
-        clearTimeout(timer);
-      },200)
-    },
-    clearDepartmentName() {
-      this.departmentName = '';
-      this.$refs.departmentRef.focus();
-    }
   },
   watch: {
+    'formObj.form.DepartmentName'(val) {
+      this.departmentName = val;
+      this.search();
+    },
     departmentName(val) {
-      val ? this.clearable = true : this.clearable = false;
-      if(this.isComposition) return
+      val ? (this.clearable = true) : (this.clearable = false);
+      if (this.isComposition) return;
       // this.search();
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -257,9 +221,9 @@ export default {
       padding-bottom: 10px;
       box-sizing: border-box;
       z-index: 1;
-      width: 330px;
+      width: 380px;
       position: relative;
-      img{
+      img {
         width: 190px;
         position: absolute;
         bottom: -14px;
@@ -273,9 +237,23 @@ export default {
       padding-bottom: 10px;
       box-sizing: border-box;
       z-index: 1;
-      width: 330px;
+      width: 380px;
       justify-content: space-between;
       padding-right: 20px;
+      ::v-deep#c-jv-form{
+        position: relative;
+        bottom: -5px;
+      }
+      ::v-deep.el-input__inner{
+        background: #1d2536;
+        color: #fff;
+      }
+      ::v-deep.el-form-item--mini.el-form-item{
+        margin-bottom: 0;
+      }
+      ::v-deep.el-form-item{
+        margin-bottom: 0;
+      }
       &-select-department {
         width: 150px;
         height: 30px;
@@ -356,6 +334,7 @@ export default {
         margin-top: 20px;
         width: 100%;
         background: #242d48;
+        position: relative;
       }
       &-bottom {
         height: 410px;
@@ -367,6 +346,7 @@ export default {
           height: 100%;
           margin-right: 20px;
           background: #242d48;
+          position: relative;
         }
         .sort-of-hours-reported-yesterday {
           width: 460px;
@@ -398,6 +378,43 @@ export default {
   }
   ::v-deep.popper__arrow::after {
     border-bottom-color: #2f3c57;
+  }
+}
+.department-signboard{
+  ::v-deep.c-jv-form .el-form-item .el-form-item__label{
+    display: none!important;
+  }
+}
+.None-data{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #fff;
+  background: #242d48;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  .daily-processing-task-title{
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #eaeaea;
+    height: 40px;
+    line-height: 40px;
+  }
+  .LastSevenDays-title{
+    position: absolute;
+    left: 3.3%;
+    top: 3.3%;
+    font-weight: bold;
+    font-size: 18px;
+    color: #eaeaea;
   }
 }
 </style>

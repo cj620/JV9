@@ -7,7 +7,7 @@
       <JvForm :formObj="formObj"> </JvForm>
     </JvBlock>
     <!-- 主物料信息 -->
-    <JvBlock :title="$t('Generality.Ge_BillInfo')">
+    <JvBlock :title="$t('stockroom.St_MainItems')">
       <div slot="extra">
         <el-button size="mini" @click="selectItems">{{
           $t("Generality.Ge_SelectItems")
@@ -19,7 +19,7 @@
             :actions="[
               {
                 icon: 'el-icon-delete',
-                confirm: delItem.bind(null, row_index),
+                confirm: delItem1.bind(null, row_index),
               },
             ]"
           />
@@ -27,7 +27,7 @@
       </JvEditTable>
     </JvBlock>
     <!-- 副物料信息 -->
-    <JvBlock :title="$t('Generality.Ge_BillInfo')">
+    <JvBlock :title="$t('stockroom.St_SecondaryItems')">
       <div slot="extra">
         <el-button size="mini" @click="viceSelectItems">{{
           $t("Generality.Ge_SelectItems")
@@ -39,7 +39,7 @@
             :actions="[
               {
                 icon: 'el-icon-delete',
-                confirm: delItem.bind(null, row_index),
+                confirm: delItem2.bind(null, row_index),
               },
             ]"
           />
@@ -241,8 +241,11 @@ export default {
       this.viceTableObj.push(temMerge(this.BillItems, e));
     },
     //删除物料
-    delItem(index) {
+    delItem1(index) {
       this.eTableObj.delItem(index);
+    },
+    delItem2(index) {
+      this.viceTableObj.delItem(index);
     },
     //保存销售订单
     save() {

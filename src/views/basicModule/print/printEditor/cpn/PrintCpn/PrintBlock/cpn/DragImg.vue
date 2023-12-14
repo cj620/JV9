@@ -15,7 +15,7 @@
                v-bind="commonSet"
                @resizing="onResize">
     <!-- 放置二维码的容器,需要给一个ref -->
-    <div class="drag-img">[{{cdata.label}}]图片</div>
+    <div class="drag-img">[{{cdata.label}}]{{$t("Generality.Ge_PhotoUrl")}}</div>
   </DragWrapper>
 </template>
 

@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-06-02 13:46:56
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\Edit\index.vue
+ * @FilePath: \V9_Dev\src\views\workModule\sale\saleQuote\Edit\c-menu.vue
 -->
 <script>
 import Common from "../Add/index.vue";
@@ -24,7 +24,7 @@ export default {
         this.ruleForm = res;
         this.M_TableObj.setData(res.BillItems);
       });
-     
+
     },
     _save() {
       this.ruleForm.BillItems = this.M_TableObj.getTableData();

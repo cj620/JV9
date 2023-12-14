@@ -1,6 +1,6 @@
 <template>
-  <div style="height: calc(100% - 10px);">
-    <dRollList :tableConfig="tableConfig" :result="result" id="AlarmSituation"></dRollList>
+  <div style="height: calc(100% - 30px);">
+    <dRollList :tableConfig="tableConfig" :result="result" id="AlarmSituation" ></dRollList>
   </div>
 </template>
 

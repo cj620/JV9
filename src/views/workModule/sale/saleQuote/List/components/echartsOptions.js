@@ -56,10 +56,13 @@ export function setOptions(res) {
                 },
                 label: {
                     formatter: (params) => {
+                        console.log(count)
+                        console.log(QuotationTime,surplus)
                         if(params.value + QuotationTime[count]  > surplus[count]) {
                             count++;
                             return '可用时间不足！'
                         } else {
+                            count++;
                             return ''
                         }
 

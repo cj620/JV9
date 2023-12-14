@@ -40,4 +40,40 @@ export function assets_device_managetype_del(data) {
   });
 }
 
+// 开始保养
+export function assets_device_maintenance_start(data){
+  return request({
+    url: "/assets_device_maintenance/start",
+    method: "post",
+    data,
+  })
+}
+
+// 结束保养
+export function assets_device_maintenance_end(data){
+  return request({
+    url: "/assets_device_maintenance/end",
+    method: "post",
+    data,
+  })
+}
+
+//编辑保养单配件信息
+export function assets_device_maintenance_save_accessory(data){
+  return request({
+    url: "/assets_device_maintenance/save_accessory",
+    method: "post",
+    data,
+  })
+}
+
+// 保养单保存
+export function assets_device_maintenance_save(data){
+  return request({
+    url: "/assets_device_maintenance/save",
+    method: "post",
+    data,
+  })
+}
+
 

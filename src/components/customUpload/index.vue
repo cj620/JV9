@@ -9,16 +9,19 @@
            @click="chooseFile"
       >
         <div><i class="el-icon-upload"></i></div>
-        <div>将文件拖放到此处,或点击选择文件</div>
+        <div>{{ $t('Generality.Ge_UploadFile') }}</div>
       </div>
       <parse-img
         @handlePasteData="handlePasteData"
         more
       >
-        <div class="paste"></div>
+        <div class="paste">
+          {{$t('Generality.Ge_ClickPaste')}}</div>
       </parse-img>
       <div class="clear-img" v-show="files.length > 3">
-        <el-button size="mini" type="danger" plain @click="allClear">全部清除</el-button>
+        <el-button size="mini" type="danger" plain @click="allClear">{{
+          $t('Generality.Ge_ClearAll')
+          }}</el-button>
       </div>
     </div>
     <input v-show="false" id="custom_file" type="file" @change="selectFile" multiple />
@@ -177,9 +180,9 @@ export default {
 .paste:active{
   background: #f1f1f1;
 }
-.paste:before{
-  content: '点击然后粘贴';
-}
+//.paste:before{
+//  content: var(--content);
+//}
 .paste{
   width: 300px;
   height: 200px;

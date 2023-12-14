@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-06-03 18:10:06
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \V9_Dev\src\views\workModule\project\projectTask\Detail\index.vue
+ * @FilePath: \V9_Dev\src\views\workModule\project\projectTask\Detail\c-menu.vue
 -->
 <!--新增-->
 <!--编辑销售订单-->
@@ -26,7 +26,7 @@
       ref="first"
       :contentStyle="{
         paddingLeft: '150px',
-        height: '200px',
+        height: '140px',
       }"
       style="position: relative"
     >
@@ -50,8 +50,8 @@
     </JvBlock>
 
     <!--备注-->
-    <JvBlock :title="$t('device.De_ScrapDescription')" ref="third">
-      <JvRemark :RemarkData="detailObj.detailData.ScrapDescription"></JvRemark>
+    <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
+      <JvRemark :RemarkData="detailObj.detailData.Remarks"></JvRemark>
     </JvBlock>
     <!--附件-->
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
@@ -95,19 +95,12 @@ export default {
       repairTableObj: {},
       useTableObj: {},
       btnAction: [],
-      DynamicInfo: [],
-      // 编辑路由指向 谨慎删除
-      editRouteName: "Pm_ProjectTask_Edit",
-      printMod: "Pm_ProjectTask",
+      printMod: "As_DeviceScrapDetail",
       taskTypeEnum,
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
           name: "first",
-        },
-        {
-          label: this.$t("Generality.Ge_ProcessInfo"),
-          name: "second",
         },
         {
           label: this.$t("Generality.Ge_Remarks"),
@@ -120,10 +113,6 @@ export default {
         {
           label: this.$t("Generality.Ge_ApproveProcess"),
           name: "fifth",
-        },
-        {
-          label: this.$t("Generality.Ge_Dynamic"),
-          name: "sixth",
         },
       ],
       dynamicShow: false,
@@ -153,6 +142,7 @@ export default {
         this.detailObj.setData(res);
         this.btnAction = detailPageModel(this, res, Scrap, this.getData);
         this.btnAction.splice(4,1);
+        this.btnAction.splice(5,1);
       });
     },
     tabClick(e) {

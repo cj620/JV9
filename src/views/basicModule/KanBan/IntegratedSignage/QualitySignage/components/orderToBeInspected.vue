@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="order-Inspected-table-content">
-        <RollList v-if="result.length" :step="$window.global_config.DataVStep">
+        <RollList v-if="result.length" :step="$window.global_config.DataVStep" :num="8">
           <div
             class="order-Inspected-table-content-item"
             v-for="(parent, p) in result"

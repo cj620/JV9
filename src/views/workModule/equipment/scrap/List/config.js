@@ -9,6 +9,8 @@ import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
 
 // 引入模块API接口
 import { API } from "@/api/workApi/equipment/scrap";
+import {enumToList} from "~/utils/system/enumsPlugin";
+import { stateEnum, ScrapCategoryEnum } from "@/enum/workModule";
 // 结构
 let {api_list,api_delete}=API
 export class api extends TableAPI {
@@ -61,31 +63,35 @@ export const tableConfig = [
     custom:true,
     width:'115px',
   },
-      {
-      prop: "DeviceNo",
-      label: i18n.t("production.Pr_DeviceNo"),
-      },
-      /*设备名称*/
-      {
-      prop: "Device",
-      label: i18n.t("production.Pr_DeviceName"),
-      },
-
-      {
-      prop: "ScrapCategory",
-        label: i18n.t("Generality.Ge_Category"),
-      },
-      /*报废日期*/
-      {
-      prop: "ScrapDate",
-        label: i18n.t("device.De_ScrapDate"),
-      filter:'time'
-      },
-      {
-        // 制单人
-        prop: "Creator",
-        label: i18n.t("Generality.Ge_Creator"),
-      },
+  {
+    prop: "DeviceNo",
+    label: i18n.t("production.Pr_DeviceNo"),
+  },
+  /*设备名称*/
+  {
+    prop: "DeviceName",
+    label: i18n.t("production.Pr_DeviceName"),
+  },
+  /*报废类型*/
+  {
+    prop: "ScrapCategory",
+    label: i18n.t("device.De_ScrapCategory"),
+    customFilter: (value) => {
+      if (ScrapCategoryEnum[value]) return ScrapCategoryEnum[value].name;
+      else return value
+    },
+  },
+  /*报废日期*/
+  {
+    prop: "ScrapDate",
+    label: i18n.t("device.De_ScrapDate"),
+    filter:'time'
+  },
+  {
+    // 制单人
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+  },
   {
     // 制单日期
     prop: "CreationDate",
@@ -96,47 +102,43 @@ export const tableConfig = [
 
 // 表单配置
 export const formSchema = [
-  //单号搜索
-{
-  prop: "BillId",
-  label: i18n.t("Generality.Ge_BillId"),
-  cpn: "FormInput",
-},
-{
-  prop: "Keyword",
-  label: i18n.t("Generality.Ge_KeyWords"),
-  cpn: "FormInput",
-},
-{
-  prop: "DeviceNo",
-  label: i18n.t("production.Pr_DeviceNo"),
-  cpn: "FormInput",
-},
-//单号搜索
-// {
-//   prop: "BillId",
-//   label: i18n.t("Generality.Ge_BillId"),
-//   cpn: "FormInput",
-// },
-{
-  // 计划开始
-  prop: "StartDate",
-  cpn: "SingleTime",
-  label: i18n.t("Generality.Ge_StartTime"),
-},
-{
-  // 计划开始
-  prop: "EndDate",
-  cpn: "SingleTime",
-  label: i18n.t("Generality.Ge_EndTime"),
-},
   {
-    prop: "DeviceCategory",
-    hidden:true,
-    label: i18n.t("Generality.Ge_Category"),
+    prop: "Keyword",
+    label: i18n.t("Generality.Ge_KeyWords"),
+    cpn: "FormInput",
+  },
+  {
+    prop: "DeviceNo",
+    label: i18n.t("production.Pr_DeviceNo"),
+    cpn: "FormInput",
+  },
+  {
+    prop: "ScrapCategory",
+    label: i18n.t("device.De_ScrapCategory"),
     cpn: "FormSelect",
     options: {
-      list: []
+      list: enumToList(ScrapCategoryEnum),
+    }
+  },
+  {
+    prop: "States",
+    label: i18n.t("Generality.Ge_State"),
+    cpn: "FormSelect",
+    type: "multiple",
+    options: {
+      list: enumToList(stateEnum),
     },
+  },
+  {
+    // 计划开始
+    prop: "StartDate",
+    cpn: "SingleTime",
+    label: i18n.t("Generality.Ge_StartTime"),
+  },
+  {
+    // 计划开始
+    prop: "EndDate",
+    cpn: "SingleTime",
+    label: i18n.t("Generality.Ge_EndTime"),
   },
 ]

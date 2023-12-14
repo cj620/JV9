@@ -75,7 +75,7 @@ export const formSchema = [
         },
         {
           value: "Pending",
-          label: "待定"
+          label: i18n.t("Generality.Ge_Pending1")
         }
       ]
     }

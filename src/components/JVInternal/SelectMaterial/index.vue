@@ -66,6 +66,7 @@
 import { Table } from "./config";
 import { Table1 } from "./selectedConfig";
 import { getAllItemType } from "@/api/basicApi/systemSettings/ItemType";
+import i18n from "@/i18n/i18n";
 
 export default {
   name: "index",
@@ -153,7 +154,7 @@ export default {
       } else {
         this.$message({
           type: "warning",
-          message: "请先勾选需要添加的物料",
+          message: i18n.t("Generality.Ge_SelectNeededItems"),
         });
       }
     },

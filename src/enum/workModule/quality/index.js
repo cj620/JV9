@@ -55,7 +55,7 @@ export const ProcessingResult = {
   // AcceptOnDeviation 特采
 
   Qualified: {
-    name: '合格',
+    name: i18n.t("quality.Qc_Qualified"),
     value: "Qualified",
   },
   // 返工

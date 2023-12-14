@@ -1,15 +1,15 @@
 <template>
-  <dv-full-screen-container>
+  <dv-full-screen-container style="width: 100vw;height: 100vh">
     <div class="integrate-signage">
       <!-- 标题 -->
       <div class="integrate-signage-header">
         <div class="integrate-signage-header-left"></div>
         <div class="integrate-signage-header-center">
-          {{$t('DataV.Da_IntegratedSignage')}}
+          {{$t('DataV.Da_DataBoard')}}
         </div>
         <div class="integrate-signage-header-right"></div>
       </div>
-      <el-carousel trigger="click" height="calc(90vh - 60px)" interval="100000">
+      <el-carousel trigger="click" height="920px" :interval="100000">
         <el-carousel-item>
           <div class="integrate-signage-content">
             <div
@@ -44,13 +44,13 @@ export default {
   data() {
     return {
       dataVList: [
-        {title: '设备看板', imgUrl: require('./EquipmentSignage.png'), url: '/EquipmentSignage'},
-        {title: '部门综合看板', imgUrl: require('./TaskStatus.png'), url: '/TaskStatusSignage'},
-        {title: '部门看板', imgUrl: require('./NC.jpg'), url: '/DepartmentSignboard'},
-        {title: '销售大数据看板', imgUrl: require('./SaleSignage.png'), url: '/SaleSignage'},
-        {title: '模具综合看板', imgUrl: require('./muju.jpg'),url: '/MoldMachining'},
-        {title: '品质部门看板', imgUrl: require('./QualitySignage.png'), url: '/QualitySignage'},
-        {title: '设备状态看板', imgUrl: require('./QualitySignage.png'), url: '/EquipmentOperation'},
+        {title: i18n.t("DataV.Da_EquipmentSignage"), imgUrl: require('./EquipmentSignage.png'), url: '/EquipmentSignage'},
+        {title: i18n.t("DataV.Da_DepartmentSignage"), imgUrl: require('./TaskStatus.png'), url: '/TaskStatusSignage'},
+        {title: i18n.t("DataV.Da_NCDepartmentSignboard"), imgUrl: require('./NC.jpg'), url: '/DepartmentSignboard'},
+        {title: i18n.t("DataV.Da_SaleSignage"), imgUrl: require('./SaleSignage.png'), url: '/SaleSignage'},
+        {title: i18n.t("DataV.Da_MoldMachiningSignage"), imgUrl: require('./muju.jpg'),url: '/MoldMachining'},
+        {title: i18n.t("DataV.Da_QualitySignage"), imgUrl: require('./QualitySignage.png'), url: '/QualitySignage'},
+        {title: i18n.t("DataV.Da_EquipmentStateSignage"), imgUrl: require('./EquipmentOperation.jpg'), url: '/EquipmentOperation'},
       ]
     }
   },
@@ -84,12 +84,14 @@ export default {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    height: calc(100% - 60px);
+    box-sizing: border-box;
+    padding-left: 3%;
     .dataV-item{
-      width: 610px;
-      height: 400px;
-      margin-right: 15px;
-      margin-left: 15px;
-      margin-bottom: 20px;
+      height: 46%;
+      width: 30%;
+      margin-top: 2%;
+      margin-right: 3%;
       cursor: pointer;
       .el-image{
         margin-top: 50px;

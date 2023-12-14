@@ -40,6 +40,14 @@ export function do_aps(data) {
     data,
   });
 }
+export function do_aps1(data) {
+  return request({
+    url: "/aps/start_aps",
+    method: "post",
+    data,
+    loading: true
+  });
+}
 // 手动修改APS结果
 export function modify_aps_result(data) {
   return request({
@@ -54,6 +62,7 @@ export function do_publish(data) {
     url: "/aps/do_publish",
     method: "post",
     data,
+    loading: true,
   });
 }
 // 一键处理APS结果
@@ -62,6 +71,7 @@ export function one_click_processing(data) {
     url: "/aps/one_click_processing",
     method: "post",
     data,
+    loading: true,
   });
 }
 
@@ -94,6 +104,23 @@ export function table_list(data) {
 export function simulation_calculate(data) {
   return request({
     url: "/simulation_scheduling/calculate",
+    method: "post",
+    data,
+  });
+}
+// 排程结果工序负荷
+export function aps_result_process_load(data){
+  return request({
+    url: "/aps/aps_result_process_load",
+    method: "post",
+    loading: true,
+    data
+  })
+}
+// 以机床为单位的甘特图
+export function latest_device_gantt_chart(data) {
+  return request({
+    url: "/aps/latest_device_gantt_chart",
     method: "post",
     data,
   });

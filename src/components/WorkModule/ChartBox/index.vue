@@ -26,65 +26,67 @@ export default {
     },
     option: {
       type: Object,
-      default: {
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            // 坐标轴指示器，坐标轴触发有效
-            type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
-          },
-        },
-        grid: {
-          top: 10,
-          left: "2%",
-          right: "2%",
-          bottom: "3%",
-          containLabel: true,
-        },
-        xAxis: [
-          {
-            type: "category",
-            data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-            axisTick: {
-              alignWithLabel: true,
+      default: () => {
+        return {
+          tooltip: {
+            trigger: "axis",
+            axisPointer: {
+              // 坐标轴指示器，坐标轴触发有效
+              type: "shadow", // 默认为直线，可选为：'line' | 'shadow'
             },
           },
-        ],
-        yAxis: [
-          {
-            type: "value",
-            axisTick: {
-              show: false,
+          grid: {
+            top: 10,
+            left: "2%",
+            right: "2%",
+            bottom: "3%",
+            containLabel: true,
+          },
+          xAxis: [
+            {
+              type: "category",
+              data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+              axisTick: {
+                alignWithLabel: true,
+              },
             },
-          },
-        ],
-        series: [
-          {
-            name: "pageA",
-            type: "bar",
-            stack: "vistors",
-            barWidth: "60%",
-            data: [79, 52, 200, 334, 390, 330, 220],
-            animationDuration,
-          },
-          {
-            name: "pageB",
-            type: "bar",
-            stack: "vistors",
-            barWidth: "60%",
-            data: [80, 52, 200, 334, 390, 330, 220],
-            animationDuration,
-          },
-          {
-            name: "pageC",
-            type: "bar",
-            stack: "vistors",
-            barWidth: "60%",
-            data: [30, 52, 200, 334, 390, 330, 220],
-            animationDuration,
-          },
-        ],
-      },
+          ],
+          yAxis: [
+            {
+              type: "value",
+              axisTick: {
+                show: false,
+              },
+            },
+          ],
+          series: [
+            {
+              name: "pageA",
+              type: "bar",
+              stack: "vistors",
+              barWidth: "60%",
+              data: [79, 52, 200, 334, 390, 330, 220],
+              animationDuration,
+            },
+            {
+              name: "pageB",
+              type: "bar",
+              stack: "vistors",
+              barWidth: "60%",
+              data: [80, 52, 200, 334, 390, 330, 220],
+              animationDuration,
+            },
+            {
+              name: "pageC",
+              type: "bar",
+              stack: "vistors",
+              barWidth: "60%",
+              data: [30, 52, 200, 334, 390, 330, 220],
+              animationDuration,
+            },
+          ],
+        }
+      }
     },
   },
   data() {
@@ -95,6 +97,7 @@ export default {
   },
   mounted() {
     this.isMounted = true;
+    this.chartRender();
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -105,7 +108,6 @@ export default {
   },
   methods: {
     chartRender() {
-      console.log("6666666666");
       if (!this.isMounted) {
         setTimeout(() => {
           this.chartRender();

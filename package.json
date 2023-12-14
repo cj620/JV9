@@ -28,6 +28,7 @@
     "exceljs": "^4.3.0",
     "file-saver-es": "^2.0.5",
     "js-cookie": "2.2.0",
+    "mxdraw": "^0.1.220",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "path-to-regexp": "2.4.0",

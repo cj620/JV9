@@ -8,46 +8,76 @@
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
 import { m_tableConfig as tableConfig } from "../Add/editConfig";
-import { machineCategoryEnum,maintenanceEnum, enumToList } from "@/enum/workModule";
-export class Table extends BaseTable {
+import { maintenanceEnum, enumToList } from "@/enum/workModule";
+export class detailTable extends BaseTable {
   constructor() {
     super({
       tableSchema: m_tableConfig,
       tableHeaderShow: false,
       pagination: false,
-     height: null,
+      height: null,
       operationCol:false,
       chooseCol:false
     });
   }
 }
 export const detailConfig = [
-    //编号
-    {
-      prop: "BillId",
-      label: i18n.t("Generality.Ge_BillId"),
-    },
-    //设备编号
-    {
-      prop: "DeviceNo",
-      label: i18n.t("production.Pr_DeviceNo"),
-    },
-    //设备名称
-    {
-      prop: "DeviceName",
-      label: i18n.t("production.Pr_DeviceName"),
-    },
-
-  //保养类别
+  //编号
   {
-    prop: "MaintenanceCategory",
-    label: i18n.t("Generality.Ge_Category"),
+    prop: "BillId",
+    label: i18n.t("Generality.Ge_BillId"),
   },
-  //保养日期
+  //   方案名称
   {
-    prop: "MaintenanceDate",
-    label: i18n.t("device.De_MaintenanceDate"),
-    filter: "time",
+    prop: "PlanName",
+    label: i18n.t("device.De_PlanName"),
+  },
+  //设备编号
+  {
+    prop: "DeviceNo",
+    label: i18n.t("production.Pr_DeviceNo"),
+  },
+  //设备名称
+  {
+    prop: "DeviceName",
+    label: i18n.t("production.Pr_DeviceName"),
+  },
+  //   关联编号
+  {
+    prop: "AssociatedNo",
+    label: i18n.t("Generality.Ge_AssociatedNo"),
+    custom: true,
+  },
+  //   保养方式
+  {
+    prop: "MaintenanceMode",
+    label: i18n.t("device.De_MaintenanceMode"),
+    customFilter: (value) => {
+      if (!value) return "";
+      return maintenanceEnum[value].name;
+    },
+  },
+  //   保养人
+  {
+    prop: "Operator",
+    label: i18n.t("device.De_Operator1"),
+  },
+  /*保养开始日期*/
+  {
+    prop: "MaintenanceStartDate",
+    label: i18n.t("device.De_MaintenanceStartDate"),
+    filter:'time',
+  },
+  /*保养结束日期*/
+  {
+    prop: "MaintenanceEndDate",
+    label: i18n.t("device.De_MaintenanceEndDate"),
+    filter:'time',
+  },
+  //   保养用时(分钟)
+  {
+    prop: "MaintenanceTime",
+    label: i18n.t("device.De_MaintenanceTime"),
   },
   {
     // 制单人
@@ -60,25 +90,38 @@ export const detailConfig = [
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
   },
+  {
+    //   备注
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  }
 ];
 
 export const m_tableConfig = [
+  // {
+  //   prop: "SortOrder",
+  //   label: i18n.t("production.Pr_SortOrder"),
+  // },
   /*保养内容*/
   {
     prop: "MaintenanceContent",
     label: i18n.t("device.De_MaintenanceContent"),
+    width: "400px",
   },
   /*保养结果*/
   {
     prop: "MaintenanceResults",
     label: i18n.t("device.De_MaintenanceResults"),
     customFilter:(value,row)=>{
-      if(value){
-        return '是'
-      }else  if(value===false){
-        return '否'
+      if(value === "Completed"){
+        return i18n.t("Generality.Ge_Completed")
+      } else if(value === "Incomplete"){
+        return i18n.t("Generality.Ge_Incomplete")
+      } else {
+        return ""
       }
     },
+    width: "150px",
   },
   /*备注*/
   {

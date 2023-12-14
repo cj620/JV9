@@ -96,9 +96,9 @@
           <!-- <i class="el-icon-s-grid"></i> -->
         </div>
         <div
-          v-for="(item, i) in columns"
+          v-for="(item, i) in _columns"
           :key="item.name"
-          :style="{ width: item.width + 'px' }"
+          :style="{ width: item.width + 'px'}"
         >
           {{ item.label }}
         </div>
@@ -122,7 +122,7 @@
         >
           <div
             class="header-table-item-box"
-            :style="{ height: tableItemHeight - tableItemPadding * 2 + 'px' }"
+            :style="{ height: tableItemHeight - tableItemPadding * 2 + 'px', }"
           >
             <el-popover
               :placement="popoverOptions.placement"
@@ -139,11 +139,13 @@
                 <i class="el-icon-s-grid"></i>
               </div>
             </el-popover>
+            <div :style="{ width: detailIconWidth + 'px' }" v-if="!detailShow"></div>
             <div
-              v-for="(jtem, j) in columns"
+              v-for="(jtem, j) in _columns"
               :key="jtem.name"
               :style="{
                 width: jtem.width + 'px',
+                textAlign: 'center',
                 height: tableItemHeight - tableItemPadding * 2 + 'px',
               }"
             >
@@ -165,7 +167,7 @@
                 "
                 >{{ timeFormat(item[jtem.name]) }}</span
               >
-              <span class="beyond-hiding" v-else>{{ item[jtem.name] }}</span>
+              <span class="beyond-hiding" v-else>{{ item[jtem.name] || '--' }}</span>
             </div>
           </div>
         </div>
@@ -297,6 +299,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    // task是否可以被右键点击
+    isTaskRightClick: {
+      type: Boolean,
+      default: false,
+    },
+    // task是否可以被左键点击
+    isTaskLeftClick: {
+      type: Boolean,
+      default: false,
+    },
     // task是否可以被点击
     isTaskClick: {
       type: Boolean,
@@ -304,6 +316,19 @@ export default {
     },
     // task悬浮窗组件
     floatingWindow: {
+      type: Object,
+      default: null,
+    },
+    MenuItems: {
+      type: Array,
+      default: () => {
+        return [{label: '测试菜单', event(item, e) {
+            console.log('当前数据：', item);
+            console.log('当前节点:', e)
+          }}]
+      },
+    },
+    MenuComponents: {
       type: Object,
       default: null,
     },
@@ -325,7 +350,9 @@ export default {
     // 设置任务条背景颜色的方法
     setTaskBackground: {
       type: Function,
-      default: null,
+      default: () => {
+        return {condition: false, color: "#2a9bf1"}
+      },
     }
   },
   data() {
@@ -370,6 +397,7 @@ export default {
       clickTaskHint_Top: 0,
       clickState: false, // 鼠标是否点击table的状态，如果点击了 鼠标移开的时候 不隐藏task高亮。 只有当鼠标悬浮到别的item上面才会重置状态
       // scrollOffsetLeft: 0,
+      _columns: []
     };
   },
   created() {
@@ -380,8 +408,14 @@ export default {
         ? this.taskRadius
         : this.taskHeight / 2;
     // 获取表头宽度
+    this._columns = this.columns.map(item => {
+      return {
+        ...item,
+        width: item.width || 100,
+      }
+    })
     if(this.columns.length) {
-      this.tableHeaderWidth = this.columns
+      this.tableHeaderWidth = this._columns
         .map((item) => item.width)
         .reduce((a, b) => {
           return a + b;
@@ -393,6 +427,8 @@ export default {
       setTaskBackground: this.setTaskBackground,
       taskColor: this.taskColor,
       isTaskHover: this.isTaskHover,
+      isTaskRightClick: this.isTaskRightClick,
+      isTaskLeftClick: this.isTaskLeftClick,
       tableItemHeight: this.tableItemHeight,
       taskHeight: this.taskHeight,
       tableItemPadding: this.tableItemPadding,
@@ -402,6 +438,8 @@ export default {
       popoverShow: !!(this.popoverInnerHtml || this.floatingWindow),
       popoverInnerHtml: this.popoverInnerHtml,
       Component: this.floatingWindow,
+      MenuComponents: this.MenuComponents,
+      MenuItems: this.MenuItems,
       taskInnerHtml: this.taskInnerHtml,
     };
     this.gantt = new CreateGantt(options);
@@ -431,7 +469,7 @@ export default {
       if(!this.isTaskClick) return
       this.taskDetail = data;
       // 设置表单弹窗
-      this.dialogTitle = data[this.taskDialogTitle] + '' || "提示";
+      this.dialogTitle = data[this.taskDialogTitle] + '' || this.$t('Generality.Ge_Remind');
       this.$emit("taskClick", data);
       this.dialogVisible = true;
     },
@@ -462,6 +500,7 @@ export default {
 
       // 设置滚动条滚动到当前单位task列表最前面task的位置
       let timeObj = this.getMaxAndMinTime(this.result.Items, true);
+      if(!timeObj.firstNode || !timeObj.lastNode) return
       let left = timeObj.firstNode.offsetLeft;
       this.TimeRangeList = getTimeRangeList(
         timeObj.MinimumTime,
@@ -485,6 +524,7 @@ export default {
       this.headerTableIdx = idx;
       this.clickTaskHint_Top = this.tableItemHeight * idx - this.tableItemPadding;
       this.clickTaskHint = true; // task提示高亮显示
+      console.log(item.Id)
       let firstTask = document.getElementById(`custom-task-${item.Id}-0`);
 
       // this.scrollOffsetLeft = firstTask.offsetLeft;
@@ -515,6 +555,14 @@ export default {
       };
       function formatt(time) {
         return new Date(timeFormat(time, "yyyy-MM-dd hh:mm:ss")).getTime();
+      }
+      if(!data.length) {
+        return {
+          MaximumTime: "2023-01-01 00:00:00",
+          MinimumTime: "2023-01-01 00:00:01",
+          firstNode: null,
+          lastNode: null,
+        }
       }
       data.forEach((item) => {
         item.Data.forEach((jtem) => {
@@ -589,6 +637,7 @@ export default {
       this.TimeRangeList = getTimeRangeList(MinimumTime, MaximumTime);
 
       this.setTableDateList(); // 赋值日期列表和每一格的长度 用来渲染
+
       // 赋值表头列表
       this.list = val.Items.map((item) => {
         return {

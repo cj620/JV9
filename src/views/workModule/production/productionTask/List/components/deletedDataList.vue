@@ -1,7 +1,7 @@
 <template>
   <div>
     <jv-dialog
-      title="已删除列表"
+      :title="$t('production.Pr_DeletedList')"
       width="90%"
       :close-on-click-modal="true"
       :modal-append-to-body="false"
@@ -18,9 +18,9 @@
           <TableAction
             :actions="[
             {
-              label: '恢复',
+              label: $t('setup.Recover'),
               popConfirm: {
-                title: '是否确认恢复',
+                title: $t('production.Pr_WhetherRecover'),
                 confirm: recovery.bind(null, [row.BillId]),
               },
             },

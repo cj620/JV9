@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-01-04 08:47:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \V9_Dev\src\jv_doc\cpn\JvDetail\index.vue
+ * @FilePath: \V9_Dev\src\jv_doc\cpn\JvDetail\c-menu.vue
 -->
 <template>
   <div class="jv-desc-style">

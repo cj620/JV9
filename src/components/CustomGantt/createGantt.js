@@ -8,6 +8,10 @@ export class CreateGantt {
     /** ============================此处来定义数据=========================== **/
     this.isTaskHover = options.isTaskHover;
 
+    this.isTaskRightClick = options.isTaskRightClick;
+
+    this.isTaskLeftClick = options.isTaskLeftClick;
+
     this.taskRadius = options.taskRadius;
 
     this.popoverShow = false;
@@ -18,17 +22,23 @@ export class CreateGantt {
 
     this.Components = options.Component;
 
+    this.MenuComponents = options.MenuComponents;
+
+    this.MenuItems = options.MenuItems;
+
     this.popoverInnerHtml = options.popoverInnerHtml;
 
     this.popoverShow = options.popoverShow;
 
-    this.taskColor = options.taskColor || '#2a9bf1';
+    this.taskColor = options.taskColor;
 
-    this.setTaskBackground = options.setTaskBackground || function () {return {is: false, color: "#2a9bf1"}}
+    this.setTaskBackground = options.setTaskBackground;
 
     this.MinimumTime = null;
 
     this.Vue = null;
+
+    this.MenuVue = null;
 
     /** =============================此处用来定义默认值============================= **/
     this.stepSize = 0.05; // 根据当前单位计算每分钟占多少像素
@@ -82,9 +92,16 @@ export class CreateGantt {
   // 创建task
   createTask(parent) {
     let count = 0; // 用于计算高度累加
+    const self = this;
+    // 悬浮窗
     const popover = document.createElement("div");
     popover.className = "custom-popover";
     popover.style.opacity = 0;
+    // 右键菜单
+    const RightMenu = document.createElement("div");
+    RightMenu.className = "custom-menu";
+    RightMenu.style.display = 'none';
+    RightMenu.style.opacity = 0;
     // popover.setAttribute("popover", "auto");
     // popover.popover = "auto";
 
@@ -111,7 +128,7 @@ export class CreateGantt {
         let startY = count * this.tableItemHeight + (this.tableItemHeight - this.tableItemPadding*2 - this.taskHeight) / 2;
         let height = this.taskHeight;
         let taskRef = document.createElement("div");
-        taskRef.innerHTML = this.taskInnerHtml ? this.taskInnerHtml(jtem) : "";
+        taskRef.innerHTML = this.taskInnerHtml ? this.taskInnerHtml(jtem) : "--";
         taskRef.id = "custom-task-" + item.Id + "-" + j;
         taskRef.className = "custom-task custom-task-" + item.Id + "-" + j;
         taskRef.style.left = startX * this.stepSize + "px";
@@ -122,16 +139,19 @@ export class CreateGantt {
         taskRef.style.position = "absolute";
         taskRef.style.borderRadius = this.taskRadius + "px";
         let bgObj = this.setTaskBackground(jtem);
-        if(bgObj.is) {
+        // condition：判断条件
+        if(bgObj.condition) {
           taskRef.style.background = bgObj.color;
         } else {
           taskRef.style.background = this.taskColor;
         }
         parent.appendChild(taskRef);
 
+        // 鼠标hover事件
         taskRef.addEventListener("mouseenter", (e) => {
           if(!this.isTaskHover) return
           // if (!this.popoverShow) return;
+          // 如果传的是组件，则把这条数据传进去，组件里可以获取到
           if (this.Components && !this.popoverInnerHtml) {
             this.Vue.$children[0].item = jtem;
           }
@@ -157,8 +177,13 @@ export class CreateGantt {
 
           // popover.showPopover()
         });
-        taskRef.addEventListener("click", () => {
-          this.setDialogVisible(jtem);
+        taskRef.addEventListener("click", (e) => {
+          if(this.isTaskLeftClick) {
+            setMenu(e)
+          } else {
+            this.setDialogVisible(jtem);
+          }
+          e.stopPropagation()
         });
         taskRef.addEventListener("mouseleave", () => {
           this.popoverShow = false;
@@ -168,10 +193,85 @@ export class CreateGantt {
           }, 500);
           // popover.hidePopover()
         });
+        // 鼠标右击事件
+        taskRef.addEventListener('contextmenu', function (e) {
+          if(self.isTaskRightClick) {
+            setMenu(e);
+          }
+        }, false);
+        function setMenu(e) {
+          if(!self.isTaskRightClick && !self.isTaskLeftClick) return;
+
+          RightMenu.style.display = 'block';
+          RightMenu.style.opacity = 1;
+          let left = e.clientX;
+          let top = e.clientY + 10;
+          // 获取鼠标位置，根据鼠标位置动; 判断位置是否超出视口
+          if (left + RightMenu.clientWidth > document.body.clientWidth) {
+            RightMenu.style.left = left - RightMenu.clientWidth + "px";
+          } else {
+            RightMenu.style.left = left + "px";
+          }
+
+          if (top + RightMenu.clientHeight > document.body.clientHeight) {
+            RightMenu.style.top = top - RightMenu.clientHeight + "px";
+          } else {
+            RightMenu.style.top = top + "px";
+          }
+          if (self.MenuComponents) {
+            self.MenuVue.$children[0].item = jtem;
+          } else {
+            RightMenu.innerHTML = '';
+            self.MenuItems.forEach(item => {
+              let MenuItem = document.createElement('div');
+              MenuItem.innerHTML = item.label;
+              MenuItem.className = 'custom-menu-item';
+              MenuItem.onclick = function (event) {
+                if(item.disabled) {
+                  if(item.disabled()) {
+                    return
+                  }
+                }
+                console.log(e)
+                item.event(jtem, event)
+              }
+              // 判断显示隐藏
+              if(item.show) {
+                if(item.show(jtem)) {
+                  RightMenu.appendChild(MenuItem);
+                }
+              } else {
+                RightMenu.appendChild(MenuItem);
+              }
+              // 判断是否禁用
+              if(item.disabled) {
+                if(item.disabled(jtem)) {
+                  MenuItem.style.color = '#cecece';
+                  MenuItem.style.backgroundColor = '#f5f5f5';
+                  MenuItem.style.cursor = 'not-allowed';
+                }
+              }
+            })
+          }
+
+          e.preventDefault();
+        }
+        // 隐藏菜单
+        document.onclick = function() {
+          RightMenu.style.opacity = 0;
+          RightMenu.style.display = 'none';
+        }
+        // 阻止事件冒泡
+        RightMenu.addEventListener('click', (e) => {
+          e.stopPropagation()
+        })
+
       });
       count++;
     });
 
+
+    // 自定义弹窗组件
     parent.appendChild(popover);
     if (this.Components && !this.popoverInnerHtml) {
       const popoverChildren = document.createElement("div");
@@ -180,6 +280,18 @@ export class CreateGantt {
       this.Vue = new Vue({
         el: "#custom-popover",
         render: (h) => h(this.Components),
+      });
+    }
+
+    // 自定义右键菜单组件
+    parent.appendChild(RightMenu);
+    if (this.MenuComponents) {
+      const menuChildren = document.createElement("div");
+      menuChildren.id = "custom-menu";
+      RightMenu.appendChild(menuChildren);
+      this.MenuVue = new Vue({
+        el: "#custom-menu",
+        render: (h) => h(this.MenuComponents),
       });
     }
 

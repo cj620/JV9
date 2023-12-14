@@ -81,7 +81,7 @@ export default {
   position: relative;
   .print-page {
     background-color: #fff;
-    width: 210mm;
+    width: 310mm;
     min-height: 297mm;
     margin: 0 auto;
     // padding: 10px;

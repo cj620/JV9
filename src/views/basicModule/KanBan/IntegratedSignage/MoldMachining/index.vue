@@ -5,7 +5,9 @@
         <div>
           <img src="../logo.png" />
         </div>
-        <div class="data-v-content-header-title">模具综合看板</div>
+        <div class="data-v-content-header-title">
+          {{ $t("DataV.Da_MoldMachiningSignage") }}
+        </div>
         <formatted-time style="font-size: 20px" format="yyyy-MM-dd hh:mm" />
       </div>
       <div class="data-v-content-main">
@@ -25,7 +27,7 @@ import screenFull from "screenfull";
 
 import { timeFormat } from "~/utils/time/index";
 import {Data} from './data';
-import { data_report_vkb_datav_dashboard } from "@/api/workApi/production/dataReport";
+import { comp_operations_dashboard } from "@/api/basicApi/dataV/kanban";
 import FormattedTime from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/components/formattedTime.vue";
 export default {
   name: "index",
@@ -40,18 +42,25 @@ export default {
       currentTime: timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss"),
       DataList: {},
       IsShow: false,
+      Data: {}
     };
   },
   created() {
-    screenFull.toggle();
+    // screenFull.toggle();
     this.getData();
+
   },
   methods: {
     getData() {
-      setTimeout(() => {
+      comp_operations_dashboard().then(res => {
+        this.DataList = res;
         this.IsShow = true;
-        this.DataList = Data;
-      },800)
+        console.log(res)
+      })
+      // setTimeout(() => {
+      //   this.IsShow = true;
+      //   this.DataList = Data;
+      // },800)
       // data_report_vkb_datav_dashboard().then((res) => {
       //   console.log(res, 9898989);
       //   this.IsShow = true;

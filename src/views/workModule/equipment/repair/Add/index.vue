@@ -3,14 +3,13 @@
 <template>
   <!-- 单据信息 -->
   <PageWrapper ref="page">
-
     <JvBlock
-      title="设备信息"
+      :title="$t('device.De_DeviceInfo')"
       ref="first"
       :contentStyle="{
         paddingLeft: '150px',
         position: 'relative',
-        height: '150px',
+        height: '175px',
       }"
     >
       <div class="mould-img">
@@ -21,16 +20,31 @@
       </div>
       <JvForm :formObj="formObj">
         <template #DeviceNo="{ prop }">
-          <el-input v-model="formObj.form[prop]" :disabled="IsDisabled">
-          </el-input>
-        </template>
-        <template #DeviceName="{ prop }">
-          <el-input v-model="formObj.form[prop]" :disabled="IsDisabled">
-          </el-input>
+          <el-select
+            v-model="formObj.form[prop]"
+            filterable
+            remote
+            reserve-keyword
+            clearable
+            :remote-method="remoteMethod"
+            @change="selectDevice"
+          >
+            <el-option
+              v-for="item in ListData"
+              :key="item.DeviceNo"
+              :label="item.DeviceNo"
+              :value="item.DeviceNo"
+            >
+            </el-option>
+          </el-select>
         </template>
       </JvForm>
     </JvBlock>
-
+    <!-- 问题描述 -->
+    <JvBlock :title="$t('device.De_ProblemDescription')" ref="second">
+      <el-input type="textarea" :rows="2" v-model="ruleForm.ProblemDescription">
+      </el-input>
+    </JvBlock>
     <!-- 备注 -->
     <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
       <el-input type="textarea" :rows="2" v-model="ruleForm.Remarks">
@@ -54,12 +68,8 @@
     </JvBlock>
     <div slot="fixedFooter">
       <!-- 保存 -->
-      <el-button type="primary" @click="save(false)">{{
+      <el-button type="primary" @click="save">{{
         $t("Generality.Ge_Save")
-      }}</el-button>
-      <!-- 保存并提交 -->
-      <el-button type="primary" @click="save(true)">{{
-        $t("Generality.Ge_SaveAndSubmit")
       }}</el-button>
     </div>
   </PageWrapper>
@@ -67,63 +77,50 @@
 
 <script>
 import { formSchema } from "./formConfig";
-import { M_EditTable } from "./editConfig";
 import { Form } from "@/jv_doc/class/form";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 
 // 引入模块API接口
-import { API as Repair } from "@/api/workApi/equipment/repair";
+import {API, API as Repair} from "@/api/workApi/equipment/repair";
+import { timeFormat } from "~/utils/time/index";
+import { assets_device_list } from "@/api/workApi/equipment/device"
 import { mapState } from "vuex";
-// 引入模块API接口
-import { API as ProjectTask } from "@/api/workApi/project/projectTask";
-import {
-  getByIdProductionDevice,
-  AddDevice,
-  UpdateDevice,
-} from "@/api/workApi/production/baseData";
 import closeTag from "@/utils/closeTag";
 import ImgUploader from "@/components/WorkModule/ImgUploader";
 export default {
-  name: "As_DeviceMaintainAdd",
+  name: "As_DeviceRepairAdd",
   components: {
     JvUploadFile,
     ImgUploader,
   },
-  props: {
-    billData: {
-      type: String,
-      default: () => "",
-    },
-    type: {
-      type: String,
-      default: () => "",
-    },
-  },
   data() {
     return {
-      IsDisabled: false,
       cur_Id: this.$route.query.BillId,
       formObj: {},
+      schema: {},
       detailRouteName: "As_DeviceRepairDetail",
       fileBillId: "",
-      M_TableObj: {},
+      ListData: [],
       ruleForm: {
         BillId: "",
-        DeviceName: "",
+        BillGui: "",
         DeviceNo: "",
+        DeviceName: "",
+        RepairCategory: "",
         Repairer: "",
-        RepairCategory: "FaultRepair",
-        CompletionDate: "",
         RepairApplicant: "",
         RepairDate: "",
-        State: "",
-        Creator: "",
-        CreationDate: "",
+        CompletionDate: "",
+        PlanCompletionDate: "",
         Remarks: "",
         PhotoUrl: "",
+        MaintenancePersonnel: "",
+        RepairLevel: "",
+        ProblemDescription: "",
+        RepairResults: "",
         BillFiles: [],
+        BillItems: [],
       },
-
     };
   },
   computed: {
@@ -140,21 +137,34 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
-    this.M_TableObj = new M_EditTable();
-  },
-  mounted() {
-    // Object.assign(this.formObj.form, this.$route.params);
-    if (this.$route.params.type == "toRepair") {
-      console.log('this.$route.params.cdata::: ', this.$route.params.cdata);
-      this.ruleForm.DeviceName = this.$route.params.cdata.DeviceName;
-      this.ruleForm.PhotoUrl = this.$route.params.cdata.PhotoUrl;
-      this.ruleForm.DeviceNo = this.$route.params.cdata.DeviceNo;
-      console.log(this.formObj.form);
-      this.formObj.form =this.ruleForm
-      this.IsDisabled = true;
+    this.schema = formSchema;
+    this.remoteMethod("");
+    if (!this.cur_Id) {
+      this.formObj.form.RepairCategory = "FaultRepair";
+      this.formObj.form.RepairApplicant = this.$store.state.user.name;
+      if (this.$route.params.type === "toRepair") {
+        this.formObj.form.DeviceNo = this.$route.params.cdata.DeviceNo
+        this.formObj.form.DeviceName = this.$route.params.cdata.DeviceName
+        this.ruleForm.PhotoUrl = this.$route.params.cdata.PhotoUrl
+      }
+    } else {
+      this.getData()
     }
   },
   methods: {
+    // 复制或编辑时获取数据
+    getData() {
+      this.fileBillId = this.cur_Id
+      API.api_get({ BillId: this.cur_Id }).then((res) => {
+        this.formObj.form = res;
+        this.ruleForm = res;
+        this.$delete(this.ruleForm,'State')
+        this.$delete(this.ruleForm,'AcceptedBy')
+        this.$delete(this.ruleForm,'CreationDate')
+        this.$delete(this.ruleForm,'Creator')
+        this.$delete(this.ruleForm,'DevicePhotoUrl')
+      })
+    },
     //上传文件返回的数据
     returnData(fileData) {
       this.ruleForm.BillFiles = fileData;
@@ -163,35 +173,62 @@ export default {
       this.ruleForm.PhotoUrl = e;
     },
     //保存销售订单
-    save(saveAndSubmit) {
-      this.ruleForm.SaveAndSubmit = saveAndSubmit;
+    save() {
       this.formObj.submitAll([this.formObj.validate], (valid) => {
         if (valid) {
           Object.assign(this.ruleForm, this.formObj.form);
-          this._save();
+          if (this.ruleForm.RepairDate === "") {
+            this.ruleForm.RepairDate = timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss")
+          }
+          this.ruleForm.PlanCompletionDate = ""
+          this.ruleForm.CompletionDate = ""
+          if (this.$route.query.type === "copy"){
+            this.ruleForm.BillGui = ""
+            this.ruleForm.BillId = ""
+            this.ruleForm.RepairResults = ""
+          }
+          Repair.api_save(this.ruleForm).then((res) => {
+            let TagName = {
+              name: this.detailRouteName,
+              query: { BillId: res },
+            };
+            closeTag(this.current, TagName);
+          });
         }
       });
     },
-    _save() {
-      Repair.api_save(this.ruleForm).then((res) => {
-        let TagName = {
-          name: this.detailRouteName,
-          query: { BillId: res },
-        };
-        closeTag(this.current, TagName);
-      });
+    remoteMethod(query){
+      const str = {
+          Keyword: query,
+          PageSize: 20,
+          CurrentPage: 1,
+      };
+      assets_device_list(str).then((res) => {
+        this.ListData = res.Items
+      })
     },
-
-  },
-  watch: {
-    $route(to, from) {
-      if (this.$route.params.type == "toRepair") {
-        this.formObj.form = this.$route.params.cdata;
-        this.ruleForm = this.$route.params.cdata;
-        this.IsDisabled = true;
+    selectDevice(e){
+      if (e) {
+        const item = this.ListData.find(obj => obj.DeviceNo === e)
+        this.formObj.form.DeviceName = item.DeviceName;
       }
-    },
+    }
   },
+  watch:{
+    "formObj.form.RepairCategory": {
+      handler(n, o) {
+        if (n === "PrecisionRepair"){
+          this.formObj.formSchema = this.schema.filter(item => item.prop !== "MaintenancePersonnel");
+          this.formObj.form.MaintenancePersonnel = ""
+        } else if (n === "FaultRepair"){
+          this.formObj.formSchema = this.schema.filter(item => item.prop !== "Repairer");
+          this.formObj.form.Repairer = ""
+        } else {
+          this.formObj.formSchema = this.schema
+        }
+      },
+    },
+  }
 };
 </script>
 

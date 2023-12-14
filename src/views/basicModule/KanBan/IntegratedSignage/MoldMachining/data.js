@@ -53,7 +53,7 @@ export const Data = {
 ],
     "Data3": [
     {
-        "Title": "前6个月电极数据图",
+        "Title": "Mo_DailyPartsQualifiedRate",
         "Date": [
             "2月",
             "3月",
@@ -82,7 +82,7 @@ export const Data = {
         ]
     },
     {
-        "Title": "前6个月模具数据图",
+        "Title": "零件每日合格率",
         "Date": [
             "2月",
             "3月",
@@ -111,7 +111,7 @@ export const Data = {
         ]
     },
     {
-        "Title": "前6个月机加量产数据图",
+        "Title": "零件每日合格率",
         "Date": [
             "2月",
             "3月",
@@ -172,29 +172,29 @@ export const Data = {
     "Data4": [
     {
         "Value": "30",
-        "Name": "本月新模"
+        "Name": "Mo_NewToolingThisMonth"
     },
     {
         "Value": "10",
-        "Name": "本月修模"
+        "Name": "Mo_CorrectingToolingThisMonth"
     },
     {
         "Value": "5",
-        "Name": "本月设变"
+        "Name": "Mo_DesignChangeThisMonth"
     },
     {
         "Value": "50",
-        "Name": "本月试模"
+        "Name": "Mo_TrialMoldThisMonth"
     },
     {
-        "Value": "50/VKB:40",
-        "Name": "机加本月接单数"
+        "Value": "50",
+        "Name": "Mo_OrdersReceivedThisMonth"
     }
 ],
     "Data5": [
     {
         "Value": "40",
-        "Name": "本月机加下单",
+        "Name": "Mo_MoldAchievementRate",
         "Config": {
             "CircleColor": "#25a2f2",
             "CenterCircleBg": "#172342",
@@ -203,7 +203,7 @@ export const Data = {
     },
     {
         "Value": "38",
-        "Name": "本月机加在制工单",
+        "Name": "Mo_OverdueMolds",
         "Config": {
             "CircleColor": "#00e3d5",
             "CenterCircleBg": "#172342",
@@ -212,7 +212,7 @@ export const Data = {
     },
     {
         "Value": "30",
-        "Name": "本月模具下单",
+        "Name": "Mo_PartAchievementRate",
         "Config": {
             "CircleColor": "#94b5ff",
             "CenterCircleBg": "#172342",
@@ -221,7 +221,7 @@ export const Data = {
     },
     {
         "Value": "43",
-        "Name": "本月模具在制工单",
+        "Name": "Mo_OverdueParts",
         "Config": {
             "CircleColor": "#8585ff",
             "CenterCircleBg": "#172342",
@@ -230,7 +230,7 @@ export const Data = {
     },
     {
         "Value": "4",
-        "Name": "今日预计出货",
+        "Name": "Mo_TrialMoldAchievementRate",
         "Config": {
             "CircleColor": "#e54e64",
             "CenterCircleBg": "#172342",
@@ -580,32 +580,18 @@ export const Data = {
 ],
     "Data8": [
     {
-        "Name": "机加出货(量产)",
+        "Name": "合格",
         "Code": null,
         "Value": "30",
         "Percentage": "19",
         "Color": "#f45868"
     },
     {
-        "Name": "机加出货(打样)",
+        "Name": "不合格",
         "Code": null,
         "Value": "40",
         "Percentage": "25",
         "Color": "#edc240"
     },
-    {
-        "Name": "模具出货",
-        "Code": null,
-        "Value": "50",
-        "Percentage": "31",
-        "Color": "#25a2f2"
-    },
-    {
-        "Name": "电极出货",
-        "Code": null,
-        "Value": "40",
-        "Percentage": "25",
-        "Color": "#00e3d5"
-    }
 ]
 }

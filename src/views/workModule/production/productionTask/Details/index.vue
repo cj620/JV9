@@ -166,10 +166,10 @@
           </JvTable>
         </el-tab-pane>
 
-        <el-tab-pane label="过程检验" name="Qc_ProcessCheckList">
+        <el-tab-pane :label="$t('menu.Qc_ProcessCheck')" name="Qc_ProcessCheckList">
           <JvTable :table-obj="Qc_ProcessCheckTableObj"> </JvTable>
         </el-tab-pane>
-        <el-tab-pane label="零件成品检验" name="Qc_FinishedProductList">
+        <el-tab-pane :label="$t('menu.Qc_FinishedProduct')" name="Qc_FinishedProductList">
           <JvTable :table-obj="Qc_FinishedProductTableObj"> </JvTable>
         </el-tab-pane>
 
@@ -350,6 +350,7 @@ export default {
   methods: {
     imgUrlPlugin,
     GetData() {
+      console.log(55,this.$route.query.BillId)
       getProductionTask({ BillId: this.$route.query.BillId }).then((res) => {
         this.detailObj.detailData = res;
         this.processData = res.Process;
@@ -401,7 +402,7 @@ export default {
       console.log(row);
       this.dialogFormVisible = true;
       this.formObj.form.Id = row.Id;
-      this.formObj.form.ActualEnd = row.ActualEnd;
+      this.formObj.form.ActualEnd =row.ActualEnd ;
       console.log(this.formObj.form);
       /*11*/
     },

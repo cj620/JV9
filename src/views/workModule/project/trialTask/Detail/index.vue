@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-03-31 16:25:14
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \V9_Dev\src\views\workModule\project\projectTask\Detail\index.vue
+ * @FilePath: \V9_Dev\src\views\workModule\project\projectTask\Detail\c-menu.vue
 -->
 <!--新增-->
 <!--编辑销售订单-->
@@ -58,16 +58,13 @@
               {{ record }}
             </span>
           </template>
-          <template #TestMouldResult="{ record }">
-            {{ testMouldResultEnum[record].name }}
-          </template>
         </JvDetail>
         <!-- 状态标签 -->
         <JvState :state="detailObj.detailData.State"></JvState>
       </div>
     </JvBlock>
     <!--物料信息-->
-    <JvBlock title="试模用料" ref="second">
+    <JvBlock :title="$t('project.Pro_TestMouldMaterials')" ref="second">
       <JvTable :table-obj="tableObj1"> </JvTable>
     </JvBlock>
     <!-- 试模问题点 -->
@@ -137,7 +134,7 @@
       :visible.sync="informationShow"
       @confirm="informationConfirm"
       width="35%"
-      title="填写试模信息"
+      :title="$t('project.Pro_InputTestMouldInfo')"
     >
       <JvForm :form-obj="formObj"></JvForm>
     </JvDialog>
@@ -168,7 +165,7 @@ import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
 import { format2source } from "~/class/utils/dataFormat";
 import JvForm from "~/cpn/JvForm/index.vue";
 export default {
-  name: "Pm_TrialTask_Detail",
+  name: "index",
   components: {
     JvForm,
     JvUploadFile,
@@ -192,11 +189,6 @@ export default {
       editRouteName: "Pm_TrialTask_Edit",
       printMod: "Pm_TrialTask_Detail",
       taskTypeEnum,
-      testMouldResultEnum: {
-        OK: { name: "OK", value: "OK" },
-        NG: { name: "NG", value: "NG" },
-        Pending: { name: "待定", value: "Pending" },
-      },
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
@@ -264,6 +256,7 @@ export default {
             ...this.formObj.form
           }).then(res => {
             this.informationShow = false;
+            this.getData();
           }).catch(err => {
             this.$message({
               message: err,
@@ -292,11 +285,11 @@ export default {
         this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
         this.btnAction.push(
           {
-            label: "填写试模信息",
+            label: i18n.t('project.Pro_InputTestMouldInfo'),
             confirm: this.information,
           },
           {
-            label: "物料需求",
+            label: i18n.t('project.Pro_TestMouldMaterials'),
             confirm: this.toItemsDemand,
             disabled: this.detailObj.detailData.State !== "Approved",
           },

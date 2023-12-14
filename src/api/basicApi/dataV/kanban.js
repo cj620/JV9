@@ -40,4 +40,12 @@ export function quality_department_dashboard(){
     })
 }
 
+// 模具综合看板
+export function comp_operations_dashboard(){
+    return request({
+        url: "/data_report/comp_operations_dashboard",
+        method: "get",
+    })
+}
+
 

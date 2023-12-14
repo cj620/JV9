@@ -142,7 +142,7 @@ const production = [
   {
     key: "Pr_ProductionPlan",
     component: () =>
-      import("@/views/workModule/production/productionPlan/List"),
+      import("@/views/workModule/production/productionPlan/List/index1.vue"),
     Parent: "Pr_Production",
     name: "ProductionPlan",
     path: "productionPlan",
@@ -176,7 +176,7 @@ const production = [
     Parent: "Pr_NewProductionSchedule",
     name: "SchedulingWorkOrders",
     path: "SchedulingWorkOrders",
-    title: i18n.t("menu.Pr_SchedulingworkOrders"),
+    title: i18n.t("menu.Pr_SchedulingWorkOrders"),
   },
   // 超期工单
   {
@@ -222,7 +222,7 @@ const production = [
   {
     key: "Pr_GanttChart",
     component: () =>
-        import("@/views/workModule/production/NewProductionSchedule/GanttChart"),
+        import("@/views/workModule/production/NewProductionSchedule/GanttChart/index1.vue"),
     Parent: "Pr_NewProductionSchedule",
     name: "GanttChart",
     path: "GanttChart",
@@ -237,6 +237,17 @@ const production = [
     name: "ExecutionScheduling",
     path: "ExecutionScheduling",
     title: i18n.t("menu.Pr_ExecutionScheduling"),
+  },
+
+  // 工序待加工汇总
+  {
+    key: "Pr_ToBeProcessedProcess",
+    component: () =>
+        import("@/views/workModule/production/report/toBeProcessedProcess"),
+    Parent: "Pr_Report",
+    name: "Pr_ToBeProcessedProcess",
+    path: "Pr_ToBeProcessedProcess",
+    title: i18n.t("menu.Pr_ToBeProcessedProcess"),
   },
 
   /*  // 编程任务

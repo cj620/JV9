@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-03-31 16:25:14
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \V9_Dev\src\views\workModule\project\projectTask\Detail\index.vue
+ * @FilePath: \V9_Dev\src\views\workModule\project\projectTask\Detail\c-menu.vue
 -->
 <!--新增-->
 <!--编辑销售订单-->
@@ -180,7 +180,7 @@ import DynamicList from "../../projectManage/mouldDetail/cpns/DynamicList.vue";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
 import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
 export default {
-   name: "Pm_ProjectTask_Detail",
+   //name: "Pm_ProjectTask_Detail",
   components: {
     JvUploadFile,
     JvRemark,

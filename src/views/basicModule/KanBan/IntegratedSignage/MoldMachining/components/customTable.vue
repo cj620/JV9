@@ -3,11 +3,11 @@
     <div  :style="{height: height}">
     <div class="box">
       <ul class="header">
-        <li class="cell">单号</li>
-        <li class="cell">产品号</li>
-        <li class="cell">零件号</li>
-        <li class="cell">零件名称</li>
-        <li class="cell">状态</li>
+        <li class="cell">{{ $t('Generality.Ge_BillId') }}</li><!-- 单号 -->
+        <li class="cell">{{ $t('production.Pr_ToolingNo') }}</li><!-- 产品号 -->
+        <li class="cell">{{ $t('design.De_ToolingNo') }}</li><!-- 零件号 -->
+        <li class="cell">{{ $t('Generality.Ge_PartName') }}</li><!-- 零件名称 -->
+        <li class="cell">{{ $t('Generality.Ge_State') }}</li><!-- 状态 -->
       </ul>
       <div class="body">
         <ul class="list">
@@ -24,7 +24,7 @@
             <span class="cell">{{  item.State }}</span>
           </li>
            </HelloWord>
-         
+
         </ul>
       </div>
     </div>
@@ -43,7 +43,7 @@ export default {
     }
   },
     components: {
- 
+
     HelloWord
   },
   props:{

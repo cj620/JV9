@@ -58,7 +58,7 @@ import { get_basic_info_list } from '@/api/workApi/project/projectManage';
 import { saveItem } from "@/api/basicApi/systemSettings/Item";
 import JvUploadList from "@/components/JVInternal/JvUpload/List.vue";
 export default {
-  name: "Pm_ProjectMoldList",
+  name: "Pm_ProjectToolingList",
   components: { JvUploadList, Action },
   data() {
     return {

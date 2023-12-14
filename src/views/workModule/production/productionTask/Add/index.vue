@@ -11,7 +11,7 @@
  * @LastEditTime: 2021-08-26 09:08:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \vue-element-admin-master\src\views\clipboard\index.vue
+ * @FilePath: \vue-element-admin-master\src\views\clipboard\c-menu.vue
 -->
 <template>
   <div>

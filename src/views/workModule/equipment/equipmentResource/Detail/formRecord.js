@@ -19,7 +19,7 @@ export const formSchema = [
   {
     // 日期
     prop: "UseDate",
-    cpn: "SingleTime",
+    cpn: "SingleDateTime",
     label: i18n.t("Generality.Ge_Date"),
     rules: [
       {
@@ -50,9 +50,9 @@ export const formSchema = [
     ],
   },
   {
-    // 数量
-    prop: "Category",
+    // 备注
+    prop: "Remarks",
     cpn: "FormInput",
-    label: i18n.t("Generality.Ge_Category"),
+    label: i18n.t("Generality.Ge_Remarks"),
   },
 ];

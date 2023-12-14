@@ -4,42 +4,27 @@
   <!-- 单据信息 -->
   <PageWrapper ref="page">
     <JvBlock
-      title="设备信息"
-      ref="first"
-      :contentStyle="{
-        paddingLeft: '150px',
-        position: 'relative',
-        height: '200px',
-      }"
-    >
-      <div class="mould-img">
-        <ImgUploader
-          @confirm="chooseImg"
-          :srcUrl="ruleForm.PhotoUrl"
-        ></ImgUploader>
-      </div>
+      :title="$t('device.De_DeviceInfo')"
+      ref="first">
+<!--      :contentStyle="{-->
+<!--        paddingLeft: '150px',-->
+<!--        position: 'relative',-->
+<!--        height: '145px',-->
+<!--      }"-->
+<!--    >-->
+<!--      <div class="mould-img">-->
+<!--        <ImgUploader-->
+<!--          @confirm="chooseImg"-->
+<!--          :srcUrl="ruleForm.PhotoUrl"-->
+<!--        ></ImgUploader>-->
+<!--      </div>-->
       <JvForm :formObj="formObj">
-        <!-- <template #ScrapCategory="{ prop }">
-          <el-select
-            v-model="formObj.form[prop]"
-            filterable
-
-          >
-            <el-option
-              v-for="item in ScrapCategoryData"
-              :key="item.Id"
-              :label="item.Value"
-              :value="item.Value"
-            >
-            </el-option>
-          </el-select>
-        </template> -->
       </JvForm>
     </JvBlock>
     <!-- 物料信息 -->
     <!-- 备注 -->
-    <JvBlock title="报废说明" ref="third">
-      <el-input type="textarea" :rows="2" v-model="ruleForm.ScrapDescription">
+    <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
+      <el-input type="textarea" :rows="2" v-model="ruleForm.Remarks">
       </el-input>
     </JvBlock>
     <!-- 附件 -->
@@ -84,6 +69,7 @@ import ImgUploader from "@/components/WorkModule/ImgUploader";
 // 引入模块API接口
 import { API as Scrap } from "@/api/workApi/equipment/scrap";
 import { assets_device_managetype_get_by_type, } from  "@/api/workApi/equipment/maintenance";
+import {timeFormat} from "~/utils/time";
 
 export default {
   name: "As_DeviceScrapAdd",
@@ -111,15 +97,13 @@ export default {
       ScrapCategoryData: [],
       ruleForm: {
         BillId: "",
+        BillGui: "",
         DeviceNo: "",
         DeviceName: "",
-        DeviceCategory: "",
         ScrapCategory: "",
         ScrapDate: "",
-        ScrapDescription: "",
-        Creator: "",
-        CreationDate: "",
-        DevicePurchaseDate: "",
+        State: "",
+        Remarks: "",
         BillFiles: [],
       },
 
@@ -143,11 +127,12 @@ export default {
   },
   mounted() {
     // Object.assign(this.formObj.form, this.$route.params);
-    if (this.$route.params.type == "As_DeviceScrapAdd") {
+    if (this.$route.params.type === "As_DeviceScrapAdd") {
       console.log('this.$route.params.cdata::: ', this.$route.params.cdata);
       this.ruleForm.DeviceName = this.$route.params.cdata.DeviceName;
-      this.ruleForm.PhotoUrl = this.$route.params.cdata.PhotoUrl;
+      // this.ruleForm.PhotoUrl = this.$route.params.cdata.PhotoUrl;
       this.ruleForm.DeviceNo = this.$route.params.cdata.DeviceNo;
+      // this.ruleForm.ScrapCategory = this.$route.params.cdata.ScrapCategory;
       this.formObj.form =this.ruleForm
     } else {
       Object.assign(this.formObj.form, this.$route.params);
@@ -165,13 +150,14 @@ export default {
     returnData(fileData) {
       this.ruleForm.BillFiles = fileData;
     },
-    chooseImg(e) {
-      this.ruleForm.PhotoUrl = e;
-    },
+    // chooseImg(e) {
+    //   this.ruleForm.PhotoUrl = e;
+    // },
 
     //保存销售订单
     save(saveAndSubmit) {
       this.ruleForm.SaveAndSubmit = saveAndSubmit;
+      this.ruleForm.ScrapDate = timeFormat(this.ruleForm.ScrapDate,"yyyy-MM-dd hh:mm:ss")
       this.formObj.submitAll([this.formObj.validate], (valid) => {
         if (valid) {
           Object.assign(this.ruleForm, this.formObj.form);

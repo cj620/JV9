@@ -96,8 +96,12 @@
       </el-form>
 
       <div slot="footer">
-        <el-button type="primary" @click="confirm" size="mini">确定</el-button>
-        <el-button @click="addFieldShow = false" size="mini">取消</el-button>
+        <el-button type="primary" @click="confirm" size="mini">
+          {{ $t("Generality.Ge_OK") }}
+        </el-button>
+        <el-button @click="addFieldShow = false" size="mini">
+          {{ $t("Generality.Ge_Cancel") }}
+        </el-button>
       </div>
     </el-dialog>
     <!-- 表格字段 -->
@@ -121,9 +125,11 @@
 
       <div slot="footer">
         <el-button type="primary" @click="confirmBind" size="mini"
-          >确定</el-button
+          >{{ $t("Generality.Ge_OK") }}</el-button
         >
-        <el-button @click="changBind = false" size="mini">取消</el-button>
+        <el-button @click="changBind = false" size="mini">
+          {{ $t("Generality.Ge_Cancel") }}
+        </el-button>
       </div>
     </el-dialog>
   </div>
