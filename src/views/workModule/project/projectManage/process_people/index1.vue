@@ -18,7 +18,7 @@
         <div class="padding-box"></div>
         <el-button type="primary" size="mini">{{$t("Generality.Ge_Search")}}</el-button>
         <div class="padding-box"></div>
-        <el-select v-model="ganttChangeShow" size="mini" style="width: 100px">
+        <el-select v-model="ganttChangeShow" size="mini" style="width: 100px" @change="selectChange">
           <el-option
             v-for="item in ganttChangeOptions"
             :key="item.value"
@@ -194,7 +194,6 @@
         ref="ganttchart"
         class="left-container"
         :tasks="tasks"
-        :ImmediatelyApi="false"
         :formSchema="formSchema"
         :_arguments="_arguments"
         :ImmediatelyApi="false"
@@ -318,6 +317,18 @@ export default {
   methods: {
     imgUrlPlugin,
     timeFormat,
+    selectChange(val) {
+      console.log(val)
+      if(val) {
+        // this.partProcessingPlan(this._arguments).then(res => {
+        //   this.GetData(res);
+        // })
+        this.$refs.ganttchart.setGanttUpdate(true);
+      } else {
+        this.getWorkerProgress();
+      }
+
+    },
     setTaskWorkerListOptions(items) {
       return items.map(item => {
           return {
