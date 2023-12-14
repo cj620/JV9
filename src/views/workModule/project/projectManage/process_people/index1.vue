@@ -178,6 +178,7 @@
         ref="ganttchart"
         class="left-container"
         :tasks="tasks"
+        :ImmediatelyApi="false"
         :formSchema="formSchema"
         :_arguments="_arguments"
         :api="partProcessingPlan"
