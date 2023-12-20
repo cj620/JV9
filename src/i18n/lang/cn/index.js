@@ -178,6 +178,7 @@ const cn = {
     As_DeviceSpotCheck: "设备点检",
     As_DeviceSpotCheckPlan: "设备点检计划",
     As_AccessoryCheckOut: "备件领用",
+    As_DeviceSpotCheckRecord: "点检记录",
   },
   login: {
     l_LogIn: "登录",
@@ -1418,6 +1419,9 @@ const cn = {
     De_UnderInspection: "检验中",
     De_Verified: "已检验",
     De_Overdue: "已超期",
+    De_SpotCheckRecord: "点检记录",
+    De_MemberState: "成员状态",
+    De_SpotCheckId: "点检单号",
   },
   // 后端提示
   backendMessage: {

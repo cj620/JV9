@@ -179,6 +179,7 @@ const en = {
     As_DeviceSpotCheck: "Device Spot Check",
     As_DeviceSpotCheckPlan: "Device Spot Check Plan",
     As_AccessoryCheckOut: "Accessory Check Out",
+    As_DeviceSpotCheckRecord: "Device Spot Check Record",
   },
   login: {
     l_LogIn: "Log in",
@@ -1434,6 +1435,9 @@ const en = {
     De_UnderInspection: "UnderInspection",
     De_Verified: "Verified",
     De_Overdue: "Overdue",
+    De_SpotCheckRecord: "Spot Check Record",
+    De_MemberState: "Member State",
+    De_SpotCheckId: "Spot Check Bill No.",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",
