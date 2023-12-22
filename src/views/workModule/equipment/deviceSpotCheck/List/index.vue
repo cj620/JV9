@@ -32,6 +32,10 @@
               title: $t('Generality.Ge_DeleteConfirm'),
               confirm: delBills,
             },
+          },
+          {
+            label: $t('device.De_SpotCheckRecord'),
+            confirm: toRecord,
           }
         ]"
       >
@@ -81,6 +85,10 @@ export default {
     delBills() {
       this.deleteOrder(this.tableObj.selectData.keys);
     },
+    //跳转到点检记录
+    toRecord() {
+      this.$router.push({name: "As_DeviceSpotCheckRecord",})
+    }
   }
 }
 

@@ -316,6 +316,28 @@ const equipment = [
     title: i18n.t("menu.As_DeviceSpotCheck")+ "  " + i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
+  // 点检记录
+  {
+    key: "As_DeviceSpotCheckRecord",
+    component: () =>
+      import("@/views/workModule/equipment/deviceSpotCheck/Record/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckRecord",
+    path: "as_DeviceSpotCheckRecord",
+    title: i18n.t("device.De_SpotCheckRecord"),
+    hidden: true,
+  },
+  // 点检记录详情
+  {
+    key: "As_DeviceSpotCheckRecordDetail",
+    component: () =>
+      import("@/views/workModule/equipment/deviceSpotCheck/RecordDetail/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceSpotCheckRecordDetail",
+    path: "as_DeviceSpotCheckRecordDetail",
+    title: i18n.t("device.De_SpotCheckRecord")+ "  " + i18n.t("Generality.Ge_Details"),
+    hidden: true,
+  },
   // 备件领用
   {
     key: "As_AccessoryCheckOut",

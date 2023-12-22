@@ -177,6 +177,7 @@ const ja = {
     As_DeviceSpotCheck: "設備点検",
     As_DeviceSpotCheckPlan: "設備点検計画",
     As_AccessoryCheckOut: "スペア受領用",
+    As_DeviceSpotCheckRecord: "点検記録",
   },
   login: {
     l_LogIn: "ログイン",
@@ -1428,6 +1429,9 @@ const ja = {
     De_UnderInspection: "検査中",
     De_Verified: "検証済み",
     De_Overdue: "期限切れ",
+    De_SpotCheckRecord: "点検記録",
+    De_MemberState: "メンバーのステータス",
+    De_SpotCheckId: "点検票番号",
   },
   // 后端提示
   backendMessage: {
