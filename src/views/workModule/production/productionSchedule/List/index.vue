@@ -456,7 +456,7 @@ export default {
     // 获取数据弹出通知
     async createTableClass() {
         await this.obsoleteTableObj.getData();
-        await this.oldTableObj.getData();
+        //await this.oldTableObj.getData();
         let isHas1 = false;
         let isHas2 = false;
         this.obsoleteTableObj.setCallBack((e) => {
