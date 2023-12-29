@@ -23,6 +23,8 @@ export class Table extends BaseTable {
       api,
       operationWidth: 110,
       sortCol: false,
+      searchBar: false,
+      pagination: false,
     });
   }
 }
@@ -70,11 +72,6 @@ export const tableConfig = [
 ];
 
 export const formSchema = [
-  {
-    prop: "Process",
-    cpn: "FormInput",
-    label: i18n.t("Generality.Ge_Process"),
-  },
   {
     prop: "ProcessType",
     cpn: "FormSelect",

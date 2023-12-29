@@ -8,6 +8,25 @@
 <template>
   <PageWrapper :footer="false">
     <JvTable ref="BillTable" :table-obj="tableObj">
+      <template #titleBar>
+        <Popover @confirm="filterData" @reset="resetData" style="margin: 0 10px">
+          <el-select
+            v-model="selectedType"
+            size="mini"
+            clearable
+            filterable
+          >
+            <el-option
+              v-for="item in typeArray"
+              :key="item.name"
+              :label="item.name"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </Popover>
+        <span v-if="selectedType">{{ $t("production.Pr_ProcessType") }}：{{ processTypeEnum[selectedType].name }}</span>
+      </template>
       <template #operation="{ row }">
         <TableAction
           :actions="[
@@ -62,12 +81,17 @@ import {
   deleteProjectProcess,
   updateSort,
 } from "@/api/workApi/project/baseData";
+import { processTypeEnum } from "@/enum/workModule";
+import Popover from "~/cpn/JvTable/cpn/Popover.vue";
 export default {
   name:'Pm_Process',
   data() {
     return {
+      processTypeEnum,
+      typeArray: Object.values(processTypeEnum),
       tableObj: {},
       formObj: {},
+      selectedType: "",
       processDialogVisible: false,
       dialogTitle: "",
       isEdit: false,
@@ -114,6 +138,14 @@ export default {
         }
       });
     },
+    filterData() {
+      let arr = this.tableObj.tableData.filter(item => item.ProcessType === this.selectedType)
+      this.tableObj.setData(arr)
+    },
+    resetData() {
+      this.selectedType = ""
+      this.tableObj.getData();
+    },
     /*    asc() {
       this.move(true);
     },
@@ -143,11 +175,10 @@ export default {
       labelWidth: "80px",
       labelPosition: "top",
     });
-
   },
   mounted() {},
   computed: {},
-  components: {},
+  components: {Popover},
 };
 </script>
 
