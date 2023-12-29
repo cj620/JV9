@@ -1118,6 +1118,8 @@ const ja = {
     Pr_EndScale: "終了スケール",
     Pr_ProcessType: "工程カテゴリ",
     Pr_Other: "その他",
+    Pr_Assy: "やっとこ",
+    Pr_TestTooling: "しけんがた",
     Pr_ProcessTemplate: "工程テンプレート",
     Pr_TaskProcess: "製造オーダー工程",
     Pr_ActualDevice: "実際の設備",

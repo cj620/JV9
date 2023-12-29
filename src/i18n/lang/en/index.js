@@ -1122,6 +1122,8 @@ const en = {
     Pr_EndScale: "End scale",
     Pr_ProcessType: "Process type",
     Pr_Other: "Other",
+    Pr_Assy: "Assy",
+    Pr_TestTooling: "TestTooling",
     Pr_ProcessTemplate: "Process template",
     Pr_TaskProcess: "Task process",
     Pr_ActualDevice: "Actual device",

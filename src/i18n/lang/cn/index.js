@@ -1109,6 +1109,8 @@ const cn = {
     Pr_EndScale: "结束比例",
     Pr_ProcessType: "工序类别",
     Pr_Other: "其他",
+    Pr_Assy: "钳工",
+    Pr_TestTooling: "试模",
     Pr_ProcessTemplate: "工序模板",
     Pr_TaskProcess: "任务工序",
     Pr_ActualDevice: "实际设备",

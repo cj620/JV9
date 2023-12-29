@@ -25,11 +25,6 @@
           ]"
         ></TableAction
       ></template>
-      <template #ProcessType="{ row }">
-        <div>
-          {{ ProcessTypeEnum[row.ProcessType] }}
-        </div>
-      </template>
       <Action
         size="mini"
         slot="btn-list"
@@ -46,7 +41,7 @@
       :title="dialogTitle"
       :visible.sync="processDialogVisible"
       v-if="processDialogVisible"
-      width="40%"
+      width="30%"
       @confirm="confirm"
     >
       <JvForm :formObj="formObj">
@@ -75,12 +70,6 @@ export default {
       formObj: {},
       processDialogVisible: false,
       dialogTitle: "",
-      ProcessTypeEnum: {
-        Design: this.$t("menu.De_Design"),
-        Program: this.$t("menu.Pa_Program"),
-        Production: this.$t("menu.Pr_Production"),
-        Other: this.$t("production.Pr_Other"),
-      },
       isEdit: false,
     };
   },
@@ -96,7 +85,7 @@ export default {
       this.formObj.form = JSON.parse(JSON.stringify(row));
 
       })
-     
+
     },
     add() {
       this.dialogTitle = this.$t("Generality.Ge_New");
@@ -112,8 +101,8 @@ export default {
         Id: 0,
       };
       this.processDialogVisible = true;
-     
-      
+
+
     },
     confirm() {
       this.formObj.validate((valid) => {
@@ -154,7 +143,7 @@ export default {
       labelWidth: "80px",
       labelPosition: "top",
     });
-    
+
   },
   mounted() {},
   computed: {},

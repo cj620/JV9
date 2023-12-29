@@ -41,6 +41,14 @@ export const processTypeEnum = {
     name: i18n.t("systemSetupData.Production"),
     value: "Production",
   },
+  Assy: {
+    name: i18n.t("production.Pr_Assy"),
+    value: "Assy",
+  },
+  TestTooling: {
+    name: i18n.t("production.Pr_TestTooling"),
+    value: "TestTooling",
+  },
   Other: {
     name: i18n.t("production.Pr_Other"),
     value: "Other",
