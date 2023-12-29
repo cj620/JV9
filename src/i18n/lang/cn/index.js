@@ -104,7 +104,7 @@ const cn = {
     Pr_ProductionPlan: "生产计划",
     Pr_ProductionFitterReceive: "钳工收料",
     Pr_ProductionFitterReceiveRecord: "钳工收料记录",
-
+    Pr_ProductionAssemblyPlan: "装配计划",
     Pr_Reports: "统计报表",
     Pr_ProgramTask: "编程任务",
     Pr_Quality: "品质异常",
@@ -1234,6 +1234,8 @@ const cn = {
     Pr_Calculator: "计算人员",
     Pr_ReleaseTime: "发布时间",
     Pr_ReleaseBy: "发布人员",
+    Pr_CompleteState: "齐套状态",
+    Pr_TaskBillId: "生产任务单号",
     Pr_APSReportContent: {
       str1: "参与排程模具",
       str2: "套, 合计零件",

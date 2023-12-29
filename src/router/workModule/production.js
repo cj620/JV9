@@ -268,7 +268,15 @@ const production = [
     path: "quality",
     title: i18n.t("menu.Pr_Quality"),
   },*/
-
+  // 装配计划
+  {
+    key: "Pr_ProductionAssemblyPlan",
+    component: () => import("@/views/workModule/production/productionAssemblyPlan"),
+    Parent: "Pr_Production",
+    name: "ProductionAssemblyPlan",
+    path: "productionAssemblyPlan",
+    title: i18n.t("menu.Pr_ProductionAssemblyPlan"),
+  },
   // 钳工收料
   {
     key: "Pr_ProductionFitterReceive",

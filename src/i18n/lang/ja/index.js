@@ -104,7 +104,7 @@ const ja = {
     Pr_ProductionPlan: "生産計画",
     Pr_ProductionFitterReceive: "クランプストック",
     Pr_ProductionFitterReceiveRecord: "クランプ受入記録",
-
+    Pr_ProductionAssemblyPlan: "アセンブリ計画",
     Pr_Reports: "統計レポート",
     Pr_ProgramTask: "プログラミングタスク",
     Pr_Quality: "品質異常",

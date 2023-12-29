@@ -105,6 +105,7 @@ const en = {
     Pr_ProductionPlan: "Production Plan",
     Pr_ProductionFitterReceive: "Production Fitter Receive",
     Pr_ProductionFitterReceiveRecord: "Production Fitter Receive Record",
+    Pr_ProductionAssemblyPlan: "Production Assembly Plan",
     Pr_ProgramTask: "Program Task",
     Pr_Quality: "Quality",
     Pr_Report: "Report",
