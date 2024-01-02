@@ -32,6 +32,7 @@
         v-loading="tableObj.loading"
         v-bind="{ ...$attrs, ...getBindProp }"
         style="width: 100%"
+        stripe
         v-on="$listeners"
         @selection-change="handleSelectionChange"
         @header-dragend="headerDragend"

@@ -6,6 +6,8 @@
  */
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
 import { getAll } from "@/api/basicApi/systemSettings/currency";
+import {enumToList} from "~/utils/system/enumsPlugin";
+import {processTypeEnum} from "@/enum/workModule";
 export const formSchema = [
   {
     prop: "Process",
@@ -66,24 +68,7 @@ export const formSchema = [
     label: i18n.t("production.Pr_ProcessType"),
     cpn: "FormSelect",
     options: {
-      list: [
-        {
-          value: "Design",
-          label: i18n.t("menu.De_Design"),
-        },
-        {
-          value: "Program",
-          label: i18n.t("menu.Pa_Program"),
-        },
-        {
-          value: "Production",
-          label: i18n.t("menu.Pr_Production"),
-        },
-        {
-          value: "Other",
-          label: i18n.t("production.Pr_Other"),
-        },
-      ],
+      list: enumToList(processTypeEnum),
     },
   },
 ];

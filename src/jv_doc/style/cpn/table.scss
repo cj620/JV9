@@ -1,5 +1,5 @@
 .el-table tbody .el-table__row--striped td {
-  background: #eeeeee !important;
+  background: #fafafaff !important;
 }
 
 .el-table tbody {
@@ -8,14 +8,14 @@
     //   color: #fff !important;
     // }
 
-    background-color: rgba(223, 223, 223) !important;
+    background-color: rgba(236, 247, 253) !important;
   }
 
   .hover-row td {
     // .cell {
     //   color: #fff !important;
     // }
-    background-color: rgba(223, 223, 223) !important;
+    background-color: rgba(236, 247, 253) !important;
     // background-color: rgba(59, 130, 246, .2) !important;
   }
 
@@ -35,13 +35,15 @@
 .el-table th.is-leaf,
 .el-table--border,
 .el-table--group {
-  border-color: #f2f4fac0;
+  //border-color: #f2f4fac0;
+  border-color: #e8e8e8ff;
 }
 
 .el-table--border::after,
 .el-table--group::after,
 .el-table::before {
-  background-color: #fafafa;
+  //background-color: #fafafa;
+  border-color: #e8e8e8ff;
 }
 
 .el-table__fixed::before,
@@ -66,14 +68,18 @@
 
 .el-table thead tr th {
   // background-color: #fafafa;
-  background-color: #ededed;
-  color: #4f4f4f;
+  background-color: #f1f1f1;
+  color: #000000;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 15px;
   font-family: "Verdana", "Courier New";
   // border-bottom: #4f4f4f;
 }
 
 .el-table thead tr {
   border-bottom: #000 !important;
+}
+
+.el-table--mini .el-table__cell {
+  padding: 4px 0 !important;
 }

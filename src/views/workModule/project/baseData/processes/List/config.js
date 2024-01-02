@@ -7,6 +7,8 @@
 
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getAllProjectProcess } from "@/api/workApi/project/baseData";
+import {enumFilter, enumToList} from "~/utils/system/enumsPlugin";
+import { processTypeEnum } from "@/enum/workModule";
 
 export class api extends TableAPI {
   getData = getAllProjectProcess;
@@ -21,6 +23,8 @@ export class Table extends BaseTable {
       api,
       operationWidth: 110,
       sortCol: false,
+      searchBar: false,
+      pagination: false,
     });
   }
 }
@@ -63,14 +67,17 @@ export const tableConfig = [
   {
     prop: "ProcessType",
     label: i18n.t("production.Pr_ProcessType"),
-    custom: true,
+    customFilter: (value) => enumFilter(value, processTypeEnum),
   },
 ];
 
 export const formSchema = [
   {
-    prop: "Process",
-    cpn: "FormInput",
-    label: i18n.t("Generality.Ge_BillId"),
-  },
+    prop: "ProcessType",
+    cpn: "FormSelect",
+    label: i18n.t("production.Pr_ProcessType"),
+    options: {
+      list: enumToList(processTypeEnum),
+    },
+  }
 ];

@@ -67,13 +67,14 @@ export const tableConfig = [
         },
       ],
     },
+    width: "160px",
   },
   /*状态*/
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
     cpn: "BillStateTags",
-    width: "115px",
+    width: "120px",
   },
   /*客户简称*/
   {
@@ -90,6 +91,7 @@ export const tableConfig = [
         valueName: "ShortName",
       },
     },
+    width: "115px",
   },
   /*计划交期*/
   {
@@ -114,6 +116,7 @@ export const tableConfig = [
   {
     prop: "ProjectId",
     label: i18n.t("sale.Sa_ProjectId"),
+    width: '125px',
   },
   /*制单人*/
   {
@@ -132,7 +135,6 @@ export const tableConfig = [
   {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
-    width: "150px",
   },
 ];
 // 表单配置

@@ -104,7 +104,7 @@ const ja = {
     Pr_ProductionPlan: "生産計画",
     Pr_ProductionFitterReceive: "クランプストック",
     Pr_ProductionFitterReceiveRecord: "クランプ受入記録",
-
+    Pr_ProductionAssemblyPlan: "アセンブリ計画",
     Pr_Reports: "統計レポート",
     Pr_ProgramTask: "プログラミングタスク",
     Pr_Quality: "品質異常",
@@ -1118,6 +1118,8 @@ const ja = {
     Pr_EndScale: "終了スケール",
     Pr_ProcessType: "工程カテゴリ",
     Pr_Other: "その他",
+    Pr_Assy: "やっとこ",
+    Pr_TestTooling: "しけんがた",
     Pr_ProcessTemplate: "工程テンプレート",
     Pr_TaskProcess: "製造オーダー工程",
     Pr_ActualDevice: "実際の設備",
@@ -1242,6 +1244,10 @@ const ja = {
     Pr_Calculator: "計算者",
     Pr_ReleaseTime: "リリース時間",
     Pr_ReleaseBy: "パブリッシャ",
+    Pr_CompleteState: "セット状態",
+    Pr_TaskBillId: "製造オーダー番号",
+    Pr_Complete: "セット",
+    Pr_Incomplete: "未配置",
     Pr_APSReportContent: {
       str1: "スケジューリングに参加した金型は",
       str2: "セット、合計部品は",
