@@ -158,3 +158,11 @@ export function save_trial_tooling_dynamic(data) {
     loading:true
   });
 }
+// 钳工任务列表
+export function assy_task_list(data) {
+  return request({
+    url: "/assy_task/list",
+    method: "post",
+    data,
+  })
+}

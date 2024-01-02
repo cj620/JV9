@@ -8,8 +8,10 @@
  */
 window.global_config = {
   //Base_Url: "http://localhost:61823//api",
-  Base_Url: "http://www.jverp.com:8103/api",
-  ImgBase_Url: "http://www.jverp.com:8103/", // 上传图片的地址
+  // Base_Url: "http://www.jverp.com:8103/api",
+  Base_Url: "http://192.168.1.66:8015/api",
+  // ImgBase_Url: "http://www.jverp.com:8103/", // 上传图片的地址
+  ImgBase_Url: "http://192.168.1.66:8015/", // 上传图片的地址
   Share_Url: "http://www.jverp.com:8101",
   WebSocket_Url: "ws://www.jverp.com:8021",
   // 税率计算模式  true未国外模式  false为国内模式
