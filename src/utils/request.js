@@ -57,6 +57,7 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   (response) => {
+    console.log(response)
 
     const res = response.data;
     if (res.Code === 401) {
@@ -74,7 +75,7 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-
+    console.log(error)
     Message({
       message: tips(error.message),
       type: "error",
