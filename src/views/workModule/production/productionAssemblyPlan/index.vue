@@ -3,10 +3,23 @@
     <!-- 列表 -->
     <div class="page-wrapper-content">
       <div class="page-wrapper-header">
-        <el-button @click="filter" size="mini">
-          <i class="el-icon-search"></i>
-          过滤
-        </el-button>
+        <div class="page-wrapper-header-left">
+          {{ $t('menu.Pr_ProductionAssemblyPlan') }}
+        </div>
+        <div class="page-wrapper-header-right">
+          <el-input
+            v-model="keyword"
+            :placeholder="$t('Generality.Ge_PleaseEnterkey')"
+            prefix-icon="el-icon-search"
+            size="mini"
+            clearable
+            style="margin-right: 5px"
+          ></el-input>
+          <el-button @click="filter" size="mini">
+            <i class="el-icon-search"></i>
+            {{ $t('production.Pr_Filter') }}
+          </el-button>
+        </div>
       </div>
       <div class="page-wrapper-body">
         <el-table
@@ -16,6 +29,8 @@
           :cell-style="cellStyle"
           :header-cell-style="headerRowStyle"
           @expand-change="expandDetail"
+          :row-key='getRowKeys'
+          :expand-row-keys="expands"
           border
           stripe
           :height="tableHeight"
@@ -30,6 +45,7 @@
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-table
+                ref="detailTable"
                 :data="detailTableData"
                 border
               >
@@ -50,7 +66,7 @@
                         {{ LevelEnum[scope.row.Level].name }}
                       </div>
                       <div v-if="item.prop === 'State'">
-                        {{ ProcessState[scope.row.State].name }}
+                        {{ ProductionTaskState[scope.row.State].name }}
                       </div>
                     </div>
                     <div v-else class="table-item-box">{{scope.row[item.prop] || '--'}}</div>
@@ -100,14 +116,14 @@
 import { assy_task_list } from "@/api/workApi/project/projectTask"
 import { productionTaskList } from "@/api/workApi/production/productionTask"
 import { tableConfig, detailConfig } from "./config"
-import { stateEnum, LevelEnum, ProcessState } from "@/enum/workModule";
+import { stateEnum, LevelEnum, ProductionTaskState } from "@/enum/workModule";
 export default {
   name: "ProductionAssemblyPlan",
   data() {
     return {
       stateEnum,
       LevelEnum,
-      ProcessState,
+      ProductionTaskState,
       completenessEnum: {
         Complete: {
           name: "齐套",
@@ -126,8 +142,13 @@ export default {
       },
       detailTableData: [],
       pageSize: 20,
+      keyword: '',
       currentPage: 1,
       tableHeight: 0,
+      expands: [],
+      getRowKeys(row) {
+        return row.Id
+      }
     }
   },
   created() {
@@ -164,7 +185,7 @@ export default {
       })
     },
     filter() {
-
+      this.getTableData()
     },
     sizeChange(size) {
       this.pageSize = size;
@@ -175,15 +196,19 @@ export default {
       this.getTableData();
     },
     expandDetail(row, expandedRows) {
+      this.detailTableData = []
       if (expandedRows.length > 0) {
-        console.log(expandedRows,12321)
+        this.expands = []
+        this.expands.push(row.Id)
         productionTaskList({
           PmTaskBillId: row.BillId,
-          PageSize: 20,
+          PageSize: 200,
           CurrentPage: 1,
         }).then((res) => {
           this.detailTableData = res.Items
         })
+      } else {
+        this.expands = []
       }
     }
   }
@@ -207,7 +232,14 @@ export default {
   &-header {
     padding-bottom: 8px;
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
+    &-left {
+      font-size: 18px;
+      line-height: 29px;
+    }
+    &-right {
+      display: flex;
+    }
   }
   &-body {
     width: 100%;
