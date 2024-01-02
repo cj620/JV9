@@ -36,7 +36,6 @@
           :height="tableHeight"
         >
           <el-table-column
-            fixed
             type="index"
             :index = "1"
             align="center"
@@ -50,7 +49,6 @@
                 border
               >
                 <el-table-column
-                  fixed
                   type="index"
                   :index = "1"
                   align="center"
@@ -126,11 +124,11 @@ export default {
       ProductionTaskState,
       completenessEnum: {
         Complete: {
-          name: "齐套",
+          name: this.$t('production.Pr_Complete'),
           value: 0,
         },
         Incomplete: {
-          name: "未齐套",
+          name: this.$t('production.Pr_Incomplete'),
           value: 1,
         }
       },
@@ -159,6 +157,9 @@ export default {
     window.onresize = () => {
       this.getTableBoxHeight();
     }
+  },
+  activated() {
+    this.doLayout()
   },
   methods: {
     getTableBoxHeight() {
@@ -194,6 +195,12 @@ export default {
     currentChange(current) {
       this.currentPage = current;
       this.getTableData();
+    },
+    doLayout() {
+      console.log(this.$refs)
+      // this.$nextTick(() => {
+      //   this.$refs.doLayout();
+      // });
     },
     expandDetail(row, expandedRows) {
       this.detailTableData = []

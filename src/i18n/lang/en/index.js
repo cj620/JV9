@@ -1249,6 +1249,10 @@ const en = {
     Pr_Calculator: "Calculator",
     Pr_ReleaseTime: "Release Time",
     Pr_ReleaseBy: "Release Engineer",
+    Pr_CompleteState: "Complete State",
+    Pr_TaskBillId: "Task BillId",
+    Pr_Complete: "Complete",
+    Pr_Incomplete: "Incomplete",
     Pr_APSReportContent: {
       str1: "Participated in the scheduling of ",
       str2: " sets of molds, with a total of ",

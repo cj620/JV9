@@ -1236,6 +1236,8 @@ const cn = {
     Pr_ReleaseBy: "发布人员",
     Pr_CompleteState: "齐套状态",
     Pr_TaskBillId: "生产任务单号",
+    Pr_Complete: "齐套",
+    Pr_Incomplete: "未齐套",
     Pr_APSReportContent: {
       str1: "参与排程模具",
       str2: "套, 合计零件",

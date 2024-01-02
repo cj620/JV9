@@ -1244,6 +1244,10 @@ const ja = {
     Pr_Calculator: "計算者",
     Pr_ReleaseTime: "リリース時間",
     Pr_ReleaseBy: "パブリッシャ",
+    Pr_CompleteState: "セット状態",
+    Pr_TaskBillId: "製造オーダー番号",
+    Pr_Complete: "セット",
+    Pr_Incomplete: "未配置",
     Pr_APSReportContent: {
       str1: "スケジューリングに参加した金型は",
       str2: "セット、合計部品は",
