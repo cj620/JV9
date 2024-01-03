@@ -66,6 +66,9 @@
                       <div v-if="item.prop === 'State'">
                         {{ ProductionTaskState[scope.row.State].name }}
                       </div>
+                      <div v-if="item.prop === 'Progress'">
+                        {{scope.row[item.prop]}}%
+                      </div>
                     </div>
                     <div v-else class="table-item-box">{{scope.row[item.prop] || '--'}}</div>
                   </template>
@@ -83,7 +86,7 @@
                   {{ stateEnum[scope.row.State].name }}
                 </div>
                 <div v-if="item.prop === 'Progress'">
-                  {{scope.row[item.prop]}}
+                  {{scope.row[item.prop]}}%
                 </div>
                 <div v-if="item.prop === 'Completeness'">
                   {{ completenessEnum[scope.row.Completeness].name }}

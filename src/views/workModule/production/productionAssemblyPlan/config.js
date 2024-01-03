@@ -54,6 +54,11 @@ export const detailConfig = [
     label: i18n.t('Generality.Ge_PartName'),
   },
   {
+    prop: 'Progress',
+    label: i18n.t('Generality.Ge_Schedule'),
+    custom: true,
+  },
+  {
     prop: 'Level',
     label: i18n.t('Generality.Ge_Level'),
     custom: true,
