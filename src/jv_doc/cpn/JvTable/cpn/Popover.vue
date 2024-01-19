@@ -15,8 +15,8 @@
         $t("Generality.Ge_Search")
       }}</el-button>
     </div>
-<!--    <i slot="reference" class="el-icon-search filter-icon" />-->
-    <svg-icon slot="reference" icon-class="filter" style="cursor: pointer"/>
+    <i slot="reference" class="el-icon-search filter-icon" />
+<!--    <svg-icon slot="reference" icon-class="filter" style="cursor: pointer"/>-->
   </el-popover>
 </template>
 
