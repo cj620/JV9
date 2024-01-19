@@ -88,7 +88,12 @@
                 <div v-if="item.prop === 'Progress'">
                   {{scope.row[item.prop]}}%
                 </div>
-                <div v-if="item.prop === 'Completeness'">
+                <div
+                  v-if="item.prop === 'Completeness'"
+                  :class="{
+                    'text-green': scope.row.Completeness === 'Complete',
+                    'text-red': scope.row.Completeness === 'Incomplete'
+                  }">
                   {{ completenessEnum[scope.row.Completeness].name }}
                 </div>
               </div>
@@ -268,5 +273,12 @@ export default {
   ::v-deep .el-table__expanded-cell {
     padding: 10px;
   }
+}
+.text-green {
+  color: green;
+}
+
+.text-red {
+  color: red;
 }
 </style>
