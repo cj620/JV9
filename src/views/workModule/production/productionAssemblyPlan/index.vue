@@ -36,8 +36,7 @@
           :height="tableHeight"
         >
           <el-table-column
-            type="index"
-            :index = "1"
+            type="selection"
             align="center"
             width="50">
           </el-table-column>
@@ -49,8 +48,7 @@
                 border
               >
                 <el-table-column
-                  type="index"
-                  :index = "1"
+                    type="selection"
                   align="center"
                   width="50">
                 </el-table-column>
