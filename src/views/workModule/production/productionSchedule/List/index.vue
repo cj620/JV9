@@ -339,6 +339,7 @@ export default {
   },
   data() {
     return {
+      responseFlag: false,
       floatingWindow: floatingWindow, // 组件
       partNumberValue: "", // 零件编号查询输入框
       tableObj: {}, // 表格实例
@@ -592,6 +593,8 @@ export default {
     },
     // 获取排程结果
     setAlgorithmType(size = 10, page = 1) {
+      if(this.responseFlag) return
+      this.responseFlag = true;
       this.loading = true;
       simulation_scheduling_list({
         AlgorithmType: this.AlgorithmType,
@@ -604,6 +607,9 @@ export default {
         this.result = res;
         this.loading = false;
         this.ApsVersionNo = res.VersionNo;
+        this.responseFlag = false;
+      }).catch(err => {
+        this.responseFlag = false;
       });
     },
     // 自适应高度
