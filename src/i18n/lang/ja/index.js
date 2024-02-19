@@ -115,6 +115,7 @@ const ja = {
     Pr_PersonnelHoursSummary: "従業員労働時間要約",
     As_Assy: "やっとこ",
     As_AssyTask: "クランプタスク",
+    As_AssyTaskRecord: "クランプタスクレコード",
     As_AssyTaskList: "クランプタスクリスト",
     As_ProductionAssemblyPlan: "アセンブリ計画",
     As_ProductionFitterReceive: "クランプストック",

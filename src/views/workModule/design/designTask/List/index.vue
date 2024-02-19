@@ -21,7 +21,7 @@
         {{ pageDesc }}
         <Popover
           @confirm="getData"
-          @reset="form.DepartmentName = ''"
+          @reset="clear"
           style="margin: 0 10px"
         >
           <el-input
@@ -138,6 +138,10 @@ export default {
     },
     fullScreen() {
       fullScreen(this.$refs.designPage);
+    },
+    clear(){
+      this.form.DepartmentName = ''
+      this.getData()
     },
     cardClick(e) {
       console.log(5684848, e);

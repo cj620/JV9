@@ -13,6 +13,34 @@ const assy = [
     title: i18n.t("menu.As_Assy"),
     icon: "production",
   },
+  // 钳工任务
+  {
+    key: "As_AssyTask",
+    component: () => import("@/views/workModule/assy/assyTask"),
+    Parent: "As_Assy",
+    name: "AssyTask",
+    path: "assyTask",
+    title: i18n.t("menu.As_AssyTask"),
+  },
+  // 钳工任务记录
+  {
+    key: "As_AssyTaskRecord",
+    component: () => import("@/views/workModule/assy/assyTask/TaskRecord"),
+    Parent: "As_Assy",
+    name: "AssyTaskRecord",
+    path: "assyTaskRecord",
+    title: i18n.t("menu.As_AssyTaskRecord"),
+    hidden: true,
+  },
+  // 钳工任务列表
+  {
+    key: "As_AssyTaskList",
+    component: () => import("@/views/workModule/assy/assyTaskList"),
+    Parent: "As_Assy",
+    name: "AssyTaskList",
+    path: "assyTaskList",
+    title: i18n.t("menu.As_AssyTaskList"),
+  },
   // 装配计划
   {
     key: "As_ProductionAssemblyPlan",

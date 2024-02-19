@@ -18,7 +18,7 @@ export default {
     return {
       // pageDesc: i18n.t("menu.Pa_ProgramTask"),
       pageDesc: i18n.t("menu.Pa_ProgramProducingTask"),
-      // recordRouteName: "ProgramTask_Record",
+      recordRouteName: "Pa_ProgramProducingTaskReportRecord",
     };
   },
 };

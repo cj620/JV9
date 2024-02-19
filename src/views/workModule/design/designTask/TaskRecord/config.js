@@ -13,12 +13,12 @@ let tableInstance = deepClone(tableObjTemp);
 
 // 将任务类型和工序类别设为默认且隐藏
 tableInstance.formSchema.forEach((item, index) => {
-  if (item.prop == "TaskType") {
-    Object.assign(tableInstance.formSchema[index], {
-      hidden: true,
-      default: "NewTooling",
-    });
-  }
+  // if (item.prop == "TaskType") {
+  //   Object.assign(tableInstance.formSchema[index], {
+  //     hidden: true,
+  //     default: "NewTooling",
+  //   });
+  // }
   if (item.prop == "ProcessType") {
     Object.assign(tableInstance.formSchema[index], {
       hidden: true,

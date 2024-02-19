@@ -114,6 +114,7 @@ const en = {
     Pr_PersonnelHoursSummary: "Hours Summary",
     As_Assy: "Assy",
     As_AssyTask: "Assy Task",
+    As_AssyTaskRecord: "Assy Task Record",
     As_AssyTaskList: "Assy Task List",
     As_ProductionAssemblyPlan: "Production Assembly Plan",
     As_ProductionFitterReceive: "Production Fitter Receive",

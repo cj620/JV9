@@ -115,6 +115,7 @@ const cn = {
     Pr_PersonnelHoursSummary: "员工工时汇总",
     As_Assy: "钳工",
     As_AssyTask: "钳工任务",
+    As_AssyTaskRecord: "钳工任务记录",
     As_AssyTaskList: "钳工任务列表",
     As_ProductionAssemblyPlan: "装配计划",
     As_ProductionFitterReceive: "钳工收料",
