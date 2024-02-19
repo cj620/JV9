@@ -68,6 +68,11 @@ export default {
       inputType: "text",
       ConfigItems: {
         UserStation: { api: getAllProcess, value: "Process", isMultiple: true },
+        AssyUsers: {
+          api: getAllUserData,
+          value: "UserName",
+          isMultiple: true,
+        },
         ProgramUsers: {
           api: getAllUserData,
           value: "UserName",
@@ -101,6 +106,7 @@ export default {
       if (
         [
           "UserStation",
+          "AssyUsers",
           "ProgramUsers",
           "DesignUsers",
           "BomDefaultUnit",
@@ -123,6 +129,7 @@ export default {
       // 是否展示下拉选择框
       return [
         "UserStation",
+        "AssyUsers",
         "ProgramUsers",
         "DesignUsers",
         "BomDefaultUnit",

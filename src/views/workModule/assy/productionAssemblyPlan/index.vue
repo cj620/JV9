@@ -4,7 +4,7 @@
     <div class="page-wrapper-content">
       <div class="page-wrapper-header">
         <div class="page-wrapper-header-left">
-          {{ $t('menu.Pr_ProductionAssemblyPlan') }}
+          {{ $t('menu.As_ProductionAssemblyPlan') }}
         </div>
         <div class="page-wrapper-header-right">
           <el-input

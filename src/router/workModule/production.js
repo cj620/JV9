@@ -268,33 +268,6 @@ const production = [
     path: "quality",
     title: i18n.t("menu.Pr_Quality"),
   },*/
-  // 装配计划
-  {
-    key: "Pr_ProductionAssemblyPlan",
-    component: () => import("@/views/workModule/production/productionAssemblyPlan"),
-    Parent: "Pr_Production",
-    name: "ProductionAssemblyPlan",
-    path: "productionAssemblyPlan",
-    title: i18n.t("menu.Pr_ProductionAssemblyPlan"),
-  },
-  // 钳工收料
-  {
-    key: "Pr_ProductionFitterReceive",
-    component: () => import("@/views/workModule/production/productionFitterReceive"),
-    Parent: "Pr_Production",
-    name: "ProductionFitterReceive",
-    path: "productionFitterReceive",
-    title: i18n.t("menu.Pr_ProductionFitterReceive"),
-  },
-  // 钳工收料记录
-  {
-    key: "Pr_ProductionFitterReceiveRecord",
-    component: () => import("@/views/workModule/production/productionFitterReceive/productionFitterReceiveRecord.vue"),
-    Parent: "Pr_Production",
-    name: "ProductionFitterReceiveRecord",
-    path: "productionFitterReceiveRecord",
-    title: i18n.t("menu.Pr_ProductionFitterReceiveRecord"),
-  },
 
   // 统计报表
   {

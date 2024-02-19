@@ -34,7 +34,7 @@ import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 // 	}
 // ]
 // 钳工收料记录表格
-import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
+import { TableAPI, Table as BaseTable } from "~/class/table";
 import { RCVRecordList } from "@/api/workApi/production/baseData"
 class api extends TableAPI {
 	// 获取列表
@@ -46,9 +46,9 @@ export class Table extends BaseTable {
 			tableSchema: tableSchema,
 			formSchema: formSchema,
 			rowId: "Id",
-			title: i18n.t("menu.Pr_ProductionFitterReceiveRecord"),
+			title: i18n.t("menu.As_ProductionFitterReceiveRecord"),
 			api,
-			printMod: "Pr_ProductionFitterReceiveRecord",
+			printMod: "As_ProductionFitterReceiveRecord",
 			operationCol: false,
 			printBar: false,
 		})

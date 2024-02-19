@@ -12,6 +12,7 @@ import project from "./workModule/project";
 import design from "./workModule/design";
 import purchase from "./workModule/purchase";
 import production from "./workModule/production";
+import assy from "./workModule/assy";
 import stockroom from "./workModule/stockroom";
 import program from "./workModule/program";
 import quality from "./workModule/quality";
@@ -195,6 +196,7 @@ export const asyncRoutes = [
   ...design,
   ...purchase,
   ...production,
+  ...assy,
   ...stockroom,
   ...program,
   ...quality,
