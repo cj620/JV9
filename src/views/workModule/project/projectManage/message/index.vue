@@ -152,7 +152,7 @@ export default {
   methods: {
     add(){
            this.formObj.form={
-        Id: "",
+        Id: 0,
         Project: "",
         Remarks: "",
       }
@@ -167,7 +167,7 @@ export default {
       console.log(row,999999)
       const str = JSON.parse(JSON.stringify(row))
        this.formObj.form={
-        Id: str.Id,
+        Id: str.ProjectId,
         Project: str.Project,
         Remarks: str.Description,
       }
@@ -189,7 +189,7 @@ export default {
       });
     },
     saveChanges() {
-      // console.log(this.formObj.form, 5555555);
+      console.log(this.formObj.form, 5555555);
       this.tableObj.api.save(this.formObj.form).then((_) => {
         this.projectDialogVisible = false;
         this.tableObj.getData();
