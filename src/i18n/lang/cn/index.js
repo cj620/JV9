@@ -270,6 +270,7 @@ const cn = {
     Pro_VersionCode:"版本编号",
     Pro_InputTestMouldInfo:"填写试模信息",
     Pro_TestMouldMaterials:"试模用料",
+    Pro_ERPCode: "ERP任务单号",
   },
   //设置
   setup: {

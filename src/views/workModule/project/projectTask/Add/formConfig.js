@@ -64,4 +64,9 @@ export const formSchema = [
       },
     ],
   },
+  {
+    prop: "ERPCode",
+    label: i18n.t("project.Pro_ERPCode"),
+    cpn: "FormInput",
+  }
 ];

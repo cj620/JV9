@@ -189,6 +189,7 @@ export default {
         ToolingNo: "",
         PlanStart: "",
         PlanEnd: "",
+        ERPCode: "",
         State: "",
         Creator: "",
         CreationDate: "",
@@ -259,6 +260,7 @@ export default {
         this.formObj.form.PlanStart = res.PlanStart
         this.formObj.form.TaskType = res.TaskType
         this.formObj.form.ToolingNo = res.ToolingNo
+        this.formObj.form.ERPCode = res.ERPCode
         this.M_TableObj.setData(res.BillItems)
       })
     }

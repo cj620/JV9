@@ -27,25 +27,32 @@ export class Table extends BaseTable {
 }
 
 export const detailConfig = [
-  //单号搜索
+  //模具编号
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
   },
-  //客户搜索
+  //任务类别
   {
     prop: "TaskType",
     label: i18n.t("Generality.Ge_TaskType"),
     custom: true,
   },
+  //计划开始
   {
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     filter: "date",
   },
+  //计划结束
   {
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
     filter: "date",
   },
+  //ERP任务单号
+  {
+    prop: "ERPCode",
+    label: i18n.t("project.Pro_ERPCode"),
+  }
 ];

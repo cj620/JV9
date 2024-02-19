@@ -269,6 +269,7 @@ const ja = {
     Pro_VersionCode:"バージョン番号",
     Pro_InputTestMouldInfo:"モデル試験情報の記入",
     Pro_TestMouldMaterials:"金型材料のテスト",
+    Pro_ERPCode: "ERPタスク番号",
   },
   //设置
   setup: {
