@@ -61,7 +61,7 @@ export const tableConfig = [
   /*工时*/
   {
     prop: "Process",
-    label: '工序',
+    label: i18n.t("Generality.Ge_Process"),
     width: "90px",
   },
   /*开始时间*/

@@ -380,17 +380,17 @@ export default {
         {
           //数量（精）
           prop: "ElectrodeQuantitySeiko",
-          label: "数量(精)",
+          label: i18n.t("program.Pr_ElectrodeQuantitySeiko"),
         },
         {
           //数量（精）
           prop: "ElectrodeQuantityRoughWork",
-          label: "数量(粗)",
+          label: i18n.t("program.Pr_ElectrodeQuantityRoughWork"),
         },
         {
           //数量（精）
           prop: "ElectrodeQuantityMiddleFinish",
-          label: "数量(中)",
+          label: i18n.t("program.Pr_ElectrodeQuantityMiddleFinish"),
         },
         /*备注*/
         {
