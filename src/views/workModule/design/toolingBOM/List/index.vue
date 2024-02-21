@@ -1037,8 +1037,9 @@ export default {
     importComplete(e) {
       this.importShow = false;
       this.importDialogFormVisible = true;
+      console.log(e)
 
-     // let arr = this.handleExcelData(e);
+      // let arr = this.handleExcelData(e);
       console.log(arr, "arr");
       var arr = [];
       e.forEach((Titem) => {
