@@ -6,7 +6,7 @@
 -->
 <template>
   <el-transfer
-    style="text-align: left; display: inline-block"
+    style="text-align: left; display: inline-block;"
     v-model="selectedValue"
     filterable
     :titles="[$t('Generality.Ge_All'), $t('Generality.Ge_Selected')]"

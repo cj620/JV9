@@ -6,7 +6,7 @@
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
-import { enumFilter } from '~/utils/system/enumsPlugin'
+import { enumFilter, enumToList } from '~/utils/system/enumsPlugin'
 import { itemCategoryEnum } from "@/enum/baseModule";
 export class EditTable extends BaseTable {
   constructor() {
@@ -129,6 +129,17 @@ export const tableConfig = [
     sortable:true,
     width: 80,
   },
+  /*类别*/
+  {
+    prop: "ItemCategory",
+    label: i18n.t("Generality.Ge_ItemsCategory"),
+    formCpn: "FormSelect",
+    customFilter: (value) => enumFilter(value, itemCategoryEnum),
+    options: {
+      list: enumToList(itemCategoryEnum),
+    },
+    width: 80,
+  },
   /*级别*/
   {
     prop: "PartLevel",
@@ -140,18 +151,7 @@ export const tableConfig = [
     },
   },
 
-  /*类别*/
-  {
-    prop: "ItemCategory",
-    label: i18n.t("Generality.Ge_ItemsCategory"),
-    formCpn: "FormInput",
-    customFilter: (value) => enumFilter(value, itemCategoryEnum),
 
-    width: 80,
-    editConfig: {
-      disabled: true,
-    },
-  },
   /*制单人*/
   {
     prop: "Creator",

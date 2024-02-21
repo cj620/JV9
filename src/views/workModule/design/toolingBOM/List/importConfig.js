@@ -6,6 +6,9 @@
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
+import { enumFilter, enumToList } from '~/utils/system/enumsPlugin'
+import { itemCategoryEnum } from '@/enum/baseModule'
+import { ProcessingResult } from '@/enum/workModule'
 export class importEditTable extends BaseTable {
   constructor() {
     super({
@@ -13,10 +16,10 @@ export class importEditTable extends BaseTable {
       data: [],
       title: i18n.t("menu.De_ToolingBOM"),
       chooseCol: true,
-      operationWidth: 180,
+      operationWidth: 80,
       importBar: false,
       tableHeaderShow:false,
-      maxHeight: 99999,
+      height: 600,
       sortCol: false,
       // sortCol:false
     });
@@ -100,6 +103,18 @@ export const tableConfig = [
       },
       colInit: true,
     },
+  },
+  /*类别*/
+  {
+    prop: "ItemCategory",
+    label: i18n.t("Generality.Ge_ItemsCategory"),
+    formCpn: "FormSelect",
+    options: {
+      list: enumToList(itemCategoryEnum),
+    },
+    customFilter: (value) => enumFilter(value, itemCategoryEnum),
+
+    width: 80,
   },
   /*备注*/
   {
