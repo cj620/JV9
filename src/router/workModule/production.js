@@ -198,16 +198,16 @@ const production = [
     path: "ProcessLoad",
     title: i18n.t("menu.Pr_ProcessLoad"),
   },
-  // 生产调度
-  {
-    key: "Pr_ProductionScheduling",
-    component: () =>
-        import("@/views/workModule/production/NewProductionSchedule/ProductionScheduling"),
-    Parent: "Pr_NewProductionSchedule",
-    name: "ProductionScheduling",
-    path: "ProductionScheduling",
-    title: i18n.t("menu.Pr_ProductionScheduling"),
-  },
+  // // 生产调度
+  // {
+  //   key: "Pr_ProductionScheduling",
+  //   component: () =>
+  //       import("@/views/workModule/production/NewProductionSchedule/ProductionScheduling"),
+  //   Parent: "Pr_NewProductionSchedule",
+  //   name: "ProductionScheduling",
+  //   path: "ProductionScheduling",
+  //   title: i18n.t("menu.Pr_ProductionScheduling"),
+  // },
   // 模拟排程
   {
     key: "Pr_SimulatedScheduling",

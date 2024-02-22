@@ -1224,6 +1224,7 @@ const ja = {
     Pr_PleaseEnterTheBillId: "请输入加工单号",
     Pr_PleaseSelectTheWorker: "作業員を選択してください",
     Pr_AddToSchedulingWorkOrder: "パラメータ製造オーダに追加",
+    Pr_AddToPendingWorkOrder: "派遣予定製造オーダに追加",
     Pr_AddToSchedulingWorkOrderAll: "すべてパラメータ製造オーダに追加",
     Pr_WhetherAddToSchedulingWorkOrderAll: "パラメータ製造オーダにすべて追加するかどうか?",
     Pr_WhetherLockToTheDevice: "デバイスにロックしてもよろしいですか",

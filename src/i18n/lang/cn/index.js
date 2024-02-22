@@ -1214,6 +1214,7 @@ const cn = {
     Pr_PleaseEnterTheBillId: "请输入加工单号",
     Pr_PleaseSelectTheWorker: "请选择作业员",
     Pr_AddToSchedulingWorkOrder: "添加至参排工单",
+    Pr_AddToPendingWorkOrder: "添加至待排工单",
     Pr_AddToSchedulingWorkOrderAll: "全部添加至参排工单",
     Pr_WhetherAddToSchedulingWorkOrderAll: "是否全部添加到参排工单?",
     Pr_WhetherLockToTheDevice: "是否确定锁定到设备",

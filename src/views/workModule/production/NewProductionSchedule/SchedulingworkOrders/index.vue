@@ -11,7 +11,7 @@
           size="mini"
           :actions="[
             {
-              label: $t('production.Pr_AddToSchedulingWorkOrder'),
+              label: $t('production.Pr_AddToPendingWorkOrder'),
               confirm: GinsengPlatoon,
               disabled: !tableObj.selectData.keys.length
             },

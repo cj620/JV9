@@ -475,7 +475,7 @@ export default {
     position: relative;
 
     .productionTask-details-process-name {
-      width: 120px;
+      width: 160px;
       padding: 5px 3px;
       text-align: center;
       border: 1px solid #eee;

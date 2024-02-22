@@ -1229,6 +1229,7 @@ const en = {
     Pr_PleaseEnterTheBillId: "Please Enter The BillId",
     Pr_PleaseSelectTheWorker: "Please Select The Worker",
     Pr_AddToSchedulingWorkOrder: "Add To Scheduling Work Order",
+    Pr_AddToPendingWorkOrder: "Add To Pending Work Order",
     Pr_AddToSchedulingWorkOrderAll: "Add To Scheduling Work Order All",
     Pr_WhetherAddToSchedulingWorkOrderAll: "Whether To Add To Scheduling Work Order All",
     Pr_WhetherLockToTheDevice: "Whether To Lock To The Device",
