@@ -104,18 +104,6 @@ export const tableConfig = [
       colInit: true,
     },
   },
-  /*类别*/
-  {
-    prop: "ItemCategory",
-    label: i18n.t("Generality.Ge_ItemsCategory"),
-    formCpn: "FormSelect",
-    options: {
-      list: enumToList(itemCategoryEnum),
-    },
-    customFilter: (value) => enumFilter(value, itemCategoryEnum),
-
-    width: 80,
-  },
   /*备注*/
   {
     prop: "Remarks",

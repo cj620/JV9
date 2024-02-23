@@ -1036,8 +1036,10 @@ export default {
     importComplete(e) {
       this.importShow = false;
       this.importDialogFormVisible = true;
-       let arr = this.handleExcelData(e);
-      /*     var arr = [];
+
+     // let arr = this.handleExcelData(e);
+      console.log(arr, "arr");
+      var arr = [];
       e.forEach((Titem) => {
         var str = {};
         this.exportTemplate.forEach((item) => {
@@ -1046,26 +1048,30 @@ export default {
           }
         });
         arr.push(str);
-      });*/
+      });
       this.importTableObj.setData(temMerge(this.saveData, arr));
     },
     handleExcelData(res = []) {
-           let endIndex = res.findIndex((item) => {
-             return !item["__EMPTY"] && !item["__EMPTY_1"];
-           });
-           let data = res.slice(5, endIndex - 1);
-             let result = data.map((item) => {
-               return {
-                PartNo: item["__EMPTY_1"] || "",
-                PartName: item["__EMPTY_2"] || "",
-                Description: item["__EMPTY_3"] || "",
-                Description2: item["__EMPTY_4"]+'/'+item["__EMPTY_5"] || "",
-                Quantity: item["__EMPTY_6"] || "",
-                Remarks: item["__EMPTY_7"] || "",
-                ItemCategory: item["Job No.  :"]==='STD'?'Standard':'Part' || "Part",
-              };
-            });
-            return result;
+      let endIndex = res.findIndex((item) => {
+        return !item["__EMPTY"] && !item["__EMPTY_1"];
+      });
+      let data = res.slice(4, endIndex - 1);
+      let result = data.map((item) => {
+        return {
+          PartNo: item["__EMPTY_1"] || "",
+          PartName: item["__EMPTY"] || "",
+          Description2: item["__EMPTY_2"] || "",
+          Quantity: item["__EMPTY_3"] || "",
+          Description: this.handleDescription([
+            item["__EMPTY_4"],
+            item["__EMPTY_5"],
+            item["__EMPTY_6"],
+          ]),
+          SupplierName: item["__EMPTY_7"] || "",
+          Remarks: item["__EMPTY_8"] || "",
+        };
+      });
+      return result;
     },
     handleDescription(descArr = []) {
       let arr = descArr.filter((item) => !!item);
