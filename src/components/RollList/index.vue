@@ -61,15 +61,21 @@ export default {
 
       this.timer = setInterval(this.MarqueeTest, this.speed);
     },
+    reduceHeight() {
+      let total = 0;
+      this.roll.childNodes.forEach(item => {
+        total += item.clientHeight;
+      })
+      return total < this.roll.clientHeight
+    },
     MarqueeTest() {
       let test1 = this.roll;
-
       //判断组件是否渲染完成
       if (test1.offsetHeight === 0) {
         test1 = this.roll;
       } else {
         //如果列表数量过少不进行滚动
-        if (test1.childNodes.length < this.num) {
+        if (test1.childNodes.length < this.num || this.reduceHeight()) {
           clearTimeout(this.timer);
           return;
         }
