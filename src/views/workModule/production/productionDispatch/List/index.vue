@@ -343,6 +343,8 @@ export default {
       // this.M_tableObj.getData();
       this.toggleMachineObj.validate((valid) => {
         if (valid) {
+          this.toggleMachineObj.form.PlanStart = timeFormat(this.toggleMachineObj.form.PlanStart,'yyyy-MM-dd hh:mm:ss')
+          this.toggleMachineObj.form.PlanEnd = timeFormat(this.toggleMachineObj.form.PlanEnd,'yyyy-MM-dd hh:mm:ss')
           production_dispatching_change_device(this.toggleMachineObj.form).then(
             (res) => {
               this.M_tableObj.pager.sizeChange(5);
