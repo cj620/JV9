@@ -48,7 +48,7 @@
         <el-carousel-item v-for="(term, t) in resultList" :key="t">
           <div class="Equipment-signage-content">
             <div
-              v-for="(item,i) in term"
+              v-for="(item, i) in term"
               :key="i"
               class="Equipment-signage-content-item"
               :style="{ width: `calc(${100 / col}% - 10px)` }"
@@ -59,7 +59,9 @@
                     <div class="Equipment-signage-content-item-header">
                       <div
                         class="Equipment-signage-content-item-header-state"
-                        :style="{ background: SignalLamp[item.DeviceState].color }"
+                        :style="{
+                          background: SignalLamp[item.DeviceState].color,
+                        }"
                       ></div>
                       <div class="Equipment-signage-content-item-header-title">
                         {{ item.DeviceNo }}
@@ -102,6 +104,8 @@
         </el-carousel-item>
       </el-carousel>
     </div>
+    <ArrowLeft></ArrowLeft>
+    <ArrowRight></ArrowRight>
   </dv-full-screen-container>
 </template>
 
@@ -110,10 +114,11 @@ import FormattedTime from "@/views/basicModule/KanBan/IntegratedSignage/Equipmen
 import CImage from "@/components/CImage/index.vue";
 import { equipment_status_dashboard } from "@/api/workApi/production/baseData";
 import SignalLamp from "@/enum/workModule/production/SignalLamp";
-
+import ArrowLeft from "../cpns/ArrowLeft";
+import ArrowRight from "../cpns/ArrowRight";
 export default {
   name: "index",
-  components: { FormattedTime, CImage },
+  components: { FormattedTime, CImage, ArrowLeft, ArrowRight },
   data() {
     return {
       col: 6,
@@ -122,12 +127,12 @@ export default {
       resultList: [],
       resize: true,
       commadList: [3, 4, 5, 6, 7],
-      SignalLamp
+      SignalLamp,
     };
   },
   created() {
-    const col = localStorage.getItem('jv_EquipmentOperation');
-    if(col) {
+    const col = localStorage.getItem("jv_EquipmentOperation");
+    if (col) {
       this.col = Number(col);
     }
     this.getDeviceList();
@@ -146,7 +151,7 @@ export default {
   },
   methods: {
     handleCommand(command) {
-      localStorage.setItem('jv_EquipmentOperation', command)
+      localStorage.setItem("jv_EquipmentOperation", command);
       this.col = command;
     },
     getDeviceList() {

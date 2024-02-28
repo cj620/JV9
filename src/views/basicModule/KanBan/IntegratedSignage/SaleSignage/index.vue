@@ -4,13 +4,13 @@
       <!--页面头部-->
       <div class="Sale-signage-header">
         <div class="Sale-signage-header-left">
-          <img src="../logo.png" alt="">
+          <img src="../logo.png" alt="" />
         </div>
         <div class="Sale-signage-header-center">
           {{ $t("DataV.Da_SaleSignage") }}
         </div>
         <div class="Sale-signage-header-right">
-          <formatted-time/>
+          <formatted-time />
         </div>
       </div>
       <!--页面主体-->
@@ -19,7 +19,12 @@
         <div class="Sale-signage-content-top">
           <!-- 本年销售数据 -->
           <div class="Sale-signage-content-top-left">
-            <dv-border-box-7 :color="['#4c5f98', '#5166b0']" style="width: 33%" v-for="(item) in AnnualData" :key="item.title">
+            <dv-border-box-7
+              :color="['#4c5f98', '#5166b0']"
+              style="width: 33%"
+              v-for="item in AnnualData"
+              :key="item.title"
+            >
               <div class="border-box-7-content">
                 <div class="border-box-7-content-top">{{ item.title }}</div>
                 <div class="border-box-7-content-bottom">{{ item.data }}</div>
@@ -28,7 +33,12 @@
           </div>
           <!-- 本月销售数据 -->
           <div class="Sale-signage-content-top-right">
-            <dv-border-box-7 :color="['#4c5f98', '#5166b0']" style="width: 33.3%" v-for="(item) in MonthlyData" :key="item.title">
+            <dv-border-box-7
+              :color="['#4c5f98', '#5166b0']"
+              style="width: 33.3%"
+              v-for="item in MonthlyData"
+              :key="item.title"
+            >
               <div class="border-box-7-content">
                 <div class="border-box-7-content-top">{{ item.title }}</div>
                 <div class="border-box-7-content-bottom">{{ item.data }}</div>
@@ -45,13 +55,17 @@
             </div>
             <!-- 订单分类统计 -->
             <div class="Order-classification-statistics">
-              <sortStatistics :result="OrderClassificationData"></sortStatistics>
+              <sortStatistics
+                :result="OrderClassificationData"
+              ></sortStatistics>
             </div>
           </div>
           <div class="Sale-signage-content-main-bottom">
             <!-- 本年每月出货统计 -->
             <div class="Monthly-shipment-statistics">
-              <monthlyShipments :result="MonthlyShipmentsData"></monthlyShipments>
+              <monthlyShipments
+                :result="MonthlyShipmentsData"
+              ></monthlyShipments>
             </div>
             <!-- 本年出货Top8统计 -->
             <div class="Top8-statistics-for-shipments">
@@ -66,6 +80,8 @@
       </div>
     </div>
     <d-loading v-show="loading" />
+    <ArrowLeft></ArrowLeft>
+    <ArrowRight></ArrowRight>
   </dv-full-screen-container>
 </template>
 
@@ -73,12 +89,14 @@
 import dLoading from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/components/d-loading.vue";
 import FormattedTime from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/components/formattedTime.vue";
 import monthlyOrders from "./components/monthlyOrders.vue";
-import sortStatistics from "./components/sortStatistics.vue"
+import sortStatistics from "./components/sortStatistics.vue";
 import monthlyShipments from "./components/monthlyShipments.vue";
 import top8Shipments from "./components/top8Shipments.vue";
 import nonShipment from "./components/nonShipment.vue";
-import screenFull from 'screenfull';
+import screenFull from "screenfull";
 import { sales_dashboard } from "@/api/basicApi/dataV/kanban";
+import ArrowLeft from "../cpns/ArrowLeft";
+import ArrowRight from "../cpns/ArrowRight";
 export default {
   name: "SaleSignage",
   components: {
@@ -88,52 +106,72 @@ export default {
     sortStatistics,
     monthlyShipments,
     top8Shipments,
-    nonShipment
+    nonShipment,
+    ArrowLeft,
+    ArrowRight,
   },
-  data(){
-    return{
+  data() {
+    return {
       loading: false,
-      AnnualData:[],
-      MonthlyData:[],
-      MonthlyOrdersData:{},
-      OrderClassificationData:[],
+      AnnualData: [],
+      MonthlyData: [],
+      MonthlyOrdersData: {},
+      OrderClassificationData: [],
       MonthlyShipmentsData: {},
       Top8ShipmentsList: [],
       NonShipmentList: [],
-    }
+    };
   },
   created() {
     screenFull.toggle(); // 全屏
-    this.getData()
+    this.getData();
   },
   methods: {
-    getData(){
-      sales_dashboard().then((res)=>{
+    getData() {
+      sales_dashboard().then((res) => {
         console.log(res);
         this.AnnualData = [
-          { title: this.$t('DataV.Da_TotalSalesAmountThisYear'), data: res.TopInfo[0]},
-          { title: this.$t('DataV.Da_TotalAmountNotShippedThisYear'), data: res.TopInfo[1]},
-          { title: this.$t('DataV.Da_ShippedAmountThisYear'), data: res.TopInfo[2]},
+          {
+            title: this.$t("DataV.Da_TotalSalesAmountThisYear"),
+            data: res.TopInfo[0],
+          },
+          {
+            title: this.$t("DataV.Da_TotalAmountNotShippedThisYear"),
+            data: res.TopInfo[1],
+          },
+          {
+            title: this.$t("DataV.Da_ShippedAmountThisYear"),
+            data: res.TopInfo[2],
+          },
         ];
         this.MonthlyData = [
-          { title: this.$t('DataV.Da_TotalSalesAmountThisMonth'), data: res.TopInfo[3] },
-          { title: this.$t('DataV.Da_TotalAmountNotShippedThisMonth'), data: res.TopInfo[4]},
-          { title: this.$t('DataV.Da_ShippedAmountThisMonth'), data: res.TopInfo[5]},
+          {
+            title: this.$t("DataV.Da_TotalSalesAmountThisMonth"),
+            data: res.TopInfo[3],
+          },
+          {
+            title: this.$t("DataV.Da_TotalAmountNotShippedThisMonth"),
+            data: res.TopInfo[4],
+          },
+          {
+            title: this.$t("DataV.Da_ShippedAmountThisMonth"),
+            data: res.TopInfo[5],
+          },
         ];
         this.MonthlyOrdersData = res.MonthlyOrdersData;
         this.OrderClassificationData = res.OrderClassificationData;
         this.MonthlyShipmentsData = res.MonthlyShipmentsData;
-        this.Top8ShipmentsList = res.Top8ShipmentsList.map(obj => {
+        this.Top8ShipmentsList = res.Top8ShipmentsList.map((obj) => {
           return {
             name: obj.Name,
-            value: obj.Value
+            value: obj.Value,
           };
         });
-        this.NonShipmentList = res.NonShipmentList
-      })
-    }
-  }
-}
+        this.NonShipmentList = res.NonShipmentList;
+      });
+    },
+  },
+};
 </script>
 <style scoped lang="scss">
 .Sale-signage {
@@ -174,7 +212,7 @@ export default {
       z-index: 1;
       width: 200px;
       position: relative;
-      img{
+      img {
         width: 100%;
         position: absolute;
         bottom: -6px;
@@ -221,13 +259,13 @@ export default {
         width: 1880px;
         margin-bottom: 10px;
         display: flex;
-        .Monthly-order-statistics{
+        .Monthly-order-statistics {
           width: 1253.3px;
           height: 100%;
           margin-right: 10px;
           background-color: #242d48;
         }
-        .Order-classification-statistics{
+        .Order-classification-statistics {
           width: 616.7px;
           height: 100%;
           margin-left: 10px;
@@ -278,7 +316,7 @@ export default {
   &-bottom {
     width: 100%;
     height: 50%;
-    color: #00E7FF;
+    color: #00e7ff;
     text-align: center;
     font-size: 30px;
   }

@@ -3,7 +3,7 @@
     <div class="Equipment-signage">
       <div class="Equipment-signage-header">
         <div class="Equipment-signage-header-left">
-          <img src="../logo.png" alt="">
+          <img src="../logo.png" alt="" />
         </div>
         <div class="Equipment-signage-header-center">
           {{ $t("DataV.Da_EquipmentSignage") }}
@@ -42,6 +42,8 @@
       </div>
       <d-loading v-show="loading" />
     </div>
+    <ArrowLeft></ArrowLeft>
+    <ArrowRight></ArrowRight>
   </dv-full-screen-container>
 </template>
 
@@ -57,10 +59,19 @@ import EquipmentDynamicCurve from "./view/EquipmentDynamicCurve.vue";
 import HUT from "./view/HUT.vue";
 import { equipment_comprehensive_dashboard } from "@/api/basicApi/dataV/kanban";
 import EquipmentSignageContent from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/view/EquipmentSignageContent.vue";
-import screenFull from 'screenfull';
+import screenFull from "screenfull";
+import ArrowLeft from "../cpns/ArrowLeft";
+import ArrowRight from "../cpns/ArrowRight";
 export default {
   name: "EquipmentSignage",
-  components: { EquipmentSignageContent, FormattedTime, itemBox, dLoading },
+  components: {
+    EquipmentSignageContent,
+    FormattedTime,
+    itemBox,
+    dLoading,
+    ArrowLeft,
+    ArrowRight,
+  },
   data() {
     return {
       loading: false,
@@ -95,14 +106,20 @@ export default {
         },
         { title: i18n.t("DataV.Da_HUT"), component: HUT, result: {} },
       ],
-      contentResult: {EquipmentProcessingInfo: {},EquipmentOperationTimeline: []},
+      contentResult: {
+        EquipmentProcessingInfo: {},
+        EquipmentOperationTimeline: [],
+      },
     };
   },
   created() {
     screenFull.toggle(); // 全屏
     this.loading = true;
     this.getResult();
-    this.timer = setInterval(this.getResult, window.global_config.DashboardRefreshTime);
+    this.timer = setInterval(
+      this.getResult,
+      window.global_config.DashboardRefreshTime
+    );
   },
   mounted() {},
   methods: {
@@ -117,8 +134,10 @@ export default {
           right.forEach((item, i) => {
             this.rightList[i].result = res[item];
           });
-          this.contentResult.EquipmentProcessingInfo = res['EquipmentProcessingInfo'];
-          this.contentResult.EquipmentOperationTimeline = res['EquipmentOperationTimeline'];
+          this.contentResult.EquipmentProcessingInfo =
+            res["EquipmentProcessingInfo"];
+          this.contentResult.EquipmentOperationTimeline =
+            res["EquipmentOperationTimeline"];
 
           // 假数据
           // let list = []
@@ -134,7 +153,7 @@ export default {
         .catch((err) => {
           this.loading = false;
         });
-    }
+    },
   },
   beforeDestroy() {
     //清除定时器
@@ -187,7 +206,7 @@ export default {
       z-index: 1;
       width: 200px;
       position: relative;
-      img{
+      img {
         width: 100%;
         position: absolute;
         bottom: -6px;

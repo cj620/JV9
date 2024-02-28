@@ -4,20 +4,25 @@
       <!--页面头部-->
       <div class="Quality-signage-header">
         <div class="Quality-signage-header-left">
-          <img src="../logo.png" alt="">
+          <img src="../logo.png" alt="" />
         </div>
         <div class="Quality-signage-header-center">
-          {{ $t('DataV.Da_QualitySignage') }}
+          {{ $t("DataV.Da_QualitySignage") }}
         </div>
         <div class="Quality-signage-header-right">
-          <formatted-time/>
+          <formatted-time />
         </div>
       </div>
       <!-- 页面主体 -->
       <div class="Quality-signage-content">
         <!-- 数据 -->
         <div class="Quality-signage-content-top">
-          <dv-border-box-7 :color="['#4c5f98', '#5166b0']" style="width: 360px" v-for="(item) in qualityData" :key="item.title">
+          <dv-border-box-7
+            :color="['#4c5f98', '#5166b0']"
+            style="width: 360px"
+            v-for="item in qualityData"
+            :key="item.title"
+          >
             <div class="border-box-7-content">
               <div class="border-box-7-content-top">{{ item.title }}</div>
               <div class="border-box-7-content-bottom">{{ item.data }}</div>
@@ -27,29 +32,35 @@
         <!-- 图表 -->
         <div class="Quality-signage-content-body">
           <div class="Quality-signage-content-body-item">
-              <monthly-anomaly :result="monthlyAnomaly"></monthly-anomaly>
+            <monthly-anomaly :result="monthlyAnomaly"></monthly-anomaly>
           </div>
           <div class="Quality-signage-content-body-item">
-              <inspection-record :result="inspectionRecord"></inspection-record>
+            <inspection-record :result="inspectionRecord"></inspection-record>
           </div>
           <div class="Quality-signage-content-body-item">
-              <process-rework :result="processRework"></process-rework>
+            <process-rework :result="processRework"></process-rework>
           </div>
         </div>
         <div class="Quality-signage-content-body">
           <div class="Quality-signage-content-body-item">
-              <unqualified-analysis :result="unqualifiedAnalysis"></unqualified-analysis>
+            <unqualified-analysis
+              :result="unqualifiedAnalysis"
+            ></unqualified-analysis>
           </div>
           <div class="Quality-signage-content-body-item">
-              <order-to-be-inspected :result="orderToBeInspected"></order-to-be-inspected>
+            <order-to-be-inspected
+              :result="orderToBeInspected"
+            ></order-to-be-inspected>
           </div>
           <div class="Quality-signage-content-body-item">
-              <rework-details :result="reworkDetails"></rework-details>
+            <rework-details :result="reworkDetails"></rework-details>
           </div>
         </div>
       </div>
     </div>
     <d-loading v-show="loading" />
+    <ArrowLeft></ArrowLeft>
+    <ArrowRight></ArrowRight>
   </dv-full-screen-container>
 </template>
 <script>
@@ -58,79 +69,83 @@ import FormattedTime from "@/views/basicModule/KanBan/IntegratedSignage/Equipmen
 import MonthlyAnomaly from "./components/monthlyAnomaly.vue";
 import InspectionRecord from "./components/inspectionRecord.vue";
 import ProcessRework from "./components/processRework.vue";
-import UnqualifiedAnalysis
-	from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/unqualifiedAnalysis.vue";
-import OrderToBeInspected
-	from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/orderToBeInspected.vue";
+import UnqualifiedAnalysis from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/unqualifiedAnalysis.vue";
+import OrderToBeInspected from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/orderToBeInspected.vue";
 import ReworkDetails from "@/views/basicModule/KanBan/IntegratedSignage/QualitySignage/components/reworkDetails.vue";
 import { quality_department_dashboard } from "@/api/basicApi/dataV/kanban";
-import screenFull from 'screenfull';
-
+import screenFull from "screenfull";
+import ArrowLeft from "../cpns/ArrowLeft";
+import ArrowRight from "../cpns/ArrowRight";
 export default {
   name: "QualitySignage",
   components: {
-	  ReworkDetails,
-	  OrderToBeInspected,
-	  UnqualifiedAnalysis,
-	  ProcessRework,
-	  InspectionRecord,
-	  MonthlyAnomaly,
+    ReworkDetails,
+    OrderToBeInspected,
+    UnqualifiedAnalysis,
+    ProcessRework,
+    InspectionRecord,
+    MonthlyAnomaly,
     FormattedTime,
     dLoading,
+    ArrowLeft,
+    ArrowRight,
   },
-  data(){
-    return{
+  data() {
+    return {
       loading: false,
-      qualityData:[],
-      monthlyAnomaly:{},
-		  inspectionRecord:{},
-		  processRework:[],
-		  unqualifiedAnalysis:[],
-		  orderToBeInspected:[],
-		  reworkDetails:[],
-    }
+      qualityData: [],
+      monthlyAnomaly: {},
+      inspectionRecord: {},
+      processRework: [],
+      unqualifiedAnalysis: [],
+      orderToBeInspected: [],
+      reworkDetails: [],
+    };
   },
   created() {
     screenFull.toggle(); // 全屏
-	  this.loading = true;
-	  this.getData()
+    this.loading = true;
+    this.getData();
   },
-	methods: {
-		getData(){
-		  quality_department_dashboard().then((res) => {
-        console.log(res);
-        this.qualityData = [
-          { title: this.$t('DataV.Da_InspectionTotalQty'), data: res.TopInfo[0]},
-          { title: this.$t('DataV.Da_InspectedQty'), data: res.TopInfo[1]},
-          { title: this.$t('DataV.Da_NGQtyThisMonth'), data: res.TopInfo[2]},
-          { title: this.$t('DataV.Da_DefectRate'), data: res.TopInfo[3] },
-          { title: this.$t('DataV.Da_ReworkRate'), data: res.TopInfo[4]},
-        ]
-		    this.monthlyAnomaly = res.MonthlyAnomaly
-        this.inspectionRecord = res.InspectionRecord
-        this.processRework = res.ProcessRework.map(obj => {
-          return {
-            name: obj.Name,
-            value: obj.Value
-          };
-        });
-        this.unqualifiedAnalysis = res.UnqualifiedAnalysis.map(obj => {
-          return {
-            name: obj.Name,
-            value: obj.Value
-          };
-        });
-        this.orderToBeInspected = res.OrderToBeInspected
-        this.reworkDetails = res.ReworkData
-        this.loading = false;
-        }
-		  ).catch((err) => {
+  methods: {
+    getData() {
+      quality_department_dashboard()
+        .then((res) => {
+          console.log(res);
+          this.qualityData = [
+            {
+              title: this.$t("DataV.Da_InspectionTotalQty"),
+              data: res.TopInfo[0],
+            },
+            { title: this.$t("DataV.Da_InspectedQty"), data: res.TopInfo[1] },
+            { title: this.$t("DataV.Da_NGQtyThisMonth"), data: res.TopInfo[2] },
+            { title: this.$t("DataV.Da_DefectRate"), data: res.TopInfo[3] },
+            { title: this.$t("DataV.Da_ReworkRate"), data: res.TopInfo[4] },
+          ];
+          this.monthlyAnomaly = res.MonthlyAnomaly;
+          this.inspectionRecord = res.InspectionRecord;
+          this.processRework = res.ProcessRework.map((obj) => {
+            return {
+              name: obj.Name,
+              value: obj.Value,
+            };
+          });
+          this.unqualifiedAnalysis = res.UnqualifiedAnalysis.map((obj) => {
+            return {
+              name: obj.Name,
+              value: obj.Value,
+            };
+          });
+          this.orderToBeInspected = res.OrderToBeInspected;
+          this.reworkDetails = res.ReworkData;
           this.loading = false;
-        }
-		  );
-		}
-	},
-}
+        })
+        .catch((err) => {
+          this.loading = false;
+        });
+    },
+  },
+};
 </script>
 <style scoped lang="scss">
 .Quality-signage {
@@ -174,7 +189,7 @@ export default {
       z-index: 1;
       width: 200px;
       position: relative;
-      img{
+      img {
         width: 100%;
         position: absolute;
         bottom: -6px;
@@ -232,7 +247,7 @@ export default {
   &-bottom {
     width: 100%;
     height: 50%;
-    color: #00E7FF;
+    color: #00e7ff;
     text-align: center;
     font-size: 30px;
   }

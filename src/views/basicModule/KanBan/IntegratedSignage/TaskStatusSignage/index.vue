@@ -3,33 +3,41 @@
     <div class="TaskStatus-signage">
       <div class="TaskStatus-signage-header">
         <div class="TaskStatus-signage-header-left">
-          <img src="../logo.png" alt="">
+          <img src="../logo.png" alt="" />
         </div>
         <div class="TaskStatus-signage-header-center">
           {{ $t("DataV.Da_DepartmentSignage") }}
         </div>
         <div class="TaskStatus-signage-header-right">
-          <formatted-time/>
+          <formatted-time />
         </div>
       </div>
       <div class="TaskStatus-signage-content">
-
         <div class="TaskStatus-signage-content-top">
           <div>
-            <item-box :title="$t('DataV.Da_LastWeekCapacity')" class="TaskStatus-signage-content-top-box">
+            <item-box
+              :title="$t('DataV.Da_LastWeekCapacity')"
+              class="TaskStatus-signage-content-top-box"
+            >
               <weekDataBox :boxData="result.LastWeekCapacity"></weekDataBox>
             </item-box>
           </div>
           <div>
-            <item-box :title="$t('DataV.Da_NextWeekCapacity')" class="TaskStatus-signage-content-top-box">
+            <item-box
+              :title="$t('DataV.Da_NextWeekCapacity')"
+              class="TaskStatus-signage-content-top-box"
+            >
               <weekDataBox :boxData="result.NextWeekCapacity"></weekDataBox>
             </item-box>
           </div>
         </div>
 
         <div class="TaskStatus-signage-content-bottom">
-          <div v-for="(item) in result.ResourcesStatus" class="TaskStatus-signage-content-bottom-box">
-            <item-box :title="item.Name" style="width: 100%;">
+          <div
+            v-for="item in result.ResourcesStatus"
+            class="TaskStatus-signage-content-bottom-box"
+          >
+            <item-box :title="item.Name" style="width: 100%">
               <resourceBox :boxData="item"></resourceBox>
             </item-box>
           </div>
@@ -37,6 +45,8 @@
       </div>
       <d-loading v-show="loading" />
     </div>
+    <ArrowLeft></ArrowLeft>
+    <ArrowRight></ArrowRight>
   </dv-full-screen-container>
 </template>
 <script>
@@ -46,10 +56,20 @@ import ItemBox from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSigna
 import resourceBox from "./components/resourceBox.vue";
 import { department_comprehensive_dashboard } from "@/api/basicApi/dataV/kanban";
 import weekDataBox from "./components/weekDataBox.vue";
-import screenFull from 'screenfull';
+import screenFull from "screenfull";
+import ArrowLeft from "../cpns/ArrowLeft";
+import ArrowRight from "../cpns/ArrowRight";
 export default {
   Name: "TaskStatusSignage",
-  components: { weekDataBox, ItemBox, FormattedTime, dLoading, resourceBox },
+  components: {
+    weekDataBox,
+    ItemBox,
+    FormattedTime,
+    dLoading,
+    resourceBox,
+    ArrowLeft,
+    ArrowRight,
+  },
 
   data() {
     return {
@@ -64,23 +84,23 @@ export default {
   created() {
     this.loading = true;
     screenFull.toggle(); // 全屏
-    this.getData()
+    this.getData();
   },
   methods: {
-    getData(){
-      department_comprehensive_dashboard().then(
-        (res) => {
-          this.result.ResourcesStatus = res['ResourcesStatus'];
-          this.result.LastWeekCapacity = res['LastWeekCapacity'];
-          this.result.NextWeekCapacity = res['NextWeekCapacity'];
+    getData() {
+      department_comprehensive_dashboard()
+        .then((res) => {
+          this.result.ResourcesStatus = res["ResourcesStatus"];
+          this.result.LastWeekCapacity = res["LastWeekCapacity"];
+          this.result.NextWeekCapacity = res["NextWeekCapacity"];
           this.loading = false;
         })
         .catch((err) => {
           this.loading = false;
         });
-    }
+    },
   },
-}
+};
 </script>
 <style scoped lang="scss">
 .TaskStatus-signage {
@@ -121,7 +141,7 @@ export default {
       z-index: 1;
       width: 200px;
       position: relative;
-      img{
+      img {
         width: 100%;
         position: absolute;
         bottom: -6px;
@@ -162,7 +182,6 @@ export default {
         width: 626.6px;
       }
     }
-
   }
 }
 </style>
