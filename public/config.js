@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-10 09:12:58
- * @LastEditTime: 2023-12-05 14:53:23
+ * @LastEditTime: 2024-02-28 08:53:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-element-admin-master\public\config.js
@@ -19,4 +19,9 @@ window.global_config = {
   showTestTab: true, // 开启测试菜单
   DataVStep: 100, // 看板翻滚速度
   // IsSaveTableSchema: false, //是否缓存表格布局
+  QRCodeFormat: {
+    device: "M!_",
+    user: "H!_",
+    proBillId: "O!_",
+  },
 };
