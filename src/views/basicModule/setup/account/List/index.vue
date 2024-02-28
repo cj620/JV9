@@ -19,7 +19,7 @@
               slot-scope="{ node, data }"
             >
               <span>{{ node.label }}</span>
-             
+
               <span>
                 <el-button
                   type="text"
@@ -46,7 +46,6 @@
                   </el-button>
                 </el-popconfirm>
               </span>
-             
             </span>
           </el-tree>
         </div>
@@ -98,12 +97,13 @@
             <el-button size="mini" @click="deleted">{{
               $t("setup.DeletedUsers")
             }}</el-button>
-                        <el-button size="mini" @click="downExport2Excel">
-              {{$t('design.De_DownloadTemplate')}}
+            <el-button size="mini" @click="downExport2Excel">
+              {{ $t("design.De_DownloadTemplate") }}
             </el-button>
-             <el-button size="mini" @click="Import">
-{{$t("Generality.Ge_Import")}}
+            <el-button size="mini" @click="Import">
+              {{ $t("Generality.Ge_Import") }}
             </el-button>
+            <el-button size="mini" @click="printUser">打印 </el-button>
           </Action>
         </JvTable>
       </div>
@@ -119,7 +119,7 @@
     >
       <JvForm :formObj="formObj"> </JvForm>
     </jv-dialog>
-         <!-- 导入数据 -->
+    <!-- 导入数据 -->
     <Import
       :visible.sync="importShow"
       width="28%"
@@ -144,7 +144,7 @@ import {
   getUserInfoList,
   editUserInfo,
   deleteUserAccount,
-  user_data_batch_import
+  user_data_batch_import,
 } from "@/api/basicApi/systemSettings/user";
 import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
 
@@ -157,7 +157,7 @@ export default {
       formObj: {},
       remarkShow: false,
       dialogFormVisible: false,
-        importShow: false,
+      importShow: false,
       chooseList: [],
       editAccountTitle: "编辑账号",
       showTree: false,
@@ -173,7 +173,7 @@ export default {
         keyword: "",
       },
       addDialogVisible: false,
-       exportTemplate: [
+      exportTemplate: [
         {
           prop: "UserId",
           label: this.$t("setup.UserId"),
@@ -182,13 +182,12 @@ export default {
           prop: "UserName",
           label: this.$t("setup.UserName"),
         },
-       
+
         /*性别*/
         {
           prop: "DepartmentName",
           label: this.$t("menu.Se_Department"),
         },
-       
       ],
       exportTemplateData: {
         checkData: [],
@@ -220,6 +219,15 @@ export default {
     });
   },
   methods: {
+    //打印人员
+    printUser() {
+      this.$router.push({
+        name: "printUser",
+        params: {
+          Data: this.tableObj.selectData.datas,
+        },
+      });
+    },
     deleted() {
       this.$router.push({
         name: "Se_Users_Deleted",
@@ -334,7 +342,7 @@ export default {
         },
       });
     },
-     //下载导入模板
+    //下载导入模板
     downExport2Excel() {
       var arr = [];
       this.tableObj.props.tableSchema.forEach((item) =>
@@ -345,30 +353,30 @@ export default {
         })
       );
       console.log(arr);
-      
+
       this.exportTemplateData.checkedFields = arr;
       export2Excel(this.exportTemplateData);
     },
-    Import(){
-       this.importShow = true;
+    Import() {
+      this.importShow = true;
     },
 
     //导入成功
-     importComplete(e) {
+    importComplete(e) {
       this.importShow = false;
-       var arr = [];
+      var arr = [];
       e.forEach((Titem) => {
         var str = {
-           UserId: "",
-        UserName: "",
-        DepartmentName: "",
-        Sex: "Male",
-        Activate: true,
-        Birthday: "",
-        Mail: "",
-        Tel: "",
-        Phone: "",
-        FamilyAddress: "",
+          UserId: "",
+          UserName: "",
+          DepartmentName: "",
+          Sex: "Male",
+          Activate: true,
+          Birthday: "",
+          Mail: "",
+          Tel: "",
+          Phone: "",
+          FamilyAddress: "",
         };
         this.exportTemplate.forEach((item) => {
           if (Titem[item.label]) {
@@ -379,10 +387,9 @@ export default {
       });
       console.log(arr);
 
-       user_data_batch_import(arr).then((res) => {
-         this.tableObj.getData();
-    
-       });
+      user_data_batch_import(arr).then((res) => {
+        this.tableObj.getData();
+      });
     },
     handleSelectionChange() {},
   },
