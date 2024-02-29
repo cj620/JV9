@@ -7,6 +7,7 @@
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { ProcessState } from "@/enum/workModule";
 import { getAllProcess } from "@/api/workApi/production/baseData";
+import {getAllProjectProcess} from "@/api/workApi/project/baseData";
 
 export class EditTable extends BaseTable {
   constructor() {
@@ -85,7 +86,7 @@ export const tableConfig = [
     prop: "ProgramingProcess",
     label: i18n.t("production.Pr_ProgramingProcess"),
     formCpn: "SyncSelect",
-    api: getAllProcess,
+    api: getAllProjectProcess,
     apiOptions: {
       immediate: true,
       keyName: "Process",
