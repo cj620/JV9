@@ -7,7 +7,7 @@
           <img src="../logo.png" alt="" />
         </div>
         <div class="department-signboard-header-center">
-          {{departmentName}} {{ $t("DataV.Da_Department") }}
+          {{ departmentName }} {{ $t("DataV.Da_Department") }}
         </div>
         <div class="department-signboard-header-right">
           <JvForm :form-obj="formObj"></JvForm>
@@ -26,7 +26,7 @@
               <div class="department-signboard-content-info-item-box">
                 <div style="margin-bottom: 10px">{{ item.label }}</div>
                 <div style="font-size: 20px; font-weight: bold">
-                  {{ infoRes[i] || $t('DataV.Da_NoData') }}
+                  {{ infoRes[i] || $t("DataV.Da_NoData") }}
                 </div>
               </div>
             </dv-border-box-7>
@@ -38,20 +38,20 @@
             <!-- 上面的柱状图 -->
             <div class="department-signboard-content-left-top">
               <LastSevenDays :result="LastSevenDaysRes" />
-<!--              <div class="None-data"  v-show="(JSON.stringify(LastSevenDaysRes) === '{}')">-->
-<!--                <div class="LastSevenDays-title">{{$t('DataV.Da_RecordOfWorkingHoursInThePastSevenDays')}}</div>-->
-<!--                暂无数据-->
-<!--              </div>-->
+              <!--              <div class="None-data"  v-show="(JSON.stringify(LastSevenDaysRes) === '{}')">-->
+              <!--                <div class="LastSevenDays-title">{{$t('DataV.Da_RecordOfWorkingHoursInThePastSevenDays')}}</div>-->
+              <!--                暂无数据-->
+              <!--              </div>-->
             </div>
             <!-- 下面的柱状图和表 -->
             <div class="department-signboard-content-left-bottom">
               <!-- 每日加工任务 -->
               <div class="daily-processing-task">
                 <DailyProcessingTask :result="DailyProcessingTaskList" />
-<!--                <div class="None-data"  v-show="(JSON.stringify(DailyProcessingTaskList) === '[]')">-->
-<!--                  <div class="daily-processing-task-title">{{$t('DataV.Da_DailyProcessingTasks')}}</div>-->
-<!--                  暂无数据-->
-<!--                </div>-->
+                <!--                <div class="None-data"  v-show="(JSON.stringify(DailyProcessingTaskList) === '[]')">-->
+                <!--                  <div class="daily-processing-task-title">{{$t('DataV.Da_DailyProcessingTasks')}}</div>-->
+                <!--                  暂无数据-->
+                <!--                </div>-->
               </div>
               <!-- 昨日报工工时排序 -->
               <div class="sort-of-hours-reported-yesterday">
@@ -68,6 +68,8 @@
         </div>
       </div>
     </div>
+    <ArrowLeft></ArrowLeft>
+    <ArrowRight></ArrowRight>
   </DvFullScreenContainer>
 </template>
 
@@ -83,7 +85,9 @@ import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
 import { processing_department_kanban } from "@/api/basicApi/dataV/kanban";
 import { Form } from "~/class/form";
 import JvForm from "~/cpn/JvForm/index.vue";
-import { formSchema } from './config'
+import { formSchema } from "./config";
+import ArrowLeft from "../cpns/ArrowLeft";
+import ArrowRight from "../cpns/ArrowRight";
 export default {
   name: "DepartmentSignboard",
   components: {
@@ -94,6 +98,8 @@ export default {
     FormattedTime,
     Devices,
     dLoading,
+    ArrowLeft,
+    ArrowRight,
   },
   data() {
     return {
@@ -177,7 +183,7 @@ export default {
     },
   },
   watch: {
-    'formObj.form.DepartmentName'(val) {
+    "formObj.form.DepartmentName"(val) {
       this.departmentName = val;
       this.search();
     },
@@ -240,18 +246,18 @@ export default {
       width: 380px;
       justify-content: space-between;
       padding-right: 20px;
-      ::v-deep#c-jv-form{
+      ::v-deep#c-jv-form {
         position: relative;
         bottom: -5px;
       }
-      ::v-deep.el-input__inner{
+      ::v-deep.el-input__inner {
         background: #1d2536;
         color: #fff;
       }
-      ::v-deep.el-form-item--mini.el-form-item{
+      ::v-deep.el-form-item--mini.el-form-item {
         margin-bottom: 0;
       }
-      ::v-deep.el-form-item{
+      ::v-deep.el-form-item {
         margin-bottom: 0;
       }
       &-select-department {
@@ -380,12 +386,12 @@ export default {
     border-bottom-color: #2f3c57;
   }
 }
-.department-signboard{
-  ::v-deep.c-jv-form .el-form-item .el-form-item__label{
-    display: none!important;
+.department-signboard {
+  ::v-deep.c-jv-form .el-form-item .el-form-item__label {
+    display: none !important;
   }
 }
-.None-data{
+.None-data {
   width: 100%;
   height: 100%;
   display: flex;
@@ -397,7 +403,7 @@ export default {
   position: absolute;
   z-index: 10;
   top: 0;
-  .daily-processing-task-title{
+  .daily-processing-task-title {
     width: 100%;
     text-align: center;
     position: absolute;
@@ -408,7 +414,7 @@ export default {
     height: 40px;
     line-height: 40px;
   }
-  .LastSevenDays-title{
+  .LastSevenDays-title {
     position: absolute;
     left: 3.3%;
     top: 3.3%;

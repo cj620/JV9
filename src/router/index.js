@@ -79,11 +79,11 @@ export const constantRoutes = [
     component: () => import("@/views/basicModule/KanBan/IntegratedSignage"),
     hidden: true,
   },
-    ...dataV,
-   // 项目分享
-   {
+  ...dataV,
+  // 项目分享
+  {
     component: () =>
-    import("@/views/workModule/project/projectManage/shareDemo"),
+      import("@/views/workModule/project/projectManage/shareDemo"),
     name: "ProjectManage_Share_Demo",
     path: "/projectManage_Share_Demo",
     hidden: true,
@@ -91,7 +91,7 @@ export const constantRoutes = [
   // 零件进度分享
   {
     component: () =>
-        import("@/views/workModule/project/projectManage/process_people/share"),
+      import("@/views/workModule/project/projectManage/process_people/share"),
     name: "ProjectManage_ProcessPeople_Share",
     path: "/ProjectManage_ProcessPeople_Share",
     hidden: true,
@@ -128,7 +128,7 @@ export const constantRoutes = [
       },
     ],
   },
-	...test,
+  ...test,
   {
     path: "/print",
     component: Layout,
@@ -151,6 +151,12 @@ export const constantRoutes = [
         component: () => import("@/views/basicModule/print/printTagView"),
         name: "printTagView",
         meta: { title: i18n.t("menu.Pr_LabelPrint") },
+      },
+      {
+        path: "printUser",
+        component: () => import("@/views/basicModule/print/printUser"),
+        name: "printUser",
+        meta: { title: "用户打印" },
       },
     ],
   },

@@ -16,6 +16,8 @@
         <main-right :RightDataList="DataList" v-if="IsShow"></main-right>
       </div>
     </div>
+    <ArrowLeft></ArrowLeft>
+    <ArrowRight></ArrowRight>
   </dv-full-screen-container>
 </template>
 
@@ -26,9 +28,11 @@ import mainRight from "./components/main-right.vue";
 import screenFull from "screenfull";
 
 import { timeFormat } from "~/utils/time/index";
-import {Data} from './data';
+import { Data } from "./data";
 import { comp_operations_dashboard } from "@/api/basicApi/dataV/kanban";
 import FormattedTime from "@/views/basicModule/KanBan/IntegratedSignage/EquipmentSignage/components/formattedTime.vue";
+import ArrowLeft from "../cpns/ArrowLeft";
+import ArrowRight from "../cpns/ArrowRight";
 export default {
   name: "index",
   components: {
@@ -36,27 +40,28 @@ export default {
     mainLeft,
     mainCentre,
     mainRight,
+    ArrowLeft,
+    ArrowRight,
   },
   data() {
     return {
       currentTime: timeFormat(new Date(), "yyyy-MM-dd hh:mm:ss"),
       DataList: {},
       IsShow: false,
-      Data: {}
+      Data: {},
     };
   },
   created() {
     // screenFull.toggle();
     this.getData();
-
   },
   methods: {
     getData() {
-      comp_operations_dashboard().then(res => {
+      comp_operations_dashboard().then((res) => {
         this.DataList = res;
         this.IsShow = true;
-        console.log(res)
-      })
+        console.log(res);
+      });
       // setTimeout(() => {
       //   this.IsShow = true;
       //   this.DataList = Data;
@@ -84,7 +89,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     margin: 0 30px;
-    img{
+    img {
       height: 60px;
     }
     .data-v-content-header-title {

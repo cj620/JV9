@@ -1,11 +1,11 @@
 <template>
-  <dv-full-screen-container style="width: 100vw;height: 100vh">
+  <dv-full-screen-container style="width: 100vw; height: 100vh">
     <div class="integrate-signage">
       <!-- 标题 -->
       <div class="integrate-signage-header">
         <div class="integrate-signage-header-left"></div>
         <div class="integrate-signage-header-center">
-          {{$t('DataV.Da_DataBoard')}}
+          {{ $t("DataV.Da_DataBoard") }}
         </div>
         <div class="integrate-signage-header-right"></div>
       </div>
@@ -14,7 +14,10 @@
           <div class="integrate-signage-content">
             <div
               class="dataV-item"
-              v-for="(item, i) in dataVList.slice(0,6)" :key="i" @click="goKanban(item.url)">
+              v-for="(item, i) in dataVList.slice(0, 6)"
+              :key="i"
+              @click="goKanban(item.url)"
+            >
               <dv-border-box-11 :title="item.title">
                 <el-image v-if="item.imgUrl" :src="item.imgUrl"></el-image>
               </dv-border-box-11>
@@ -25,7 +28,10 @@
           <div class="integrate-signage-content">
             <div
               class="dataV-item"
-              v-for="(item, i) in dataVList.slice(6)" :key="i" @click="goKanban(item.url)">
+              v-for="(item, i) in dataVList.slice(6)"
+              :key="i"
+              @click="goKanban(item.url)"
+            >
               <dv-border-box-11 :title="item.title">
                 <el-image v-if="item.imgUrl" :src="item.imgUrl"></el-image>
               </dv-border-box-11>
@@ -33,70 +39,100 @@
           </div>
         </el-carousel-item>
       </el-carousel>
-
     </div>
   </dv-full-screen-container>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   name: "Se_MoldProgressKanban",
   data() {
     return {
       dataVList: [
-        {title: i18n.t("DataV.Da_EquipmentSignage"), imgUrl: require('./EquipmentSignage.png'), url: '/EquipmentSignage'},
-        {title: i18n.t("DataV.Da_DepartmentSignage"), imgUrl: require('./TaskStatus.png'), url: '/TaskStatusSignage'},
-        {title: i18n.t("DataV.Da_NCDepartmentSignboard"), imgUrl: require('./NC.jpg'), url: '/DepartmentSignboard'},
-        {title: i18n.t("DataV.Da_SaleSignage"), imgUrl: require('./SaleSignage.png'), url: '/SaleSignage'},
-        {title: i18n.t("DataV.Da_MoldMachiningSignage"), imgUrl: require('./muju.jpg'),url: '/MoldMachining'},
-        {title: i18n.t("DataV.Da_QualitySignage"), imgUrl: require('./QualitySignage.png'), url: '/QualitySignage'},
-        {title: i18n.t("DataV.Da_EquipmentStateSignage"), imgUrl: require('./EquipmentOperation.jpg'), url: '/EquipmentOperation'},
-      ]
-    }
+        {
+          title: i18n.t("DataV.Da_EquipmentSignage"),
+          imgUrl: require("./EquipmentSignage.png"),
+          url: "/EquipmentSignage",
+        },
+        {
+          title: i18n.t("DataV.Da_DepartmentSignage"),
+          imgUrl: require("./TaskStatus.png"),
+          url: "/TaskStatusSignage",
+        },
+        {
+          title: i18n.t("DataV.Da_NCDepartmentSignboard"),
+          imgUrl: require("./NC.jpg"),
+          url: "/DepartmentSignboard",
+        },
+        {
+          title: i18n.t("DataV.Da_SaleSignage"),
+          imgUrl: require("./SaleSignage.png"),
+          url: "/SaleSignage",
+        },
+        {
+          title: i18n.t("DataV.Da_MoldMachiningSignage"),
+          imgUrl: require("./muju.jpg"),
+          url: "/MoldMachining",
+        },
+        {
+          title: i18n.t("DataV.Da_QualitySignage"),
+          imgUrl: require("./QualitySignage.png"),
+          url: "/QualitySignage",
+        },
+        {
+          title: i18n.t("DataV.Da_EquipmentStateSignage"),
+          imgUrl: require("./EquipmentOperation.jpg"),
+          url: "/EquipmentOperation",
+        },
+      ],
+    };
   },
   methods: {
+    ...mapMutations("dashboard", ["setCurrentPath"]),
     goKanban(url) {
-      console.log(url)
-      this.$router.push({path: url})
-    }
-  }
-}
+      console.log(url);
+      this.setCurrentPath(url);
+      this.$router.push({ path: url });
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
-.integrate-signage{
+.integrate-signage {
   width: 100%;
   height: 100%;
   background: #0c0936;
   overflow: hidden;
-  &-header{
+  &-header {
     width: 100%;
     height: 60px;
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
-    &-center{
+    &-center {
       color: #fff;
       font-size: 30px;
     }
   }
-  &-content{
+  &-content {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     height: calc(100% - 60px);
     box-sizing: border-box;
     padding-left: 3%;
-    .dataV-item{
+    .dataV-item {
       height: 46%;
       width: 30%;
       margin-top: 2%;
       margin-right: 3%;
       cursor: pointer;
-      .el-image{
+      .el-image {
         margin-top: 50px;
         margin-left: 10px;
-        width:  calc(100% - 24px);
+        width: calc(100% - 24px);
         height: calc(100% - 74px);
       }
     }

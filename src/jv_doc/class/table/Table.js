@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-09-13 13:05:28
- * @LastEditTime: 2023-07-21 08:57:16
+ * @LastEditTime: 2024-02-27 10:35:00
  * @Description: file content
  */
 /*
@@ -61,7 +61,7 @@ class Table {
    * @param {*} sign 事件签名 区分事件类型
    * @return {*}
    */
-  getData = (pageForm = {}, sign = "") => {
+  getData = (pageForm = {}, sign = "count-page") => {
     if (this.loading) return;
 
     let startTimeStamp = new Date().getTime();

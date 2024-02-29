@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-07-14 08:59:00
- * @LastEditTime: 2023-08-08 13:18:58
+ * @LastEditTime: 2024-02-27 10:34:03
  * @Description: file content
 -->
 <template>
@@ -9,7 +9,7 @@
     <!-- 表格操作栏 -->
     <TableHeader
       @countFresh="Refresh"
-      @fresh="tableObj.getData"
+      @fresh="reload"
       @openSearch="showSearchForm = true"
       v-if="tableObj.props.tableHeaderShow"
       :tableObj="tableObj"
@@ -26,7 +26,14 @@
       <slot name="btn-list" />
     </TableHeader>
     <!-- 表格主题 -->
-    <div class="table-wrapper" :style="{height: tableObj.props.tableHeaderShow ? 'calc(100% - 78px)' : 'calc(100% - 42px)'}">
+    <div
+      class="table-wrapper"
+      :style="{
+        height: tableObj.props.tableHeaderShow
+          ? 'calc(100% - 78px)'
+          : 'calc(100% - 42px)',
+      }"
+    >
       <el-Table
         ref="multipleTable"
         v-loading="tableObj.loading"
@@ -93,11 +100,18 @@
                   }"
                 />
                 <span v-else>
-                  <span :style="item.setStyle ? item.setStyle(scope.row[item.prop], scope.row) : {}">{{
-                    item.customFilter
-                      ? item.customFilter(scope.row[item.prop], scope.row)
-                      : dataFilter(item.filter, scope.row[item.prop])
-                  }}</span>
+                  <span
+                    :style="
+                      item.setStyle
+                        ? item.setStyle(scope.row[item.prop], scope.row)
+                        : {}
+                    "
+                    >{{
+                      item.customFilter
+                        ? item.customFilter(scope.row[item.prop], scope.row)
+                        : dataFilter(item.filter, scope.row[item.prop])
+                    }}</span
+                  >
                 </span>
               </span>
             </template>
@@ -260,7 +274,7 @@ export default {
       let cur_row_id = row[this.tableObj.props.rowId];
       let keys = this.tableObj.selectData.keys;
       return {
-        ...this.tableObj.props?.rowStyle??{},
+        ...(this.tableObj.props?.rowStyle ?? {}),
         background: keys.includes(cur_row_id) ? "#FEF3C7" : "",
       };
     },
@@ -298,6 +312,9 @@ export default {
     // 获取当前的表格引用
     getTableRef() {
       return this.$refs.multipleTable;
+    },
+    reload() {
+      this.tableObj.getData({ CurrentPage: 1 }, "");
     },
     // 刷新
     Refresh() {

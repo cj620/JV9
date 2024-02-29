@@ -20,7 +20,7 @@ export class Table extends BaseTable {
       title: "",
       api,
       operationWidth: 110,
-      pagination: true,
+      pagination: false,
       tableHeaderShow: false,
       // 设置按钮
       settingBar: false,
