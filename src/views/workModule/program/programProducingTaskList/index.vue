@@ -24,7 +24,7 @@
       <!--  {{ record }}{{ IsDelay(record) }}-->
       <!--</template>-->
       <!-- 进度 -->
-      <template #Schedule="{ record }">
+      <template #Progress="{ record }">
         <el-progress :percentage="record"></el-progress>
       </template>
       <!-- operation操作列 -->

@@ -75,7 +75,7 @@ const tableSchema = [
   },
   // 加工单号
   {
-    prop: "ProductionBillId",
+    prop: "TaskBillId",
     label: i18n.t("production.Pr_WorkSheetNo"),
     width: "120px",
   },
@@ -87,7 +87,7 @@ const tableSchema = [
   },
   // 进度
   {
-    prop: "Schedule",
+    prop: "Progress",
     label: i18n.t("Generality.Ge_Schedule"),
     width: "150px",
     custom: true,
