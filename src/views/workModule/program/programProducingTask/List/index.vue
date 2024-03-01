@@ -74,8 +74,8 @@ import { design_or_program_task_list } from "@/api/workApi/design/designTask";
 import { production_programing_task_list } from "@/api/workApi/project/projectTask";
 import Popover from "@/jv_doc/cpn/JvTable/cpn/Popover.vue";
 import JvFooter from "@/jv_doc/cpn/JvFooter";
-import StaffCard from "@/views/workModule/design/designTask/List/cpns/StaffCard.vue";
-import TaskBox from "@/views/workModule/design/designTask/List/cpns/TaskBox.vue";
+import StaffCard from "./cpns/StaffCard.vue";
+import TaskBox from "./cpns/TaskBox.vue";
 export default {
   name: "ProgramProducingTask",
   components: {

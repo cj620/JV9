@@ -158,7 +158,7 @@
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
 import { taskStateEnum, taskTypeEnum } from "@/enum/workModule";
 import { ViewSubtasksTableObj } from "./viewSubtasksTableConfig";
-import { downLoad } from "@/jv_doc/utils/file/index";
+import { downLoad } from "@/jv_doc/utils/file";
 import addProjectTask from "@/views/workModule/project/projectTask/DetailsList/addProjectTask";
 import { project_task_get_children_item } from "@/api/workApi/project/projectTask";
 import distributionTaskDialog from "./distributionTaskDialog";
