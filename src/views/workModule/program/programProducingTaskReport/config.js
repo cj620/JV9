@@ -7,9 +7,6 @@ class api extends TableAPI {
   // 获取列表
   getData = production_programing_task_items;
 }
-class api1 extends TableAPI{
-  getData = site_collection_production_task_record
-}
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -30,12 +27,12 @@ export class RecordTable extends BaseTable {
       formSchema: [],
       rowId: "Id",
       title: "",
-      api: api1,
       height: 400,
       printMod: "Pa_ProgramProducingTaskReportRecord1",
       printBar: false,
       searchBar: false,
       exportBar: false,
+      pagination: false,
       colBar: false,
       densityBar: false,
       tableHeaderShow: false,
@@ -100,7 +97,7 @@ const tableSchema = [
   },
   // 进度
   {
-    prop: "Schedule",
+    prop: "Progress",
     label: i18n.t("Generality.Ge_Schedule"),
     custom: true,
   },
@@ -123,7 +120,7 @@ export const formSchema1 = [
   //   },
   // },
   {
-    prop: "ActualTime",
+    prop: "WorkHour",
     label: i18n.t("Generality.Ge_ActualTime"),
     cpn: "FormInput",
     rules: [
@@ -135,13 +132,13 @@ export const formSchema1 = [
     ],
   },
   {
-    prop: "Schedule",
+    prop: "Progress",
     label: i18n.t("Generality.Ge_Schedule"),
     cpn: "Slider",
     default: 0,
   },
   {
-    prop: "ActualStart",
+    prop: "StartDate",
     label: i18n.t("program.Pr_ActualStart"),
     cpn: "SingleDateTime",
     rules: [
@@ -153,7 +150,7 @@ export const formSchema1 = [
     ],
   },
   {
-    prop: "ActualEnd",
+    prop: "EndDate",
     label: i18n.t("program.Pr_ActualEnd"),
     cpn: "SingleDateTime",
     rules: [
@@ -202,7 +199,7 @@ const recordSchema = [
   },
   // 进度
   {
-    prop: "Schedule",
+    prop: "Progress",
     label: i18n.t("Generality.Ge_Schedule"),
     custom: true,
   },
