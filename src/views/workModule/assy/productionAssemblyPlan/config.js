@@ -25,11 +25,11 @@ export const tableConfig = [
     label: i18n.t('Generality.Ge_Schedule'),
     custom: true,
   },
-  {
-    prop: 'State',
-    label: i18n.t('Generality.Ge_State'),
-    custom: true,
-  },
+  // {
+  //   prop: 'State',
+  //   label: i18n.t('Generality.Ge_State'),
+  //   custom: true,
+  // },
   {
     prop: 'Completeness',
     label: i18n.t('production.Pr_CompleteState'),

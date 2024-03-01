@@ -1,7 +1,9 @@
 import { TableAPI, Table as BaseTable } from "~/class/table";
-import { site_collection_production_task_record } from "@/api/workApi/quality/siteCollection"
+import { getProject_task_log } from "@/api/workApi/project/projectTask"
+import { enumToList } from "~/utils/system/enumsPlugin";
+import { taskTypeEnum } from "@/enum/workModule";
 class api extends TableAPI{
-  getData = site_collection_production_task_record
+  getData = getProject_task_log
 }
 export class Table extends BaseTable {
   constructor() {
@@ -18,60 +20,94 @@ export class Table extends BaseTable {
     })
   }}
 const tableSchema = [
+  {
+    prop: "BillId",
+    label: i18n.t("project.Pro_TaskSheetNo"),
+  },
+  /*项目*/
+  {
+    prop: "Project",
+    label: i18n.t("menu.Pm_Project"),
+    width: "120px",
+    innerSearch: {
+      prop: "Project",
+      cpn: "FormInput",
+      label: i18n.t("menu.Pm_Project"),
+    },
+  },
   /*模具编号*/
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
   },
-  /*零件编号*/
+  /*任务类别*/
   {
-    prop: "PartNo",
-    label: i18n.t("Generality.Ge_PartNo"),
-  },
-  /*零件名称*/
-  {
-    prop: "PartName",
-    label: i18n.t("Generality.Ge_PartName"),
+    prop: "TaskType",
+    label: i18n.t("Generality.Ge_TaskType"),
+    width: "120px",
+    custom: true,
+    innerSearch: {
+      prop: "TaskType",
+      cpn: "FormSelect",
+      label: i18n.t("Generality.Ge_TaskType"),
+      options: {
+        list: enumToList(taskTypeEnum),
+      },
+    },
   },
   /*工序名称*/
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
   },
-  //   负责人
-  {
-    prop: "Worker",
-    label: i18n.t("project.Pro_Worker"),
-  },
   // 进度
   {
-    prop: "Schedule",
+    prop: "Progress",
     label: i18n.t("Generality.Ge_Schedule"),
     custom: true,
   },
-  /*实际开始*/
+  /*开始时间*/
   {
     prop: "ActualStart",
-    label: i18n.t("Generality.Ge_ActualStart"),
-    filter: "time",
-    width: "140px",
+    label: i18n.t("Generality.Ge_StartTime"),
+    filter: "date",
+    width: "120px",
+    innerSearch: {
+      prop: "StartDate",
+      label: i18n.t("Generality.Ge_StartTime"),
+      cpn: "SingleTime",
+    },
   },
-  /*实际结束*/
+  /*结束时间*/
   {
     prop: "ActualEnd",
-    label: i18n.t("Generality.Ge_ActualEnd"),
-    filter: "time",
-    width: "140px",
+    label: i18n.t("Generality.Ge_EndTime"),
+    filter: "date",
+    width: "120px",
+    innerSearch: {
+      prop: "EndDate",
+      label: i18n.t("Generality.Ge_EndTime"),
+      cpn: "SingleTime",
+    },
   },
-  //   实际用时
+  /*工时*/
   {
-    prop: "ActualTime",
-    label: i18n.t("Generality.Ge_ActualTime"),
+    prop: "PlanTime",
+    label: i18n.t("Generality.Ge_WorkHours"),
+    width: "90px",
   },
-  /*备注*/
+  /*制单人*/
   {
-    prop: "Remarks",
-    label: i18n.t("Generality.Ge_Remarks"),
+    prop: "Worker",
+    label: i18n.t("project.Pro_Worker"),
+    width: "95px",
+  },
+  /*日期*/
+  {
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_Date"),
+    filter: "date",
+    width: "120px",
   },
 ]
 const formSchema = [
@@ -81,17 +117,4 @@ const formSchema = [
     label: i18n.t("Generality.Ge_ToolingNo"),
     cpn: "FormInput",
   },
-  // 零件编号
-  {
-    prop: "PartNo",
-    label: i18n.t("Generality.Ge_PartNo"),
-    cpn: "FormInput",
-  },
-  // 负责人
-  {
-    prop: "Worker",
-    label: i18n.t("project.Pro_Worker"),
-    cpn: "FormInput"
-  },
-
 ]

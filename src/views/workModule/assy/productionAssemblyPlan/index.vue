@@ -80,9 +80,9 @@
           >
             <template slot-scope="scope">
               <div v-if="item.custom" class="table-item-box">
-                <div v-if="item.prop === 'State'">
-                  {{ stateEnum[scope.row.State].name }}
-                </div>
+<!--                <div v-if="item.prop === 'State'">-->
+<!--                  {{ stateEnum[scope.row.State].name }}-->
+<!--                </div>-->
                 <div v-if="item.prop === 'Progress'">
                   {{scope.row[item.prop]}}%
                 </div>
@@ -172,12 +172,21 @@ export default {
       const tableBox = document.querySelector('.page-wrapper-body');
       this.tableHeight = tableBox.clientHeight - 50
     },
-    headerRowStyle() {
-      return {
-        textAlign: 'center',
-        background:'rgb(237,237,237)',
-        color:'rgb(79,79,79)',
-        borderRight: '1px solid rgb(223,230,236)'
+    headerRowStyle(row) {
+      if (row.columnIndex === 2 || row.columnIndex === 3) {
+        return {
+          textAlign: 'left',
+          background:'rgb(237,237,237)',
+          color:'rgb(79,79,79)',
+          borderRight: '1px solid rgb(223,230,236)'
+        }
+      } else {
+        return {
+          textAlign: 'center',
+          background:'rgb(237,237,237)',
+          color:'rgb(79,79,79)',
+          borderRight: '1px solid rgb(223,230,236)'
+        }
       }
     },
     cellStyle() {
