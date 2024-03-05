@@ -387,6 +387,7 @@ import request from "@/utils/request";
 import { Form } from "@/jv_doc/class/form";
 import { formSchema } from "@/views/workModule/production/productionTask/components/formConfig";
 import { createTaskFormSchema } from "./formConfig";
+import { timeFormat } from "~/utils/time";
 export default {
   name: "ToolingBOM",
   // 表格数据
@@ -820,8 +821,10 @@ export default {
     //用来判断是否开过加工单
     IsGetPartsByPartNo(e) {
       getPartsByPartNo(e.map((x) => x.PartNo.value)).then((res) => {
+        //element 自带bug，时区不在东八区，要加八个小时
+        this.createTaskFormObj.form.PlanStart =timeFormat(this.createTaskFormObj.form.PlanStart,'yyyy-MM-dd hh:mm')
+        this.createTaskFormObj.form.PlanEnd =timeFormat(this.createTaskFormObj.form.PlanEnd,'yyyy-MM-dd hh:mm')
         if (res.Items.length > 0) {
-          console.log(res.Items);
           this.$confirm(res.Items.toString() + this.$t("Generality.Ge_SheetIsAlreadyCreated"), {
             confirmButtonText: this.$t("Generality.Ge_OK"),
             cancelButtonText: this.$t("Generality.Ge_Cancel"),
