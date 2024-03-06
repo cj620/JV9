@@ -141,7 +141,8 @@ export default {
         arr1.push(item.BillId)
       })
       assets_device_spot_check_plan_update_state({BillIds:arr1,State:0}).then((res) => {
-        this.tableObj.getData()
+        this.tableObj.getData();
+        this.$refs.BillTable.clearSelection();
       })
     },
     // 停用
@@ -151,7 +152,8 @@ export default {
         arr2.push(item.BillId)
       })
       assets_device_spot_check_plan_update_state({BillIds:arr2,State:1}).then((res) => {
-        this.tableObj.getData()
+        this.tableObj.getData();
+        this.$refs.BillTable.clearSelection();
       })
     }
   }
