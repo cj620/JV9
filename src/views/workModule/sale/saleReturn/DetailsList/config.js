@@ -47,7 +47,7 @@ const tableSchema = [
     },
     cpnProps: {
       // 路由名称
-      routeName: "Sa_SaleOrder_Detail",
+      routeName: "Sa_SaleReturn_Detail",
       // 路由路径（名称和路径二选一）
       // routePath:'/dashboard',
       // 路由传参方式 默认query

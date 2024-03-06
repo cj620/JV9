@@ -340,7 +340,8 @@ export default {
       qc_process_check_get_relevant_info({ BillId: e }).then((res) => {
         this.formObj.form.PrTaskBillId = res.PrTaskBillId;
         this.formObj.form.ItemId = res.ItemId;
-        let str = res.Process.pop();
+        // let str = res.Process.pop();
+        const str = JSON.parse(JSON.stringify(res)).Process.pop();
         console.log(str, 69696969);
 
         this.ProcessData = res.Process;
@@ -430,6 +431,9 @@ export default {
       this.formObj.validate((valid) => {
         if (valid) {
           this.ruleForm.BillItems = this.eTableObj.getTableData();
+          this.ruleForm.BillItems.forEach((item, index) => {
+            item.SortOrder = index + 1
+          })
           this.ruleForm.BillFiles = this.BillFiles;
           this.ruleForm.Images = this.Images;
           // this.formObj.form.Reviewer = JSON.stringify(

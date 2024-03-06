@@ -22,6 +22,8 @@ export const tableConfig = [
   {
     prop: "SortOrder",
     label: i18n.t("production.Pr_SortOrder"),
+    align: "center",
+    width: '100'
   },
   /*理论值*/
   {

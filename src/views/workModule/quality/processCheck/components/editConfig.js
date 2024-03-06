@@ -16,6 +16,7 @@ export class EditTable extends BaseTable {
       title: "",
       tableHeaderShow: false,
       height: null,
+      chooseCol: false,
       // 操作列
       operationWidth: 80,
     });
@@ -23,12 +24,12 @@ export class EditTable extends BaseTable {
 }
 
 export const tableConfig = [
-  // 序号
-  {
-    prop: "SortOrder",
-    label: i18n.t("production.Pr_SortOrder"),
-    formCpn: "FormInput",
-  },
+  // // 序号
+  // {
+  //   prop: "SortOrder",
+  //   label: i18n.t("production.Pr_SortOrder"),
+  //   formCpn: "FormInput",
+  // },
   /*理论值*/
   {
     prop: "TheoreticalValue",
