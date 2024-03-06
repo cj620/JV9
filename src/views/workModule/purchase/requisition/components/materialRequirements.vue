@@ -168,6 +168,7 @@ export default {
         };
         designMaterialRequirementUpdateItemState(str).then((res) => {
           this.tableObj.getData();
+          this.$refs.BillTable.clearSelection();
         });
       } else {
         this.$message({
@@ -186,6 +187,7 @@ export default {
         };
         designMaterialRequirementUpdateItemState(str).then((res) => {
           this.tableObj.getData();
+          this.$refs.BillTable.clearSelection();
         });
       } else {
         this.$message({

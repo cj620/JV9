@@ -198,6 +198,7 @@ const cn = {
     Pro_Worker1: "创建人",
     Pro_ProcessingProgress: "加工进度",
     Pro_TaskSheetNo: "任务单号",
+    Pro_ProjectTaskSheetNo: "项目任务单号",
     Pro_AddProcedure: "增加工序",
     Pro_SelectTemplate: "选择模板",
     Pro_LoadingProcedure: "加载工序",

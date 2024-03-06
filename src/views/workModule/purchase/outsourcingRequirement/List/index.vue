@@ -34,7 +34,7 @@
         slot="btn-list"
         :actions="[
           {
-            label: $t('Generality.Ge_New'),
+            label: $t('menu.Pu_Outsourcing'),
             confirm: add.bind(),
           },
         ]"

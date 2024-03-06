@@ -1,8 +1,8 @@
 export const tableConfig = [
-  // 生产任务单号
+  // 项目任务单号
   {
     prop: 'BillId',
-    label: i18n.t('production.Pr_TaskBillId'),
+    label: i18n.t('project.Pro_ProjectTaskSheetNo'),
   },
   {
     prop: 'ToolingNo',
@@ -39,7 +39,7 @@ export const tableConfig = [
 export const detailConfig = [
   {
     prop: 'BillId',
-    label: i18n.t('Generality.Ge_BillId'),
+    label: i18n.t('production.Pr_TaskBillId'),
   },
   {
     prop: 'ToolingNo',

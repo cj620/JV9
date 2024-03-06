@@ -197,6 +197,7 @@ const ja = {
     Pro_Worker1: "作成者",
     Pro_ProcessingProgress: "加工の進度",
     Pro_TaskSheetNo: "タスク番号",
+    Pro_ProjectTaskSheetNo: "プロジェクトタスク番号",
     Pro_AddProcedure: "工程の追加",
     Pro_SelectTemplate: "テンプレートの選択",
     Pro_LoadingProcedure: "ロード工程",

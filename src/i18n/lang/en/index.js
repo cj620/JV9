@@ -223,6 +223,7 @@ const en = {
     Pro_Worker1: "Creator",
     Pro_ProcessingProgress: "Processing progress",
     Pro_TaskSheetNo: "Task sheet no.",
+    Pro_ProjectTaskSheetNo: "Project Task Sheet No",
     Pro_AddProcedure: "Add procedure",
     Pro_SelectTemplate: "Select template",
     Pro_LoadingProcedure: "Loading procedure",
