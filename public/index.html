@@ -15,7 +15,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>logo.ico">
     <title><%= webpackConfig.name %></title>
-    <script type="text/javascript" src="./config.js"></script>
+      <script type="text/javascript" src="./config.js"></script>
+      <script>
+          // 防止浏览器缓存config
+          function loadJsWithTimestamp(filePath) {
+              var script = document.createElement('script');
+              script.type = 'text/javascript';
+              script.src = filePath + '?timestamp=' + new Date().getTime();
+              document.head.appendChild(script);
+          }
+
+          loadJsWithTimestamp('./config.js');
+      </script>
   </head>
   <body>
     <div id="app"></div>
