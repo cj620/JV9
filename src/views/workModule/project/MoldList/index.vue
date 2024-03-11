@@ -189,10 +189,7 @@ export default {
             this.tableObj.reset();
             this.addDialogShow = false;
           }).catch(err => {
-            this.$message({
-              message: err,
-              type: 'warning'
-            });
+
           })
         }
       })
