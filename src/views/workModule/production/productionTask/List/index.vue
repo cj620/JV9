@@ -194,16 +194,12 @@
                     </span>
                   </el-tooltip>
                 </div>
-              </div>
-              <div class="productionTask-card-content-baseInfo-operate">
-                <el-button type="text" @click="edit(item.BillId)">{{
-                  $t("Generality.Ge_Edit")
-                }}</el-button>
-                <el-button
-                  type="text"
-                  @click="outsourcingProcess(item.BillId)"
-                  >{{ $t("production.Pr_ProcessOutsourcing") }}</el-button
-                >
+                <!--操作-->
+                <div class="top-operate">
+                  <el-button type="text" @click="edit(item.BillId)">{{
+                      $t("Generality.Ge_Edit")
+                    }}</el-button>
+                </div>
               </div>
             </div>
             <div class="productionTask-card-content-craft">
@@ -218,6 +214,14 @@
                 class="productionTask-card-content-craft-content"
               >
                 {{ TItem.Process }}({{ TItem.PlanTime }}H)
+              </div>
+              <!--操作-->
+              <div class="bottom-operate">
+                <el-button
+                  type="text"
+                  @click="outsourcingProcess(item.BillId)"
+                >{{ $t("production.Pr_ProcessOutsourcing") }}</el-button
+                >
               </div>
             </div>
           </div>
@@ -769,6 +773,7 @@ export default {
         font-size: 14px;
         .productionTask-card-content-baseInfo {
           display: flex;
+          position: relative;
           flex-direction: row;
           justify-content: space-between;
           .productionTask-card-content-baseInfo-content {
@@ -781,13 +786,10 @@ export default {
               white-space: nowrap;
             }
           }
-          .productionTask-card-content-baseInfo-operate {
-            min-width: 120px;
-            padding-right: 20px;
-          }
         }
         .productionTask-card-content-craft {
           display: flex;
+          position: relative;
           .productionTask-card-content-craft-content {
             text-align: center;
             font-size: 14px;
@@ -828,5 +830,22 @@ export default {
       margin: 0 5px;
     }
   }
+}
+.top-operate {
+  min-width: 150px;
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  display: flex;
+  justify-content: center;
+}
+.bottom-operate {
+  min-width: 150px;
+  position: absolute;
+  top: -5px;
+  right: 0;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
 }
 </style>
