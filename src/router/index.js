@@ -158,6 +158,12 @@ export const constantRoutes = [
         name: "printUser",
         meta: { title: "用户打印" },
       },
+      {
+        path: "printMachine",
+        component: () => import("@/views/basicModule/print/printMachine"),
+        name: "printMachine",
+        meta: { title: "设备打印" },
+      },
     ],
   },
   {

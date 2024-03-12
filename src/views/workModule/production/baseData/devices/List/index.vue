@@ -37,6 +37,10 @@
             label: $t('Generality.Ge_New'),
             confirm: add.bind(),
           },
+          {
+            label: '打印',
+            confirm: printMachine.bind(),
+          },
         ]"
       >
       </Action>
@@ -156,6 +160,14 @@ export default {
   },
   methods: {
     imgUrlPlugin,
+    printMachine() {
+      this.$router.push({
+        name: "printMachine",
+        params: {
+          Data: this.tableObj.selectData.datas,
+        },
+      });
+    },
     deleteProcess(ids) {
       deleteDevice(ids).then(() => this.tableObj.getData());
     },

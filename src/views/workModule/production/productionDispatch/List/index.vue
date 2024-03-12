@@ -148,6 +148,8 @@ export default {
       toggleMachineObj: {},
       isAllproceeList: false,
       currentProcessPage: 1,
+      boxWidth: 0,
+      currentSize: 1,
     };
   },
   created() {
@@ -155,13 +157,25 @@ export default {
     this.P_tableObj = new P_Table();
 
     this.M_tableObj.setCallBack((res) => this.getProcessData(res));
-    this.M_tableObj.pager.sizeChange(5);
+    // this.M_tableObj.pager.sizeChange(5);
     this.M_tableObj.formObj.form.ShowInProdSchedule = true;
     // console.log(this.M_tableObj.formObj.form.ShowInProdSchedule, 4545);
   },
-
+  mounted() {
+    this.getScreenWidth();
+    window.addEventListener('resize', this.getScreenWidth);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.getScreenWidth);
+  },
   computed: {},
   methods: {
+    getScreenWidth() {
+      console.log('执行', this.currentSize)
+      this.boxWidth = this.$store.state.app.sidebar.opened ?  (window.innerWidth - 210 - 100) / 320 : (window.innerWidth - 55 - 100) / 320
+      this.currentSize = Math.min(Math.floor(this.boxWidth), 5);
+      this.M_tableObj.pager.sizeChange(this.currentSize);
+    },
     watchScroll() {
         let taskListBox = document.querySelector('.task-list.list-box');
         taskListBox.onscroll = () => {
@@ -219,7 +233,7 @@ export default {
       if (type == "reset") {
         this.M_tableObj.formObj.form = Object.assign(
           JSON.parse(this.M_tableObj.copyForm),
-          { PageSize: 5 }
+          { PageSize: this.currentSize }
         );
         this.M_tableObj.getData();
       } else {
@@ -248,7 +262,7 @@ export default {
       this.P_tableObj.setCallBack((val) => {
         this.setProcessData(val.Items, this.P_tableObj.pager.page == 1);
       });
-      this.P_tableObj.pager.sizeChange(5);
+      this.P_tableObj.pager.sizeChange(this.currentSize);
     },
     setProcessData(data, flash) {
       if (flash) {
@@ -260,7 +274,7 @@ export default {
           return [...item, ...data[index]];
         });
       }
-      if (data.some((item) => item.length == 5)) {
+      if (data.some((item) => item.length === this.currentSize)) {
         this.currentProcessPage += 1;
       }
     },
@@ -326,7 +340,7 @@ export default {
       } else if (e.Type === "top") {
         production_dispatching_topping({ TaskProcessId: e.TaskProcessId }).then(
           (res) => {
-            this.M_tableObj.pager.sizeChange(5);
+            this.M_tableObj.pager.sizeChange(this.currentSize);
           }
         );
       } else if (e.Type === "lock") {
@@ -347,7 +361,7 @@ export default {
           this.toggleMachineObj.form.PlanEnd = timeFormat(this.toggleMachineObj.form.PlanEnd,'yyyy-MM-dd hh:mm:ss')
           production_dispatching_change_device(this.toggleMachineObj.form).then(
             (res) => {
-              this.M_tableObj.pager.sizeChange(5);
+              this.M_tableObj.pager.sizeChange(this.currentSize);
               this.dropVisible = false;
             }
           );
@@ -355,6 +369,13 @@ export default {
       })
     },
   },
+  watch: {
+    "$store.state.app.sidebar.opened": {
+      handler(n, o) {
+        this.getScreenWidth();
+      },
+    }
+  }
 };
 </script>
 <style scoped lang="scss">
@@ -395,6 +416,7 @@ export default {
     .card-box {
       width: 100%;
       @include flexBox;
+      min-width: 320px;
     }
   }
   .staff-list {
@@ -443,7 +465,7 @@ export default {
   height: 5px;
 }
 .el-col-4 {
-  width: 18%;
+  width: 20%;
 }
 
 /*定义滑块 内阴影+圆角*/
