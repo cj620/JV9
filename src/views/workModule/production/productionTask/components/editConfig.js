@@ -120,4 +120,10 @@ export const tableConfig = [
       disabled: true,
     },
   },
+  // 备注
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+    formCpn: "FormInput",
+  }
 ];

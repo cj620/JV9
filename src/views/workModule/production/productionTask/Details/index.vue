@@ -110,6 +110,10 @@
                     {{ item.DisplayDevice }}
                   </span>
                   <span>
+                    <svg-icon icon-class="tag"></svg-icon>
+                    {{ item.Remarks }}
+                  </span>
+                  <span>
                     {{ item.IsCompulsoryInspection ? $t("setup.CompulsoryInspection") : '' }}
                   </span>
                 </div>
