@@ -171,7 +171,8 @@ export default {
   computed: {},
   methods: {
     getScreenWidth() {
-      this.boxWidth = (window.innerWidth - 210 - 100) / 320;
+      console.log('执行', this.currentSize)
+      this.boxWidth = this.$store.state.app.sidebar.opened ?  (window.innerWidth - 210 - 100) / 320 : (window.innerWidth - 55 - 100) / 320
       this.currentSize = Math.min(Math.floor(this.boxWidth), 5);
       this.M_tableObj.pager.sizeChange(this.currentSize);
     },
@@ -368,6 +369,13 @@ export default {
       })
     },
   },
+  watch: {
+    "$store.state.app.sidebar.opened": {
+      handler(n, o) {
+        this.getScreenWidth();
+      },
+    }
+  }
 };
 </script>
 <style scoped lang="scss">
