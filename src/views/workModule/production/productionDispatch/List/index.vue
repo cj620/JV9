@@ -172,7 +172,7 @@ export default {
   methods: {
     getScreenWidth() {
       this.boxWidth = (window.innerWidth - 210 - 100) / 320;
-      this.currentSize = Math.floor(this.boxWidth)
+      this.currentSize = Math.min(Math.floor(this.boxWidth), 5);
       this.M_tableObj.pager.sizeChange(this.currentSize);
     },
     watchScroll() {
