@@ -100,7 +100,7 @@ export const tableConfig = [
   {
     prop: "TDA",
     label: i18n.t("Generality.Ge_TDA"),
-    width: "120px",
+    width: "160px",
     align: "right",
     filter: "amount",
   },

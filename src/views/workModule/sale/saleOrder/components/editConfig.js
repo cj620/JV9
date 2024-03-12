@@ -73,7 +73,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_NoTaxPrice"),
     type: "number",
     align: "right",
-    width: "120px",
+    width: "160px",
     formCpn: "FormInput",
     filter: "amount",
   },
