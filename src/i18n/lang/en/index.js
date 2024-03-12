@@ -112,6 +112,7 @@ const en = {
     Pr_EmployeesChart: "Employees Chart",
     Pr_PartChart: "Part Chart",
     Pr_PersonnelHoursSummary: "Hours Summary",
+    Pr_TaskManagement: "Task Management",
     As_Assy: "Assy",
     As_AssyTask: "Assy Task",
     As_AssyTaskRecord: "Assy Task Record",
@@ -1077,6 +1078,7 @@ const en = {
   },
   //生产
   production: {
+    Pr_TaskManagement: "Task Management",
     Pr_Running: "Running",
     Pr_Standby: "Standby",
     Pr_Offline: "Offline",

@@ -113,6 +113,7 @@ const ja = {
     Pr_EmployeesChart: "従業員生産レポート",
     Pr_PartChart: "部品生産レポート",
     Pr_PersonnelHoursSummary: "従業員労働時間要約",
+    Pr_TaskManagement: "タスク管理",
     As_Assy: "やっとこ",
     As_AssyTask: "クランプタスク",
     As_AssyTaskRecord: "クランプタスクレコード",
@@ -1072,6 +1073,7 @@ const ja = {
   },
   //生产
   production: {
+    Pr_TaskManagement: "タスク管理",
     Pr_Running: "実行中",
     Pr_Standby: "待機中",
     Pr_Offline: "オフライン中",

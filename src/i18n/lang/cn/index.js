@@ -113,6 +113,7 @@ const cn = {
     Pr_EmployeesChart: "员工生产报表",
     Pr_PartChart: "零件生产报表",
     Pr_PersonnelHoursSummary: "员工工时汇总",
+    Pr_TaskManagement: "任务管理",
     As_Assy: "钳工",
     As_AssyTask: "钳工任务",
     As_AssyTaskRecord: "钳工任务记录",
@@ -1063,6 +1064,7 @@ const cn = {
   },
   //生产
   production: {
+    Pr_TaskManagement: "任务管理",
     Pr_Running: "运行中",
     Pr_Standby: "待机中",
     Pr_Offline: "离线中",

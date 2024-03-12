@@ -1,69 +1,48 @@
-<!--
- * @Author: H.
- * @Date: 2021-11-09 10:24:11
- * @LastEditTime: 2023-12-05 19:29:39
- * @LastEditTime: 2022-01-20 17:17:19
- * @Description: 生产任务
--->
-
 <template>
   <PageWrapper :footer="false">
-    <div v-if="false">
-      userId <el-input v-model="userId"></el-input> billId<el-input
-        v-model="mbill"
-      ></el-input>
-      模号<el-input v-model="modBill"></el-input>
-      <el-button @click="autoCreateBill">任务完成</el-button>
-      <el-button @click="autoBatchCreate">模号生成</el-button>
-    </div>
     <div class="productionTask" v-loading="loading">
       <div class="productionTask-header">
-        <div>
-          {{ $t("menu.Pr_ProductionTask") }}
+        <div class="productionTask-header-items">
+          <div class="productionTask-header-items-desc">{{
+              $t("Generality.Ge_KeyWords")
+            }}:</div>
+          <el-input size="medium" v-model="form.Keyword"></el-input>
         </div>
-        <div class="productionTask-header-title">
-          <div @click="ClickSearch" class="title">
-            <i class="el-icon-search"></i>
-          </div>
-          <div class="oprations">
-            <el-button-group>
-              <el-button size="mini" @click="refresh">
-                {{ $t("Generality.Ge_Refresh") }}
-              </el-button>
-              <el-button size="mini" @click="add">{{
-                $t("Generality.Ge_New")
-              }}</el-button>
-              <el-button size="mini" @click="copy">{{
-                $t("Generality.Ge_Copy")
-              }}</el-button>
-              <el-button size="mini" @click="del">{{
-                $t("Generality.Ge_Delete")
-              }}</el-button>
-              <el-button size="mini" @click="print(false)">{{
-                $t("Generality.Ge_Print")
-              }}</el-button>
-              <el-button size="mini" @click="print(true)">{{
-                $t("menu.Pr_LabelPrint")
-              }}</el-button>
-              <el-button
-                size="mini"
-                @click="printbyTooling"
-                :disabled="!form.ToolingNo"
-                >{{ $t("production.Pr_PrintByTooling") }}</el-button
-              >
-              <el-button size="mini" @click="outsourcingPart">{{
-                $t("production.Pr_PartOutsourcing")
-              }}</el-button>
-              <el-button size="mini" @click="goOverdueWorkOrder">{{
-                $t("menu.Pr_OverdueWorkOrder")
-              }}</el-button>
-              <el-button size="mini" @click="deletedData" v-if="IsShow">
-                {{ $t("production.Pr_DeletedData") }}
-              </el-button>
-            </el-button-group>
-          </div>
+        <div class="productionTask-header-items">
+          <div class="productionTask-header-items-desc">{{
+              $t("Generality.Ge_ToolingNo")
+            }}:</div>
+          <el-input size="medium" v-model="form.ToolingNo"></el-input>
         </div>
-        <div class="productionTask-header-setting"></div>
+        <div class="productionTask-header-items">
+          <div class="productionTask-header-items-desc">{{
+              $t("Generality.Ge_State")
+            }}:</div>
+          <el-select
+            v-model="form.States"
+            :placeholder="$t('Generality.Ge_PleaseSelect')"
+            size="medium"
+            multiple
+          >
+            <el-option
+              v-for="item in StateOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div style="margin-left: 20px">
+          <el-button type="primary" @click="searchTasks">
+            {{ $t("Generality.Ge_Search") }}
+          </el-button>
+          <el-button  @click="clear">
+            {{ $t("Generality.Ge_Reset") }}
+          </el-button>
+          <el-button @click="newTask">
+            {{ $t("Generality.Ge_New") }}
+          </el-button>
+        </div>
       </div>
       <div class="productionTask-content">
         <div
@@ -267,78 +246,30 @@
         </div>
       </div>
     </div>
-    <searchForm
-      :visible.sync="drawer"
-      v-if="drawer"
-      :append-to-body="true"
-      direction="rtl"
-      :with-header="false"
-      size="25%"
-      @search="searchData"
-      :searchFormData="searchFormData"
-    >
-    </searchForm>
-
-    <!--零件委外-->
-    <outsourcingPart
-      :visible.sync="outsourcingPartDialogFormVisible"
-      v-if="outsourcingPartDialogFormVisible"
-      @confirmOutsourcingPartData="confirmOutsourcingPartData"
-    >
-    </outsourcingPart>
     <!--工序委外-->
-
     <outsourcingProcess
       :visible.sync="outsourcingProcessDialogFormVisible"
       v-if="outsourcingProcessDialogFormVisible"
       :transferData="transferData"
       @confirmOutsourcingProcessData="confirmOutsourcingProcessData"
-    >
-    </outsourcingProcess>
-    <copyOrder
-      :visible.sync="copyOrderDialogFormVisible"
-      v-if="copyOrderDialogFormVisible"
-      @confirmCopyOrder="confirmCopyOrder"
-    >
-    </copyOrder>
-    <deleted-data-list
-      :visible.sync="deletedDataListDialogFormVisible"
-      v-if="deletedDataListDialogFormVisible"
-      @confirmDeletedDataList="confirmDeletedDataList"
-    >
-    </deleted-data-list>
+    ></outsourcingProcess>
   </PageWrapper>
 </template>
-
 <script>
-import {
-  productionTaskList,
-  deleteProductionTask,
-} from "@/api/workApi/production/productionTask";
-import AComponents from "./components/AComponents";
-import outsourcingProcess from "./components/outsourcingProcess";
-import outsourcingPart from "./components/outsourcingPart";
-import searchForm from "./components/searchForm";
-import copyOrder from "./components/copyOrder";
-import deletedDataList from "./components/deletedDataList";
-import {
-  LevelEnum,
-  ProcessState,
-  ProductionTaskState,
-} from "@/enum/workModule";
-import { addOutsourcingrRequirement } from "@/api/workApi/purchase/outsourcingRequirement";
+import {enumToList, LevelEnum, ProcessState, ProductionTaskState} from "@/enum/workModule";
+import outsourcingProcess from "@/views/workModule/production/productionTask/List/components/outsourcingProcess.vue";
+import { imgUrlPlugin } from "~/utils/system";
+import { productionTaskList } from "@/api/workApi/production/productionTask";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
-import { imgUrlPlugin, printPlugin } from "@/jv_doc/utils/system/index.js";
-import { autoCreate, batchCreate } from "../../productionReport/List/auto";
+import { addOutsourcingrRequirement } from "@/api/workApi/purchase/outsourcingRequirement";
+
 export default {
-  // 页面的标识
-  name: "ProductionTask",
+  name: "Pr_TaskManagement",
+  components: { outsourcingProcess },
   data() {
     return {
+      loading: false,
       dataList: [],
-      userId: "mt-001",
-      mbill: "",
-      modBill: "",
       ProductionTaskStateList: [
         "ToBeReceived",
         "Received",
@@ -359,48 +290,63 @@ export default {
         PageSize: 10,
         CurrentPage: 1,
       },
-      loading: false,
-      drawer: false,
-      Checked: false,
       tooltipFlag: false,
-      IsShow: true, //判断是生产任务子页还是主页
-
-      CheckedData: 1,
       IsFlag: false, //判断选择框是否全部选中
       isIndeterminate: false, //判断选择框里面的状态
-      deletedDataListDialogFormVisible: false, //查看删除列表的弹窗
       outsourcingProcessDialogFormVisible: false, //选择委外工序的弹窗
-      outsourcingPartDialogFormVisible: false, //选择委外零件的弹窗
-      copyOrderDialogFormVisible: false, //复制工单的弹窗
       multipleSelection: [],
       transferData: "",
-      searchFormData: {},
       BillSum: 0,
-    };
+      StateOptions: enumToList(ProductionTaskState),
+    }
   },
   created() {
     this.GetData();
+    console.log('StateOptions', this.StateOptions)
+  },
+  computed: {
+    LevelMap() {
+      return LevelEnum;
+    },
+    ProcessStateMap() {
+      return ProcessState;
+    },
+    ProductionTaskStateMap() {
+      return ProductionTaskState;
+    },
   },
   methods: {
-    autoBatchCreate() {
-      batchCreate(this.modBill);
-    },
-    autoCreateBill() {
-      autoCreate(this.mbill, this.userId);
-    },
     imgUrlPlugin,
-    // 跳转到超期工单
-    goOverdueWorkOrder() {
-      this.$router.push({ name: "OverdueWorkOrder" });
+    // 新增任务
+    newTask() {
+      this.$router.push({
+        name: "AddProductionTask",
+        params: { type: "add", title: "addSaleOrder" },
+      });
     },
-    //已删除数据
-    deletedData() {
-      this.deletedDataListDialogFormVisible = true;
+    // 搜索任务
+    searchTasks() {
+      this.GetData()
     },
+    // 重置搜索
+    clear() {
+      this.form = {
+        ToolingNo: "",
+        Remarks: "",
+        Keyword: "",
+        States: [],
+        CustomerName: "",
+        StartDate: "",
+        EndDate: "",
+        PageSize: 10,
+        CurrentPage: 1,
+      };
+      this.GetData()
+    },
+    // 获取数据
     async GetData() {
       this.loading = true;
       await productionTaskList(this.form).then((res) => {
-        console.log(res.Items);
         res.Items.forEach((item) => {
           item.IsHas = false;
         });
@@ -410,30 +356,6 @@ export default {
           this.loading = false;
         }, 500);
       });
-    },
-    printbyTooling() {
-      this.$router.push({
-        name: "Pr_ProductionTask_print_by_tooling",
-        query: {
-          ToolingNo: this.form.ToolingNo,
-        },
-      });
-    },
-    //点击筛选事件
-    ClickSearch() {
-      this.drawer = true;
-      this.searchFormData = this.form;
-    },
-    //点击搜索
-    searchData(e) {
-      console.log(e);
-      this.drawer = false;
-      this.form.ToolingNo = e.ToolingNo;
-      this.form.Remarks = e.Remarks;
-      this.form.Keyword = e.Keyword;
-      this.form.States = e.States;
-      this.form.CurrentPage = 1;
-      this.GetData();
     },
     //跳转到详情
     linkTo(Id) {
@@ -518,19 +440,13 @@ export default {
     unique(arr) {
       for (var i = 0; i < arr.length; i++) {
         for (var j = i + 1; j < arr.length; j++) {
-          if (arr[i] == arr[j]) {
-            //第一个等同于第二个，splice方法删除第二个
+          if (arr[i] === arr[j]) {
             arr.splice(j, 1);
             j--;
           }
         }
       }
       return arr;
-    },
-    //刷新
-    refresh() {
-      this.form.CurrentPage = 1;
-      this.GetData();
     },
     //新增
     add() {
@@ -548,37 +464,6 @@ export default {
         });
       });
     },
-    //删除
-    del() {
-      if (this.multipleSelection.length !== 0) {
-        this.$confirm(this.$t("Generality.Ge_DeleteConfirm"), {
-          confirmButtonText: this.$t("Generality.Ge_OK"),
-          cancelButtonText: this.$t("Generality.Ge_Cancel"),
-        }).then(() => {
-          var arr = this.multipleSelection.map((x) => x.BillId);
-          deleteProductionTask({ BillIds: arr }).then((res) => {
-            this.multipleSelection = [];
-            this.IsAllSelect();
-            this.GetData();
-          });
-        });
-      } else {
-        console.log(11);
-      }
-    },
-
-    //打印
-    print(isTag) {
-      printPlugin({
-        ids: this.multipleSelection.map((x) => x.BillId),
-        category: "Pr_Task",
-        isTag: isTag,
-      });
-    },
-    //零件委外
-    outsourcingPart() {
-      this.outsourcingPartDialogFormVisible = true;
-    },
     //工序委外
     outsourcingProcess(e) {
       this.transferData = e;
@@ -586,9 +471,7 @@ export default {
     },
     //工序委外确认保存
     confirmOutsourcingProcessData(e) {
-      console.log(e);
       let arr = [];
-
       e.forEach((item) => {
         let str = {};
         str.KeyId = item.Id;
@@ -596,51 +479,21 @@ export default {
         str.Quantity = item.Quantity;
         arr.push(str);
       });
-      this.OutsourcingrRequirement({
+      this.OutsourcingRequirement({
         Category: "Process",
         Items: arr,
       });
     },
-
-    //工单复制确认
-    confirmCopyOrder() {
-      this.copyOrderDialogFormVisible = false;
-    },
-    //零件委外确认保存
-    confirmOutsourcingPartData(e) {
-      console.log(e);
-      let arr = [];
-      e.forEach((item) => {
-        let str = {};
-        str.KeyId = item.PartNo;
-        str.Remarks = item.Remarks;
-        str.Quantity = item.Quantity;
-        arr.push(str);
-      });
-      this.OutsourcingrRequirement({
-        Category: "Part",
-        Items: arr,
-      });
-    },
-
-    //复制工单
-    copy() {
-      this.copyOrderDialogFormVisible = true;
-    },
     //保存委外物料需求
-    OutsourcingrRequirement(res) {
+    OutsourcingRequirement(res) {
       addOutsourcingrRequirement(res).then((res) => {
-        console.log(res);
-        this.outsourcingPartDialogFormVisible = false;
         this.outsourcingProcessDialogFormVisible = false;
       });
     },
-
     visibilityChange(event) {
       console.log(11);
       this.tooltipFlag = true;
     },
-
     // 页码变更
     async SizeChange(num) {
       this.form.PageSize = num;
@@ -659,93 +512,51 @@ export default {
       await this.GetData();
       await this.IsAllSelect();
     },
-    confirmDeletedDataList() {
-      this.deletedDataListDialogFormVisible = false;
-    },
-  },
-  computed: {
-    LevelMap() {
-      return LevelEnum;
-    },
-    ProcessStateMap() {
-      return ProcessState;
-    },
-    ProductionTaskStateMap() {
-      return ProductionTaskState;
-    },
-  },
-  components: {
-    AComponents,
-    outsourcingProcess,
-    outsourcingPart,
-    searchForm,
-    copyOrder,
-    deletedDataList,
-  },
-};
+  }
+}
 </script>
-
 <style lang="scss" scoped>
 @import "~@/jv_doc/style/mixin.scss";
 .productionTask {
   height: 100%;
-  /*width: 100%;*/
   min-width: 1400px;
   .productionTask-header {
     width: 100%;
-    height: 45px;
+    height: 60px;
     padding: 5px 10px;
     background-color: #fff;
     margin-bottom: 15px;
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
-    .productionTask-header-title {
+    .productionTask-header-items {
+      min-width: 320px;
       height: 100%;
-
       display: flex;
-      flex: 1;
-      .title {
-        margin-left: 15px;
-        height: 100%;
-        font-size: 18px;
-        font-weight: 700;
+      align-items: center;
+      margin-right: 10px;
+      .productionTask-header-items-desc {
+        min-width: 100px;
         display: flex;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        align-items: center;
-        flex-flow: row;
+        flex-wrap: nowrap;
+        justify-content: right;
+        margin-right: 5px;
       }
-      .oprations {
-        flex: 1;
-        height: 100%;
-        display: flex;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-        align-items: center;
-        flex-flow: row;
-      }
-    }
-    &:hover {
-      cursor: pointer;
     }
   }
   .productionTask-content {
-    height: calc(100% - 95px);
+    height: calc(100% - 110px);
     width: 100%;
     overflow: auto;
     min-width: 1400px;
-
     .productionTask-card {
       width: 100%;
       display: flex;
       background-color: #ffffff;
-
       @include shadow;
       @include cardHover;
       align-items: center;
       margin-bottom: 15px;
-
       .productionTask-card-check {
         margin-left: 20px;
       }
@@ -760,7 +571,6 @@ export default {
           .image-slot {
             width: 100%;
             height: 100%;
-            // color: rgb(161, 161, 161);
             .error-icon {
               color: rgb(161, 161, 161);
               font-size: 19px;
@@ -793,9 +603,7 @@ export default {
           .productionTask-card-content-craft-content {
             text-align: center;
             font-size: 14px;
-
             border: 1px solid #eee;
-
             padding: 3px 15px;
             margin-right: 10px;
             border-radius: 15px;
@@ -806,14 +614,12 @@ export default {
   }
   .productionTask-footer {
     display: flex;
-    /*width: 100%;*/
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-left: 20px;
   }
 }
-
 .productionTask-pagination {
   display: flex;
   font-size: 14px;
