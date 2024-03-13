@@ -4,7 +4,7 @@ import {
   enumToList,
   ProcessCheckTypeEnum,
   reasonForFailureEnum,
-  enumFilter,
+  enumFilter, AbnormalCategoryEnum,
 } from "@/enum/workModule";
 
 export class Table extends BaseTable {
@@ -132,6 +132,7 @@ export const detailConfig = [
     // 异常类别
     prop: "AbnormalCategory",
     label: i18n.t("quality.Qc_AbnormalCategory"),
+    customFilter: (value, row) => enumFilter(value, AbnormalCategoryEnum),
   },
   {
     // 制单人

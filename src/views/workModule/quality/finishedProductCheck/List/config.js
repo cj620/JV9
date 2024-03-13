@@ -9,7 +9,7 @@ import { API } from "@/api/workApi/quality/finishedProduct";
 import {
   ProcessingResult,
   FinishedProductCheckType,
-  enumFilter,
+  enumFilter, AbnormalCategoryEnum,
 } from "@/enum/workModule";
 
 let { api_list, api_delete } = API;
@@ -120,6 +120,7 @@ export const tableConfig = [
     // 异常类别
     prop: "AbnormalCategory",
     label: i18n.t("quality.Qc_AbnormalCategory"),
+    customFilter: (value, row) => enumFilter(value, AbnormalCategoryEnum),
   },
   /*制单人*/
   {

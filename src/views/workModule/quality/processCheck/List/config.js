@@ -14,6 +14,7 @@ import {
 import {
   ProcessingResult,
   ProcessCheckTypeEnum,
+  AbnormalCategoryEnum,
   enumToList,
   enumFilter,
 } from "@/enum/workModule";
@@ -154,6 +155,7 @@ export const tableConfig = [
     // 异常类别
     prop: "AbnormalCategory",
     label: i18n.t("quality.Qc_AbnormalCategory"),
+    customFilter: (value, row) => enumFilter(value, AbnormalCategoryEnum),
   },
   {
     // 制单人
