@@ -13,9 +13,7 @@
     <Action
       slot="sticky-extra"
       size="small"
-      :actions="
-        btnAction.filter((item) => item.label != $t('Generality.Ge_Edit'))
-      "
+      :actions="btnAction"
     ></Action>
     <!--单据信息-->
     <JvBlock :title="cur_billId" ref="first">
@@ -158,7 +156,8 @@ export default {
         this.tableObj.setData(res.BillItems);
         this.btnAction = detailPageModel(this, res, API, this.GetData);
         // console.log(this.btnAction,4567899);
-        // this.btnAction.splice(4,1)
+        this.btnAction.splice(4,1)
+        this.btnAction.splice(5,2)
       });
     },
     //订单转

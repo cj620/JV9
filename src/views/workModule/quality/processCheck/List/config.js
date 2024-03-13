@@ -151,9 +151,9 @@ export const tableConfig = [
     label: i18n.t("quality.Qc_UnqualifiedQty"),
   },
   {
-    // 关联编号
-    prop: "AssociatedNo",
-    label: i18n.t("Generality.Ge_AssociatedNo"),
+    // 异常类别
+    prop: "AbnormalCategory",
+    label: i18n.t("quality.Qc_AbnormalCategory"),
   },
   {
     // 制单人

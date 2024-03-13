@@ -89,6 +89,7 @@ export default {
         ReworkProcess: "",
         ProcessingResult: "",
         PersonInCharge: "",
+        AbnormalCategory: "",
         AbnormalCause: "",
         Analyst: "",
         SubmittedForInspectionQty: "",

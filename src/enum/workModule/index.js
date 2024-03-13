@@ -35,6 +35,7 @@ import {
   QcType,
   ProcessCheckTypeEnum,
   FinishedProductCheckType,
+  AbnormalCategoryEnum,
 } from "./quality";
 import {
   machineCategoryEnum,
@@ -87,6 +88,8 @@ export {
   CheckResulteEnum,
   //质检类别枚举
   QcType,
+  // 异常类别枚举
+  AbnormalCategoryEnum,
   //过程检验类型
   ProcessCheckTypeEnum,
   //零件成品检验类型

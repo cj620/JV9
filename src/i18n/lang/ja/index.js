@@ -1322,6 +1322,10 @@ const ja = {
     Qc_InspectionExemption: "検査免除",
     Qc_UnReturn: "未返却",
     Qc_Return: "リターンマッチ",
+    Qc_AbnormalCategory: "例外カテゴリ",
+    Qc_Size: "寸法すんぽう",
+    Qc_Exterior: "外観",
+    Qc_Other: "その他",
   },
   device: {
     De_Repair: "しゅうりょう",

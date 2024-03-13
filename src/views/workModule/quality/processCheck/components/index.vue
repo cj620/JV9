@@ -170,6 +170,7 @@ export default {
         SelfCheckProcess: "",
         ProcessCheckType: "",
         ProcessingResult: "",
+        AbnormalCategory: "",
         Operator: "",
         OperationDate: "",
         PersonInCharge: "",

@@ -122,3 +122,27 @@ export const QcType = {
     value: "Qc_FinishedProduct",
   },
 };
+
+// 异常类别枚举
+export const AbnormalCategoryEnum = {
+  // 人员
+  Personnel: {
+    name: i18n.t("Generality.Ge_Personnel"),
+    value: "Personnel",
+  },
+  // 尺寸
+  Size: {
+    name: i18n.t("quality.Qc_Size"),
+    value: "Size",
+  },
+  // 外观
+  Exterior: {
+    name: i18n.t("quality.Qc_Exterior"),
+    value: "Exterior",
+  },
+  // 其它
+  Other: {
+    name: i18n.t("quality.Qc_Other"),
+    value: "Other",
+  },
+}

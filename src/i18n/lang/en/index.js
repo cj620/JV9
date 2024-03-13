@@ -1329,6 +1329,10 @@ const en = {
     Qc_InspectionExemption: "Inspection exemption",
     Qc_UnReturn: "UnReturn",
     Qc_Return: "Return",
+    Qc_AbnormalCategory: "Abnormal Category",
+    Qc_Size: "Size",
+    Qc_Exterior: "Exterior",
+    Qc_Other: "Others",
   },
   device: {
     De_Repair: "Repair",

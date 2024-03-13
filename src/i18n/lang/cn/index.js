@@ -1312,6 +1312,10 @@ const cn = {
     Qc_InspectionExemption: "免检",
     Qc_UnReturn: "未归还",
     Qc_Return: "归还",
+    Qc_AbnormalCategory: "异常类别",
+    Qc_Size: "尺寸",
+    Qc_Exterior: "外观",
+    Qc_Other: "其它",
   },
   device: {
     De_Repair: "报修",
