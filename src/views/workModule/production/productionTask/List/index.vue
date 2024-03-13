@@ -353,6 +353,7 @@ export default {
         Remarks: "",
         Keyword: "",
         States: [],
+        BillType: "Part",
         CustomerName: "",
         StartDate: "",
         EndDate: "",

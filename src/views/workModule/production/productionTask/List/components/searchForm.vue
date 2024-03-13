@@ -122,7 +122,8 @@ export default {
         this.formObj.form[key] = "";
       }
       this.formObj.form.States = [];
-      this.$emit("search", this.formObj);
+      this.formObj.form.BillType = 'Part';
+      this.$emit("search", this.formObj.form);
     },
     search() {
       this.$emit("search", this.formObj.form);
