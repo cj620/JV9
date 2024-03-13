@@ -114,6 +114,7 @@ export default {
     this.formObj.form.Keyword = this.searchFormData.Keyword;
     this.formObj.form.Remarks = this.searchFormData.Remarks;
     this.formObj.form.States = this.searchFormData.States;
+    this.formObj.form.BillType = this.searchFormData.BillType;
   },
   methods: {
     reset() {
