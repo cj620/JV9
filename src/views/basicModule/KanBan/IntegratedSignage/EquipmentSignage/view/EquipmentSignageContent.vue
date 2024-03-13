@@ -63,6 +63,7 @@ import { EquipmentStatusEnum } from '@/enum/baseModule/dataV/EquipmentStatus';
 import CImage from "@/components/CImage/index.vue";
 import RollList from "@/components/RollList/index.vue";
 const cWindow = window;
+import { timeFormat } from "~/utils/time";
 export default {
   name: "EquipmentSignageContent",
   components: { CImage, RollList },
@@ -92,12 +93,22 @@ export default {
       const date = new Date();
       const num = 54 / (2*60*60*1000);
       let width = 0;
+      // if(i === 0) {
+      //   let str = date.getFullYear() +'-'+ (date.getMonth()+1) +'-'+ (date.getDate()-1);
+      //   let timestamp = new Date(str + 'T00:00:00').getTime(); // 昨天00:00:00的时间戳
+      //   width = (new Date(item.EndTime).getTime() - timestamp) * num
+      // } else if(i === parent.Values.length - 1) {
+      //   let str = date.getFullYear() +'-'+ (date.getMonth()+1) +'-'+ date.getDate();
+      //   let timestamp = new Date(str + 'T00:00:00').getTime(); // 今天00:00:00的时间戳
+      //   width = (timestamp - new Date(item.StartTime).getTime()) * num
+      // } else {
+      //   width = (new Date(item.EndTime).getTime() - new Date(item.StartTime).getTime()) * num
+      // }
       if(i === 0) {
-        let str = date.getFullYear() +'-'+ (date.getMonth()+1) +'-'+ (date.getDate()-1);
-        let timestamp = new Date(str + 'T00:00:00').getTime(); // 昨天00:00:00的时间戳
+        let timestamp = new Date(timeFormat(date) + 'T00:00:00').getTime() - 86400000; // 昨天00:00:00的时间戳
         width = (new Date(item.EndTime).getTime() - timestamp) * num
       } else if(i === parent.Values.length - 1) {
-        let str = date.getFullYear() +'-'+ (date.getMonth()+1) +'-'+ date.getDate();
+        let str = timeFormat(date)
         let timestamp = new Date(str + 'T00:00:00').getTime(); // 今天00:00:00的时间戳
         width = (timestamp - new Date(item.StartTime).getTime()) * num
       } else {
