@@ -432,6 +432,7 @@ export default {
       this.form.Remarks = e.Remarks;
       this.form.Keyword = e.Keyword;
       this.form.States = e.States;
+      this.form.BillType = e.BillType;
       this.form.CurrentPage = 1;
       this.GetData();
     },

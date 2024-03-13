@@ -57,6 +57,24 @@ export default {
           label: this.$t("Generality.Ge_KeyWords"),
         },
         {
+          // 类别
+          prop: "BillType",
+          cpn: "FormSelect",
+          label: this.$t("Generality.Ge_Category"),
+          options: {
+            list: [
+              {
+                value: "Part",
+                label: i18n.t("Generality.Ge_Part"),
+              },
+              {
+                value: "Electrode",
+                label: i18n.t("Generality.Ge_Electrode"),
+              },
+            ]
+          }
+        },
+        {
           // 模具编号
           prop: "ToolingNo",
           label: this.$t("Generality.Ge_ToolingNo"),
