@@ -1329,6 +1329,8 @@ const en = {
     Qc_InspectionExemption: "Inspection exemption",
     Qc_UnReturn: "UnReturn",
     Qc_Return: "Return",
+    Qc_QualityCheckBillId: "Quality Check Bill No.",
+    Qc_QualityCheckType: "Quality Check Type",
     Qc_AbnormalCategory: "Abnormal Category",
     Qc_Size: "Size",
     Qc_Exterior: "Exterior",

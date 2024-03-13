@@ -93,6 +93,16 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_BillId"),
     custom: true,
   },
+  {
+    prop: "QcRelationBillId",
+    label: i18n.t("quality.Qc_QualityCheckBillId"),
+    custom: true,
+  },
+  {
+    prop: "BillKey",
+    label: i18n.t("quality.Qc_QualityCheckType"),
+    custom: true,
+  },
   /*备注*/
   {
     prop: "Remarks",

@@ -1322,6 +1322,8 @@ const ja = {
     Qc_InspectionExemption: "検査免除",
     Qc_UnReturn: "未返却",
     Qc_Return: "リターンマッチ",
+    Qc_QualityCheckBillId: "検査票番号",
+    Qc_QualityCheckType: "検査タイプ",
     Qc_AbnormalCategory: "例外カテゴリ",
     Qc_Size: "寸法すんぽう",
     Qc_Exterior: "外観",

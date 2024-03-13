@@ -1312,6 +1312,8 @@ const cn = {
     Qc_InspectionExemption: "免检",
     Qc_UnReturn: "未归还",
     Qc_Return: "归还",
+    Qc_QualityCheckBillId: "检验单号",
+    Qc_QualityCheckType: "检验类型",
     Qc_AbnormalCategory: "异常类别",
     Qc_Size: "尺寸",
     Qc_Exterior: "外观",
