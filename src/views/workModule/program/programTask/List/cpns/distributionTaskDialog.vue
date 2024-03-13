@@ -1,6 +1,6 @@
 <template>
   <div>
-    <jv-dialog :title="$t('Generality.Ge_SelectItems')" width="70%" :close-on-click-modal="true"
+    <jv-dialog :title="$t('project.Pro_DistributionTask')" width="70%" :close-on-click-modal="true"
       :modal-append-to-body="false" :append-to-body="false" v-bind="$attrs" v-on="$listeners" @confirm="confirmData">
       <div style="margin-left:10px;margin-bottom:10px">
         <el-button type="primary" size=mini @click="add">
