@@ -505,6 +505,15 @@ export default {
         this.formObj.form.InspectionQty = n;
       },
     },
+    "formObj.form.ProcessingResult": {
+      handler(n, o) {
+        if (n !== 'Qualified' && n !== '') {
+          this.formObj.form.AbnormalCategory = "Other";
+        } else {
+          this.formObj.form.AbnormalCategory = "";
+        }
+      },
+    },
   },
 };
 </script>

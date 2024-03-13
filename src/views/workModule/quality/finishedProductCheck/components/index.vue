@@ -307,13 +307,14 @@ export default {
     "formObj.form.ProcessingResult": {
       handler: function (n, o) {
         console.log(n, o);
-        if (n === "Normal") {
+        if (n !== 'Qualified' && n !== '') {
+          this.formObj.form.AbnormalCategory = "Other";
+          this.formObj.props.formSchema[2].cpnProps.disabled = false;
+        } else {
+          this.formObj.form.AbnormalCategory = "";
           this.formObj.form.ReworkProcess = "";
           this.formObj.form.AbnormalCause = "";
           this.formObj.props.formSchema[2].cpnProps.disabled = true;
-
-        } else {
-          this.formObj.props.formSchema[2].cpnProps.disabled = false;
         }
       },
     },
