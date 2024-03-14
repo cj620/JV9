@@ -45,10 +45,15 @@ export default {
       background-color: #fff;
       padding: 15px;
       .header-items-desc {
-        width: 50%;
-        min-width: 120px;
+        width: 100%;
         height: 30px;
         background-color: yellow;
+      }
+      .header-items-content {
+        margin-top: 10px;
+        width: 100%;
+        height: calc(100% - 40px);
+        background-color: darkgrey;
       }
     }
   }
