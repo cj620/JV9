@@ -183,6 +183,7 @@ const ja = {
     As_DeviceSpotCheckPlan: "設備点検計画",
     As_AccessoryCheckOut: "スペア受領用",
     As_DeviceSpotCheckRecord: "点検記録",
+    As_DeviceLedger: "設備台帳",
   },
   login: {
     l_LogIn: "ログイン",

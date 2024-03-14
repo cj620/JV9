@@ -186,6 +186,7 @@ const en = {
     As_DeviceSpotCheckPlan: "Device Spot Check Plan",
     As_AccessoryCheckOut: "Accessory Check Out",
     As_DeviceSpotCheckRecord: "Device Spot Check Record",
+    As_DeviceLedger: "Device Ledger",
   },
   login: {
     l_LogIn: "Log in",

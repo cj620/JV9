@@ -184,6 +184,7 @@ const cn = {
     As_DeviceSpotCheckPlan: "设备点检计划",
     As_AccessoryCheckOut: "备件领用",
     As_DeviceSpotCheckRecord: "点检记录",
+    As_DeviceLedger: "设备台账",
   },
   login: {
     l_LogIn: "登录",
