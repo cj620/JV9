@@ -73,6 +73,12 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_Process"),
     width: "100px",
   },
+  // 生产工序
+  {
+    prop: "ProductionProcess",
+    label: i18n.t("production.Pr_ProductionProcess"),
+    width: "100px",
+  },
   // 加工单号
   {
     prop: "TaskBillId",

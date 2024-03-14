@@ -57,7 +57,7 @@ export default {
     return {
       headerList: [
         {prop: 'PartNo', label: this.$t('Generality.Ge_PartNo')},
-        {prop: 'Process', label: this.$t('Generality.Ge_Process')},
+        {prop: 'ReworkProcess', label: this.$t('quality.Qc_ReworkProcess')},
         {prop: 'Worker', label: this.$t('Generality.Ge_Worker')},
         {prop: 'Remarks', label: this.$t('DataV.Da_ReworkReason')},
       ],

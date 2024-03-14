@@ -1258,6 +1258,7 @@ const ja = {
     Pr_TaskBillId: "製造オーダー番号",
     Pr_Complete: "セット",
     Pr_Incomplete: "未配置",
+    Pr_ProductionProcess: "製造工程",
     Pr_APSReportContent: {
       str1: "スケジューリングに参加した金型は",
       str2: "セット、合計部品は",
