@@ -1446,6 +1446,15 @@ const cn = {
     De_MemberState: "成员状态",
     De_SpotCheckId: "点检单号",
     De_DeviceRepair: "设备维修",
+    De_DeviceTotalQuantity: "设备总数",
+    De_MaintenanceingQuantity: "保养中设备数",
+    De_RepairingQuantity: "维修中设备数",
+    De_SpotCheckOverdueQuantity: "点检超期数",
+    De_SpotCheckCompletionRate: "点检完成率",
+    De_SpotCheckCompletionQuantity: "点检完成数",
+    De_SpotCheckAbnormalQuantity: "点检异常数",
+    De_OverdueQuantity: "超期数",
+    De_AutoCompletionQuantity: "跳过数",
   },
   // 后端提示
   backendMessage: {

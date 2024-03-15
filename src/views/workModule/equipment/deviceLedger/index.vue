@@ -119,29 +119,29 @@ export default {
       },
       headerData: [
         {
-          title: "设备总数",
+          title: this.$t('device.De_DeviceTotalQuantity'),
           data: 0,
           remarks: "DeviceTotalQuantity",
         },
         {
-          title: "保养中设备数",
+          title: this.$t('device.De_MaintenanceingQuantity'),
           data: 0,
           remarks: "MaintenanceingQuantity",
         },
         {
-          title: "维修中设备数",
+          title: this.$t('device.De_RepairingQuantity'),
           data: 0,
           remarks: "RepairingQuantity",
         },
         {
-          title: "点检超期数",
+          title: this.$t('device.De_SpotCheckOverdueQuantity'),
           data: 0,
           remarks: "SpotCheckOverdueQuantity",
         },
       ],
       bodyData: [
         {
-          title: "点检完成率",
+          title: this.$t('device.De_SpotCheckCompletionRate'),
           data: 0,
           icon: "el-icon-s-marketing",
           backColor: '#E0F9FC',
@@ -149,7 +149,7 @@ export default {
           remarks: "SpotCheckCompletionRate",
         },
         {
-          title: "点检完成数",
+          title: this.$t('device.De_SpotCheckCompletionQuantity'),
           data: 0,
           icon: "el-icon-finished",
           backColor: '#E5F8ED',
@@ -157,7 +157,7 @@ export default {
           remarks: "SpotCheckCompletionQuantity",
         },
         {
-          title: "点检异常数",
+          title: this.$t('device.De_SpotCheckAbnormalQuantity'),
           data: 0,
           icon: "el-icon-document-delete",
           backColor: '#FCEAEA',
@@ -165,7 +165,7 @@ export default {
           remarks: "SpotCheckAbnormalQuantity",
         },
         {
-          title: "超期数",
+          title: this.$t('device.De_OverdueQuantity'),
           data: 0,
           icon: "el-icon-stopwatch",
           backColor: '#FEF8E1',
@@ -173,7 +173,7 @@ export default {
           remarks: "OverdueQuantity",
         },
         {
-          title: "跳过数",
+          title: this.$t('device.De_AutoCompletionQuantity'),
           data: 0,
           icon: "el-icon-guide",
           backColor: '#F4EAE6',

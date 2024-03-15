@@ -1456,6 +1456,15 @@ const ja = {
     De_MemberState: "メンバーのステータス",
     De_SpotCheckId: "点検票番号",
     De_DeviceRepair: "設備整備",
+    De_DeviceTotalQuantity: "デバイスの合計数",
+    De_MaintenanceingQuantity: "保守中設備数",
+    De_RepairingQuantity: "修理中の設備数",
+    De_SpotCheckOverdueQuantity: "点検リードタイム数",
+    De_SpotCheckCompletionRate: "点検完了率",
+    De_SpotCheckCompletionQuantity: "点検完了数",
+    De_SpotCheckAbnormalQuantity: "点検異常定数",
+    De_OverdueQuantity: "タイムアウト数",
+    De_AutoCompletionQuantity: "スキップ数",
   },
   // 后端提示
   backendMessage: {

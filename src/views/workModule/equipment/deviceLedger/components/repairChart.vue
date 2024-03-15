@@ -5,6 +5,7 @@
 </template>
 <script>
 import BaseChart from "@/views/dashboard/admin/echarts/base-echart.vue";
+import { repairStateEnum } from "@/enum/workModule/equipment"
 export default {
   name: 'repairChart',
   components: { BaseChart },
@@ -18,6 +19,7 @@ export default {
   },
   data() {
     return {
+      repairStateEnum,
       options: {},
       transData: [],
     };
@@ -26,7 +28,7 @@ export default {
     result(val) {
       this.transData = val;
       this.transData.forEach(item => {
-        item.name = item.Name
+        item.name = repairStateEnum[item.Code].name
         item.value = item.Value
         item.itemStyle = { color: item.Color }
       })
