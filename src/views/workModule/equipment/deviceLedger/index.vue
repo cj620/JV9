@@ -21,10 +21,10 @@
         <div class="body-top">
           <div class="body-top-left">
             <i class="setting-icon el-icon-s-operation" style="font-size: 24px; margin-right: 10px; color: #6E8CFF;"/>
-            设备点检
+            {{ $t('menu.As_DeviceSpotCheck') }}
           </div>
           <div class="body-top-right">
-            日期
+            {{ $t('Generality.Ge_Date') }}
             <el-date-picker
               v-model="taskDate"
               type="daterange"
@@ -69,10 +69,10 @@
           <div class="echarts-header" style="justify-content: space-between">
             <div class="echarts-header-left">
               <i class="el-icon-pie-chart" style="font-size: 24px; margin-right: 10px; color: #6E8CFF;"/>
-              设备保养
+              {{ $t('menu.As_DeviceMaintain') }}
             </div>
             <div class="echarts-header-right">
-              日期
+              {{ $t('Generality.Ge_Date') }}
               <el-date-picker
                   v-model="maintainDate"
                   type="daterange"
@@ -250,6 +250,7 @@ export default {
       background-color: #fff;
       padding: 15px;
       border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影 */
       .header-items-desc {
         width: 100%;
         height: 25px;
@@ -276,6 +277,7 @@ export default {
     background-color: #fff;
     margin-top: 15px;
     border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影 */
     .body-top {
       width: 100%;
       height: 50px;
@@ -337,6 +339,7 @@ export default {
     justify-content: space-between;
     .deviceLedger-page-footer-items {
       border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影 */
       width: 49%;
       height: 100%;
       min-height: 330px;
