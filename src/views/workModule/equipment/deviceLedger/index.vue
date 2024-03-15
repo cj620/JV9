@@ -20,7 +20,7 @@
       <div class="deviceLedger-page-body">
         <div class="body-top">
           <div class="body-top-left">
-            <i class="setting-icon el-icon-s-operation" style="font-size: 24px; margin-right: 10px"/>
+            <i class="setting-icon el-icon-s-operation" style="font-size: 24px; margin-right: 10px; color: #6E8CFF;"/>
             设备点检
           </div>
           <div class="body-top-right">
@@ -28,10 +28,11 @@
             <el-date-picker
               v-model="taskDate"
               type="daterange"
+              size="small"
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
-              style="margin: 0 20px"
+              style="margin: 0 20px 0 15px"
             >
             </el-date-picker>
           </div>
@@ -55,11 +56,32 @@
       <!-- 底部图表 -->
       <div class="deviceLedger-page-footer">
         <div class="deviceLedger-page-footer-items">
-          <div class="echarts-title"></div>
+          <div class="echarts-header">
+            <i class="el-icon-pie-chart" style="font-size: 24px; margin-right: 10px; color: #6E8CFF;"/>
+            设备维修
+          </div>
           <div class="echarts-body"></div>
         </div>
         <div class="deviceLedger-page-footer-items">
-          <div class="echarts-title"></div>
+          <div class="echarts-header" style="justify-content: space-between">
+            <div class="echarts-header-left">
+              <i class="el-icon-pie-chart" style="font-size: 24px; margin-right: 10px; color: #6E8CFF;"/>
+              设备保养
+            </div>
+            <div class="echarts-header-right">
+              日期
+              <el-date-picker
+                  v-model="maintainDate"
+                  type="daterange"
+                  size="small"
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  style="margin: 0 10px"
+              >
+              </el-date-picker>
+            </div>
+          </div>
           <div class="echarts-body"></div>
         </div>
       </div>
@@ -77,60 +99,76 @@ export default {
   data() {
     return {
       taskDate: "",
+      maintainDate: "",
       headerData: [
         {
           title: "设备总数",
-          data: 30,
+          data: 0,
+          remarks: "DeviceTotalQuantity",
         },
         {
           title: "保养中设备数",
-          data: 7,
+          data: 0,
+          remarks: "MaintenanceingQuantity",
         },
         {
           title: "维修中设备数",
-          data: 3,
+          data: 0,
+          remarks: "RepairingQuantity",
         },
         {
           title: "点检超期数",
-          data: 175,
+          data: 0,
+          remarks: "SpotCheckOverdueQuantity",
         },
       ],
       bodyData: [
         {
           title: "点检完成率",
-          data: "22%",
+          data: 0,
           icon: "el-icon-s-marketing",
           backColor: '#E0F9FC',
           color: '#47DCEE',
+          remarks: "SpotCheckCompletionRate",
         },
         {
           title: "点检完成数",
-          data: "18",
+          data: 0,
           icon: "el-icon-finished",
           backColor: '#E5F8ED',
           color: '#4DD189',
+          remarks: "SpotCheckCompletionQuantity",
         },
         {
           title: "点检异常数",
-          data: "0",
+          data: 0,
           icon: "el-icon-document-delete",
           backColor: '#FCEAEA',
           color: '#EE7B7B',
+          remarks: "SpotCheckAbnormalQuantity",
         },
         {
           title: "超期数",
-          data: "20",
+          data: 0,
           icon: "el-icon-stopwatch",
           backColor: '#FEF8E1',
           color: '#F7D13D',
+          remarks: "OverdueQuantity",
         },
         {
           title: "跳过数",
-          data: "13",
+          data: 0,
           icon: "el-icon-guide",
           backColor: '#F4EAE6',
           color: '#A65331',
+          remarks: "AutoCompletionQuantity",
         },
+      ],
+      repairChartData: [
+
+      ],
+      maintainChartData: [
+
       ]
     }
   },
@@ -140,13 +178,24 @@ export default {
   methods: {
     getData() {
       assets_device_management_report().then((res) => {
-        console.log('management-res:::', res)
+        this.headerData.forEach(item => {
+          const remarksKey = item.remarks;
+          if (res.hasOwnProperty(remarksKey)) {
+            item.data = res[remarksKey];
+          }
+        });
+        this.repairChartData = res.RepairData.PieChartData;
       })
       assets_device_spot_check_report({}).then((res) => {
-        console.log('spot-check-res:::', res)
+        this.bodyData.forEach(item => {
+          const remarksKey = item.remarks;
+          if (res.hasOwnProperty(remarksKey)) {
+            item.data = res[remarksKey];
+          }
+        });
       })
       assets_device_maintain_report({}).then((res) => {
-        console.log('maintain-res:::', res)
+        this.maintainChartData = res.PieChartData;
       })
     }
   }
@@ -157,7 +206,6 @@ export default {
   height: 100%;
   min-width: 1200px;
   background-color: rgba(242,242,242);
-  padding: 10px;
   .deviceLedger-page-header {
     width: 100%;
     height: 105px;
@@ -168,6 +216,7 @@ export default {
       height: 100%;
       background-color: #fff;
       padding: 15px;
+      border-radius: 6px;
       .header-items-desc {
         width: 100%;
         height: 25px;
@@ -192,10 +241,11 @@ export default {
     width: 100%;
     height: 250px;
     background-color: #fff;
-    margin-top: 25px;
+    margin-top: 15px;
+    border-radius: 6px;
     .body-top {
       width: 100%;
-      height: 60px;
+      height: 50px;
       display: flex;
       .body-top-left {
         width: 40%;
@@ -216,7 +266,7 @@ export default {
     }
     .body-bottom {
       width: 100%;
-      height: calc(100% - 60px);
+      height: calc(100% - 50px);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -253,25 +303,33 @@ export default {
   }
   .deviceLedger-page-footer {
     width: 100%;
-    height: calc(100% - 405px);
-    margin-top: 25px;
+    height: calc(100% - 385px);
+    margin-top: 15px;
     display: flex;
     justify-content: space-between;
     .deviceLedger-page-footer-items {
+      border-radius: 6px;
       width: 49%;
       height: 100%;
       min-height: 330px;
       background-color: #fff;
-      padding: 15px;
-      .echarts-title {
+      padding: 10px;
+      .echarts-header {
+        display: flex;
+        align-items: center;
         width: 100%;
-        height: 40px;
-        background-color: silver;
-        margin-bottom: 10px;
+        height: 30px;
+        margin-bottom: 5px;
+        font-size: 18px;
+        padding-left: 10px;
+        .echarts-header-left {
+          display: flex;
+          align-items: center;
+        }
       }
       .echarts-body {
         width: 100%;
-        height: calc(100% - 50px);
+        height: calc(100% - 35px);
         background-color: gainsboro;
       }
     }
