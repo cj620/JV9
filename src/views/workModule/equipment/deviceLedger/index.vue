@@ -48,8 +48,9 @@
               <i :class="item.icon" style="font-size: 32px"></i>
             </div>
             <div class="body-bottom-items-content">
-              <div style="width: 100%;height: 60%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold">{{ item.data }}</div>
-              <div style="width: 100%;height: 40%; display: flex; align-items: flex-start; justify-content: center; color: #7d7d7f;">{{ item.title }}</div>
+              <div class="body-bottom-items-content-data" v-if="item.remarks === 'SpotCheckCompletionRate'">{{ item.data }}%</div>
+              <div class="body-bottom-items-content-data" v-else>{{ item.data }}</div>
+              <div class="body-bottom-items-content-title">{{ item.title }}</div>
             </div>
           </div>
         </div>
@@ -327,6 +328,23 @@ export default {
           justify-content: center;
           align-items: center;
           padding-bottom: 10px;
+          .body-bottom-items-content-data {
+            width: 100%;
+            height: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+          }
+          .body-bottom-items-content-title {
+            width: 100%;
+            height: 40%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            color: #7d7d7f;
+          }
         }
       }
     }
