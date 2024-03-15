@@ -42,7 +42,9 @@
             v-for="(item, index) in bodyData"
             :key="index"
           >
-            <div class="body-bottom-items-icon"></div>
+            <div class="body-bottom-items-icon" :style="{background: item.backColor, color: item.color}">
+              <i :class="item.icon" style="font-size: 32px"></i>
+            </div>
             <div class="body-bottom-items-content">
               <div style="width: 100%;height: 60%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: bold">{{ item.data }}</div>
               <div style="width: 100%;height: 40%; display: flex; align-items: flex-start; justify-content: center; color: #7d7d7f;">{{ item.title }}</div>
@@ -52,13 +54,24 @@
       </div>
       <!-- 底部图表 -->
       <div class="deviceLedger-page-footer">
-        <div class="deviceLedger-page-footer-items"></div>
-        <div class="deviceLedger-page-footer-items"></div>
+        <div class="deviceLedger-page-footer-items">
+          <div class="echarts-title"></div>
+          <div class="echarts-body"></div>
+        </div>
+        <div class="deviceLedger-page-footer-items">
+          <div class="echarts-title"></div>
+          <div class="echarts-body"></div>
+        </div>
       </div>
     </div>
   </PageWrapper>
 </template>
 <script>
+import {
+  assets_device_management_report,
+  assets_device_spot_check_report,
+  assets_device_maintain_report,
+} from "@/api/workApi/equipment/device"
 export default {
   name: "As_DeviceLedger",
   data() {
@@ -67,51 +80,74 @@ export default {
       headerData: [
         {
           title: "设备总数",
-          data: 246,
+          data: 30,
         },
         {
-          title: "保养中资产数",
-          data: 210,
+          title: "保养中设备数",
+          data: 7,
         },
         {
-          title: "维修中资产数",
-          data: 32,
+          title: "维修中设备数",
+          data: 3,
         },
         {
           title: "点检超期数",
-          data: 13,
+          data: 175,
         },
       ],
       bodyData: [
         {
-          title: "完成率",
-          data: "1.22%",
+          title: "点检完成率",
+          data: "22%",
+          icon: "el-icon-s-marketing",
+          backColor: '#E0F9FC',
+          color: '#47DCEE',
         },
         {
-          title: "需整改数",
-          data: "12",
+          title: "点检完成数",
+          data: "18",
+          icon: "el-icon-finished",
+          backColor: '#E5F8ED',
+          color: '#4DD189',
         },
         {
-          title: "完成次数",
-          data: "10",
+          title: "点检异常数",
+          data: "0",
+          icon: "el-icon-document-delete",
+          backColor: '#FCEAEA',
+          color: '#EE7B7B',
         },
         {
-          title: "已整改完成",
-          data: "10",
-        },
-        {
-          title: "完成巡检点",
-          data: "64",
-        },
-        {
-          title: "整改完成率",
-          data: "91.67%",
+          title: "超期数",
+          data: "20",
+          icon: "el-icon-stopwatch",
+          backColor: '#FEF8E1',
+          color: '#F7D13D',
         },
         {
           title: "跳过数",
-          data: "4",
+          data: "13",
+          icon: "el-icon-guide",
+          backColor: '#F4EAE6',
+          color: '#A65331',
         },
       ]
+    }
+  },
+  created() {
+    this.getData()
+  },
+  methods: {
+    getData() {
+      assets_device_management_report().then((res) => {
+        console.log('management-res:::', res)
+      })
+      assets_device_spot_check_report({}).then((res) => {
+        console.log('spot-check-res:::', res)
+      })
+      assets_device_maintain_report({}).then((res) => {
+        console.log('maintain-res:::', res)
+      })
     }
   }
 }
@@ -124,7 +160,7 @@ export default {
   padding: 10px;
   .deviceLedger-page-header {
     width: 100%;
-    height: 120px;
+    height: 105px;
     display: flex;
     justify-content: space-between;
     .deviceLedger-page-header-items {
@@ -148,6 +184,7 @@ export default {
         height: calc(100% - 30px);
         font-size: 45px;
         margin-left: 10px;
+        color: #6E8CFF;
       }
     }
   }
@@ -181,14 +218,13 @@ export default {
       width: 100%;
       height: calc(100% - 60px);
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       padding-bottom: 5px;
       &:after {
         content: "";
-        width: 24%;
-        height: 45%;
+        flex: 1;
       }
       .body-bottom-items {
         width: 24%;
@@ -197,7 +233,11 @@ export default {
         justify-content: center;
         .body-bottom-items-icon {
           width: 80px;
-          height: 100%;
+          height: 80px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           background-color: rgba(242,242,242);
         }
         .body-bottom-items-content {
@@ -213,7 +253,7 @@ export default {
   }
   .deviceLedger-page-footer {
     width: 100%;
-    height: calc(100% - 420px);
+    height: calc(100% - 405px);
     margin-top: 25px;
     display: flex;
     justify-content: space-between;
@@ -222,6 +262,18 @@ export default {
       height: 100%;
       min-height: 330px;
       background-color: #fff;
+      padding: 15px;
+      .echarts-title {
+        width: 100%;
+        height: 40px;
+        background-color: silver;
+        margin-bottom: 10px;
+      }
+      .echarts-body {
+        width: 100%;
+        height: calc(100% - 50px);
+        background-color: gainsboro;
+      }
     }
   }
 }
