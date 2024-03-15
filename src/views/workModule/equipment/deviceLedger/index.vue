@@ -29,10 +29,11 @@
               v-model="taskDate"
               type="daterange"
               size="small"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
+              range-separator="~"
+              :start-placeholder="$t('Generality.Ge_StartDate')"
+              :end-placeholder="$t('Generality.Ge_EndDate')"
               style="margin: 0 20px 0 15px"
+              @change="timeChange1"
             >
             </el-date-picker>
           </div>
@@ -60,7 +61,9 @@
             <i class="el-icon-pie-chart" style="font-size: 24px; margin-right: 10px; color: #6E8CFF;"/>
             设备维修
           </div>
-          <div class="echarts-body"></div>
+          <div class="echarts-body">
+            <repairChart :result="repairChartData"></repairChart>
+          </div>
         </div>
         <div class="deviceLedger-page-footer-items">
           <div class="echarts-header" style="justify-content: space-between">
@@ -74,15 +77,18 @@
                   v-model="maintainDate"
                   type="daterange"
                   size="small"
-                  range-separator="至"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
+                  range-separator="~"
+                  :start-placeholder="$t('Generality.Ge_StartDate')"
+                  :end-placeholder="$t('Generality.Ge_EndDate')"
                   style="margin: 0 10px"
+                  @change="timeChange2"
               >
               </el-date-picker>
             </div>
           </div>
-          <div class="echarts-body"></div>
+          <div class="echarts-body">
+            <maintainChart :result="maintainChartData"></maintainChart>
+          </div>
         </div>
       </div>
     </div>
@@ -94,12 +100,23 @@ import {
   assets_device_spot_check_report,
   assets_device_maintain_report,
 } from "@/api/workApi/equipment/device"
+import repairChart from "@/views/workModule/equipment/deviceLedger/components/repairChart.vue";
+import maintainChart from "@/views/workModule/equipment/deviceLedger/components/maintainChart.vue";
+import { timeFormat } from "@/jv_doc/utils/time";
 export default {
   name: "As_DeviceLedger",
   data() {
     return {
-      taskDate: "",
-      maintainDate: "",
+      taskDate: ["", ""],
+      taskSpan: {
+        StartDate: "",
+        EndDate: "",
+      },
+      maintainDate: ["", ""],
+      maintainSpan: {
+        StartDate: "",
+        EndDate: "",
+      },
       headerData: [
         {
           title: "设备总数",
@@ -164,13 +181,13 @@ export default {
           remarks: "AutoCompletionQuantity",
         },
       ],
-      repairChartData: [
-
-      ],
-      maintainChartData: [
-
-      ]
+      repairChartData: [],
+      maintainChartData: []
     }
+  },
+  components: {
+    repairChart,
+    maintainChart,
   },
   created() {
     this.getData()
@@ -186,7 +203,11 @@ export default {
         });
         this.repairChartData = res.RepairData.PieChartData;
       })
-      assets_device_spot_check_report({}).then((res) => {
+      this.getSpotCheckData({});
+      this.getMaintainData({});
+    },
+    getSpotCheckData(e) {
+      assets_device_spot_check_report(e).then((res) => {
         this.bodyData.forEach(item => {
           const remarksKey = item.remarks;
           if (res.hasOwnProperty(remarksKey)) {
@@ -194,9 +215,21 @@ export default {
           }
         });
       })
-      assets_device_maintain_report({}).then((res) => {
+    },
+    getMaintainData(e) {
+      assets_device_maintain_report(e).then((res) => {
         this.maintainChartData = res.PieChartData;
       })
+    },
+    timeChange1() {
+      this.taskSpan.StartDate = timeFormat(this.taskDate[0], 'yyyy-MM-dd hh:mm:ss');
+      this.taskSpan.EndDate = timeFormat(this.taskDate[1], 'yyyy-MM-dd hh:mm:ss');
+      this.getSpotCheckData(this.taskSpan)
+    },
+    timeChange2() {
+      this.maintainSpan.StartDate = timeFormat(this.maintainDate[0], 'yyyy-MM-dd hh:mm:ss');
+      this.maintainSpan.EndDate = timeFormat(this.maintainDate[1], 'yyyy-MM-dd hh:mm:ss');
+      this.getMaintainData(this.maintainSpan)
     }
   }
 }
@@ -247,6 +280,7 @@ export default {
       width: 100%;
       height: 50px;
       display: flex;
+      margin-bottom: 5px;
       .body-top-left {
         width: 40%;
         height: 100%;
@@ -266,19 +300,12 @@ export default {
     }
     .body-bottom {
       width: 100%;
-      height: calc(100% - 50px);
+      height: 195px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       flex-wrap: wrap;
-      padding-bottom: 5px;
-      &:after {
-        content: "";
-        flex: 1;
-      }
       .body-bottom-items {
-        width: 24%;
-        height: 45%;
+        width: 25%;
+        height: 50%;
         display: flex;
         justify-content: center;
         .body-bottom-items-icon {
@@ -297,6 +324,7 @@ export default {
           flex-wrap: wrap;
           justify-content: center;
           align-items: center;
+          padding-bottom: 10px;
         }
       }
     }
@@ -330,7 +358,6 @@ export default {
       .echarts-body {
         width: 100%;
         height: calc(100% - 35px);
-        background-color: gainsboro;
       }
     }
   }
