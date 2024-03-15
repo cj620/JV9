@@ -59,7 +59,7 @@
         <div class="deviceLedger-page-footer-items">
           <div class="echarts-header">
             <i class="el-icon-pie-chart" style="font-size: 24px; margin-right: 10px; color: #6E8CFF;"/>
-            设备维修
+            {{ $t('device.De_DeviceRepair') }}
           </div>
           <div class="echarts-body">
             <repairChart :result="repairChartData"></repairChart>

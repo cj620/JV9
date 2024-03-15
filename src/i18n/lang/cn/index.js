@@ -1445,6 +1445,7 @@ const cn = {
     De_SpotCheckRecord: "点检记录",
     De_MemberState: "成员状态",
     De_SpotCheckId: "点检单号",
+    De_DeviceRepair: "设备维修",
   },
   // 后端提示
   backendMessage: {

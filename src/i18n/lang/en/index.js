@@ -1462,6 +1462,7 @@ const en = {
     De_SpotCheckRecord: "Spot Check Record",
     De_MemberState: "Member State",
     De_SpotCheckId: "Spot Check Bill No.",
+    De_DeviceRepair: "Device Repair",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",

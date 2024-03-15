@@ -1455,6 +1455,7 @@ const ja = {
     De_SpotCheckRecord: "点検記録",
     De_MemberState: "メンバーのステータス",
     De_SpotCheckId: "点検票番号",
+    De_DeviceRepair: "設備整備",
   },
   // 后端提示
   backendMessage: {
