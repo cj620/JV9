@@ -409,6 +409,8 @@ const cn = {
     Sa_Sum: "合计",
     Sa_PleaseInput1: "请输入物料编号、名称",
     Sa_AddProject: "新增项目",
+    Sa_DataEmpty: "导入数据不能为空",
+    Sa_FillInRequiredFields: "请填写必填项",
   },
   // 采购
   purchase: {

@@ -435,6 +435,8 @@ const en = {
     Sa_Sum: "sum",
     Sa_PleaseInput1: "Please enter the material number and name",
     Sa_AddProject: "Add a New Project",
+    Sa_DataEmpty: "Import data cannot be empty",
+    Sa_FillInRequiredFields: "Please fill in the required fields",
   },
   // 采购
   purchase: {
