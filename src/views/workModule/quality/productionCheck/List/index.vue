@@ -31,10 +31,10 @@
             </template>
             <template slot="operateTime" slot-scope="row">
               <el-button @click="toMachiningCheckList(row)" size="small">
-                过程单
+                {{ $t("menu.Qc_ProcessCheck") }}
               </el-button>
               <el-button @click="toFinishedProduct(row)" size="small">
-                成品单
+                {{ $t("menu.Qc_FinishedProduct") }}
               </el-button>
             </template>
           </cardList>

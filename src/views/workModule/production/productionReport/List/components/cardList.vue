@@ -155,4 +155,9 @@ export default {
   }
 
 }
+.report-card-list-footer-show {
+  width: 100% !important;
+  display: flex;
+  justify-content: space-around;
+}
 </style>
