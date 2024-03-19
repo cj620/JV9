@@ -29,6 +29,9 @@
             <div> <slot name="contentTime" :row="item"></slot></div>
             <div> <slot name="content" :row="item"></slot></div>
           </div>
+          <div  class="report-card-list-center-right-operate">
+            <slot name="operateButton1" :row="item"></slot>
+          </div>
         </div>
         <div class="report-card-list-footer">
           <div class="report-card-list-footer-show" style="width: 190px;">
