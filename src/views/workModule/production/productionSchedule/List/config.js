@@ -355,10 +355,12 @@ export const GanttColumns = [
     name: "PlanStart",
     width: 100,
     label: i18n.t("Generality.Ge_PlanStart"),
+    filter: 'time'
   },
   {
     name: "PlanEnd",
     width: 100,
     label: i18n.t("Generality.Ge_PlanEnd"),
+    filter: 'time'
   },
 ];
