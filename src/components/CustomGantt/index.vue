@@ -374,7 +374,7 @@ export default {
       unitOptions: [
         {
           value: "week",
-          label: "周",
+          label: "天",
         },
         {
           value: "hour",

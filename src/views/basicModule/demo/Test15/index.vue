@@ -138,7 +138,7 @@ export default {
       unitOptions: [
         {
           value: "week",
-          label: i18n.t("Generality.Ge_Week"),
+          label: i18n.t("Generality.Ge_Day"),
         },
         {
           value: "hour",
