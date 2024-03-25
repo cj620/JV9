@@ -1192,4 +1192,8 @@ export default {
   font-size: 15px;
   cursor: pointer;
 }
+.el-badge__content.is-fixed.is-dot {
+  right: 5px;
+  top: 2px;
+}
 </style>
