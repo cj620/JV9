@@ -61,6 +61,14 @@ export function item_Recovery(data) {
   })
 }
 
+// 更新物料锁定状态
+export function item_Lock(data) {
+  return request({
+    url: '/item/lock',
+    method: 'post',
+    data: data,
+  })
+}
 
 
 
