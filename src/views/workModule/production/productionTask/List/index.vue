@@ -773,11 +773,13 @@ export default {
       .productionTask-card-content {
         width: 100%;
         font-size: 14px;
+        padding-bottom: 5px;
         .productionTask-card-content-baseInfo {
           display: flex;
           position: relative;
           flex-direction: row;
           justify-content: space-between;
+          margin-bottom: 5px;
           .productionTask-card-content-baseInfo-content {
             display: flex;
             div {
@@ -834,6 +836,7 @@ export default {
   }
 }
 .top-operate {
+  height: 30px;
   min-width: 120px;
   position: absolute;
   right: 0;
@@ -842,6 +845,7 @@ export default {
   justify-content: left;
 }
 .bottom-operate {
+  height: 30px;
   min-width: 120px;
   position: absolute;
   top: -5px;
