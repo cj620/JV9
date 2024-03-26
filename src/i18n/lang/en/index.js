@@ -103,6 +103,7 @@ const en = {
     Pr_ProductionDispatch: "Production Dispatch",
     Pr_WorkReport: "Work Report",
     Pr_ProductionPlan: "Production Plan",
+    Pr_ProductionProgress: "Part Processing Progress",
     Pr_ProgramTask: "Program Task",
     Pr_Quality: "Quality",
     Pr_Report: "Report",

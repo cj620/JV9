@@ -102,6 +102,7 @@ const ja = {
     Pr_ProductionDispatch: "生産スケジューリング",
     Pr_WorkReport: "生産報告",
     Pr_ProductionPlan: "生産計画",
+    Pr_ProductionProgress: "部品加工の進捗",
     Pr_Reports: "統計レポート",
     Pr_ProgramTask: "プログラミングタスク",
     Pr_Quality: "品質異常",

@@ -102,6 +102,7 @@ const cn = {
     Pr_ProductionDispatch: "生产调度",
     Pr_WorkReport: "生产报工",
     Pr_ProductionPlan: "生产计划",
+    Pr_ProductionProgress: "零件加工进度",
     Pr_Reports: "统计报表",
     Pr_ProgramTask: "编程任务",
     Pr_Quality: "品质异常",
