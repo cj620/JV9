@@ -55,6 +55,7 @@ export const detailConfig = [
     // 加工单
     prop: "PrTaskBillId",
     label: i18n.t("Generality.Ge_PrTaskBillId"),
+    custom: true,
   },
   {
     // 返工工序

@@ -21,11 +21,11 @@
       <div style="position: relative">
         <JvDetail :detailObj="detailObj">
           <template #PrTaskBillId="{ record }">
-            <!-- <span
+            <span
               style="color: #409eff; cursor: pointer"
               @click="linkToProduct(record)"
-              >{{ record }}</span
-            > -->
+            >{{ record }}</span
+            >
           </template>
         </JvDetail>
         <JvState :state="detailObj.detailData.State"></JvState>
@@ -165,6 +165,12 @@ export default {
       this.$router.push({
         name: routerName,
         params: { [keyName]: this.detailObj.detailData },
+      });
+    },
+    linkToProduct(BillId) {
+      this.$router.push({
+        name: "ProductionTaskDetails",
+        query: { BillId },
       });
     },
     tabClick(e) {

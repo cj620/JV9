@@ -89,6 +89,12 @@ export const tableConfig = [
   {
     prop: "PrTaskBillId",
     label: i18n.t("production.Pr_WorkSheetNo"),
+    cpn: "Link",
+    cpnProps: {
+      routeName: "ProductionTaskDetails",
+      methods: "query",
+      parameterKey: "BillId",
+    },
   },
   {
     // 零件编号

@@ -73,6 +73,12 @@ export const tableConfig = [
     // 加工单
     prop: "PrTaskBillId",
     label: i18n.t("Generality.Ge_PrTaskBillId"),
+    cpn: "Link",
+    cpnProps: {
+      routeName: "ProductionTaskDetails",
+      methods: "query",
+      parameterKey: "BillId",
+    },
   },
   {
     // 返工工序
