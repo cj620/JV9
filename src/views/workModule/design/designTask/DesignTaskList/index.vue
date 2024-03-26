@@ -12,49 +12,25 @@
       </template>
       <!-- operation操作列 -->
       <template #operation="{ row }">
-        <div class="bom-action">
-          <span
-            @click="edit(row)"
-            :class="{ 'action-item': true ,'disabled': row.ItemState === 'Completed' }"
-          >
-            {{ $t("Generality.Ge_Edit") }}
-          </span>
-          <span>
-            <el-badge :is-dot="row.IsDistributeSubtasks && ! ( row.ItemState === 'Completed' || row.ParentId !== 0 )">
-              <span
-                @click="distributionTask(row)"
-                :class="{ 'action-item': true ,'disabled': row.ItemState === 'Completed' || row.ParentId !== 0 }"
-              >
-                {{ $t("project.Pro_DistributionTask") }}
-              </span>
-            </el-badge>
-          </span>
-          <span
-            @click="viewSubTask(row)"
-            :class="{ 'action-item': true ,'disabled': row.ParentId !== 0 }"
-          >
-            {{ $t("project.Pro_ViewSubtasks") }}
-          </span>
-        </div>
-<!--        <TableAction-->
-<!--          :actions="[-->
-<!--            {-->
-<!--              label: $t('Generality.Ge_Edit'),-->
-<!--              confirm: edit.bind(null, row),-->
-<!--              disabled: row.ItemState === 'Completed',-->
-<!--            },-->
-<!--            {-->
-<!--              label: $t('project.Pro_DistributionTask'),-->
-<!--              confirm: distributionTask.bind(null, row),-->
-<!--              disabled: row.ItemState === 'Completed' || row.ParentId !== 0,-->
-<!--            },-->
-<!--            {-->
-<!--              label: $t('project.Pro_ViewSubtasks'),-->
-<!--              confirm: viewSubTask.bind(null, row),-->
-<!--              disabled: row.ParentId !== 0,-->
-<!--            },-->
-<!--          ]"-->
-<!--        />-->
+        <TableAction
+          :actions="[
+            {
+              label: $t('Generality.Ge_Edit'),
+              confirm: edit.bind(null, row),
+              disabled: row.ItemState === 'Completed',
+            },
+            {
+              label: $t('project.Pro_DistributionTask'),
+              confirm: distributionTask.bind(null, row),
+              disabled: row.ItemState === 'Completed' || row.ParentId !== 0,
+            },
+            {
+              label: $t('project.Pro_ViewSubtasks'),
+              confirm: viewSubTask.bind(null, row),
+              disabled: row.ParentId !== 0,
+            },
+          ]"
+        />
       </template>
     </JvTable>
     <!--父级物料弹窗-->
@@ -213,21 +189,4 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.action-item {
-  color: #0960bd;
-  padding-right: 10px;
-  font-size: 14px;
-  cursor: pointer;
-}
-.disabled {
-  pointer-events: none;
-  color: #A1A1A1;
-  font-size: 14px;
-}
-.el-badge__content.is-fixed.is-dot {
-  right: 10px;
-  top: 2px;
-}
-</style>
+<style></style>
