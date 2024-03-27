@@ -221,7 +221,8 @@ export default {
     canIsAdd() {
       let { datas } = this.tableObj.selectData;
       if (datas.length !== 1) return true;
-      return !(datas[0].State === 'Repairing' && datas[0].MaintenancePersonnel === this.$store.state.user.name)
+      return !((datas[0].State === 'Repairing' && datas[0].MaintenancePersonnel === this.$store.state.user.name) ||
+        ((datas[0].State === 'Repairing') && datas[0].Repairer))
     },
     canIsCheck() {
       let { datas } = this.tableObj.selectData;

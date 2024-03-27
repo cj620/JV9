@@ -372,8 +372,9 @@ export default {
           // 维修完成
           {
             label: this.$t('device.De_CompleteRepair'),
-            disabled: !((res.State === "Repairing" && res.MaintenancePersonnel === this.$store.state.user.name)||
-                    res.Repairer
+            disabled: !(
+              (res.State === "Repairing" && res.MaintenancePersonnel === this.$store.state.user.name) ||
+              (res.State === "Repairing" && res.Repairer)
             ),
             confirm: this.completeRepair,
           },
