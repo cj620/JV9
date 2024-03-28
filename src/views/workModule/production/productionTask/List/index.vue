@@ -359,8 +359,6 @@ export default {
         EndDate: "",
         PageSize: 10,
         CurrentPage: 1,
-        SortColumn: "PlanEnd",
-        SortOrder: 1,
         SortByProgress: false,
       },
       loading: false,

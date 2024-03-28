@@ -259,9 +259,11 @@ export default {
         CustomerName: "",
         StartDate: "",
         EndDate: "",
+        SortColumn: "PlanEnd",
+        SortOrder: 4,
         PageSize: 10,
         CurrentPage: 1,
-        SortByProgress: true,
+        SortByProgress: false,
       },
     }
   },
