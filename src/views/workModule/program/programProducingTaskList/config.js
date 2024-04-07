@@ -33,7 +33,7 @@ export class Table extends BaseTable {
       // 打印模块标识
       printMod: "Pa_ProgramProducingTaskList",
       printBar: false,
-      searchBar: false,
+      // searchBar: false,
     });
   }
 }
@@ -136,6 +136,24 @@ const tableSchema = [
 ];
 //  搜索表单配置
 const formSchema = [
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    cpn: "AsyncSearch",
+    api: itemList,
+    apiOptions: {
+      keyName: "ItemName",
+      valueName: "ItemId",
+      params: {
+        ItemCategory: "Tooling",
+      },
+    },
+  },
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+    cpn: "FormInput",
+  }
 ];
 export const formSchema1 = [
   {
