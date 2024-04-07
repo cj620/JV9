@@ -38,8 +38,16 @@
             confirm: add.bind(),
           },
           {
-            label: '打印',
+            label: $t('Generality.Ge_Print'),
             confirm: printMachine.bind(),
+          },
+          {
+            label: $t('design.De_DownloadTemplate'),
+            confirm: downLoadTemplate.bind(),
+          },
+          {
+            label: $t('Generality.Ge_Import'),
+            confirm: importDevices.bind(),
           },
         ]"
       >
@@ -127,6 +135,35 @@
         @change="changeImg"
       ></JvUploadList>
     </jv-dialog>
+    <Import
+      :visible.sync="importShow"
+      width="420px"
+      :title="$t('Generality.Ge_Import')"
+      @complete="importComplete"
+    ></Import>
+    <JvDialog
+      v-if="editTableShow"
+      :visible.sync="editTableShow"
+      width="70%"
+      :title="$t('Generality.Ge_Import')"
+      @confirm="confirmImport"
+    >
+      <JvEditTable :tableObj="editTableObj">
+        <template #operation="{ row_index }">
+          <TableAction
+            :actions="[
+              {
+                icon: 'el-icon-delete',
+                confirm: delItem.bind(null, row_index),
+              },
+            ]"
+          />
+        </template>
+        <template #ShowInProdSchedule="{ row }">
+          <el-checkbox v-model="row.ShowInProdSchedule.value"></el-checkbox>
+        </template>
+      </JvEditTable>
+    </JvDialog>
   </PageWrapper>
 </template>
 
@@ -135,27 +172,65 @@ import {
   deleteDevice,
   UpdateDevice,
   AddDevice,
+  BatchAddDevice,
 } from "@/api/workApi/production/baseData";
 import { Table } from "./config";
+import { EditTable } from "./editConfig"
 import { formSchema } from "./formConfig";
 import { Form } from "@/jv_doc/class/form";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import JvUploadList from "@/components/JVInternal/JvUpload/List";
+import { export2Excel } from "~/cpn/JvTable/utils/export2Excel";
+import { format2source } from "@/jv_doc/class/utils/dataFormat";
 
 export default {
   data() {
     return {
       tableObj: {},
       formObj: {},
+      editTableObj: {},
       ImgDataList: [],
       dialogVisible: false,
       dialogFormVisible: false,
+      importShow: false,
+      editTableShow: false,
       errorDefaultImg:
         'this.src="' + require("@/assets/errorImg/error.png") + '"',
       defaultImgUrl: window.global_config.ImgBase_Url,
       devicesDialogTitle: this.$t("Generality.Ge_Edit"),
       isEdit: false,
+      exportTemplate: [
+        {
+          prop: "DeviceNo",
+          label: i18n.t("production.Pr_DeviceNo"),
+        },
+        {
+          prop: "Device",
+          label: i18n.t("production.Pr_DeviceName"),
+        },
+        {
+          prop: "TimeSpan",
+          label: i18n.t("production.Pr_TimeSpan"),
+        },
+        {
+          prop: "CostRate",
+          label: i18n.t("production.Pr_CostRate"),
+        },
+        {
+          prop: "MaxQuantiyUpMachine",
+          label: i18n.t("production.Pr_MaximumNumberOfWorkSheet"),
+        }
+      ],
+      exportTemplateData: {
+        checkData: [],
+        checkedFields: [],
+        sourceType: "editTable",
+        dataType: "TEMPLATE",
+        saveType: "xlsx",
+        title: "",
+        fileName: this.$t("menu.Pr_Devices"),
+      },
     };
   },
   methods: {
@@ -216,6 +291,63 @@ export default {
         }
       });
     },
+    downLoadTemplate() {
+      var arr = [];
+      this.tableObj.props.tableSchema.forEach((item) =>
+        this.exportTemplate.forEach((Titem) => {
+          if (item.label === Titem.label) {
+            arr.push(item);
+          }
+        })
+      );
+      this.exportTemplateData.checkedFields = arr;
+      export2Excel(this.exportTemplateData);
+    },
+    importDevices() {
+      this.importShow = true;
+      this.editTableObj = new EditTable()
+    },
+    delItem(index) {
+      this.editTableObj.delItem(index);
+    },
+    importComplete(e) {
+      this.importShow = false;
+
+      var arr = [];
+      e.forEach((Titem) => {
+        var str = {
+          DeviceNo: "",
+          Device: "",
+          TimeSpan: "",
+          CostRate: "",
+          MaxQuantiyUpMachine: "",
+          ShowInProdSchedule: false,
+        };
+        this.exportTemplate.forEach((item) => {
+          if (Titem[item.label]) {
+            str[item.prop] = Titem[item.label];
+          }
+        });
+        arr.push(str);
+      });
+
+      this.editTableShow = true;
+      this.editTableObj.setData(arr);
+    },
+    confirmImport() {
+      this.editTableObj.validate((valid) => {
+        if (valid) {
+          if (this.editTableObj.selectData.datas.length !== 0) {
+            BatchAddDevice(format2source(this.editTableObj.selectData.datas)).then(() => {
+              this.tableObj.getData();
+              this.editTableShow = false;
+            })
+          } else {
+            this.$message.warning(this.$t("Generality.Ge_ChooseAtLeastOneItem"));
+          }
+        }
+      })
+    }
   },
   created() {
     this.tableObj = new Table();

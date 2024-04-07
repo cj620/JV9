@@ -30,6 +30,14 @@ export function editProcess(data) {
     data,
   });
 }
+//批量编辑加工工序
+export function batchSaveProcess(data) {
+  return request({
+    url: "/production_process/batch_save",
+    method: "post",
+    data,
+  })
+}
 
 // 删除加工工序
 export function deleteProcess(data) {
@@ -98,6 +106,14 @@ export function AddDevice(data) {
     method: "post",
     data,
   });
+}
+// 批量新增设备
+export function BatchAddDevice(data) {
+  return request({
+    url: "/production_device/batch_add",
+    method: "post",
+    data
+  })
 }
 
 // 更新设备
