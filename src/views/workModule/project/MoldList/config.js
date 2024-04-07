@@ -64,6 +64,11 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_ToolingName"),
     // width: "140px",
   },
+  // 锁定状态
+  {
+    prop: "LockState",
+    label: i18n.t("project.Pro_LockState"),
+  },
   // 描述
   {
     prop: "Description",

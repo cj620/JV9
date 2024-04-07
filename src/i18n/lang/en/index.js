@@ -303,7 +303,8 @@ const en = {
     Pro_VersionCode:"Version Code",
     Pro_InputTestMouldInfo:"Input Test Mould Info",
     Pro_TestMouldMaterials:"Test Mould Materials",
-    Pro_ERPCode: "ERPCode",
+    Pro_ERPCode: "ERP Code",
+    Pro_LockState: "Lock State",
   },
   setup: {
     WhetherMarkAllRead: "Mark all messages of this type as read?",

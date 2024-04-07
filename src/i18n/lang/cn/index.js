@@ -279,6 +279,7 @@ const cn = {
     Pro_InputTestMouldInfo:"填写试模信息",
     Pro_TestMouldMaterials:"试模用料",
     Pro_ERPCode: "ERP任务单号",
+    Pro_LockState: "锁定状态",
   },
   //设置
   setup: {

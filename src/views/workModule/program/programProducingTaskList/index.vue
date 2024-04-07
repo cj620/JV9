@@ -46,6 +46,15 @@
               },
               disabled: row.Worker,
             },
+            // 删除
+            {
+              label: $t('Generality.Ge_Delete'),
+              popConfirm: {
+                title: $t('Generality.Ge_DeleteConfirm'),
+                confirm: confirmDel.bind(null, row),
+              },
+              disabled: row.State === 'Processed',
+            }
           ]"
         />
       </template>
@@ -172,6 +181,10 @@ export default {
       update_worker({ ProgramingTaskId: row.Id }).then((res) => {
         this.tableObj.getData();
       })
+    },
+    // 确认删除
+    confirmDel(row){
+
     },
     //查看子任务
     viewSubTask(row) {
