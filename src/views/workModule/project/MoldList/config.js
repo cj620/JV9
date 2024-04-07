@@ -68,6 +68,7 @@ export const tableConfig = [
   {
     prop: "LockState",
     label: i18n.t("project.Pro_LockState"),
+    custom: true,
   },
   // 描述
   {
