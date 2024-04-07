@@ -121,6 +121,7 @@ import addProjectTask from "@/views/workModule/design/designTask/DesignTaskList/
 import {
   project_task_get_children_item,
   project_task_delete_item,
+  production_programing_task_delete,
 } from "@/api/workApi/project/projectTask";
 import { update_worker } from "@/api/workApi/production/productionTask"
 import TaskState from "@/components/JVInternal/TaskState";
@@ -184,7 +185,9 @@ export default {
     },
     // 确认删除
     confirmDel(row){
-
+      production_programing_task_delete({ ItemIds: [row.Id] }).then(() => {
+        this.tableObj.getData();
+      })
     },
     //查看子任务
     viewSubTask(row) {
