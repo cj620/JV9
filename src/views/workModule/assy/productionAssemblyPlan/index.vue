@@ -203,10 +203,9 @@ export default {
       this.getTableData();
     },
     doLayout() {
-      console.log(this.$refs)
-      // this.$nextTick(() => {
-      //   this.$refs.doLayout();
-      // });
+      this.$nextTick(() => {
+        this.$refs.BillTable.doLayout();
+      });
     },
     expandDetail(row, expandedRows) {
       this.detailTableData = []
@@ -219,9 +218,11 @@ export default {
           CurrentPage: 1,
         }).then((res) => {
           this.detailTableData = res.Items
+          this.doLayout()
         })
       } else {
         this.expands = []
+        this.doLayout()
       }
     }
   }
