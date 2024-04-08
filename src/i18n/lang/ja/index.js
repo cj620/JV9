@@ -1779,6 +1779,9 @@ const ja = {
     ERP_inventory_category_configuration:"ERPコード化規則",
     User_device_configuration:"ユーザデバイスの構成",
     Tourist_virtually_dashboard_switch:"カンバン仮想データ構成",
+    Prohibited_APS_time: "排程禁止時間",
+    Programming_default_responsible_person: "プログラミングデフォルト責任者",
+    Meanwhile_down_process_configuration: "同時ダウンプロセス構成",
   },
 
   ...jaLocale,

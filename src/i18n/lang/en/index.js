@@ -1793,7 +1793,9 @@ const en = {
     ERP_inventory_category_configuration:"ERP inventory category configuration",
     User_device_configuration:"User device configuration",
     Tourist_virtually_dashboard_switch:"Tourist virtually dashboard switch",
-
+    Prohibited_APS_time: "Prohibited APS time",
+    Programming_default_responsible_person: "Programming default responsible person",
+    Meanwhile_down_process_configuration: "Meanwhile down process configuration",
   },
   ...enLocale,
 };

@@ -1761,6 +1761,9 @@ const cn = {
     ERP_inventory_category_configuration:"ERP编码规则",
     User_device_configuration:"用户设备配置",
     Tourist_virtually_dashboard_switch:"看板虚拟数据配置",
+    Prohibited_APS_time: "禁止排程时间",
+    Programming_default_responsible_person: "编程默认负责人",
+    Meanwhile_down_process_configuration: "同时下机工序配置",
   },
 
   ...zhLocale,
