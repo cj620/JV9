@@ -57,7 +57,7 @@
       :visible.sync="dialogVisible"
       :title="devicesDialogTitle"
       @confirm="dialogConfirm"
-      width="30%"
+      width="30vw"
       v-if="dialogVisible"
       autoFocus
     >
@@ -88,36 +88,43 @@
         </div>
       </div>
 
-      <JvForm :formObj="formObj">
-        <template #DeviceNo="{ prop }">
-          <el-input :disabled="isEdit" v-model="formObj.form[prop]"></el-input>
-        </template>
-        <template #Device="{ prop }">
-          <el-input :disabled="isEdit" v-model="formObj.form[prop]"></el-input>
-        </template>
-        <template #TimeSpan="{ prop }">
-          <el-input v-model="formObj.form[prop]" style="width: 90%"></el-input>
-          <el-tooltip
-            class="item"
-            effect="dark"
-            :content="$t('Generality.Ge_TimeFormat')"
-            placement="right"
-          >
-            <span
-              class="el-icon-warning-outline"
-              style="margin-left: 10px; font-size: 20px"
-            ></span>
-          </el-tooltip>
-        </template>
+      <div class="jvForm-box">
+        <JvForm :formObj="formObj">
+          <template #DeviceNo="{ prop }">
+            <el-input :disabled="isEdit" v-model="formObj.form[prop]"></el-input>
+          </template>
+          <template #Device="{ prop }">
+            <el-input :disabled="isEdit" v-model="formObj.form[prop]"></el-input>
+          </template>
+          <template #TimeSpan="{ prop }">
+            <div style="display:flex;align-items: center;margin-bottom: 10px"
+                 v-for="(item, i) in TimeSpanList" :key="i">
+              <el-time-picker
+                is-range
+                v-model="TimeSpanList[i]"
+                format="HH:mm:ss"
+                range-separator="至"
+                start-placeholder="开始时间"
+                end-placeholder="结束时间"
+                @change="pickerChange"
+                placeholder="选择时间范围">
+              </el-time-picker>
+              <div style="width: 70px;display: flex">
+                <div class="el-icon-plus" v-if="i === TimeSpanList.length-1" style="border-radius: 50%; border: 1px solid #ccc;padding: 4px;margin-left: 6px;cursor: pointer" @click="TimeSpanList.push('')"></div>
+                <div class="el-icon-minus" v-if="i !== 0" style="border-radius: 50%; border: 1px solid #ccc;padding: 4px;margin-left: 6px;cursor: pointer" @click="TimeSpanList.splice(i,1)"></div>
+              </div>
+            </div>
+          </template>
 
-        <template #ShowInProdSchedule="{ prop }">
-          <el-radio-group v-model="formObj.form[prop]">
-            <el-radio :label="true" >{{$t('Generality.Ge_Show')}}</el-radio>
-            <el-radio :label="false">{{$t('Generality.Ge_Hide')}}</el-radio>
-          </el-radio-group>
-        </template>
-        <!-- <template #PhotoUrl="{ prop }"> </template> -->
-      </JvForm>
+          <template #ShowInProdSchedule="{ prop }">
+            <el-radio-group v-model="formObj.form[prop]">
+              <el-radio :label="true" >{{$t('Generality.Ge_Show')}}</el-radio>
+              <el-radio :label="false">{{$t('Generality.Ge_Hide')}}</el-radio>
+            </el-radio-group>
+          </template>
+          <!-- <template #PhotoUrl="{ prop }"> </template> -->
+        </JvForm>
+      </div>
     </JvDialog>
     <jv-dialog
       :title="$t('Generality.Ge_AddNewPicture')"
@@ -178,6 +185,7 @@ import { Table } from "./config";
 import { EditTable } from "./editConfig"
 import { formSchema } from "./formConfig";
 import { Form } from "@/jv_doc/class/form";
+import { timeFormat } from "@/jv_doc/utils/time";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import JvUploadList from "@/components/JVInternal/JvUpload/List";
@@ -231,10 +239,15 @@ export default {
         title: "",
         fileName: this.$t("menu.Pr_Devices"),
       },
+      TimeSpanList: [null,null],
     };
   },
   methods: {
     imgUrlPlugin,
+    pickerChange(e) {
+      console.log(e);
+      console.log(this.TimeSpanList);
+    },
     printMachine() {
       this.$router.push({
         name: "printMachine",
@@ -252,6 +265,8 @@ export default {
       this.dialogVisible = true;
       this.isEdit = true;
       this.formObj.form = JSON.parse(JSON.stringify(row));
+      
+      this.TimeSpanList = this.convertTimeString(this.formObj.form.TimeSpan)
     },
     //图片点击确认事件
     confirmImg() {
@@ -274,7 +289,40 @@ export default {
         MaxQuantiyUpMachine: "",
       };
     },
+    // 格式化时间范围
+    convertTimeString(timeString) {
+      const date = new Date(); // 获取当前日期
+      const currentDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()); // 当前日期的零点
+      const timeRanges = timeString.split(','); // 按逗号分割时间段
+
+      const result = timeRanges.map((range) => {
+        const [start, end] = range.split('-'); // 按照"-"分割开始时间和结束时间
+
+        const [startHour, startMinute] = start.split(':'); // 分割开始时间的小时和分钟
+        const [endHour, endMinute] = end.split(':'); // 分割结束时间的小时和分钟
+
+        const startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), startHour, startMinute); // 创建开始时间
+        const endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), endHour, endMinute); // 创建结束时间
+
+        return [startTime, endTime]; // 返回时间范围
+      });
+
+      return result;
+    },
     dialogConfirm() {
+      /*时间范围转换*/
+      let resultList = []
+      this.TimeSpanList.forEach(item => {
+        let arr = []
+        item.forEach(trim => {
+          arr.push(timeFormat(trim, 'hh:mm'))
+        })
+        resultList.push(arr.join('-'))
+        
+      })
+      this.formObj.form.TimeSpan = resultList.join(',');
+      /*时间范围转换*/
+
       this.formObj.validate((valid) => {
         if (valid) {
           if (this.isEdit) {
@@ -388,4 +436,10 @@ export default {
   line-height: 28px;
   font-weight: 700;
 }
+.jvForm-box{
+  ::v-deep.el-col{
+    height: auto!important;
+  }
+}
+
 </style>
