@@ -103,6 +103,12 @@
         <el-button
           size="mini"
           type="primary"
+          @click="addNewTask(taskTypeEnum['ToolCorrection'].value)"
+          >{{ $t("project.Pro_AddToolCorrectionTask") }}</el-button
+        >
+        <el-button
+          size="mini"
+          type="primary"
           @click="addNewTask(taskTypeEnum['DesignChange'].value)"
           >{{ $t("project.Pro_AddDesignChangeTask") }}</el-button
         >

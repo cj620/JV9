@@ -277,6 +277,7 @@ const en = {
     Pro_ToolingDetails: "Tooling details",
     Pro_RequirementItem: "Requirement item",
     Pro_AddNewToolingTask: "Add New Tooling task",
+    Pro_AddToolCorrectionTask: "Add Tool Correction Task",
     Pro_AddDesignChangeTask: "Add design-change task",
     Pro_AddTrialMoldTask: "Add trial mold task",
     Pro_ExpirationTime: "Expiration time",

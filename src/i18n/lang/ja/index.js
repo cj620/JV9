@@ -251,6 +251,7 @@ const ja = {
     Pro_ToolingDetails: "金型詳細",
     Pro_RequirementItem: "需要項目",
     Pro_AddNewToolingTask: "新規モデルタスクの追加",
+    Pro_AddToolCorrectionTask: "新規モデリングタスク",
     Pro_AddDesignChangeTask: "新規設定変更タスク",
     Pro_AddTrialMoldTask: "新規モデル試験タスク",
     Pro_ExpirationTime: "有効期限",

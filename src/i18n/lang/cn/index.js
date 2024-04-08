@@ -252,6 +252,7 @@ const cn = {
     Pro_ToolingDetails: "模具详情",
     Pro_RequirementItem: "需求项目",
     Pro_AddNewToolingTask: "新增新模任务",
+    Pro_AddToolCorrectionTask: "新增修模任务",
     Pro_AddDesignChangeTask: "新增设变任务",
     Pro_AddTrialMoldTask: "新增试模任务",
     Pro_ExpirationTime: "过期时间",
