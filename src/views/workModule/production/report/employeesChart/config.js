@@ -8,6 +8,7 @@ import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getEmployeeWork } from "@/api/workApi/production/dataReport";
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
+import {getAllDevice} from "@/api/workApi/production/baseData";
 export class api extends TableAPI {
   getData = getEmployeeWork;
 }
@@ -115,6 +116,17 @@ export const formSchema = [
     apiOptions: {
       keyName: "UserName",
       valueName: "UserName",
+    },
+  },
+  //设备搜索
+  {
+    prop: "DeviceNo",
+    label: i18n.t("production.Pr_DeviceNo"),
+    cpn: "SyncSelect",
+    api: getAllDevice,
+    apiOptions: {
+      keyName: "DeviceNo",
+      valueName: "DeviceNo",
     },
   },
   //部门搜索
