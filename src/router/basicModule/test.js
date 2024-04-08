@@ -162,6 +162,12 @@ const test = window.global_config.showTestTab
             name: "TestCyc",
               meta: { title: "测试数据页面cyc", icon: "dashboard" },
           },
+          {
+            path: "testCx",
+            component: () => import("@/views/basicModule/demo/TestCx"),
+            name: "testCx",
+            meta: { title: "测试数据页面Cx", icon: "dashboard" },
+          },
         ],
       },
     ]
