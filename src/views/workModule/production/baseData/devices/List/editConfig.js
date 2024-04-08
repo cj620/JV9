@@ -10,6 +10,7 @@ export class EditTable extends BaseTable {
       height: null,
       Height: 400,
       operationWidth: 80,
+      chooseCol: false,
     });
   }
 }

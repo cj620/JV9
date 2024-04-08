@@ -272,14 +272,10 @@ export default {
     confirmImport() {
       this.editTableObj.validate((valid) => {
         if (valid) {
-          if (this.editTableObj.selectData.datas.length !== 0) {
-            batchSaveProcess(format2source(this.editTableObj.selectData.datas)).then(() => {
-              this.tableObj.getData();
-              this.editTableShow = false;
-            })
-          } else {
-            this.$message.warning(this.$t("Generality.Ge_ChooseAtLeastOneItem"));
-          }
+          batchSaveProcess(format2source(this.editTableObj.tableData)).then(() => {
+            this.tableObj.getData();
+            this.editTableShow = false;
+          })
         }
       })
     }
