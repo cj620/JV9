@@ -102,6 +102,17 @@
       @StringArrayObjectConfirm="StringArrayObjectConfirm"
     >
     </string-array-object>
+    <select-time-form
+      :title="dialogTitle"
+      :visible.sync="TimeDialogVisible"
+      v-if="TimeDialogVisible"
+      width="30%"
+      ref="Time"
+      :ConfigKey="ConfigKey"
+      :formData="formObj"
+      @TimeConfirm="TimeConfirm"
+    >
+    </select-time-form>
   </div>
 </template>
 
@@ -113,6 +124,7 @@ import objectArrayForm from "./objectArrayForm.vue";
 import selectForm from "./selectForm.vue";
 import arrayObjectTable from "./arrayObjectTable.vue";
 import stringArrayObject from "./stringArrayObject.vue";
+import selectTimeForm from "@/views/basicModule/setup/systemSetup/components/selectTimeForm.vue";
 
 export default {
   data() {
@@ -125,6 +137,7 @@ export default {
       ArrayObjectDialogVisible: false,
       selectFormDialogVisible: false,
       stringArrayObjectDialogVisible: false,
+      TimeDialogVisible: false,
       curConfig: "",
       ConfigKey: "",
     };
@@ -147,7 +160,8 @@ export default {
         item.ConfigValueType === "ArrayObject1" ||
         item.ConfigValueType === "StringSelect" ||
         item.ConfigValueType === "StringArrayObject" ||
-        item.ConfigValueType === "ObjectArray"
+        item.ConfigValueType === "ObjectArray" ||
+        item.ConfigValueType === "Time"
       );
     },
     changeConfigValue(item) {
@@ -187,6 +201,9 @@ export default {
       } else if (item.ConfigValueType === "StringArrayObject") {
         this.stringArrayObjectDialogVisible = true;
         this.formObj = item;
+      } else if (item.ConfigValueType === "Time") {
+        this.TimeDialogVisible = true;
+        this.formObj = item;
       } else {
         this.formObj.ConfigValue = item.ConfigValue;
         this.DialogVisible = true;
@@ -219,6 +236,10 @@ export default {
       this.stringArrayObjectDialogVisible = false;
       this._Confirm(e);
     },
+    TimeConfirm(e) {
+      this.TimeDialogVisible = false;
+      this._Confirm(e);
+    },
     _Confirm(e) {
       this.changeConfigValue({
         ConfigKey: this.curConfig.ConfigKey,
@@ -246,6 +267,7 @@ export default {
     },
   },
   components: {
+    selectTimeForm,
     SettingForm,
     objectArrayForm,
     arrayObjectTable,
