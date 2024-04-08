@@ -209,6 +209,7 @@ export default {
     // 批量删除
     delBills() {
       this.confirmDel(this.tableObj.selectData.keys)
+      this.$refs.BillTable.clearSelection();
     },
     //查看子任务
     viewSubTask(row) {
