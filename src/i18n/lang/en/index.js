@@ -678,6 +678,8 @@ const en = {
     Ge_Search: "Search",
     Ge_DeleteData: "Delete Data",
     Ge_DeleteConfirm: "Are you sure you want to delete this data?",
+    Ge_LockConfirm: "Are you sure you want to lock the mold?",
+    Ge_UnlockConfirm: "Are you sure you want to unlock the mold?",
     Ge_Login: "Login",
     Ge_Logout: "Logout",
     Ge_Operate: "Operate",

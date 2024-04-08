@@ -21,6 +21,12 @@ export const detailConfig = [
     label: i18n.t("Generality.Ge_ToolingName"),
   },
   {
+    // 锁定状态
+    prop: "LockState",
+    label: i18n.t("project.Pro_LockState"),
+    custom: true,
+  },
+  {
     // 描述
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),

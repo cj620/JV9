@@ -15,13 +15,19 @@
        {
          /*锁定*/
          label: $t('Generality.Ge_Lock'),
-         confirm: updateItem.bind(null, 'lock'),
+         popConfirm: {
+           title: $t('Generality.Ge_LockConfirm'),
+           confirm: updateItem.bind(null, 'lock'),
+         },
          hidden: Locked,
        },
        {
          /*解锁*/
          label: $t('production.Pr_Unlock'),
-         confirm: updateItem.bind(null, 'unlock'),
+         popConfirm: {
+           title: $t('Generality.Ge_UnlockConfirm'),
+           confirm: updateItem.bind(null, 'unlock'),
+         },
          hidden: !Locked,
        },
      ]"></Action>
@@ -39,7 +45,7 @@
       ref="first"
       :contentStyle="{
         paddingLeft: '150px',
-        height: '140px',
+        height: '175px',
       }"
       style="position: relative"
     >
@@ -65,7 +71,11 @@
 
         </el-image>
       </div>
-      <JvDetail :detailObj="detailObj"> </JvDetail>
+      <JvDetail :detailObj="detailObj">
+        <template #LockState="{ record }">
+          {{ record ? $t('Generality.Ge_Lock') : $t('production.Pr_Unlock') }}
+        </template>
+      </JvDetail>
     </JvBlock>
     <!-- 技术要求 -->
     <JvBlock :title="$t('project.Pro_TechnicalRequirement')" ref="second">

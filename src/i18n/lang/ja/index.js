@@ -674,6 +674,8 @@ const ja = {
     Ge_Search: "検索けんさく",
     Ge_DeleteData: "データの削除",
     Ge_DeleteConfirm: "このデータを削除してもよろしいですか？",
+    Ge_LockConfirm: "金型をロックしてもよろしいですか？",
+    Ge_UnlockConfirm: "金型をロック解除するかどうかを確認します？",
     Ge_Login: "ログイン",
     Ge_Logout: "ログアウト",
     Ge_Operate: "操作",

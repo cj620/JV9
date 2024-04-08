@@ -12,6 +12,15 @@
               label: $t('project.Pro_ReportToWorkRecord'),
               confirm: reportRecord.bind(null, ''),
             },
+            // 删除
+            {
+              label: $t('Generality.Ge_Delete'),
+              disabled: canIsDel,
+              popConfirm: {
+                title: $t('Generality.Ge_DeleteConfirm'),
+                confirm: delBills,
+              },
+            }
           ]"
       >
       </Action>
@@ -51,7 +60,7 @@
               label: $t('Generality.Ge_Delete'),
               popConfirm: {
                 title: $t('Generality.Ge_DeleteConfirm'),
-                confirm: confirmDel.bind(null, row),
+                confirm: confirmDel.bind(null, [row.Id]),
               },
               disabled: row.State === 'Processed',
             }
@@ -140,6 +149,14 @@ export default {
         }
       };
     },
+    // 是否可以批量删除
+    canIsDel() {
+      let { datas } = this.tableObj.selectData;
+      if (datas.length === 0) return true;
+      return datas.some((item) => {
+        return !["NotStarted", "HaveInHand"].includes(item.State);
+      });
+    },
   },
   data() {
     return {
@@ -184,10 +201,14 @@ export default {
       })
     },
     // 确认删除
-    confirmDel(row){
-      production_programing_task_delete({ ItemIds: [row.Id] }).then(() => {
+    confirmDel(Ids){
+      production_programing_task_delete({ ItemIds: Ids }).then(() => {
         this.tableObj.getData();
       })
+    },
+    // 批量删除
+    delBills() {
+      this.confirmDel(this.tableObj.selectData.keys)
     },
     //查看子任务
     viewSubTask(row) {
