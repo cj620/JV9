@@ -20,6 +20,7 @@ import {
 } from "@/enum/workModule";
 
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
+import {itemList} from "@/api/basicApi/systemSettings/Item";
 
 // 结构
 export class api extends TableAPI {
@@ -84,6 +85,16 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_State"),
     custom: true,
     width: "115px",
+  },
+  {
+    // 模具编号
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+  },
+  {
+    // 零件编号
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
   },
   /*加工单*/
   {
@@ -187,6 +198,20 @@ export const formSchema = [
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
     cpn: "FormInput",
+  },
+  //模具搜索
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    cpn: "AsyncSearch",
+    api: itemList,
+    apiOptions: {
+      keyName: "ItemName",
+      valueName: "ItemId",
+      params:{
+        ItemCategory:'Tooling'
+      }
+    },
   },
   //零件编号
   {

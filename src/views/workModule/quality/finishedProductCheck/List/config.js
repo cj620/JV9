@@ -9,8 +9,9 @@ import { API } from "@/api/workApi/quality/finishedProduct";
 import {
   ProcessingResult,
   FinishedProductCheckType,
-  enumFilter, AbnormalCategoryEnum,
+  enumFilter, AbnormalCategoryEnum, enumToList,
 } from "@/enum/workModule";
+import {itemList} from "@/api/basicApi/systemSettings/Item";
 
 let { api_list, api_delete } = API;
 export class api extends TableAPI {
@@ -68,6 +69,16 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_State"),
     width: "115px",
     custom: true,
+  },
+  {
+    // 模具编号
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+  },
+  {
+    // 零件编号
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
   },
   {
     // 加工单
@@ -185,6 +196,34 @@ export const formSchema = [
           label: i18n.t("Generality.Ge_Discarded"),
         },
       ],
+    },
+  },
+  //模具搜索
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    cpn: "AsyncSearch",
+    api: itemList,
+    apiOptions: {
+      keyName: "ItemName",
+      valueName: "ItemId",
+      params:{
+        ItemCategory:'Tooling'
+      }
+    },
+  },
+  //零件编号
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+    cpn: "FormInput",
+  },
+  {
+    prop: "ProcessingResult",
+    label: i18n.t("quality.Qc_CheckResult"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(ProcessingResult),
     },
   },
 ];
