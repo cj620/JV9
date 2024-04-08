@@ -102,7 +102,8 @@
               <el-time-picker
                 is-range
                 v-model="TimeSpanList[i]"
-                format="HH:mm:ss"
+                format="HH:mm"
+                :clearable="false"
                 range-separator="至"
                 start-placeholder="开始时间"
                 end-placeholder="结束时间"
@@ -110,7 +111,7 @@
                 placeholder="选择时间范围">
               </el-time-picker>
               <div style="width: 70px;display: flex">
-                <div class="el-icon-plus" v-if="i === TimeSpanList.length-1" style="border-radius: 50%; border: 1px solid #ccc;padding: 4px;margin-left: 6px;cursor: pointer" @click="TimeSpanList.push('')"></div>
+                <div class="el-icon-plus" v-if="i === TimeSpanList.length-1" style="border-radius: 50%; border: 1px solid #ccc;padding: 4px;margin-left: 6px;cursor: pointer" @click="TimeSpanPush"></div>
                 <div class="el-icon-minus" v-if="i !== 0" style="border-radius: 50%; border: 1px solid #ccc;padding: 4px;margin-left: 6px;cursor: pointer" @click="TimeSpanList.splice(i,1)"></div>
               </div>
             </div>
@@ -263,9 +264,9 @@ export default {
     edit(row) {
       this.devicesDialogTitle = this.$t("Generality.Ge_Edit");
       this.dialogVisible = true;
+      this.TimeSpanList = [null,null];
       this.isEdit = true;
       this.formObj.form = JSON.parse(JSON.stringify(row));
-      
       this.TimeSpanList = this.convertTimeString(this.formObj.form.TimeSpan)
     },
     //图片点击确认事件
@@ -274,10 +275,16 @@ export default {
       this.formObj.form.PhotoUrl = this.ImgDataList.toString();
       this.ImgDataList = [];
     },
+    TimeSpanPush() {
+      const currentDate = new Date();
+      const todayTime1 = new Date(currentDate).setHours(0, 0, 0, 0);
+      const todayTime2 = new Date(currentDate).setHours(23, 59, 59, 999);
+      this.TimeSpanList.push([todayTime1, todayTime2])
+    },
     add() {
       this.dialogVisible = true;
+      this.TimeSpanList = this.convertTimeString('0:00-23:59')
       this.isEdit = false;
-
       this.devicesDialogTitle = this.$t("Generality.Ge_New");
 
       this.formObj.form = {
@@ -318,10 +325,9 @@ export default {
           arr.push(timeFormat(trim, 'hh:mm'))
         })
         resultList.push(arr.join('-'))
-        
+
       })
       this.formObj.form.TimeSpan = resultList.join(',');
-      /*时间范围转换*/
 
       this.formObj.validate((valid) => {
         if (valid) {
