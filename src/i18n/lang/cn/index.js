@@ -279,6 +279,7 @@ const cn = {
     Pro_InputTestMouldInfo:"填写试模信息",
     Pro_TestMouldMaterials:"试模用料",
     Pro_ERPCode: "ERP任务单号",
+    Pro_LockState: "锁定状态",
   },
   //设置
   setup: {
@@ -669,7 +670,9 @@ const cn = {
     Ge_Filter: "筛选",
     Ge_Search: "搜索",
     Ge_DeleteData: "删除数据",
-    Ge_DeleteConfirm: "是否确实要删除此数据？",
+    Ge_DeleteConfirm: "是否确定要删除此数据？",
+    Ge_LockConfirm: "是否确定要锁定该模具？",
+    Ge_UnlockConfirm: "是否确定要解锁该模具？",
     Ge_Login: "登录",
     Ge_Logout: "注销",
     Ge_Operate: "操作",

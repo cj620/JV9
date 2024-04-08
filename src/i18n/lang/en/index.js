@@ -303,7 +303,8 @@ const en = {
     Pro_VersionCode:"Version Code",
     Pro_InputTestMouldInfo:"Input Test Mould Info",
     Pro_TestMouldMaterials:"Test Mould Materials",
-    Pro_ERPCode: "ERPCode",
+    Pro_ERPCode: "ERP Code",
+    Pro_LockState: "Lock State",
   },
   setup: {
     WhetherMarkAllRead: "Mark all messages of this type as read?",
@@ -677,6 +678,8 @@ const en = {
     Ge_Search: "Search",
     Ge_DeleteData: "Delete Data",
     Ge_DeleteConfirm: "Are you sure you want to delete this data?",
+    Ge_LockConfirm: "Are you sure you want to lock the mold?",
+    Ge_UnlockConfirm: "Are you sure you want to unlock the mold?",
     Ge_Login: "Login",
     Ge_Logout: "Logout",
     Ge_Operate: "Operate",

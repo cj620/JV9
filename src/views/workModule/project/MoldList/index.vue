@@ -13,6 +13,9 @@
             ]"
           ></Action>
         </template>
+        <template #LockState="{ record }">
+          {{ record ? $t('Generality.Ge_Lock') : $t('production.Pr_Unlock') }}
+        </template>
         <template #operation="{ row }">
           <TableAction
             :actions="[

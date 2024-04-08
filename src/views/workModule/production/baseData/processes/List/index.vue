@@ -32,6 +32,14 @@
             label: $t('Generality.Ge_New'),
             confirm: add.bind(),
           },
+          {
+            label: $t('design.De_DownloadTemplate'),
+            confirm: downLoadTemplate.bind(),
+          },
+          {
+            label: $t('Generality.Ge_Import'),
+            confirm: importProcesses.bind(),
+          },
         ]"
       >
       </Action>
@@ -67,12 +75,45 @@
         </template>
       </JvForm>
     </JvDialog>
+    <!-- 导入数据 -->
+    <Import
+      :visible.sync="importShow"
+      width="420px"
+      :title="$t('Generality.Ge_Import')"
+      @complete="importComplete"
+    ></Import>
+    <JvDialog
+      v-if="editTableShow"
+      :visible.sync="editTableShow"
+      width="70%"
+      :title="$t('Generality.Ge_Import')"
+      @confirm="confirmImport"
+    >
+      <JvEditTable :tableObj="editTableObj">
+        <template #operation="{ row_index }">
+          <TableAction
+            :actions="[
+              {
+                icon: 'el-icon-delete',
+                confirm: delItem.bind(null, row_index),
+              },
+            ]"
+          />
+        </template>
+        <template #IsCompulsoryInspection="{ row }">
+          <el-checkbox v-model="row.IsCompulsoryInspection.value"></el-checkbox>
+        </template>
+      </JvEditTable>
+    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
-import { deleteProcess, editProcess } from "@/api/workApi/production/baseData";
+import { deleteProcess, editProcess, batchSaveProcess } from "@/api/workApi/production/baseData";
+import { export2Excel } from "@/jv_doc/cpn/JvTable/utils/export2Excel";
+import { format2source } from "@/jv_doc/class/utils/dataFormat";
 import { Table } from "./config";
+import { EditTable } from "./editConfig"
 import { formSchema } from "./formConfig";
 import { Form } from "@/jv_doc/class/form";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
@@ -81,10 +122,56 @@ export default {
     return {
       tableObj: {},
       formObj: {},
+      editTableObj: {},
       ProcessList: [],
       dialogVisible: false,
+      importShow: false,
+      editTableShow: false,
       isEdit: false,
       processDialogTitle: "",
+      exportTemplate: [
+        {
+          prop: "Process",
+          label: i18n.t("Generality.Ge_Process"),
+        },
+        {
+          prop: "ProcessCode",
+          label: i18n.t("production.Pr_ProcessCode"),
+        },
+        {
+          prop: "Department",
+          label: i18n.t("Generality.Ge_Department")
+        },
+        {
+          prop: "ProcessContent",
+          label: i18n.t("Generality.Ge_TaskContent"),
+        },
+        {
+          prop: "Resource",
+          label: i18n.t("menu.Pr_Resources"),
+        },
+        {
+          prop: "LeadTimeOfProcess",
+          label: i18n.t("Generality.Ge_LeadTimeOfProcess"),
+        },
+        {
+          prop: "PostTimeOfProcess",
+          label: i18n.t("Generality.Ge_PostTimeOfProcess"),
+        },
+        {
+          prop: "ProgramingProcess",
+          label: i18n.t("production.Pr_ProgramingProcess"),
+        }
+      ],
+      exportTemplateData: {
+        checkData: [],
+        checkedFields: [],
+        sourceType: "editTable",
+        dataType: "TEMPLATE",
+        saveType: "xlsx",
+        title: "",
+        fileName: this.$t("menu.Pr_Process"),
+      },
     };
   },
   created() {
@@ -135,6 +222,67 @@ export default {
       };
       this.isEdit = false;
     },
+    downLoadTemplate() {
+      var arr = [];
+      this.tableObj.props.tableSchema.forEach((item) =>
+        this.exportTemplate.forEach((Titem) => {
+          if (item.label === Titem.label) {
+            arr.push(item);
+          }
+        })
+      );
+      this.exportTemplateData.checkedFields = arr;
+      export2Excel(this.exportTemplateData);
+    },
+    importProcesses() {
+      this.importShow = true;
+      this.editTableObj = new EditTable()
+    },
+    delItem(index) {
+      this.editTableObj.delItem(index);
+    },
+    //导入成功
+    importComplete(e) {
+      this.importShow = false;
+
+      var arr = [];
+      e.forEach((Titem) => {
+        var str = {
+          Process: "",
+          ProcessCode: "",
+          Department: "",
+          ProcessContent: "",
+          Resource: "",
+          LeadTimeOfProcess: 0,
+          PostTimeOfProcess: 0,
+          IsCompulsoryInspection: false,
+          ProgramingProcess: "",
+        };
+        this.exportTemplate.forEach((item) => {
+          if (Titem[item.label]) {
+            str[item.prop] = Titem[item.label];
+          }
+        });
+        arr.push(str);
+      });
+
+      this.editTableShow = true;
+      this.editTableObj.setData(arr);
+    },
+    confirmImport() {
+      this.editTableObj.validate((valid) => {
+        if (valid) {
+          if (this.editTableObj.selectData.datas.length !== 0) {
+            batchSaveProcess(format2source(this.editTableObj.selectData.datas)).then(() => {
+              this.tableObj.getData();
+              this.editTableShow = false;
+            })
+          } else {
+            this.$message.warning(this.$t("Generality.Ge_ChooseAtLeastOneItem"));
+          }
+        }
+      })
+    }
   },
 };
 </script>
