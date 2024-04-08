@@ -56,6 +56,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
+    width: "150px",
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
@@ -90,27 +91,25 @@ export const tableConfig = [
     // 模具编号
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    width: "130px",
   },
   {
     // 零件编号
     prop: "PartNo",
     label: i18n.t("Generality.Ge_PartNo"),
+    width: "130px",
   },
   /*加工单*/
   {
     prop: "PrTaskBillId",
     label: i18n.t("production.Pr_WorkSheetNo"),
     cpn: "Link",
+    width: "130px",
     cpnProps: {
       routeName: "ProductionTaskDetails",
       methods: "query",
       parameterKey: "BillId",
     },
-  },
-  {
-    // 零件编号
-    prop: "ItemId",
-    label: i18n.t("Generality.Ge_PartNo"),
   },
   {
     // 自检工序

@@ -36,16 +36,19 @@ export const tableConfig = [
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
     custom: true,
+    width: "130px",
   },
   /*零件编号*/
   {
     prop: "PartNo",
     label: i18n.t("Generality.Ge_PartNo"),
+    width: "130px",
   },
   /*零件名称*/
   {
     prop: "PartName",
     label: i18n.t("Generality.Ge_PartName"),
+    width: "130px",
   },
   /*数量*/
   {
@@ -93,16 +96,19 @@ export const tableConfig = [
   {
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
+    width: "130px",
     custom: true,
   },
   {
     prop: "QcRelationBillId",
     label: i18n.t("quality.Qc_QualityCheckBillId"),
+    width: "130px",
     custom: true,
   },
   {
     prop: "BillKey",
     label: i18n.t("quality.Qc_QualityCheckType"),
+    width: "115px",
     custom: true,
   },
   /*备注*/

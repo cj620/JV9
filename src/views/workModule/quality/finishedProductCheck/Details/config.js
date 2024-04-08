@@ -58,6 +58,16 @@ export const detailConfig = [
     custom: true,
   },
   {
+    // 模具编号
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+  },
+  {
+    // 零件编号
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+  },
+  {
     // 返工工序
     prop: "ReworkProcess",
     label: i18n.t("quality.Qc_ReworkProcess"),
