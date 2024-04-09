@@ -49,7 +49,7 @@ export class Table extends BaseTable {
 			title: i18n.t("menu.As_ProductionFitterReceiveRecord"),
 			api,
 			printMod: "As_ProductionFitterReceiveRecord",
-			operationCol: false,
+			operationWidth: 120,
 			printBar: false,
 		})
 	}

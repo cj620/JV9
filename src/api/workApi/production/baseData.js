@@ -254,3 +254,11 @@ export function saveRCVRecord(data){
     data,
   })
 }
+// 删除钳工收料记录
+export function deleteRCVRecord(data){
+  return request({
+    url: "/production_assy/delete_rcv_record",
+    method: "post",
+    data
+  })
+}
