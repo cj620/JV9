@@ -66,6 +66,7 @@ const ja = {
     Pm_Process: "プロジェクトタスク工程",
     Pm_ProjectManagement: "プロジェクト管理",
     Pm_ProjectToolingList: "モールドリスト",
+    Pm_ProjectMoldResume: "金型履歴書",
     Pm_ProjectTask: "プロジェクトタスク",
     Pm_TestTask: "モデル試験タスク",
     Pm_ProjectCost: "プロジェクトコスト",

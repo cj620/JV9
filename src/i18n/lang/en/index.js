@@ -67,6 +67,7 @@ const en = {
     Pm_Process: "Process",
     Pm_ProjectManagement: "Project Manage",
     Pm_ProjectToolingList: "Tooling List",
+    Pm_ProjectMoldResume: "Tooling Resume",
     Pm_ProjectTask: "Project Task",
     Pm_TestTask: "Trial Task",
     Pm_ProjectCost: "Project Cost",

@@ -67,6 +67,7 @@ const cn = {
     Pm_Process: "项目任务工序",
     Pm_ProjectManagement: "项目管理",
     Pm_ProjectToolingList: "模具列表",
+    Pm_ProjectMoldResume: "模具履历表",
     Pm_ProjectTask: "项目任务",
     Pm_TestTask: "试模任务",
     Pm_ProjectCost: "项目成本",

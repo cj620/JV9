@@ -47,6 +47,9 @@ export default {
             itemStyle: {
               borderRadius: 4,
             },
+            label: {
+              show: false,
+            },
             data: this.roseData,
           },
         ],
