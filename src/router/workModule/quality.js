@@ -179,5 +179,15 @@ const quality = [
     title:
       i18n.t("menu.Qc_QualityError") + " " + i18n.t("Generality.Ge_Details"),
   },
+  // 零件加工进度
+  {
+    key: "Qc_ProductionProgress",
+    component: () =>
+      import("@/views/workModule/production/productionProgress"),
+    Parent: "Qc_Quality",
+    name: "ProductionProgress",
+    path: "productionProgress",
+    title: i18n.t("menu.Qc_ProductionProgress"),
+  },
 ];
 export default quality;

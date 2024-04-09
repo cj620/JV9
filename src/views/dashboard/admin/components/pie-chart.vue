@@ -46,9 +46,6 @@ export default {
                 shadowColor: "rgba(0, 0, 0, 0.5)",
               },
             },
-            label: {
-              show: false,
-            },
           },
         ],
       };

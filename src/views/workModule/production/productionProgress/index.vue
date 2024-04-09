@@ -3,7 +3,7 @@
     <div class="productionTask" v-loading="loading">
       <div class="productionTask-header">
         <div>
-          {{ $t("menu.Pr_ProductionProgress") }}
+          {{ $t("menu.Qc_ProductionProgress") }}
         </div>
         <div class="productionTask-header-title">
           <div @click="ClickSearch" class="title">

@@ -35,13 +35,13 @@
             // 创建过程单
             {
               label: $t('menu.Qc_ProcessCheck'),
-              disabled: getActionState(row.CheckState),
+              disabled: canCreateCheck(row.CheckState),
               confirm: toMachiningCheckList.bind(null, row),
             },
             // 创建成品单
             {
               label: $t('menu.Qc_FinishedProduct'),
-              disabled: getActionState(row.CheckState),
+              disabled: canCreateFinished(row.CheckState, row.PrTaskState),
               confirm: toFinishedProduct.bind(null, row),
             },
             {
@@ -174,9 +174,14 @@ export default {
   mounted() {},
   computed: {
     // 获取按钮状态
-    getActionState() {
+    canCreateCheck() {
       return (state) => {
         return state !== "TobeChecked";
+      };
+    },
+    canCreateFinished() {
+      return (state, PrTaskState) => {
+        return state !== "TobeChecked" || PrTaskState !== 'Processed';
       };
     },
   },

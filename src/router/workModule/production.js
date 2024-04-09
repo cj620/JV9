@@ -149,17 +149,6 @@ const production = [
     title: i18n.t("menu.Pr_ProductionPlan"),
   },
 
-  // 零件加工进度
-  {
-    key: "Pr_ProductionProgress",
-    component: () =>
-      import("@/views/workModule/production/productionProgress"),
-    Parent: "Pr_Production",
-    name: "ProductionProgress",
-    path: "productionProgress",
-    title: i18n.t("menu.Pr_ProductionProgress"),
-  },
-
   // 生产排程（新）
   {
     key: "Pr_NewProductionSchedule",

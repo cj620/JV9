@@ -104,7 +104,6 @@ const en = {
     Pr_ProductionDispatch: "Production Dispatch",
     Pr_WorkReport: "Work Report",
     Pr_ProductionPlan: "Production Plan",
-    Pr_ProductionProgress: "Part Processing Progress",
     Pr_ProgramTask: "Program Task",
     Pr_Quality: "Quality",
     Pr_Report: "Report",
@@ -129,7 +128,7 @@ const en = {
     Qc_QualityReport: "Quality Report",
     Qc_QualityRecord: "Quality Record",
     Qc_QualityError: "Quality Error",
-
+    Qc_ProductionProgress: "Part Processing Progress",
     Pr_ProductionReport: "Production Report",
     Pr_Reports: "Reports",
     Pr_QualityReport: "Quality Report",
