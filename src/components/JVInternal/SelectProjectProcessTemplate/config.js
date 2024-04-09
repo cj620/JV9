@@ -5,31 +5,54 @@
  * @Description:
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
+import { enumFilter } from "~/utils/system/enumsPlugin";
+import { processTypeEnum } from "@/enum/workModule";
 export class Table extends BaseTable {
   constructor() {
     super({
       tableSchema: tableConfig,
-      tableHeaderShow: false,
-      pagination: false,
-      sortCol: true,
-      chooseCol: true,
       data: [],
       title: "",
-      selectType: "radio",
-      operationCol: false,
+      rowId: "Id",
       height: 350,
+      searchBar: false,
+      chooseCol: false,
+      pagination: false,
+      operationCol: false,
+      tableHeaderShow: false,
     });
   }
 }
 export const tableConfig = [
-  /*模板名称*/
+  /*工序*/
   {
-    prop: "Template",
-    label: i18n.t("Generality.Ge_TemplateName"),
+    prop: "Process",
+    label: i18n.t("Generality.Ge_Process"),
   },
-  /*制单人*/
+  /*工序类型*/
   {
-    prop: "Remarks",
-    label: i18n.t("Generality.Ge_Remarks"),
+    prop: "ProcessType",
+    label: i18n.t("production.Pr_ProcessType"),
+    customFilter: (value) => enumFilter(value, processTypeEnum),
   },
+  /*部门*/
+  {
+    prop: "BelongingDepartment",
+    label: i18n.t("menu.Se_Department"),
+  },
+  /*开始比例*/
+  {
+    prop: 'StartScale',
+    label: i18n.t("production.Pr_StartScale"),
+  },
+  /*结束比例*/
+  {
+    prop: "EndScale",
+    label: i18n.t("production.Pr_EndScale"),
+  },
+  /*标准费率*/
+  {
+    prop: "CostRate",
+    label: i18n.t("production.Pr_CostRate"),
+  }
 ];
