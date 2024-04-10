@@ -5,9 +5,15 @@
         <div class="page-wrapper-header-left">
           <div class="page-wrapper-header-left-items">
             <div class="page-wrapper-header-left-items-desc">
-              模具编号:
+              {{ $t("Generality.Ge_ToolingNo") }}:
             </div>
             <el-input :placeholder="$t('Generality.Ge_PleaseEnter')" size="mini" v-model="searchFormObj.form.ToolingNo"></el-input>
+          </div>
+          <div class="page-wrapper-header-left-items">
+            <div class="page-wrapper-header-left-items-desc">
+              {{ $t("menu.Pm_Project") }}:
+            </div>
+            <el-input :placeholder="$t('Generality.Ge_PleaseEnter')" size="mini" v-model="searchFormObj.form.Project"></el-input>
           </div>
         </div>
 <!--        <div class="page-wrapper-header-right">-->
@@ -135,6 +141,7 @@
 </template>
 <script>
 import { Form } from "~/class/form";
+import { toolingSummary } from "@/api/basicApi/systemSettings/Item"
 export default {
   name: "Pm_ProjectMoldResume",
   data() {
@@ -147,15 +154,22 @@ export default {
     }
   },
   created() {
+    this.getData();
     this.searchFormObj = new Form({
       formSchema: [
         { prop: "ToolingNo",},
+        { prop: "Project",},
       ],
     })
   },
   methods: {
     getData() {
+      toolingSummary({
+        PageSize: this.pageSize,
+        CurrentPage: this.currentPage,
+      }).then((res) => {
 
+      })
     },
     exportSelect() {
 
