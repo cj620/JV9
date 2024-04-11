@@ -36,91 +36,110 @@
           border
         >
           <el-table-column label="模具信息">
-            <el-table-column prop="DesignPlanTime" label="模具图片" width="80">
+            <el-table-column prop="PhotoUrl" label="模具图片">
+              <template slot-scope="scope">
+                <el-image
+                  :src="imgUrlPlugin(scope.row.PhotoUrl)"
+                  style="height: 38px;width: 38px;"
+                  :preview-src-list="[imgUrlPlugin(scope.row.PhotoUrl)]"
+                  fit="cover"
+                  class="items-details-Img-error"
+                >
+                  <div slot="error" class="image-slot">
+                    <i class="el-icon-picture-outline"></i>
+                  </div>
+                </el-image>
+              </template>
             </el-table-column>
-            <el-table-column prop="DesignActualTime" label="状态" width="80">
+            <el-table-column prop="ToolingState" label="状态" width="120">
             </el-table-column>
-            <el-table-column prop="DesignActualTime" label="项目" width="80">
+            <el-table-column prop="Project" label="项目" width="130">
             </el-table-column>
-            <el-table-column prop="DesignActualTime" label="模具编号" width="80">
+            <el-table-column prop="ToolingNo" label="模具编号" width="140">
             </el-table-column>
-            <el-table-column prop="DesignActualTime" label="模具名称" width="80">
+            <el-table-column prop="ToolingName" label="模具名称" width="140">
             </el-table-column>
-            <el-table-column prop="DesignActualTime" label="描述" width="80">
+            <el-table-column prop="Description" label="描述" width="130">
             </el-table-column>
-            <el-table-column prop="DesignActualTime" label="客户" width="80">
+            <el-table-column prop="CustomerName" label="客户" width="80">
             </el-table-column>
-            <el-table-column prop="DesignActualTime" label="计划交期" width="80">
+            <el-table-column prop="TDeliveryDate" label="计划交期" width="100">
+              <template slot-scope="scope">
+                {{ scope.row.TDeliveryDate | timeFormat("yyyy-MM-dd") }}
+              </template>
             </el-table-column>
-            <el-table-column prop="DesignActualTime" label="首样日期" width="80">
+            <el-table-column prop="TSampleDate" label="首样日期" width="100">
+              <template slot-scope="scope">
+                {{ scope.row.TDeliveryDate | timeFormat("yyyy-MM-dd") }}
+              </template>
             </el-table-column>
-            <el-table-column prop="DesignActualTime" label="产品类型" width="80">
+            <el-table-column prop="TaskType" label="产品类型" width="80">
             </el-table-column>
           </el-table-column>
           <el-table-column label="技术要求">
-            <el-table-column prop="DesignPlanTime" label="热处理" width="80">
+            <el-table-column prop="HeatTreatmentSpec" label="热处理" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="塑料材质" width="80">
+            <el-table-column prop="PlasticMaterialSpec" label="塑料材质" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="收缩率" width="80">
+            <el-table-column prop="ShrinkageRateSpec" label="收缩率" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="模架" width="80">
+            <el-table-column prop="MoldBaseSpec" label="模架" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="出模穴数" width="80">
+            <el-table-column prop="DemouldingCavitySpec" label="出模穴数" width="80">
             </el-table-column>
           </el-table-column>
           <el-table-column label="设计">
-            <el-table-column prop="DesignPlanTime" label="负责人" width="80">
+            <el-table-column prop="DesignWorker" label="负责人" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="计划" width="80">
+            <el-table-column prop="DesignPlanStart" label="计划" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="实际" width="80">
+            <el-table-column prop="DesignActualStart" label="实际" width="80">
             </el-table-column>
           </el-table-column>
           <el-table-column label="编程">
-            <el-table-column prop="DesignPlanTime" label="负责人" width="80">
+            <el-table-column prop="ProgramWorker" label="负责人" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="计划" width="80">
+            <el-table-column prop="ProgramPlanStart" label="计划" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="实际" width="80">
+            <el-table-column prop="ProgramActualStart" label="实际" width="80">
             </el-table-column>
           </el-table-column>
           <el-table-column label="采购">
-            <el-table-column prop="DesignPlanTime" label="负责人" width="80">
+            <el-table-column prop="PurchaseWorker" label="负责人" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="计划" width="80">
+            <el-table-column prop="PurchasePlanStart" label="计划" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="实际" width="80">
+            <el-table-column prop="PurchaseActualStart" label="实际" width="80">
             </el-table-column>
           </el-table-column>
           <el-table-column label="加工">
-            <el-table-column prop="DesignPlanTime" label="负责人" width="80">
+            <el-table-column prop="ProductionWorker" label="负责人" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="计划" width="80">
+            <el-table-column prop="ProductionPlanStart" label="计划" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="实际" width="80">
+            <el-table-column prop="ProductionActualStart" label="实际" width="80">
             </el-table-column>
           </el-table-column>
           <el-table-column label="装配">
-            <el-table-column prop="DesignPlanTime" label="负责人" width="80">
+            <el-table-column prop="AssyWorker" label="负责人" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="计划" width="80">
+            <el-table-column prop="AssyPlanStart" label="计划" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="实际" width="80">
+            <el-table-column prop="AssyActualStart" label="实际" width="80">
             </el-table-column>
           </el-table-column>
           <el-table-column label="试模">
-            <el-table-column prop="DesignPlanTime" label="T1问题点" width="80">
+            <el-table-column prop="T1Problem" label="T1问题点" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="T1改善对策" width="80">
+            <el-table-column prop="T1Solution" label="T1改善对策" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="T2问题点" width="80">
+            <el-table-column prop="T2Problem" label="T2问题点" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="T2改善对策" width="80">
+            <el-table-column prop="T2Solution" label="T2改善对策" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="T3问题点" width="80">
+            <el-table-column prop="T3Problem" label="T3问题点" width="80">
             </el-table-column>
-            <el-table-column prop="DesignPlanTime" label="T3改善对策" width="80">
+            <el-table-column prop="T3Solution" label="T3改善对策" width="80">
             </el-table-column>
           </el-table-column>
         </el-table>
@@ -142,6 +161,7 @@
 <script>
 import { Form } from "~/class/form";
 import { toolingSummary } from "@/api/basicApi/systemSettings/Item"
+import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 export default {
   name: "Pm_ProjectMoldResume",
   data() {
@@ -163,12 +183,14 @@ export default {
     })
   },
   methods: {
+    imgUrlPlugin,
     getData() {
       toolingSummary({
         PageSize: this.pageSize,
         CurrentPage: this.currentPage,
       }).then((res) => {
-
+        this.tableData = res.Items;
+        this.totalCount = res.Count;
       })
     },
     exportSelect() {
@@ -189,6 +211,22 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.items-details-Img-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(231, 231, 231);
+  .image-slot {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .error-icon {
+      font-size: 19px;
+    }
+  }
+}
 .mold-resume-page {
   height: 100%;
   background-color: #ffffff;
