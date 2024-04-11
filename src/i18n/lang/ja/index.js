@@ -281,6 +281,16 @@ const ja = {
     Pro_TestMouldMaterials:"金型材料のテスト",
     Pro_ERPCode: "ERPタスク番号",
     Pro_LockState: "ロック状態",
+    Pro_ToolingInfo: "金型情報",
+    Pro_ToolingPhoto: "金型画像",
+    Pro_TaskType: "製品タイプ",
+    Pro_HeatTreatmentSpec: "ねつしょり",
+    Pro_PlasticMaterialSpec: "プラスチックマテリアル",
+    Pro_ShrinkageRateSpec: "しゅうしゅくりつ",
+    Pro_MoldBaseSpec: "かたわく",
+    Pro_DemouldingCavitySpec: "ダイス抜き穴数",
+    Pro_Problem: "問題点",
+    Pro_Solution: "改善策",
   },
   //设置
   setup: {

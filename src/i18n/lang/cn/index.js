@@ -282,6 +282,16 @@ const cn = {
     Pro_TestMouldMaterials:"试模用料",
     Pro_ERPCode: "ERP任务单号",
     Pro_LockState: "锁定状态",
+    Pro_ToolingInfo: "模具信息",
+    Pro_ToolingPhoto: "模具图片",
+    Pro_TaskType: "产品类型",
+    Pro_HeatTreatmentSpec: "热处理",
+    Pro_PlasticMaterialSpec: "塑料材质",
+    Pro_ShrinkageRateSpec: "收缩率",
+    Pro_MoldBaseSpec: "模架",
+    Pro_DemouldingCavitySpec: "出模穴数",
+    Pro_Problem: "问题点",
+    Pro_Solution: "改善对策",
   },
   //设置
   setup: {

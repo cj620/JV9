@@ -135,6 +135,7 @@ export function toolingSummary(data) {
   return request({
     url: '/project_info/tooling_summary',
     method: 'post',
-    data
+    data,
+    loading: true,
   })
 }
