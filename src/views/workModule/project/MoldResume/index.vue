@@ -16,6 +16,12 @@
             <el-input :placeholder="$t('Generality.Ge_PleaseEnter')" size="mini" v-model="selectedProject"></el-input>
           </div>
           <div class="page-wrapper-header-left-items">
+            <div class="page-wrapper-header-left-items-desc">
+              {{ $t("menu.Sa_Customer") }}:
+            </div>
+            <el-input :placeholder="$t('Generality.Ge_PleaseEnter')" size="mini" v-model="selectedCustomerName"></el-input>
+          </div>
+          <div class="page-wrapper-header-left-items">
             <el-button type="primary" size="mini" @click="search">{{ $t('Generality.Ge_Search') }}</el-button>
             <el-button size="mini" @click="clear">{{ $t('Generality.Ge_Clear') }}</el-button>
           </div>
@@ -210,6 +216,7 @@ export default {
       totalCount: 0,
       selectedToolingNo: "",
       selectedProject: "",
+      selectedCustomerName: "",
     }
   },
   created() {
@@ -222,6 +229,7 @@ export default {
         PageSize: this.pageSize,
         CurrentPage: this.currentPage,
         ToolingNo: this.selectedToolingNo,
+        CustomerName: this.selectedCustomerName,
         Project: this.selectedProject,
       }).then((res) => {
         this.tableData = res.Items;
@@ -245,6 +253,7 @@ export default {
         CurrentPage: 1,
         ToolingNo: this.selectedToolingNo,
         Project: this.selectedProject,
+        CustomerName: this.selectedCustomerName,
       }).then((res) => {
         this.tableData = res.Items;
         this.totalCount = res.Count;
@@ -253,6 +262,7 @@ export default {
     clear() {
       this.selectedProject = "";
       this.selectedToolingNo = "";
+      this.selectedCustomerName = "";
       this.search();
     },
   }
