@@ -37,7 +37,18 @@ export default {
   Processed: {
     name: i18n.t("Generality.Ge_Completed"),
     value: "Processed",
-    color: "#faad14",
+    color: "#2ee438",
+    fcolor: "#fff",
+    icon: "",
+    operation: {},
+  },
+  /// <summary>
+  /// 报废
+  /// </summary>
+  Discarded: {
+    name: i18n.t("quality.Qc_Scrapped"),
+    value: "Discarded",
+    color: "#000000",
     fcolor: "#fff",
     icon: "",
     operation: {},
