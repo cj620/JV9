@@ -316,6 +316,12 @@ const en = {
     Pro_DemouldingCavitySpec: "Demoulding Cavity Spec",
     Pro_Problem: "Problem",
     Pro_Solution: "Solution",
+    Pro_Started: "Started",
+    Pro_Locked: "Locked",
+    Pro_Designing: "Designing",
+    Pro_Processing: "Processing",
+    Pro_TrialTooling: "TrialTooling",
+    Pro_Completed: "Completed",
   },
   setup: {
     WhetherMarkAllRead: "Mark all messages of this type as read?",

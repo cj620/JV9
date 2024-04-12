@@ -76,6 +76,10 @@
               </template>
             </el-table-column>
             <el-table-column prop="ToolingState" :label="$t('Generality.Ge_State')" width="120">
+              <template slot-scope="scope">
+                <!-- 状态标签 -->
+                {{ ItemToolingStateEnum[scope.row.ToolingState] ? ItemToolingStateEnum[scope.row.ToolingState].name : '--' }}
+              </template>
             </el-table-column>
             <el-table-column prop="Project" :label="$t('menu.Pm_Project')" width="130">
             </el-table-column>
@@ -228,7 +232,7 @@
 import { Form } from "~/class/form";
 import { toolingSummary } from "@/api/basicApi/systemSettings/Item"
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import { enumToList, taskTypeEnum } from "@/enum/workModule";
+import { enumToList, taskTypeEnum, ItemToolingStateEnum } from "@/enum/workModule";
 import ExportSelect from "./components/exportSelect.vue";
 export default {
   name: "Pm_ProjectMoldResume",
@@ -238,6 +242,7 @@ export default {
   data() {
     return {
       taskTypeEnum,
+      ItemToolingStateEnum,
       tableData: [],
       currentPage: 1,
       pageSize: 20,

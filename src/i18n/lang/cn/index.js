@@ -292,6 +292,12 @@ const cn = {
     Pro_DemouldingCavitySpec: "出模穴数",
     Pro_Problem: "问题点",
     Pro_Solution: "改善对策",
+    Pro_Started: "已启动",
+    Pro_Locked: "锁定",
+    Pro_Designing: "设计中",
+    Pro_Processing: "加工中",
+    Pro_TrialTooling: "试模中",
+    Pro_Completed: "已完成",
   },
   //设置
   setup: {

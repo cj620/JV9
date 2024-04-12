@@ -291,6 +291,12 @@ const ja = {
     Pro_DemouldingCavitySpec: "ダイス抜き穴数",
     Pro_Problem: "問題点",
     Pro_Solution: "改善策",
+    Pro_Started: "開始済み",
+    Pro_Locked: "ロック＃ロック＃",
+    Pro_Designing: "設計中",
+    Pro_Processing: "加工中",
+    Pro_TrialTooling: "試験型中",
+    Pro_Completed: "完了",
   },
   //设置
   setup: {
