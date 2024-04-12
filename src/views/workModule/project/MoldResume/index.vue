@@ -7,19 +7,33 @@
             <div class="page-wrapper-header-left-items-desc">
               {{ $t("Generality.Ge_ToolingNo") }}:
             </div>
-            <el-input :placeholder="$t('Generality.Ge_PleaseEnter')" size="mini" v-model="selectedToolingNo"></el-input>
+            <el-input :placeholder="$t('Generality.Ge_PleaseEnter')" size="mini" v-model="searchFormObj.form.ToolingNo"></el-input>
           </div>
           <div class="page-wrapper-header-left-items">
             <div class="page-wrapper-header-left-items-desc">
               {{ $t("menu.Pm_Project") }}:
             </div>
-            <el-input :placeholder="$t('Generality.Ge_PleaseEnter')" size="mini" v-model="selectedProject"></el-input>
+            <el-input :placeholder="$t('Generality.Ge_PleaseEnter')" size="mini" v-model="searchFormObj.form.Project"></el-input>
           </div>
           <div class="page-wrapper-header-left-items">
             <div class="page-wrapper-header-left-items-desc">
               {{ $t("menu.Sa_Customer") }}:
             </div>
-            <el-input :placeholder="$t('Generality.Ge_PleaseEnter')" size="mini" v-model="selectedCustomerName"></el-input>
+            <el-input :placeholder="$t('Generality.Ge_PleaseEnter')" size="mini" v-model="searchFormObj.form.CustomerName"></el-input>
+          </div>
+          <div class="page-wrapper-header-left-items">
+            <div class="page-wrapper-header-left-items-desc">
+              {{ $t("project.Pro_TaskType") }}:
+            </div>
+            <el-select :placeholder="$t('Generality.Ge_PleaseSelect')" size="mini" v-model="searchFormObj.form.TaskType" clearable>
+              <el-option
+                v-for="item in enumToList(taskTypeEnum)"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
           </div>
           <div class="page-wrapper-header-left-items">
             <el-button type="primary" size="mini" @click="search">{{ $t('Generality.Ge_Search') }}</el-button>
@@ -70,7 +84,7 @@
             </el-table-column>
             <el-table-column prop="Description" :label="$t('Generality.Ge_Describe')" width="130">
             </el-table-column>
-            <el-table-column prop="CustomerName" :label="$t('menu.Sa_Customer')" width="80">
+            <el-table-column prop="CustomerName" :label="$t('menu.Sa_Customer')" width="120">
             </el-table-column>
             <el-table-column prop="TDeliveryDate" :label="$t('Generality.Ge_DeliveryDate')" width="100">
               <template slot-scope="scope">
@@ -102,7 +116,7 @@
             </el-table-column>
           </el-table-column>
           <el-table-column :label="$t('menu.De_Design')">
-            <el-table-column prop="DesignWorker" :label="$t('project.Pro_Worker')" width="80">
+            <el-table-column prop="DesignWorker" :label="$t('project.Pro_Worker')" width="120">
             </el-table-column>
             <el-table-column prop="DesignPlanStart" :label="$t('Generality.Ge_PlanStart')" width="135">
               <template slot-scope="scope">
@@ -116,7 +130,7 @@
             </el-table-column>
           </el-table-column>
           <el-table-column :label="$t('menu.Pa_Program')">
-            <el-table-column prop="ProgramWorker" :label="$t('project.Pro_Worker')" width="80">
+            <el-table-column prop="ProgramWorker" :label="$t('project.Pro_Worker')" width="120">
             </el-table-column>
             <el-table-column prop="ProgramPlanStart" :label="$t('Generality.Ge_PlanStart')" width="135">
               <template slot-scope="scope">
@@ -130,7 +144,7 @@
             </el-table-column>
           </el-table-column>
           <el-table-column :label="$t('menu.Pu_Purchase')">
-            <el-table-column prop="PurchaseWorker" :label="$t('project.Pro_Worker')" width="80">
+            <el-table-column prop="PurchaseWorker" :label="$t('project.Pro_Worker')" width="120">
             </el-table-column>
             <el-table-column prop="PurchasePlanStart" :label="$t('Generality.Ge_PlanStart')" width="135">
               <template slot-scope="scope">
@@ -144,7 +158,7 @@
             </el-table-column>
           </el-table-column>
           <el-table-column :label="$t('menu.Pr_Production')">
-            <el-table-column prop="ProductionWorker" :label="$t('project.Pro_Worker')" width="80">
+            <el-table-column prop="ProductionWorker" :label="$t('project.Pro_Worker')" width="120">
             </el-table-column>
             <el-table-column prop="ProductionPlanStart" :label="$t('Generality.Ge_PlanStart')" width="135">
               <template slot-scope="scope">
@@ -158,7 +172,7 @@
             </el-table-column>
           </el-table-column>
           <el-table-column :label="$t('stockroom.St_Assembly')">
-            <el-table-column prop="AssyWorker" :label="$t('project.Pro_Worker')" width="80">
+            <el-table-column prop="AssyWorker" :label="$t('project.Pro_Worker')" width="120">
             </el-table-column>
             <el-table-column prop="AssyPlanStart" :label="$t('Generality.Ge_PlanStart')" width="135">
               <template slot-scope="scope">
@@ -202,9 +216,10 @@
   </PageWrapper>
 </template>
 <script>
+import { Form } from "~/class/form";
 import { toolingSummary } from "@/api/basicApi/systemSettings/Item"
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import { taskTypeEnum } from "@/enum/workModule";
+import { enumToList, taskTypeEnum } from "@/enum/workModule";
 export default {
   name: "Pm_ProjectMoldResume",
   data() {
@@ -214,31 +229,36 @@ export default {
       currentPage: 1,
       pageSize: 20,
       totalCount: 0,
-      selectedToolingNo: "",
-      selectedProject: "",
-      selectedCustomerName: "",
+      searchFormObj: {},
     }
   },
   created() {
+    this.searchFormObj = new Form({
+      formSchema: [
+        { prop: "ToolingNo",},
+        { prop: "Project",},
+        { prop: "CustomerName",},
+        { prop: "TaskType",},
+      ],
+    })
     this.getData();
   },
   methods: {
+    enumToList,
     imgUrlPlugin,
     getData() {
       toolingSummary({
         PageSize: this.pageSize,
         CurrentPage: this.currentPage,
-        ToolingNo: this.selectedToolingNo,
-        CustomerName: this.selectedCustomerName,
-        Project: this.selectedProject,
+        ...this.searchFormObj.form,
       }).then((res) => {
         this.tableData = res.Items;
         this.totalCount = res.Count;
       })
     },
-    // exportSelect() {
-    //
-    // },
+    exportSelect() {
+
+    },
     handleSizeChange(val) {
       this.pageSize = val;
       this.getData();
@@ -251,18 +271,14 @@ export default {
       toolingSummary({
         PageSize: 20,
         CurrentPage: 1,
-        ToolingNo: this.selectedToolingNo,
-        Project: this.selectedProject,
-        CustomerName: this.selectedCustomerName,
+        ...this.searchFormObj.form,
       }).then((res) => {
         this.tableData = res.Items;
         this.totalCount = res.Count;
       })
     },
     clear() {
-      this.selectedProject = "";
-      this.selectedToolingNo = "";
-      this.selectedCustomerName = "";
+      this.searchFormObj.reset();
       this.search();
     },
   }
