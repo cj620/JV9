@@ -99,6 +99,14 @@ export function production_task_process_list(data) {
     data
   });
 }
+// 修改加工任务单状态
+export function production_task_update_state(data) {
+  return request({
+    url: "/production_task/update_state",
+    method: "post",
+    data,
+  })
+}
 // 恢复已删除生产任务
 export function production_task_Recovery_list_has_been_deleted(data) {
   return request({

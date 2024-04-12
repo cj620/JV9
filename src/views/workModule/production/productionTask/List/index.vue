@@ -57,6 +57,12 @@
               <el-button size="mini" @click="goOverdueWorkOrder">{{
                 $t("menu.Pr_OverdueWorkOrder")
               }}</el-button>
+              <el-button
+                size="mini"
+                @click="editBillState"
+                :disabled="multipleSelection.length === 0"
+              >{{ $t("production.Pr_EditState") }}</el-button
+              >
               <el-button size="mini" @click="deletedData" v-if="IsShow">
                 {{ $t("production.Pr_DeletedData") }}
               </el-button>
@@ -307,6 +313,12 @@
       @confirmDeletedDataList="confirmDeletedDataList"
     >
     </deleted-data-list>
+    <editStateForm
+      :visible.sync="editStateDialogFormVisible"
+      v-if="editStateDialogFormVisible"
+      @confirmToEditState="confirmToEditState"
+    >
+    </editStateForm>
   </PageWrapper>
 </template>
 
@@ -314,6 +326,7 @@
 import {
   productionTaskList,
   deleteProductionTask,
+  production_task_update_state,
 } from "@/api/workApi/production/productionTask";
 import AComponents from "./components/AComponents";
 import outsourcingProcess from "./components/outsourcingProcess";
@@ -321,6 +334,7 @@ import outsourcingPart from "./components/outsourcingPart";
 import searchForm from "./components/searchForm";
 import copyOrder from "./components/copyOrder";
 import deletedDataList from "./components/deletedDataList";
+import editStateForm from "./components/editStateForm";
 import {
   LevelEnum,
   ProcessState,
@@ -371,6 +385,7 @@ export default {
       IsFlag: false, //判断选择框是否全部选中
       isIndeterminate: false, //判断选择框里面的状态
       deletedDataListDialogFormVisible: false, //查看删除列表的弹窗
+      editStateDialogFormVisible: false, //编辑状态弹窗
       outsourcingProcessDialogFormVisible: false, //选择委外工序的弹窗
       outsourcingPartDialogFormVisible: false, //选择委外零件的弹窗
       copyOrderDialogFormVisible: false, //复制工单的弹窗
@@ -394,6 +409,23 @@ export default {
     // 跳转到超期工单
     goOverdueWorkOrder() {
       this.$router.push({ name: "OverdueWorkOrder" });
+    },
+    // 编辑单据状态
+    editBillState() {
+      this.editStateDialogFormVisible = true;
+    },
+    // 确认编辑状态
+    confirmToEditState(e) {
+      var arr = this.multipleSelection.map((x) => x.BillId);
+      production_task_update_state({
+        BillIds: arr,
+        State: e.State,
+        ScrapReason: e.ScrapReason,
+      }).then((res) => {
+        this.editStateDialogFormVisible = false;
+        this.GetData();
+        this.multipleSelection = [];
+      });
     },
     //已删除数据
     deletedData() {
@@ -684,6 +716,7 @@ export default {
     searchForm,
     copyOrder,
     deletedDataList,
+    editStateForm,
   },
 };
 </script>
