@@ -40,9 +40,9 @@
             <el-button size="mini" @click="clear">{{ $t('Generality.Ge_Clear') }}</el-button>
           </div>
         </div>
-<!--        <div class="page-wrapper-header-right">-->
-<!--          <el-button type="primary" size="mini" @click="exportSelect">导出</el-button>-->
-<!--        </div>-->
+        <div class="page-wrapper-header-right">
+          <el-button type="primary" size="mini" @click="exportSelect">导出</el-button>
+        </div>
       </div>
       <div class="page-wrapper-body">
         <el-table
@@ -56,6 +56,7 @@
           style="width: 100%;"
           height="100%"
           :data="tableData"
+          @selection-change="handleSelectionChange"
           border
         >
           <el-table-column :label="$t('project.Pro_ToolingInfo')">
@@ -213,6 +214,14 @@
         </el-pagination>
       </div>
     </div>
+    <ExportSelect
+      v-if="exportDialogShow"
+      :visible.sync="exportDialogShow"
+      :title="$t('Generality.Ge_Export')"
+      :exportData="exportData"
+      width="400px"
+      @complete="exportDialogShow = false"
+    ></ExportSelect>
   </PageWrapper>
 </template>
 <script>
@@ -220,8 +229,12 @@ import { Form } from "~/class/form";
 import { toolingSummary } from "@/api/basicApi/systemSettings/Item"
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { enumToList, taskTypeEnum } from "@/enum/workModule";
+import ExportSelect from "./components/exportSelect.vue";
 export default {
   name: "Pm_ProjectMoldResume",
+  components: {
+    ExportSelect,
+  },
   data() {
     return {
       taskTypeEnum,
@@ -230,6 +243,92 @@ export default {
       pageSize: 20,
       totalCount: 0,
       searchFormObj: {},
+      exportDialogShow: false,
+      exportData: {
+        title: this.$t("menu.Pm_ProjectMoldResume"),
+        selectedData: [],
+        currentData: [],
+        api: toolingSummary,
+        searchForm: {},
+        tableColumns: [
+          {
+            label: this.$t('project.Pro_ToolingInfo'),
+            children: [
+              { label: this.$t('project.Pro_ToolingPhoto'), prop: 'PhotoUrl' },
+              { label: this.$t('Generality.Ge_State'), prop: 'ToolingState' },
+              { label: this.$t('menu.Pm_Project'), prop: 'Project' },
+              { label: this.$t('Generality.Ge_ToolingNo'), prop: 'ToolingNo' },
+              { label: this.$t('Generality.Ge_ToolingName'), prop: 'ToolingName' },
+              { label: this.$t('Generality.Ge_Describe'), prop: 'Description' },
+              { label: this.$t('menu.Sa_Customer'), prop: 'CustomerName' },
+              { label: this.$t('Generality.Ge_DeliveryDate'), prop: 'TDeliveryDate' },
+              { label: this.$t('Generality.Ge_SampleDate'), prop: 'TSampleDate' },
+              { label: this.$t('project.Pro_TaskType'), prop: 'TaskType' },
+            ]
+          },
+          {
+            label: this.$t('project.Pro_TechnicalRequirement'),
+            children: [
+              { label: this.$t('project.Pro_HeatTreatmentSpec'), prop: 'HeatTreatmentSpec' },
+              { label: this.$t('project.Pro_PlasticMaterialSpec'), prop: 'PlasticMaterialSpec' },
+              { label: this.$t('project.Pro_ShrinkageRateSpec'), prop: 'ShrinkageRateSpec' },
+              { label: this.$t('project.Pro_MoldBaseSpec'), prop: 'MoldBaseSpec' },
+              { label: this.$t('project.Pro_DemouldingCavitySpec'), prop: 'DemouldingCavitySpec' },
+            ]
+          },
+          {
+            label: this.$t('menu.De_Design'),
+            children: [
+              { label: this.$t('project.Pro_Worker'), prop: 'DesignWorker' },
+              { label: this.$t('Generality.Ge_PlanStart'), prop: 'DesignPlanStart' },
+              { label: this.$t('Generality.Ge_ActualStart'), prop: 'DesignActualStart' },
+            ]
+          },
+          {
+            label: this.$t('menu.Pa_Program'),
+            children: [
+              { label: this.$t('project.Pro_Worker'), prop: 'ProgramWorker' },
+              { label: this.$t('Generality.Ge_PlanStart'), prop: 'ProgramPlanStart' },
+              { label: this.$t('Generality.Ge_ActualStart'), prop: 'ProgramActualStart' },
+            ]
+          },
+          {
+            label: this.$t('menu.Pu_Purchase'),
+            children: [
+              { label: this.$t('project.Pro_Worker'), prop: 'PurchaseWorker' },
+              { label: this.$t('Generality.Ge_PlanStart'), prop: 'PurchasePlanStart' },
+              { label: this.$t('Generality.Ge_ActualStart'), prop: 'PurchaseActualStart' },
+            ]
+          },
+          {
+            label: this.$t('menu.Pr_Production'),
+            children: [
+              { label: this.$t('project.Pro_Worker'), prop: 'ProductionWorker' },
+              { label: this.$t('Generality.Ge_PlanStart'), prop: 'ProductionPlanStart' },
+              { label: this.$t('Generality.Ge_ActualStart'), prop: 'ProductionActualStart' },
+            ]
+          },
+          {
+            label: this.$t('stockroom.St_Assembly'),
+            children: [
+              { label: this.$t('project.Pro_Worker'), prop: 'AssyWorker' },
+              { label: this.$t('Generality.Ge_PlanStart'), prop: 'AssyPlanStart' },
+              { label: this.$t('Generality.Ge_ActualStart'), prop: 'AssyActualStart' },
+            ]
+          },
+          {
+            label: this.$t('production.Pr_TestTooling'),
+            children: [
+              { label: 'T1' + this.$t('project.Pro_Problem'), prop: 'T1Problem' },
+              { label: 'T1' + this.$t('project.Pro_Solution'), prop: 'T1Solution' },
+              { label: 'T2' + this.$t('project.Pro_Problem'), prop: 'T2Problem' },
+              { label: 'T2' + this.$t('project.Pro_Solution'), prop: 'T2Solution' },
+              { label: 'T3' + this.$t('project.Pro_Problem'), prop: 'T3Problem' },
+              { label: 'T3' + this.$t('project.Pro_Solution'), prop: 'T3Solution' },
+            ]
+          }
+        ]
+      }
     }
   },
   created() {
@@ -254,10 +353,12 @@ export default {
       }).then((res) => {
         this.tableData = res.Items;
         this.totalCount = res.Count;
+        this.exportData.currentData = res.Items;
       })
     },
     exportSelect() {
-
+      this.exportData.searchForm = this.searchFormObj.form;
+      this.exportDialogShow = true;
     },
     handleSizeChange(val) {
       this.pageSize = val;
@@ -267,6 +368,9 @@ export default {
       this.currentPage = val;
       this.getData();
     },
+    handleSelectionChange(val) {
+      this.exportData.selectedData = val;
+    },
     search() {
       toolingSummary({
         PageSize: 20,
@@ -275,6 +379,7 @@ export default {
       }).then((res) => {
         this.tableData = res.Items;
         this.totalCount = res.Count;
+        this.exportData.currentData = res.Items;
       })
     },
     clear() {
