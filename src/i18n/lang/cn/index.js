@@ -1368,6 +1368,7 @@ const cn = {
     De_DataToBeMaintained: "查看待保养的数据",
     De_RegularMaintenance: "定时保养",
     De_QuantitativeMaintenance: "定量保养",
+    De_TemporaryMaintenance: "临时保养",
     De_FaultRepair: "故障维修",
     De_PrecisionRepair: "精度调准",
     De_Type1: "类别一",

@@ -49,9 +49,14 @@ export const maintenanceEnum = {
     },
     // 定量保养
     FixedUsedTime: {
-        name: i18n.t("device.De_QuantitativeMaintenance"),
-        value: "FixedUsedTime",
-      },
+      name: i18n.t("device.De_QuantitativeMaintenance"),
+      value: "FixedUsedTime",
+    },
+    // 临时保养
+    Temporary: {
+      name: i18n.t("device.De_TemporaryMaintenance"),
+      value: "Temporary",
+    }
   };
   // 设备状态
   export const deviceStateEnum = {

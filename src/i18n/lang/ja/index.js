@@ -1378,6 +1378,7 @@ const ja = {
     De_DataToBeMaintained: "保守対象データの表示",
     De_RegularMaintenance: "タイミングメンテナンス",
     De_QuantitativeMaintenance: "ていりょうほしゅ",
+    De_TemporaryMaintenance: "臨時保守",
     De_FaultRepair: "こしょうほしゅ",
     De_PrecisionRepair: "せいどちょうせい",
     De_Type1: "カテゴリ1",

@@ -108,6 +108,7 @@ import closeTag from "@/utils/closeTag";
 import ImgUploader from "@/components/WorkModule/ImgUploader";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
 import selectTemplate from "./selectTemplate";
+import i18n from "@/i18n/i18n";
 
 export default {
   name: "As_DeviceMaintainAdd",
@@ -132,13 +133,17 @@ export default {
       formObj: {},
       MaintenanceCategoryData: [
         {
-          label: '定时保养',
+          name: i18n.t("device.De_RegularMaintenance"),
           value: "FixedDate",
         },
         {
-          label: '定量保养',
+          name: i18n.t("device.De_QuantitativeMaintenance"),
           value: "FixedUsedTime",
         },
+        {
+          name: i18n.t("device.De_TemporaryMaintenance"),
+          value: "Temporary",
+        }
       ],
       TemplateDialogFormVisible: false,
       detailRouteName: "As_DeviceMaintenanceDetail",

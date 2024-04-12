@@ -1384,6 +1384,7 @@ const en = {
     De_DataToBeMaintained: "Viewing data to be maintained",
     De_RegularMaintenance: "Regular Maintenance",
     De_QuantitativeMaintenance: "Quantitative Maintenance",
+    De_TemporaryMaintenance: "Temporary Maintenance",
     De_FaultRepair: "Fault Repair",
     De_PrecisionRepair: "Precision Repair",
     De_Type1: "Type1",
