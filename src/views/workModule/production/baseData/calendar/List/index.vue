@@ -67,7 +67,7 @@
       v-if="dialogVisible"
       :title="dialogTitle"
       @confirm="dialogConfirm"
-      width="50%"
+      width="450px"
     >
       <edit-calendar
         ref="editCalendar"
