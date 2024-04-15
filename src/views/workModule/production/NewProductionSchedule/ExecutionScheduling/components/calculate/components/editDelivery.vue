@@ -19,7 +19,6 @@
         v-on="$listeners"
         @confirm="confirmItem"
       >
-
         <el-date-picker
           v-model="PlanEnd"
           type="date"
@@ -50,20 +49,18 @@ data(){
   },
   created(){
     var day3 = new Date();
-      const end=day3.getTime()+24*60*60*1000*3
-    this.PlanEnd=new Date(end)
-    console.log(this.PlanEnd,8989);
-    },
+    const end=day3.getTime() + 24*60*60*1000*3
+    this.PlanEnd = new Date(end)
+  },
   methods:{
     confirmItem(){
-
       const str= {
         BillIds:this.editDeliveryData.map((x) => x.BillId),
         PlanEnd:this.PlanEnd
       }
-      update_plan_end(str).then(res=>{
-        this.editDeliveryData.PlanEnd=this.PlanEnd
-        this.$emit('cancel')
+      update_plan_end(str).then(res => {
+        this.editDeliveryData.PlanEnd = this.PlanEnd
+        this.$emit('completeEdit')
       })
     }
   }

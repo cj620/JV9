@@ -31,19 +31,45 @@
           {{ timeFormat(row.PlanEnd, "yyyy-MM-dd hh:mm:ss") }}
         </template>
       </el-table-column>
+      <el-table-column
+        :label="$t('Generality.Ge_Operate')"
+        width="105px"
+        prop=""
+      >
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            @click="editDate(scope.$index, scope.row)"
+          >{{ $t("production.Pr_EditDeliveryDate") }}</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
+    <editDelivery
+      :visible.sync="editDeliveryDialogFormVisible"
+      v-if="editDeliveryDialogFormVisible"
+      :editDeliveryData="editDeliveryData"
+      editDeliveryType="noBatch"
+      @cancel="cancel"
+      @completeEdit="completeEdit"
+    ></editDelivery>
   </div>
 </template>
 
 <script>
 import timeFormat from "@/jv_doc/utils/time/timeFormat";
 import { addOutsourcingrRequirement } from "@/api/workApi/purchase/outsourcingRequirement";
+import editDelivery
+  from "@/views/workModule/production/NewProductionSchedule/ExecutionScheduling/components/calculate/components/editDelivery.vue";
 export default {
   name: "index",
+  components: {editDelivery},
   props: ["tableData"],
   data() {
     return {
       selectData: [],
+      editDeliveryDialogFormVisible: false,
+      editDeliveryData: {},
     };
   },
   methods: {
@@ -66,6 +92,19 @@ export default {
           this.$emit('setTableData', index)
         })
       })
+    },
+    editDate(index, row) {
+      this.editDeliveryDialogFormVisible = true;
+      this.editDeliveryData = [row];
+    },
+    //修改交期完成
+    completeEdit() {
+      this.editDeliveryDialogFormVisible = false;
+      this.$emit('StartAutomaticScheduling')
+    },
+    //取消修改交期弹窗
+    cancel() {
+      this.editDeliveryDialogFormVisible = false;
     },
   },
 };

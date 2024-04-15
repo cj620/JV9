@@ -166,6 +166,7 @@
         :editDeliveryData="editDeliveryData"
         :editDeliveryType="editDeliveryType"
         @cancel="cancel"
+        @completeEdit="completeEdit"
       ></editDelivery>
       <editOverload
         :visible.sync="editOverloadDialogFormVisible"
@@ -259,6 +260,11 @@ export default {
       this.editDeliveryDialogFormVisible = true;
       this.editDeliveryType = 'noBatch'
       this.editDeliveryData = [row];
+    },
+    //修改交期完成
+    completeEdit() {
+      this.editDeliveryDialogFormVisible = false;
+      this.$emit('StartAutomaticScheduling')
     },
     //取消修改交期弹窗
     cancel() {

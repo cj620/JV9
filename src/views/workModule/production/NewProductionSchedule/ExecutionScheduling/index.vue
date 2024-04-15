@@ -102,8 +102,10 @@
       v-if="WorkpieceOutsourcing"
       width="80%"
     >
-      <WorkpieceOutsourcingTable :tableData="WorkpieceOutsourcingData"
-      @setTableData="setTableData"
+      <WorkpieceOutsourcingTable
+        :tableData="WorkpieceOutsourcingData"
+        @setTableData="setTableData"
+        @StartAutomaticScheduling="StartAutomaticScheduling"
       ></WorkpieceOutsourcingTable>
     </JvDialog>
     <!-- 排程结果弹窗 -->
@@ -170,6 +172,8 @@ export default {
     },
     // 启动自动排程
     StartAutomaticScheduling() {
+      this.WorkpieceOutsourcing = false;
+      this.SchedulingResults = false;
       do_aps1({
         StartDate: timeFormat(this.StartDate, 'yyyy-MM-dd hh:mm:ss'),
         SchedulingType: this.algorithm,
@@ -181,7 +185,7 @@ export default {
         this.SchedulingShow = true;
         this.setReportData(res);
         this.calculateData = res['OverDeliveryDate']['BillDataList'];
-        this.WorkpieceOutsourcingData = res['OverloadData']['ProcessDataList']
+        this.WorkpieceOutsourcingData = res['OverloadData']['ProcessDataList'];
       });
     },
     // 设置排程报告数据
