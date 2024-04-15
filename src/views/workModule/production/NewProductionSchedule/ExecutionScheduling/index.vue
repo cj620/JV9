@@ -100,10 +100,11 @@
       :visible.sync="WorkpieceOutsourcing"
       :IsShowConfirmFooterBtn="false"
       v-if="WorkpieceOutsourcing"
+      :IsShowFooterBtn="false"
       width="80%"
     >
       <WorkpieceOutsourcingTable
-        :tableData="WorkpieceOutsourcingData"
+        :data="WorkpieceOutsourcingData"
         @setTableData="setTableData"
         @StartAutomaticScheduling="StartAutomaticScheduling"
       ></WorkpieceOutsourcingTable>
@@ -112,7 +113,7 @@
     <JvDialog
       :title="$t('production.Pr_SchedulingResults')"
       :visible.sync="SchedulingResults"
-      :IsShowConfirmFooterBtn="false"
+      :IsShowFooterBtn="false"
       v-if="SchedulingResults"
       width="80%"
     >

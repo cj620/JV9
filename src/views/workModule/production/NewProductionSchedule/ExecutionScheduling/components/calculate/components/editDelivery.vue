@@ -21,7 +21,7 @@
       >
         <el-date-picker
           v-model="PlanEnd"
-          type="date"
+          type="datetime"
         >
         </el-date-picker>
       </jv-dialog>
@@ -29,7 +29,8 @@
 </template>
 
 <script>
-import {update_plan_end } from "@/api/workApi/production/productionTask";
+import { update_plan_end } from "@/api/workApi/production/productionTask";
+import { timeFormat } from "~/utils/time";
 export default {
   name: 'editDelivery',
 data(){
@@ -48,19 +49,19 @@ data(){
     }
   },
   created(){
-    var day3 = new Date();
-    const end=day3.getTime() + 24*60*60*1000*3
-    this.PlanEnd = new Date(end)
+    let currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    const end = currentDate.getTime() + 24*60*60*1000*3
+    this.PlanEnd = timeFormat(new Date(end),'yyyy-MM-dd hh:mm:ss')
   },
   methods:{
     confirmItem(){
       const str= {
         BillIds:this.editDeliveryData.map((x) => x.BillId),
-        PlanEnd:this.PlanEnd
+        PlanEnd:timeFormat(this.PlanEnd,'yyyy-MM-dd hh:mm:ss')
       }
       update_plan_end(str).then(res => {
-        this.editDeliveryData.PlanEnd = this.PlanEnd
-        this.$emit('completeEdit')
+        this.$emit('completeEdit', str)
       })
     }
   }

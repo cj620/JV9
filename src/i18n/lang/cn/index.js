@@ -1275,6 +1275,7 @@ const cn = {
     Pr_Complete: "已齐套",
     Pr_Incomplete: "未齐套",
     Pr_ProductionProcess: "生产工序",
+    Pr_ReAPS: "重新排程",
     Pr_APSReportContent: {
       str1: "参与排程模具",
       str2: "套, 合计零件",
