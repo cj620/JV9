@@ -13,9 +13,7 @@
     <Action
       slot="sticky-extra"
       size="small"
-      :actions="
-        btnAction.filter((item) => item.label != $t('Generality.Ge_Edit'))
-      "
+      :actions="btnAction"
     ></Action>
     <!--单据信息-->
     <JvBlock :title="cur_billId" ref="first">
@@ -23,11 +21,11 @@
       <div style="position: relative">
         <JvDetail :detailObj="detailObj">
           <template #PrTaskBillId="{ record }">
-            <!-- <span
+            <span
               style="color: #409eff; cursor: pointer"
               @click="linkToProduct(record)"
-              >{{ record }}</span
-            > -->
+            >{{ record }}</span
+            >
           </template>
         </JvDetail>
         <JvState :state="detailObj.detailData.State"></JvState>
@@ -158,7 +156,8 @@ export default {
         this.tableObj.setData(res.BillItems);
         this.btnAction = detailPageModel(this, res, API, this.GetData);
         // console.log(this.btnAction,4567899);
-        // this.btnAction.splice(4,1)
+        this.btnAction.splice(4,1)
+        this.btnAction.splice(5,2)
       });
     },
     //订单转
@@ -166,6 +165,12 @@ export default {
       this.$router.push({
         name: routerName,
         params: { [keyName]: this.detailObj.detailData },
+      });
+    },
+    linkToProduct(BillId) {
+      this.$router.push({
+        name: "ProductionTaskDetails",
+        query: { BillId },
       });
     },
     tabClick(e) {

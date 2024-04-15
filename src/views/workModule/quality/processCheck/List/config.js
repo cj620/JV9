@@ -14,11 +14,13 @@ import {
 import {
   ProcessingResult,
   ProcessCheckTypeEnum,
+  AbnormalCategoryEnum,
   enumToList,
   enumFilter,
 } from "@/enum/workModule";
 
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
+import {itemList} from "@/api/basicApi/systemSettings/Item";
 
 // 结构
 export class api extends TableAPI {
@@ -54,6 +56,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
+    width: "150px",
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
@@ -84,15 +87,29 @@ export const tableConfig = [
     custom: true,
     width: "115px",
   },
+  {
+    // 模具编号
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    width: "130px",
+  },
+  {
+    // 零件编号
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+    width: "130px",
+  },
   /*加工单*/
   {
     prop: "PrTaskBillId",
     label: i18n.t("production.Pr_WorkSheetNo"),
-  },
-  {
-    // 零件编号
-    prop: "ItemId",
-    label: i18n.t("Generality.Ge_PartNo"),
+    cpn: "Link",
+    width: "130px",
+    cpnProps: {
+      routeName: "ProductionTaskDetails",
+      methods: "query",
+      parameterKey: "BillId",
+    },
   },
   {
     // 自检工序
@@ -151,9 +168,10 @@ export const tableConfig = [
     label: i18n.t("quality.Qc_UnqualifiedQty"),
   },
   {
-    // 关联编号
-    prop: "AssociatedNo",
-    label: i18n.t("Generality.Ge_AssociatedNo"),
+    // 异常类别
+    prop: "AbnormalCategory",
+    label: i18n.t("quality.Qc_AbnormalCategory"),
+    customFilter: (value, row) => enumFilter(value, AbnormalCategoryEnum),
   },
   {
     // 制单人
@@ -179,6 +197,20 @@ export const formSchema = [
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
     cpn: "FormInput",
+  },
+  //模具搜索
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    cpn: "AsyncSearch",
+    api: itemList,
+    apiOptions: {
+      keyName: "ItemName",
+      valueName: "ItemId",
+      params:{
+        ItemCategory:'Tooling'
+      }
+    },
   },
   //零件编号
   {

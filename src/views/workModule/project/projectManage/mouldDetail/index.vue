@@ -11,7 +11,26 @@
       ></el-tab-pane>
     </el-tabs>
 
-    <!-- <Action slot="sticky-extra" size="small" :actions="btnAction"></Action> -->
+     <Action slot="sticky-extra" size="medium" :actions="[
+       {
+         /*锁定*/
+         label: $t('Generality.Ge_Lock'),
+         popConfirm: {
+           title: $t('Generality.Ge_LockConfirm'),
+           confirm: updateItem.bind(null, 'lock'),
+         },
+         hidden: Locked,
+       },
+       {
+         /*解锁*/
+         label: $t('production.Pr_Unlock'),
+         popConfirm: {
+           title: $t('Generality.Ge_UnlockConfirm'),
+           confirm: updateItem.bind(null, 'unlock'),
+         },
+         hidden: !Locked,
+       },
+     ]"></Action>
 
     <a
       :href="'JvisoftFileManager:' + cur_Id"
@@ -26,7 +45,7 @@
       ref="first"
       :contentStyle="{
         paddingLeft: '150px',
-        height: '140px',
+        height: '175px',
       }"
       style="position: relative"
     >
@@ -52,7 +71,11 @@
 
         </el-image>
       </div>
-      <JvDetail :detailObj="detailObj"> </JvDetail>
+      <JvDetail :detailObj="detailObj">
+        <template #LockState="{ record }">
+          {{ record ? $t('Generality.Ge_Lock') : $t('production.Pr_Unlock') }}
+        </template>
+      </JvDetail>
     </JvBlock>
     <!-- 技术要求 -->
     <JvBlock :title="$t('project.Pro_TechnicalRequirement')" ref="second">
@@ -76,6 +99,12 @@
           type="primary"
           @click="addNewTask(taskTypeEnum['NewTooling'].value)"
           >{{ $t("project.Pro_AddNewToolingTask") }}</el-button
+        >
+        <el-button
+          size="mini"
+          type="primary"
+          @click="addNewTask(taskTypeEnum['ToolCorrection'].value)"
+          >{{ $t("project.Pro_AddToolCorrectionTask") }}</el-button
         >
         <el-button
           size="mini"
@@ -160,7 +189,7 @@ import {
   getToolingDetail,
   save_project_dynamic,
 } from "@/api/workApi/project/projectInfo";
-import { saveToolingBasis } from "@/api/basicApi/systemSettings/Item";
+import { saveToolingBasis, item_Lock } from "@/api/basicApi/systemSettings/Item";
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
 import { taskTypeEnum } from "@/enum/workModule";
 import JvUploadList from "@/components/JVInternal/JvUpload/List";
@@ -191,12 +220,6 @@ export default {
       cur_Id: this.$route.query.BillId,
       DynamicInfo: [],
       taskTypeEnum,
-      btnAction: [
-        {
-          label: this.$t("project.Pro_FileManagement"),
-          confirm: () => {},
-        },
-      ],
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BasicInformation"),
@@ -225,6 +248,11 @@ export default {
       printMod: "Sa_SaleOrder",
       formObj1: {},
     };
+  },
+  computed: {
+    Locked() {
+      return this.detailObj.detailData.LockState;
+    }
   },
   async created() {
     this.detailObj = new Detail({
@@ -332,6 +360,12 @@ export default {
 		    name: "Pm_TrialTask_Add",
         query: e,
       })
+    },
+    // 更新状态
+    updateItem(e) {
+      item_Lock( [this.detailObj.detailData.ToolingNo] ).then(() => {
+        this.getData();
+      })
     }
   },
 };
@@ -347,12 +381,16 @@ export default {
   right: 100px;
 }
 .customize-button {
+  height: 36px;
   padding: 7px 15px;
   color: #ffffff;
   border-radius: 3px;
   background: #1890ff;
   cursor: pointer;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  //margin-bottom: 10px;
 }
 .mould-detail {
 }
@@ -372,5 +410,9 @@ export default {
       font-size: 20px;
     }
   }
+}
+::v-deep .sticky-extra {
+  margin-top: 10px!important;
+  display: flex;
 }
 </style>

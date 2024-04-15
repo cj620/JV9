@@ -1,10 +1,11 @@
 <template>
     <div style="height: 60vh">
       <div class="calculate-result">
-        <Action
-          class="calculate-result-btn"
-          size="mini"
-          :actions="[
+        <div style="display: flex;justify-content: space-between;align-items: center;width: 100%;padding-right: 10px">
+          <Action
+            class="calculate-result-btn"
+            size="mini"
+            :actions="[
             {
               label: $t('production.Pr_EditDeliveryDate'),
               confirm: editDeliveryDate.bind(null),
@@ -15,9 +16,10 @@
               confirm: oneClick.bind(null),
             },
           ]"
-        >
-        </Action>
-
+          >
+          </Action>
+          <el-button size="mini" @click="reAPS">{{ $t('production.Pr_ReAPS') }}</el-button>
+        </div>
         <!-- 表格 -->
         <div class="calculate-result-table">
           <el-table
@@ -165,7 +167,7 @@
         v-if="editDeliveryDialogFormVisible"
         :editDeliveryData="editDeliveryData"
         :editDeliveryType="editDeliveryType"
-        @cancel="cancel"
+        @completeEdit="completeEdit"
       ></editDelivery>
       <editOverload
         :visible.sync="editOverloadDialogFormVisible"
@@ -260,9 +262,19 @@ export default {
       this.editDeliveryType = 'noBatch'
       this.editDeliveryData = [row];
     },
-    //取消修改交期弹窗
-    cancel() {
+    //修改交期完成
+    completeEdit(e) {
       this.editDeliveryDialogFormVisible = false;
+      this.tableData = this.tableData.map(item => {
+        if (e.BillIds.includes(item.BillId)) {
+          return { ...item, PlanEnd: e.PlanEnd };
+        }
+        return item;
+      });
+    },
+    // 重新排程
+    reAPS() {
+      this.$emit('StartAutomaticScheduling')
     },
     //一键处理
     oneClick(){

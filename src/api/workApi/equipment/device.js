@@ -53,3 +53,26 @@ export function assets_device_delete(data) {
     data,
   });
 }
+//设备管理报表
+export function assets_device_management_report() {
+  return request({
+    url: "/assets_device/device_management_report",
+    method: "get"
+  })
+}
+//设备点检报表
+export function assets_device_spot_check_report(data) {
+  return request({
+    url: "/assets_device/device_spot_check_report",
+    method: "post",
+    data,
+  })
+}
+//设备保养报表
+export function assets_device_maintain_report(data){
+  return request({
+    url: "/assets_device/device_maintain_report",
+    method: "post",
+    data,
+  })
+}

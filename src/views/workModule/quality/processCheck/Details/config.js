@@ -4,7 +4,7 @@ import {
   enumToList,
   ProcessCheckTypeEnum,
   reasonForFailureEnum,
-  enumFilter,
+  enumFilter, AbnormalCategoryEnum,
 } from "@/enum/workModule";
 
 export class Table extends BaseTable {
@@ -66,8 +66,13 @@ export const detailConfig = [
     custom: true,
   },
   {
+    // 模具编号
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+  },
+  {
     // 零件编号
-    prop: "ItemId",
+    prop: "PartNo",
     label: i18n.t("Generality.Ge_PartNo"),
   },
   {
@@ -129,8 +134,10 @@ export const detailConfig = [
     label: i18n.t("quality.Qc_UnqualifiedQty"),
   },
   {
-    prop: "AssociatedNo",
-    label: i18n.t("Generality.Ge_AssociatedNo"),
+    // 异常类别
+    prop: "AbnormalCategory",
+    label: i18n.t("quality.Qc_AbnormalCategory"),
+    customFilter: (value, row) => enumFilter(value, AbnormalCategoryEnum),
   },
   {
     // 制单人

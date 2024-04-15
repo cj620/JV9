@@ -127,6 +127,12 @@
         @confirmProcessTemplate="confirmProcessTemplate"
     >
     </SelectProjectProcessTemplate>
+    <SelectProjectProcess
+      :visible.sync="ProcessDialogFormVisible"
+      v-if="ProcessDialogFormVisible"
+      @selectProcessData="selectProcessData"
+    >
+    </SelectProjectProcess>
   </PageWrapper>
 </template>
 
@@ -156,9 +162,11 @@ import {
   delDoubleCol,
   doubleCol2data,
 } from "./utils";
+import SelectProjectProcess from "@/components/JVInternal/SelectProjectProcess/index.vue";
 export default {
   name: "Pm_ProjectTask_Add",
   components: {
+    SelectProjectProcess,
     JvUploadFile,
     SelectProjectProcessTemplate,
   },
@@ -181,6 +189,7 @@ export default {
       M_TableObj: {},
       prefix: "",
       ProcessTemplateDialogFormVisible: false,
+      ProcessDialogFormVisible: false,
       detailRouteName: "Pm_ProjectTask_Detail",
       fileBillId: this.$route.query.BillId,
       WorkerList: [],
@@ -304,30 +313,38 @@ export default {
     addEditRow() {
       this.formObj.validate((valid) => {
         if (valid) {
-          getAllProjectProcess().then((res) => {
-            // 开始时间
-            let startBase = new Date(this.formObj.form.PlanStart).getTime();
-            // 总的时间区域
-            const TimeZone =
-              new Date(this.formObj.form.PlanEnd).getTime() -
-              new Date(this.formObj.form.PlanStart).getTime();
-
-            const result = res.Items.map((item) => {
-              let startDate = timeFormat(
-                startBase + item.StartScale * TimeZone
-              );
-              let endDate = timeFormat(startBase + item.EndScale * TimeZone);
-              return Object.assign({}, this.BillItems, item, {
-                PlanStart: startDate,
-                PlanEnd: endDate,
-                Id: "",
-              });
-            });
-            // console.log(result, 555555);
-            this.M_TableObj.push(result);
-          });
+          this.ProcessDialogFormVisible = true;
+          // getAllProjectProcess().then((res) => {
+          //   // 开始时间
+          //   let startBase = new Date(this.formObj.form.PlanStart).getTime();
+          //   // 总的时间区域
+          //   const TimeZone =
+          //     new Date(this.formObj.form.PlanEnd).getTime() -
+          //     new Date(this.formObj.form.PlanStart).getTime();
+          //
+          //   const result = res.Items.map((item) => {
+          //     let startDate = timeFormat(
+          //       startBase + item.StartScale * TimeZone
+          //     );
+          //     let endDate = timeFormat(startBase + item.EndScale * TimeZone);
+          //     return Object.assign({}, this.BillItems, item, {
+          //       PlanStart: startDate,
+          //       PlanEnd: endDate,
+          //       Id: "",
+          //     });
+          //   });
+          //   // console.log(result, 555555);
+          //   this.M_TableObj.push(result);
+          // });
         }
       });
+    },
+    //选择工序后返回的数据
+    selectProcessData(e) {
+      e.forEach((item) => {
+        item.Id = "";
+      });
+      this.M_TableObj.push([Object.assign({}, this.BillItems, e[0])]);
     },
     insertDoubleCol,
     delDoubleCol,

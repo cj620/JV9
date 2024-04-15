@@ -57,6 +57,12 @@
               <el-button size="mini" @click="goOverdueWorkOrder">{{
                 $t("menu.Pr_OverdueWorkOrder")
               }}</el-button>
+              <el-button
+                size="mini"
+                @click="editBillState"
+                :disabled="multipleSelection.length === 0"
+              >{{ $t("production.Pr_EditState") }}</el-button
+              >
               <el-button size="mini" @click="deletedData" v-if="IsShow">
                 {{ $t("production.Pr_DeletedData") }}
               </el-button>
@@ -194,16 +200,12 @@
                     </span>
                   </el-tooltip>
                 </div>
-              </div>
-              <div class="productionTask-card-content-baseInfo-operate">
-                <el-button type="text" @click="edit(item.BillId)">{{
-                  $t("Generality.Ge_Edit")
-                }}</el-button>
-                <el-button
-                  type="text"
-                  @click="outsourcingProcess(item.BillId)"
-                  >{{ $t("production.Pr_ProcessOutsourcing") }}</el-button
-                >
+                <!--操作-->
+                <div class="top-operate">
+                  <el-button type="text" @click="edit(item.BillId)">{{
+                      $t("Generality.Ge_Edit")
+                    }}</el-button>
+                </div>
               </div>
             </div>
             <div class="productionTask-card-content-craft">
@@ -218,6 +220,14 @@
                 class="productionTask-card-content-craft-content"
               >
                 {{ TItem.Process }}({{ TItem.PlanTime }}H)
+              </div>
+              <!--操作-->
+              <div class="bottom-operate">
+                <el-button
+                  type="text"
+                  @click="outsourcingProcess(item.BillId)"
+                >{{ $t("production.Pr_ProcessOutsourcing") }}</el-button
+                >
               </div>
             </div>
           </div>
@@ -303,6 +313,12 @@
       @confirmDeletedDataList="confirmDeletedDataList"
     >
     </deleted-data-list>
+    <editStateForm
+      :visible.sync="editStateDialogFormVisible"
+      v-if="editStateDialogFormVisible"
+      @confirmToEditState="confirmToEditState"
+    >
+    </editStateForm>
   </PageWrapper>
 </template>
 
@@ -310,6 +326,7 @@
 import {
   productionTaskList,
   deleteProductionTask,
+  production_task_update_state,
 } from "@/api/workApi/production/productionTask";
 import AComponents from "./components/AComponents";
 import outsourcingProcess from "./components/outsourcingProcess";
@@ -317,6 +334,7 @@ import outsourcingPart from "./components/outsourcingPart";
 import searchForm from "./components/searchForm";
 import copyOrder from "./components/copyOrder";
 import deletedDataList from "./components/deletedDataList";
+import editStateForm from "./components/editStateForm";
 import {
   LevelEnum,
   ProcessState,
@@ -349,11 +367,13 @@ export default {
         Remarks: "",
         Keyword: "",
         States: [],
+        BillType: "Part",
         CustomerName: "",
         StartDate: "",
         EndDate: "",
         PageSize: 10,
         CurrentPage: 1,
+        SortByProgress: false,
       },
       loading: false,
       drawer: false,
@@ -365,6 +385,7 @@ export default {
       IsFlag: false, //判断选择框是否全部选中
       isIndeterminate: false, //判断选择框里面的状态
       deletedDataListDialogFormVisible: false, //查看删除列表的弹窗
+      editStateDialogFormVisible: false, //编辑状态弹窗
       outsourcingProcessDialogFormVisible: false, //选择委外工序的弹窗
       outsourcingPartDialogFormVisible: false, //选择委外零件的弹窗
       copyOrderDialogFormVisible: false, //复制工单的弹窗
@@ -388,6 +409,23 @@ export default {
     // 跳转到超期工单
     goOverdueWorkOrder() {
       this.$router.push({ name: "OverdueWorkOrder" });
+    },
+    // 编辑单据状态
+    editBillState() {
+      this.editStateDialogFormVisible = true;
+    },
+    // 确认编辑状态
+    confirmToEditState(e) {
+      var arr = this.multipleSelection.map((x) => x.BillId);
+      production_task_update_state({
+        BillIds: arr,
+        State: e.State,
+        ScrapReason: e.ScrapReason,
+      }).then((res) => {
+        this.editStateDialogFormVisible = false;
+        this.GetData();
+        this.multipleSelection = [];
+      });
     },
     //已删除数据
     deletedData() {
@@ -428,6 +466,7 @@ export default {
       this.form.Remarks = e.Remarks;
       this.form.Keyword = e.Keyword;
       this.form.States = e.States;
+      this.form.BillType = e.BillType;
       this.form.CurrentPage = 1;
       this.GetData();
     },
@@ -677,11 +716,12 @@ export default {
     searchForm,
     copyOrder,
     deletedDataList,
+    editStateForm,
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~@/jv_doc/style/mixin.scss";
 .productionTask {
   height: 100%;
@@ -750,12 +790,12 @@ export default {
         padding: 7px 0;
         .productionTask-Img-error {
           background-color: rgb(231, 231, 231);
+          display: flex;
+          justify-content: center;
+          align-items: center;
           .image-slot {
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             // color: rgb(161, 161, 161);
             .error-icon {
               color: rgb(161, 161, 161);
@@ -767,10 +807,13 @@ export default {
       .productionTask-card-content {
         width: 100%;
         font-size: 14px;
+        padding-bottom: 5px;
         .productionTask-card-content-baseInfo {
           display: flex;
+          position: relative;
           flex-direction: row;
           justify-content: space-between;
+          margin-bottom: 5px;
           .productionTask-card-content-baseInfo-content {
             display: flex;
             div {
@@ -781,13 +824,10 @@ export default {
               white-space: nowrap;
             }
           }
-          .productionTask-card-content-baseInfo-operate {
-            min-width: 120px;
-            padding-right: 20px;
-          }
         }
         .productionTask-card-content-craft {
           display: flex;
+          position: relative;
           .productionTask-card-content-craft-content {
             text-align: center;
             font-size: 14px;
@@ -828,5 +868,24 @@ export default {
       margin: 0 5px;
     }
   }
+}
+.top-operate {
+  height: 30px;
+  min-width: 120px;
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  display: flex;
+  justify-content: left;
+}
+.bottom-operate {
+  height: 30px;
+  min-width: 120px;
+  position: absolute;
+  top: -5px;
+  right: 0;
+  margin-right: 10px;
+  display: flex;
+  justify-content: left;
 }
 </style>

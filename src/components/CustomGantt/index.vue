@@ -162,9 +162,7 @@
               </span>
               <span
                 class="beyond-hiding"
-                v-else-if="
-                  isNaN(item[jtem.name]) && !isNaN(Date.parse(item[jtem.name]))
-                "
+                v-else-if="jtem.filter === 'time'"
                 >{{ timeFormat(item[jtem.name]) }}</span
               >
               <span class="beyond-hiding" v-else>{{ item[jtem.name] || '--' }}</span>
@@ -374,7 +372,7 @@ export default {
       unitOptions: [
         {
           value: "week",
-          label: "周",
+          label: "天",
         },
         {
           value: "hour",

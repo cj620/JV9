@@ -389,6 +389,15 @@ const equipment = [
     path: "as_AccessoryCheckOutDetailList",
     title: i18n.t("menu.As_AccessoryCheckOut")+ "  " + i18n.t('Generality.Ge_Details1'),
   },
+  // 设备台账
+  {
+    key: "As_DeviceLedger",
+    component: () => import("@/views/workModule/equipment/deviceLedger/index.vue"),
+    Parent: "As_AssetsManage",
+    name: "As_DeviceLedger",
+    path: "as_DeviceLedger",
+    title: i18n.t("menu.As_DeviceLedger"),
+  },
 ];
 
 export default equipment;

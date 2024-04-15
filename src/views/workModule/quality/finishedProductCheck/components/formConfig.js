@@ -3,9 +3,10 @@ import {
   StateEnum,
   ProcessingResult,
   enumToList,
+  AbnormalCategoryEnum,
   ProcessCheckTypeEnum,
 } from "@/enum/workModule";
-import i18n from "@/i18n/i18n";
+
 // import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
 
 // async function ReasonOfUnqualified(e) {
@@ -82,6 +83,15 @@ export const formSchema = [
       immediate: true,
       keyName: "UserName",
       valueName: "UserName",
+    },
+  },
+  // 异常类别
+  {
+    prop: "AbnormalCategory",
+    label: i18n.t("quality.Qc_AbnormalCategory"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(AbnormalCategoryEnum),
     },
   },
   /*不合格原因*/

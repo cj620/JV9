@@ -9,9 +9,16 @@
               {
                 label: $t('Generality.Ge_New'),
                 confirm: add,
-              }
+              },
+              {
+                label: $t('menu.Pm_ProjectMoldResume'),
+                confirm: toMoldResume,
+              },
             ]"
           ></Action>
+        </template>
+        <template #LockState="{ record }">
+          {{ record ? $t('Generality.Ge_Lock') : $t('production.Pr_Unlock') }}
         </template>
         <template #operation="{ row }">
           <TableAction
@@ -175,6 +182,12 @@ export default {
     add() {
       this.formObj.reset();
       this.addDialogShow = true;
+    },
+    // 跳转到模具履历表
+    toMoldResume() {
+      this.$router.push({
+        name: "Pm_ProjectMoldResume",
+      });
     },
     confirmAdd() {
       this.formObj.form['PhotoUrl'] = this.ImgDataList.toString();

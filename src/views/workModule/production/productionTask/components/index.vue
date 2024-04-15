@@ -309,6 +309,7 @@ export default {
         BillGui: "",
         Process: "",
         State: "",
+        Remarks: "",
         PlanTime: 1,
         ProcessContent: "",
         Resource: "",

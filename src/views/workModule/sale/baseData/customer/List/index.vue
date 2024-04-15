@@ -196,10 +196,19 @@ export default {
         arr.push(str);
       });
       console.log(arr);
-
-       sales_customer_batch_import(arr).then((res) => {
-         this.tableObj.getData();
-       });
+      const isWrong = arr.some(item =>
+        !item.CustomerId || !item.ShortName || !item.Tax || !item.Currency ||
+        item.CustomerId === '' || item.ShortName === '' || item.Tax === '' || item.Currency === ''
+      )
+      if (arr.length === 0) {
+        this.$message.error(this.$t('sale.Sa_DataEmpty'));
+      } else if (isWrong) {
+        this.$message.error(this.$t('sale.Sa_FillInRequiredFields'));
+      } else {
+        sales_customer_batch_import(arr).then((res) => {
+          this.tableObj.getData();
+        });
+      }
     },
   },
 };

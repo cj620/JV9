@@ -13,6 +13,7 @@
         :icon="actionsItem.icon"
         :size="size"
         v-for="(actionsItem, index) in actions"
+        v-if="!actionsItem.hidden"
         :key="index"
         :disabled="isDisabled(actionsItem)"
         @click="confirm(actionsItem)"

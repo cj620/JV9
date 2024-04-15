@@ -39,6 +39,11 @@
           </disembark>
         </el-tab-pane>
       </el-tabs>
+      <div class="button-to-task">
+        <el-button style="margin:6px 12px 0 0" @click="toTaskManagement">
+          {{ $t('production.Pr_TaskManagement') }}
+        </el-button>
+      </div>
     </JvBlock>
   </PageWrapper>
 </template>
@@ -101,6 +106,12 @@ export default {
         });
       }
     },
+    // 跳转到任务管理页面
+    toTaskManagement() {
+      this.$router.push({
+        name: "Pr_TaskManagement",
+      });
+    },
   },
 };
 </script>
@@ -109,8 +120,14 @@ export default {
 .report-page {
   height: 100%;
   background-color: #ffffff;
+  position: relative;
   .el-tabs__item {
     font-size: 26px;
   }
+}
+.button-to-task {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 </style>

@@ -23,7 +23,7 @@
       >
         <template>
           <template>
-            <el-input v-model="form.EquipmentList" disabled style="width: 70%">
+            <el-input v-model="form.EquipmentList" disabled style="width: 100%" size="mini">
               <el-button
                 slot="append"
                 icon="el-icon-search"
@@ -54,8 +54,9 @@
         <el-select
           v-model="form.RepeatType"
           :placeholder="$t('Generality.Ge_PleaseSelect')"
-          style="width: 70%"
+          style="width: 100%"
           @change="repeatTypeChange"
+          size="mini"
         >
           <el-option
             :label="$t('production.Pr_RepeatWeekly')"
@@ -75,12 +76,16 @@
             v-if="form.RepeatType === 'None' || form.RepeatType === ''"
             value-format="yyyy-MM-dd"
             :placeholder="$t('production.Pr_SelectDate')"
+            size="mini"
+            style="width: 100%"
           >
           </el-date-picker>
           <el-select
             v-model="form.StartTime"
             :placeholder="$t('Generality.Ge_PleaseSelect')"
             v-else
+            size="mini"
+            style="width: 100%"
           >
             <el-option
               v-for="item in options"
@@ -100,12 +105,16 @@
             v-if="form.RepeatType === 'None' || form.RepeatType === ''"
             value-format="yyyy-MM-dd"
             :placeholder="$t('production.Pr_SelectDate')"
+            size="mini"
+            style="width: 100%"
           >
           </el-date-picker>
           <el-select
             v-model="form.EndTime"
             :placeholder="$t('Generality.Ge_PleaseSelect')"
             v-else
+            size="mini"
+            style="width: 100%"
           >
             <el-option
               v-for="item in options"
@@ -188,13 +197,13 @@ export default {
       dialogVisible: false,
       tableObj: {},
       options: [
-        { value: 1, label: this.$t("production.Pr_Monday") },
-        { value: 2, label: this.$t("production.Pr_Tuesday") },
-        { value: 3, label: this.$t("production.Pr_Wednesday") },
-        { value: 4, label: this.$t("production.Pr_Thursday") },
-        { value: 5, label: this.$t("production.Pr_Friday") },
-        { value: 6, label: this.$t("production.Pr_Saturday") },
-        { value: 7, label: this.$t("production.Pr_Sunday") },
+        { value: '1', label: this.$t("production.Pr_Monday") },
+        { value: '2', label: this.$t("production.Pr_Tuesday") },
+        { value: '3', label: this.$t("production.Pr_Wednesday") },
+        { value: '4', label: this.$t("production.Pr_Thursday") },
+        { value: '5', label: this.$t("production.Pr_Friday") },
+        { value: '6', label: this.$t("production.Pr_Saturday") },
+        { value: '7', label: this.$t("production.Pr_Sunday") },
       ],
     };
   },

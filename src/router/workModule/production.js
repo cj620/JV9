@@ -148,6 +148,7 @@ const production = [
     path: "productionPlan",
     title: i18n.t("menu.Pr_ProductionPlan"),
   },
+
   // 生产排程（新）
   {
     key: "Pr_NewProductionSchedule",
@@ -542,6 +543,15 @@ const production = [
     name: "WorkReportRecords",
     path: "WorkReportRecords",
     title:i18n.t("menu.Pr_WorkReportRecords"),
+  },
+  // 任务管理
+  {
+    key: "Pr_TaskManagement",
+    component: () => import("@/views/workModule/production/productionManage"),
+    Parent: "Pr_Production",
+    name: "Pr_TaskManagement",
+    path: "pr_TaskManagement",
+    title: i18n.t("menu.Pr_TaskManagement"),
   }
 ];
 

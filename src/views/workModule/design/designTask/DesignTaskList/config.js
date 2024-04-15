@@ -122,7 +122,7 @@ const tableSchema = [
       label: i18n.t("project.Pro_Worker"),
       api: getAllUserData,
       apiOptions: {
-        immediate: true,
+        // immediate: true,
         keyName: "UserName",
         valueName: "UserName",
       },
@@ -206,7 +206,7 @@ const formSchema = [
     label: i18n.t("project.Pro_Worker"),
     api: getAllUserData,
     apiOptions: {
-      immediate: true,
+      // immediate: true,
       keyName: "UserName",
       valueName: "UserName",
     },

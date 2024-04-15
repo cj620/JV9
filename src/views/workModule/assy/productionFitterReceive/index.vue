@@ -26,7 +26,21 @@
         </div>
       </div>
       <div class="report-content-table">
-        <JvTable :table-obj="tableObj"></JvTable>
+        <JvTable :table-obj="tableObj">
+          <template #operation="{ row }">
+            <TableAction
+              :actions="[
+            {
+              label: $t('Generality.Ge_Delete'),
+              popConfirm: {
+                title: $t('Generality.Ge_DeleteConfirm'),
+                confirm: deleteOrder.bind(null, [row.Id]),
+              },
+            },
+          ]"
+            />
+          </template>
+        </JvTable>
       </div>
     </JvBlock>
     <!-- 收料数量 -->
@@ -47,7 +61,7 @@
 import { Table } from "./config"
 import UserImg from "@/components/JVInternal/UserImg/index.vue";
 import { getAllUserData, getUser } from "@/api/basicApi/systemSettings/user";
-import { saveRCVRecord } from "@/api/workApi/production/baseData"
+import {deleteRCVRecord, saveRCVRecord} from "@/api/workApi/production/baseData"
 import { getProductionTask } from "@/api/workApi/production/productionTask"
 import { timeFormat } from "~/utils/time";
 export default {
@@ -164,6 +178,11 @@ export default {
       this.$router.push({
         name: "ProductionFitterReceiveRecord",
       });
+    },
+    deleteOrder(Ids) {
+      deleteRCVRecord({ BillIds: Ids }).then(() => {
+        this.tableObj.getData();
+      })
     }
   }
 };

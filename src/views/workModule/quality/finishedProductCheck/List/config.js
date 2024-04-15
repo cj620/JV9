@@ -9,8 +9,9 @@ import { API } from "@/api/workApi/quality/finishedProduct";
 import {
   ProcessingResult,
   FinishedProductCheckType,
-  enumFilter,
+  enumFilter, AbnormalCategoryEnum, enumToList,
 } from "@/enum/workModule";
+import {itemList} from "@/api/basicApi/systemSettings/Item";
 
 let { api_list, api_delete } = API;
 export class api extends TableAPI {
@@ -39,6 +40,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
+    width: "150px",
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
@@ -70,9 +72,28 @@ export const tableConfig = [
     custom: true,
   },
   {
+    // 模具编号
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    width: "130px",
+  },
+  {
+    // 零件编号
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+    width: "130px",
+  },
+  {
     // 加工单
     prop: "PrTaskBillId",
     label: i18n.t("Generality.Ge_PrTaskBillId"),
+    cpn: "Link",
+    width: "130px",
+    cpnProps: {
+      routeName: "ProductionTaskDetails",
+      methods: "query",
+      parameterKey: "BillId",
+    },
   },
   {
     // 返工工序
@@ -117,9 +138,10 @@ export const tableConfig = [
     label: i18n.t("quality.Qc_UnqualifiedQty"),
   },
   {
-    // 关联编号
-    prop: "AssociatedNo",
-    label: i18n.t("Generality.Ge_AssociatedNo"),
+    // 异常类别
+    prop: "AbnormalCategory",
+    label: i18n.t("quality.Qc_AbnormalCategory"),
+    customFilter: (value, row) => enumFilter(value, AbnormalCategoryEnum),
   },
   /*制单人*/
   {
@@ -178,6 +200,34 @@ export const formSchema = [
           label: i18n.t("Generality.Ge_Discarded"),
         },
       ],
+    },
+  },
+  //模具搜索
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    cpn: "AsyncSearch",
+    api: itemList,
+    apiOptions: {
+      keyName: "ItemName",
+      valueName: "ItemId",
+      params:{
+        ItemCategory:'Tooling'
+      }
+    },
+  },
+  //零件编号
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+    cpn: "FormInput",
+  },
+  {
+    prop: "ProcessingResult",
+    label: i18n.t("quality.Qc_CheckResult"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(ProcessingResult),
     },
   },
 ];

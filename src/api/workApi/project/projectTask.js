@@ -149,6 +149,14 @@ export function production_programing_task_edit(data) {
     data,
   });
 }
+// 删除生产加工编程任务
+export function production_programing_task_delete(data) {
+  return request({
+    url: "/production_programing_task/delete",
+    method: "post",
+    data,
+  })
+}
 // 保存试模任务动态扩充内容信息
 export function save_trial_tooling_dynamic(data) {
   return request({

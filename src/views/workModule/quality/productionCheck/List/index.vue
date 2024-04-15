@@ -24,22 +24,18 @@
         </div>
         <div>
           <cardList :cardDataList="DataList">
-            <template #operateTime="{ row }">
+            <template #contentTime="{ row }">
               <i class="el-icon-date"></i>
               {{row.CheckDate| timeFormat("yyyy-MM-dd hh:mm")}}
 
             </template>
-            <template slot="operateButton1" slot-scope="row">
-              <el-button
-                icon="el-icon-close"
-                @click="clickUnqualified(row)"
-              ></el-button>
-            </template>
-            <template slot="operateButton" slot-scope="row">
-              <el-button
-                icon="el-icon-check"
-                @click="clickQualified(row)"
-              ></el-button>
+            <template slot="operateTime" slot-scope="row">
+              <el-button @click="toMachiningCheckList(row)" size="small">
+                {{ $t("menu.Qc_ProcessCheck") }}
+              </el-button>
+              <el-button @click="toFinishedProduct(row)" size="small">
+                {{ $t("menu.Qc_FinishedProduct") }}
+              </el-button>
             </template>
           </cardList>
         </div>
@@ -146,6 +142,24 @@ export default {
       };
       listInspectionTobechecked(str).then((res) => {
         this.DataList = res.Items;
+      });
+    },
+    toMachiningCheckList(e) {
+      this.$router.push({
+        name: "Qc_ProcessCheck_Add",
+        params: {
+          type: "add",
+          ProcessCheckType: 2,
+          title: "addSaleOrder",
+          data: e,
+        },
+      });
+    },
+    //点击零件成品检验单
+    toFinishedProduct(e) {
+      this.$router.push({
+        name: "Qc_FinishedProduct_Add",
+        params: { type: "add", title: "addSaleOrder", data: e },
       });
     },
     //点击不合格

@@ -292,7 +292,7 @@ export default {
 <style lang="scss">
 .report-content {
   .report-content-header {
-    height: 180px;
+    //height: 180px;
     // border: 1px solid red;
     display: flex;
     .report-content-header-staff {
@@ -310,9 +310,9 @@ export default {
         margin: 10px 0;
       }
     }
-    .report-content-header-OnTheMachine-info {
-      min-width: 700px;
-    }
+    //.report-content-header-OnTheMachine-info {
+    //  min-width: 700px;
+    //}
   }
   .report-content-state {
     display: flex;

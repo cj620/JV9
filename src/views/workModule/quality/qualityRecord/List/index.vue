@@ -21,19 +21,27 @@
           row.BillId
         }}</el-link>
       </template>
+      <template #QcRelationBillId="{ row }">
+        <el-link type="primary" @click="goDetail2(row)">
+          {{ row.QcRelationBillId }}
+        </el-link>
+      </template>
+      <template #BillKey="{ row }">
+        {{ BillKeyEnum[row.BillKey] ? BillKeyEnum[row.BillKey] : "--" }}
+      </template>
       <template #operation="{ row }">
         <TableAction
           :actions="[
             // 创建过程单
             {
               label: $t('menu.Qc_ProcessCheck'),
-              disabled: getActionState(row.CheckState),
+              disabled: canCreateCheck(row.CheckState),
               confirm: toMachiningCheckList.bind(null, row),
             },
             // 创建成品单
             {
               label: $t('menu.Qc_FinishedProduct'),
-              disabled: getActionState(row.CheckState),
+              disabled: canCreateFinished(row.CheckState, row.PrTaskState),
               confirm: toFinishedProduct.bind(null, row),
             },
             {
@@ -76,6 +84,10 @@ export default {
         Unqualified: i18n.t("quality.Qc_Unqualified"),
         Completed: i18n.t("Generality.Ge_Completed"),
       },
+      BillKeyEnum: {
+        Qc_ProcessCheck: i18n.t("menu.Qc_ProcessCheck"),
+        Qc_FinishedProduct: i18n.t("menu.Qc_FinishedProduct"),
+      }
     };
   },
   methods: {
@@ -105,6 +117,23 @@ export default {
         },
       });
       console.log(row, "row");
+    },
+    goDetail2(row) {
+      if (row.BillKey === 'Qc_ProcessCheck') {
+        this.$router.push({
+          name: "Qc_ProcessCheck_Detail",
+          query: {
+            BillId: row.QcRelationBillId,
+          },
+        });
+      } else {
+        this.$router.push({
+          name: "Qc_FinishedProduct_Detail",
+          query: {
+            BillId: row.QcRelationBillId,
+          },
+        });
+      }
     },
     //免检
     inspectionArrival(e) {
@@ -145,9 +174,14 @@ export default {
   mounted() {},
   computed: {
     // 获取按钮状态
-    getActionState() {
+    canCreateCheck() {
       return (state) => {
         return state !== "TobeChecked";
+      };
+    },
+    canCreateFinished() {
+      return (state, PrTaskState) => {
+        return state !== "TobeChecked" || PrTaskState !== 'Processed';
       };
     },
   },

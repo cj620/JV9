@@ -12,6 +12,15 @@
               label: $t('project.Pro_ReportToWorkRecord'),
               confirm: reportRecord.bind(null, ''),
             },
+            // 删除
+            {
+              label: $t('Generality.Ge_Delete'),
+              disabled: canIsDel,
+              popConfirm: {
+                title: $t('Generality.Ge_DeleteConfirm'),
+                confirm: delBills,
+              },
+            }
           ]"
       >
       </Action>
@@ -46,6 +55,15 @@
               },
               disabled: row.Worker,
             },
+            // 删除
+            {
+              label: $t('Generality.Ge_Delete'),
+              popConfirm: {
+                title: $t('Generality.Ge_DeleteConfirm'),
+                confirm: confirmDel.bind(null, [row.Id]),
+              },
+              disabled: row.State === 'Processed',
+            }
           ]"
         />
       </template>
@@ -112,6 +130,7 @@ import addProjectTask from "@/views/workModule/design/designTask/DesignTaskList/
 import {
   project_task_get_children_item,
   project_task_delete_item,
+  production_programing_task_delete,
 } from "@/api/workApi/project/projectTask";
 import { update_worker } from "@/api/workApi/production/productionTask"
 import TaskState from "@/components/JVInternal/TaskState";
@@ -129,6 +148,14 @@ export default {
           return "Postponing";
         }
       };
+    },
+    // 是否可以批量删除
+    canIsDel() {
+      let { datas } = this.tableObj.selectData;
+      if (datas.length === 0) return true;
+      return datas.some((item) => {
+        return !["NotStarted", "HaveInHand"].includes(item.State);
+      });
     },
   },
   data() {
@@ -172,6 +199,17 @@ export default {
       update_worker({ ProgramingTaskId: row.Id }).then((res) => {
         this.tableObj.getData();
       })
+    },
+    // 确认删除
+    confirmDel(Ids){
+      production_programing_task_delete({ ItemIds: Ids }).then(() => {
+        this.tableObj.getData();
+      })
+    },
+    // 批量删除
+    delBills() {
+      this.confirmDel(this.tableObj.selectData.keys)
+      this.$refs.BillTable.clearSelection();
     },
     //查看子任务
     viewSubTask(row) {

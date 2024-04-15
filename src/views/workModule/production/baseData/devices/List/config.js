@@ -6,7 +6,7 @@
  */
 
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
-import { production_device_list } from "@/api/workApi/production/baseData";
+import {getAllResource, production_device_list} from "@/api/workApi/production/baseData";
 
 export class api extends TableAPI {
   getData = production_device_list;
@@ -20,7 +20,7 @@ export class Table extends BaseTable {
       title: i18n.t("menu.Pr_Devices"),
       api,
       operationWidth: 110,
-      searchBar: false,
+      // searchBar: false,
       printMod: "Pr_Devices",
     });
   }
@@ -66,4 +66,20 @@ export const tableConfig = [
   },
 ];
 
-export const formSchema = [];
+export const formSchema = [
+  {
+    prop: "Keyword",
+    label: i18n.t("Generality.Ge_KeyWords"),
+    cpn: "FormInput",
+  },
+  {
+    prop: "ResourceId",
+    label: i18n.t("menu.Pr_Resources"),
+    cpn: "SyncSelect",
+    api: getAllResource,
+    apiOptions: {
+      keyName: "ResourceGroup",
+      valueName: "ResourceId",
+    },
+  },
+];

@@ -15,7 +15,7 @@ export const formSchema = [
       {
         required: true,
         message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["blur"],
+        trigger: 'submit',
       },
     ],
     custom: true,
@@ -28,7 +28,7 @@ export const formSchema = [
       {
         required: true,
         message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["change", "blur"],
+        trigger: 'submit',
       },
     ],
     custom: true,
@@ -41,13 +41,6 @@ export const formSchema = [
       isRange: true,
       valueFormat: "HH:dd:ss",
     },
-    rules: [
-      {
-        required: true,
-        message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["change", "blur"],
-      },
-    ],
   },
   {
     prop: "CostRate",
@@ -57,7 +50,7 @@ export const formSchema = [
       {
         required: true,
         message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["change", "blur"],
+        trigger: 'submit',
       },
     ],
   },
@@ -69,7 +62,7 @@ export const formSchema = [
       {
         required: true,
         message: i18n.t("Generality.Ge_PleaseEnter"),
-        trigger: ["change", "blur"],
+        trigger: 'submit',
       },
     ],
   },

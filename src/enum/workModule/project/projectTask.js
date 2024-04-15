@@ -91,3 +91,30 @@ export const taskStateEnum = {
     color: "#67C23A",
   },
 };
+// 模具状态枚举
+export const ItemToolingStateEnum = {
+  Started: {
+    name: i18n.t("project.Pro_Started"),
+    value: "Started"
+  },
+  Locked: {
+    name: i18n.t("project.Pro_Locked"),
+    value: "Locked"
+  },
+  Designing: {
+    name: i18n.t("project.Pro_Designing"),
+    value: "Designing"
+  },
+  Processing: {
+    name: i18n.t("project.Pro_Processing"),
+    value: "Processing"
+  },
+  TrialTooling: {
+    name: i18n.t("project.Pro_TrialTooling"),
+    value: "TrialTooling"
+  },
+  Completed: {
+    name: i18n.t("project.Pro_Completed"),
+    value: "Completed"
+  }
+}

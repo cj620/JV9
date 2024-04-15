@@ -61,6 +61,14 @@ export function item_Recovery(data) {
   })
 }
 
+// 更新物料锁定状态
+export function item_Lock(data) {
+  return request({
+    url: '/item/lock',
+    method: 'post',
+    data: data,
+  })
+}
 
 
 
@@ -120,5 +128,14 @@ export function saveToolingBasis(data) {
     url: '/project_info/save_tooling_basis',
     method: 'post',
     data
+  })
+}
+// 模具履历表
+export function toolingSummary(data) {
+  return request({
+    url: '/project_info/tooling_summary',
+    method: 'post',
+    data,
+    loading: true,
   })
 }
