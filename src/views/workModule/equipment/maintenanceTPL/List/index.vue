@@ -40,6 +40,14 @@
             label: $t('Generality.Ge_New'),
             confirm: add,
           },
+          // {
+          //   label: $t('Generality.Ge_Delete'),
+          //   disabled: canIsDel,
+          //   popConfirm: {
+          //     title: $t('Generality.Ge_DeleteConfirm'),
+          //     confirm: delBills,
+          //   },
+          // }
         ]"
       >
       </Action>
@@ -76,9 +84,6 @@ export default {
     canIsDel() {
       let { datas } = this.tableObj.selectData;
       if (datas.length === 0) return true;
-      return datas.some((item) => {
-        return !["Rejected", "Unsubmitted"].includes(item.State);
-      });
     },
     // 获取按钮状态
     getActionState() {
@@ -103,6 +108,10 @@ export default {
         name: "As_MaintenanceTPLEdit",
         query: { Id },
       });
+    },
+    //批量删除单据
+    delBills() {
+      this.deleteOrder(this.tableObj.selectData.keys);
     },
     deleteOrder(ids) {
       this.tableObj.api.del({ BillIds: ids }).then((_) => {

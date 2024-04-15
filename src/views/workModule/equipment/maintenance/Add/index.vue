@@ -21,8 +21,8 @@
           <el-select v-model="formObj.form[prop]" filterable>
             <el-option
               v-for="item in MaintenanceCategoryData"
-              :key="item.label"
-              :label="item.label"
+              :key="item.value"
+              :label="item.name"
               :value="item.value"
             >
             </el-option>
@@ -75,10 +75,10 @@
       <el-button type="primary" @click="save(false)">{{
         $t("Generality.Ge_Save")
       }}</el-button>
-      <!-- 保存并提交 -->
-      <el-button type="primary" @click="save(true)">{{
-        $t("Generality.Ge_SaveAndSubmit")
-      }}</el-button>
+<!--      &lt;!&ndash; 保存并提交 &ndash;&gt;-->
+<!--      <el-button type="primary" @click="save(true)">{{-->
+<!--        $t("Generality.Ge_SaveAndSubmit")-->
+<!--      }}</el-button>-->
     </div>
     <!--模板弹窗-->
     <selectTemplate

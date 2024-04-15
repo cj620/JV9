@@ -69,12 +69,8 @@
     <div slot="fixedFooter">
       <!-- 保存 -->
       <el-button type="primary" @click="save(false)">{{
-        $t("Generality.Ge_Save")
-      }}</el-button>
-      <!-- 保存并提交 -->
-      <el-button type="primary" @click="save(true)">{{
-        $t("Generality.Ge_SaveAndSubmit")
-      }}</el-button>
+          $t("Generality.Ge_Save")
+        }}</el-button>
     </div>
   </PageWrapper>
 </template>
