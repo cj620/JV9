@@ -36,22 +36,22 @@
       <el-input type="textarea" :rows="2" v-model="ruleForm.Remarks">
       </el-input>
     </JvBlock>
-    <!-- 附件 -->
-    <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
-      <div slot="extra">
-        <el-button
-          size="mini"
-          type="primary"
-          @click="(_) => $refs.upLoad.upload()"
-          >{{ $t("Generality.Ge_Upload") }}</el-button
-        >
-      </div>
-      <JvUploadFile
-        @returnData="returnData"
-        :BillId="fileBillId"
-        ref="upLoad"
-      ></JvUploadFile>
-    </JvBlock>
+<!--    &lt;!&ndash; 附件 &ndash;&gt;-->
+<!--    <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">-->
+<!--      <div slot="extra">-->
+<!--        <el-button-->
+<!--          size="mini"-->
+<!--          type="primary"-->
+<!--          @click="(_) => $refs.upLoad.upload()"-->
+<!--          >{{ $t("Generality.Ge_Upload") }}</el-button-->
+<!--        >-->
+<!--      </div>-->
+<!--      <JvUploadFile-->
+<!--        @returnData="returnData"-->
+<!--        :BillId="fileBillId"-->
+<!--        ref="upLoad"-->
+<!--      ></JvUploadFile>-->
+<!--    </JvBlock>-->
     <div slot="fixedFooter">
       <!-- 保存 -->
       <el-button type="primary" @click="save(false)">{{

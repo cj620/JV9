@@ -38,27 +38,27 @@
             label: $t('Generality.Ge_New'),
             confirm: add,
           },
-          {
-            label: $t('device.De_Repair'),
-            confirm: toRepair,
-            disabled: canIsDel,
-          },
-          {
-            label: $t('device.De_Maintenance'),
-            confirm: toMaintenance,
-            disabled: canIsDel,
-          },
-          {
-            label: $t('menu.As_MaintenanceTPL'),
-            confirm: toMaintenanceTPL,
-          },
+          // {
+          //   label: $t('device.De_Repair'),
+          //   confirm: toRepair,
+          //   disabled: canIsDel,
+          // },
+          // {
+          //   label: $t('device.De_Maintenance'),
+          //   confirm: toMaintenance,
+          //   disabled: canIsDel,
+          // },
+          // {
+          //   label: $t('menu.As_MaintenanceTPL'),
+          //   confirm: toMaintenanceTPL,
+          // },
         ]"
       >
-       <el-badge :value="pageCount"  >
-  <el-button  @click="viewToBeMaintained"   size="mini">
-    {{$t('device.De_ToBeMaintained')
-  }}</el-button>
-</el-badge>
+<!--       <el-badge :value="pageCount"  >-->
+<!--  <el-button  @click="viewToBeMaintained"   size="mini">-->
+<!--    {{$t('device.De_ToBeMaintained')-->
+<!--  }}</el-button>-->
+<!--</el-badge>-->
       </Action>
 
     </JvTable>
