@@ -553,7 +553,6 @@ export default {
       let flag2 = this.eTableObj.selectData.datas.every((item) => {
         return item.IsPartProcess.value;
       });
-      console.log(flag1, flag2, this.IsSelectLength);
       return this.IsSelectLength && flag1 && flag2;
     },
     IsDisabled() {
@@ -732,7 +731,6 @@ export default {
     l_addRow() {
       /*this.l_insert(-1);*/
       this.saveData.Quantity = 1;
-      console.log(this.saveData);
       this.eTableObj.push([this.saveData]);
     },
     l_insert(index) {
@@ -807,7 +805,6 @@ export default {
           IsFinishedProductInspection: item.IsFinishedProductInspection.value
         });
       });
-      console.log(this.eTableObj.selectData.datas);
     },
     // 确认创建生产任务
     createTaskConfirm() {
@@ -859,7 +856,6 @@ export default {
       });
     },
     createForm() {
-      console.log(createTaskFormSchema);
       this.createTaskFormObj = new Form({
         formSchema: createTaskFormSchema,
         labelPosition: "top",
@@ -871,12 +867,10 @@ export default {
     },
     changePmTaskBillId() {
       this.PmTaskData.forEach((item) => {
-        console.log(item.BillId)
         if (this.createTaskFormObj.form.PmTaskBillId === item.BillId) {
           this.createTaskFormObj.form.PlanEnd = item.PlanEnd;
         }
       });
-      console.log(this.createTaskFormObj.form, this.createTaskFormObj.form.PmTaskBillId);
     },
     getNweArr(a, b) {
       const arr = [...a, ...b];
@@ -927,7 +921,6 @@ export default {
     synchronizePart() {
       synchronizePart(format2source(this.eTableObj.selectData.datas)).then(
         (res) => {
-          console.log(res);
         }
       );
     },
@@ -1041,7 +1034,6 @@ export default {
       this.importDialogFormVisible = true;
 
      // let arr = this.handleExcelData(e);
-      console.log(arr, "arr");
       var arr = [];
       e.forEach((Titem) => {
         var str = {};

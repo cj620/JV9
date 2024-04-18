@@ -159,7 +159,6 @@ export default {
     this.M_tableObj.setCallBack((res) => this.getProcessData(res));
     // this.M_tableObj.pager.sizeChange(5);
     this.M_tableObj.formObj.form.ShowInProdSchedule = true;
-    // console.log(this.M_tableObj.formObj.form.ShowInProdSchedule, 4545);
   },
   mounted() {
     this.getScreenWidth();
@@ -171,7 +170,6 @@ export default {
   computed: {},
   methods: {
     getScreenWidth() {
-      console.log('执行', this.currentSize)
       this.boxWidth = this.$store.state.app.sidebar.opened ?  (window.innerWidth - 210 - 100) / 320 : (window.innerWidth - 55 - 100) / 320
       this.currentSize = Math.min(Math.floor(this.boxWidth), 5);
       this.M_tableObj.pager.sizeChange(this.currentSize);
@@ -248,7 +246,6 @@ export default {
       if (scrollBottom < 100) {
         // if (this.isAllproceeList) return;
         // this.P_tableObj.pager.page
-        console.log(this.currentProcessPage, this.P_tableObj.pager.page);
         if (this.currentProcessPage - this.P_tableObj.pager.page == 1) {
           this.P_tableObj.pager.currentChange(this.currentProcessPage);
         }

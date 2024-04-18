@@ -262,12 +262,10 @@ export default {
     //获取项目
     async GetProjectData() {
       await getProjectQuery({ Keyword: "" }).then((res) => {
-        console.log(res.Items);
         this.projectDataList = res.Items;
       });
     },
     GetQuotationData(e) {
-      console.log(e);
       let str = {};
       this.formObj.form.CustomerId = e.CustomerId;
       this.formObj.form.ProjectId = e.Project;
@@ -318,7 +316,6 @@ export default {
     //搜索项目
     remoteMethod(query) {
       getProjectQuery({ Keyword: query }).then((res) => {
-        console.log(res.Items, 555);
         if (query !== "") {
           this.loading = true;
           setTimeout(() => {

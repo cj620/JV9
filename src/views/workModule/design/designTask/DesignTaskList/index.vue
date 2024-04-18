@@ -139,7 +139,6 @@ export default {
     this.viewSubtasksTableObj = new ViewSubtasksTableObj();
     this.tableObj.formObj.setForm(this.$route.params);
     this.tableObj.getData();
-    console.log(this.tableObj.props.title, 1111);
   },
   methods: {
     dialogConfirm() {
@@ -147,7 +146,6 @@ export default {
     },
     //编辑临时任务
     edit(row) {
-      console.log('row::: ', row);
       this.addProjectTaskDialogFormVisible = true;
       this.type = "edit";
       this.transferData = JSON.parse(JSON.stringify(row));
@@ -159,7 +157,6 @@ export default {
     },
     //查看子任务
     viewSubTask(row) {
-      console.log(row);
       this.viewSubtasksDialogVisible = true;
       this.TaskData = row;
       this.getSubData();
@@ -180,9 +177,7 @@ export default {
     },
     //删除的子任务
     deleteItem(e) {
-      console.log(e.Id);
       project_task_delete_item({ ItemIds: [e.Id] }).then((res) => {
-        console.log(res);
         this.getSubData();
       });
     },

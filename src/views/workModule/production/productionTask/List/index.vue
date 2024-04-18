@@ -434,7 +434,6 @@ export default {
     async GetData() {
       this.loading = true;
       await productionTaskList(this.form).then((res) => {
-        console.log(res.Items);
         res.Items.forEach((item) => {
           item.IsHas = false;
         });
@@ -460,7 +459,6 @@ export default {
     },
     //点击搜索
     searchData(e) {
-      console.log(e);
       this.drawer = false;
       this.form.ToolingNo = e.ToolingNo;
       this.form.Remarks = e.Remarks;
@@ -597,8 +595,6 @@ export default {
             this.GetData();
           });
         });
-      } else {
-        console.log(11);
       }
     },
 
@@ -621,7 +617,6 @@ export default {
     },
     //工序委外确认保存
     confirmOutsourcingProcessData(e) {
-      console.log(e);
       let arr = [];
 
       e.forEach((item) => {
@@ -643,7 +638,6 @@ export default {
     },
     //零件委外确认保存
     confirmOutsourcingPartData(e) {
-      console.log(e);
       let arr = [];
       e.forEach((item) => {
         let str = {};
@@ -665,14 +659,12 @@ export default {
     //保存委外物料需求
     OutsourcingrRequirement(res) {
       addOutsourcingrRequirement(res).then((res) => {
-        console.log(res);
         this.outsourcingPartDialogFormVisible = false;
         this.outsourcingProcessDialogFormVisible = false;
       });
     },
 
     visibilityChange(event) {
-      console.log(11);
       this.tooltipFlag = true;
     },
 

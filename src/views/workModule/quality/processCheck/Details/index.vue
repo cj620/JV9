@@ -197,7 +197,6 @@ export default {
           this.cur_billId = res.BillId;
           this.tableObj.setData(res.BillItems);
           this.btnAction = detailPageModel(this, res, API, this.GetData);
-          // console.log(this.btnAction,4567899);
           this.btnAction.splice(4,1)
           this.btnAction.splice(5,2)
         }
