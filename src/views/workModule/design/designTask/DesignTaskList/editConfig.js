@@ -6,6 +6,7 @@
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
+import { project_process_get_by_type } from "@/api/workApi/project/baseData"
 import {
   tableConfigWrapper
 } from "@/jv_doc/utils/system/taxCount";
@@ -26,6 +27,29 @@ export class EditTable extends BaseTable {
 }
 
 export const tableConfig = [
+  {
+    prop: "Process",
+    formCpn: "SyncSelect",
+    label: i18n.t("Generality.Ge_Process"),
+    width: "120px",
+    api: project_process_get_by_type,
+    apiOptions: {
+      // immediate: true,
+      keyName: "Process",
+      valueName: "Process",
+      params: {
+        ProcessType: 0
+      },
+      propChange(val,item,res) {
+        item.BelongingDepartment.value = res.BelongingDepartment;
+      }
+    },
+    editConfig: {
+      rules: {
+        required: true,
+      },
+    },
+  },
  /*负责人*/
  {
     prop: "Worker",
@@ -53,7 +77,7 @@ export const tableConfig = [
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     formCpn: "SingleTime",
-    width: "200px",
+    width: "150px",
     filter: "date",
     editConfig: {
       colInit: true,
@@ -68,7 +92,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_PlanEnd"),
     formCpn: "SingleTime",
     filter: "date",
-    width: "200px",
+    width: "150px",
     editConfig: {
       colInit: true,
       rules: {

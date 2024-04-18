@@ -24,6 +24,15 @@ export function project_process_get_by_name(data) {
   });
 }
 
+// 根据项目名称获取项目信息
+export function project_process_get_by_type(data) {
+  return request({
+    url: "/project_process/get_by_type",
+    method: "get",
+    params: data,
+  });
+}
+
 // 编辑项目工序
 export function editProjectProcess(data) {
   return request({
