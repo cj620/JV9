@@ -53,7 +53,7 @@ export const tableConfig = [
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     formCpn: "SingleTime",
-    width: "120px",
+    width: "200px",
     filter: "date",
     editConfig: {
       colInit: true,
@@ -68,7 +68,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_PlanEnd"),
     formCpn: "SingleTime",
     filter: "date",
-    width: "120px",
+    width: "200px",
     editConfig: {
       colInit: true,
       rules: {

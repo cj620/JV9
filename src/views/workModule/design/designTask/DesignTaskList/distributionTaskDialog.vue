@@ -2,7 +2,7 @@
   <div>
     <jv-dialog
       :title="$t('project.Pro_DistributionTask')"
-      width="70%"
+      width="60%"
       :close-on-click-modal="true"
       :modal-append-to-body="false"
       :append-to-body="false"
@@ -94,13 +94,11 @@ export default {
     },
   },
   created() {
-    console.log(this.TaskData);
     this.eTableObj = new EditTable();
   },
   methods: {
     //根据部门查找部门人员
     changeValue(e, row, cb) {
-      console.log(e, row, row.BelongingDepartment);
       if (e) {
         get_by_department({ Department: row.BelongingDepartment.value }).then(
           (res) => {
@@ -112,12 +110,9 @@ export default {
         cb();
         this.prefix = "";
       }
-
-      console.log(e, row);
     },
     //新增数据
     add() {
-      console.log(this.TaskData, 565656);
       this.BillItems.Id = 0;
       this.BillItems.Project = this.TaskData.Project;
       this.BillItems.Process = this.TaskData.Process;
@@ -131,10 +126,8 @@ export default {
     },
     //保存
     confirmData() {
-      console.log('123123123::: ', 123123123);
       this.eTableObj.validate((valid) => {
         this.BillItems = this.eTableObj.getTableData();
-
         if (valid) {
           project_task_save_item(this.BillItems).then((res) => {
             console.log(res);
