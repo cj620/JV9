@@ -39,7 +39,7 @@
             <div class="page-wrapper-header-left-items-desc">
               {{ $t("Generality.Ge_State") }}:
             </div>
-            <el-select :placeholder="$t('Generality.Ge_PleaseSelect')" size="mini" v-model="searchFormObj.form.State" clearable>
+            <el-select :placeholder="$t('Generality.Ge_PleaseSelect')" size="mini" v-model="searchFormObj.form.ToolingState" clearable>
               <el-option
                 v-for="item in enumToList(ItemToolingStateEnum)"
                 :key="item.value"
@@ -366,7 +366,7 @@ export default {
         { prop: "Project",},
         { prop: "CustomerName",},
         { prop: "TaskType",},
-        { prop: "State",},
+        { prop: "ToolingState",},
       ],
     })
     this.getData();
