@@ -23,11 +23,25 @@
           </div>
           <div class="page-wrapper-header-left-items">
             <div class="page-wrapper-header-left-items-desc">
-              {{ $t("project.Pro_TaskType") }}:
+              {{ $t("project.Pro_ToolingType") }}:
             </div>
             <el-select :placeholder="$t('Generality.Ge_PleaseSelect')" size="mini" v-model="searchFormObj.form.TaskType" clearable>
               <el-option
                 v-for="item in enumToList(taskTypeEnum)"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </div>
+          <div class="page-wrapper-header-left-items">
+            <div class="page-wrapper-header-left-items-desc">
+              {{ $t("Generality.Ge_State") }}:
+            </div>
+            <el-select :placeholder="$t('Generality.Ge_PleaseSelect')" size="mini" v-model="searchFormObj.form.State" clearable>
+              <el-option
+                v-for="item in enumToList(ItemToolingStateEnum)"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -41,7 +55,7 @@
           </div>
         </div>
         <div class="page-wrapper-header-right">
-          <el-button type="primary" size="mini" @click="exportSelect">导出</el-button>
+          <el-button type="primary" size="mini" @click="exportSelect">{{ $t('Generality.Ge_Export') }}</el-button>
         </div>
       </div>
       <div class="page-wrapper-body">
@@ -51,7 +65,7 @@
             borderColor: 'rgb(241, 242, 247)',
             color:'#4f4f4f',
             fontWeight: '500',
-            fontSize: '14px'
+            fontSize: '14px',
           }"
           style="width: 100%;"
           height="100%"
@@ -59,8 +73,14 @@
           @selection-change="handleSelectionChange"
           border
         >
+          <el-table-column
+            type="selection"
+            align="center"
+            fixed
+            width="55">
+          </el-table-column>
           <el-table-column :label="$t('project.Pro_ToolingInfo')">
-            <el-table-column prop="PhotoUrl" :label="$t('project.Pro_ToolingPhoto')">
+            <el-table-column prop="PhotoUrl" :label="$t('Generality.Ge_PhotoUrl')">
               <template slot-scope="scope">
                 <el-image
                   :src="imgUrlPlugin(scope.row.PhotoUrl)"
@@ -75,19 +95,22 @@
                 </el-image>
               </template>
             </el-table-column>
-            <el-table-column prop="ToolingState" :label="$t('Generality.Ge_State')" width="120">
+            <el-table-column prop="ToolingState" :label="$t('Generality.Ge_State')" width="80">
               <template slot-scope="scope">
                 <!-- 状态标签 -->
                 {{ ItemToolingStateEnum[scope.row.ToolingState] ? ItemToolingStateEnum[scope.row.ToolingState].name : '--' }}
               </template>
             </el-table-column>
-            <el-table-column prop="Project" :label="$t('menu.Pm_Project')" width="130">
+            <el-table-column prop="Project" :label="$t('menu.Pm_Project')" :show-overflow-tooltip="true" width="130">
             </el-table-column>
-            <el-table-column prop="ToolingNo" :label="$t('Generality.Ge_ToolingNo')" width="140">
+            <el-table-column prop="ToolingNo" :label="$t('Generality.Ge_ToolingNo')" :show-overflow-tooltip="true" width="140">
+              <template slot-scope="scope">
+                <el-button size="mini" style="font-size: 13px" type="text" @click="toToolingDetail(scope.row.ToolingNo)"> {{ scope.row.ToolingNo }} </el-button>
+              </template>
             </el-table-column>
-            <el-table-column prop="ToolingName" :label="$t('Generality.Ge_ToolingName')" width="140">
+            <el-table-column prop="ToolingName" :label="$t('Generality.Ge_ToolingName')" :show-overflow-tooltip="true" width="140">
             </el-table-column>
-            <el-table-column prop="Description" :label="$t('Generality.Ge_Describe')" width="130">
+            <el-table-column prop="Description" :label="$t('Generality.Ge_Describe')" :show-overflow-tooltip="true" width="130">
             </el-table-column>
             <el-table-column prop="CustomerName" :label="$t('menu.Sa_Customer')" width="120">
             </el-table-column>
@@ -101,7 +124,7 @@
                 {{ scope.row.TDeliveryDate | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
-            <el-table-column prop="TaskType" :label="$t('project.Pro_TaskType')" width="80">
+            <el-table-column prop="TaskType" :label="$t('project.Pro_ToolingType')" width="80">
               <template slot-scope="scope">
                 <!-- 状态标签 -->
                 {{ taskTypeEnum[scope.row.TaskType].name }}
@@ -123,85 +146,85 @@
           <el-table-column :label="$t('menu.De_Design')">
             <el-table-column prop="DesignWorker" :label="$t('project.Pro_Worker')" width="120">
             </el-table-column>
-            <el-table-column prop="DesignPlanStart" :label="$t('Generality.Ge_PlanStart')" width="135">
+            <el-table-column prop="DesignPlanStart" :label="$t('Generality.Ge_PlanStart')" width="100">
               <template slot-scope="scope">
-                {{ scope.row.DesignPlanStart | timeFormat("yyyy-MM-dd hh:mm") }}
+                {{ scope.row.DesignPlanStart | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
-            <el-table-column prop="DesignActualStart" :label="$t('Generality.Ge_ActualStart')" width="135">
+            <el-table-column prop="DesignActualStart" :label="$t('Generality.Ge_ActualStart')" width="100">
               <template slot-scope="scope">
-                {{ scope.row.DesignActualStart | timeFormat("yyyy-MM-dd hh:mm") }}
+                {{ scope.row.DesignActualStart | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
           </el-table-column>
           <el-table-column :label="$t('menu.Pa_Program')">
             <el-table-column prop="ProgramWorker" :label="$t('project.Pro_Worker')" width="120">
             </el-table-column>
-            <el-table-column prop="ProgramPlanStart" :label="$t('Generality.Ge_PlanStart')" width="135">
+            <el-table-column prop="ProgramPlanStart" :label="$t('Generality.Ge_PlanStart')" width="100">
               <template slot-scope="scope">
-                {{ scope.row.ProgramPlanStart | timeFormat("yyyy-MM-dd hh:mm") }}
+                {{ scope.row.ProgramPlanStart | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
-            <el-table-column prop="ProgramActualStart" :label="$t('Generality.Ge_ActualStart')" width="135">
+            <el-table-column prop="ProgramActualStart" :label="$t('Generality.Ge_ActualStart')" width="100">
               <template slot-scope="scope">
-                {{ scope.row.ProgramActualStart | timeFormat("yyyy-MM-dd hh:mm") }}
+                {{ scope.row.ProgramActualStart | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
           </el-table-column>
           <el-table-column :label="$t('menu.Pu_Purchase')">
             <el-table-column prop="PurchaseWorker" :label="$t('project.Pro_Worker')" width="120">
             </el-table-column>
-            <el-table-column prop="PurchasePlanStart" :label="$t('Generality.Ge_PlanStart')" width="135">
+            <el-table-column prop="PurchasePlanStart" :label="$t('Generality.Ge_PlanStart')" width="100">
               <template slot-scope="scope">
-                {{ scope.row.PurchasePlanStart | timeFormat("yyyy-MM-dd hh:mm") }}
+                {{ scope.row.PurchasePlanStart | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
-            <el-table-column prop="PurchaseActualStart" :label="$t('Generality.Ge_ActualStart')" width="135">
+            <el-table-column prop="PurchaseActualStart" :label="$t('Generality.Ge_ActualStart')" width="100">
               <template slot-scope="scope">
-                {{ scope.row.PurchaseActualStart | timeFormat("yyyy-MM-dd hh:mm") }}
+                {{ scope.row.PurchaseActualStart | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
           </el-table-column>
           <el-table-column :label="$t('menu.Pr_Production')">
             <el-table-column prop="ProductionWorker" :label="$t('project.Pro_Worker')" width="120">
             </el-table-column>
-            <el-table-column prop="ProductionPlanStart" :label="$t('Generality.Ge_PlanStart')" width="135">
+            <el-table-column prop="ProductionPlanStart" :label="$t('Generality.Ge_PlanStart')" width="100">
               <template slot-scope="scope">
-                {{ scope.row.ProductionPlanStart | timeFormat("yyyy-MM-dd hh:mm") }}
+                {{ scope.row.ProductionPlanStart | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
-            <el-table-column prop="ProductionActualStart" :label="$t('Generality.Ge_ActualStart')" width="135">
+            <el-table-column prop="ProductionActualStart" :label="$t('Generality.Ge_ActualStart')" width="100">
               <template slot-scope="scope">
-                {{ scope.row.ProductionActualStart | timeFormat("yyyy-MM-dd hh:mm") }}
+                {{ scope.row.ProductionActualStart | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
           </el-table-column>
           <el-table-column :label="$t('stockroom.St_Assembly')">
             <el-table-column prop="AssyWorker" :label="$t('project.Pro_Worker')" width="120">
             </el-table-column>
-            <el-table-column prop="AssyPlanStart" :label="$t('Generality.Ge_PlanStart')" width="135">
+            <el-table-column prop="AssyPlanStart" :label="$t('Generality.Ge_PlanStart')" width="100">
               <template slot-scope="scope">
-                {{ scope.row.AssyPlanStart | timeFormat("yyyy-MM-dd hh:mm") }}
+                {{ scope.row.AssyPlanStart | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
-            <el-table-column prop="AssyActualStart" :label="$t('Generality.Ge_ActualStart')" width="135">
+            <el-table-column prop="AssyActualStart" :label="$t('Generality.Ge_ActualStart')" width="100">
               <template slot-scope="scope">
-                {{ scope.row.AssyActualStart | timeFormat("yyyy-MM-dd hh:mm") }}
+                {{ scope.row.AssyActualStart | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
           </el-table-column>
           <el-table-column :label="$t('production.Pr_TestTooling')">
-            <el-table-column prop="T1Problem" :label="'T1' + $t('project.Pro_Problem')" width="150">
+            <el-table-column prop="T1Problem" :label="'T1' + $t('project.Pro_Problem')" :show-overflow-tooltip="true" width="150">
             </el-table-column>
-            <el-table-column prop="T1Solution" :label="'T1' + $t('project.Pro_Solution')" width="150">
+            <el-table-column prop="T1Solution" :label="'T1' + $t('project.Pro_Solution')" :show-overflow-tooltip="true" width="150">
             </el-table-column>
-            <el-table-column prop="T2Problem" :label="'T2' + $t('project.Pro_Problem')" width="150">
+            <el-table-column prop="T2Problem" :label="'T2' + $t('project.Pro_Problem')" :show-overflow-tooltip="true" width="150">
             </el-table-column>
-            <el-table-column prop="T2Solution" :label="'T2' + $t('project.Pro_Solution')" width="150">
+            <el-table-column prop="T2Solution" :label="'T2' + $t('project.Pro_Solution')" :show-overflow-tooltip="true" width="150">
             </el-table-column>
-            <el-table-column prop="T3Problem" :label="'T3' + $t('project.Pro_Problem')" width="150">
+            <el-table-column prop="T3Problem" :label="'T3' + $t('project.Pro_Problem')" :show-overflow-tooltip="true" width="150">
             </el-table-column>
-            <el-table-column prop="T3Solution" :label="'T3' + $t('project.Pro_Solution')" width="150">
+            <el-table-column prop="T3Solution" :label="'T3' + $t('project.Pro_Solution')" :show-overflow-tooltip="true" width="150">
             </el-table-column>
           </el-table-column>
         </el-table>
@@ -259,7 +282,7 @@ export default {
           {
             label: this.$t('project.Pro_ToolingInfo'),
             children: [
-              { label: this.$t('project.Pro_ToolingPhoto'), prop: 'PhotoUrl' },
+              { label: this.$t('Generality.Ge_PhotoUrl'), prop: 'PhotoUrl' },
               { label: this.$t('Generality.Ge_State'), prop: 'ToolingState' },
               { label: this.$t('menu.Pm_Project'), prop: 'Project' },
               { label: this.$t('Generality.Ge_ToolingNo'), prop: 'ToolingNo' },
@@ -268,7 +291,7 @@ export default {
               { label: this.$t('menu.Sa_Customer'), prop: 'CustomerName' },
               { label: this.$t('Generality.Ge_DeliveryDate'), prop: 'TDeliveryDate' },
               { label: this.$t('Generality.Ge_SampleDate'), prop: 'TSampleDate' },
-              { label: this.$t('project.Pro_TaskType'), prop: 'TaskType' },
+              { label: this.$t('project.Pro_ToolingType'), prop: 'TaskType' },
             ]
           },
           {
@@ -343,6 +366,7 @@ export default {
         { prop: "Project",},
         { prop: "CustomerName",},
         { prop: "TaskType",},
+        { prop: "State",},
       ],
     })
     this.getData();
@@ -390,6 +414,12 @@ export default {
     clear() {
       this.searchFormObj.reset();
       this.search();
+    },
+    toToolingDetail(e) {
+      this.$router.push({
+        name: "ProjectManage_MouldDetail",
+        query: { BillId: e },
+      });
     },
   }
 }
@@ -448,4 +478,12 @@ export default {
     align-items: center;
   }
 }
+
+::v-deep th {
+  padding: 5px 0 !important;
+}
+::v-deep td {
+  padding: 5px 0 !important;
+}
+
 </style>

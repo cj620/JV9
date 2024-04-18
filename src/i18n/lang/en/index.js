@@ -308,7 +308,7 @@ const en = {
     Pro_LockState: "Lock State",
     Pro_ToolingInfo: "Tooling Info",
     Pro_ToolingPhoto: "Tooling Photo",
-    Pro_TaskType: "Task Type",
+    Pro_ToolingType: "Tooling Type",
     Pro_HeatTreatmentSpec: "Heat Treatment Spec",
     Pro_PlasticMaterialSpec: "Plastic Material Spec",
     Pro_ShrinkageRateSpec: "Shrinkage Rate Spec",

@@ -37,7 +37,7 @@
 import { exportTypeMap, saveTypeMap } from "@/jv_doc/maps/exportMaps"
 import { export2ExcelMultiple } from "@/jv_doc/cpn/JvTable/utils/export2ExcelMultiple";
 import {timeFormat} from "~/utils/time";
-import {taskTypeEnum} from "@/enum/workModule";
+import {taskTypeEnum, ItemToolingStateEnum} from "@/enum/workModule";
 export default {
   name: "index",
   props: {
@@ -159,7 +159,7 @@ export default {
         ];
         // 表头名
         this.form.headers = [
-          this.$t('project.Pro_ToolingPhoto'),
+          this.$t('Generality.Ge_PhotoUrl'),
           this.$t('Generality.Ge_State'),
           this.$t('menu.Pm_Project'),
           this.$t('Generality.Ge_ToolingNo'),
@@ -168,7 +168,7 @@ export default {
           this.$t('menu.Sa_Customer'),
           this.$t('Generality.Ge_DeliveryDate'),
           this.$t('Generality.Ge_SampleDate'),
-          this.$t('project.Pro_TaskType'),
+          this.$t('project.Pro_ToolingType'),
 
           this.$t('project.Pro_HeatTreatmentSpec'),
           this.$t('project.Pro_PlasticMaterialSpec'),
@@ -263,18 +263,21 @@ export default {
       this.form.checkData.forEach((item) => {
         item.TDeliveryDate = timeFormat(item.TDeliveryDate,'yyyy-MM-dd');
         item.TSampleDate = timeFormat(item.TSampleDate,'yyyy-MM-dd');
-        item.DesignPlanStart = timeFormat(item.DesignPlanStart,'yyyy-MM-dd hh:mm:ss');
-        item.DesignActualStart = timeFormat(item.DesignActualStart,'yyyy-MM-dd hh:mm:ss');
-        item.ProgramPlanStart = timeFormat(item.ProgramPlanStart,'yyyy-MM-dd hh:mm:ss');
-        item.ProgramActualStart = timeFormat(item.ProgramActualStart,'yyyy-MM-dd hh:mm:ss');
-        item.PurchasePlanStart = timeFormat(item.PurchasePlanStart,'yyyy-MM-dd hh:mm:ss');
-        item.PurchaseActualStart = timeFormat(item.PurchaseActualStart,'yyyy-MM-dd hh:mm:ss');
-        item.ProductionPlanStart = timeFormat(item.ProductionPlanStart,'yyyy-MM-dd hh:mm:ss');
-        item.ProductionActualStart = timeFormat(item.ProductionActualStart,'yyyy-MM-dd hh:mm:ss');
-        item.AssyPlanStart = timeFormat(item.AssyPlanStart,'yyyy-MM-dd hh:mm:ss');
-        item.AssyActualStart = timeFormat(item.AssyActualStart,'yyyy-MM-dd hh:mm:ss');
+        item.DesignPlanStart = timeFormat(item.DesignPlanStart,'yyyy-MM-dd');
+        item.DesignActualStart = timeFormat(item.DesignActualStart,'yyyy-MM-dd');
+        item.ProgramPlanStart = timeFormat(item.ProgramPlanStart,'yyyy-MM-dd');
+        item.ProgramActualStart = timeFormat(item.ProgramActualStart,'yyyy-MM-dd');
+        item.PurchasePlanStart = timeFormat(item.PurchasePlanStart,'yyyy-MM-dd');
+        item.PurchaseActualStart = timeFormat(item.PurchaseActualStart,'yyyy-MM-dd');
+        item.ProductionPlanStart = timeFormat(item.ProductionPlanStart,'yyyy-MM-dd');
+        item.ProductionActualStart = timeFormat(item.ProductionActualStart,'yyyy-MM-dd');
+        item.AssyPlanStart = timeFormat(item.AssyPlanStart,'yyyy-MM-dd');
+        item.AssyActualStart = timeFormat(item.AssyActualStart,'yyyy-MM-dd');
         if (taskTypeEnum[item.TaskType]) {
           item.TaskType = taskTypeEnum[item.TaskType].name;
+        }
+        if (ItemToolingStateEnum[item.ToolingState]) {
+          item.ToolingState = ItemToolingStateEnum[item.ToolingState].name;
         }
       })
         export2ExcelMultiple(this.form, this.close)

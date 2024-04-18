@@ -284,7 +284,7 @@ const cn = {
     Pro_LockState: "锁定状态",
     Pro_ToolingInfo: "模具信息",
     Pro_ToolingPhoto: "模具图片",
-    Pro_TaskType: "产品类型",
+    Pro_ToolingType: "模具类型",
     Pro_HeatTreatmentSpec: "热处理",
     Pro_PlasticMaterialSpec: "塑料材质",
     Pro_ShrinkageRateSpec: "收缩率",

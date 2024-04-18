@@ -283,7 +283,7 @@ const ja = {
     Pro_LockState: "ロック状態",
     Pro_ToolingInfo: "金型情報",
     Pro_ToolingPhoto: "金型画像",
-    Pro_TaskType: "製品タイプ",
+    Pro_ToolingType: "モールドタイプ",
     Pro_HeatTreatmentSpec: "ねつしょり",
     Pro_PlasticMaterialSpec: "プラスチックマテリアル",
     Pro_ShrinkageRateSpec: "しゅうしゅくりつ",
