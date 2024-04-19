@@ -174,9 +174,9 @@
           <el-table-column :label="$t('menu.Pu_Purchase')">
             <el-table-column prop="PurchaseWorker" :label="$t('project.Pro_Worker')" width="120">
             </el-table-column>
-            <el-table-column prop="PurchasePlanStart" :label="$t('Generality.Ge_PlanStart')" width="100">
+            <el-table-column prop="PurchasePlanEnd" :label="$t('Generality.Ge_PlanEnd')" width="100">
               <template slot-scope="scope">
-                {{ scope.row.PurchasePlanStart | timeFormat("yyyy-MM-dd") }}
+                {{ scope.row.PurchasePlanEnd | timeFormat("yyyy-MM-dd") }}
               </template>
             </el-table-column>
             <el-table-column prop="PurchaseActualStart" :label="$t('Generality.Ge_ActualStart')" width="100">
@@ -324,7 +324,7 @@ export default {
             label: this.$t('menu.Pu_Purchase'),
             children: [
               { label: this.$t('project.Pro_Worker'), prop: 'PurchaseWorker' },
-              { label: this.$t('Generality.Ge_PlanStart'), prop: 'PurchasePlanStart' },
+              { label: this.$t('Generality.Ge_PlanStart'), prop: 'PurchasePlanEnd' },
               { label: this.$t('Generality.Ge_ActualStart'), prop: 'PurchaseActualStart' },
             ]
           },

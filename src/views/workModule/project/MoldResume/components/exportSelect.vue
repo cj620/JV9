@@ -231,7 +231,7 @@ export default {
           "ProgramActualStart",
 
           "PurchaseWorker",
-          "PurchasePlanStart",
+          "PurchasePlanEnd",
           "PurchaseActualStart",
 
           "ProductionWorker",
@@ -267,7 +267,7 @@ export default {
         item.DesignActualStart = timeFormat(item.DesignActualStart,'yyyy-MM-dd');
         item.ProgramPlanStart = timeFormat(item.ProgramPlanStart,'yyyy-MM-dd');
         item.ProgramActualStart = timeFormat(item.ProgramActualStart,'yyyy-MM-dd');
-        item.PurchasePlanStart = timeFormat(item.PurchasePlanStart,'yyyy-MM-dd');
+        item.PurchasePlanEnd = timeFormat(item.PurchasePlanEnd,'yyyy-MM-dd');
         item.PurchaseActualStart = timeFormat(item.PurchaseActualStart,'yyyy-MM-dd');
         item.ProductionPlanStart = timeFormat(item.ProductionPlanStart,'yyyy-MM-dd');
         item.ProductionActualStart = timeFormat(item.ProductionActualStart,'yyyy-MM-dd');
