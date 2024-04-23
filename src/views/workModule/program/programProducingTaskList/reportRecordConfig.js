@@ -41,6 +41,14 @@ const tableSchema = [
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
   },
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+  },
+  {
+    prop: "PartName",
+    label: i18n.t("Generality.Ge_PartName"),
+  },
   /*任务类别*/
   {
     prop: "TaskType",
@@ -60,6 +68,10 @@ const tableSchema = [
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
+  },
+  {
+    prop: "ProductionProcess",
+    label: i18n.t("production.Pr_ProductionProcess"),
   },
   //   负责人
   {
@@ -110,6 +122,10 @@ const tableSchema = [
     filter: "date",
     width: "120px",
   },
+  {
+    prop: "Remarks",
+    label:i18n.t("Generality.Ge_Remarks"),
+  }
 ]
 const formSchema = [
   // 模具编号

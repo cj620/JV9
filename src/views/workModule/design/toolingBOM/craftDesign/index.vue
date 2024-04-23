@@ -147,6 +147,7 @@ export default {
         ProcessContent: "",
         Resource: "",
         ProgramingProcess: "",
+        Remarks: "",
         ProgramingPlanTime: 1,
         ProcessPicture: [],
         customData: [],
