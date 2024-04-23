@@ -46,7 +46,11 @@ const tableSchema = [
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
   },
-
+  /*产品名称*/
+  {
+    prop: "ToolingName",
+    label: i18n.t("Generality.Ge_ToolingName"),
+  },
   /*工序*/
   /*任务类型*/
   // {
