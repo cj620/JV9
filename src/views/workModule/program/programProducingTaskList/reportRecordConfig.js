@@ -2,6 +2,7 @@ import { TableAPI, Table as BaseTable } from "~/class/table";
 import { getProject_task_log } from "@/api/workApi/project/projectTask"
 import { enumToList } from "~/utils/system/enumsPlugin";
 import { taskTypeEnum } from "@/enum/workModule";
+import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 class api extends TableAPI{
   getData = getProject_task_log
 }
@@ -60,6 +61,11 @@ const tableSchema = [
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
   },
+  //   负责人
+  {
+    prop: "Worker",
+    label: i18n.t("project.Pro_Worker"),
+  },
   // 进度
   {
     prop: "Progress",
@@ -78,6 +84,7 @@ const tableSchema = [
       cpn: "SingleTime",
     },
   },
+
   /*结束时间*/
   {
     prop: "ActualEnd",
@@ -96,12 +103,6 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_WorkHours"),
     width: "90px",
   },
-  /*制单人*/
-  {
-    prop: "Worker",
-    label: i18n.t("project.Pro_Worker"),
-    width: "95px",
-  },
   /*日期*/
   {
     prop: "CreationDate",
@@ -117,4 +118,15 @@ const formSchema = [
     label: i18n.t("Generality.Ge_ToolingNo"),
     cpn: "FormInput",
   },
+  // 负责人
+  {
+    prop: "UserName",
+    cpn: "SyncSelect",
+    label: i18n.t("project.Pro_Worker"),
+    api: getAllUserData,
+    apiOptions: {
+      keyName: "UserName",
+      valueName: "UserName",
+    },
+  }
 ]
