@@ -46,16 +46,19 @@ const tableSchema = [
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    width: '140px',
   },
   /*零件编号*/
   {
     prop: "PartNo",
     label: i18n.t("Generality.Ge_PartNo"),
+    width: '140px',
   },
   /*零件名称*/
   {
     prop: "PartName",
     label: i18n.t("Generality.Ge_PartName"),
+    width: '140px',
   },
   /*工序名称*/
   {
@@ -115,6 +118,7 @@ const tableSchema = [
   {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
+    width: '200px',
   },
 ];
 //  搜索表单配置
@@ -199,18 +203,21 @@ const recordSchema = [
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
+    width: '100px',
   },
   /*实际开始*/
   {
     prop: "ActualStart",
     label: i18n.t("Generality.Ge_ActualStart"),
     filter: "time",
+    width: '140px',
   },
   /*实际结束*/
   {
     prop: "ActualEnd",
     label: i18n.t("Generality.Ge_ActualEnd"),
     filter: "time",
+    width: '140px',
   },
   // 进度
   {
@@ -222,6 +229,7 @@ const recordSchema = [
   {
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_ActualTime"),
+    width: '90px',
   },
   /*备注*/
   {

@@ -91,7 +91,7 @@
           </div>
           <div class="desc-text" v-else>
             <i class="el-icon-s-order"></i>
-            {{ cdata.TaskBillId }}
+            {{ cdata.ProductionProcess }}
           </div>
         </div>
       </div>

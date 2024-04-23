@@ -24,6 +24,7 @@ const tableSchema = [
   {
     prop: "BillId",
     label: i18n.t("project.Pro_TaskSheetNo"),
+    width: '120px',
   },
   /*项目*/
   {
@@ -40,14 +41,17 @@ const tableSchema = [
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    width: '140px',
   },
   {
     prop: "PartNo",
     label: i18n.t("Generality.Ge_PartNo"),
+    width: '140px',
   },
   {
     prop: "PartName",
     label: i18n.t("Generality.Ge_PartName"),
+    width: '140px',
   },
   /*任务类别*/
   {
