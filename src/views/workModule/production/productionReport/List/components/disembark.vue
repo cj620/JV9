@@ -68,6 +68,10 @@
           <i class="el-icon-alarm-clock"></i>
           {{row.UsedTime.toFixed(2)}}H
         </template>
+        <template #BillId="{ row }">
+          <i class="el-icon-s-order"></i>
+          {{row.BillId}}
+        </template>
         <template #content="{ row }">
           <svg-icon icon-class="projector-two" />
           {{ row.ActualDevice }}

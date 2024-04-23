@@ -74,6 +74,10 @@
           <i class="el-icon-alarm-clock"></i>
           {{row.PlanTime}}H
         </template>
+        <template #BillId="{ row }">
+          <i class="el-icon-s-order"></i>
+          {{row.BillId}}
+        </template>
         <template #operateTime="{ row }">
           <i class="el-icon-date"></i>
           {{row.PlanStart| timeFormat("yyyy-MM-dd hh:mm")}}
@@ -82,6 +86,9 @@
         <template #content="{ row }">
           <svg-icon icon-class="cross-ring" />
           {{ row.Process }}
+        </template>
+        <template slot="operateButton" slot-scope="row">
+          <div style="height: 100%; width: 56px"></div>
         </template>
       </cardList>
     </div>

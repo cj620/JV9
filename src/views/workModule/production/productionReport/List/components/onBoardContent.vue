@@ -80,6 +80,10 @@
           <i class="el-icon-alarm-clock"></i>
           {{row.PlanTime}}H
         </template>
+        <template #BillId="{ row }">
+          <i class="el-icon-s-order"></i>
+          {{row.BillId}}
+        </template>
         <template #content="{ row }">
           <svg-icon icon-class="cross-ring" />
           {{ row.Process }}

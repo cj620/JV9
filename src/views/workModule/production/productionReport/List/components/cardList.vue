@@ -33,6 +33,9 @@
             <slot name="operateButton1" :row="item"></slot>
           </div>
         </div>
+        <div class="report-card-list-middle">
+          <div> <slot name="BillId" :row="item"></slot></div>
+        </div>
         <div class="report-card-list-footer">
           <div class="report-card-list-footer-show" style="width: 190px;">
 
@@ -145,6 +148,9 @@ export default {
         justify-content: space-between;
         width: 190px;
       }
+    }
+    .report-card-list-middle{
+      margin-left: 10px;
     }
     .report-card-list-footer{
       padding:2px 5px ;
