@@ -89,6 +89,10 @@
             <i class="el-icon-folder-checked"></i>
             {{ taskMap.name }}
           </div>
+          <div class="desc-text" v-else>
+            <i class="el-icon-s-order"></i>
+            {{ cdata.TaskBillId }}
+          </div>
         </div>
       </div>
       <div class="time-progress">
