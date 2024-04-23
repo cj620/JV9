@@ -36,6 +36,9 @@
         <div class="report-card-list-middle">
           <div> <slot name="BillId" :row="item"></slot></div>
         </div>
+        <div class="report-card-list-middle">
+          <div> <slot name="Remarks" :row="item"></slot></div>
+        </div>
         <div class="report-card-list-footer">
           <div class="report-card-list-footer-show" style="width: 190px;">
 

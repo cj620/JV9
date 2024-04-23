@@ -82,7 +82,7 @@
         </template>
         <template #BillId="{ row }">
           <i class="el-icon-s-order"></i>
-          {{row.BillId}}
+          <span style="margin-left: 6px; color: #409eff; cursor: pointer" @click="toProductionTask(row.BillId)">{{ row.BillId }}</span>
         </template>
         <template #content="{ row }">
           <svg-icon icon-class="cross-ring" />
@@ -289,11 +289,17 @@ export default {
         }
       );
     },
+    toProductionTask(BillId) {
+      this.$router.push({
+        name: "ProductionTaskDetails",
+        query: { BillId },
+      });
+    }
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .report-content {
   .report-content-header {
     //height: 180px;
