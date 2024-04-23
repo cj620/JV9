@@ -171,6 +171,11 @@ export const formSchema1 = [
       },
     ],
   },
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+    cpn: "FormInput",
+  }
 ];
 export const detailConfig = [
   /*模具编号*/

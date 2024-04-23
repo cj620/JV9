@@ -96,6 +96,7 @@ export default {
       this.reportDialogVisible = true
       this.reportForm.form.ProjectTaskItemId = row.Id
       this.reportForm.form.Progress = row.Progress
+      this.reportForm.form.Remarks = row.Remarks
       this.reportForm.form.TaskReportWorkType = 'ProgramingTask'
       this.reportForm.form.EndDate = new Date()
       this.detailObj.detailData = row
