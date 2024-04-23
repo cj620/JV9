@@ -153,6 +153,36 @@ const formSchema = [
     prop: "PartNo",
     label: i18n.t("Generality.Ge_PartNo"),
     cpn: "FormInput",
+  },
+  // 负责人
+  {
+    prop: "UserName",
+    cpn: "SyncSelect",
+    label: i18n.t("project.Pro_Worker"),
+    api: getAllUserData,
+    apiOptions: {
+      keyName: "UserName",
+      valueName: "UserName",
+    },
+  },
+  // 是否展示已完成
+  {
+    prop: "IsComplete",
+    label: i18n.t("project.Pro_IsShowCompleted"),
+    cpn: "FormSelect",
+    options: {
+      list: [
+        {
+          value: true,
+          label: i18n.t("project.Pro_ShowCompleted"),
+        },
+        {
+          value: false,
+          label: i18n.t("project.Pro_ShowUncompleted"),
+        },
+      ]
+    },
+    default: false
   }
 ];
 export const formSchema1 = [

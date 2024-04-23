@@ -298,6 +298,9 @@ const cn = {
     Pro_Processing: "加工中",
     Pro_TrialTooling: "试模中",
     Pro_Completed: "已完成",
+    Pro_IsShowCompleted: "是否展示已完成单据",
+    Pro_ShowCompleted: "展示已完成单据",
+    Pro_ShowUncompleted: "仅展示未完成单据",
   },
   //设置
   setup: {

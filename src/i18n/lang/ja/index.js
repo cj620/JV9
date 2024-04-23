@@ -297,6 +297,9 @@ const ja = {
     Pro_Processing: "加工中",
     Pro_TrialTooling: "試験型中",
     Pro_Completed: "完了",
+    Pro_IsShowCompleted: "完了文書を表示するかどうか",
+    Pro_ShowCompleted: "完了文書の表示",
+    Pro_ShowUncompleted: "未完了文書のみ表示",
   },
   //设置
   setup: {
