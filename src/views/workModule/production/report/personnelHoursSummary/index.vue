@@ -41,19 +41,21 @@ export default {
       workRecordDetailTableObj: {},
     };
   },
-  created() {
+  async created() {
     this.tableObj = new Table();
-    this.GetDeptData()
+   await this.GetDeptData()
     this.workRecordDetailTableObj = new WorkRecordDetailTable();
 
     this.tableObj.getData();
   },
   methods: {
     //获取部门数据
-    GetDeptData(){
-      getConfigKey({ConfigKey:'DefaultProductionDepartment'}).then(res=>{
+    async  GetDeptData(){
+      await  getConfigKey({ConfigKey:'DefaultProductionDepartment'}).then(res=>{
+        console.log(res.ConfigValue,res,565656)
+        console.log(JSON.parse(res.ConfigValue),565656)
+
         this.tableObj.formObj.form.DepartmentNames=JSON.parse(res.ConfigValue)
-        console.log(res.ConfigValue,JSON.parse(res.ConfigValue),565656,this.tableObj.formObj.form.DepartmentNames)
       })
     },
     checkDetail(row) {
