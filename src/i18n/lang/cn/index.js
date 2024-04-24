@@ -187,6 +187,8 @@ const cn = {
     As_AccessoryCheckOut: "备件领用",
     As_DeviceSpotCheckRecord: "点检记录",
     As_DeviceLedger: "设备台账",
+    Tt_TestToolingList: "试模",
+    Tt_TestToolingTask: "试模任务",
   },
   login: {
     l_LogIn: "登录",
@@ -1486,6 +1488,9 @@ const cn = {
     De_SpotCheckAbnormalQuantity: "点检异常数",
     De_OverdueQuantity: "超期数",
     De_AutoCompletionQuantity: "跳过数",
+  },
+  testTooling: {
+
   },
   // 后端提示
   backendMessage: {

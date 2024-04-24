@@ -11,6 +11,7 @@ import sale from "./workModule/sale";
 import project from "./workModule/project";
 import design from "./workModule/design";
 import purchase from "./workModule/purchase";
+import testTooling from "./workModule/testTooling";
 import production from "./workModule/production";
 import assy from "./workModule/assy";
 import stockroom from "./workModule/stockroom";
@@ -207,6 +208,7 @@ export const asyncRoutes = [
   ...project,
   ...design,
   ...purchase,
+  ...testTooling,
   ...production,
   ...assy,
   ...stockroom,
