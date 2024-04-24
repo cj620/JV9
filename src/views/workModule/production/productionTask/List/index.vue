@@ -63,6 +63,12 @@
                 :disabled="multipleSelection.length === 0"
               >{{ $t("production.Pr_EditState") }}</el-button
               >
+              <el-button
+                size="mini"
+                @click="editBillDelivery"
+                :disabled="multipleSelection.length === 0"
+              >{{ $t('production.Pr_EditDeliveryDate') }}</el-button
+              >
               <el-button size="mini" @click="deletedData" v-if="IsShow">
                 {{ $t("production.Pr_DeletedData") }}
               </el-button>
@@ -319,6 +325,12 @@
       @confirmToEditState="confirmToEditState"
     >
     </editStateForm>
+    <editDelivery
+      :visible.sync="editDeliveryDialogFormVisible"
+      v-if="editDeliveryDialogFormVisible"
+      :editDeliveryData="editDeliveryData"
+      @completeEdit="completeEditDelivery"
+    ></editDelivery>
   </PageWrapper>
 </template>
 
@@ -344,6 +356,7 @@ import { addOutsourcingrRequirement } from "@/api/workApi/purchase/outsourcingRe
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 import { imgUrlPlugin, printPlugin } from "@/jv_doc/utils/system/index.js";
 import { autoCreate, batchCreate } from "../../productionReport/List/auto";
+import editDelivery from "./components/editDelivery.vue";
 export default {
   // 页面的标识
   name: "ProductionTask",
@@ -389,9 +402,11 @@ export default {
       outsourcingProcessDialogFormVisible: false, //选择委外工序的弹窗
       outsourcingPartDialogFormVisible: false, //选择委外零件的弹窗
       copyOrderDialogFormVisible: false, //复制工单的弹窗
+      editDeliveryDialogFormVisible: false, //编辑交期弹窗
       multipleSelection: [],
       transferData: "",
       searchFormData: {},
+      editDeliveryData: [],
       BillSum: 0,
     };
   },
@@ -424,6 +439,22 @@ export default {
       }).then((res) => {
         this.editStateDialogFormVisible = false;
         this.GetData();
+        this.multipleSelection = [];
+      });
+    },
+    // 编辑交期
+    editBillDelivery() {
+      this.editDeliveryData = this.multipleSelection;
+      this.editDeliveryDialogFormVisible = true;
+    },
+    completeEditDelivery() {
+      this.editDeliveryDialogFormVisible = false;
+      productionTaskList(this.form).then((res) => {
+        res.Items.forEach((item) => {
+          item.IsHas = false;
+        });
+        this.dataList = res.Items;
+        this.BillSum = res.Count;
         this.multipleSelection = [];
       });
     },
@@ -702,6 +733,7 @@ export default {
     },
   },
   components: {
+    editDelivery,
     AComponents,
     outsourcingProcess,
     outsourcingPart,
