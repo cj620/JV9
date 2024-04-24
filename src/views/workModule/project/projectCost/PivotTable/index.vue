@@ -104,7 +104,7 @@ import { config } from './config.js';
 import zhMessages from 'devextreme/localization/messages/zh.json'
 import { locale, loadMessages } from 'devextreme/localization'
 import { DxPopup } from 'devextreme-vue/popup';
-import { projectTypeEnum,processTypeEnum,taskTypeEnum,taskStateEnum } from "@/enum/workModule";
+import { projectTypeEnum,taskTypeEnum } from "@/enum/workModule";
 import { amountFormat } from "@/jv_doc/utils/handleData/index";
 
 

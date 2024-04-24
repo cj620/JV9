@@ -31,6 +31,8 @@
 import { Table, WorkRecordDetailTable } from "./config";
 import TableAction from "@/jv_doc/cpn/JvTable/cpn/TableAction/index.vue";
 import JvTable from "@/jv_doc/cpn/JvTable/index.vue";
+import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
+
 export default {
   data() {
     return {
@@ -41,11 +43,19 @@ export default {
   },
   created() {
     this.tableObj = new Table();
+    this.GetDeptData()
     this.workRecordDetailTableObj = new WorkRecordDetailTable();
 
     this.tableObj.getData();
   },
   methods: {
+    //获取部门数据
+    GetDeptData(){
+      getConfigKey({ConfigKey:'DefaultProductionDepartment'}).then(res=>{
+        this.tableObj.formObj.form.DepartmentNames=JSON.parse(res.ConfigValue)
+        console.log(res.ConfigValue,JSON.parse(res.ConfigValue),565656,this.tableObj.formObj.form.DepartmentNames)
+      })
+    },
     checkDetail(row) {
       this.workRecordDetailTableObj.formObj.setForm({
         StartDate: this.tableObj.formObj.form.StartDate,

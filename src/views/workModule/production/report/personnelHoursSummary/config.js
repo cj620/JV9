@@ -77,17 +77,14 @@ export const formSchema = [
   },
   //部门搜索
   {
-    prop: "DepartmentName",
+    prop: "DepartmentNames",
     label: i18n.t("menu.Se_Department"),
     cpn: "SyncSelect",
+    type: "multiple",
     api: getDepartmentList,
     apiOptions: {
-      tree: true,
-      treeProps: {
-        children: "Children",
         keyName: "Department",
         valueName: "Department",
-      },
     },
   },
   {
