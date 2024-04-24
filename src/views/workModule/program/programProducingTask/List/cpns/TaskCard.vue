@@ -30,7 +30,7 @@
       <!-- 编程加工任务 -->
       <el-dropdown @command="handleCommand" v-if="$route.name === 'ProgramProducingTask'">
         <span>
-          <i class="el-icon-more el-icon--right" style="font-size: 20px"></i>
+          <i class="el-icon-more el-icon--right" style="font-size: 20px; cursor: pointer;"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="edit">
@@ -96,13 +96,13 @@
         </div>
       </div>
       <div class="time-progress">
-        <div style="width: 200px; padding: 2px 0;">
+        <div class="billRemarks">
           <i class="el-icon-s-order"></i>
-          <span style="margin-left: 5px">{{ cdata.TaskBillId }}</span>
+          <span class="billRemarks-items">{{ cdata.TaskBillId }}</span>
         </div>
-        <div style="width: 200px; padding: 2px 0;">
+        <div class="billRemarks">
           <i class="el-icon-collection-tag"></i>
-          <span style="margin-left: 5px">{{ cdata.Remarks }}</span>
+          <span class="billRemarks-items" :title="cdata.Remarks">{{ cdata.Remarks }}</span>
         </div>
         <div class="time">
           <i class="el-icon-date"></i>
@@ -287,7 +287,6 @@ export default {
   position: relative;
   background-color: #fff;
   font-size: 14px;
-  cursor: pointer;
   .more-func {
     position: absolute;
     right: 10px;
@@ -301,7 +300,7 @@ export default {
     background-color: rgb(211, 153, 153);
     width: 210px;
     padding: 1px 5px;
-
+    align-items: center;
     div {
       margin-left: 5px;
       width: 150px;
@@ -350,6 +349,19 @@ export default {
       }
     }
     .time-progress {
+      .billRemarks {
+        width: 200px;
+        padding: 2px 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        .billRemarks-items {
+          white-space:nowrap;
+          margin-left: 5px;
+          text-overflow:ellipsis;
+          overflow:hidden;
+        }
+      }
       .time {
         width: 200px;
         padding: 5px 0;
