@@ -90,12 +90,20 @@
             {{ taskMap.name }}
           </div>
           <div class="desc-text" v-else>
-            <i class="el-icon-s-order"></i>
+            <i class="el-icon-receiving"></i>
             {{ cdata.ProductionProcess }}
           </div>
         </div>
       </div>
       <div class="time-progress">
+        <div style="width: 200px; padding: 2px 0;">
+          <i class="el-icon-s-order"></i>
+          <span style="margin-left: 5px">{{ cdata.TaskBillId }}</span>
+        </div>
+        <div style="width: 200px; padding: 2px 0;">
+          <i class="el-icon-collection-tag"></i>
+          <span style="margin-left: 5px">{{ cdata.Remarks }}</span>
+        </div>
         <div class="time">
           <i class="el-icon-date"></i>
           <span>{{ cdata.PlanEnd | timeFormat("yyyy-MM-dd hh:mm") }}</span>
@@ -274,23 +282,22 @@ export default {
 .task-card {
   // padding: 0 5px;
   width: 210px;
-  height: 125px;
+  height: 165px;
   @include shadow;
   position: relative;
   background-color: #fff;
   font-size: 14px;
   cursor: pointer;
-  position: relative;
   .more-func {
     position: absolute;
     right: 10px;
-    top: 0px;
+    top: 0;
   }
   .state-bar {
     // width: 100%;
     height: 20px;
     display: flex;
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0 0;
     background-color: rgb(211, 153, 153);
     width: 210px;
     padding: 1px 5px;
@@ -302,12 +309,11 @@ export default {
     }
   }
   .task-content {
-    width: 100%;
     height: 95px;
     background-color: #fff;
     width: 210px;
     padding: 0 5px;
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 0 0 10px 10px;
 
     .img-desc {
       width: 200px;
