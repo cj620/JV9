@@ -149,6 +149,14 @@ export function production_programing_task_edit(data) {
     data,
   });
 }
+// 批量编辑生产加工编程任务
+export function production_programing_task_batch_edit(data) {
+  return request({
+    url: "/production_programing_task/batch_edit",
+    method: "post",
+    data,
+  });
+}
 // 删除生产加工编程任务
 export function production_programing_task_delete(data) {
   return request({

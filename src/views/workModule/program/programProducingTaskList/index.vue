@@ -12,6 +12,11 @@
               label: $t('project.Pro_ReportToWorkRecord'),
               confirm: reportRecord.bind(null, ''),
             },
+            {
+              label: '编辑负责人',
+              confirm: editWorker.bind(null, ''),
+              disabled: tableObj.selectData.datas.length <= 0,
+            },
             // 删除
             {
               label: $t('Generality.Ge_Delete'),
@@ -118,11 +123,21 @@
         </template>
       </JvTable>
     </JvDialog>
+    <JvDialog
+      :visible.sync="viewEditWorkerDialogVisible"
+      :title="$t('Generality.Ge_Edit')"
+      v-if="viewEditWorkerDialogVisible"
+      @confirm="confirmToEditWorker"
+      width="30%"
+    >
+      <JvForm :formObj="editWorkerObj"></JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
 import { Table } from "./config";
+import { Form } from "@/jv_doc/class/form";
 import { ViewSubtasksTableObj } from "@/views/workModule/design/designTask/DesignTaskList/viewSubtasksTableConfig";
 import distributionTaskDialog from "@/views/workModule/design/designTask/DesignTaskList/distributionTaskDialog.vue";
 import editProgramTask from "@/views/workModule/program/programProducingTaskList/editProgramTask.vue";
@@ -131,9 +146,11 @@ import {
   project_task_get_children_item,
   project_task_delete_item,
   production_programing_task_delete,
+  production_programing_task_batch_edit
 } from "@/api/workApi/project/projectTask";
 import { update_worker } from "@/api/workApi/production/productionTask"
 import TaskState from "@/components/JVInternal/TaskState";
+import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 
 export default {
   name: "Pa_ProgramProducingTaskList",
@@ -162,10 +179,12 @@ export default {
     return {
       // 表格实例
       tableObj: {},
+      editWorkerObj: {},
       type: "add",
       distributionTaskDialogFormVisible: false,
       addProjectTaskDialogFormVisible: false,
       viewSubtasksDialogVisible: false,
+      viewEditWorkerDialogVisible: false,
       TaskData: {},
       transferData: {},
       viewSubtasksTableObj: {},
@@ -240,6 +259,38 @@ export default {
         this.getSubData();
       });
     },
+    editWorker() {
+      this.editWorkerObj = new Form({
+        formSchema: [
+          {
+            prop: "UserName",
+            label: i18n.t("project.Pro_Worker"),
+            cpn: "SyncSelect",
+            api: getAllUserData,
+            apiOptions: {
+              keyName: "UserName",
+              valueName: "UserName",
+            },
+          },
+        ],
+        baseColProps: {
+          span: 24,
+        },
+        gutter: 30,
+        labelWidth: "80px",
+      });
+      this.viewEditWorkerDialogVisible = true;
+    },
+    confirmToEditWorker() {
+      const newData = this.tableObj.selectData.datas.map((item) => {
+        return {...item, Worker: this.editWorkerObj.form.UserName}
+      });
+      production_programing_task_batch_edit(newData).then(() => {
+        this.tableObj.getData();
+        this.$refs.BillTable.clearSelection();
+        this.viewEditWorkerDialogVisible = false;
+      })
+    }
   },
 };
 </script>
