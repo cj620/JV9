@@ -16,7 +16,14 @@ export function getDepartmentList(data) {
     data
   });
 }
-
+// 获取所有部门平铺
+export function department_tile_get_all(data) {
+  return request({
+    url: "/department/tile_get_all",
+    method: "get",
+    data
+  });
+}
 // 编辑部门信息
 export function editDepartment(data) {
   return request({

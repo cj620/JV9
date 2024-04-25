@@ -9,7 +9,7 @@ import {
   data_report_personnel_hours_summary,
   personnel_hours_details,
 } from "@/api/workApi/production/dataReport";
-import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
+import { department_tile_get_all } from "@/api/basicApi/systemSettings/department";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { timeFormat } from "@/jv_doc/utils/time";
 import {
@@ -81,7 +81,7 @@ export const formSchema = [
     label: i18n.t("menu.Se_Department"),
     cpn: "SyncSelect",
     type: "multiple",
-    api: getDepartmentList,
+    api: department_tile_get_all,
     apiOptions: {
         keyName: "Department",
         valueName: "Department",
