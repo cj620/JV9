@@ -188,6 +188,7 @@ const ja = {
     As_DeviceLedger: "設備台帳",
     Tt_TestToolingList: "しけんがた",
     Tt_TestToolingTask: "モデル試験タスク",
+    Tt_TestTooling: "しけんかた",
   },
   login: {
     l_LogIn: "ログイン",

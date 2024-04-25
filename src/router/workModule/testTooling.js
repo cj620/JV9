@@ -6,8 +6,8 @@ const testTooling = [
   {
     key: "Tt_TestToolingList",
     Parent: null,
-    name: "Tt_TestToolingList",
-    path: "Tt_TestToolingList",
+    name: "TestToolingList",
+    path: "testToolingList",
     component: Layout,
     title: i18n.t("menu.Tt_TestToolingList"),
     icon: "design",
@@ -20,6 +20,15 @@ const testTooling = [
     name: "TestToolingTask",
     path: "testToolingTask",
     title: i18n.t("menu.Tt_TestToolingTask"),
+  },
+  // 试模单列表
+  {
+    key: "Tt_TestTooling",
+    component: () => import("@/views/workModule/testTooling/testToolingList/List"),
+    Parent: "Tt_TestToolingList",
+    name: "TestTooling",
+    path: "testTooling",
+    title: i18n.t("menu.Tt_TestTooling"),
   },
 ]
 

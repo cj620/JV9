@@ -189,6 +189,7 @@ const cn = {
     As_DeviceLedger: "设备台账",
     Tt_TestToolingList: "试模",
     Tt_TestToolingTask: "试模任务",
+    Tt_TestTooling: "试模单",
   },
   login: {
     l_LogIn: "登录",
