@@ -41,17 +41,17 @@ const tableSchema = [
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
-    width: '140px',
+    width: "120px",
   },
   {
     prop: "PartNo",
     label: i18n.t("Generality.Ge_PartNo"),
-    width: '140px',
+    width: "120px",
   },
   {
     prop: "PartName",
     label: i18n.t("Generality.Ge_PartName"),
-    width: '140px',
+    width: "120px",
   },
   /*任务类别*/
   {
@@ -68,67 +68,68 @@ const tableSchema = [
       },
     },
   },
-  /*工序名称*/
+  /*工序*/
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
+    width: "90px",
   },
+  /*加工工序*/
   {
     prop: "ProductionProcess",
     label: i18n.t("production.Pr_ProductionProcess"),
+    width: "90px",
   },
   //   负责人
   {
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
+    width: "90px",
   },
   // 进度
   {
     prop: "Progress",
     label: i18n.t("Generality.Ge_Schedule"),
+    width: "150px",
     custom: true,
   },
-  /*开始时间*/
+  /*实际开始*/
   {
     prop: "ActualStart",
-    label: i18n.t("Generality.Ge_StartTime"),
-    filter: "date",
-    width: "120px",
-    innerSearch: {
-      prop: "StartDate",
-      label: i18n.t("Generality.Ge_StartTime"),
-      cpn: "SingleTime",
-    },
+    label: i18n.t("Generality.Ge_ActualStart"),
+    filter: "time",
+    width: "135px",
   },
-
-  /*结束时间*/
+  /*实际结束*/
   {
     prop: "ActualEnd",
-    label: i18n.t("Generality.Ge_EndTime"),
-    filter: "date",
-    width: "120px",
-    innerSearch: {
-      prop: "EndDate",
-      label: i18n.t("Generality.Ge_EndTime"),
-      cpn: "SingleTime",
-    },
+    label: i18n.t("Generality.Ge_ActualEnd"),
+    filter: "time",
+    width: "135px",
   },
-  /*工时*/
+  /*实际用时*/
   {
-    prop: "PlanTime",
-    label: i18n.t("Generality.Ge_WorkHours"),
+    prop: "ActualTime",
+    label: i18n.t("Generality.Ge_ActualTime"),
     width: "90px",
   },
-  /*日期*/
+  /*计划工时*/
+  {
+    prop: "PlanTime",
+    label: i18n.t("Generality.Ge_PlanTime"),
+    width: "90px",
+  },
+  /*制单日期*/
   {
     prop: "CreationDate",
-    label: i18n.t("Generality.Ge_Date"),
-    filter: "date",
-    width: "120px",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
+    width: "135px",
   },
   {
     prop: "Remarks",
     label:i18n.t("Generality.Ge_Remarks"),
+    width: "180px",
   }
 ]
 const formSchema = [
@@ -148,5 +149,10 @@ const formSchema = [
       keyName: "UserName",
       valueName: "UserName",
     },
+  },
+  {
+    prop: "TaskReportWorkType",
+    default: "ProgramingTask",
+    hidden: true,
   }
 ]
