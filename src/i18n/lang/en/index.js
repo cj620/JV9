@@ -1822,6 +1822,7 @@ const en = {
     Prohibited_APS_time: "Prohibited APS time",
     Programming_default_responsible_person: "Programming default responsible person",
     Meanwhile_down_process_configuration: "Meanwhile down process configuration",
+    Default_Production_Department: "Default production department",
   },
   ...enLocale,
 };

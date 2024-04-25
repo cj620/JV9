@@ -1809,6 +1809,7 @@ const ja = {
     Prohibited_APS_time: "排程禁止時間",
     Programming_default_responsible_person: "プログラミングデフォルト責任者",
     Meanwhile_down_process_configuration: "同時ダウンプロセス構成",
+    Default_Production_Department: "デフォルトの加工部門構成",
   },
 
   ...jaLocale,
