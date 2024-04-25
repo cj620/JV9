@@ -30,10 +30,18 @@
 
             </template>
             <template slot="operateTime" slot-scope="row">
-              <el-button @click="toMachiningCheckList(row)" size="small">
+              <el-button
+                @click="toMachiningCheckList(row)"
+                size="small"
+                :disabled="canCreateCheck(row.row.CheckState)"
+              >
                 {{ $t("menu.Qc_ProcessCheck") }}
               </el-button>
-              <el-button @click="toFinishedProduct(row)" size="small">
+              <el-button
+                @click="toFinishedProduct(row)"
+                size="small"
+                :disabled="canCreateFinished(row.row.CheckState, row.row.PrTaskState)"
+              >
                 {{ $t("menu.Qc_FinishedProduct") }}
               </el-button>
             </template>
@@ -90,6 +98,17 @@ export default {
     ...mapState({
       current: (state) => state.page.current,
     }),
+    // 获取按钮状态
+    canCreateCheck() {
+      return (CheckState) => {
+        return CheckState !== "TobeChecked";
+      };
+    },
+    canCreateFinished() {
+      return (CheckState, PrTaskState) => {
+        return CheckState !== "TobeChecked" || PrTaskState !== 'Processed';
+      };
+    },
   },
   mounted() {
     this.$nextTick(() => {
