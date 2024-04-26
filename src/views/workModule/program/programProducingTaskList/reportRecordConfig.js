@@ -32,11 +32,6 @@ const tableSchema = [
     prop: "Project",
     label: i18n.t("menu.Pm_Project"),
     width: "120px",
-    innerSearch: {
-      prop: "Project",
-      cpn: "FormInput",
-      label: i18n.t("menu.Pm_Project"),
-    },
   },
   /*模具编号*/
   {
@@ -60,14 +55,6 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_TaskType"),
     width: "120px",
     custom: true,
-    innerSearch: {
-      prop: "TaskType",
-      cpn: "FormSelect",
-      label: i18n.t("Generality.Ge_TaskType"),
-      options: {
-        list: enumToList(taskTypeEnum),
-      },
-    },
   },
   /*工序*/
   {
