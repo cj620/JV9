@@ -13,7 +13,7 @@
               confirm: reportRecord.bind(null, ''),
             },
             {
-              label: '编辑负责人',
+              label: $t('project.Pro_EditWorker'),
               confirm: editWorker.bind(null, ''),
               disabled: tableObj.selectData.datas.length <= 0,
             },

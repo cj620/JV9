@@ -304,6 +304,7 @@ const cn = {
     Pro_IsShowCompleted: "是否展示已完成单据",
     Pro_ShowCompleted: "展示已完成单据",
     Pro_ShowUncompleted: "仅展示未完成单据",
+    Pro_EditWorker: "编辑负责人",
   },
   //设置
   setup: {

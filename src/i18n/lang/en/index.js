@@ -328,6 +328,7 @@ const en = {
     Pro_IsShowCompleted: "Whether to display completed documents",
     Pro_ShowCompleted: "Display completed documents",
     Pro_ShowUncompleted: "Only display unfinished documents",
+    Pro_EditWorker: "Edit Worker",
   },
   setup: {
     WhetherMarkAllRead: "Mark all messages of this type as read?",

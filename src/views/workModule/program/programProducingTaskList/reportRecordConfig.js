@@ -1,5 +1,5 @@
 import { TableAPI, Table as BaseTable } from "~/class/table";
-import { getProject_task_log } from "@/api/workApi/project/projectTask"
+import { getProject_task_log } from "@/api/workApi/project/projectTask";
 import { enumToList } from "~/utils/system/enumsPlugin";
 import { taskTypeEnum } from "@/enum/workModule";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
@@ -15,8 +15,9 @@ export class Table extends BaseTable {
       title: i18n.t('menu.Pa_ProgramProducingTaskReportRecord'),
       api,
       printMod: "Pa_ProgramProducingTaskReportRecord",
-      operationCol: false,
+      operationWidth: '120',
       printBar: false,
+      // operationCol: false,
       // searchBar: false,
     })
   }}
@@ -156,3 +157,47 @@ const formSchema = [
     hidden: true,
   }
 ]
+export const formSchema1 = [
+  {
+    prop: "WorkHour",
+    label: i18n.t("Generality.Ge_ActualTime"),
+    cpn: "FormInput",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    prop: "Progress",
+    label: i18n.t("Generality.Ge_Schedule"),
+    cpn: "Slider",
+    default: 0,
+  },
+  {
+    prop: "StartDate",
+    label: i18n.t("program.Pr_ActualStart"),
+    cpn: "SingleDateTime",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    prop: "EndDate",
+    label: i18n.t("program.Pr_ActualEnd"),
+    cpn: "SingleDateTime",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+];

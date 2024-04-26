@@ -303,6 +303,7 @@ const ja = {
     Pro_IsShowCompleted: "完了文書を表示するかどうか",
     Pro_ShowCompleted: "完了文書の表示",
     Pro_ShowUncompleted: "未完了文書のみ表示",
+    Pro_EditWorker: "編集責任者",
   },
   //设置
   setup: {
