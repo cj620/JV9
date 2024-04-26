@@ -271,6 +271,13 @@ export default {
               keyName: "UserName",
               valueName: "UserName",
             },
+            rules: [
+              {
+                required: true,
+                message: i18n.t("Generality.Ge_PleaseEnter"),
+                trigger: ["change", "blur"],
+              },
+            ],
           },
         ],
         baseColProps: {
@@ -282,13 +289,17 @@ export default {
       this.viewEditWorkerDialogVisible = true;
     },
     confirmToEditWorker() {
-      const newData = this.tableObj.selectData.datas.map((item) => {
-        return {...item, Worker: this.editWorkerObj.form.UserName}
-      });
-      production_programing_task_batch_edit(newData).then(() => {
-        this.tableObj.getData();
-        this.$refs.BillTable.clearSelection();
-        this.viewEditWorkerDialogVisible = false;
+      this.editWorkerObj.validate((valid) => {
+        if (valid) {
+          const newData = this.tableObj.selectData.datas.map((item) => {
+            return {...item, Worker: this.editWorkerObj.form.UserName}
+          });
+          production_programing_task_batch_edit(newData).then(() => {
+            this.tableObj.getData();
+            this.$refs.BillTable.clearSelection();
+            this.viewEditWorkerDialogVisible = false;
+          })
+        }
       })
     }
   },
