@@ -22,7 +22,7 @@
             {
               label: $t('Generality.Ge_Edit'),
               confirm: edit.bind(null, row),
-              disabled: row.IsemState === 'NotStarted',
+              disabled: row.ItemState !== 'NotStarted',
             },
             {
               label: $t('project.Pro_TaskRecord'),

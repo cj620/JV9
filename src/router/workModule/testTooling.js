@@ -12,6 +12,15 @@ const testTooling = [
     title: i18n.t("menu.Tt_TestToolingList"),
     icon: "design",
   },
+  // 试模计划
+  {
+    key: "Tt_TestToolingPlan",
+    component: () => import("@/views/workModule/testTooling/testToolingPlan/List"),
+    Parent: "Tt_TestTooling",
+    name: "Tt_TestToolingPlan",
+    path: "tt_TestToolingPlan",
+    title: i18n.t("menu.Tt_TestToolingPlan"),
+  },
   // 试模任务列表
   {
     key: "Tt_TestToolingTask",

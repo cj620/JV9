@@ -188,7 +188,7 @@ const ja = {
     As_DeviceLedger: "設備台帳",
     Tt_TestToolingList: "しけんがた",
     Tt_TestToolingTask: "モデル試験タスク",
-    Tt_TestTooling: "しけんかた",
+    Tt_TestToolingPlan: "モデル試験計画",
   },
   login: {
     l_LogIn: "ログイン",
@@ -1500,6 +1500,9 @@ const ja = {
     De_SpotCheckAbnormalQuantity: "点検異常定数",
     De_OverdueQuantity: "タイムアウト数",
     De_AutoCompletionQuantity: "スキップ数",
+  },
+  testTooling: {
+    Tt_StartTrial: "試験型の開始",
   },
   // 后端提示
   backendMessage: {

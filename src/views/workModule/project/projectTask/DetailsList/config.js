@@ -9,7 +9,7 @@
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { project_task_item_list } from "@/api/workApi/project/projectTask";
-import {getProjectQuery,} from "@/api/workApi/project/projectManage";
+import { getProjectQuery } from "@/api/workApi/project/projectManage";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 import { getAllProjectProcess } from "@/api/workApi/project/baseData";
 class api extends TableAPI {
@@ -128,7 +128,7 @@ const tableSchema = [
       label: i18n.t("Generality.Ge_Process"),
       api: getAllProjectProcess,
       apiOptions: {
-        immediate: true,
+        // immediate: true,
         keyName: "Process",
         valueName: "Process",
       },
@@ -145,7 +145,7 @@ const tableSchema = [
         label: i18n.t("project.Pro_Worker"),
         api: getAllUserData,
         apiOptions: {
-          immediate: true,
+          // immediate: true,
           keyName: "UserName",
           valueName: "UserName",
         },
@@ -218,7 +218,7 @@ const formSchema = [
     label: i18n.t("Generality.Ge_Process"),
     api: getAllProjectProcess,
     apiOptions: {
-      immediate: true,
+      // immediate: true,
       keyName: "Process",
       valueName: "Process",
     },
@@ -230,7 +230,7 @@ const formSchema = [
     label: i18n.t("project.Pro_Worker"),
     api: getAllUserData,
     apiOptions: {
-      immediate: true,
+      // immediate: true,
       keyName: "UserName",
       valueName: "UserName",
     },

@@ -189,7 +189,7 @@ const cn = {
     As_DeviceLedger: "设备台账",
     Tt_TestToolingList: "试模",
     Tt_TestToolingTask: "试模任务",
-    Tt_TestTooling: "试模单",
+    Tt_TestToolingPlan: "试模计划",
   },
   login: {
     l_LogIn: "登录",
@@ -1492,7 +1492,7 @@ const cn = {
     De_AutoCompletionQuantity: "跳过数",
   },
   testTooling: {
-
+    Tt_StartTrial: "开始试模",
   },
   // 后端提示
   backendMessage: {

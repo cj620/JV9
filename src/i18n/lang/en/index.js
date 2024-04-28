@@ -190,7 +190,7 @@ const en = {
     As_DeviceLedger: "Device Ledger",
     Tt_TestToolingList: "Test Tooling",
     Tt_TestToolingTask: "Test Tooling Task",
-    Tt_TestTooling: "Test Tooling",
+    Tt_TestToolingPlan: "Test Tooling Plan",
   },
   login: {
     l_LogIn: "Log in",
@@ -1506,6 +1506,9 @@ const en = {
     De_SpotCheckAbnormalQuantity: "Spot Check Abnormal Quantity",
     De_OverdueQuantity: "Overdue Quantity",
     De_AutoCompletionQuantity: "Auto Completion Quantity",
+  },
+  testTooling: {
+    Tt_StartTrial: "Start Trial Molding",
   },
   backendMessage: {
     P10001: "Auto-Scheduling Error!",
