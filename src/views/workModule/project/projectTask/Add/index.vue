@@ -381,7 +381,11 @@ export default {
     },
     //选择工艺模板
     selectProcessTemplate() {
-      this.ProcessTemplateDialogFormVisible = true;
+      this.formObj.validate((valid) => {
+          if (valid) {
+            this.ProcessTemplateDialogFormVisible = true;
+          }
+      })
     },
     //选择模板后返回的数据
     confirmProcessTemplate(e) {
