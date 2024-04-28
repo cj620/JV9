@@ -29,7 +29,7 @@ export const tableConfig = [
     prop: "PhotoUrl",
     label: i18n.t("Generality.Ge_PhotoUrl"),
     cpn: "Image",
-    width: "100px",
+    width: "60px",
   },
   {
     prop: "BillId",
