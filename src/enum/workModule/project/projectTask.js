@@ -45,9 +45,9 @@ export const processTypeEnum = {
     name: i18n.t("production.Pr_Assy"),
     value: "Assy",
   },
-  TestTooling: {
+  TrialTooling: {
     name: i18n.t("production.Pr_TestTooling"),
-    value: "TestTooling",
+    value: "TrialTooling",
   },
   Other: {
     name: i18n.t("production.Pr_Other"),
