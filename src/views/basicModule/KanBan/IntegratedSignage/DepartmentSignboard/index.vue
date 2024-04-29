@@ -88,6 +88,7 @@ import JvForm from "~/cpn/JvForm/index.vue";
 import { formSchema } from "./config";
 import ArrowLeft from "../cpns/ArrowLeft";
 import ArrowRight from "../cpns/ArrowRight";
+import { getConfigKey } from '@/api/basicApi/systemSettings/sysSettings'
 export default {
   name: "DepartmentSignboard",
   components: {
@@ -148,26 +149,26 @@ export default {
       labelWidth: "0px",
       labelPosition: "left",
     });
-    // 获取部门
-    getDepartmentList()
-      .then((res) => {
-        this.department = res.Items.map((item) => {
-          return item.Department;
-        });
-        this.departmentName = this.department[0];
-        this.formObj.form.DepartmentName = this.department[0];
+
+     this.GetDeptData()
+  },
+  methods: {
+    //获取部门数据
+    async  GetDeptData(){
+      await  getConfigKey({ConfigKey:'DefaultProductionDepartment'}).then(res=>{
+        console.log(res.ConfigValue,res,565656)
+        console.log(JSON.parse(res.ConfigValue),565656)
+
+        this.departmentName = '生产';
+        this.formObj.form.DepartmentNames = JSON.parse(res.ConfigValue)
         this.search();
         this.departmentLoading = false;
       })
-      .catch((err) => {
-        this.departmentLoading = false;
-      });
-  },
-  methods: {
+    },
     // 搜索方法
     search() {
       this.loading = true;
-      processing_department_kanban({ Department: this.departmentName })
+      processing_department_kanban({ DepartmentNames:  this.formObj.form.DepartmentNames })
         .then((res) => {
           this.loading = false;
           this.infoRes = res["TopInfo"] || []; // 顶部信息

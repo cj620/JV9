@@ -4,23 +4,17 @@
  * @LastEditTime: 2022-01-18 17:26:24
  * @Description:
  */
-import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
+import { department_tile_get_all } from '@/api/basicApi/systemSettings/department'
 export const formSchema = [
   {
-    prop: "DepartmentName",
+    prop: "DepartmentNames",
     label: i18n.t("menu.Se_Department"),
     cpn: "SyncSelect",
-    api: getDepartmentList,
-    cpnProps:{
-      clearable: false
-    },
+    type: "multiple",
+    api: department_tile_get_all,
     apiOptions: {
-      tree: true,
-      treeProps: {
-        children: "Children",
-        keyName: "Department",
-        valueName: "Department",
-      },
+      keyName: "Department",
+      valueName: "Department",
     },
   },
 ];

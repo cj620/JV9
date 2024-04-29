@@ -14,7 +14,7 @@
           <div class="integrate-signage-content">
             <div
               class="dataV-item"
-              v-for="(item, i) in dataVList.slice(0, 6)"
+              v-for="(item, i) in DataList.slice(0, 6)"
               :key="i"
               @click="goKanban(item.url)"
             >
@@ -24,11 +24,11 @@
             </div>
           </div>
         </el-carousel-item>
-        <el-carousel-item>
+        <el-carousel-item v-if="DataList.length>6">
           <div class="integrate-signage-content">
             <div
               class="dataV-item"
-              v-for="(item, i) in dataVList.slice(6)"
+              v-for="(item, i) in DataList.slice(6)"
               :key="i"
               @click="goKanban(item.url)"
             >
@@ -45,11 +45,13 @@
 
 <script>
 import { mapMutations } from "vuex";
+import { getConfigKey } from '@/api/basicApi/systemSettings/sysSettings'
 export default {
   name: "Se_MoldProgressKanban",
   data() {
     return {
       dataVList: [
+        // 设备
         {
           title: i18n.t("DataV.Da_EquipmentSignage"),
           imgUrl: require("./EquipmentSignage.png"),
@@ -60,6 +62,7 @@ export default {
           imgUrl: require("./TaskStatus.png"),
           url: "/TaskStatusSignage",
         },
+        // NC部门
         {
           title: i18n.t("DataV.Da_NCDepartmentSignboard"),
           imgUrl: require("./NC.jpg"),
@@ -70,6 +73,7 @@ export default {
           imgUrl: require("./SaleSignage.png"),
           url: "/SaleSignage",
         },
+        // 产品综合
         {
           title: i18n.t("DataV.Da_MoldMachiningSignage"),
           imgUrl: require("./muju.jpg"),
@@ -86,10 +90,38 @@ export default {
           url: "/EquipmentOperation",
         },
       ],
+      DataList:[]
     };
+  },
+  created() {
+    this.GetConfigData()
   },
   methods: {
     ...mapMutations("dashboard", ["setCurrentPath"]),
+   async GetConfigData(){
+      await  getConfigKey({ConfigKey:'DefaultDisplayDashboard'}).then(res=>{
+        if(JSON.parse(res.ConfigValue).length>0){
+          const arr =[]
+          this.dataVList.forEach(item=>{
+            JSON.parse(res.ConfigValue).forEach(TItem=>{
+              if(item.url===TItem){
+                arr.push(item)
+
+              }
+            })
+
+          })
+          this.DataList=arr
+          console.log(this.DataList)
+        }else {
+          this.DataList=this.dataVList
+        }
+
+
+      }).catch(err=>{
+        this.DataList=this.dataVList
+      })
+    },
     goKanban(url) {
       console.log(url);
       this.setCurrentPath(url);
