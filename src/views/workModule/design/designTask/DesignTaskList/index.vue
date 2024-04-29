@@ -169,6 +169,7 @@ export default {
     },
     confirmDistributionTask() {
       this.distributionTaskDialogFormVisible = false;
+      this.tableObj.getData();
     },
     //修改人员
     confirmData() {

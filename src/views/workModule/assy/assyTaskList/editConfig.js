@@ -51,13 +51,17 @@ export const tableConfig = [
     },
   },
  /*负责人*/
- {
+  {
     prop: "Worker",
     formCpn: "SyncSelect",
     width: "120px",
     label: i18n.t("project.Pro_Worker"),
     custom: true,
-
+    editConfig: {
+      rules: {
+        required: true,
+      },
+    },
   },
   /*计划工时*/
   {

@@ -45,31 +45,24 @@
         </Action>
       </div>
       <JvEditTable :tableObj="M_TableObj" @cell-blur="cellBlur">
-        <template #Worker="{ formBlur, row, cdata }">
-          <span v-if="row[cdata.prop].edit">
-            <el-select
-              v-model="row.Worker.value"
-              style="width: 100%"
-              filterable
-              allow-create
-              size="mini"
-              :id="getPrefixId"
-              default-first-option
-              @visible-change="changeValue($event, row, formBlur)"
+        <template #Worker="{ row }">
+          <el-select
+            v-model="row.Worker.value"
+            style="width: 100%"
+            size="mini"
+            :placeholder="$t('Generality.Ge_PleaseSelect')"
+            @click.native="getWorkers(row)"
+            clearable
+            :loading="selectLoading"
+          >
+            <el-option
+              v-for="item in WorkerList"
+              :key="item.UserId"
+              :label="item.UserName"
+              :value="item.UserName"
             >
-              <el-option
-                v-for="item in WorkerList"
-                :key="item.UserId"
-                :label="item.UserName"
-                :value="item.UserName"
-              >
-              </el-option>
-            </el-select>
-          </span>
-
-          <span v-else style="line-height: 28px">
-            {{ row[cdata.prop].value }}
-          </span>
+            </el-option>
+          </el-select>
         </template>
 
 
@@ -152,7 +145,7 @@ import {
 } from "@/jv_doc/utils/handleData";
 // 引入模块API接口
 import { API as ProjectTask } from "@/api/workApi/project/projectTask";
-import { getAllProjectProcess } from "@/api/workApi/project/baseData";
+import { project_process_get_by_name } from "@/api/workApi/project/baseData";
 import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import closeTag from "@/utils/closeTag";
 import countEndDate from '@/jv_doc/utils/time/countEndDate';
@@ -190,6 +183,7 @@ export default {
       prefix: "",
       ProcessTemplateDialogFormVisible: false,
       ProcessDialogFormVisible: false,
+      selectLoading: false,
       detailRouteName: "Pm_ProjectTask_Detail",
       fileBillId: this.$route.query.BillId,
       WorkerList: [],
@@ -247,9 +241,9 @@ export default {
       return this.cur_Id && this.$route.query.type !== "copy" ? `:  ${this.cur_Id}` : "";
     },
 
-    getPrefixId() {
-      return "edit-form-item";
-    },
+    // getPrefixId() {
+    //   return "edit-form-item";
+    // },
   },
   async created() {
     this.formObj = new Form({
@@ -363,21 +357,38 @@ export default {
       };
     },
     //根据部门查找部门人员
-    changeValue(e, row, cb) {
-      console.log(e, row, row.BelongingDepartment);
-      if (e) {
-        get_by_department({ Department: row.BelongingDepartment.value }).then(
-          (res) => {
-            console.log(res.Items);
-            this.WorkerList = res.Items;
-          }
-        );
+    // changeValue(e, row, cb) {
+    //   console.log(e, row, row.BelongingDepartment);
+    //   if (e) {
+    //     get_by_department({ Department: row.BelongingDepartment.value }).then(
+    //       (res) => {
+    //         console.log(res.Items);
+    //         this.WorkerList = res.Items;
+    //       }
+    //     );
+    //   } else {
+    //     cb();
+    //     this.prefix = "";
+    //   }
+    //
+    //   console.log(e, row, 5201314);
+    // },
+    getWorkers(row) {
+      if (row.Process.value !== "") {
+        this.selectLoading = true;
+        project_process_get_by_name({
+          Process: row.Process.value,
+        }).then((res) => {
+          get_by_department({ Department: res.BelongingDepartment }).then(
+            (r) => {
+              this.WorkerList = r.Items;
+              this.selectLoading = false;
+            }
+          )
+        })
       } else {
-        cb();
-        this.prefix = "";
+        this.WorkerList = []
       }
-
-      console.log(e, row, 5201314);
     },
     //选择工艺模板
     selectProcessTemplate() {

@@ -18,30 +18,29 @@
 
       <JvEditTable :tableObj="eTableObj">
         <template #Worker="{ formBlur, row, cdata }">
-          <span v-if="row[cdata.prop].edit">
-            <el-select
-              v-model="row.Worker.value"
-              style="width: 100%"
-              filterable
-              allow-create
-              size="mini"
-              :id="getPrefixId"
-              default-first-option
-              @visible-change="changeValue($event, row, formBlur)"
+          <!--          <span v-if="row[cdata.prop].edit">-->
+          <el-select
+            v-model="row.Worker.value"
+            style="width: 100%"
+            size="mini"
+            :placeholder="$t('Generality.Ge_PleaseSelect')"
+            @click.native="getWorkers(row)"
+            clearable
+            :loading="selectLoading"
+          >
+            <el-option
+              v-for="item in WorkerList"
+              :key="item.UserId"
+              :label="item.UserName"
+              :value="item.UserName"
             >
-              <el-option
-                v-for="item in WorkerList"
-                :key="item.UserId"
-                :label="item.UserName"
-                :value="item.UserName"
-              >
-              </el-option>
-            </el-select>
-          </span>
+            </el-option>
+          </el-select>
+          <!--          </span>-->
 
-          <span v-else style="line-height: 28px">
-            {{ row[cdata.prop].value }}
-          </span>
+          <!--          <span v-else style="line-height: 28px">-->
+          <!--            {{ row[cdata.prop].value }}-->
+          <!--          </span>-->
         </template>
         <template #operation="{ row_index }">
           <TableAction
@@ -62,12 +61,14 @@
 import { EditTable } from "./editConfig";
 import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import { project_task_save_item } from "@/api/workApi/project/projectTask";
+import { project_process_get_by_name } from "@/api/workApi/project/baseData";
 
 export default {
   data() {
     return {
       eTableObj: {},
       WorkerList: [],
+      selectLoading: false,
       BillItems: {
         Id: 0,
         Project: "",
@@ -89,25 +90,42 @@ export default {
     },
   },
   computed: {
-    getPrefixId() {
-      return "edit-form-item";
-    },
+    // getPrefixId() {
+    //   return "edit-form-item";
+    // },
   },
   created() {
     this.eTableObj = new EditTable();
   },
   methods: {
     //根据部门查找部门人员
-    changeValue(e, row, cb) {
-      if (e) {
-        get_by_department({ Department: row.BelongingDepartment.value }).then(
-          (res) => {
-            this.WorkerList = res.Items;
-          }
-        );
+    // changeValue(e, row, cb) {
+    //   if (e) {
+    //     get_by_department({ Department: row.BelongingDepartment.value }).then(
+    //       (res) => {
+    //         this.WorkerList = res.Items;
+    //       }
+    //     );
+    //   } else {
+    //     cb();
+    //     this.prefix = "";
+    //   }
+    // },
+    getWorkers(row) {
+      if (row.Process.value !== "") {
+        this.selectLoading = true;
+        project_process_get_by_name({
+          Process: row.Process.value,
+        }).then((res) => {
+          get_by_department({ Department: res.BelongingDepartment }).then(
+            (r) => {
+              this.WorkerList = r.Items;
+              this.selectLoading = false;
+            }
+          )
+        })
       } else {
-        cb();
-        this.prefix = "";
+        this.WorkerList = []
       }
     },
     //新增数据
