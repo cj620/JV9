@@ -130,7 +130,26 @@
       @confirm="confirmToEditWorker"
       width="30%"
     >
-      <JvForm :formObj="editWorkerObj"></JvForm>
+      <JvForm :formObj="editWorkerObj">
+        <template #UserName="{ prop }">
+          <el-select
+            v-model="editWorkerObj.form[prop]"
+            filterable
+            allow-create
+            size="mini"
+            default-first-option
+            @visible-change="changeValue($event)"
+          >
+            <el-option
+              v-for="item in WorkerList"
+              :key="item.UserId"
+              :label="item.UserName"
+              :value="item.UserName"
+            >
+            </el-option>
+          </el-select>
+        </template>
+      </JvForm>
     </JvDialog>
   </PageWrapper>
 </template>
@@ -150,7 +169,7 @@ import {
 } from "@/api/workApi/project/projectTask";
 import { update_worker } from "@/api/workApi/production/productionTask"
 import TaskState from "@/components/JVInternal/TaskState";
-import { getAllUserData } from "@/api/basicApi/systemSettings/user";
+import { get_by_department } from "@/api/basicApi/systemSettings/user";
 
 export default {
   name: "Pa_ProgramProducingTaskList",
@@ -180,6 +199,7 @@ export default {
       // 表格实例
       tableObj: {},
       editWorkerObj: {},
+      WorkerList: [],
       type: "add",
       distributionTaskDialogFormVisible: false,
       addProjectTaskDialogFormVisible: false,
@@ -260,17 +280,14 @@ export default {
       });
     },
     editWorker() {
+      console.log('data:::',this.tableObj.selectData.datas[0].BelongingDepartment)
       this.editWorkerObj = new Form({
         formSchema: [
           {
             prop: "UserName",
             label: i18n.t("project.Pro_Worker"),
             cpn: "SyncSelect",
-            api: getAllUserData,
-            apiOptions: {
-              keyName: "UserName",
-              valueName: "UserName",
-            },
+            custom: true,
             rules: [
               {
                 required: true,
@@ -287,6 +304,20 @@ export default {
         labelWidth: "80px",
       });
       this.viewEditWorkerDialogVisible = true;
+    },
+    changeValue(e) {
+      const department = this.tableObj.selectData.datas[0].BelongingDepartment
+      if (e) {
+        if (department) {
+          get_by_department({ Department: department }).then((res) => {
+            this.WorkerList = res.Items;
+          });
+        } else {
+          get_by_department({ Department: '' }).then((res) => {
+            this.WorkerList = res.Items;
+          });
+        }
+      }
     },
     confirmToEditWorker() {
       this.editWorkerObj.validate((valid) => {

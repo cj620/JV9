@@ -182,25 +182,18 @@ export default {
       });
     },
 
-    //获取部门
     changeValue(e) {
       if (e) {
-        project_process_get_by_name({
-          Process: this.formObj.form.Process,
-        }).then((res) => {
-          if (res) {
-            this.getAllWorker(res.BelongingDepartment);
-          } else {
-            this.getAllWorker("");
-          }
-        });
+        if (this.transferData.BelongingDepartment) {
+          get_by_department({ Department: this.transferData.BelongingDepartment }).then((res) => {
+            this.WorkerList = res.Items;
+          });
+        } else {
+          get_by_department({ Department: '' }).then((res) => {
+            this.WorkerList = res.Items;
+          });
+        }
       }
-    },
-    //根据部门获取负责人
-    getAllWorker(e) {
-      get_by_department({ Department: e }).then((res) => {
-        this.WorkerList = res.Items;
-      });
     },
 
     confirmAddProject() {
