@@ -6,7 +6,7 @@
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { getAllProjectProcess } from "@/api/workApi/project/baseData";
-import { getAllUserData } from "@/api/basicApi/systemSettings/user";
+import {get_by_department, getAllUserData} from "@/api/basicApi/systemSettings/user";
 import { Data } from "@/views/basicModule/demo/Detail/data";
 import countEndDate from '@/jv_doc/utils/time/countEndDate';
 let index = 0;
@@ -47,6 +47,9 @@ export const m_tableConfig = [
     apiOptions: {
       keyName: "Process",
       valueName: "Process",
+      propChange(val,item,res) {
+        item.BelongingDepartment.value = res.BelongingDepartment;
+      }
     },
     editConfig: {
       rules: {
@@ -60,12 +63,21 @@ export const m_tableConfig = [
     formCpn: "SyncSelect",
     width: "120px",
     label: i18n.t("project.Pro_Worker"),
-    custom: true,
+    api: get_by_department,
+    apiOptions: {
+      keyName: "UserName",
+      valueName: "UserName",
+      moreDynamicParameters: [
+        {
+          keyName: "Department",
+          valueName: "BelongingDepartment",
+        },
+      ],
+    },
     editConfig: {
       rules: {
         required: true,
       },
-      disabled: true,
     },
   },
   /*计划工时*/
