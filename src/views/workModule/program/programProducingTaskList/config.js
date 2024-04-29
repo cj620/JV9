@@ -83,25 +83,27 @@ const tableSchema = [
   {
     prop: "TaskBillId",
     label: i18n.t("production.Pr_WorkSheetNo"),
-    width: "120px",
+    width: "135px",
   },
   //   任务类型
   {
     prop: "TaskType",
     label: i18n.t("Generality.Ge_TaskType"),
     customFilter: (value) => enumFilter(value, taskTypeEnum),
+    width: "100px",
   },
   // 进度
   {
     prop: "Progress",
     label: i18n.t("Generality.Ge_Schedule"),
-    width: "150px",
+    width: "160px",
     custom: true,
   },
   //   负责人
   {
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
+    width: "100px",
   },
   /*计划开始*/
   {
@@ -122,16 +124,19 @@ const tableSchema = [
   {
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
+    width: "120px",
   },
   //   实际工时
   {
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_ActualHour"),
+    width: "120px",
   },
   /*备注*/
   {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
+    width: "180px",
   },
 ];
 //  搜索表单配置
