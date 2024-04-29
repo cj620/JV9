@@ -61,6 +61,7 @@ export const tableConfig = [
       rules: {
         required: true,
       },
+      disabled: true,
     },
   },
   /*计划工时*/
