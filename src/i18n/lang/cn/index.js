@@ -1797,6 +1797,7 @@ const cn = {
     Programming_default_responsible_person: "编程默认负责人",
     Meanwhile_down_process_configuration: "同时下机工序配置",
     Default_Production_Department: "默认加工部门配置",
+    Dashboard_resources_configuration: "部门综合看板资源组配置",
   },
 
   ...zhLocale,
