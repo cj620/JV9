@@ -89,11 +89,13 @@ const tableSchema = [
   {
     prop: "Project",
     label: i18n.t("systemSetupData.Project"),
+    width: "120px",
   },
   /*产品名称*/
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    width: "120px",
   },
   /*任务类别*/
   {
@@ -103,18 +105,21 @@ const tableSchema = [
       if (!value) return "";
       return taskTypeEnum[value].name;
     },
+    width: "120px",
   },
 
   /*工序*/
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
+    width: "120px",
   },
 
   /*负责人*/
   {
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
+    width: "120px",
     innerSearch: {
       // 销售员
       prop: "Worker",
@@ -132,6 +137,7 @@ const tableSchema = [
   {
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
+    width: "120px",
   },
   /*计划开始*/
   {
@@ -152,6 +158,7 @@ const tableSchema = [
   {
     prop: "ItemRemarks",
     label: i18n.t("Generality.Ge_Remarks"),
+    width: "180px",
   },
 ];
 //  搜索表单配置
