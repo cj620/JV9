@@ -9,7 +9,7 @@
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { project_task_item_list } from "@/api/workApi/project/projectTask";
-import { taskTypeEnum, ProductionType } from "@/enum/workModule";
+import { taskTypeEnum } from "@/enum/workModule";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 
 import { getProjectQuery } from "@/api/workApi/project/projectManage";
@@ -89,16 +89,19 @@ const tableSchema = [
   {
     prop: "Project",
     label: i18n.t("systemSetupData.Project"),
+    width: "120px",
   },
   /*产品名称*/
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    width: "120px",
   },
   /*任务类别*/
   {
     prop: "TaskType",
     label: i18n.t("Generality.Ge_TaskType"),
+    width: "120px",
     customFilter: (value) => {
       if (!value) return "";
       return taskTypeEnum[value].name;
@@ -109,12 +112,14 @@ const tableSchema = [
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
+    width: "120px",
   },
 
   /*负责人*/
   {
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
+    width: "120px",
     innerSearch: {
       // 销售员
       prop: "Worker",
@@ -132,6 +137,7 @@ const tableSchema = [
   {
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
+    width: "120px",
   },
   /*计划开始*/
   {
@@ -152,6 +158,7 @@ const tableSchema = [
   {
     prop: "ItemRemarks",
     label: i18n.t("Generality.Ge_Remarks"),
+    width: "180px",
   },
 ];
 //  搜索表单配置
