@@ -32,7 +32,7 @@ export const tableConfig = [
     prop: "Process",
     formCpn: "SyncSelect",
     label: i18n.t("Generality.Ge_Process"),
-    width: "120px",
+    width: "150px",
     api: project_process_get_by_type,
     apiOptions: {
       keyName: "Process",
@@ -54,7 +54,7 @@ export const tableConfig = [
   {
     prop: "Worker",
     formCpn: "SyncSelect",
-    width: "120px",
+    width: "135px",
     label: i18n.t("project.Pro_Worker"),
     api: get_by_department,
     apiOptions: {
@@ -91,7 +91,7 @@ export const tableConfig = [
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     formCpn: "SingleTime",
-    width: "150px",
+    width: "180px",
     filter: "date",
     editConfig: {
       colInit: true,
@@ -106,7 +106,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_PlanEnd"),
     formCpn: "SingleTime",
     filter: "date",
-    width: "150px",
+    width: "180px",
     editConfig: {
       colInit: true,
       rules: {
