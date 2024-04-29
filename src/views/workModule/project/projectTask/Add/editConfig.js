@@ -42,6 +42,7 @@ export const m_tableConfig = [
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
     formCpn: "SyncSelect",
+    width: '180px',
     api: getAllProjectProcess,
     apiOptions: {
       keyName: "Process",
@@ -85,7 +86,7 @@ export const m_tableConfig = [
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     formCpn: "SingleTime",
-    width: "120px",
+    width: "150px",
     filter: "date",
     editConfig: {
       colInit: true,
@@ -100,7 +101,7 @@ export const m_tableConfig = [
     label: i18n.t("Generality.Ge_PlanEnd"),
     formCpn: "SingleTime",
     filter: "date",
-    width: "120px",
+    width: "150px",
     editConfig: {
       colInit: true,
       rules: {
