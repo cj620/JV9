@@ -7,6 +7,7 @@
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { project_process_get_by_type } from "@/api/workApi/project/baseData"
+import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import {
   tableConfigWrapper
 } from "@/jv_doc/utils/system/taxCount";
@@ -34,7 +35,6 @@ export const tableConfig = [
     width: "120px",
     api: project_process_get_by_type,
     apiOptions: {
-      // immediate: true,
       keyName: "Process",
       valueName: "Process",
       params: {
@@ -56,12 +56,21 @@ export const tableConfig = [
     formCpn: "SyncSelect",
     width: "120px",
     label: i18n.t("project.Pro_Worker"),
-    custom: true,
+    api: get_by_department,
+    apiOptions: {
+      keyName: "UserName",
+      valueName: "UserName",
+      moreDynamicParameters: [
+        {
+          keyName: "Department",
+          valueName: "BelongingDepartment",
+        },
+      ],
+    },
     editConfig: {
       rules: {
         required: true,
       },
-      disabled: true,
     },
   },
   /*计划工时*/
