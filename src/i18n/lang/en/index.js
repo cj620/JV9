@@ -1758,9 +1758,12 @@ const en = {
   },
   systemSetupData: {
     JV_APS: "Automatic scheduling",
+    Assy: "Assy",
     Basics: "Basics",
     Design: "Design",
+    Dashboard: "Dashboard",
     Project: "Project",
+    Program: "Program",
     Production: "Production",
     Auto_create_pr_on_NSM_name: "Auto create PR on non-standard material",
     Auto_create_pr_on_NSM_desc:

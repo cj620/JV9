@@ -1735,9 +1735,12 @@ const cn = {
 
   systemSetupData: {
     JV_APS: "自动排程",
+    Assy: "钳工",
     Basics: "基础",
     Design: "设计",
+    Dashboard: "看板",
     Project: "项目",
+    Program: "编程",
     Production: "生产",
     Auto_create_pr_on_NSM_name: "是否可以自动创建非标准物料的采购申请",
     Auto_create_pr_on_NSM_desc: "是否可以自动创建非标准物料的采购申请",

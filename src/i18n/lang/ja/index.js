@@ -1753,9 +1753,12 @@ const ja = {
 
   systemSetupData: {
     JV_APS: "じどうはいち",
+    Assy: "やっとこ",
     Basics: "基礎知識",
     Design: "せっけい",
+    Dashboard: "カンバン",
     Project: "プロジェクト",
+    Program: "プログラミング",
     Production: "せいさん",
     Auto_create_pr_on_NSM_name:
       "非標準品目の購買依頼を自動的に作成できるかどうか",
