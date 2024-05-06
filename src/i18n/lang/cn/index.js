@@ -1088,6 +1088,7 @@ const cn = {
     Ge_InputPlaceholder: "请输入单据编号、名称、部门",
     Ge_Total: "共计",
     Ge_Select: "选择",
+    Ge_NewTemplateAdded: "新增模板",
     Ge_SelectedItems: {
       str1: "已选择",
       str2: "条数据",

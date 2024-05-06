@@ -1,47 +1,54 @@
 // 引入表格表格类和表格API类
-import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
-import { getAllProjectProcessTemplate } from "@/api/workApi/project/baseData";
+import { Table as BaseTable } from "@/jv_doc/class/table";
+import { processTypeEnum } from "@/enum/workModule/project/projectTask";
 
-export class api extends TableAPI {
-  getData = getAllProjectProcessTemplate;
-}
 export class Table extends BaseTable {
   constructor() {
     super({
       tableSchema: tableConfig,
       formSchema,
       rowId: "Id",
-      title: i18n.t("menu.Pm_ProjectProcessTemplate"),
-      api,
+      data: [],
       searchBar: false,
-      operationWidth: 110,
+      chooseCol: false,
+      operationCol: false,
+      tableHeaderShow: false,
+      pagination: false,
     });
   }
 }
 
 export const tableConfig = [
-  /*模板名称*/
+  /*任务工序*/
   {
-    prop: "Template",
-    label: i18n.t("Generality.Ge_TemplateName"),
-    custom: true,
+    prop: "Process",
+    label: i18n.t("Generality.Ge_Process")
   },
-
-  /*制单人*/
+  /*标准费率*/
   {
-    prop: "Creator",
-    label: i18n.t("Generality.Ge_Creator"),
+    prop: "CostRate",
+    label: i18n.t("production.Pr_CostRate"),
   },
-  /*制单日期*/
+  /*部门*/
   {
-    prop: "CreationDate",
-    label: i18n.t("Generality.Ge_CreationDate"),
-    filter: "time",
+    prop: "BelongingDepartment",
+    label: i18n.t("menu.Se_Department"),
   },
-  /*备注*/
+  /*工序类别*/
   {
-    prop: "Remarks",
-    label: i18n.t("Generality.Ge_Remarks"),
+    prop: "ProcessType",
+    label: i18n.t("production.Pr_ProcessType"),
+    customFilter: (value) => processTypeEnum[value].name,
+  },
+  /*开始比例*/
+  {
+    prop: 'StartScale',
+    label: i18n.t("production.Pr_StartScale"),
+  },
+  /*结束比例*/
+  {
+    prop: "EndScale",
+    label: i18n.t("production.Pr_EndScale"),
   },
 ];
 
