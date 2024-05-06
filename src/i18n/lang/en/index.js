@@ -188,7 +188,7 @@ const en = {
     As_AccessoryCheckOut: "Accessory Check Out",
     As_DeviceSpotCheckRecord: "Device Spot Check Record",
     As_DeviceLedger: "Device Ledger",
-    Tt_TestToolingList: "Test Tooling",
+    Tt_TestTooling: "Test Tooling",
     Tt_TestToolingTask: "Test Tooling Task",
     Tt_TestToolingPlan: "Test Tooling Plan",
   },

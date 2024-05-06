@@ -54,13 +54,13 @@ export const tableConfig = [
     custom: true,
     width: "115px",
   },
-  /*计划开始*/
-  {
-    prop: "PlanStart",
-    label: i18n.t("Generality.Ge_PlanStart"),
-    filter: "date",
-    width: "120px",
-  },
+  // /*计划开始*/
+  // {
+  //   prop: "PlanStart",
+  //   label: i18n.t("Generality.Ge_PlanStart"),
+  //   filter: "date",
+  //   width: "120px",
+  // },
   /*计划结束*/
   {
     prop: "PlanEnd",

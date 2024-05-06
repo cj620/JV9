@@ -187,7 +187,7 @@ const cn = {
     As_AccessoryCheckOut: "备件领用",
     As_DeviceSpotCheckRecord: "点检记录",
     As_DeviceLedger: "设备台账",
-    Tt_TestToolingList: "试模",
+    Tt_TestTooling: "试模",
     Tt_TestToolingTask: "试模任务",
     Tt_TestToolingPlan: "试模计划",
   },

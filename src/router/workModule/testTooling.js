@@ -9,7 +9,7 @@ const testTooling = [
     name: "TestTooling",
     path: "testTooling",
     component: Layout,
-    title: i18n.t("menu.Tt_TestToolingList"),
+    title: i18n.t("menu.Tt_TestTooling"),
     icon: "design",
   },
   // 试模计划

@@ -186,7 +186,7 @@ const ja = {
     As_AccessoryCheckOut: "スペア受領用",
     As_DeviceSpotCheckRecord: "点検記録",
     As_DeviceLedger: "設備台帳",
-    Tt_TestToolingList: "しけんがた",
+    Tt_TestTooling: "しけんがた",
     Tt_TestToolingTask: "モデル試験タスク",
     Tt_TestToolingPlan: "モデル試験計画",
   },
