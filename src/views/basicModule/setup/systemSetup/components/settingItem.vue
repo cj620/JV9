@@ -113,6 +113,16 @@
       @TimeConfirm="TimeConfirm"
     >
     </select-time-form>
+    <select-menu-route
+      :title="dialogTitle"
+      :visible.sync="selectMenuDialogVisible"
+      v-if="selectMenuDialogVisible"
+      width="30%"
+      ref="menu"
+      :ConfigKey="ConfigKey"
+      :formData="formObj"
+      @menuConfirm="menuConfirm"
+    ></select-menu-route>
   </div>
 </template>
 
@@ -125,6 +135,7 @@ import selectForm from "./selectForm.vue";
 import arrayObjectTable from "./arrayObjectTable.vue";
 import stringArrayObject from "./stringArrayObject.vue";
 import selectTimeForm from "@/views/basicModule/setup/systemSetup/components/selectTimeForm.vue";
+import selectMenuRoute from "@/views/basicModule/setup/systemSetup/components/selectMenuRoute.vue";
 
 export default {
   data() {
@@ -138,6 +149,7 @@ export default {
       selectFormDialogVisible: false,
       stringArrayObjectDialogVisible: false,
       TimeDialogVisible: false,
+      selectMenuDialogVisible: false,
       curConfig: "",
       ConfigKey: "",
     };
@@ -219,6 +231,9 @@ export default {
       ) {
         this.formObj.ConfigValue = JSON.parse(item.ConfigValue);
         this.DialogVisible = true;
+      } else if (item.ConfigKey === "DefaultNavigationBarConfiguration") {
+        this.formObj.ConfigValue = item.ConfigValue;
+        this.selectMenuDialogVisible = true;
       } else {
         this.formObj.ConfigValue = item.ConfigValue;
         this.DialogVisible = true;
@@ -253,6 +268,10 @@ export default {
     },
     TimeConfirm(e) {
       this.TimeDialogVisible = false;
+      this._Confirm(e);
+    },
+    menuConfirm(e) {
+      this.selectMenuDialogVisible = false;
       this._Confirm(e);
     },
     _Confirm(e) {
@@ -295,6 +314,7 @@ export default {
     arrayObjectTable,
     selectForm,
     stringArrayObject,
+    selectMenuRoute,
   },
 };
 </script>
