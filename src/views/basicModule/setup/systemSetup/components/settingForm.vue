@@ -55,6 +55,9 @@ export default {
     }
     if (this.ConfigKey === "StandardEmployeeWorkTime") {
       this.inputType = "number";
+    } else if (this.ConfigKey === "ProgrammingDefaultResponsiblePerson") {
+      this.form = JSON.parse(JSON.stringify(this.formData));
+      this.form.ConfigValue = JSON.parse(this.form.ConfigValue)[0];
     }
   },
   data() {
@@ -109,6 +112,11 @@ export default {
           value: "Unit",
           isMultiple: false,
         },
+        ProgrammingDefaultResponsiblePerson: {
+          api: getAllUserData,
+          value: "UserName",
+          isMultiple: false,
+        }
       },
     };
   },
@@ -135,6 +143,7 @@ export default {
           "ProhibitSkipStationProcesses",
           "DashboardResourcesConfiguration",
           "BomDefaultUnit",
+          "ProgrammingDefaultResponsiblePerson",
         ].includes(this.ConfigKey)
       ) {
         this.isMultiple = this.ConfigItems[this.ConfigKey].isMultiple;
@@ -162,6 +171,7 @@ export default {
         "ProhibitSkipStationProcesses",
         "DashboardResourcesConfiguration",
         "BomDefaultUnit",
+        "ProgrammingDefaultResponsiblePerson",
       ].includes(this.ConfigKey);
     },
   },

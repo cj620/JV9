@@ -84,7 +84,7 @@
       :title="dialogTitle"
       :visible.sync="selectFormDialogVisible"
       v-if="selectFormDialogVisible"
-      width="70%"
+      width="30%"
       ref="objectArrayForm"
       :ConfigKey="ConfigKey"
       :formData="formObj"
