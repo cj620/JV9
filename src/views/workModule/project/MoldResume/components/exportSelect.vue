@@ -129,7 +129,6 @@ export default {
           "",
           "",
           "",
-          "",
           this.$t('project.Pro_TechnicalRequirement'),
           "",
           "",
@@ -159,7 +158,6 @@ export default {
         ];
         // 表头名
         this.form.headers = [
-          this.$t('Generality.Ge_PhotoUrl'),
           this.$t('Generality.Ge_State'),
           this.$t('menu.Pm_Project'),
           this.$t('Generality.Ge_ToolingNo'),
@@ -205,7 +203,6 @@ export default {
         ];
         // 导出的属性名
         this.form.propName = [
-          "PhotoUrl",
           "ToolingState",
           "Project",
           "ToolingNo",
@@ -251,14 +248,14 @@ export default {
         ];
         // 合并的单元格
         this.form.merges = [
-          "A1:J1",
-          "K1:O1",
-          "P1:R1",
-          "S1:U1",
-          "V1:X1",
-          "Y1:AA1",
-          "AB1:AD1",
-          "AE1:AJ1",
+          "A1:I1",
+          "J1:N1",
+          "O1:Q1",
+          "R1:T1",
+          "U1:W1",
+          "X1:Z1",
+          "AA1:AC1",
+          "AD1:AI1",
         ];
       this.form.checkData.forEach((item) => {
         item.TDeliveryDate = timeFormat(item.TDeliveryDate,'yyyy-MM-dd');

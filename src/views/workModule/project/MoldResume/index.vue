@@ -282,7 +282,7 @@ export default {
           {
             label: this.$t('project.Pro_ToolingInfo'),
             children: [
-              { label: this.$t('Generality.Ge_PhotoUrl'), prop: 'PhotoUrl' },
+              // { label: this.$t('Generality.Ge_PhotoUrl'), prop: 'PhotoUrl' },
               { label: this.$t('Generality.Ge_State'), prop: 'ToolingState' },
               { label: this.$t('menu.Pm_Project'), prop: 'Project' },
               { label: this.$t('Generality.Ge_ToolingNo'), prop: 'ToolingNo' },
