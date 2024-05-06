@@ -6,43 +6,56 @@
  */
 
 // 引入表格表格类和表格API类
-import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
-import { getAllProcessTemplate } from "@/api/workApi/production/baseData";
+import { Table as BaseTable } from "@/jv_doc/class/table";
 
-export class api extends TableAPI {
-  getData = getAllProcessTemplate;
-}
 export class Table extends BaseTable {
   constructor() {
     super({
       tableSchema: tableConfig,
       formSchema,
+      data: [],
       rowId: "Id",
       title: i18n.t("production.Pr_ProcessTemplate"),
-      api,
-      operationWidth: 110,
+      printBar: false,
+      searchBar: false,
+      chooseCol: false,
+      operationCol: false,
+      tableHeaderShow: false,
+      pagination: false,
     });
   }
 }
 
 export const tableConfig = [
-  /*模板名称*/
+  /*任务工序*/
   {
-    prop: "Template",
-    label: i18n.t("Generality.Ge_TemplateName"),
-    custom: true,
+    prop: "Process",
+    label: i18n.t("Generality.Ge_Process")
   },
-
-  /*制单人*/
   {
-    prop: "Creator",
-    label: i18n.t("Generality.Ge_Creator"),
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_TaskContent"),
   },
-  /*制单日期*/
+  /*预计工时*/
   {
-    prop: "CreationDate",
-    label: i18n.t("Generality.Ge_CreationDate"),
-    filter: "time",
+    prop: "PlanTime",
+    label: i18n.t("Generality.Ge_PlanTime"),
+  },
+  /*资源组*/
+  {
+    prop: "Resource",
+    label: i18n.t("Generality.Ge_Resource"),
+  },
+  /*编程工艺*/
+  {
+    prop: "ProgramingProcess",
+    label: i18n.t("production.Pr_ProgramingProcess"),
+  },
+  /*是否强制检验*/
+  {
+    prop: "IsCompulsoryInspection",
+    label: i18n.t("setup.IsCompulsoryInspection"),
+    custom: true
   },
   /*备注*/
   {
@@ -52,9 +65,4 @@ export const tableConfig = [
 ];
 
 export const formSchema = [
-  {
-    prop: "BillId",
-    cpn: "FormInput",
-    label: i18n.t("Generality.Ge_BillId"),
-  },
 ];
