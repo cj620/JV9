@@ -42,9 +42,10 @@
 </template>
 
 <script>
-import { getAllProcess } from "@/api/workApi/production/baseData";
+import { getAllProcess, getAllResource } from "@/api/workApi/production/baseData";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
+import { department_tile_get_all } from "@/api/basicApi/systemSettings/department";
 
 export default {
   created() {
@@ -83,6 +84,26 @@ export default {
           value: "UserName",
           isMultiple: true,
         },
+        DefaultProductionDepartment: {
+          api: department_tile_get_all,
+          value: "Department",
+          isMultiple: true,
+        },
+        MeanwhileDownProcessConfig: {
+          api: getAllProcess,
+          value: "Process",
+          isMultiple: true,
+        },
+        ProhibitSkipStationProcesses: {
+          api: getAllProcess,
+          value: "Process",
+          isMultiple: true,
+        },
+        DashboardResourcesConfiguration: {
+          api: getAllResource,
+          value: "ResourceId",
+          isMultiple: true,
+        },
         BomDefaultUnit: {
           api: getAllUnit,
           value: "Unit",
@@ -109,6 +130,10 @@ export default {
           "AssyUsers",
           "ProgramUsers",
           "DesignUsers",
+          "DefaultProductionDepartment",
+          "MeanwhileDownProcessConfig",
+          "ProhibitSkipStationProcesses",
+          "DashboardResourcesConfiguration",
           "BomDefaultUnit",
         ].includes(this.ConfigKey)
       ) {
@@ -132,6 +157,10 @@ export default {
         "AssyUsers",
         "ProgramUsers",
         "DesignUsers",
+        "DefaultProductionDepartment",
+        "MeanwhileDownProcessConfig",
+        "ProhibitSkipStationProcesses",
+        "DashboardResourcesConfiguration",
         "BomDefaultUnit",
       ].includes(this.ConfigKey);
     },

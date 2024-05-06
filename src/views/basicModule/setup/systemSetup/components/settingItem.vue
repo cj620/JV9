@@ -204,6 +204,21 @@ export default {
       } else if (item.ConfigValueType === "Time") {
         this.TimeDialogVisible = true;
         this.formObj = item;
+      } else if (
+        [
+          "AssyUsers",
+          "ProgramUsers",
+          "DesignUsers",
+          "DefaultProductionDepartment",
+          "MeanwhileDownProcessConfig",
+          "ProhibitSkipStationProcesses",
+          "DashboardResourcesConfiguration",
+        ].includes(
+          item.ConfigKey
+        )
+      ) {
+        this.formObj.ConfigValue = JSON.parse(item.ConfigValue);
+        this.DialogVisible = true;
       } else {
         this.formObj.ConfigValue = item.ConfigValue;
         this.DialogVisible = true;
@@ -254,16 +269,23 @@ export default {
       }
     },
     ConfigValue() {
-      const configType = this.curConfig.ConfigValueType;
-      return configType === "StringArray" || configType === "NumberArray"
-        ? JSON.stringify(
-            ["UserStation", "AssyUsers", "DesignUsers", "ProgramUsers"].includes(
-              this.curConfig.ConfigKey
-            )
-              ? this.formObj.ConfigValue
-              : this.formObj.ConfigValue.split(",")
-          )
-        : this.formObj.ConfigValue;
+      // const configType = this.curConfig.ConfigValueType;
+      return JSON.stringify(
+        [
+          "UserStation",
+          "AssyUsers",
+          "DesignUsers",
+          "ProgramUsers",
+          "DefaultProductionDepartment",
+          "MeanwhileDownProcessConfig",
+          "ProhibitSkipStationProcesses",
+          "DashboardResourcesConfiguration",
+        ].includes(
+          this.curConfig.ConfigKey
+        )
+          ? this.formObj.ConfigValue
+          : this.formObj.ConfigValue.split(",")
+      )
     },
   },
   components: {
