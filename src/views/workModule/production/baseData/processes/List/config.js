@@ -6,10 +6,11 @@
  */
 
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
-import { getAllProcess } from "@/api/workApi/production/baseData";
+import { getAllResource, productionProcessList } from "@/api/workApi/production/baseData";
+import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
 
 export class api extends TableAPI {
-  getData = getAllProcess;
+  getData = productionProcessList;
 }
 export class Table extends BaseTable {
   constructor() {
@@ -77,8 +78,33 @@ export const tableConfig = [
 
 export const formSchema = [
   {
-    prop: "BillId",
+    prop: "Keyword",
     cpn: "FormInput",
-    label: i18n.t("Generality.Ge_BillId"),
+    label: i18n.t("Generality.Ge_KeyWords"),
+  },
+  {
+    prop: "ResourceId",
+    label: i18n.t("menu.Pr_Resources"),
+    cpn: "SyncSelect",
+    api: getAllResource,
+    apiOptions: {
+      keyName: "ResourceGroup",
+      valueName: "ResourceId",
+    },
+  },
+  //部门搜索
+  {
+    prop: "Department",
+    label: i18n.t("menu.Se_Department"),
+    cpn: "SyncSelect",
+    api: getDepartmentList,
+    apiOptions: {
+      tree: true,
+      treeProps: {
+        children: "Children",
+        keyName: "Department",
+        valueName: "Department",
+      },
+    },
   },
 ];
