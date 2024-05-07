@@ -223,7 +223,7 @@ export default {
           Tel,
         };
       });
-      await getAllUserConfig({ UserName: this.UserName }).then((res) => {
+      await getAllUserConfig({ UserId: this.UserId }).then((res) => {
         this.ConfigData = translation(res);
       });
     },

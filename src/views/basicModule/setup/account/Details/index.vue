@@ -42,7 +42,7 @@
               },
               {
                 label: $t('Generality.Ge_Edit'),
-                icon: 'el-icon-delete',
+                icon: 'el-icon-edit',
                 confirm: edit.bind(null, UserId),
               },
             ]"
@@ -110,7 +110,7 @@ export default {
         this.UserInfo = res;
         this.detailObj.setData(res);
       });
-      await getAllUserConfig({ UserName: this.UserInfo.UserName }).then(
+      await getAllUserConfig({ UserId: this.UserId }).then(
         (res) => {
           this.ConfigData = translation(res);
         }
