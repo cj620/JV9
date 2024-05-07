@@ -62,7 +62,8 @@
           },
           {
             label: $t('design.De_DownloadTemplate'),
-            confirm: downExport2Excel.bind(),
+            // confirm: downExport2Excel.bind(),
+            confirm: downBOMTemplate.bind(),
           },
           {
             label: $t('Generality.Ge_MassUpload'),
@@ -890,7 +891,10 @@ export default {
           break;
       }
     },
-
+    //下载BOM模板
+    downBOMTemplate() {
+      window.open(window.global_config.ImgBase_Url + 'TplFolder/BOM模版.xlsx');
+    },
     //下载导入模板
     downExport2Excel() {
       var arr = [];
