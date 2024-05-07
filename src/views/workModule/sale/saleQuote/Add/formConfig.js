@@ -43,9 +43,7 @@ export const formSchema = [
       keyName: "ShortName",
       valueName: "CustomerId",
       propChange: (value, form, dataItem) => {
-        console.log(value, form, dataItem)
-        form.CustomerName=dataItem.ShortName
-        
+        form.CustomerName = dataItem.ShortName
       }
     },
   },
@@ -148,10 +146,10 @@ export const formSchema = [
     },
   },
   {
-    // 描述
+    // 客户名称
     prop: "CustomerName",
     cpn: "FormInput",
-    hidden: false,
-    label: i18n.t("Generality.Ge_Describe"),
+    hidden: true,
+    label: i18n.t("sale.Sa_CustomerName"),
   },
 ];
