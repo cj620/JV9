@@ -9,25 +9,51 @@ export class Table extends BaseTable {
   constructor() {
     super({
       tableSchema: tableConfig,
-      tableHeaderShow: false,
-      pagination: false,
-      sortCol: true,
-      chooseCol: true,
       data: [],
       title: "",
       selectType: "radio",
+      printBar: false,
+      searchBar: false,
+      chooseCol: false,
       operationCol: false,
+      tableHeaderShow: false,
+      pagination: false,
       height: 350,
     });
   }
 }
 export const tableConfig = [
-  /*模板名称*/
+  /*任务工序*/
   {
-    prop: "Template",
-    label: i18n.t("Generality.Ge_TemplateName"),
+    prop: "Process",
+    label: i18n.t("Generality.Ge_Process")
   },
-  /*制单人*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_TaskContent"),
+  },
+  /*预计工时*/
+  {
+    prop: "PlanTime",
+    label: i18n.t("Generality.Ge_PlanTime"),
+  },
+  /*资源组*/
+  {
+    prop: "Resource",
+    label: i18n.t("Generality.Ge_Resource"),
+  },
+  /*编程工艺*/
+  {
+    prop: "ProgramingProcess",
+    label: i18n.t("production.Pr_ProgramingProcess"),
+  },
+  /*是否强制检验*/
+  {
+    prop: "IsCompulsoryInspection",
+    label: i18n.t("setup.IsCompulsoryInspection"),
+    custom: true
+  },
+  /*备注*/
   {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),

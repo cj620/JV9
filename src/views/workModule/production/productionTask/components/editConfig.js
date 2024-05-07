@@ -71,6 +71,9 @@ export const tableConfig = [
     custom: true,
     formCpn: "customFormSelect",
     options: {},
+    editConfig: {
+      disabled: true,
+    },
   },
   /*是否强制检验*/
   {

@@ -44,6 +44,9 @@ export const tableConfig = [
     custom: true,
     formCpn: "customFormSelect",
     options: {},
+    editConfig: {
+      disabled: true,
+    },
   },
   /*计划资源*/
   {
