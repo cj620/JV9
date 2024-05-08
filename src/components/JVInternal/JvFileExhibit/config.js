@@ -30,7 +30,7 @@ export const tableConfig = [
   {
     prop: "CreationDate",
     label: i18n.t("Generality.Ge_UploadDate"),
-    filter: "date",
+    filter: "time",
   },
   /*文件类型*/
   {

@@ -161,15 +161,15 @@ function doCopy(params, $el) {
 }
 
 export function routeToDetail({ BillKey = undefined, BillId = undefined }) {
-  console.log(BillId, BillKey);
-  if(row.BillKey==='De_PartBomTable'){
-    this.$router.push({
-      name:'ToolingBOM',
-      params: {
-        PartNo: row.DynamicData,
-      },
-    });
-  }
+  // console.log(BillId, BillKey);
+  // if(row.BillKey==='De_PartBomTable'){
+  //   this.$router.push({
+  //     name:'ToolingBOM',
+  //     params: {
+  //       PartNo: row.DynamicData,
+  //     },
+  //   });
+  // }
   if (BillId && BillKey) {
     router.push({
       name: `${BillKey}_Detail`,

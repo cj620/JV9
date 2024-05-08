@@ -189,7 +189,18 @@ export const detailConfig = [
         return i18n.t("Generality.Ge_No")
       }
     },
-  }
+  },
+  {
+    // 制单人
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+  },
+  {
+    // 制单日期
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
+  },
 ];
 
 export const Qc_ProcessCheckTableConfig=[

@@ -7,6 +7,14 @@
 
 import request from "@/utils/request";
 
+// 加工工序列表
+export function productionProcessList(data) {
+  return request({
+    url: "/production_process/list",
+    method: "post",
+    data,
+  })
+}
 // 获取所有加工工序
 export function getAllProcess() {
   return request({

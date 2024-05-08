@@ -169,10 +169,55 @@ export const tableObjTemp = {
   operationWidth: 110,
   // 打印模块标识
   printMod: "Pm_ProjectTask_Record",
-  operationCol: false,
+  // operationCol: false,
 };
 export class Table extends BaseTable {
   constructor() {
     super(tableObjTemp);
   }
 }
+export const formSchema1 = [
+  {
+    prop: "WorkHour",
+    label: i18n.t("Generality.Ge_ActualTime"),
+    cpn: "FormInput",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    prop: "Progress",
+    label: i18n.t("Generality.Ge_Schedule"),
+    cpn: "Slider",
+    default: 0,
+    hidden: true,
+  },
+  {
+    prop: "StartDate",
+    label: i18n.t("program.Pr_ActualStart"),
+    cpn: "SingleDateTime",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    prop: "EndDate",
+    label: i18n.t("program.Pr_ActualEnd"),
+    cpn: "SingleDateTime",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+];
