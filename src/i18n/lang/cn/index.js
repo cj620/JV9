@@ -1732,6 +1732,7 @@ const cn = {
     Da_ProcessReworkLast90Days: "工序返工（最近90天）",
     Da_MonthlyQualityTrendChart: "月份品质趋势图",
     Da_Workbench: "工作台",
+    Da_PendingDocuments: "待审单据",
   },
 
   systemSetupData: {

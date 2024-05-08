@@ -20,9 +20,16 @@
         </div>
         <div class="right-menu-item hover-effect" style="padding-top: 2px">
           <div
-            class="el-icon-s-claim"
+            class="el-icon-s-order"
             style="font-size: 25px"
             @click="toWorkDesk"
+          ></div>
+        </div>
+        <div class="right-menu-item hover-effect" style="padding-top: 2px">
+          <div
+            class="el-icon-s-claim"
+            style="font-size: 25px"
+            @click="toPendingDoc"
           ></div>
         </div>
         <!-- el-icon-message-solid -->
@@ -422,6 +429,11 @@ export default {
     toWorkDesk() {
       this.$router.push({
         name: "Se_Desk",
+      });
+    },
+    toPendingDoc() {
+      this.$router.push({
+        name: "Se_PendingDocuments",
       });
     },
     toMoldProgressKanban() {

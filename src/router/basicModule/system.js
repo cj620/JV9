@@ -238,8 +238,16 @@ const system = [
     title: i18n.t("dashboard.Da_Workbench"),
     hidden: true,
   },
-
-
+  // 待审单据
+  {
+    key: "Se_PendingDocuments",
+    component: () => import("@/views/basicModule/system/pendingDocuments"),
+    Parent: "Se_Setup",
+    name: "Se_PendingDocuments",
+    path: "se_PendingDocuments",
+    title: i18n.t("dashboard.Da_PendingDocuments"),
+    hidden: true,
+  },
   // 文件夹管理权限
   {
     key: "Se_FileManagementSetup",

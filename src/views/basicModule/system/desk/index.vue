@@ -7,7 +7,7 @@
 <!--  页面-->
 <template>
   <PageWrapper :footer="false">
-    <div style="height: 50%; padding-bottom: 15px">
+    <div style="height: 100%; padding-bottom: 15px">
       <!-- 表格 -->
       <JvTable class="wrapper" ref="BillTable" :table-obj="taskTableObj">
         <Action
@@ -41,46 +41,46 @@
         </template>
       </JvTable>
     </div>
-    <div style="height: 50%">
-      <!-- 表格 -->
-      <JvTable class="wrapper" ref="BillTable" :table-obj="auditTableObj">
-        <Action
-          size="mini"
-          slot="btn-list"
-          :actions="[
-            {
-              disabled: auditTableObj.selectData.datas.length == 0,
-              label: $t('Generality.Ge_Approve'),
-              confirm: allAudit,
-            },
-            {
-              label: $t('setup.MyAuditingRecords'),
-              confirm: scanAuditRecord,
-            },
-          ]"
-        >
-        </Action>
-        <template #BillKey="{ record,row }">
-          <span v-if="row.DynamicData==='Part'">{{'零件'}}{{ $t("menu." + record) }}</span>
-          <span v-else-if="row.DynamicData==='Electrode'">{{'电极'}}{{ $t("menu." + record) }}</span>
-          <span v-else>{{ $t("menu." + record) }}</span>
-        </template>
-        <template #BillId="{ record, row }">
-          <el-link type="primary" @click="linkTo(row)">{{ record }}</el-link>
-        </template>
-        <!-- operation操作列 -->
-        <template #operation="{ row }">
-          <TableAction
-            :actions="[
-              {
-                label: $t('Generality.Ge_Approve'),
-                confirm: billAudit.bind(null, row),
-              },
-            ]"
-          />
-        </template>
-      </JvTable>
-    </div>
+<!--    <div style="height: 50%">-->
+<!--      &lt;!&ndash; 表格 &ndash;&gt;-->
+<!--      <JvTable class="wrapper" ref="BillTable" :table-obj="auditTableObj">-->
+<!--        <Action-->
+<!--          size="mini"-->
+<!--          slot="btn-list"-->
+<!--          :actions="[-->
+<!--            {-->
+<!--              disabled: auditTableObj.selectData.datas.length == 0,-->
+<!--              label: $t('Generality.Ge_Approve'),-->
+<!--              confirm: allAudit,-->
+<!--            },-->
+<!--            {-->
+<!--              label: $t('setup.MyAuditingRecords'),-->
+<!--              confirm: scanAuditRecord,-->
+<!--            },-->
+<!--          ]"-->
+<!--        >-->
+<!--        </Action>-->
+<!--        <template #BillKey="{ record,row }">-->
+<!--          <span v-if="row.DynamicData==='Part'">{{'零件'}}{{ $t("menu." + record) }}</span>-->
+<!--          <span v-else-if="row.DynamicData==='Electrode'">{{'电极'}}{{ $t("menu." + record) }}</span>-->
+<!--          <span v-else>{{ $t("menu." + record) }}</span>-->
+<!--        </template>-->
+<!--        <template #BillId="{ record, row }">-->
+<!--          <el-link type="primary" @click="linkTo(row)">{{ record }}</el-link>-->
+<!--        </template>-->
+<!--        &lt;!&ndash; operation操作列 &ndash;&gt;-->
+<!--        <template #operation="{ row }">-->
+<!--          <TableAction-->
+<!--            :actions="[-->
+<!--              {-->
+<!--                label: $t('Generality.Ge_Approve'),-->
+<!--                confirm: billAudit.bind(null, row),-->
+<!--              },-->
+<!--            ]"-->
+<!--          />-->
+<!--        </template>-->
+<!--      </JvTable>-->
+<!--    </div>-->
     <!-- 报工 -->
     <JvDialog
       :title="$t('setup.ReportWork')"
