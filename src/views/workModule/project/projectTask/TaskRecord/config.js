@@ -20,13 +20,14 @@ export const tableConfig = [
   {
     prop: "BillId",
     label: i18n.t("project.Pro_TaskSheetNo"),
+    width: '120px'
   },
 
   /*项目*/
   {
     prop: "Project",
     label: i18n.t("menu.Pm_Project"),
-    width: "120px",
+    // width: "120px",
     innerSearch: {
       prop: "Project",
       cpn: "FormInput",
@@ -47,7 +48,7 @@ export const tableConfig = [
   {
     prop: "TaskType",
     label: i18n.t("Generality.Ge_TaskType"),
-    width: "120px",
+    // width: "120px",
     custom: true,
     innerSearch: {
       prop: "TaskType",
@@ -62,7 +63,7 @@ export const tableConfig = [
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
-    width: "90px",
+    // width: "90px",
   },
   // 计划工时
   {
@@ -73,11 +74,12 @@ export const tableConfig = [
   /*开始时间*/
   {
     prop: "ActualStart",
-    label: i18n.t("Generality.Ge_StartTime"),
+    label: i18n.t("program.Pr_ActualStart"),
     filter: "time",
+    // width: "120px",
     innerSearch: {
       prop: "StartDate",
-      label: i18n.t("Generality.Ge_StartTime"),
+      label: i18n.t("program.Pr_ActualStart"),
       cpn: "SingleTime",
     },
   },
@@ -85,11 +87,12 @@ export const tableConfig = [
   /*结束时间*/
   {
     prop: "ActualEnd",
-    label: i18n.t("Generality.Ge_EndTime"),
+    label: i18n.t("program.Pr_ActualEnd"),
     filter: "time",
+    // width: "120px",
     innerSearch: {
       prop: "EndDate",
-      label: i18n.t("Generality.Ge_EndTime"),
+      label: i18n.t("program.Pr_ActualEnd"),
       cpn: "SingleTime",
     },
   },
@@ -97,21 +100,21 @@ export const tableConfig = [
   {
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_ActualTime"),
-    width: "90px",
+    // width: "90px",
   },
 
   /*制单人*/
   {
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
-    width: "95px",
+    // width: "95px",
   },
   /*制单日期*/
   {
     prop: "CreationDate",
-    label: i18n.t("Generality.Ge_CreationDate"),
-    filter: "date",
-    width: "120px",
+    label: i18n.t("program.Pr_CreationDate"),
+    filter: "time",
+    // width: "120px",
   },
 ];
 // taskTypeEnum
