@@ -44,7 +44,7 @@
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { formatTime } from "@/utils/index";
 import { mark_as_read } from "@/api/basicApi/systemSettings/notification";
-import { routeToDetail } from "@/jv_doc/utils/system/detailPlugin";
+import router from "@/router";
 export default {
   name: "NotifyItem",
   props: {
@@ -60,17 +60,37 @@ export default {
     imgUrlPlugin,
     formatTime,
     async toDetail() {
-		console.log(this.cdata)
-		this.$emit("toDetail");
+      this.$emit("toDetail");
       await mark_as_read({
         Id: this.cdata.MsgUserId,
         NotificationType: this.cdata.Type,
         OneClickRead: false,
       });
+      this.cdata.IsRead = true;
       // DynamicDataValue
       const { BillId, BillKey } = this.cdata.DynamicDataValue;
-      // console.log(BillId, BillKey);
-      routeToDetail({ BillId, BillKey });
+      if (BillId && BillKey) {
+        if (this.$router.history.current.name === `${BillKey}_Detail`) {
+          router.push({
+            name: 'Dashboard',
+          });
+          this.$nextTick(() => {
+            router.push({
+              name: `${BillKey}_Detail`,
+              query: {
+                BillId: BillId,
+              },
+            });
+          })
+        } else {
+          router.push({
+            name: `${BillKey}_Detail`,
+            query: {
+              BillId: BillId,
+            },
+          });
+        }
+      }
     },
   },
 };
