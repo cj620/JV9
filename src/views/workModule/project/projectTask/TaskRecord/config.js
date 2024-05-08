@@ -58,10 +58,16 @@ export const tableConfig = [
       },
     },
   },
-  /*工时*/
+  /*工序*/
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
+    width: "90px",
+  },
+  // 计划工时
+  {
+    prop: "PlanTime",
+    label: i18n.t("Generality.Ge_PlanTime"),
     width: "90px",
   },
   /*开始时间*/
@@ -87,10 +93,10 @@ export const tableConfig = [
       cpn: "SingleTime",
     },
   },
-  /*工时*/
+  /*实际工时*/
   {
-    prop: "PlanTime",
-    label: i18n.t("Generality.Ge_WorkHours"),
+    prop: "ActualTime",
+    label: i18n.t("Generality.Ge_ActualTime"),
     width: "90px",
   },
 
@@ -100,10 +106,10 @@ export const tableConfig = [
     label: i18n.t("project.Pro_Worker"),
     width: "95px",
   },
-  /*日期*/
+  /*制单日期*/
   {
     prop: "CreationDate",
-    label: i18n.t("Generality.Ge_Date"),
+    label: i18n.t("Generality.Ge_CreationDate"),
     filter: "date",
     width: "120px",
   },
