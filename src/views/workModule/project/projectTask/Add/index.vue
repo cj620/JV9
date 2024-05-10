@@ -272,9 +272,6 @@ export default {
     Object.assign(this.formObj.form, this.$route.params);
   },
   methods: {
-    test(e) {
-      console.log(e);
-    },
     cellBlur(cellObj){
       const _day = 86400000 / 8;
       for(let i = cellObj.row; i < this.M_TableObj.tableData.length-1; i++) {
@@ -338,7 +335,16 @@ export default {
       e.forEach((item) => {
         item.Id = "";
       });
-      this.M_TableObj.push([Object.assign({}, this.BillItems, e[0])]);
+      const arr = [Object.assign({}, this.BillItems, e[0])]
+      let startBase = new Date(this.formObj.form.PlanStart).getTime();
+      const TimeZone =
+        new Date(this.formObj.form.PlanEnd).getTime() -
+        new Date(this.formObj.form.PlanStart).getTime();
+      arr[0].PlanStart = timeFormat(
+        startBase + arr[0].StartScale * TimeZone
+      );
+      arr[0].PlanEnd = timeFormat(startBase + arr[0].EndScale * TimeZone);
+      this.M_TableObj.push(arr);
     },
     insertDoubleCol,
     delDoubleCol,
@@ -400,7 +406,17 @@ export default {
     },
     //选择模板后返回的数据
     confirmProcessTemplate(e) {
-      console.log(e);
+      let startBase = new Date(this.formObj.form.PlanStart).getTime();
+      const TimeZone =
+        new Date(this.formObj.form.PlanEnd).getTime() -
+        new Date(this.formObj.form.PlanStart).getTime();
+      e.forEach((item) => {
+        item.PlanStart = timeFormat(
+          startBase + item.StartScale * TimeZone
+        );
+        item.PlanEnd = timeFormat(startBase + item.EndScale * TimeZone);
+      })
+      let arr = temMerge(this.BillItems, e)
       this.M_TableObj.push(temMerge(this.BillItems, e));
       this.ProcessTemplateDialogFormVisible = false;
     },
@@ -432,7 +448,6 @@ export default {
       });
     },
     editSort(isDown = true) {
-      // console.log(this.M_TableObj.selectData);
       if (this.M_TableObj.selectData.datas.length !== 1) return;
       let row_index = this.M_TableObj.selectData.datas[0].row_index;
 
