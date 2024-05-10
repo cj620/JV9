@@ -156,7 +156,17 @@ export default {
     this.M_tableObj = new M_Table();
     this.P_tableObj = new P_Table();
 
-    this.M_tableObj.setCallBack((res) => this.getProcessData(res));
+    this.M_tableObj.setCallBack((res) => {
+      if (res.Count !== 0) {
+        this.getProcessData(res)
+      } else {
+        this.processData = [];
+        this.$message({
+          message: this.$t('Generality.Ge_NoData'),
+          type: 'warning'
+        });
+      }
+    });
     // this.M_tableObj.pager.sizeChange(5);
     this.M_tableObj.formObj.form.ShowInProdSchedule = true;
   },
@@ -171,6 +181,7 @@ export default {
   methods: {
     getScreenWidth() {
       this.boxWidth = this.$store.state.app.sidebar.opened ?  (window.innerWidth - 210 - 100) / 320 : (window.innerWidth - 55 - 100) / 320
+      this.currentSize = Math.max(Math.floor(this.boxWidth), 1);
       this.currentSize = Math.min(Math.floor(this.boxWidth), 5);
       this.M_tableObj.pager.sizeChange(this.currentSize);
     },
@@ -235,6 +246,7 @@ export default {
         );
         this.M_tableObj.getData();
       } else {
+        this.M_tableObj.formObj.form.CurrentPage = 1;
         this.M_tableObj.getData();
         this.showPopover = false
       }
