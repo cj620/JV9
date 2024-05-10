@@ -24,6 +24,7 @@
                 <el-button
                         type="primary"
                         @click="formSubmit('search')"
+                        :disabled="!(M_tableObj.formObj.form.ResourceId || M_tableObj.formObj.form.Process)"
                         size="mini"
                         style="position: absolute; right: 10px;"
                 >
@@ -150,6 +151,7 @@ export default {
       currentProcessPage: 1,
       boxWidth: 0,
       currentSize: 1,
+      preSize: null,
     };
   },
   created() {
@@ -167,8 +169,6 @@ export default {
         });
       }
     });
-    // this.M_tableObj.pager.sizeChange(5);
-    this.M_tableObj.formObj.form.ShowInProdSchedule = true;
   },
   mounted() {
     this.getScreenWidth();
@@ -183,7 +183,11 @@ export default {
       this.boxWidth = this.$store.state.app.sidebar.opened ?  (window.innerWidth - 210 - 100) / 320 : (window.innerWidth - 55 - 100) / 320
       this.currentSize = Math.max(Math.floor(this.boxWidth), 1);
       this.currentSize = Math.min(Math.floor(this.boxWidth), 5);
-      this.M_tableObj.pager.sizeChange(this.currentSize);
+      if (this.preSize !== this.currentSize) {
+        this.M_tableObj.pager.page = 1;
+        this.M_tableObj.pager.sizeChange(this.currentSize);
+      }
+      this.preSize = this.currentSize;
     },
     watchScroll() {
         let taskListBox = document.querySelector('.task-list.list-box');
@@ -247,6 +251,7 @@ export default {
         this.M_tableObj.getData();
       } else {
         this.M_tableObj.formObj.form.CurrentPage = 1;
+        this.M_tableObj.pager.page = 1;
         this.M_tableObj.getData();
         this.showPopover = false
       }
@@ -258,8 +263,9 @@ export default {
       if (scrollBottom < 100) {
         // if (this.isAllproceeList) return;
         // this.P_tableObj.pager.page
-        if (this.currentProcessPage - this.P_tableObj.pager.page == 1) {
-          this.P_tableObj.pager.currentChange(this.currentProcessPage);
+        console.log(this.currentProcessPage, this.P_tableObj.pager.page);
+        if (this.currentProcessPage - this.P_tableObj.pager.page === 1) {
+          this.P_tableObj.pager.currentChange(99);
         }
       }
     },
@@ -269,9 +275,9 @@ export default {
       });
       this.P_tableObj.pager.page = 1;
       this.P_tableObj.setCallBack((val) => {
-        this.setProcessData(val.Items, this.P_tableObj.pager.page == 1);
+        this.setProcessData(val.Items, this.P_tableObj.pager.page === 1);
       });
-      this.P_tableObj.pager.sizeChange(this.currentSize);
+      this.P_tableObj.pager.sizeChange(99);
     },
     setProcessData(data, flash) {
       if (flash) {

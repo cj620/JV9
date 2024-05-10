@@ -54,6 +54,11 @@ const formSchema = [
       valueName: "Process",
     },
   },
+  {
+    prop: "ShowInProdSchedule",
+    default: true,
+    hidden: true,
+  }
 ];
 
 export class P_api extends TableAPI {
