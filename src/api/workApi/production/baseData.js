@@ -78,6 +78,7 @@ export function production_device_list(data) {
     url: "/production_device/list",
     method: "post",
     data,
+    loading: true,
   });
 }
 
