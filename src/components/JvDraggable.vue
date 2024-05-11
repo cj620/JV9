@@ -1,16 +1,19 @@
 <template>
   <draggable
     v-model="resultList"
-    :forceFallback="JSON.stringify($attrs.forceFallback) ? $attrs.forceFallback : true"
+    :forceFallback="
+      JSON.stringify($attrs.forceFallback) ? $attrs.forceFallback : true
+    "
     v-bind="$attrs"
     v-on="$listeners"
     :isUserSelect="isUserSelect"
+    style="height: 100%"
   >
-    <transition-group>
+    <transition-group :style="{height:'99%', width: '100%',display: isInlineBlock ? 'inline-block' : ''}">
       <div
         v-for="(item, i) in resultList"
-        :key="i + ''+item"
-        :style="{userSelect: isUserSelect ? '' : 'none'}"
+        :key="i + '' + item"
+        :style="{ userSelect: isUserSelect ? '' : 'none' }"
       >
         <slot :item="item" />
       </div>
@@ -29,12 +32,18 @@ export default {
   props: {
     value: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
+    // 开启文字可被选择
     isUserSelect: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
+    // 开启拖拽框体随父元素大小
+    isInlineBlock: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -44,13 +53,12 @@ export default {
   created() {
     this.resultList = this.value;
   },
-  methods: {
-  },
+  methods: {},
   watch: {
     resultList(val) {
-      this.$emit('input', val)
-    }
-  }
+      this.$emit("input", val);
+    },
+  },
 };
 </script>
 
