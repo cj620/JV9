@@ -101,6 +101,7 @@ const cn = {
     Pr_ProductionTask: "生产任务",
     Pr_ProductionSchedule: "生产排程",
     Pr_ProductionDispatch: "生产调度",
+    Pr_ProductionAllocation: "生产派工",
     Pr_WorkReport: "生产报工",
     Pr_ProductionPlan: "生产计划",
     Pr_Reports: "统计报表",

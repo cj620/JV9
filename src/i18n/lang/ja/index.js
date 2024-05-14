@@ -101,6 +101,7 @@ const ja = {
     Pr_ProductionTask: "せいさんタスク",
     Pr_ProductionSchedule: "生産スケジュール",
     Pr_ProductionDispatch: "生産スケジューリング",
+    Pr_ProductionAllocation: "生産派遣",
     Pr_WorkReport: "生産報告",
     Pr_ProductionPlan: "生産計画",
     Pr_Reports: "統計レポート",
