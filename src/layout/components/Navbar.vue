@@ -12,25 +12,31 @@
     <div class="right-menu">
       <template v-if="device !== 'mobile'">
         <div class="right-menu-item hover-effect" style="padding-top: 3px">
-          <div
-            class="el-icon-s-platform"
-            style="font-size: 25px"
-            @click="toMoldProgressKanban"
-          ></div>
+          <el-tooltip :content="$t('systemSetupData.Dashboard')" effect="dark" placement="bottom">
+            <div
+              class="el-icon-s-platform"
+              style="font-size: 25px"
+              @click="toMoldProgressKanban"
+            ></div>
+          </el-tooltip>
         </div>
         <div class="right-menu-item hover-effect" style="padding-top: 2px">
-          <div
-            class="el-icon-s-order"
-            style="font-size: 25px"
-            @click="toWorkDesk"
-          ></div>
+          <el-tooltip :content="$t('dashboard.Da_Workbench')" effect="dark" placement="bottom">
+            <div
+              class="el-icon-s-order"
+              style="font-size: 25px"
+              @click="toWorkDesk"
+            ></div>
+          </el-tooltip>
         </div>
         <div class="right-menu-item hover-effect" style="padding-top: 2px">
-          <div
-            class="el-icon-s-claim"
-            style="font-size: 25px"
-            @click="toPendingDoc"
-          ></div>
+          <el-tooltip :content="$t('dashboard.Da_PendingDocuments')" effect="dark" placement="bottom">
+            <div
+              class="el-icon-s-claim"
+              style="font-size: 25px"
+              @click="toPendingDoc"
+            ></div>
+          </el-tooltip>
         </div>
         <!-- el-icon-message-solid -->
         <!-- <el-badge is-dot class="item">数据查询</el-badge> -->
@@ -127,10 +133,12 @@
             </div>
             <span slot="reference">
               <el-badge :value="notifysCounts">
-                <span
-                  class="el-icon-message-solid"
-                  style="font-size: 25px"
-                ></span>
+                <el-tooltip :content="$t('Generality.Ge_Notice')" effect="dark" placement="bottom">
+                  <span
+                    class="el-icon-message-solid"
+                    style="font-size: 25px"
+                  ></span>
+                </el-tooltip>
               </el-badge>
             </span>
           </el-popover>
