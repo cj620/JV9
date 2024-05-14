@@ -28,8 +28,7 @@
           </div>
           <div class="allocated-body">
               <JvDraggable
-                :col='2'
-                ghostClass="ghostClass-box"
+                :col='3'
                 Id="JvDraggable-1"
                 group="aa"
                 v-model="processList1"
@@ -58,7 +57,6 @@
             <JvDraggable
               Id="JvDraggable-2"
               group="aa"
-              ghostClass="ghostClass-box-1"
               v-model="processList2"
               animation="10"
               ref="JvDraggableRef">

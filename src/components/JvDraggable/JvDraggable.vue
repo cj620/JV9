@@ -8,6 +8,7 @@
     v-on="$listeners"
     :isUserSelect="isUserSelect"
     style="height: 100%; width: 100%"
+    :ghostClass="getClassNameFn"
   >
     <transition-group
       class="clearfix"
@@ -71,6 +72,10 @@ export default {
       type: String,
       default: 'JvDraggableId'
     },
+    getClassName: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {
@@ -78,14 +83,31 @@ export default {
       templateWidth: '',
     };
   },
+  computed: {
+    getClassNameFn() {
+      if(this.getClassName) {
+        return this.getClassName
+      } else {
+        return `ghostClass-${this.col}`
+      }
+    }
+  },
   created() {
     this.resultList = this.value;
-
   },
   mounted() {
     this.$nextTick(() => {
       const clearfixBox = document.querySelector(`#${this.Id}`);
       this.templateWidth = clearfixBox.clientWidth / this.col - 2 + 'px';
+
+      const style = document.createElement('style');
+      style.id = 'draggable-ghost-style'
+      style.textContent = `
+          .ghostClass-${this.col} {
+            width: ${(100 / this.col).toFixed(2)}%!important;
+          }
+        `;
+      document.head.appendChild(style);
     })
   },
   methods: {
