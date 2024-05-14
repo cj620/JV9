@@ -127,6 +127,16 @@ const production = [
     path: "productionDispatch",
     title: i18n.t("menu.Pr_ProductionDispatch"),
   },
+  // 生产派工
+  {
+    key: "Pr_ProductionAllocation",
+    component: () =>
+      import("@/views/workModule/production/productionAllocation/List"),
+    Parent: "Pr_Production",
+    name: "ProductionAllocation",
+    path: "productionAllocation",
+    title: i18n.t("menu.Pr_ProductionAllocation"),
+  },
   // 生产报工
   {
     key: "Pr_WorkReport",
