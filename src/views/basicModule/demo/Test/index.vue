@@ -15,8 +15,7 @@
       @change="handleClick"
     />
 
-
-    <div class="mxdiv" style="width: 100%;height: 90vh">
+    <div class="mxdiv" style="width: 100%; height: 90vh">
       <canvas id="mxcad"></canvas>
     </div>
   </PageWrapper>
@@ -30,7 +29,7 @@ export default {
     return {};
   },
   mounted() {
-   /*  // 配置 鼠标点击图形 自定选中该图形对象
+    /*  // 配置 鼠标点击图形  自定选中该图形对象test
     MxFun.setIniset({
       // 启用对象选择功能.
       EnableIntelliSelect: true,
@@ -45,7 +44,7 @@ export default {
       cadFile: "./XYK20231019B.dwg",
       useWebsocket: false,
     });
-    console.log(MxFun,56789)
+    console.log(MxFun, 56789);
   },
   methods: {
     chooseFile() {
@@ -110,7 +109,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-
-
-</style>
+<style lang="scss" scoped></style>
