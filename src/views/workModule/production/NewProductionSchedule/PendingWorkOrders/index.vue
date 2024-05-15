@@ -1,6 +1,6 @@
 <template>
   <page-wrapper :footer="false">
-    <JvTable :tableObj="tableObj">
+    <JvTable ref="BillTable" :tableObj="tableObj">
       <template #Level="{ row }">
         <div>
           {{ LevelEnum[row.Level].name }}
@@ -47,6 +47,7 @@ export default {
   methods: {
     GinsengPlatoon(all) {
       if(all) {
+        console.log(this.tableObj)
         this.$confirm(
           this.$t("production.Pr_WhetherAddToSchedulingWorkOrderAll"),
           this.$t("Generality.Ge_Remind"), {
@@ -56,11 +57,13 @@ export default {
         }).then(() => {
           update_is_partake_aps({UpdateAll: true}).then(res => {
             this.tableObj.getData();
+            this.$refs.BillTable.clearSelection();
           })
         })
       } else {
         update_is_partake_aps({BillIds: this.tableObj.selectData.keys, IsPartakeAPS: "Normal"}).then(res => {
           this.tableObj.getData();
+          this.$refs.BillTable.clearSelection();
         })
 
       }

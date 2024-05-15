@@ -1,6 +1,6 @@
 <template>
   <page-wrapper :footer="false">
-    <JvTable :tableObj="tableObj">
+    <JvTable ref="BillTable" :tableObj="tableObj">
       <template #Level="{ row }">
         <div>
           {{ LevelEnum[row.Level].name }}
@@ -59,6 +59,7 @@ export default {
     GinsengPlatoon() {
       update_is_partake_aps({BillIds: this.tableObj.selectData.keys, IsPartakeAPS: "ToBeArranged"}).then(res => {
         this.tableObj.getData();
+        this.$refs.BillTable.clearSelection();
       })
     },
     editDeliveryDate() {
