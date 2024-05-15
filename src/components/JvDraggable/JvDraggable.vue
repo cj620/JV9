@@ -15,6 +15,7 @@
       :Id="Id"
       :style="{
         height: '99%',
+        width: '100%',
         display: isInlineBlock ? 'inline-block' : '',
       }"
     >
@@ -26,6 +27,7 @@
           userSelect: isUserSelect ? '' : 'none',
           float: isFloat ? 'left' : '',
           width: templateWidth,
+          overflow: 'hidden',
         }"
       >
         <slot :item="item" :index="index" />
@@ -106,6 +108,10 @@ export default {
     resultList(val) {
       this.$emit("input", val);
     },
+    value(val) {
+      console.log(val,111)
+      this.resultList = val;
+    }
   },
   destroyed() {
     window.onresize = null;

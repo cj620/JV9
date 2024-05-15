@@ -1,16 +1,16 @@
 <template>
   <div class="process-card" :style="{ width: itemWidth ? itemWidth : '' }">
     <div class="process-card-content">
-      <div class="process-state" :style="{ backgroundColor : ProcessStateMap[this.processData.ProcessState].color }"></div>
+      <div class="process-state" :style="{ backgroundColor : LevelEnumMap[this.processData.Level] ? LevelEnumMap[this.processData.Level].fcolor : '' }"></div>
       <div class="process-content">
         <div class="process-content-item">
-          <div v-if="this.num">No.{{ this.num }}</div>
-          <div>{{ this.processData.ToolingNo }}</div>
-          <div>({{ this.processData.Process }})</div>
+          <div v-if="this.num" class="item-num">No.{{ this.num }}</div>
+          <div class="item-partNo">{{ this.processData.PartNo }}</div>
+          <div class="item-process">({{ this.processData.Process }})</div>
         </div>
         <div class="process-content-item">
-          <div>类型：{{ this.processData.TaskType }}</div>
-          <div>工时：{{ this.processData.WorkHours }}</div>
+          <div class="item-state">状态：{{ this.processData.State }}</div>
+          <div class="item-time">工时：{{ this.processData.PlanTime }}</div>
         </div>
       </div>
       <div class="process-button">
@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import { ProcessState } from "@/enum/workModule";
+import { LevelEnum } from "@/enum/workModule";
 export default {
   props: {
     processData: {
@@ -52,8 +52,8 @@ export default {
     }
   },
   computed: {
-    ProcessStateMap() {
-      return ProcessState;
+    LevelEnumMap() {
+      return LevelEnum;
     },
   },
   methods: {
@@ -94,6 +94,41 @@ export default {
         display: flex;
         justify-content: space-around;
         align-items: center;
+        .item-num {
+          height: 100%;
+          width: 20%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .item-partNo {
+          height: 100%;
+          width: 40%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .item-process {
+          height: 100%;
+          width: 40%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .item-state {
+          height: 100%;
+          width: 60%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .item-time {
+          height: 100%;
+          width: 40%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
       }
     }
     .process-button {
