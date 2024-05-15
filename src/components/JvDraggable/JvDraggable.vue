@@ -15,7 +15,6 @@
       :Id="Id"
       :style="{
         height: '99%',
-        width: '100%',
         display: isInlineBlock ? 'inline-block' : '',
       }"
     >
@@ -38,8 +37,9 @@
 <script>
 //导入draggable组件
 import draggable from "vuedraggable";
-
+import windowOnresize from "@/components/JvDraggable/windowOnresize";
 export default {
+  mixins: [windowOnresize],
   components: {
     draggable,
   },
@@ -68,19 +68,23 @@ export default {
       type: Number | String,
       default: 1
     },
-    Id: {
-      type: String,
-      default: 'JvDraggableId'
-    },
+    // 自定义cardbox类名
     getClassName: {
       type: String,
       default: ''
+    },
+    // 是否随窗口大小变化而变化
+    isOnResize: {
+      type: Boolean,
+      default: true,
     }
   },
   data() {
     return {
       resultList: [],
       templateWidth: '',
+      timer:null,
+      Id: '',
     };
   },
   computed: {
@@ -90,25 +94,11 @@ export default {
       } else {
         return `ghostClass-${this.col}`
       }
-    }
+    },
   },
   created() {
     this.resultList = this.value;
-  },
-  mounted() {
-    this.$nextTick(() => {
-      const clearfixBox = document.querySelector(`#${this.Id}`);
-      this.templateWidth = clearfixBox.clientWidth / this.col - 2 + 'px';
-
-      const style = document.createElement('style');
-      style.id = 'draggable-ghost-style'
-      style.textContent = `
-          .ghostClass-${this.col} {
-            width: ${(100 / this.col).toFixed(2)}%!important;
-          }
-        `;
-      document.head.appendChild(style);
-    })
+    this.Id = (new Date().getTime() + Math.random().toFixed(0)).toString();
   },
   methods: {
   },
@@ -117,6 +107,9 @@ export default {
       this.$emit("input", val);
     },
   },
+  destroyed() {
+    window.onresize = null;
+  }
 };
 </script>
 

@@ -139,3 +139,11 @@ export function update_worker(query){
     params: query,
   })
 }
+// 加工单任务分配工序列表
+export function allocation_process_list(data) {
+  return request({
+    url: "/production_task/allocation_process_list",
+    method: "post",
+    data,
+  })
+}

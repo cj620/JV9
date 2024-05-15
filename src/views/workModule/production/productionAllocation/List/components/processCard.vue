@@ -1,5 +1,5 @@
 <template>
-  <div class="process-card">
+  <div class="process-card" :style="{ width: itemWidth ? itemWidth : '' }">
     <div class="process-card-content">
       <div class="process-state" :style="{ backgroundColor : ProcessStateMap[this.processData.ProcessState].color }"></div>
       <div class="process-content">
@@ -19,8 +19,12 @@
           <div class="process-button-operate-item"><i class="el-icon-lock"></i></div>
         </div>
         <div class="process-button-trans" v-else>
-          <div style="height: 30px; width: 30px; border-radius: 50%; border: #0960bd 2px solid; position: absolute; top: 19px; right: 14px; "></div>
-          <i class="el-icon-back" style="color: #0960bd; position: absolute; top: 20px; right: 16px; font-size: 26px;"></i>
+          <div class="circle"></div>
+          <i
+            class="el-icon-back"
+            style="color: #0960bd; position: absolute; top: 20px; right: 16px; font-size: 26px; cursor: pointer;"
+            @click="pushProcess"
+          ></i>
         </div>
       </div>
     </div>
@@ -41,6 +45,10 @@ export default {
     isAllocated: {
       type: Boolean,
       default: null,
+    },
+    itemWidth: {
+      type: String,
+      default: null,
     }
   },
   computed: {
@@ -48,6 +56,11 @@ export default {
       return ProcessState;
     },
   },
+  methods: {
+    pushProcess() {
+      this.$emit("pushToAllocated", this.processData);
+    }
+  }
 }
 </script>
 <style scoped lang="scss">
@@ -106,5 +119,14 @@ export default {
       }
     }
   }
+}
+.circle {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: #0960bd 2px solid;
+  position: absolute;
+  top: 19px;
+  right: 14px;
 }
 </style>

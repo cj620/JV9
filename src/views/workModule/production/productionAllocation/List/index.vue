@@ -7,11 +7,13 @@
           <i class="el-icon-search" style="margin-left: 8px"></i>
         </div>
         <div class="allocation-page-device-body">
-          <el-tabs tab-position="left">
+          <el-tabs tab-position="left" @tab-click="clickDevice">
             <el-tab-pane
               v-for="(item, i) in deviceList"
               :key="i"
-              :label="item.Device"></el-tab-pane>
+              :label="item.Device"
+              :content="item.DeviceNo"
+            ></el-tab-pane>
           </el-tabs>
         </div>
       </div>
@@ -28,23 +30,19 @@
           </div>
           <div class="allocated-body">
               <JvDraggable
-                :col='3'
-                Id="JvDraggable-1"
+                :col='2'
                 group="aa"
                 v-model="processList1"
                 animation="10"
                 ref="JvDraggableRef">
                 <template slot-scope="item">
-                  <ProcessCard :processData="item.item" :isAllocated="true" :num="item.index + 1"></ProcessCard>
+                  <ProcessCard
+                    :processData="item.item"
+                    :isAllocated="true"
+                    :num="item.index + 1"
+                  ></ProcessCard>
                 </template>
               </JvDraggable>
-<!--              <div-->
-<!--                class="allocated-body-item"-->
-<!--                v-for="(item, i) in processList1"-->
-<!--                :key="item.index"-->
-<!--              >-->
-<!--                <ProcessCard :processData="item" :isAllocated="true" :num="item.index"></ProcessCard>-->
-<!--              </div>-->
           </div>
         </div>
         <div class="unallocated">
@@ -55,25 +53,18 @@
           </div>
           <div class="unallocated-body">
             <JvDraggable
-              Id="JvDraggable-2"
               group="aa"
               v-model="processList2"
               animation="10"
-              ref="JvDraggableRef">
+              ref="JvDraggableRef1">
               <template slot-scope="item">
-                <ProcessCard :processData="item.item" :isAllocated="false"></ProcessCard>
+                <ProcessCard
+                  :processData="item.item"
+                  :isAllocated="false"
+                  @pushToAllocated="pushToAllocated"
+                ></ProcessCard>
               </template>
             </JvDraggable>
-<!--            <div style="display: flex; width: 100%; height: 100%; flex-wrap: wrap;">-->
-
-<!--              <div-->
-<!--                class="unallocated-body-item"-->
-<!--                v-for="(item, i) in processList2"-->
-<!--                :key="i"-->
-<!--              >-->
-<!--                <ProcessCard :processData="item" :isAllocated="false"></ProcessCard>-->
-<!--              </div>-->
-<!--            </div>-->
           </div>
         </div>
       </div>
@@ -82,6 +73,7 @@
 </template>
 <script>
 import { production_device_list } from "@/api/workApi/production/baseData";
+import { allocation_process_list } from "@/api/workApi/production/productionTask";
 import JvDraggable from '@/components/JvDraggable/JvDraggable.vue';
 import ProcessCard from "@/views/workModule/production/productionAllocation/List/components/processCard.vue";
 export default {
@@ -92,14 +84,7 @@ export default {
   },
   data() {
     return {
-      deviceList: [
-        {
-          Device: 'H1',
-        },
-        {
-          Device: 'H2',
-        },
-      ],
+      deviceList: [],
       processList1: [
         {
           index: 1,
@@ -223,6 +208,15 @@ export default {
     })
   },
   methods: {
+    pushToAllocated(e) {
+      this.processList1.push(e)
+    },
+    // 点击tabs选择设备
+    clickDevice(e) {
+      allocation_process_list({DeviceNo: e.$attrs.content}).then((res) => {
+        console.log(res)
+      })
+    }
   },
 }
 </script>
