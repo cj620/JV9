@@ -15,8 +15,8 @@
       </div>
       <div class="process-button">
         <div class="process-button-operate" v-if="isAllocated">
-          <div class="process-button-operate-item" @click="editProgress"><i class="el-icon-edit-outline"></i></div>
-          <div class="process-button-operate-item"><i class="el-icon-lock"></i></div>
+          <div class="process-button-operate-item" style="margin: 5px 0 10px 0" @click="editProgress"><i class="el-icon-edit-outline"></i></div>
+          <div class="process-button-operate-item" style="margin: 10px 0 5px 0"><i class="el-icon-lock"></i></div>
         </div>
         <div class="process-button-trans" v-else>
           <div class="circle"></div>
@@ -150,7 +150,7 @@ export default {
         height: 100%;
         width: 100%;
         &-item {
-          height: 50%;
+          height: calc(50% - 10px);
           width: 100%;
           display: flex;
           justify-content: center;

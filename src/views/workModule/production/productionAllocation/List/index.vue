@@ -88,6 +88,12 @@
         </div>
       </div>
     </div>
+    <EditProcessForm
+      :visible.sync="editProcessDialogFormVisible"
+      v-if="editProcessDialogFormVisible"
+      :editProcessData="editProcessData"
+      @confirmToEdit="editDevice"
+    ></EditProcessForm>
   </PageWrapper>
 </template>
 <script>
@@ -96,20 +102,26 @@ import { allocation_process_list } from "@/api/workApi/production/productionTask
 import { production_dispatching_list, production_dispatching_change_device } from "@/api/workApi/production/productionDispatch";
 import JvDraggable from '@/components/JvDraggable/JvDraggable.vue';
 import ProcessCard from "@/views/workModule/production/productionAllocation/List/components/processCard.vue";
+import EditProcessForm from "@/views/workModule/production/productionAllocation/List/components/editProcessForm.vue";
+import selectBomList from "@/views/workModule/production/productionTask/components/selectBomList.vue";
 export default {
   name: "ProductionAllocation",
   components: {
+    selectBomList,
     ProcessCard,
     JvDraggable,
+    EditProcessForm,
   },
   data() {
     return {
       selectedResources: '',
       selectedDeviceNo: '',
+      editProcessData: {},
       resourcesOptions: [],
       deviceList: [],
       processList1: [],
       processList2: [],
+      editProcessDialogFormVisible: false,
     }
   },
   created() {
@@ -152,7 +164,8 @@ export default {
     },
     // 编辑工序信息
     editProgress(e) {
-      console.log(e)
+      this.editProcessData = e;
+      this.editProcessDialogFormVisible = true;
     },
     pushToAllocated(e) {
       const obj = {
@@ -162,7 +175,7 @@ export default {
         DeviceName: this.selectedDeviceNo,
         IsModifyDate: true,
       }
-      this.changeDevice(obj);
+      this.editDevice(obj);
     },
     handleAddAllocated(e){
       const obj = {
@@ -172,7 +185,7 @@ export default {
         DeviceName: this.selectedDeviceNo,
         IsModifyDate: true,
       }
-      this.changeDevice(obj);
+      this.editDevice(obj);
     },
     handleAddUnallocated(e){
       const obj = {
@@ -182,11 +195,12 @@ export default {
         DeviceName: '',
         IsModifyDate: true,
       }
-      this.changeDevice(obj);
+      this.editDevice(obj);
     },
-    changeDevice(e) {
+    editDevice(e) {
       production_dispatching_change_device(e).then(() => {
-        this.getProcessByDevice(this.selectedDeviceNo)
+        this.getProcessByDevice(this.selectedDeviceNo);
+        this.editProcessDialogFormVisible = false;
       })
     }
   },
