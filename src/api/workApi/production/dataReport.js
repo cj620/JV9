@@ -92,3 +92,19 @@ export function personnel_hours_details(data) {
     data,
   });
 }
+// 模具工时明细
+export function data_report_tooling_summary(data) {
+  return request({
+    url: "/data_report/tooling_summary",
+    method: "post",
+    data,
+  });
+}
+// 零件工时明细
+export function data_report_part_summary(data) {
+  return request({
+    url: "/data_report/part_summary",
+    method: "post",
+    data,
+  });
+}

@@ -331,7 +331,7 @@ const production = [
     path: "employeesChart",
     title: i18n.t("menu.Pr_EmployeesChart"),
   },
-  // 工时汇总
+  // 员工工时汇总
   {
     key: "Pr_PersonnelHoursSummary",
     component: () =>
@@ -340,6 +340,16 @@ const production = [
     name: "Pr_PersonnelHoursSummary",
     path: "Pr_PersonnelHoursSummary",
     title: i18n.t("menu.Pr_PersonnelHoursSummary"),
+  },
+  // 模具工时汇总
+  {
+    key: "Pr_ToolingHoursSummary",
+    component: () =>
+      import("@/views/workModule/production/report/toolingHoursSummary"),
+    Parent: "Pr_Report",
+    name: "Pr_ToolingHoursSummary",
+    path: "Pr_ToolingHoursSummary",
+    title: i18n.t("menu.Pr_ToolingHoursSummary"),
   },
   // 零件生产报表
   {
