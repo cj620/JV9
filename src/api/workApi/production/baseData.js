@@ -180,7 +180,6 @@ export function editResourceMember(data) {
 
 // 获取资源组成员
 export function getResourceMember(query) {
-  console.log(query, 123456465);
   return request({
     url: "/production_resource/get_resource_member",
     method: "get",

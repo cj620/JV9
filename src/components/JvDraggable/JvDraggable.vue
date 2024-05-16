@@ -9,6 +9,7 @@
     :isUserSelect="isUserSelect"
     style="height: 100%; width: 100%"
     :ghostClass="getClassNameFn"
+    @add="add"
   >
     <transition-group
       class="clearfix"
@@ -85,6 +86,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    add: {
+      type: Function,
+      default: () => {}
+    }
   },
   data() {
     return {
@@ -114,7 +119,6 @@ export default {
       this.$emit("input", val);
     },
     value(val) {
-      console.log(val,111)
       this.resultList = val;
     }
   },

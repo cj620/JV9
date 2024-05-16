@@ -9,13 +9,13 @@
           <div class="item-process">({{ this.processData.Process }})</div>
         </div>
         <div class="process-content-item">
-          <div class="item-state">状态：{{ this.processData.State }}</div>
+          <div class="item-state">类型：{{ TaskTypeEnumMap[this.processData.TaskType] ? TaskTypeEnumMap[this.processData.TaskType].name : "" }}</div>
           <div class="item-time">工时：{{ this.processData.PlanTime }}</div>
         </div>
       </div>
       <div class="process-button">
         <div class="process-button-operate" v-if="isAllocated">
-          <div class="process-button-operate-item"><i class="el-icon-edit-outline"></i></div>
+          <div class="process-button-operate-item" @click="editProgress"><i class="el-icon-edit-outline"></i></div>
           <div class="process-button-operate-item"><i class="el-icon-lock"></i></div>
         </div>
         <div class="process-button-trans" v-else>
@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import { LevelEnum } from "@/enum/workModule";
+import { LevelEnum, taskTypeEnum } from "@/enum/workModule";
 export default {
   props: {
     processData: {
@@ -55,10 +55,16 @@ export default {
     LevelEnumMap() {
       return LevelEnum;
     },
+    TaskTypeEnumMap() {
+      return taskTypeEnum;
+    }
   },
   methods: {
     pushProcess() {
       this.$emit("pushToAllocated", this.processData);
+    },
+    editProgress() {
+      this.$emit("editProgress", this.processData);
     }
   }
 }
@@ -103,17 +109,23 @@ export default {
         }
         .item-partNo {
           height: 100%;
-          width: 40%;
+          width: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
         .item-process {
           height: 100%;
-          width: 40%;
+          width: 30%;
           display: flex;
           align-items: center;
           justify-content: center;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
         .item-state {
           height: 100%;
@@ -145,6 +157,7 @@ export default {
           align-items: center;
           font-size: 22px;
           color: #0960bd;
+          cursor: pointer;
         }
       }
       &-trans {

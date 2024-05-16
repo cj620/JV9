@@ -47,12 +47,15 @@
               Id="allocated"
               v-model="processList1"
               animation="10"
-              ref="JvDraggableRef">
+              ref="JvDraggableRef"
+              @add="handleAddAllocated"
+            >
               <template slot-scope="item">
                 <ProcessCard
                   :processData="item.item"
                   :isAllocated="true"
                   :num="item.index + 1"
+                  @editProgress="editProgress"
                 ></ProcessCard>
               </template>
             </JvDraggable>
@@ -70,7 +73,9 @@
               Id="unallocated"
               v-model="processList2"
               animation="10"
-              ref="JvDraggableRef1">
+              ref="JvDraggableRef1"
+              @add="handleAddUnallocated"
+            >
               <template slot-scope="item">
                 <ProcessCard
                   :processData="item.item"
@@ -88,7 +93,7 @@
 <script>
 import { getAllResource, getResourceMember } from "@/api/workApi/production/baseData";
 import { allocation_process_list } from "@/api/workApi/production/productionTask";
-import { production_dispatching_list } from "@/api/workApi/production/productionDispatch";
+import { production_dispatching_list, production_dispatching_change_device } from "@/api/workApi/production/productionDispatch";
 import JvDraggable from '@/components/JvDraggable/JvDraggable.vue';
 import ProcessCard from "@/views/workModule/production/productionAllocation/List/components/processCard.vue";
 export default {
@@ -100,6 +105,7 @@ export default {
   data() {
     return {
       selectedResources: '',
+      selectedDeviceNo: '',
       resourcesOptions: [],
       deviceList: [],
       processList1: [],
@@ -114,17 +120,16 @@ export default {
     })
   },
   methods: {
-    pushToAllocated(e) {
-      this.processList1.push(e)
-      const index = this.processList2.findIndex(item => item.id === e.id);
-      if (index !== -1) {
-        this.processList2.splice(index, 1);
-      }
-    },
     selectResources(e) {
       getResourceMember({ ResourceId: e }).then((res) => {
-        this.deviceList = res.Items;
-        this.getProcessByDevice(this.deviceList[0].DeviceNo)
+        if (res.Count) {
+          this.deviceList = res.Items;
+          this.getProcessByDevice(this.deviceList[0].DeviceNo)
+        } else {
+          this.deviceList = [];
+          this.processList1 = [];
+          this.processList2 = [];
+        }
       })
     },
     // 点击tabs选择设备
@@ -133,6 +138,7 @@ export default {
     },
     // 根据设备获取工序信息
     getProcessByDevice(e) {
+      this.selectedDeviceNo = e;
       allocation_process_list({DeviceNo: e}).then((res) => {
         this.processList2 = res.Items
       })
@@ -144,6 +150,45 @@ export default {
         this.processList1 = res.Items[0]
       })
     },
+    // 编辑工序信息
+    editProgress(e) {
+      console.log(e)
+    },
+    pushToAllocated(e) {
+      const obj = {
+        TaskProcessId: e.Id,
+        PlanStart: e.PlanStart,
+        PlanEnd: e.PlanEnd,
+        DeviceName: this.selectedDeviceNo,
+        IsModifyDate: true,
+      }
+      this.changeDevice(obj);
+    },
+    handleAddAllocated(e){
+      const obj = {
+        TaskProcessId: this.processList1[e.newIndex].Id,
+        PlanStart: this.processList1[e.newIndex].PlanStart,
+        PlanEnd: this.processList1[e.newIndex].PlanEnd,
+        DeviceName: this.selectedDeviceNo,
+        IsModifyDate: true,
+      }
+      this.changeDevice(obj);
+    },
+    handleAddUnallocated(e){
+      const obj = {
+        TaskProcessId: this.processList2[e.newIndex].Id,
+        PlanStart: this.processList2[e.newIndex].PlanStart,
+        PlanEnd: this.processList2[e.newIndex].PlanEnd,
+        DeviceName: '',
+        IsModifyDate: true,
+      }
+      this.changeDevice(obj);
+    },
+    changeDevice(e) {
+      production_dispatching_change_device(e).then(() => {
+        this.getProcessByDevice(this.selectedDeviceNo)
+      })
+    }
   },
 }
 </script>

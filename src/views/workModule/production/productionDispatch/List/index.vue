@@ -298,6 +298,7 @@ export default {
     },
     dropCommand(e) {
       if (e.Type === "toggle") {
+        console.log(e)
         this.dropVisible = true;
         // 编辑任务
         this.toggleMachineObj = new Form({
