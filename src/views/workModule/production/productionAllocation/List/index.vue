@@ -44,6 +44,7 @@
             <JvDraggable
               :col='2'
               group="aa"
+              Id="allocated"
               v-model="processList1"
               animation="10"
               ref="JvDraggableRef">
@@ -66,6 +67,7 @@
           <div class="unallocated-body">
             <JvDraggable
               group="aa"
+              Id="unallocated"
               v-model="processList2"
               animation="10"
               ref="JvDraggableRef1">
@@ -114,6 +116,10 @@ export default {
   methods: {
     pushToAllocated(e) {
       this.processList1.push(e)
+      const index = this.processList2.findIndex(item => item.id === e.id);
+      if (index !== -1) {
+        this.processList2.splice(index, 1);
+      }
     },
     selectResources(e) {
       getResourceMember({ ResourceId: e }).then((res) => {

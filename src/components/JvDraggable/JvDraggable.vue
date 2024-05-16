@@ -70,7 +70,12 @@ export default {
       type: Number | String,
       default: 1
     },
-    // 自定义cardbox类名
+    // 自定义Id
+    Id: {
+      type: String,
+      default: '',
+    },
+    // 自定义cardBox类名
     getClassName: {
       type: String,
       default: ''
@@ -79,14 +84,14 @@ export default {
     isOnResize: {
       type: Boolean,
       default: true,
-    }
+    },
   },
   data() {
     return {
       resultList: [],
       templateWidth: '',
       timer:null,
-      Id: '',
+      // Id: '',
     };
   },
   computed: {
@@ -100,7 +105,7 @@ export default {
   },
   created() {
     this.resultList = this.value;
-    this.Id = (new Date().getTime() + Math.random().toFixed(0)).toString();
+    // this.Id = (new Date().getTime() + Math.random().toFixed(0)).toString();
   },
   methods: {
   },
