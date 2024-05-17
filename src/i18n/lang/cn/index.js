@@ -1233,6 +1233,7 @@ const cn = {
     Pr_DeliveryDate: "交货日期",
     Pr_ProofDate: "首样日期",
     Pr_DoAPS: "计算排程",
+    Pr_ReserveProductionCapacity: "预留产能",
     Pr_APSLog: "排程日志",
     Pr_OneClickProcessing: "一键处理",
     Pr_Algorithms: "算法",

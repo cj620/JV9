@@ -48,6 +48,14 @@
         <div class="execution-scheduling-header-item">
           <el-button @click="ScheduleLog">{{ $t('production.Pr_APSLog') }}</el-button>
         </div>
+        <!--预留产能-->
+        <div class="execution-scheduling-header-item">
+          <el-checkbox
+            v-model="ReserveProductionCapacity"
+            :label="$t('production.Pr_ReserveProductionCapacity')"
+            border
+          ></el-checkbox>
+        </div>
       </div>
       <!--内容-->
       <div class="execution-scheduling-content">
@@ -151,6 +159,7 @@ export default {
       OverduePartNoTotal: 46, // 总计超交期零件
       OverloadData: 11, // 超负荷数据
       OverDeliveryDate: 11, //    超交期数据
+      ReserveProductionCapacity: false,
       SchedulingResults: false, // 交期推迟配置弹窗
       SchedulingShow: false, // 是否启动排程过
       apsDialogFormVisible: false, // 排程结果弹窗
@@ -178,6 +187,7 @@ export default {
       do_aps1({
         StartDate: timeFormat(this.StartDate, 'yyyy-MM-dd hh:mm:ss'),
         SchedulingType: this.algorithm,
+        ReserveProductionCapacity: this.ReserveProductionCapacity,
       }).then((res) => {
         this.$message({
           type: "success",
@@ -254,5 +264,12 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 4px;
+}
+.el-checkbox {
+  display: flex;
+  align-items: center;
+  ::v-deep .el-checkbox__input {
+    display: flex !important;
+  }
 }
 </style>

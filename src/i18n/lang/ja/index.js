@@ -1243,6 +1243,7 @@ const ja = {
     Pr_EarliestDeliveryDate: "最早納期アルゴリズム",
     Pr_EarliestDeliveryDateDes: "最早納期アルゴリズム:同等級下納期早期優先",
     Pr_DoAPS: "計算スケジュール",
+    Pr_ReserveProductionCapacity: "予約生産能力",
     Pr_APSLog: "スケジュールログ",
     Pr_OneClickProcessing: "ワンクリック処理",
     Pr_Algorithms: "アルゴリズム",

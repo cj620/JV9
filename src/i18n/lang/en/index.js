@@ -1247,6 +1247,7 @@ const en = {
     Pr_EarliestDeliveryDate: "Earliest Delivery Date",
     Pr_EarliestDeliveryDateDes: "EarliestDeliveryDate:Priority given to earlier delivery date under the same level",
     Pr_DoAPS: "Do aps",
+    Pr_ReserveProductionCapacity: "Reserve Production Capacity",
     Pr_APSLog: "APS log",
     Pr_OneClickProcessing: "One click processing",
     Pr_Algorithms: "Algorithms",
