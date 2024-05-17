@@ -46,6 +46,14 @@ export function production_dispatching_lock_device(data) {
   return request({
     url: "/production_dispatching/lock_device",
     method: "post",
-    data
+    data,
   });
+}
+// 生产调度清空设备信息
+export function production_dispatching_empty_device(data) {
+  return request({
+    url: "/production_dispatching/empty_device",
+    method: "post",
+    data,
+  })
 }

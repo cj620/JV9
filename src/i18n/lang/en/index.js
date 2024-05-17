@@ -1306,6 +1306,13 @@ const en = {
     Pr_PlanIncompleteTime: "Plan Incomplete Time",
     Pr_PlanCompletedTime: "Plan Completed Time",
     Pr_ActualTime: "Actual Time",
+    Pr_AllocatedProcesses: "Allocated Processes",
+    Pr_UnallocatedProcesses: "Unallocated Processes",
+    Pr_WhetherToUnlockAllAllocatedProcesses: "Whether to unlock all allocated processes?",
+    Pr_WhetherToLockAllAllocatedProcesses: "Whether to lock all allocated processes?",
+    Pr_WhetherToClearAllAllocatedProcesses: "Whether to clear all allocated processes?",
+    Pr_Locked: "Locked",
+    Pr_Unlocked: "Unlocked",
     Pr_APSReportContent: {
       str1: "Participated in the scheduling of ",
       str2: " sets of molds, with a total of ",

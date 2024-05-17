@@ -1292,6 +1292,13 @@ const cn = {
     Pr_PlanIncompleteTime: "预计未完工时间",
     Pr_PlanCompletedTime: "预计已完工时间",
     Pr_ActualTime: "实际加工时间",
+    Pr_AllocatedProcesses: "已派工工序",
+    Pr_UnallocatedProcesses: "未派工工序",
+    Pr_WhetherToUnlockAllAllocatedProcesses: "是否解锁所有已派工工序?",
+    Pr_WhetherToLockAllAllocatedProcesses: "是否锁定所有已派工工序?",
+    Pr_WhetherToClearAllAllocatedProcesses: "是否清空当前设备所有已派工工序?",
+    Pr_Locked: "已锁定",
+    Pr_Unlocked: "未锁定",
     Pr_APSReportContent: {
       str1: "参与排程模具",
       str2: "套, 合计零件",

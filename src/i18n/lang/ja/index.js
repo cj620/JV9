@@ -1302,6 +1302,13 @@ const ja = {
     Pr_PlanIncompleteTime: "未完成予定時刻",
     Pr_PlanCompletedTime: "完成予定時刻",
     Pr_ActualTime: "じつかこうじかん",
+    Pr_AllocatedProcesses: "派遣済工程",
+    Pr_UnallocatedProcesses: "未派遣工程",
+    Pr_WhetherToUnlockAllAllocatedProcesses: "派遣されたすべての工程をロック解除するかどうか?",
+    Pr_WhetherToLockAllAllocatedProcesses: "派遣されたすべての工程をロックするかどうか?",
+    Pr_WhetherToClearAllAllocatedProcesses: "現在のデバイスの派遣工程をすべてクリアするか?",
+    Pr_Locked: "ロックされている",
+    Pr_Unlocked: "ロック解除",
     Pr_APSReportContent: {
       str1: "スケジューリングに参加した金型は",
       str2: "セット、合計部品は",

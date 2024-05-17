@@ -10,6 +10,7 @@
     style="height: 100%; width: 100%"
     :ghostClass="getClassNameFn"
     @add="add"
+    :move="onMove"
   >
     <transition-group
       class="clearfix"
@@ -86,7 +87,12 @@ export default {
       type: Boolean,
       default: true,
     },
+    // 拖拽完成事件
     add: {
+      type: Function,
+      default: () => {}
+    },
+    onMove: {
       type: Function,
       default: () => {}
     }
@@ -96,7 +102,6 @@ export default {
       resultList: [],
       templateWidth: '',
       timer:null,
-      // Id: '',
     };
   },
   computed: {
@@ -110,7 +115,6 @@ export default {
   },
   created() {
     this.resultList = this.value;
-    // this.Id = (new Date().getTime() + Math.random().toFixed(0)).toString();
   },
   methods: {
   },

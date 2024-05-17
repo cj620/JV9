@@ -6,6 +6,7 @@
           <el-select
             v-model="selectedResources"
             @change="selectResources"
+            filterable
             style="width: 175px"
           >
             <el-option
@@ -16,7 +17,6 @@
             >
             </el-option>
           </el-select>
-<!--          <i class="el-icon-search" style="margin-left: 8px; cursor: pointer;"></i>-->
         </div>
         <div class="allocation-page-device-body">
           <el-tabs tab-position="left" @tab-click="clickDevice">
@@ -33,11 +33,36 @@
         <div class="allocated">
           <div class="allocated-header">
             <div class="allocated-header-title">
-              已派工工序
+              {{ $t('production.Pr_AllocatedProcesses') }}
             </div>
-            <div class="allocated-header-button">
-              <i class="el-icon-lock" style="font-size: 25px; margin-right: 10px; cursor: pointer; color: #0960bd;"></i>
-              <i class="el-icon-delete" style="font-size: 25px; cursor: pointer; color: #0960bd;"></i>
+            <div class="allocated-header-button" v-if="processList1.length">
+              <div>
+                <i
+                  class="el-icon-unlock"
+                  v-if="isAllLocked"
+                  style="font-size: 25px; margin-right: 10px; cursor: pointer; color: #0960bd;"
+                  @click="editAllLockDevice"
+                ></i>
+                <i
+                  class="el-icon-lock"
+                  v-else
+                  style="font-size: 25px; margin-right: 10px; cursor: pointer; color: #0960bd;"
+                  @click="editAllLockDevice"
+                ></i>
+              </div>
+              <div>
+                <i
+                  class="el-icon-delete"
+                  style="font-size: 25px; cursor: pointer; color: #0960bd;"
+                  v-if="isAllUnlocked"
+                  @click="clearAllAllocated"
+                ></i>
+                <i
+                  class="el-icon-delete"
+                  style="font-size: 25px; color: rgb(161, 161, 161);"
+                  v-else
+                ></i>
+              </div>
             </div>
           </div>
           <div class="allocated-body">
@@ -49,6 +74,7 @@
               animation="10"
               ref="JvDraggableRef"
               @add="handleAddAllocated"
+              :onMove="onMove"
             >
               <template slot-scope="item">
                 <ProcessCard
@@ -65,7 +91,7 @@
         <div class="unallocated">
           <div class="unallocated-header">
             <div class="unallocated-header-title">
-              未派工工序
+              {{ $t('production.Pr_UnallocatedProcesses') }}
             </div>
           </div>
           <div class="unallocated-body">
@@ -95,6 +121,27 @@
       :editProcessData="editProcessData"
       @confirmToEdit="editDevice"
     ></EditProcessForm>
+    <JvDialog
+      :title="$t('Generality.Ge_Remind')"
+      v-if="editAllLockVisible"
+      :visible.sync="editAllLockVisible"
+      @confirm="conformEditAllLock"
+      width="350px">
+      <div v-if="isAllLocked">
+        {{ $t('production.Pr_WhetherToUnlockAllAllocatedProcesses') }}
+      </div>
+      <div v-else>
+        {{ $t('production.Pr_WhetherToLockAllAllocatedProcesses') }}
+      </div>
+    </JvDialog>
+    <JvDialog
+      :title="$t('Generality.Ge_Remind')"
+      v-if="clearAllVisible"
+      :visible.sync="clearAllVisible"
+      @confirm="conformClearAll"
+      width="350px">
+      {{ $t('production.Pr_WhetherToClearAllAllocatedProcesses') }}
+    </JvDialog>
   </PageWrapper>
 </template>
 <script>
@@ -104,6 +151,7 @@ import {
   production_dispatching_list,
   production_dispatching_change_device,
   production_dispatching_lock_device,
+  production_dispatching_empty_device,
 } from "@/api/workApi/production/productionDispatch";
 import JvDraggable from '@/components/JvDraggable/JvDraggable.vue';
 import ProcessCard from "@/views/workModule/production/productionAllocation/List/components/processCard.vue";
@@ -127,6 +175,16 @@ export default {
       processList1: [],
       processList2: [],
       editProcessDialogFormVisible: false,
+      editAllLockVisible: false,
+      clearAllVisible: false,
+    }
+  },
+  computed: {
+    isAllLocked() {
+      return this.processList1.every(item => item.FixedProcessingDevice !== null && item.FixedProcessingDevice !== '');
+    },
+    isAllUnlocked() {
+      return this.processList1.every(item => item.FixedProcessingDevice === null || item.FixedProcessingDevice === '');
     }
   },
   created() {
@@ -147,6 +205,7 @@ export default {
           this.deviceList = [];
           this.processList1 = [];
           this.processList2 = [];
+          this.selectedDeviceNo = "";
         }
       })
     },
@@ -165,7 +224,7 @@ export default {
         Devices: [e],
         PageSize: 99,
       }).then((res) => {
-        this.processList1 = res.Items[0]
+        this.processList1 = res.Items[0].filter(item => item.State !== 'Processing')
       })
     },
     // 编辑工序信息
@@ -181,6 +240,33 @@ export default {
         DeviceNo: e.FixedProcessingDevice ? null : this.selectedDeviceNo,
       }).then(() => {
         this.getProcessByDevice(this.selectedDeviceNo);
+      })
+    },
+    // 更改所有已派工工序锁定状态
+    editAllLockDevice() {
+      this.editAllLockVisible = true;
+    },
+    // 确认更改所有已派工工序锁定状态
+    conformEditAllLock() {
+      production_dispatching_lock_device({
+        TaskProcessIds: this.processList1.map(item => item.Id),
+        DeviceNo: this.isAllLocked ? null : this.selectedDeviceNo
+      }).then(() => {
+        this.editAllLockVisible = false;
+        this.getProcessByDevice(this.selectedDeviceNo);
+      })
+    },
+    // 清空当前设备已派工工序
+    clearAllAllocated() {
+      this.clearAllVisible = true;
+    },
+    // 确认清空当前设备已派工工序
+    conformClearAll() {
+      production_dispatching_empty_device({
+        DeviceNo: this.selectedDeviceNo
+      }).then(() => {
+        this.getProcessByDevice(this.selectedDeviceNo);
+        this.clearAllVisible = false;
       })
     },
     // 点击箭头添加到已派工
@@ -222,6 +308,10 @@ export default {
         this.getProcessByDevice(this.selectedDeviceNo);
         this.editProcessDialogFormVisible = false;
       })
+    },
+    onMove(e) {
+      if (e.draggedContext.element.FixedProcessingDevice && ( e.from.id !== e.to.id)) return false;
+      return true;
     }
   },
 }

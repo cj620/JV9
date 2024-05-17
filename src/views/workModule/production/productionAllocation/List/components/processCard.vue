@@ -1,7 +1,10 @@
 <template>
   <div class="process-card" :style="{ width: itemWidth ? itemWidth : '' }">
     <div class="process-card-content">
-      <div class="process-state" :style="{ backgroundColor : LevelEnumMap[this.processData.Level] ? LevelEnumMap[this.processData.Level].fcolor : '' }"></div>
+      <div class="process-level" :style="{
+        backgroundColor : LevelEnumMap[this.processData.Level] ? LevelEnumMap[this.processData.Level].fcolor : ''
+      }">
+      </div>
       <div class="process-content">
         <div class="process-content-item">
           <div v-if="isAllocated" class="item-num">No.{{ this.num }}</div>
@@ -10,22 +13,38 @@
         </div>
         <div class="process-content-item" v-if="isAllocated">
           <div v-if="this.processData.FixedProcessingDevice" class="item-lock-state" style="color: red">
-            <i class="el-icon-lock" style="margin-right: 5px; font-size: 18px;"></i> 已锁定
+            <i class="el-icon-lock" style="margin-right: 5px; font-size: 18px;"></i>
+            {{ $t('production.Pr_Locked') }}
           </div>
           <div v-else class="item-lock-state">
-            <i class="el-icon-unlock" style="margin-right: 5px; font-size: 18px"></i> 未锁定
+            <i class="el-icon-unlock" style="margin-right: 5px; font-size: 18px"></i>
+            {{ $t('production.Pr_Unlocked') }}
           </div>
-          <div class="item-state">类型：{{ TaskTypeEnumMap[this.processData.TaskType] ? TaskTypeEnumMap[this.processData.TaskType].name : "- -" }}</div>
-          <div class="item-time">工时：{{ this.processData.PlanTime }}</div>
+          <div class="item-state">
+            {{ $t('Generality.Ge_Type') }}:
+            {{ TaskTypeEnumMap[this.processData.TaskType] ? TaskTypeEnumMap[this.processData.TaskType].name : "- -" }}
+          </div>
+          <div class="item-time">
+            {{ $t('Generality.Ge_WorkHours') }}:
+            {{ this.processData.PlanTime }}
+          </div>
         </div>
         <div class="process-content-item" v-else>
-          <div class="item-state" style="width: 60%">类型：{{ TaskTypeEnumMap[this.processData.TaskType] ? TaskTypeEnumMap[this.processData.TaskType].name : "- -" }}</div>
-          <div class="item-time" style="width: 40%">工时：{{ this.processData.PlanTime }}</div>
+          <div class="item-state" style="width: 60%">
+            {{ $t('Generality.Ge_Type') }}:
+            {{ TaskTypeEnumMap[this.processData.TaskType] ? TaskTypeEnumMap[this.processData.TaskType].name : "- -" }}
+          </div>
+          <div class="item-time" style="width: 40%">
+            {{ $t('Generality.Ge_WorkHours') }}:
+            {{ this.processData.PlanTime }}
+          </div>
         </div>
       </div>
       <div class="process-button">
         <div class="process-button-operate" v-if="isAllocated">
-          <div class="process-button-operate-item" style="margin: 5px 0 10px 0" @click="editProgress"><i class="el-icon-edit-outline"></i></div>
+          <div class="process-button-operate-item" style="margin: 5px 0 10px 0" @click="editProgress">
+            <i class="el-icon-edit-outline"></i>
+          </div>
           <div class="process-button-operate-item" style="margin: 10px 0 5px 0" @click="editLockState">
             <i class="el-icon-unlock" v-if="this.processData.FixedProcessingDevice"></i>
             <i class="el-icon-lock" v-else></i>
@@ -101,12 +120,15 @@ export default {
     display: flex;
     box-sizing: border-box;
     justify-content: space-between;
-    .process-state {
-      width: 30px;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.48);
+    .process-level {
+      width: 15px;
       height: 100%;
+      border-radius: 10px 0 0 10px;
     }
     .process-content {
-      width: calc(100% - 70px);
+      width: calc(100% - 85px);
       height: 100%;
       display: flex;
       flex-wrap: wrap;
