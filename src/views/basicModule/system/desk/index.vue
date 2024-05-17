@@ -16,7 +16,7 @@
           :actions="[
             {
               label: $t('setup.ShowRecords'),
-              confirm: scanRecord.bind(null, ''),
+              confirm: toProjectRecord.bind(null, ''),
             },
           ]"
         >
@@ -152,6 +152,7 @@ export default {
       taskRecordTable: {},
       auditRecordTable: {},
       detailObj:{},
+      TaskType: "",
       auditEnum,
       // 编辑路由
       EditRoute: "",
@@ -214,6 +215,12 @@ export default {
       this.taskRecordTable.formObj.form.TaskItemId = Id;
       this.taskRecordTable.getData();
       this.taskRecordVisible = true;
+    },
+    toProjectRecord() {
+      this.$router.push({
+        name: "Pm_ProjectTask_Record",
+        query: { TaskType: this.TaskType },
+      });
     },
     scanAuditRecord() {
       this.auditRecordTable.getData();
