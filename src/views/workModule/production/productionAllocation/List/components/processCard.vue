@@ -4,19 +4,32 @@
       <div class="process-state" :style="{ backgroundColor : LevelEnumMap[this.processData.Level] ? LevelEnumMap[this.processData.Level].fcolor : '' }"></div>
       <div class="process-content">
         <div class="process-content-item">
-          <div v-if="this.num" class="item-num">No.{{ this.num }}</div>
+          <div v-if="isAllocated" class="item-num">No.{{ this.num }}</div>
           <div class="item-partNo">{{ this.processData.PartNo }}</div>
           <div class="item-process">({{ this.processData.Process }})</div>
         </div>
-        <div class="process-content-item">
-          <div class="item-state">类型：{{ TaskTypeEnumMap[this.processData.TaskType] ? TaskTypeEnumMap[this.processData.TaskType].name : "" }}</div>
+        <div class="process-content-item" v-if="isAllocated">
+          <div v-if="this.processData.FixedProcessingDevice" class="item-lock-state" style="color: red">
+            <i class="el-icon-lock" style="margin-right: 5px; font-size: 18px;"></i> 已锁定
+          </div>
+          <div v-else class="item-lock-state">
+            <i class="el-icon-unlock" style="margin-right: 5px; font-size: 18px"></i> 未锁定
+          </div>
+          <div class="item-state">类型：{{ TaskTypeEnumMap[this.processData.TaskType] ? TaskTypeEnumMap[this.processData.TaskType].name : "- -" }}</div>
           <div class="item-time">工时：{{ this.processData.PlanTime }}</div>
+        </div>
+        <div class="process-content-item" v-else>
+          <div class="item-state" style="width: 60%">类型：{{ TaskTypeEnumMap[this.processData.TaskType] ? TaskTypeEnumMap[this.processData.TaskType].name : "- -" }}</div>
+          <div class="item-time" style="width: 40%">工时：{{ this.processData.PlanTime }}</div>
         </div>
       </div>
       <div class="process-button">
         <div class="process-button-operate" v-if="isAllocated">
           <div class="process-button-operate-item" style="margin: 5px 0 10px 0" @click="editProgress"><i class="el-icon-edit-outline"></i></div>
-          <div class="process-button-operate-item" style="margin: 10px 0 5px 0"><i class="el-icon-lock"></i></div>
+          <div class="process-button-operate-item" style="margin: 10px 0 5px 0">
+            <i class="el-icon-unlock" v-if="this.processData.FixedProcessingDevice"></i>
+            <i class="el-icon-lock" v-else></i>
+          </div>
         </div>
         <div class="process-button-trans" v-else>
           <div class="circle"></div>
@@ -127,16 +140,23 @@ export default {
           white-space: nowrap;
           text-overflow: ellipsis;
         }
+        .item-lock-state{
+          height: 100%;
+          width: 30%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
         .item-state {
           height: 100%;
-          width: 60%;
+          width: 40%;
           display: flex;
           align-items: center;
           justify-content: center;
         }
         .item-time {
           height: 100%;
-          width: 40%;
+          width: 30%;
           display: flex;
           align-items: center;
           justify-content: center;
