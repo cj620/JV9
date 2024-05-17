@@ -59,7 +59,7 @@
       <el-row>
         <el-col :span="4" v-for="item in sourceData" :key="item.UserId">
           <div class="card-box">
-            <TaskBox :cdata="item.TaskItems ? item.TaskItems : []"></TaskBox>
+            <TaskBox @getData="getData" :cdata="item.TaskItems ? item.TaskItems : []"></TaskBox>
           </div>
         </el-col>
       </el-row>

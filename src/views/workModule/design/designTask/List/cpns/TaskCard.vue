@@ -246,12 +246,13 @@ export default {
     },
     confirmDistributionTask() {
       this.distributionTaskDialogFormVisible = false;
+      this.toFresh();
     },
     visibilityChange(event) {
       this.tooltipFlag = true;
     },
     toFresh() {
-      this.$emit("toFresh");
+      this.$emit("getData");
     },
   },
   computed: {
@@ -265,7 +266,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~@/jv_doc/style/mixin.scss";
 .task-card {
   // padding: 0 5px;

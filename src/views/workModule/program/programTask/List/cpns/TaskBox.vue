@@ -12,6 +12,7 @@
       v-for="item in cdata"
       :key="item.Id"
       style="margin-bottom: 10px"
+      @getData="$emit('getData')"
       :cdata="item"
     ></TaskCard>
   </div>
@@ -32,7 +33,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~@/jv_doc/style/mixin.scss";
 .task-box {
   width: 100%;

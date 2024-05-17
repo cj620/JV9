@@ -6,6 +6,8 @@
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
+import { project_process_get_by_type } from "@/api/workApi/project/baseData";
+import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import {
   tableConfigWrapper
 } from "@/jv_doc/utils/system/taxCount";
@@ -15,7 +17,7 @@ export class EditTable extends BaseTable {
     super({
       tableSchema: tableConfigWrapper(tableConfig),
       data:[],
-      title:'分配任务',
+      title:i18n.t('project.Pro_DistributionTask'),
       tableHeaderShow:false,
       sortCol:false,
       chooseCol:false,
@@ -26,14 +28,50 @@ export class EditTable extends BaseTable {
 }
 
 export const tableConfig = [
- /*负责人*/
- {
+  {
+    prop: "Process",
+    formCpn: "SyncSelect",
+    label: i18n.t("Generality.Ge_Process"),
+    width: "150px",
+    api: project_process_get_by_type,
+    apiOptions: {
+      keyName: "Process",
+      valueName: "Process",
+      params: {
+        ProcessType: 0
+      },
+      propChange(val,item,res) {
+        item.BelongingDepartment.value = res.BelongingDepartment;
+      }
+    },
+    editConfig: {
+      rules: {
+        required: true,
+      },
+    },
+  },
+  /*负责人*/
+  {
     prop: "Worker",
     formCpn: "SyncSelect",
-    width: "120px",
+    width: "135px",
     label: i18n.t("project.Pro_Worker"),
-    custom: true,
-
+    api: get_by_department,
+    apiOptions: {
+      keyName: "UserName",
+      valueName: "UserName",
+      moreDynamicParameters: [
+        {
+          keyName: "Department",
+          valueName: "BelongingDepartment",
+        },
+      ],
+    },
+    editConfig: {
+      rules: {
+        required: true,
+      },
+    },
   },
   /*计划工时*/
   {
@@ -53,7 +91,7 @@ export const tableConfig = [
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     formCpn: "SingleTime",
-    wdith: "120px",
+    width: "180px",
     filter: "date",
     editConfig: {
       colInit: true,
@@ -68,7 +106,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_PlanEnd"),
     formCpn: "SingleTime",
     filter: "date",
-    wdith: "120px",
+    width: "180px",
     editConfig: {
       colInit: true,
       rules: {
@@ -76,7 +114,7 @@ export const tableConfig = [
         message: i18n.t("Generality.Ge_DateComparison"),
         validate: (val, row) => {
           return (
-             new Date(row.PlanStart.value).getTime()<=new Date(val).getTime()
+            new Date(row.PlanStart.value).getTime()<=new Date(val).getTime()
           );
         },
       },
