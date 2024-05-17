@@ -91,7 +91,10 @@
       :visible.sync= "lockDeviceShow"
       width="30%"
       @confirm="confirmLock"
-    >{{ $t('production.Pr_WhetherLockToTheDevice') }}{{lockData.DeviceNo}}</JvDialog>
+    >
+      <div v-if="lockData.DeviceNo">{{ $t('production.Pr_WhetherLockToTheDevice') }}{{lockData.DeviceNo}}</div>
+      <div v-else>{{ $t('production.Pr_WhetherUnlock') }}</div>
+    </JvDialog>
     <!-- 表单搜索抽屉 -->
 <!--    <SearchForm-->
 <!--      v-if="M_tableObj.props.searchBar"-->
@@ -298,7 +301,6 @@ export default {
     },
     dropCommand(e) {
       if (e.Type === "toggle") {
-        console.log(e)
         this.dropVisible = true;
         // 编辑任务
         this.toggleMachineObj = new Form({
@@ -363,11 +365,31 @@ export default {
           this.lockData.TaskProcessId = e.TaskProcessId
           this.lockData.DeviceNo = e.PlanDevice
           this.lockDeviceShow = true
+      } else if (e.Type === 'unLock') {
+          this.lockData.TaskProcessId = e.TaskProcessId
+          this.lockData.DeviceNo = null
+          this.lockDeviceShow = true
       }
     },
     confirmLock() {
-        production_dispatching_lock_device(this.lockData)
-        this.lockDeviceShow = false
+      production_dispatching_lock_device(this.lockData).then(() => {
+        const id = this.lockData.TaskProcessId
+        let data;
+        this.P_tableObj.tableData.some((subArray) => {
+          return subArray.some((item) => {
+            if (item.Id === id) {
+              data = item;
+              return true;
+            }
+          });
+        });
+        if (data.FixedProcessingDevice) {
+          data.FixedProcessingDevice = null
+        } else {
+          data.FixedProcessingDevice = data.PlanDevice;
+        }
+      })
+      this.lockDeviceShow = false
     },
     toToggleMachine() {
       // this.M_tableObj.getData();

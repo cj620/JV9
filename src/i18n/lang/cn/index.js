@@ -1259,6 +1259,7 @@ const cn = {
     Pr_AddToSchedulingWorkOrderAll: "全部添加至参排工单",
     Pr_WhetherAddToSchedulingWorkOrderAll: "是否全部添加到参排工单?",
     Pr_WhetherLockToTheDevice: "是否确定锁定到设备",
+    Pr_WhetherUnlock: "是否确认解除锁定",
     Pr_EditTheJobAsCompleted: "编辑工单为已完成",
     Pr_IsOverload: "是否超负荷",
     Pr_PlanStart: "工序计划开始",

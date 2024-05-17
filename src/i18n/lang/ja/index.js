@@ -1269,6 +1269,7 @@ const ja = {
     Pr_AddToSchedulingWorkOrderAll: "すべてパラメータ製造オーダに追加",
     Pr_WhetherAddToSchedulingWorkOrderAll: "パラメータ製造オーダにすべて追加するかどうか?",
     Pr_WhetherLockToTheDevice: "デバイスにロックしてもよろしいですか",
+    Pr_WhetherUnlock: "ロック解除を確認するか",
     Pr_EditTheJobAsCompleted: "製造オーダの編集が完了しました",
     Pr_IsOverload: "過負荷かどうか",
     Pr_PlanStart: "工程計画開始",

@@ -11,6 +11,9 @@
     <el-tooltip effect="dark" :content="stateMap.name" placement="right-start">
       <div class="state-bar" :style="{ background: stateMap.color }">
         {{ cdata.PartNo }}
+        <div v-if="cdata.FixedProcessingDevice" class="" style="height: 100%">
+          <i class="el-icon-lock"></i>
+        </div>
       </div>
     </el-tooltip>
     <DropDown
@@ -59,6 +62,12 @@
           {{ cdata.Worker | IsEmpty }}
         </div> -->
       </div>
+      <div style="margin-top: -5px">
+        <i class="el-icon-document" style="margin-right: 4px"></i>
+        <el-button type="text" size="mini" @click="goProduction(cdata.BillId)" style="font-size: 14px">
+          {{cdata.BillId}}
+        </el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -89,6 +98,14 @@ export default {
     dropCommand(e) {
       this.$emit("command", e);
     },
+    goProduction(BillId) {
+      this.$router.push({
+        name: 'ProductionTaskDetails',
+        query: {
+          BillId
+        }
+      })
+    }
   },
   computed: {
     stateMap() {
@@ -105,8 +122,8 @@ export default {
 @import "~@/jv_doc/style/mixin.scss";
 .task-card {
   // padding: 0 5px;
-  width: 210px;
-  height: 135px;
+  width: 235px;
+  height: 155px;
   @include shadow;
   position: relative;
   background-color: #fff;
@@ -115,10 +132,13 @@ export default {
   .state-bar {
     // width: 100%;
     height: 20px;
+    line-height: 20px;
     border-radius: 10px 10px 0px 0px;
     background-color: #fff;
-    width: 210px;
+    width: 235px;
     padding: 1px 30px 1px 5px;
+    display: flex;
+    justify-content: space-between;
     @include ellipsis;
   }
   .func-drop {
@@ -128,10 +148,10 @@ export default {
   }
   .task-content {
     width: 100%;
-    height: 95px;
+    height: 135px;
     background-color: #fff;
-    width: 210px;
-    padding: 0 5px;
+    //width: 210px;
+    padding: 0 5px 0 10px;
     border-radius: 0px 0px 10px 10px;
 
     .img-desc {
@@ -174,7 +194,7 @@ export default {
         padding: 5px 0;
         @include ellipsis;
         .hours {
-          margin-left: 20px;
+          margin-left: 35px;
         }
         i {
           margin-right: 5px;

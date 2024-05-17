@@ -1273,6 +1273,7 @@ const en = {
     Pr_AddToSchedulingWorkOrderAll: "Add To Scheduling Work Order All",
     Pr_WhetherAddToSchedulingWorkOrderAll: "Whether To Add To Scheduling Work Order All",
     Pr_WhetherLockToTheDevice: "Whether To Lock To The Device",
+    Pr_WhetherUnlock: "Whether To Unlock",
     Pr_EditTheJobAsCompleted: "Edit The Job As Completed",
     Pr_IsOverload: "Is Overload",
     Pr_PlanStart: "PlanStart",

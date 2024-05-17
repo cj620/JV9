@@ -16,8 +16,11 @@
       <el-dropdown-item command="toggle" :disabled="!funcOpt.switchDevice">{{
         $t("Generality.Ge_Edit")
       }}</el-dropdown-item>
-      <el-dropdown-item command="lock">{{
+      <el-dropdown-item v-if="!locked" command="lock">{{
         $t("Generality.Ge_Lock")
+      }}</el-dropdown-item>
+      <el-dropdown-item v-else command="unLock">{{
+        $t("production.Pr_Unlock")
       }}</el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
@@ -35,9 +38,13 @@ export default {
       default: () => {},
     },
   },
+  computed: {
+    locked() {
+      return this.cdata.FixedProcessingDevice;
+    }
+  },
   methods: {
     command(e) {
-      console.log(this.cdata);
       this.$emit("command", {
         Type: e,
         PlanStart: this.cdata.PlanStart,
