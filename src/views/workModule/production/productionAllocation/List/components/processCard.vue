@@ -26,7 +26,7 @@
       <div class="process-button">
         <div class="process-button-operate" v-if="isAllocated">
           <div class="process-button-operate-item" style="margin: 5px 0 10px 0" @click="editProgress"><i class="el-icon-edit-outline"></i></div>
-          <div class="process-button-operate-item" style="margin: 10px 0 5px 0">
+          <div class="process-button-operate-item" style="margin: 10px 0 5px 0" @click="editLockState">
             <i class="el-icon-unlock" v-if="this.processData.FixedProcessingDevice"></i>
             <i class="el-icon-lock" v-else></i>
           </div>
@@ -78,6 +78,9 @@ export default {
     },
     editProgress() {
       this.$emit("editProgress", this.processData);
+    },
+    editLockState() {
+      this.$emit("editLockState", this.processData)
     }
   }
 }

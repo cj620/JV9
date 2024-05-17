@@ -56,6 +56,7 @@
                   :isAllocated="true"
                   :num="item.index + 1"
                   @editProgress="editProgress"
+                  @editLockState="editLockState"
                 ></ProcessCard>
               </template>
             </JvDraggable>
@@ -99,7 +100,11 @@
 <script>
 import { getAllResource, getResourceMember } from "@/api/workApi/production/baseData";
 import { allocation_process_list } from "@/api/workApi/production/productionTask";
-import { production_dispatching_list, production_dispatching_change_device } from "@/api/workApi/production/productionDispatch";
+import {
+  production_dispatching_list,
+  production_dispatching_change_device,
+  production_dispatching_lock_device,
+} from "@/api/workApi/production/productionDispatch";
 import JvDraggable from '@/components/JvDraggable/JvDraggable.vue';
 import ProcessCard from "@/views/workModule/production/productionAllocation/List/components/processCard.vue";
 import EditProcessForm from "@/views/workModule/production/productionAllocation/List/components/editProcessForm.vue";
@@ -132,6 +137,7 @@ export default {
     })
   },
   methods: {
+    // 选中资源组获取设备列表
     selectResources(e) {
       getResourceMember({ ResourceId: e }).then((res) => {
         if (res.Count) {
@@ -167,6 +173,17 @@ export default {
       this.editProcessData = e;
       this.editProcessDialogFormVisible = true;
     },
+    // 更改工序锁定状态
+    editLockState(e) {
+      production_dispatching_lock_device({
+        TaskProcessId: e.Id,
+        // 不存在锁定机台时锁定当前设备，存在时即解绑
+        DeviceNo: e.FixedProcessingDevice ? null : this.selectedDeviceNo,
+      }).then(() => {
+        this.getProcessByDevice(this.selectedDeviceNo);
+      })
+    },
+    // 点击箭头添加到已派工
     pushToAllocated(e) {
       const obj = {
         TaskProcessId: e.Id,
@@ -177,6 +194,7 @@ export default {
       }
       this.editDevice(obj);
     },
+    // 添加到已派工工序
     handleAddAllocated(e){
       const obj = {
         TaskProcessId: this.processList1[e.newIndex].Id,
@@ -187,6 +205,7 @@ export default {
       }
       this.editDevice(obj);
     },
+    // 添加到未派工工序
     handleAddUnallocated(e){
       const obj = {
         TaskProcessId: this.processList2[e.newIndex].Id,
@@ -197,6 +216,7 @@ export default {
       }
       this.editDevice(obj);
     },
+    // 设备更改
     editDevice(e) {
       production_dispatching_change_device(e).then(() => {
         this.getProcessByDevice(this.selectedDeviceNo);
