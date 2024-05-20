@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import { imgUrlPlugin } from "@/jv_doc/utils/system";
+import { imgUrlPlugin } from "~/utils/system";
 export default {
   data() {
     return {

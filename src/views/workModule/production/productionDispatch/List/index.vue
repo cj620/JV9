@@ -113,8 +113,8 @@ import TableHeader from "@/jv_doc/cpn/JvTable/cpn/TableHeader";
 import ScreenFull from "./cpns/roundScreenFull.vue";
 import SearchForm from "@/jv_doc/cpn/JvTable/cpn/SearchForm.vue";
 import JvFooter from "@/jv_doc/cpn/JvFooter";
-import MachineCard from "./cpns/MachineCard.vue";
-import NewMachineCard from "@/views/basicModule/demo/TestCyc/components/NewMachineCard.vue";
+// import MachineCard from "./cpns/MachineCard.vue";
+import NewMachineCard from "./cpns/NewMachineCard.vue";
 import TaskBox from "./cpns/TaskBox.vue";
 import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
@@ -128,7 +128,7 @@ export default {
   name: "ProductionDispatch",
   components: {
     NewMachineCard,
-    MachineCard,
+    // MachineCard,
     TaskBox,
     JvFooter,
     SearchForm,

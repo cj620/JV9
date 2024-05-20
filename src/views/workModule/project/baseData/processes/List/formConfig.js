@@ -35,6 +35,11 @@ export const formSchema = [
     ],
   },
   {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_ProcessInfo"),
+    cpn: "FormInput",
+  },
+  {
     prop: "CostRate",
     label: i18n.t("production.Pr_CostRate"),
     cpn: "FormInput",

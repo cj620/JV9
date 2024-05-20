@@ -40,6 +40,11 @@ export const tableConfig = [
     prop: "SortOrder",
     label: i18n.t("production.Pr_SortOrder"),
   },
+  /*工序内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_ProcessInfo"),
+  },
   /*标准费率*/
   {
     prop: "CostRate",
