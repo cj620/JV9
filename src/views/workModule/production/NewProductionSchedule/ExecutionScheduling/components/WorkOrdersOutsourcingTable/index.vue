@@ -76,7 +76,6 @@ export default {
     };
   },
   created() {
-    console.log(this.data, 12312313213122312)
     this.tableData = this.data
   },
   methods: {
