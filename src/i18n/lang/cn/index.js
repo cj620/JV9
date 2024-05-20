@@ -1135,6 +1135,7 @@ const cn = {
     Pr_DaysNotReported: "未报工天数",
     Pr_LastReportedDate: "最后报工日期",
     Pr_ProcessInformation: "加工信息",
+    Pr_CurrentStation: "当前站点",
     Pr_WorkOrderNumber: "工单编号",
     Pr_LifeSetting: "寿命设定",
     Pr_IntervalDays: "间隔天数",

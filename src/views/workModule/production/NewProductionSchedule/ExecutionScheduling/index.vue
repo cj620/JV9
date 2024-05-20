@@ -73,7 +73,9 @@
               <span class="red-Highlight">{{ OverduePartNoTotal }}</span>
               {{ $t('production.Pr_APSReportContent.str5') }}
             </div>
-            <div style="margin-top: 20px" v-show="ProcessList.length || PartList.length">{{ $t('production.Pr_SystemAdvices') }}:</div>
+            <div style="margin-top: 20px" v-show="ProcessList.length || PartList.length || BillIdList.length">
+              {{ $t('production.Pr_SystemAdvices') }}:
+            </div>
             <div style="margin-top: 10px"  v-show="ProcessList.length">
               1.{{ $t('production.Pr_OutsourceFollowingWorkpieces') }}
               <span style="text-decoration: underline; cursor: pointer"
@@ -96,6 +98,18 @@
             </div>
             <div style="text-indent: 2em; color: red; margin-top: 10px"  v-show="PartList.length">
               <span v-for="(item, i) in PartList" :key="i">{{ item }}; </span>
+            </div>
+            <div style="margin-top: 20px" v-show="BillIdList.length">
+              3.{{ $t('production.Pr_OutsourceFollowingWorkOrders') }}
+              <span style="text-decoration: underline; cursor: pointer"
+                    @click="WorkOrdersOutsourcing = true"
+              >{{ $t('Generality.Ge_Setup') }}>></span
+              >
+            </div>
+            <div style="text-indent: 2em; color: red; margin-top: 10px"  v-show="BillIdList.length">
+              <span v-for="(item, i) in BillIdList" :key="i"
+              >{{ item }};
+              </span>
             </div>
           </div>
         </transition>
@@ -125,13 +139,28 @@
       v-if="SchedulingResults"
       width="80%"
     >
-      <calculate :data="calculateData"
-                 @setSchedulingResults="setSchedulingResults"
-                 @StartAutomaticScheduling="StartAutomaticScheduling"></calculate>
+      <calculate
+        :data="calculateData"
+        @setSchedulingResults="setSchedulingResults"
+        @StartAutomaticScheduling="StartAutomaticScheduling"
+      ></calculate>
+    </JvDialog>
+    <!-- 工单外协弹窗 -->
+    <JvDialog
+      :title="$t('production.Pr_WorkOrderOutsourcing')"
+      :visible.sync="WorkOrdersOutsourcing"
+      v-if="WorkOrdersOutsourcing"
+      :IsShowFooterBtn="false"
+      width="80%"
+    >
+      <WorkOrdersOutsourcingTable
+        :data="WorkOrdersOutsourcingData"
+      ></WorkOrdersOutsourcingTable>
     </JvDialog>
     <!-- 排程日志弹窗 -->
-    <apsLog :visible.sync="apsDialogFormVisible"
-    width="80%"
+    <apsLog
+      :visible.sync="apsDialogFormVisible"
+      width="80%"
     ></apsLog>
   </page-wrapper>
 </template>
@@ -143,11 +172,19 @@ import JvDialog from "~/cpn/JvDialog/index.vue";
 import { do_aps1, do_publish } from "@/api/workApi/production/aps";
 import calculate from "./components/calculate/index.vue";
 import WorkpieceOutsourcingTable from './components/WorkpieceOutsourcingTable/index.vue'
+import WorkOrdersOutsourcingTable from "./components/WorkOrdersOutsourcingTable/index.vue";
 import apsLog from "./components/apsLog/apsLog.vue";
 import timeFormat from '@/jv_doc/utils/time/timeFormat';
 export default {
   name: "ExecutionScheduling",
-  components: { apsLog, JvDialog, PageWrapper, calculate, WorkpieceOutsourcingTable },
+  components: {
+    apsLog,
+    JvDialog,
+    PageWrapper,
+    calculate,
+    WorkpieceOutsourcingTable,
+    WorkOrdersOutsourcingTable,
+  },
   data() {
     return {
       StartDate: new Date(), // 开始时间
@@ -164,10 +201,13 @@ export default {
       SchedulingShow: false, // 是否启动排程过
       apsDialogFormVisible: false, // 排程结果弹窗
       WorkpieceOutsourcing: false, // 工件外协弹窗
+      WorkOrdersOutsourcing: false, // 工单外协弹窗
       WorkpieceOutsourcingData: [], // 工件外协窗传过去的数据
+      WorkOrdersOutsourcingData: [], // 工单外协窗传过去的数据
       calculateData: [], // 交期推迟弹窗传过去的数据
       ProcessList: [], // 工件列表（排程后的数据）
       PartList: [], // 零件列表（排程后的数据）
+      BillIdList: [], // 单号列表 （排程后的数据）
     };
   },
   created() {},
@@ -197,6 +237,7 @@ export default {
         this.setReportData(res);
         this.calculateData = res['OverDeliveryDate']['BillDataList'];
         this.WorkpieceOutsourcingData = res['OverloadData']['ProcessDataList'];
+        this.WorkOrdersOutsourcingData = res['SuggestOverallOutsourcingDate']['BillDataList']
       });
     },
     // 设置排程报告数据
@@ -207,6 +248,7 @@ export default {
       this.ToolingNoTotal = data.ToolingNoTotal;
       this.PartList = data.OverDeliveryDate.PartList;
       this.ProcessList = data.OverloadData.ProcessList;
+      this.BillIdList = data.SuggestOverallOutsourcingDate.BillIdList;
     },
     // 发布排程结果
     PublishSchedulingResults() {

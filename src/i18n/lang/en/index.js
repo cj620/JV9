@@ -1148,6 +1148,7 @@ const en = {
     Pr_DaysNotReported: "Days Not Reported",
     Pr_LastReportedDate: "Last Reported Date",
     Pr_ProcessInformation: "Process Information",
+    Pr_CurrentStation: "Current Station",
     Pr_WorkOrderNumber: "Work Order Number",
     Pr_LifeSetting: "Lifetime Setting",
     Pr_IntervalDays: "Interval Days",

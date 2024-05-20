@@ -1144,6 +1144,7 @@ const ja = {
     Pr_DaysNotReported: "労働日数未報告",
     Pr_LastReportedDate: "最終報告日",
     Pr_ProcessInformation: "加工情報",
+    Pr_CurrentStation: "現在のサイト",
     Pr_WorkOrderNumber: "製造オーダ番号",
     Pr_LifeSetting: "寿命設定",
     Pr_IntervalDays: "間隔日数",
