@@ -316,6 +316,9 @@ export default {
         position: absolute;
         left: 0;
         top: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background-color: rgb(231, 231, 231);
         .image-slot {
           width: 50px;
