@@ -163,7 +163,6 @@ export default {
 
   methods: {
     isDiaolog(item) {
-      console.log(item.ConfigValueType,9898989);
       return (
         item.ConfigValueType === "String" ||
         item.ConfigValueType === "Number" ||
@@ -244,10 +243,17 @@ export default {
       this.$refs.settingForm.updateValue();
       const configKey = this.curConfig.ConfigKey;
       this.DialogVisible = false;
-      this.changeConfigValue({
-        ConfigKey: configKey,
-        ConfigValue: this.ConfigValue,
-      });
+      if (this.curConfig.ConfigValueType === "Number") {
+        this.changeConfigValue({
+          ConfigKey: configKey,
+          ConfigValue: this.formObj.ConfigValue,
+        });
+      } else {
+        this.changeConfigValue({
+          ConfigKey: configKey,
+          ConfigValue: this.ConfigValue,
+        });
+      }
     },
     ObjectArrayConfirm(e) {
       console.log(e, 9898, this.curConfig);

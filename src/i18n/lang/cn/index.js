@@ -1276,7 +1276,9 @@ const cn = {
     Pr_SystemAdvices: "系统建议采取以下几种措施",
     Pr_OutsourceFollowingWorkpieces: "将以下工件外协",
     Pr_NegotiateToPostponeFollowingMolds: "协商将以下模具交期推迟",
+    Pr_OutsourceFollowingWorkOrders: "将以下工单外协",
     Pr_WorkpieceOutsourcing: "工件外协",
+    Pr_WorkOrderOutsourcing: "工单外协",
     Pr_Outsourcing: "外协",
     Pr_VersionNo: "排程版本号",
     Pr_CalculateTime: "计算时间",
@@ -1820,6 +1822,8 @@ const cn = {
     Meanwhile_down_process_configuration: "同时下机工序配置",
     Default_Production_Department: "默认加工部门配置",
     Dashboard_resources_configuration: "部门综合看板资源组配置",
+    Suggest_overall_outsourcing_percentage: "建议整体外协百分比",
+    Email_push_configuration: "邮件推送配置",
   },
 
   ...zhLocale,

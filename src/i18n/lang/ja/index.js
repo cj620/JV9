@@ -1286,7 +1286,9 @@ const ja = {
     Pr_SystemAdvices: "システムは以下のような措置をとることを提案している",
     Pr_OutsourceFollowingWorkpieces: "以下のワークを外注する",
     Pr_NegotiateToPostponeFollowingMolds: "協議は以下の金型の納期を延期する",
+    Pr_OutsourceFollowingWorkOrders: "次の製造オーダを外注する",
     Pr_WorkpieceOutsourcing: "ワーク外注",
+    Pr_WorkOrderOutsourcing: "製造オーダ外注",
     Pr_Outsourcing: "外注",
     Pr_VersionNo: "スケジュールバージョン番号",
     Pr_CalculateTime: "計算時間",
@@ -1838,6 +1840,8 @@ const ja = {
     Meanwhile_down_process_configuration: "同時ダウンプロセス構成",
     Default_Production_Department: "デフォルトの加工部門構成",
     Dashboard_resources_configuration: "デフォルトの加工部門構成",
+    Suggest_overall_outsourcing_percentage: "全外注率の推奨",
+    Email_push_configuration: "メールプッシュ設定",
   },
 
   ...jaLocale,

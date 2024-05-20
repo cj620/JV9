@@ -53,7 +53,7 @@ export default {
     if (this.formData.ConfigValue) {
       this.form = JSON.parse(JSON.stringify(this.formData));
     }
-    if (this.ConfigKey === "StandardEmployeeWorkTime") {
+    if (this.ConfigKey === "StandardEmployeeWorkTime" || "SuggestOverallOutsourcingPercentage") {
       this.inputType = "number";
     } else if (this.ConfigKey === "ProgrammingDefaultResponsiblePerson") {
       this.form = JSON.parse(JSON.stringify(this.formData));
