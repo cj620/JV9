@@ -1310,6 +1310,8 @@ const ja = {
     Pr_UnallocatedProcesses: "未派遣工程",
     Pr_WhetherToUnlockAllAllocatedProcesses: "派遣されたすべての工程をロック解除するかどうか?",
     Pr_WhetherToLockAllAllocatedProcesses: "派遣されたすべての工程をロックするかどうか?",
+    Pr_WhetherToUnlockTheAllocatedProcess: "工程のロック解除を確定するかどうか?",
+    Pr_WhetherToLockTheAllocatedProcess: "工程をロックしてもよろしいですか?",
     Pr_WhetherToClearAllAllocatedProcesses: "現在のデバイスの派遣工程をすべてクリアするか?",
     Pr_Locked: "ロックされている",
     Pr_Unlocked: "ロック解除",

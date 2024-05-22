@@ -1314,6 +1314,8 @@ const en = {
     Pr_UnallocatedProcesses: "Unallocated Processes",
     Pr_WhetherToUnlockAllAllocatedProcesses: "Whether to unlock all allocated processes?",
     Pr_WhetherToLockAllAllocatedProcesses: "Whether to lock all allocated processes?",
+    Pr_WhetherToUnlockTheAllocatedProcess: "Whether to unlock the allocated process?",
+    Pr_WhetherToLockTheAllocatedProcess: "Whether to lock the allocated process?",
     Pr_WhetherToClearAllAllocatedProcesses: "Whether to clear all allocated processes?",
     Pr_Locked: "Locked",
     Pr_Unlocked: "Unlocked",

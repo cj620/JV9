@@ -140,7 +140,11 @@
       :visible.sync="editLockVisible"
       @confirm="conformEditLock"
       width="350px">
-      {{ this.editLockData.FixedProcessingDevice ? '是否确定解锁该工序' : '是否确定锁定该工序' }}
+      {{
+        editLockData.FixedProcessingDevice
+          ? $t('production.Pr_WhetherToUnlockTheAllocatedProcess')
+          : $t('production.Pr_WhetherToLockTheAllocatedProcess')
+      }}
     </JvDialog>
     <JvDialog
       :title="$t('Generality.Ge_Remind')"
