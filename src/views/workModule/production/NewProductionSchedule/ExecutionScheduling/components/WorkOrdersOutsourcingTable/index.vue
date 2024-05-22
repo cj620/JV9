@@ -64,7 +64,7 @@
 <script>
 import timeFormat from "@/jv_doc/utils/time/timeFormat";
 import LevelEnum from "@/enum/workModule/production/LevelEnum";
-import { addOutsourcingrRequirement } from "@/api/workApi/purchase/outsourcingRequirement";
+import { batchHandlePurchaseOutsourcingRequirement } from "@/api/workApi/purchase/outsourcingRequirement";
 export default {
   name: "index",
   props: ["data"],
@@ -84,21 +84,14 @@ export default {
       this.selectData = val;
     },
     execute() {
-      let Items = this.selectData.map(item => {
-        return {
-          KeyId: item.Id,
-          Remarks: "",
-          Quantity: 1
-        }
+      let arr = this.selectData.map(item => item.BillId)
+      batchHandlePurchaseOutsourcingRequirement({ BillIdList:arr }).then(() => {
+        let tab = this.tableData.map(item => item.Id);
+        this.selectData.forEach(item => {
+          let index = tab.indexOf(item.Id)
+          this.$emit('setTableData1', index)
+        })
       })
-      // addOutsourcingrRequirement({"Category":"Process","Items":Items}).then(res => {
-      //   let tab = this.tableData.map(item => item.Id);
-      //   this.selectData.forEach(item => {
-      //     let index = tab.indexOf(item.Id)
-      //     this.$emit('setTableData', index)
-      //   })
-      // })
-      console.log('请求接口', Items)
     },
   },
 };

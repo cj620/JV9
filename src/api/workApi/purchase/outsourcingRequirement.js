@@ -53,7 +53,7 @@ export function checkPurchaseOutsourcingrRequirement(data) {
 // 处理委外需求
 export function handlePurchaseOutsourcingRequirement(data){
   return request({
-    url: "./purchase_outsourcing_requirement/handle",
+    url: "/purchase_outsourcing_requirement/handle",
     method: "post",
     data
   })
@@ -61,7 +61,15 @@ export function handlePurchaseOutsourcingRequirement(data){
 // 完成委外需求
 export function completedPurchaseOutsourcingRequirement(data){
   return request({
-    url: "./purchase_outsourcing_requirement/completed",
+    url: "/purchase_outsourcing_requirement/completed",
+    method: "post",
+    data
+  })
+}
+// 批量处理建议外协工单
+export function batchHandlePurchaseOutsourcingRequirement(data) {
+  return request({
+    url: "/purchase_outsourcing_requirement/batch_handle",
     method: "post",
     data
   })

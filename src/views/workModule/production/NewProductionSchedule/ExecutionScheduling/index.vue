@@ -155,6 +155,7 @@
     >
       <WorkOrdersOutsourcingTable
         :data="WorkOrdersOutsourcingData"
+        @setTableData1="setTableData1"
       ></WorkOrdersOutsourcingTable>
     </JvDialog>
     <!-- 排程日志弹窗 -->
@@ -215,6 +216,9 @@ export default {
     setTableData(index) {
       console.log(index)
       this.WorkpieceOutsourcingData.splice(index, 1)
+    },
+    setTableData1(index) {
+      this.WorkOrdersOutsourcingData.splice(index, 1);
     },
     // 关闭交期推迟配置弹窗
     setSchedulingResults() {

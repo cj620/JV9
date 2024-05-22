@@ -1,211 +1,60 @@
 <template>
   <PageWrapper ref="page" :footer="false">
     <div class="weekly-task-page">
-      <table>
-        <tr>
-          <th rowspan="2">需求日期</th>
-          <th colspan="4">魏鹏程</th>
-          <th colspan="4">王威付</th>
-          <th colspan="4">张淮滨</th>
-          <th colspan="4">张嘉达</th>
-        </tr>
-        <tr>
-<!--          <th>需求日期</th>-->
-          <th>模号</th>
-          <th>内容</th>
-          <th>预估工时</th>
-          <th>是否完成</th>
-          <th>模号</th>
-          <th>内容</th>
-          <th>预估工时</th>
-          <th>是否完成</th>
-          <th>模号</th>
-          <th>内容</th>
-          <th>预估工时</th>
-          <th>是否完成</th>
-          <th>模号</th>
-          <th>内容</th>
-          <th>预估工时</th>
-          <th>是否完成</th>
-        </tr>
-        <tr>
-          <td rowspan="3" class="text-center">
-            周六<br>5月13日
-          </td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-        </tr>
-        <tr>
-<!--          <td>周六</td>-->
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-        </tr>
-        <tr>
-<!--          <td>周六</td>-->
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-        </tr>
-        <tr>
-          <td rowspan="3" class="text-center">
-            周日<br>5月14日
-          </td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-        </tr>
-        <tr>
-<!--          <td>周日</td>-->
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-        </tr>
-        <tr>
-<!--          <td>周日</td>-->
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-        </tr>
-        <tr>
-          <td rowspan="3" class="text-center">
-            周一<br>5月15日
-          </td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-        </tr>
-        <tr>
-<!--          <td>周一</td>-->
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-        </tr>
-        <tr>
-<!--          <td>周一</td>-->
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-          <td>FAC-001</td>
-          <td>新模DFM</td>
-          <td>3</td>
-          <td>是</td>
-        </tr>
-      </table>
+      <el-table
+        :header-cell-style="{
+            background: 'rgb(237, 237, 237)',
+            borderColor: 'rgb(241, 242, 247)',
+            color:'#4f4f4f',
+            fontWeight: '500',
+            fontSize: '14px',
+          }"
+        style="width: 100%;"
+        height="100%"
+        :data="newList"
+        :span-method="objectSpanMethod"
+        @selection-change="handleSelectionChange"
+        border
+      >
+        <el-table-column
+          type="selection"
+          align="center"
+          fixed
+          width="55">
+        </el-table-column>
+        <el-table-column prop="Date" label="需求日期" align="center"></el-table-column>
+        <el-table-column v-for="(item, i) in userName" :key="i" :label="item" align="center">
+          <el-table-column :formatter="(row) => {
+            let res = row.Items.filter(trim => item === trim.UserName);
+            if(res.length) {
+              return res[0].ToolingNo
+            }
+          }" prop="ToolingNo" :label="$t('Generality.Ge_ToolingNo')" :show-overflow-tooltip="true" width="130">
+
+          </el-table-column>
+          <el-table-column :formatter="(row) => {
+            let res = row.Items.filter(trim => item === trim.UserName);
+            if(res.length) {
+              return res[0].WorkContent
+            }
+          }" prop="WorkContent" label="工作内容" :show-overflow-tooltip="true" width="130">
+          </el-table-column>
+          <el-table-column :formatter="(row) => {
+            let res = row.Items.filter(trim => item === trim.UserName);
+            if(res.length) {
+              return res[0].PlanHours
+            }
+            }" prop="PlanHours" label="预计工时" :show-overflow-tooltip="true" width="130">
+          </el-table-column>
+          <el-table-column :formatter="(row) => {
+            let res = row.Items.filter(trim => item === trim.UserName);
+            if(res.length) {
+              return res[0].IsCompleted
+            }
+            }" prop="IsCompleted" label="完成情况" :show-overflow-tooltip="true" width="130">
+          </el-table-column>
+        </el-table-column>
+      </el-table>
     </div>
   </PageWrapper>
 </template>
@@ -214,168 +63,262 @@ export default {
   name: "index",
   data() {
     return {
-      userData: [
+      dateData1: ["2024-05-21", "2024-05-22"],
+      res: {
+        Date: ["2024-05-20", "2024-05-21", "2024-05-22", "2024-05-23", "2024-05-24", "2024-05-25", "2024-05-26"],
+        Data: [
+          {
+            UserName: '陈旭',
+            Items: [
+              {ToolingNo: "001", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
+              {ToolingNo: "001", WorkContent: "DFM", PlanHours: 1, IsCompleted: '是',Date: "2024-05-21"},
+              {ToolingNo: "002", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+              {ToolingNo: "003", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+              {ToolingNo: "004", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+              {ToolingNo: "005", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+              {ToolingNo: "006", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+              {ToolingNo: "007", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
+            ],
+          },
+          {
+            UserName: '张三',
+            Items: [
+              {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
+              {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
+              {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '是',Date: "2024-05-21"},
+              {ToolingNo: "012", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+              {ToolingNo: "013", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+              {ToolingNo: "014", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+              {ToolingNo: "015", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
+              {ToolingNo: "016", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
+            ],
+          },
+          {
+            UserName: '李四',
+            Items: [
+              {ToolingNo: "021", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+              {ToolingNo: "022", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+              {ToolingNo: "023", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+              {ToolingNo: "024", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
+              {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
+              {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-25"},
+              {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-26"},
+              {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-26"},
+            ],
+          },
+          {
+            UserName: '王五',
+            Items: [
+              {ToolingNo: "031", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+              {ToolingNo: "032", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+              {ToolingNo: "033", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+              {ToolingNo: "033", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-25"},
+            ],
+          },
+        ],
+      },
+      Date: ["2024-05-20", "2024-05-21", "2024-05-22", "2024-05-23", "2024-05-24", "2024-05-25", "2024-05-26"],
+      Data: [
         {
-          user: "魏鹏程",
-          data: [
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
+          UserName: '陈旭',
+          Items: [
+            {ToolingNo: "001", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
+            {ToolingNo: "001", WorkContent: "DFM", PlanHours: 1, IsCompleted: '是',Date: "2024-05-21"},
+            {ToolingNo: "002", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+            {ToolingNo: "003", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+            {ToolingNo: "004", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+            {ToolingNo: "005", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+            {ToolingNo: "006", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+            {ToolingNo: "007", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
+            {ToolingNo: "007", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-24"},
           ],
         },
         {
-          user: "王威付",
-          data: [
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
+          UserName: '张三',
+          Items: [
+            {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
+            {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
+            {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '是',Date: "2024-05-21"},
+            {ToolingNo: "012", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+            {ToolingNo: "013", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+            {ToolingNo: "014", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+            {ToolingNo: "015", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
+            {ToolingNo: "016", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
           ],
         },
         {
-          user: "张淮滨",
-          data: [
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
+          UserName: '李四',
+          Items: [
+            {ToolingNo: "021", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+            {ToolingNo: "022", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+            {ToolingNo: "023", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+            {ToolingNo: "024", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
+            {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
+            {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-25"},
+            {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-26"},
+            {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-26"},
           ],
         },
         {
-          user: "张嘉达",
-          data: [
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
-            [
-              { ToolingNo: "FAC-001", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-002", WorkContent: "新模DFM", PlanTime: "3", isCompleted: true  },
-              { ToolingNo: "FAC-003", WorkContent: "新模DFM", PlanTime: "2", isCompleted: true  },
-            ],
+          UserName: '王五',
+          Items: [
+            {ToolingNo: "031", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+            {ToolingNo: "032", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
+            {ToolingNo: "033", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
+            {ToolingNo: "033", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-25"},
           ],
         },
       ],
+      newList: [
+        {
+          Date: "2024-05-21",
+          Items: [
+            {ToolingNo: "001", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
+            {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '张三'},
+            {ToolingNo: "021", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '李四'},
+            {ToolingNo: "031", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '王五'},
+          ]
+        },
+        {
+          Date: "2024-05-21",
+          Items: [
+            {ToolingNo: "002", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
+            {ToolingNo: "012", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '张三'},
+            {ToolingNo: "022", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '李四'},
+            {ToolingNo: "032", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '王五'},
+          ]
+        },
+        {
+          Date: "2024-05-21",
+          Items: [
+            {ToolingNo: "003", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '张三'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '李四'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
+          ]
+        },
+        {
+          Date: "2024-05-22",
+          Items: [
+            {ToolingNo: "004", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
+            {ToolingNo: "013", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '张三'},
+            {ToolingNo: "023", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '李四'},
+            {ToolingNo: "033", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '王五'},
+          ]
+        },
+        {
+          Date: "2024-05-22",
+          Items: [
+            {ToolingNo: "005", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
+            {ToolingNo: "014", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '张三'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '李四'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
+          ]
+        },
+        {
+          Date: "2024-05-22",
+          Items: [
+            {ToolingNo: "006", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '张三'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '李四'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
+          ]
+        },
+        {
+          Date: "2024-05-23",
+          Items: [
+            {ToolingNo: "007", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否', UserName: '陈旭'},
+            {ToolingNo: "015", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否', UserName: '张三'},
+            {ToolingNo: "024", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否', UserName: '李四'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
+          ]
+        },
+        {
+          Date: "2024-05-23",
+          Items: [
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '陈旭'},
+            {ToolingNo: "016", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '张三'},
+            {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '李四'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
+          ]
+        },
+        {
+          Date: "2024-05-23",
+          Items: [
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '陈旭'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '张三'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '李四'},
+            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
+          ]
+        }
+      ],
+      userName: [],
+    }
+  },
+  created() {
+    this.userName = this.Data.map(item => item.UserName);
+    this.transformData();
+  },
+  methods: {
+    handleSelectionChange(val) {
+      console.log(val)
+    },
+    objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 1) { // 第二列
+        if (rowIndex % 3 === 0) { // 每三行的开始
+          return {
+            rowspan: 3, // 合并三行
+            colspan: 1, // 不跨列
+          };
+        } else {
+          return {
+            rowspan: 0, // 其他行不显示
+            colspan: 0,
+          };
+        }
+      }
+    },
+    transformData() {
+      const newData = [];
+
+      this.Date.forEach(Date => {
+        const itemsByName = this.Data.reduce((acc, item) => {
+          acc[item.UserName] = acc[item.UserName] || [];
+          return acc;
+        }, {});
+
+        this.Data.forEach(item => {
+          item.Items.forEach(subItem => {
+            if (subItem.Date === Date) {
+              itemsByName[item.UserName].push({
+                ToolingNo: subItem.ToolingNo,
+                WorkContent: subItem.WorkContent,
+                PlanHours: subItem.PlanHours,
+                IsCompleted: subItem.IsCompleted,
+                UserName: item.UserName
+              });
+            }
+          });
+        });
+
+        const names = Object.keys(itemsByName);
+        for (let i = 0; i < 3; i++) {
+          const dateItem = { Date, Items: [] };
+          names.forEach(name => {
+            const itemsForName = itemsByName[name];
+            const itemToAdd = itemsForName.length > i ? itemsForName[i] : {
+              ToolingNo: null,
+              WorkContent: null,
+              PlanHours: null,
+              IsCompleted: null,
+              UserName: name
+            };
+            dateItem.Items.push(itemToAdd);
+          });
+          newData.push(dateItem);
+        }
+      });
+      this.newList = newData;
     }
   }
 }
@@ -385,32 +328,5 @@ export default {
   height: 100%;
   background-color: #ffffff;
   padding: 10px 15px 10px 15px;
-  table {
-    border: 1px solid black;
-    margin: 0 auto;
-    border-collapse: collapse;
-    border-spacing: 5px 5px;
-    width: 100%;
-    th {
-      padding: 10px;
-      border-collapse: collapse;
-      background: rgb(237, 237, 237);
-      border:1px solid rgb(241, 242, 247);
-      color: rgb(79, 79, 79);
-      font-weight: 500;
-      font-size: 14px;
-    }
-    td {
-      padding: 10px;
-      border-collapse: collapse;
-      border: 1px solid #dfe6ec;
-      font-size: 14px;
-      color: #606266;
-    }
-    .text-center {
-      vertical-align: middle;
-      text-align: center;
-    }
-  }
 }
 </style>
