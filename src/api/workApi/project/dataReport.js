@@ -38,3 +38,11 @@ export function project_cost_details_list(data) {
     data,
   });
 }
+// 项目任务周看板
+export function project_task_weekly_dashboard(data) {
+  return request({
+    url: "/data_report/project_task_weekly_dashboard",
+    method: "post",
+    data,
+  });
+}

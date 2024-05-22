@@ -59,6 +59,7 @@
   </PageWrapper>
 </template>
 <script>
+import { project_task_weekly_dashboard } from "@/api/workApi/project/dataReport"
 export default {
   name: "index",
   data() {
