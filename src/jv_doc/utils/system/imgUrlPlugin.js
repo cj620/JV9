@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-09-29 09:23:58
- * @LastEditTime: 2021-11-18 09:18:24
+ * @LastEditTime: 2024-05-22 14:50:41
  * @Description: file content
  */
 /**
@@ -11,14 +11,26 @@
  * @param {*} options
  * @return {string}
  */
- function imgUrlPlugin(url,options={}){
-  if(options.prefix){
-    // console.log(options.prefix+url,222222222);
-    return options.prefix+url
-  } else if(window.global_config.ImgBase_Url){
-    // console.log(window.global_config.ImgBase_Url+url,222222222);
-    return window.global_config.ImgBase_Url+url
+function imgUrlPlugin(url, options = {}) {
+  if (!url) return url;
+  if (Array.isArray(url)) {
+    return url.map((item) => {
+      return imgUrlPlugin(item);
+    });
   }
-  return url
+  if (options.prefix) {
+    return options.prefix + url;
+  } else if (window.global_config.ImgBase_Url) {
+    return window.global_config.ImgBase_Url + url;
   }
-  export default imgUrlPlugin
+  return url;
+}
+export function imgUrlsPlugin(url, options = {}) {
+  const urls = imgUrlPlugin(url, (options = {}));
+  if (Array.isArray(urls)) {
+    return urls;
+  } else {
+    return [urls];
+  }
+}
+export default imgUrlPlugin;
