@@ -36,7 +36,7 @@ export const formSchema = [
   },
   {
     prop: "ProcessContent",
-    label: i18n.t("Generality.Ge_ProcessInfo"),
+    label: i18n.t("Generality.Ge_WorkContent"),
     cpn: "FormInput",
   },
   {

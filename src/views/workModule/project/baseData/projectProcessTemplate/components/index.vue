@@ -109,6 +109,7 @@ export default {
         EndScale: 0,
         ProcessType: 0,
         BelongingDepartment: "",
+        ProcessContent: "",
         TemplateGui: ""
       },
       editData: {},

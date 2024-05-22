@@ -24,6 +24,11 @@ export const tableConfig = [
     prop: "Process",
     label: i18n.t("Generality.Ge_Process")
   },
+  /*工作内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_WorkContent"),
+  },
   /*标准费率*/
   {
     prop: "CostRate",

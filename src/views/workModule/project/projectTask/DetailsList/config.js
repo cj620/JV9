@@ -134,6 +134,11 @@ const tableSchema = [
       },
     }
   },
+  /*工作内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_WorkContent"),
+  },
     /*负责人*/
     {
       prop: "Worker",

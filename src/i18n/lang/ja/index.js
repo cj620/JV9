@@ -835,6 +835,7 @@ const ja = {
     Ge_Dynamic: "動的",
     Ge_Record: "ダイナミックレコード",
     Ge_ProcessInfo: "工程情報",
+    Ge_WorkContent: "作業内容",
     Ge_DocumentType: "文書タイプ",
     Ge_Date: "日付",
     Ge_ContinueOrNot: "日付は需要を送信しました。続行しますか？",

@@ -39,6 +39,12 @@ export const tableConfig = [
       disabled: true,
     },
   },
+  /*工作内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_WorkContent"),
+    formCpn: "FormInput",
+  },
   /*标准费率*/
   {
     prop: "CostRate",

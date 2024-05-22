@@ -35,6 +35,11 @@ export const tableConfig = [
     label: i18n.t("production.Pr_ProcessType"),
     customFilter: (value) => enumFilter(value, processTypeEnum),
   },
+  /*工作内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_WorkContent"),
+  },
   /*部门*/
   {
     prop: "BelongingDepartment",

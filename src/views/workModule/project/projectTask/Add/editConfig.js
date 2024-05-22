@@ -57,6 +57,12 @@ export const m_tableConfig = [
       },
     },
   },
+  /*工作内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_WorkContent"),
+    formCpn: "FormInput",
+  },
   /*负责人*/
   {
     prop: "Worker",

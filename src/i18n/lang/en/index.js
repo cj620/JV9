@@ -838,6 +838,7 @@ const en = {
     Ge_Dynamic: "Dynamic",
     Ge_Record: "Record",
     Ge_ProcessInfo: "Process info",
+    Ge_WorkContent: "Work Content",
     Ge_DocumentType: "Document type",
     Ge_Date: "Date",
     Ge_ContinueOrNot: "Continue or not?",
