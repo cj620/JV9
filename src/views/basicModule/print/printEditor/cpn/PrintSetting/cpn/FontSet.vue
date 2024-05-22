@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-07-27 16:53:31
- * @LastEditTime: 2023-10-24 14:30:45
+ * @LastEditTime: 2024-05-22 14:58:53
  * @Description: file content
 -->
 <template>
@@ -59,6 +59,14 @@
           >
             <i class="el-icon-question"></i>
           </el-tooltip>
+        </el-form-item>
+        <el-form-item label="图片宽度" v-if="currentNode.filter == 'image'">
+          <el-input
+            v-model="currentNode.filterOptions"
+            style="width: 80%"
+            @change="inputChange"
+            type="number"
+          ></el-input>
         </el-form-item>
         <el-form-item label="枚举类型" v-if="currentNode.filter == 'bizMap'">
           <el-select v-model="currentNode.filterOptions">
