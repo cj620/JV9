@@ -1359,7 +1359,7 @@ const cn = {
     Qc_UpperTolerance: "上公差",
     Qc_LowerTolerance: "下公差",
     Qc_MeasuredValue: "实测值",
-    Qc_SelfCheckProcess: "自检工序",
+    Qc_SelfCheckProcess: "检验工序",
     Qc_ProcessCheckType: "检验类型",
     Qc_ProcessCheckChart: "检验图",
     Qc_SelfCheck: "自检",
