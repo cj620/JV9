@@ -136,6 +136,14 @@
     </JvDialog>
     <JvDialog
       :title="$t('Generality.Ge_Remind')"
+      v-if="editLockVisible"
+      :visible.sync="editLockVisible"
+      @confirm="conformEditLock"
+      width="350px">
+      {{ this.editLockData.FixedProcessingDevice ? '是否确定解锁该工序' : '是否确定锁定该工序' }}
+    </JvDialog>
+    <JvDialog
+      :title="$t('Generality.Ge_Remind')"
       v-if="clearAllVisible"
       :visible.sync="clearAllVisible"
       @confirm="conformClearAll"
@@ -170,12 +178,14 @@ export default {
       selectedResources: '',
       selectedDeviceNo: '',
       editProcessData: {},
+      editLockData: {},
       resourcesOptions: [],
       deviceList: [],
       processList1: [],
       processList2: [],
       editProcessDialogFormVisible: false,
       editAllLockVisible: false,
+      editLockVisible: false,
       clearAllVisible: false,
     }
   },
@@ -234,12 +244,17 @@ export default {
     },
     // 更改工序锁定状态
     editLockState(e) {
+      this.editLockData = e;
+      this.editLockVisible = true;
+    },
+    conformEditLock() {
       production_dispatching_lock_device({
-        TaskProcessId: e.Id,
+        TaskProcessId: this.editLockData.Id,
         // 不存在锁定机台时锁定当前设备，存在时即解绑
-        DeviceNo: e.FixedProcessingDevice ? null : this.selectedDeviceNo,
+        DeviceNo: this.editLockData.FixedProcessingDevice ? null : this.selectedDeviceNo,
       }).then(() => {
         this.getProcessByDevice(this.selectedDeviceNo);
+        this.editLockVisible = false;
       })
     },
     // 更改所有已派工工序锁定状态
