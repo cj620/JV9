@@ -50,16 +50,6 @@ export default {
           prop: "Process",
           label:i18n.t("Generality.Ge_Process"),
         },
-        /*工作内容*/
-        {
-          prop: "ProcessContent",
-          label: i18n.t("Generality.Ge_WorkContent"),
-        },
-        // /*预计工时*/
-        // {
-        //   prop: "ItemName",
-        //   label:i18n.t("Generality.Ge_PlanTime"),
-        // },
       ],
       pagination: false,
       sortCol: false,

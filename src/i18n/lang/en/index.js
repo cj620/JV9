@@ -1107,6 +1107,8 @@ const en = {
     Ge_Total: "total",
     Ge_Select: "Select",
     Ge_NewTemplateAdded: "New template added",
+    Ge_IsItCompletedAsPlanned: "Is it completed as planned",
+    Ge_ReasonForNotAchievingThePlan1: "Reason for not achieving the plan",
     Ge_SelectedItems: {
       str1: "",
       str2: "pieces of data have been selected",
@@ -1860,6 +1862,7 @@ const en = {
     Dashboard_resources_configuration: "Dashboard resources configuration",
     Suggest_overall_outsourcing_percentage: "Suggest overall outsourcing percentage",
     Email_push_configuration: "Email push configuration",
+    Project_task_report_work_inspection: "Project task report work inspection",
   },
   ...enLocale,
 };
