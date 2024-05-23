@@ -64,7 +64,25 @@
             </el-option>
           </el-select>
         </template>
-
+        <template #ProcessContent="{ row }">
+          <el-select
+            v-model="row.customData.value"
+            style="width: 100%"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            @visible-change="changeValue($event, row)"
+          >
+            <el-option
+              v-for="item in row.ProcessContentList.value"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </template>
 
         <template #operation="{ row_index }">
           <TableAction
@@ -145,7 +163,7 @@ import {
 } from "@/jv_doc/utils/handleData";
 // 引入模块API接口
 import { API as ProjectTask } from "@/api/workApi/project/projectTask";
-import { project_process_get_by_name } from "@/api/workApi/project/baseData";
+import {getAllProjectProcess, project_process_get_by_name} from "@/api/workApi/project/baseData";
 import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import closeTag from "@/utils/closeTag";
 import countEndDate from '@/jv_doc/utils/time/countEndDate';
@@ -156,6 +174,7 @@ import {
   doubleCol2data,
 } from "./utils";
 import SelectProjectProcess from "@/components/JVInternal/SelectProjectProcess/index.vue";
+import {getByProcess} from "@/api/workApi/production/baseData";
 export default {
   name: "Pm_ProjectTask_Add",
   components: {
@@ -187,6 +206,7 @@ export default {
       detailRouteName: "Pm_ProjectTask_Detail",
       fileBillId: this.$route.query.BillId,
       WorkerList: [],
+      ProcessContentList: [],
       ruleForm: {
         TaskType: 0,
         ToolingNo: "",
@@ -208,6 +228,9 @@ export default {
         PlanTime: 1,
         PlanStart: "",
         BelongingDepartment: "",
+        ProcessContent: "",
+        ProcessContentList: [],
+        customData: [],
         PlanEnd: "",
         Remarks: "",
         Progress: 0,
@@ -264,7 +287,15 @@ export default {
         this.formObj.form.TaskType = res.TaskType
         this.formObj.form.ToolingNo = res.ToolingNo
         this.formObj.form.ERPCode = res.ERPCode
-        this.M_TableObj.setData(res.BillItems)
+        if(res.BillItems.length) {
+          res.BillItems.forEach(item => {
+            if(item.ProcessContent !== "") {
+              item.customData = item.ProcessContent.split(",");
+            }
+          });
+          this.M_TableObj.push(temMerge(this.BillItems, res.BillItems))
+        }
+
       })
     }
   },
@@ -272,6 +303,25 @@ export default {
     Object.assign(this.formObj.form, this.$route.params);
   },
   methods: {
+    changeValue(e, row) {
+      var arr = [];
+      if (e) {
+        getAllProjectProcess({Process: row.Process.value}).then((res) => {
+          if(res.Items.length) {
+            if(res.Items[0].ProcessContent !== null) {
+              console.log(res.Items[0].ProcessContent.split(/[,，]/), 312)
+              res.Items[0].ProcessContent.split(/[,，]/).forEach((item) => {
+                arr.push({
+                  value: item,
+                  label: item,
+                });
+              });
+            }
+          }
+          row.ProcessContentList.value = arr;
+        });
+      }
+    },
     cellBlur(cellObj){
       const _day = 86400000 / 8;
       for(let i = cellObj.row; i < this.M_TableObj.tableData.length-1; i++) {

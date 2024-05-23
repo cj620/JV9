@@ -79,7 +79,7 @@ import { Table } from "./config";
 import {
   editProjectProcess,
   deleteProjectProcess,
-  updateSort,
+  updateSort, getAllProjectProcess,
 } from "@/api/workApi/project/baseData";
 import { processTypeEnum } from "@/enum/workModule";
 import Popover from "~/cpn/JvTable/cpn/Popover.vue";

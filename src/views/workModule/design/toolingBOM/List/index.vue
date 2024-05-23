@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2023-09-21 15:45:48
+ * @LastEditTime: 2024-05-23 13:20:14
  * @Description: 模具BOM
 -->
 
@@ -12,7 +12,6 @@
       highlight-current-row
       @current-change="handleCurrentChange"
     >
-
       <Action
         size="mini"
         slot="btn-list"
@@ -44,8 +43,8 @@
           {
             // 合并
             label: $t('Generality.Ge_merge'),
-            disabled: !IsSelectLength,
-            confirm: l_del.bind(),
+            disabled: !IsSMerge,
+            confirm: l_merge.bind(),
           },
           {
             // 创建生产任务
@@ -107,9 +106,9 @@
             confirm: synchronizePart.bind(),
           },
           // {
-			    //   label: $t('design.De_StateLinkage'),
-			    //   disabled: IsTableEmpty,
-			    //   confirm: synchronizeState.bind(),
+          //   label: $t('design.De_StateLinkage'),
+          //   disabled: IsTableEmpty,
+          //   confirm: synchronizeState.bind(),
           // },
         ]"
       >
@@ -195,26 +194,23 @@
           ]"
         />-->
         <div class="bom-action">
-          <span @click="copy(row, row_index)"
-                :class="{ 'action-item': true }"
-          >{{
-            $t("Generality.Ge_Copy")
-          }}</span>
-          <span @click="l_insert(row_index)"
-                :class="{ 'action-item': true}"
-          >{{
+          <span
+            @click="copy(row, row_index)"
+            :class="{ 'action-item': true }"
+            >{{ $t("Generality.Ge_Copy") }}</span
+          >
+          <span @click="l_insert(row_index)" :class="{ 'action-item': true }">{{
             $t("Generality.Ge_Insert")
           }}</span>
-          <span @click="l_delete(row_index)"
-                :class="{ 'action-item': true }"
-          >{{
+          <span @click="l_delete(row_index)" :class="{ 'action-item': true }">{{
             $t("Generality.Ge_Delete")
           }}</span>
-          <span  class="action-item">
-            <el-badge :is-dot="row.IsPartProcess ? row.IsPartProcess.value : false">
-              <span @click="CraftDesign1(row)"
-              >{{
-              $t("program.Pr_ProcessPlanning")
+          <span class="action-item">
+            <el-badge
+              :is-dot="row.IsPartProcess ? row.IsPartProcess.value : false"
+            >
+              <span @click="CraftDesign1(row)">{{
+                $t("program.Pr_ProcessPlanning")
               }}</span>
             </el-badge>
           </span>
@@ -292,7 +288,7 @@
       :title="$t('project.Pro_TaskSheetNo')"
       width="30%"
       @confirm="confirmItem"
-      :confirmDisabled = "SelectedTaskId"
+      :confirmDisabled="SelectedTaskId"
     >
       <JvForm :formObj="formObj">
         <template #PmTaskBillId="{ prop }">
@@ -373,7 +369,7 @@ import {
   autoMatchMaterials,
   synchronizePart,
   quickly_create_task,
-	synchronize_material_state,
+  synchronize_material_state,
 } from "@/api/workApi/design/toolingBOM";
 import { getPartsByPartNo } from "@/api/workApi/production/productionTask";
 // 获取系统配置接口
@@ -473,7 +469,8 @@ export default {
         Creator: "",
         CreationDate: "",
         Remarks: "",
-		    IsPartProcess: false
+        IsPartProcess: false,
+        MergeNo: "",
       },
       exportTemplate: [
         {
@@ -568,6 +565,9 @@ export default {
     IsSelectLength() {
       return this.eTableObj.selectData.datas.length > 0;
     },
+    IsSMerge() {
+      return this.eTableObj.selectData.datas.length > 1;
+    },
     IsTableEmpty() {
       return this.eTableObj.tableData.length === 0;
     },
@@ -592,8 +592,8 @@ export default {
       return this.eTableObj.selectData.datas.length === 1;
     },
     SelectedTaskId() {
-      return this.formObj.form.PmTaskBillId === ""
-    }
+      return this.formObj.form.PmTaskBillId === "";
+    },
   },
   methods: {
     setShowMassUpload() {
@@ -660,13 +660,13 @@ export default {
     // 清除缓存重置表格
     resetTable() {
       this.$confirm(
-          this.$t("setup.IsResetCache"),
-          this.$t("Generality.Ge_Remind"),
-          {
-            confirmButtonText: this.$t("Generality.Ge_OK"),
-            cancelButtonText: this.$t("Generality.Ge_Cancel"),
-            type: "warning",
-          }
+        this.$t("setup.IsResetCache"),
+        this.$t("Generality.Ge_Remind"),
+        {
+          confirmButtonText: this.$t("Generality.Ge_OK"),
+          cancelButtonText: this.$t("Generality.Ge_Cancel"),
+          type: "warning",
+        }
       ).then(() => {
         resetCache(this.eTableObj.props.tid);
         this.$store.dispatch("tagsView/delCachedView", this.$route).then(() => {
@@ -794,6 +794,21 @@ export default {
         )
       );
     },
+    l_merge() {
+      const datas = this.eTableObj.getSeletedData();
+      if (datas.length < 2) {
+        this.$message.warning("请先选择需要合并的项！");
+        return;
+      }
+
+      const mergeData = {
+        ...this.saveData,
+        Quantity: 1,
+        MergeNo: datas.map((item) => item.PartNo).join(","),
+        Remarks: `【${datas.map((item) => item.PartNo).join(",")}】合并`,
+      };
+      this.eTableObj.push([mergeData]);
+    },
     // 创建生产任务
     l_createTask() {
       this.createTaskFormObj.form.Parts = [];
@@ -809,7 +824,7 @@ export default {
           Unit: item.Unit.value,
           Quantity: item.Quantity.value,
           ToolingNo: item.ToolingNo.value,
-          IsFinishedProductInspection: item.IsFinishedProductInspection.value
+          IsFinishedProductInspection: item.IsFinishedProductInspection.value,
         });
       });
     },
@@ -818,7 +833,6 @@ export default {
       this.createTaskFormObj.validate((valid) => {
         if (valid) {
           this.IsGetPartsByPartNo(this.eTableObj.selectData.datas);
-
         }
       });
     },
@@ -826,13 +840,23 @@ export default {
     IsGetPartsByPartNo(e) {
       getPartsByPartNo(e.map((x) => x.PartNo.value)).then((res) => {
         //element 自带bug，时区不在东八区，要加八个小时
-        this.createTaskFormObj.form.PlanStart =timeFormat(this.createTaskFormObj.form.PlanStart,'yyyy-MM-dd hh:mm')
-        this.createTaskFormObj.form.PlanEnd =timeFormat(this.createTaskFormObj.form.PlanEnd,'yyyy-MM-dd hh:mm')
+        this.createTaskFormObj.form.PlanStart = timeFormat(
+          this.createTaskFormObj.form.PlanStart,
+          "yyyy-MM-dd hh:mm"
+        );
+        this.createTaskFormObj.form.PlanEnd = timeFormat(
+          this.createTaskFormObj.form.PlanEnd,
+          "yyyy-MM-dd hh:mm"
+        );
         if (res.Items.length > 0) {
-          this.$confirm(res.Items.toString() + this.$t("Generality.Ge_SheetIsAlreadyCreated"), {
-            confirmButtonText: this.$t("Generality.Ge_OK"),
-            cancelButtonText: this.$t("Generality.Ge_Cancel"),
-          }).then((res) => {
+          this.$confirm(
+            res.Items.toString() +
+              this.$t("Generality.Ge_SheetIsAlreadyCreated"),
+            {
+              confirmButtonText: this.$t("Generality.Ge_OK"),
+              cancelButtonText: this.$t("Generality.Ge_Cancel"),
+            }
+          ).then((res) => {
             quickly_create_task(this.createTaskFormObj.form).then((res) => {
               this.createTaskVisible = false;
             });
@@ -854,7 +878,7 @@ export default {
         if (res.Items.length === 1) {
           this.createTaskFormObj.form.PmTaskBillId = res.Items[0].BillId;
           this.createTaskFormObj.form.PlanEnd = res.Items[0].PlanEnd;
-        } else{
+        } else {
           this.createTaskFormObj.form.PmTaskBillId = "";
         }
         this.TaskListData1 = res.Items;
@@ -899,7 +923,7 @@ export default {
     },
     //下载BOM模板
     downBOMTemplate() {
-      window.open(window.global_config.ImgBase_Url + 'TplFolder/BOM模版.xlsx');
+      window.open(window.global_config.ImgBase_Url + "TplFolder/BOM模版.xlsx");
     },
     //下载导入模板
     downExport2Excel() {
@@ -930,16 +954,15 @@ export default {
     //同步零件信息
     synchronizePart() {
       synchronizePart(format2source(this.eTableObj.selectData.datas)).then(
-        (res) => {
-        }
+        (res) => {}
       );
     },
     //同步物料状态
     synchronizeState() {
-      let arr = this.eTableObj.getTableData()
-		  synchronize_material_state(arr).then((res) => {
-		    this.getData();
-      })
+      let arr = this.eTableObj.getTableData();
+      synchronize_material_state(arr).then((res) => {
+        this.getData();
+      });
     },
     //导入BOM
     ImportBOM() {
@@ -982,7 +1005,7 @@ export default {
         if (res.Count === 1) {
           this.formObj.form.PmTaskBillId = res.Items[0].BillId;
         } else {
-			    this.formObj.form.PmTaskBillId = ""
+          this.formObj.form.PmTaskBillId = "";
         }
         this.TaskListData = res.Items;
         this.selectProjectFormVisible = true;
@@ -1043,7 +1066,7 @@ export default {
       this.importShow = false;
       this.importDialogFormVisible = true;
 
-     // let arr = this.handleExcelData(e);
+      // let arr = this.handleExcelData(e);
       var arr = [];
       e.forEach((Titem) => {
         var str = {};
@@ -1139,7 +1162,7 @@ export default {
       // 页面缓存的时候不刷新数据，监听路由刷新数据
       // 判断路由监听的页面是不是本页面
 
-      if (to.name !== 'ToolingBOM') return;
+      if (to.name !== "ToolingBOM") return;
 
       // 判断传过来的数据不为空并且传过来的数据是一条新的数据
       if (this.$route.params.PartNo !== undefined) {

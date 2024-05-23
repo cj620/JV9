@@ -9,6 +9,7 @@
 <script>
 import Common from "../Add/index.vue";
 import { API as ProjectTask } from "@/api/workApi/project/projectTask";
+import {temMerge} from "~/utils/handleData";
 export default {
   name: "Pm_ProjectTask_Edit",
   extends: Common,
@@ -20,8 +21,14 @@ export default {
       ProjectTask.api_get({ BillId: this.cur_Id }).then((res) => {
         this.formObj.form = res;
         this.ruleForm = res;
-        this.M_TableObj.setData(res.BillItems);
-        console.log(res.BillItems, 56456456);
+        if(res.BillItems.length) {
+          res.BillItems.forEach(item => {
+            if(item.ProcessContent !== "") {
+              item.customData = item.ProcessContent.split(",");
+            }
+          });
+          this.M_TableObj.push(temMerge(this.BillItems, res.BillItems))
+        }
       });
     },
   },
