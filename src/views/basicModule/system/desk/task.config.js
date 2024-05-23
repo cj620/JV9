@@ -64,6 +64,12 @@ const tableSchema = [
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
   },
+  /*工序内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_TaskContent"),
+    width: '200px'
+  },
   /*负责人*/
   {
     prop: "Worker",
@@ -81,12 +87,14 @@ const tableSchema = [
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     filter: "time",
+    width: 140
   },
   {
     // 计划结束
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
     filter: "time",
+    width: 140
   },
   /*实际开始*/
   {
@@ -242,5 +250,5 @@ export class TaskForm extends Form {
 }
 
 export const detailConfig=tableSchema.filter(item=>{
-  return ['ToolingNo','Process','PlanTime'].includes(item.prop)
+  return ['ToolingNo','Process','PlanTime','ProcessContent'].includes(item.prop)
 })
