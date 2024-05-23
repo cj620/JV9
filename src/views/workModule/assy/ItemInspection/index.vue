@@ -18,9 +18,6 @@
         ]"
       >
       </Action>
-      <template #ItemState="{ record }">
-        <TaskState :state="record"></TaskState>
-      </template>
       <template #IsItCompletedAsPlanned="{ record }">
         {{ record ? '是' : '否' }}
       </template>
@@ -43,10 +40,8 @@
 </template>
 <script>
 import { Table } from "./config";
-import TaskState from "@/components/JVInternal/TaskState/index.vue";
 export default {
   name: "As_AssyTaskItemInspection",
-  components: { TaskState },
   data() {
     return {
       tableObj: {},
@@ -70,13 +65,6 @@ export default {
 
     },
   },
-  watch: {
-    "tableObj.formObj.form.StartDate": {
-      handler(n,o) {
-        this.tableObj.formObj.form.EndDate = n;
-      }
-    }
-  }
 }
 </script>
 <style lang="scss" scoped>

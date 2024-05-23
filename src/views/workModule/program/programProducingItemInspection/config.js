@@ -19,7 +19,8 @@ export class Table extends BaseTable {
       api,
       printMod: 'Pa_ProgramProducingTaskItemInspection',
       operationWidth: 140,
-      printBar: false
+      printBar: false,
+      sortCol: false,
     })
   }
 }
@@ -30,26 +31,12 @@ export const tableSchema = [
     prop: "TaskBillId",
     label: i18n.t('production.Pr_WorkSheetNo'),
     width: "150px",
-    align: "center",
-    cpn: "Link",
-    cpnProps: {
-      routeName: "ProductionTaskDetails",
-      methods: "query",
-      parameterKey: "BillId",
-    },
   },
   {
     // 项目任务单号
     prop: "PmTaskBillId",
     label: i18n.t('project.Pro_ProjectTaskSheetNo'),
     width: "150px",
-    align: "center",
-    cpn: "Link",
-    cpnProps: {
-      routeName: "Pm_ProjectTask_Detail",
-      methods: "query",
-      parameterKey: "BillId",
-    },
   },
   {
     // 模具编号
@@ -63,13 +50,6 @@ export const tableSchema = [
     label: i18n.t("Generality.Ge_PartNo"),
     width: "120px",
   },
-  // {
-  //   prop: "ItemState",
-  //   label: i18n.t("Generality.Ge_State"),
-  //   custom: true,
-  //   align: "center",
-  //   width: "115px",
-  // },
   {
     // 工序
     prop: "Process",
@@ -196,7 +176,7 @@ export const formSchema = [
   },
   {
     prop: "StartDate",
-    label: i18n.t("setup.Time"),
+    label: i18n.t("Generality.Ge_StartDate"),
     cpn: "SingleTime",
     default: timeFormat(
       new Date(),
@@ -205,7 +185,8 @@ export const formSchema = [
   },
   {
     prop: "EndDate",
-    hidden: true,
+    label: i18n.t("Generality.Ge_EndDate"),
+    cpn: "SingleTime",
     default: timeFormat(
       new Date(),
       "yyyy-MM-dd"

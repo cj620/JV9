@@ -20,7 +20,8 @@ export class Table extends BaseTable {
       api,
       printMod: 'As_AssyTaskItemInspection',
       operationWidth: 140,
-      printBar: false
+      printBar: false,
+      sortCol: false,
     })
   }
 }
@@ -31,26 +32,12 @@ export const tableSchema = [
     prop: "BillId",
     label: i18n.t('project.Pro_ProjectTaskSheetNo'),
     width: "150px",
-    align: "center",
-    cpn: "Link",
-    cpnProps: {
-      routeName: "Pm_ProjectTask_Detail",
-      methods: "query",
-      parameterKey: "BillId",
-    },
   },
   {
     // 模具编号
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
     width: "120px",
-  },
-  {
-    prop: "ItemState",
-    label: i18n.t("Generality.Ge_State"),
-    custom: true,
-    align: "center",
-    width: "115px",
   },
   {
     // 工序
@@ -216,7 +203,7 @@ export const formSchema = [
   },
   {
     prop: "StartDate",
-    label: i18n.t("setup.Time"),
+    label: i18n.t("Generality.Ge_StartDate"),
     cpn: "SingleTime",
     default: timeFormat(
       new Date(),
@@ -225,7 +212,8 @@ export const formSchema = [
   },
   {
     prop: "EndDate",
-    hidden: true,
+    label: i18n.t("Generality.Ge_EndDate"),
+    cpn: "SingleTime",
     default: timeFormat(
       new Date(),
       "yyyy-MM-dd"
