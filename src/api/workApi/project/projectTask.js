@@ -173,6 +173,14 @@ export function production_programing_task_delete(data) {
     data,
   })
 }
+// 生产加工编程任务明细点检列表
+export function production_programing_task_item_inspection_list(data) {
+  return request({
+    url: "/production_programing_task/item_inspection_list",
+    method: "post",
+    data,
+  })
+}
 // 保存试模任务动态扩充内容信息
 export function save_trial_tooling_dynamic(data) {
   return request({
