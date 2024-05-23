@@ -25,7 +25,7 @@ export default {
           res.BillItems.forEach(item => {
             if(item.ProcessContent && item.ProcessContent !== "") {
               console.log(item.ProcessContent, 27)
-              item.customData = item.ProcessContent.split(",");
+              item.customData = item.ProcessContent.split(/[,，]/);
             }
           });
           this.M_TableObj.push(temMerge(this.BillItems, res.BillItems))
