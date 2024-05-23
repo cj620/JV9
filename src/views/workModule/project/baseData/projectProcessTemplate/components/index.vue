@@ -46,6 +46,25 @@
         </Action>
       </div>
       <JvEditTable :tableObj="eTableObj">
+        <template #ProcessContent="{ row }">
+          <el-select
+            v-model="row.customData.value"
+            style="width: 100%"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            @visible-change="changeValue($event, row)"
+          >
+            <el-option
+              v-for="item in row.ProcessContentList.value"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </template>
         <template #operation="{ row_index }">
           <TableAction
               :actions="[
@@ -88,7 +107,7 @@ import { Form } from "@/jv_doc/class/form";
 import { EditTable } from "./editConfig";
 import SelectProjectProcessTemplate from "@/components/JVInternal/SelectProjectProcessTemplate";
 import { temMerge } from "@/jv_doc/utils/handleData";
-import { saveProjectProcessTemplate } from "@/api/workApi/project/baseData"
+import {getAllProjectProcess, saveProjectProcessTemplate} from "@/api/workApi/project/baseData"
 import closeTag from "@/utils/closeTag";
 import { mapState } from "vuex";
 import SelectProjectProcess from "@/components/JVInternal/SelectProjectProcess";
@@ -100,6 +119,7 @@ export default {
       eTableObj: {},
       ProcessDialogFormVisible: false,
       ProcessTemplateDialogFormVisible: false,
+      ProcessContentList: [],
       BillItems: {
         Id: 0,
         Process: "",
@@ -109,6 +129,9 @@ export default {
         EndScale: 0,
         ProcessType: 0,
         BelongingDepartment: "",
+        ProcessContent: "",
+        ProcessContentList: [],
+        customData: [],
         ProcessContent: "",
         TemplateGui: ""
       },
@@ -130,6 +153,11 @@ export default {
       this.editData = this.$route.params.data;
       this.formObj.form = this.editData;
       if (this.editData.BillItems.length > 0) {
+        this.editData.BillItems.forEach(item => {
+          if(item.ProcessContent !== "") {
+            item.customData = item.ProcessContent.split(",");
+          }
+        });
         this.eTableObj.push(temMerge(this.BillItems, this.editData.BillItems));
       }
     }
@@ -145,6 +173,25 @@ export default {
     SelectProjectProcessTemplate,
   },
   methods: {
+    changeValue(e, row) {
+      var arr = [];
+      if (e) {
+        getAllProjectProcess({Process: row.Process.value}).then((res) => {
+          if(res.Items.length) {
+            if(res.Items[0].ProcessContent !== null) {
+              console.log(res.Items[0].ProcessContent.split(/[,，]/), 312)
+              res.Items[0].ProcessContent.split(/[,，]/).forEach((item) => {
+                arr.push({
+                  value: item,
+                  label: item,
+                });
+              });
+            }
+          }
+          row.ProcessContentList.value = arr;
+        });
+      }
+    },
     //改工序的顺序
     editSort(isDown = true) {
       if (this.eTableObj.selectData.datas.length !== 1) return;

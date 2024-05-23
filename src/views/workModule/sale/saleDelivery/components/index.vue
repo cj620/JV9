@@ -224,6 +224,7 @@ export default {
         Remarks: "",
         NoTaxPrice: 0,
         TDA: 0,
+        AssociatedNo: "",
       },
     };
   },
@@ -372,10 +373,10 @@ export default {
     },
     // 确认选择明细
     detailsConfirm() {
-      console.log("this.selectedItems::: ", this.selectedItems);
       this.selectedItems.forEach((item) => {
         item.AssociatedNo = item.Id;
         item.Id = 0;
+        console.log(item.AssociatedNo, 378)
         item.Quantity =
           item.Quantity - item.DeliveryQuantity + item.ReturnQuantity;
         if (!item.Quantity) {
@@ -408,6 +409,7 @@ export default {
         if (valid) {
           if (this.eTableObj.getTableData().length > 0) {
             this.ruleForm.BillItems = this.eTableObj.getTableData();
+            console.log(this.ruleForm.BillItems, 411)
             this.eTableObj.validate((valid1) => {
               if (valid1) {
                 delivery
