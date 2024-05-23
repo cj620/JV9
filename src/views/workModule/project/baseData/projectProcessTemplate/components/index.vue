@@ -154,7 +154,7 @@ export default {
       this.formObj.form = this.editData;
       if (this.editData.BillItems.length > 0) {
         this.editData.BillItems.forEach(item => {
-          if(item.ProcessContent !== "") {
+          if(item.ProcessContent && item.ProcessContent !== "") {
             item.customData = item.ProcessContent.split(",");
           }
         });
