@@ -51,7 +51,7 @@ export default {
 <style lang="scss" scoped>
 .machine-card {
   //width: 250px;
-  width: 210px;
+  width: 235px;
   height: 115px;
   //height: 90%;
   background-color: orange;

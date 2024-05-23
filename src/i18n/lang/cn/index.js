@@ -82,6 +82,7 @@ const cn = {
     De_ToolingBOM: "模具BOM",
     De_ProductionDemand: "生产需求",
     De_DesignTask: "设计任务",
+    De_DesignTaskItemInspection: "设计任务点检明细",
     Pa_Program: "编程",
     Pa_ProgramTask: "编程任务",
     Pa_ProgramProducingTask: "编程加工任务",
@@ -1095,7 +1096,9 @@ const cn = {
     Ge_Select: "选择",
     Ge_NewTemplateAdded: "新增模板",
     Ge_IsItCompletedAsPlanned: "是否按计划完成",
-    Ge_ReasonForNotAchievingThePlan1: "未达成计划原因",
+    Ge_ReasonForNotAchievingThePlan: "未达成计划原因",
+    Ge_ReasonForNotAchievingThePlan1: "未达成计划原因（设计师）",
+    Ge_ReasonForNotAchievingThePlan2: "未达成计划原因（计划工程师）",
     Ge_SelectedItems: {
       str1: "已选择",
       str2: "条数据",

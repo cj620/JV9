@@ -82,6 +82,7 @@ const en = {
     De_ToolingBOM: "Tooling BOM",
     De_ProductionDemand: "Production Demand",
     De_DesignTask: "Design Task",
+    De_DesignTaskItemInspection: "Design Task Item Inspection",
     Pa_Program: "Program",
     Pa_ProgramTask: "Program Task",
     Pa_ProgramProducingTask: "Program Producing Task",
@@ -1108,7 +1109,9 @@ const en = {
     Ge_Select: "Select",
     Ge_NewTemplateAdded: "New template added",
     Ge_IsItCompletedAsPlanned: "Is it completed as planned",
-    Ge_ReasonForNotAchievingThePlan1: "Reason for not achieving the plan",
+    Ge_ReasonForNotAchievingThePlan: "Reason for not achieving the plan",
+    Ge_ReasonForNotAchievingThePlan1: "Reason for not achieving the plan (designer)",
+    Ge_ReasonForNotAchievingThePlan2: "Reason for not achieving the plan (Planning Engineer)",
     Ge_SelectedItems: {
       str1: "",
       str2: "pieces of data have been selected",

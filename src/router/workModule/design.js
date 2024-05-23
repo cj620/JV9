@@ -129,6 +129,15 @@ const design = [
 		path: "productionDemand",
 		title: i18n.t("menu.De_ProductionDemand"),
 	},
+  // 设计任务明细点检
+  {
+    key: "De_DesignTaskItemInspection",
+    component: () => import("@/views/workModule/design/ItemInspection"),
+    Parent: "De_Design",
+    name: "De_DesignTaskItemInspection",
+    path: "De_DesignTaskItemInspection",
+    title: i18n.t("menu.De_DesignTaskItemInspection"),
+  }
 ];
 
 export default design;
