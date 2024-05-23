@@ -484,7 +484,7 @@ export default {
             Object.assign(this.ruleForm, this.formObj.form);
             this.ruleForm.BillItems = this.M_TableObj.getTableData();
             this.ruleForm.BillItems.forEach(item => {
-              item.ProcessContent = item.customData.join(',');
+              item.ProcessContent = item.customData.join(/[,，]/);
             })
             this._save();
           }
