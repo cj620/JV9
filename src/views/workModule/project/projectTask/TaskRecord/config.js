@@ -69,6 +69,7 @@ export const tableConfig = [
   {
     prop: "ProcessContent",
     label: i18n.t("Generality.Ge_WorkContent"),
+    width: 200
   },
   // 计划工时
   {

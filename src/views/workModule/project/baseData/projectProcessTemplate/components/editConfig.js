@@ -56,7 +56,7 @@ export const tableConfig = [
     label: i18n.t("production.Pr_CostRate"),
     formCpn: "FormInput",
     type: "number",
-    width: "140px",
+    width: "100px",
   },
   /*开始比例*/
   {
@@ -64,6 +64,7 @@ export const tableConfig = [
     label: i18n.t("production.Pr_StartScale"),
     formCpn: "FormInput",
     type: "number",
+    width: "100px",
   },
   /*结束比例*/
   {
@@ -71,6 +72,7 @@ export const tableConfig = [
     label: i18n.t("production.Pr_EndScale"),
     formCpn: "FormInput",
     type: "number",
+    width: "100px",
   },
   /*部门*/
   {
@@ -79,6 +81,7 @@ export const tableConfig = [
     editConfig: {
       disabled: true,
     },
+    width: "100px",
   },
   /*工序类别*/
   {
@@ -87,6 +90,7 @@ export const tableConfig = [
     editConfig: {
       disabled: true,
     },
+    width: "100px",
     customFilter: (value) => enumFilter(value, processTypeEnum),
   },
 ];

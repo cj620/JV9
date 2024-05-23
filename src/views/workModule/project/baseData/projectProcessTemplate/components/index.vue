@@ -11,8 +11,8 @@
       <JvForm :formObj="formObj">
         <template #Template="{ prop }">
           <el-input
-              v-model="formObj.form[prop]"
-              :disabled="!!editData.Template"
+            v-model="formObj.form[prop]"
+            :disabled="!!editData.Template"
           />
         </template>
       </JvForm>
@@ -20,9 +20,9 @@
     <JvBlock :title="$t('Generality.Ge_ProcessInfo')">
       <div slot="extra">
         <Action
-            size="mini"
-            slot="extra"
-            :actions="[
+          size="mini"
+          slot="extra"
+          :actions="[
             {
               icon: 'el-icon-caret-top',
               confirm: editSort.bind(null, false),
@@ -32,7 +32,7 @@
               confirm: editSort.bind(null, true),
             },
           ]"
-            :primary="[
+          :primary="[
             {
               label: $t('project.Pro_AddProcedure'),
               confirm: addProcess,
@@ -67,7 +67,7 @@
         </template>
         <template #operation="{ row_index }">
           <TableAction
-              :actions="[
+            :actions="[
               {
                 icon: 'el-icon-delete',
                 confirm: delItem.bind(null, row_index),
@@ -80,22 +80,22 @@
     <div slot="fixedFooter">
       <!-- 保存 -->
       <el-button type="primary" @click="save">{{
-          $t("Generality.Ge_Save")
-        }}</el-button>
+        $t("Generality.Ge_Save")
+      }}</el-button>
     </div>
 
     <!-- 选择工序-->
 
     <SelectProjectProcess
-        :visible.sync="ProcessDialogFormVisible"
-        v-if="ProcessDialogFormVisible"
-        @selectProcessData="selectProcessData"
+      :visible.sync="ProcessDialogFormVisible"
+      v-if="ProcessDialogFormVisible"
+      @selectProcessData="selectProcessData"
     >
     </SelectProjectProcess>
     <SelectProjectProcessTemplate
-        :visible.sync="ProcessTemplateDialogFormVisible"
-        v-if="ProcessTemplateDialogFormVisible"
-        @confirmProcessTemplate="confirmProcessTemplate"
+      :visible.sync="ProcessTemplateDialogFormVisible"
+      v-if="ProcessTemplateDialogFormVisible"
+      @confirmProcessTemplate="confirmProcessTemplate"
     >
     </SelectProjectProcessTemplate>
   </PageWrapper>
@@ -132,7 +132,6 @@ export default {
         ProcessContent: "",
         ProcessContentList: [],
         customData: [],
-        ProcessContent: "",
         TemplateGui: ""
       },
       editData: {},
@@ -155,7 +154,7 @@ export default {
       if (this.editData.BillItems.length > 0) {
         this.editData.BillItems.forEach(item => {
           if(item.ProcessContent && item.ProcessContent !== "") {
-            item.customData = item.ProcessContent.split(",");
+            item.customData = item.ProcessContent.split(/[,，]/);
           }
         });
         this.eTableObj.push(temMerge(this.BillItems, this.editData.BillItems));
@@ -219,6 +218,13 @@ export default {
     confirmProcessTemplate(e) {
       e.forEach((item) => {
         item.Id = "";
+        item.customData = [];
+        if(item.ProcessContent && item.ProcessContent !== "") {
+          item.ProcessContent.split(/[,，]/).forEach((trim) => {
+            item.customData.push(trim)
+          });
+        }
+
       });
       this.eTableObj.push(temMerge(this.BillItems, e));
       this.ProcessTemplateDialogFormVisible = false;
@@ -227,6 +233,7 @@ export default {
     selectProcessData(e) {
       e.forEach((item) => {
         item.Id = "";
+        item.customData = item
       });
       this.eTableObj.push(temMerge(this.BillItems, e));
     },
@@ -237,6 +244,9 @@ export default {
       this.formObj.validate((valid) => {
         if (valid) {
           var arr = JSON.parse(JSON.stringify(this.eTableObj.getTableData()));
+          arr.forEach(item => {
+            item.ProcessContent = item.customData.join();
+          })
           this.formObj.form.BillItems = arr;
           saveProjectProcessTemplate(this.formObj.form).then(() => {
             let TagName = {
