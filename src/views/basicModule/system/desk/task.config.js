@@ -210,7 +210,7 @@ const taskFormSchema = [
   },
   {
     prop: "ReasonForNotAchievingThePlan1",
-    label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
+    label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan"),
     cpn: "FormInput",
     custom: true,
   },

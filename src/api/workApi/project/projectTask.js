@@ -190,3 +190,11 @@ export function assy_task_list(data) {
     data,
   })
 }
+// 项目任务明细点检列表
+export function item_inspection_list(data) {
+  return request({
+    url: "/project_task/item_inspection_list",
+    method: "post",
+    data,
+  })
+}

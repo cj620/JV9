@@ -82,6 +82,7 @@ const ja = {
     De_MaterialRequirement: "資材所要量",
     De_ProductionDemand: "生産ニーズ",
     De_DesignTask: "設計タスク",
+    De_DesignTaskItemInspection: "設計タスク点検詳細",
     Pa_Program: "プログラミング",
     Pa_ProgramTask: "プログラミングタスク",
     Pa_ProgramProducingTask: "プログラミング加工タスク",
@@ -1104,7 +1105,9 @@ const ja = {
     Ge_Select: "せんたく",
     Ge_NewTemplateAdded: "新規テンプレート",
     Ge_IsItCompletedAsPlanned: "計画通りに完了するかどうか",
-    Ge_ReasonForNotAchievingThePlan1: "計画未達成の理由",
+    Ge_ReasonForNotAchievingThePlan: "計画未達成の理由",
+    Ge_ReasonForNotAchievingThePlan1: "計画未達成の理由（デザイナー）",
+    Ge_ReasonForNotAchievingThePlan2: "計画未達成事由（計画エンジニア）",
     Ge_SelectedItems: {
       str1: "",
       str2: "つのデータが選択されました",
