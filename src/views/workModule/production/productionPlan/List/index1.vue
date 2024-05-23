@@ -1,69 +1,35 @@
+<!--
+ * @Author: DESKTOP-2CGOASQ\JvUser 208760845@qq.com
+ * @Date: 2022-08-18 16:26:04
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2024-05-23 15:57:45
+ * @FilePath: \jvmmsv9-1front\src\views\workModule\production\report\toBeProcessedProcess\index.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
-  <page-wrapper :footer="false">
-    <DevicesGantt v-if="DevicesOrPart">
-      <template>
-        <el-select
-          v-model="DevicesOrPart"
-          size="mini"
-          style="width: 80px"
-        >
-          <el-option
-            v-for="item in DevicesOrPartOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
-      </template>
-    </DevicesGantt>
-    <PartGantt v-else>
-      <template>
-        <el-select
-          v-model="DevicesOrPart"
-          size="mini"
-          style="width: 80px"
-        >
-          <el-option
-            v-for="item in DevicesOrPartOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          >
-          </el-option>
-        </el-select>
-      </template>
-    </PartGantt>
-  </page-wrapper>
+  <PageWrapper ref="page" :footer="false">
+    <JvTable ref="BillTable" :table-obj="tableObj"> </JvTable>
+  </PageWrapper>
 </template>
 
 <script>
-import PageWrapper from "~/cpn/PageWrapper/index.vue";
-import PartGantt from '../components/PartGantt/index.vue';
-import DevicesGantt from '../components/DeviceGantt/index.vue';
+// 引入表格类
+import { Table } from "./config1";
 
 export default {
-  name: "index1",
   data() {
     return {
-      DevicesOrPart: 1,
-      DevicesOrPartOptions: [
-        {
-          value: 0,
-          label: i18n.t("DataV.Da_PartNo"),
-        },
-        {
-          value: 1,
-          label: i18n.t("DataV.Da_Equipment"),
-        },
-      ]
-    }
+      tableObj: {},
+    };
   },
-  methods: {
-
+  components: {},
+  created() {
+    // 创建表格实例
+    this.tableObj = new Table();
+    this.tableObj.getData();
   },
-  components: { PageWrapper, PartGantt, DevicesGantt },
+  methods: {},
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style></style>

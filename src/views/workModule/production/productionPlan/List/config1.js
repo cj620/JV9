@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-08-24 18:05:59
+ * @LastEditTime: 2024-05-23 17:22:05
  * @Description: file content
  */
 // 引入表格表格类和表格API类
@@ -10,9 +10,20 @@ import { TableAPI, Table as BaseTable } from "~/class/table";
 import { getAllSalesCustomer } from "@/api/workApi/sale/customer";
 // 引入模块API接口
 import { production_task_process_list } from "@/api/workApi/production/productionTask";
-import { ProcessState } from "@/enum/workModule";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
-import { getAllProcess } from "@/api/workApi/production/baseData";
+import {
+  getAllProcess,
+  getAllResource,
+  getAllDevice,
+} from "@/api/workApi/production/baseData";
+import {
+  taskTypeEnum,
+  enumToList,
+  ProcessState,
+  enumFilter,
+} from "@/enum/workModule";
+
+// import { enumFilter } from "~/utils/system/enumsPlugin";
 import i18n from "@/i18n/i18n";
 
 export class api extends TableAPI {
@@ -29,14 +40,14 @@ export class Table extends BaseTable {
       // 行标识
       rowId: "Id",
       // 表格标题
-      title: i18n.t("production.Pr_SummaryProcessesToBeProcessed"),
+      title: "生产计划",
       // 接口类
       api,
       // 操作列宽度
       operationWidth: 110,
       operationCol: false,
       // 打印模块标识
-      printMod: "Pr_ToBeProcessedProcess",
+      printMod: "Pr_TaskProcess",
     });
   }
 }
@@ -47,6 +58,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
+    width: 150,
     cpnProps: {
       // 路由名称
       routeName: "ProductionTaskDetails",
@@ -69,30 +81,52 @@ export const tableConfig = [
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    width: 150,
   },
   /*零件*/
   {
     prop: "PartNo",
     label: i18n.t("Generality.Ge_PartNo"),
+    width: 150,
   },
   /*产品*/
   {
     prop: "PartName",
     label: i18n.t("Generality.Ge_PartName"),
+    width: 150,
   },
   /*状态*/
   {
-    prop: "ItemState",
+    prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    customFilter: (value) => {
-      if (!value) return "";
-      return ProcessState[value].name;
-    },
+    width: 70,
+    customFilter: (value) => enumFilter(value, ProcessState),
+  },
+  /*任务单号*/
+  {
+    prop: "PmTaskBillId",
+    label: i18n.t("project.Pro_TaskSheetNo"),
+    width: 150,
+  },
+  /*任务类别*/
+  {
+    prop: "TaskType",
+    label: i18n.t("Generality.Ge_TaskType"),
+    customFilter: (value) => enumFilter(value, taskTypeEnum),
+    width: 150,
   },
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
+    width: 150,
   },
+  /*工序内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_ProcessInfo"),
+    width: 150,
+  },
+  /*预计工时*/
   {
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
@@ -110,6 +144,40 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_PlanEnd"),
     filter: "time",
     width: "150px",
+  },
+  /*实际用时*/
+  {
+    prop: "ActualTime",
+    label: i18n.t("Generality.Ge_ActualTime"),
+  },
+  /*实际开始*/
+  {
+    prop: "ActualStart",
+    label: i18n.t("Generality.Ge_ActualStart"),
+    filter: "date",
+  },
+  /*实际结束*/
+  {
+    prop: "ActualEnd",
+    label: i18n.t("Generality.Ge_ActualEnd"),
+    filter: "date",
+  },
+  {
+    //   计划设备
+    prop: "PlanDevice",
+    label: i18n.t("production.Pr_PlanningDevices"),
+  },
+  {
+    // 实际设备
+    prop: "ActualDevice",
+    label: i18n.t("production.Pr_ActualDevice"),
+  },
+  {
+    prop: "IsCompulsoryInspection",
+    label: i18n.t("setup.IsCompulsoryInspection"),
+    customFilter(item) {
+      return item ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No");
+    },
   },
   /*备注*/
   {
@@ -149,27 +217,57 @@ export const formSchema = [
     api: getAllProcess,
     type: "multiple",
     apiOptions: {
-      immediate: true,
+      // immediate: true,
       keyName: "Process",
       valueName: "Process",
     },
   },
   {
     // 状态
-    prop: "ItemState",
+    prop: "States",
     label: i18n.t("Generality.Ge_State"),
     cpn: "FormSelect",
+    type: "multiple",
     options: {
-      list: [
-        {
-          value: "ToBeReceived",
-          label: i18n.t("Generality.Ge_ToBeReceived"),
-        },
-        {
-          value: "Received",
-          label: i18n.t("production.Pr_AlreadyInStation"),
-        },
-      ],
+      list: enumToList(ProcessState),
     },
+  },
+  /*资源组*/
+  {
+    prop: "Resources",
+    label: i18n.t("Generality.Ge_Resource"),
+    cpn: "SyncSelect",
+    api: getAllResource,
+    type: "multiple",
+    apiOptions: {
+      // immediate: true,
+      keyName: "ResourceId",
+      valueName: "ResourceId",
+    },
+  },
+  /*计划机台*/
+  {
+    prop: "PlanDevices",
+    label: i18n.t("production.Pr_PlanningDevices"),
+    cpn: "SyncSelect",
+    api: getAllDevice,
+    type: "multiple",
+    apiOptions: {
+      keyName: "Device",
+      valueName: "DeviceNo",
+      desName: "DeviceNo",
+    },
+  },
+  {
+    // 计划开始
+    prop: "PlanStart",
+    label: i18n.t("Generality.Ge_PlanStart"),
+    cpn: "SingleDateTime",
+  },
+  {
+    // 计划开始
+    prop: "PlanEnd",
+    label: i18n.t("Generality.Ge_PlanEnd"),
+    cpn: "SingleDateTime",
   },
 ];
