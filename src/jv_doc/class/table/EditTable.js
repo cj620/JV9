@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 11:15:29
- * @LastEditTime: 2023-10-24 10:12:15
+ * @LastEditTime: 2024-05-23 11:21:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \V9_Dev\src\jv_doc\class\table\EditTable.js
@@ -59,6 +59,9 @@ class EditTable {
   };
   getTableData = () => {
     return format2source(this.tableData);
+  };
+  getSeletedData = () => {
+    return format2source(this.selectData.datas);
   };
   // 获取行的键值列表
   getRowMap = (props) => {
