@@ -176,6 +176,32 @@ export const formSchema1 = [
     ],
   },
   {
+    // 是否按计划完成
+    prop: "IsItCompletedAsPlanned",
+    label: i18n.t("Generality.Ge_IsItCompletedAsPlanned"),
+    cpn: "FormRadio",
+    type: "button",
+    default: false,
+    options: {
+      list: [
+        {
+          value: false,
+          label: i18n.t("Generality.Ge_Incomplete"),
+        },
+        {
+          value: true,
+          label: i18n.t("Generality.Ge_Completed"),
+        },
+      ],
+    },
+  },
+  {
+    prop: "ReasonForNotAchievingThePlan1",
+    label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
+    cpn: "FormInput",
+    custom: true,
+  },
+  {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
     cpn: "FormInput",

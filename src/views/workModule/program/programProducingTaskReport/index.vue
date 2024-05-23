@@ -33,7 +33,11 @@
     >
       <JvDetail :detailObj="detailObj"></JvDetail>
       <el-divider></el-divider>
-      <JvForm :formObj="reportForm"></JvForm>
+      <JvForm :formObj="reportForm">
+        <template #ReasonForNotAchievingThePlan1="{ prop }">
+          <el-input :disabled="isEdit" v-model="reportForm.form[prop]"></el-input>
+        </template>
+      </JvForm>
     </JvDialog>
     <!-- 报工记录 -->
     <JvDialog
@@ -69,6 +73,7 @@ export default {
       detailObj:{},
       reportDialogVisible: false,
       reportRecordDialogVisible: false,
+      isEdit: true,
     }
   },
   created() {
@@ -136,6 +141,12 @@ export default {
           // n*60*60*1000
           this.reportForm.form.StartDate = new Date(new Date(this.reportForm.form.EndDate).getTime() - n * 60 * 60 * 1000);
         }
+      }
+    },
+    'reportForm.form.IsItCompletedAsPlanned':{
+      handler(n,o){
+        this.reportForm.form.ReasonForNotAchievingThePlan1 = '';
+        this.isEdit = !!n;
       }
     }
   }

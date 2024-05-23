@@ -1103,6 +1103,8 @@ const ja = {
     Ge_Total: "合計",
     Ge_Select: "せんたく",
     Ge_NewTemplateAdded: "新規テンプレート",
+    Ge_IsItCompletedAsPlanned: "計画通りに完了するかどうか",
+    Ge_ReasonForNotAchievingThePlan1: "計画未達成の理由",
     Ge_SelectedItems: {
       str1: "",
       str2: "つのデータが選択されました",
@@ -1847,6 +1849,7 @@ const ja = {
     Dashboard_resources_configuration: "デフォルトの加工部門構成",
     Suggest_overall_outsourcing_percentage: "全外注率の推奨",
     Email_push_configuration: "メールプッシュ設定",
+    Project_task_report_work_inspection: "プロジェクトタスクの作業点検構成",
   },
 
   ...jaLocale,

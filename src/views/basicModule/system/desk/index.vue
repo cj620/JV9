@@ -91,7 +91,11 @@
     >
     <JvDetail :detailObj="detailObj"> </JvDetail>
      <el-divider></el-divider>
-      <JvForm :formObj="taskFormObj"></JvForm>
+      <JvForm :formObj="taskFormObj">
+        <template #ReasonForNotAchievingThePlan1="{ prop }">
+          <el-input :disabled="isEdit" v-model="taskFormObj.form[prop]"></el-input>
+        </template>
+      </JvForm>
     </JvDialog>
     <JvDialog
       :title="$t('project.Pro_ReportToWorkRecord')"
@@ -161,6 +165,7 @@ export default {
       reporWorkVisible: false,
       taskRecordVisible: false,
       auditRecordVisible: false,
+      isEdit: true,
     };
   },
   created() {
@@ -301,6 +306,12 @@ export default {
           // this.taskFormObj.form.StartDate EndDate
 
         }
+      }
+    },
+    'taskFormObj.form.IsItCompletedAsPlanned':{
+      handler(n,o){
+        this.taskFormObj.form.ReasonForNotAchievingThePlan1 = '';
+        this.isEdit = !!n;
       }
     }
   },

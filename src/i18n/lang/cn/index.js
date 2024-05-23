@@ -1094,6 +1094,8 @@ const cn = {
     Ge_Total: "共计",
     Ge_Select: "选择",
     Ge_NewTemplateAdded: "新增模板",
+    Ge_IsItCompletedAsPlanned: "是否按计划完成",
+    Ge_ReasonForNotAchievingThePlan1: "未达成计划原因",
     Ge_SelectedItems: {
       str1: "已选择",
       str2: "条数据",
@@ -1829,6 +1831,7 @@ const cn = {
     Dashboard_resources_configuration: "部门综合看板资源组配置",
     Suggest_overall_outsourcing_percentage: "建议整体外协百分比",
     Email_push_configuration: "邮件推送配置",
+    Project_task_report_work_inspection: "项目任务报工点检配置",
   },
 
   ...zhLocale,
