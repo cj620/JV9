@@ -42,6 +42,12 @@
             confirm: l_del.bind(),
           },
           {
+            // 合并
+            label: $t('Generality.Ge_merge'),
+            disabled: !IsSelectLength,
+            confirm: l_del.bind(),
+          },
+          {
             // 创建生产任务
             label: $t('Generality.Ge_CreateProductionTask'),
             disabled: !IsCreateTask,

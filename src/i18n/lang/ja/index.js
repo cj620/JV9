@@ -694,6 +694,7 @@ const ja = {
     Ge_Cancel: "キャンセル",
     Ge_Clear: "クリアランス",
     Ge_Delete: "削除",
+    Ge_merge: "マージ",
     Ge_Save: "保存",
     Ge_Approve: "レビュー",
     Ge_Withdraw: "撤回",

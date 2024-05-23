@@ -676,6 +676,7 @@ const cn = {
     Ge_tagClose: "清除",
     Ge_New: "新增",
     Ge_Add: "添加",
+    Ge_merge: "合并",
     Ge_Refresh: "刷新",
     Ge_Import: "导入",
     Ge_Export: "导出",
