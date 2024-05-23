@@ -1,13 +1,12 @@
 import { TableAPI, Table as BaseTable } from '~/class/table'
-import { item_inspection_list } from "@/api/workApi/project/projectTask";
+import { production_programing_task_item_inspection_list } from "@/api/workApi/project/projectTask";
 import i18n from "@/i18n/i18n";
-import {getProjectQuery} from "@/api/workApi/project/projectManage";
-import {itemList} from "@/api/basicApi/systemSettings/Item";
-import {getAllUserData} from "@/api/basicApi/systemSettings/user";
-import { timeFormat } from "~/utils/time";
+import { itemList } from "@/api/basicApi/systemSettings/Item";
+import { getAllUserData } from "@/api/basicApi/systemSettings/user";
+import {timeFormat} from "~/utils/time";
 
 class api extends TableAPI {
-  getData = item_inspection_list
+  getData = production_programing_task_item_inspection_list
 }
 
 export class Table extends BaseTable {
@@ -16,9 +15,9 @@ export class Table extends BaseTable {
       tableSchema: tableSchema,
       formSchema,
       rowId: 'Id',
-      title: i18n.t("menu.De_DesignTaskItemInspection"),
+      title: i18n.t("menu.Pa_ProgramProducingTaskItemInspection"),
       api,
-      printMod: 'De_DesignTaskItemInspection',
+      printMod: 'Pa_ProgramProducingTaskItemInspection',
       operationWidth: 140,
       printBar: false
     })
@@ -27,8 +26,21 @@ export class Table extends BaseTable {
 
 export const tableSchema = [
   {
+    // 加工单号
+    prop: "TaskBillId",
+    label: i18n.t('production.Pr_WorkSheetNo'),
+    width: "150px",
+    align: "center",
+    cpn: "Link",
+    cpnProps: {
+      routeName: "ProductionTaskDetails",
+      methods: "query",
+      parameterKey: "BillId",
+    },
+  },
+  {
     // 项目任务单号
-    prop: "BillId",
+    prop: "PmTaskBillId",
     label: i18n.t('project.Pro_ProjectTaskSheetNo'),
     width: "150px",
     align: "center",
@@ -46,12 +58,18 @@ export const tableSchema = [
     width: "120px",
   },
   {
-    prop: "ItemState",
-    label: i18n.t("Generality.Ge_State"),
-    custom: true,
-    align: "center",
-    width: "115px",
+    // 零件编号
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+    width: "120px",
   },
+  // {
+  //   prop: "ItemState",
+  //   label: i18n.t("Generality.Ge_State"),
+  //   custom: true,
+  //   align: "center",
+  //   width: "115px",
+  // },
   {
     // 工序
     prop: "Process",
@@ -72,14 +90,14 @@ export const tableSchema = [
   },
   {
     // 明细计划开始
-    prop: "ItemPlanStart",
+    prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     width: "100px",
     filter: "date",
   },
   {
     // 明细计划结束
-    prop: "ItemPlanEnd",
+    prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
     width: "100px",
     filter: "date",
@@ -147,23 +165,6 @@ export const tableSchema = [
 ]
 
 export const formSchema = [
-  //加工单号搜索
-  {
-    prop: "PrTaskBillId",
-    label: i18n.t("production.Pr_WorkSheetNo"),
-    cpn: "FormInput",
-  },
-  // 项目编号搜索
-  {
-    prop: "Project",
-    label: i18n.t("sale.Sa_ProjectId"),
-    cpn: "AsyncSearch",
-    api: getProjectQuery,
-    apiOptions: {
-      keyName: "Project",
-      valueName: "Project",
-    },
-  },
   // 模号搜索
   {
     prop: "ToolingNo",
@@ -184,34 +185,13 @@ export const formSchema = [
   },
   {
     // 作业员
-    prop: "Worker",
+    prop: "UserName",
     cpn: "SyncSelect",
     label: i18n.t("Generality.Ge_Worker"),
     api: getAllUserData,
     apiOptions: {
       keyName: "UserName",
       valueName: "UserName",
-    },
-  },
-  {
-    prop: "ItemState",
-    label: i18n.t("Generality.Ge_State"),
-    cpn: "FormSelect",
-    options: {
-      list: [
-        {
-          value: "NotStarted",
-          label: i18n.t("project.Pro_NotStarted"),
-        },
-        {
-          value: "HaveInHand",
-          label: i18n.t("project.Pro_Ongoing"),
-        },
-        {
-          value: "Completed",
-          label: i18n.t("Generality.Ge_Completed"),
-        },
-      ],
     },
   },
   {
@@ -230,10 +210,5 @@ export const formSchema = [
       new Date(),
       "yyyy-MM-dd"
     )
-  },
-  {
-    prop: "ProcessType",
-    default: 'Design',
-    hidden: true,
   },
 ]

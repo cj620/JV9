@@ -4,7 +4,7 @@ import i18n from "@/i18n/i18n";
 import {getProjectQuery} from "@/api/workApi/project/projectManage";
 import {itemList} from "@/api/basicApi/systemSettings/Item";
 import {getAllUserData} from "@/api/basicApi/systemSettings/user";
-import { timeFormat } from "~/utils/time";
+import {timeFormat} from "~/utils/time";
 
 class api extends TableAPI {
   getData = item_inspection_list
@@ -16,9 +16,9 @@ export class Table extends BaseTable {
       tableSchema: tableSchema,
       formSchema,
       rowId: 'Id',
-      title: i18n.t("menu.De_DesignTaskItemInspection"),
+      title: i18n.t("menu.As_AssyTaskItemInspection"),
       api,
-      printMod: 'De_DesignTaskItemInspection',
+      printMod: 'As_AssyTaskItemInspection',
       operationWidth: 140,
       printBar: false
     })
@@ -233,7 +233,7 @@ export const formSchema = [
   },
   {
     prop: "ProcessType",
-    default: 'Design',
+    default: 'Assy',
     hidden: true,
   },
 ]

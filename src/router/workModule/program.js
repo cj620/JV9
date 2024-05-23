@@ -169,6 +169,24 @@ const program = [
         " " +
         i18n.t('Generality.Ge_Details1'),
     hidden: true,
-  }
+  },
+  // 编程任务明细点检
+  {
+    key: "Pa_ProgramTaskItemInspection",
+    component: () => import("@/views/workModule/program/programItemInspection"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramTaskItemInspection",
+    path: "Pa_ProgramTaskItemInspection",
+    title: i18n.t("menu.Pa_ProgramTaskItemInspection"),
+  },
+  // 编程加工任务明细点检
+  {
+    key: "Pa_ProgramProducingTaskItemInspection",
+    component: () => import("@/views/workModule/program/programProducingItemInspection"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramProducingTaskItemInspection",
+    path: "Pa_ProgramProducingTaskItemInspection",
+    title: i18n.t("menu.Pa_ProgramProducingTaskItemInspection"),
+  },
 ];
 export default program;
