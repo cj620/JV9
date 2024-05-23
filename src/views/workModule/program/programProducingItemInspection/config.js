@@ -3,6 +3,7 @@ import { production_programing_task_item_inspection_list } from "@/api/workApi/p
 import i18n from "@/i18n/i18n";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
+import {timeFormat} from "~/utils/time";
 
 class api extends TableAPI {
   getData = production_programing_task_item_inspection_list
@@ -197,9 +198,17 @@ export const formSchema = [
     prop: "StartDate",
     label: i18n.t("setup.Time"),
     cpn: "SingleTime",
+    default: timeFormat(
+      new Date(),
+      "yyyy-MM-dd"
+    )
   },
   {
     prop: "EndDate",
     hidden: true,
+    default: timeFormat(
+      new Date(),
+      "yyyy-MM-dd"
+    )
   },
 ]

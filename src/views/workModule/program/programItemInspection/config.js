@@ -4,6 +4,7 @@ import i18n from "@/i18n/i18n";
 import {getProjectQuery} from "@/api/workApi/project/projectManage";
 import {itemList} from "@/api/basicApi/systemSettings/Item";
 import {getAllUserData} from "@/api/basicApi/systemSettings/user";
+import {timeFormat} from "~/utils/time";
 
 class api extends TableAPI {
   getData = item_inspection_list
@@ -217,10 +218,18 @@ export const formSchema = [
     prop: "StartDate",
     label: i18n.t("setup.Time"),
     cpn: "SingleTime",
+    default: timeFormat(
+      new Date(),
+      "yyyy-MM-dd"
+    )
   },
   {
     prop: "EndDate",
     hidden: true,
+    default: timeFormat(
+      new Date(),
+      "yyyy-MM-dd"
+    )
   },
   {
     prop: "ProcessType",
