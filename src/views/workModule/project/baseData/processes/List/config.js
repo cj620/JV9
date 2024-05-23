@@ -34,11 +34,13 @@ export const tableConfig = [
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
+    width: 120
   },
   /*序号*/
   {
     prop: "SortOrder",
     label: i18n.t("production.Pr_SortOrder"),
+    width: 100,
   },
   /*工作内容*/
   {
@@ -50,29 +52,34 @@ export const tableConfig = [
     prop: "CostRate",
     label: i18n.t("production.Pr_CostRate"),
     align: "right",
+    width: 100,
   },
   /*开始比例*/
   {
     prop: "StartScale",
     label: i18n.t("production.Pr_StartScale"),
     align: "right",
+    width: 100,
   },
   /*结束比例*/
   {
     prop: "EndScale",
     label: i18n.t("production.Pr_EndScale"),
     align: "right",
+    width: 100,
   },
   /*部门*/
   {
     prop: "BelongingDepartment",
     label: i18n.t("menu.Se_Department"),
+    width: 100
   },
   /*工序类别*/
   {
     prop: "ProcessType",
     label: i18n.t("production.Pr_ProcessType"),
     customFilter: (value) => enumFilter(value, processTypeEnum),
+    width: 100,
   },
 ];
 

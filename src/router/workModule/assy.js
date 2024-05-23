@@ -68,5 +68,14 @@ const assy = [
     path: "productionFitterReceiveRecord",
     title: i18n.t("menu.As_ProductionFitterReceiveRecord"),
   },
+  // 钳工任务明细点检
+  {
+    key: "As_AssyTaskItemInspection",
+    component: () => import("@/views/workModule/assy/ItemInspection"),
+    Parent: "As_Assy",
+    name: "As_AssyTaskItemInspection",
+    path: "As_AssyTaskItemInspection",
+    title: i18n.t("menu.As_AssyTaskItemInspection"),
+  }
 ]
 export default assy;

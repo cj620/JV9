@@ -289,7 +289,7 @@ export default {
         this.formObj.form.ERPCode = res.ERPCode
         if(res.BillItems.length) {
           res.BillItems.forEach(item => {
-            if(item.ProcessContent !== "") {
+            if(item.ProcessContent && item.ProcessContent !== "") {
               item.customData = item.ProcessContent.split(",");
             }
           });
@@ -483,6 +483,9 @@ export default {
           if (valid) {
             Object.assign(this.ruleForm, this.formObj.form);
             this.ruleForm.BillItems = this.M_TableObj.getTableData();
+            this.ruleForm.BillItems.forEach(item => {
+              item.ProcessContent = item.customData.join(/[,，]/);
+            })
             this._save();
           }
         }

@@ -35,11 +35,6 @@ export const formSchema = [
     ],
   },
   {
-    prop: "ProcessContent",
-    label: i18n.t("Generality.Ge_WorkContent"),
-    cpn: "FormInput",
-  },
-  {
     prop: "CostRate",
     label: i18n.t("production.Pr_CostRate"),
     cpn: "FormInput",
@@ -75,5 +70,13 @@ export const formSchema = [
     options: {
       list: enumToList(processTypeEnum),
     },
+  },
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_WorkContent"),
+    cpn: "FormInput",
+    cpnProps: {
+      type: "textarea"
+    }
   },
 ];
