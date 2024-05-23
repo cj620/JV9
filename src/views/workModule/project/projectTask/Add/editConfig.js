@@ -61,7 +61,12 @@ export const m_tableConfig = [
   {
     prop: "ProcessContent",
     label: i18n.t("Generality.Ge_WorkContent"),
-    formCpn: "FormInput",
+    custom: true,
+    formCpn: "customFormSelect",
+    options: {},
+    editConfig: {
+      disabled: true,
+    },
   },
   /*负责人*/
   {

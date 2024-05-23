@@ -8,10 +8,11 @@
 import request from "@/utils/request";
 
 // 获取所有项目工序
-export function getAllProjectProcess() {
+export function getAllProjectProcess(data) {
   return request({
     url: "/project_process/get_all",
     method: "get",
+    params: data,
   });
 }
 
