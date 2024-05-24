@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2024-05-23 17:22:05
+ * @LastEditTime: 2024-05-24 11:09:59
  * @Description: file content
  */
 // 引入表格表格类和表格API类
@@ -20,6 +20,7 @@ import {
   taskTypeEnum,
   enumToList,
   ProcessState,
+  ProductionTaskState,
   enumFilter,
 } from "@/enum/workModule";
 
@@ -48,35 +49,36 @@ export class Table extends BaseTable {
       operationCol: false,
       // 打印模块标识
       printMod: "Pr_TaskProcess",
+      sortCol: false,
     });
   }
 }
 //  表格配置
 export const tableConfig = [
-  {
-    prop: "BillId",
-    label: i18n.t("Generality.Ge_BillId"),
-    align: "center",
-    cpn: "Link",
-    width: 150,
-    cpnProps: {
-      // 路由名称
-      routeName: "ProductionTaskDetails",
-      // 路由路径（名称和路径二选一）
-      // routePath:'/dashboard',
-      // 路由传参方式 默认query
-      methods: "query",
-      // 传参的键名，值为当前数据
-      parameterKey: "BillId",
-      // 补充动态参数
-      moreDynamicParameters: [
-        {
-          keyName: "ItemId",
-          valueName: "ItemId",
-        },
-      ],
-    },
-  },
+  // {
+  //   prop: "BillId",
+  //   label: i18n.t("Generality.Ge_BillId"),
+  //   align: "center",
+  //   cpn: "Link",
+  //   width: 150,
+  //   cpnProps: {
+  //     // 路由名称
+  //     routeName: "ProductionTaskDetails",
+  //     // 路由路径（名称和路径二选一）
+  //     // routePath:'/dashboard',
+  //     // 路由传参方式 默认query
+  //     methods: "query",
+  //     // 传参的键名，值为当前数据
+  //     parameterKey: "BillId",
+  //     // 补充动态参数
+  //     moreDynamicParameters: [
+  //       {
+  //         keyName: "ItemId",
+  //         valueName: "ItemId",
+  //       },
+  //     ],
+  //   },
+  // },
   /*模具编号*/
   {
     prop: "ToolingNo",
@@ -90,24 +92,24 @@ export const tableConfig = [
     width: 150,
   },
   /*产品*/
-  {
-    prop: "PartName",
-    label: i18n.t("Generality.Ge_PartName"),
-    width: 150,
-  },
+  // {
+  //   prop: "PartName",
+  //   label: i18n.t("Generality.Ge_PartName"),
+  //   width: 150,
+  // },
   /*状态*/
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
     width: 70,
-    customFilter: (value) => enumFilter(value, ProcessState),
+    customFilter: (value) => enumFilter(value, ProductionTaskState),
   },
   /*任务单号*/
-  {
-    prop: "PmTaskBillId",
-    label: i18n.t("project.Pro_TaskSheetNo"),
-    width: 150,
-  },
+  // {
+  //   prop: "PmTaskBillId",
+  //   label: i18n.t("project.Pro_TaskSheetNo"),
+  //   width: 150,
+  // },
   /*任务类别*/
   {
     prop: "TaskType",
@@ -133,14 +135,14 @@ export const tableConfig = [
   },
   /*计划开始*/
   {
-    prop: "PlanStart",
+    prop: "ItemPlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     filter: "time",
     width: "150px",
   },
   /*计划结束*/
   {
-    prop: "PlanEnd",
+    prop: "ItemPlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
     filter: "time",
     width: "150px",
@@ -189,9 +191,15 @@ export const tableConfig = [
 // 表单配置
 export const formSchema = [
   //单号搜索
+  // {
+  //   prop: "BillId",
+  //   label: i18n.t("Generality.Ge_BillId"),
+  //   cpn: "FormInput",
+  // },
+  //零件搜索
   {
-    prop: "BillId",
-    label: i18n.t("Generality.Ge_BillId"),
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
     cpn: "FormInput",
   },
   //模号搜索 Ge_ToolingName
@@ -229,7 +237,7 @@ export const formSchema = [
     cpn: "FormSelect",
     type: "multiple",
     options: {
-      list: enumToList(ProcessState),
+      list: enumToList(ProductionTaskState),
     },
   },
   /*资源组*/
@@ -260,13 +268,13 @@ export const formSchema = [
   },
   {
     // 计划开始
-    prop: "PlanStart",
+    prop: "ItemPlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     cpn: "SingleDateTime",
   },
   {
     // 计划开始
-    prop: "PlanEnd",
+    prop: "ItemPlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
     cpn: "SingleDateTime",
   },
