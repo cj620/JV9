@@ -29,24 +29,6 @@ export class Table extends BaseTable {
 
 export const tableSchema = [
   {
-    // 加工单号
-    prop: "TaskBillId",
-    label: i18n.t('production.Pr_WorkSheetNo'),
-    width: "150px",
-  },
-  {
-    // 项目任务单号
-    prop: "PmTaskBillId",
-    label: i18n.t('project.Pro_ProjectTaskSheetNo'),
-    width: "150px",
-  },
-  {
-    // 模具编号
-    prop: "ToolingNo",
-    label: i18n.t("Generality.Ge_ToolingNo"),
-    width: "120px",
-  },
-  {
     // 零件编号
     prop: "PartNo",
     label: i18n.t("Generality.Ge_PartNo"),

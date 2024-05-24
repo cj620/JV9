@@ -29,12 +29,6 @@ export class Table extends BaseTable {
 
 export const tableSchema = [
   {
-    // 项目任务单号
-    prop: "BillId",
-    label: i18n.t('project.Pro_ProjectTaskSheetNo'),
-    width: "120px",
-  },
-  {
     // 模具编号
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
