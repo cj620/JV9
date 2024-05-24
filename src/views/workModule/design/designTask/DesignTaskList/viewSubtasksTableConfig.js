@@ -30,6 +30,10 @@ export const tableConfig = [
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
   },
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_TaskContent"),
+  },
   /*状态*/
   {
     prop: "State",

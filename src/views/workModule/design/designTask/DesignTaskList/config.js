@@ -114,7 +114,12 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_Process"),
     width: "120px",
   },
-
+  /*工序内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_TaskContent"),
+    width: 300
+  },
   /*负责人*/
   {
     prop: "Worker",
