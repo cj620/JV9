@@ -22,6 +22,7 @@ import {
   taskTypeEnum,
   taskStateEnum,
   ItemToolingStateEnum,
+  ProjectTaskItemInspectionStateEnum,
 } from "./project/projectTask";
 import {
   LevelEnum,
@@ -75,6 +76,8 @@ export {
   taskStateEnum,
   // 模具状态枚举
   ItemToolingStateEnum,
+  // 项目任务明细点检状态枚举
+  ProjectTaskItemInspectionStateEnum,
   // 生产任务级别状态
   LevelEnum,
   // 生产任务加工单状态

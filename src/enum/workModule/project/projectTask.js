@@ -118,3 +118,14 @@ export const ItemToolingStateEnum = {
     value: "Completed"
   }
 }
+// 项目任务明细点检状态枚举
+export const ProjectTaskItemInspectionStateEnum = {
+  Unchecked: {
+    name: i18n.t("project.Pro_Unchecked"),
+    value: "Unchecked",
+  },
+  Checked: {
+    name: i18n.t("project.Pro_Checked"),
+    value: "Checked",
+  }
+}

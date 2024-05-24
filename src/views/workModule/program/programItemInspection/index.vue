@@ -21,6 +21,9 @@
       <template #IsItCompletedAsPlanned="{ record }">
         {{ record ? '是' : '否' }}
       </template>
+      <template #IsSubmit="{ record }">
+        {{ record ? '是' : '否' }}
+      </template>
       <template #operation="{ row }">
         <TableAction
           :actions="[

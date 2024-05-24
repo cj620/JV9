@@ -311,6 +311,11 @@ const ja = {
     Pro_ShowCompleted: "完了文書の表示",
     Pro_ShowUncompleted: "未完了文書のみ表示",
     Pro_EditWorker: "編集責任者",
+    Pro_Unchecked: "点検していない",
+    Pro_Checked: "点検済み",
+    Pro_InspectionState: "点検状態",
+    Pro_InspectionTime: "点検時間",
+    Pro_InspectionPersonnel: "点検人",
   },
   //设置
   setup: {
@@ -1111,6 +1116,7 @@ const ja = {
     Ge_ReasonForNotAchievingThePlan: "計画未達成の理由",
     Ge_ReasonForNotAchievingThePlan1: "計画未達成の理由（デザイナー）",
     Ge_ReasonForNotAchievingThePlan2: "計画未達成事由（計画エンジニア）",
+    Ge_IsSubmit: "コミットするかどうか",
     Ge_SelectedItems: {
       str1: "",
       str2: "つのデータが選択されました",
