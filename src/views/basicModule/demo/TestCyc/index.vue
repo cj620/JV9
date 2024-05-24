@@ -60,6 +60,7 @@
 </template>
 <script>
 import { project_task_weekly_dashboard } from "@/api/workApi/project/dataReport"
+import { timeFormat } from "~/utils/time";
 export default {
   name: "index",
   data() {
@@ -259,8 +260,18 @@ export default {
   created() {
     this.userName = this.Data.map(item => item.UserName);
     this.transformData();
+    this.getTableData(4,1)
   },
   methods: {
+    getTableData(ps, cp) {
+      project_task_weekly_dashboard({
+        PageSize: ps,
+        CurrentPage: cp,
+        InitialDate: timeFormat(new Date(), "yyyy-MM-dd hh:mm")
+      }).then((res) => {
+        console.log(res)
+      })
+    },
     handleSelectionChange(val) {
       console.log(val)
     },

@@ -243,7 +243,11 @@ export default {
       this.$refs.settingForm.updateValue();
       const configKey = this.curConfig.ConfigKey;
       this.DialogVisible = false;
-      if (this.curConfig.ConfigValueType === "Number") {
+      if (this.curConfig.ConfigValueType === "Number" ||
+        [
+          "ProgrammingDefaultResponsiblePerson",
+          "BomDefaultUnit",
+        ].includes(configKey)) {
         this.changeConfigValue({
           ConfigKey: configKey,
           ConfigValue: this.formObj.ConfigValue,
