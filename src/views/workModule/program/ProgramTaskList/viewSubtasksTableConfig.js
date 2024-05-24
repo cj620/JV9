@@ -30,6 +30,11 @@ export const tableConfig = [
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
   },
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_TaskContent"),
+    width: 300
+  },
   /*状态*/
   {
     prop: "State",
@@ -52,14 +57,15 @@ export const tableConfig = [
   {
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
-    filter: "date",
+    filter: "time",
+    width: 140
   },
   /*计划结束*/
   {
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
-    filter: "date",
-
+    filter: "time",
+    width: 140
   },
   /*备注*/
   {

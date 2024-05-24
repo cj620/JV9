@@ -27,46 +27,51 @@ export class ViewSubtasksTableObj extends BaseTable {
   }
 }
 export const tableConfig = [
-      /*状态*/
-      {
-        prop: "State",
-        label: i18n.t("Generality.Ge_State"),
-        customFilter: (value) => {
-          if (!value) return "";
-          return taskStateEnum[value].name;
-        },
-      },
+  {
+    prop: "Process",
+    label: i18n.t("Generality.Ge_Process"),
+  },
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_TaskContent"),
+    width: 300
+  },
+  /*状态*/
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    customFilter: (value) => {
+      if (!value) return "";
+      return taskStateEnum[value].name;
+    },
+  },
   {
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
   },
-
   /*计划工时*/
   {
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
-
   },
   /*计划开始*/
   {
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
-    filter: "date",
+    filter: "time",
+    width: 140
   },
   /*计划结束*/
   {
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
-    filter: "date",
-   
+    filter: "time",
+    width: 140
   },
-
-  
   /*备注*/
   {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
-
   },
 ];
 export const formSchema = [];

@@ -56,7 +56,7 @@
       :title="$t('project.Pro_ViewSubtasks')"
       v-if="viewSubtasksDialogVisible"
       @confirm="dialogConfirm"
-      width="60%"
+      width="80%"
     >
       <JvTable :tableObj="viewSubtasksTableObj">
         <!-- operation操作列 -->

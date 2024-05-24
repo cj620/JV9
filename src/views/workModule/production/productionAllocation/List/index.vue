@@ -71,7 +71,7 @@
               group="aa"
               Id="allocated"
               v-model="processList1"
-              animation="10"
+              animation="100"
               ref="JvDraggableRef"
               @add="handleAddAllocated"
               :onMove="onMove"
@@ -99,7 +99,7 @@
               group="aa"
               Id="unallocated"
               v-model="processList2"
-              animation="10"
+              animation="100"
               ref="JvDraggableRef1"
               @add="handleAddUnallocated"
             >
@@ -469,7 +469,6 @@ export default {
   .ghostClass-box-1{
     width: 100%!important;
   }
-
 }
 
 </style>

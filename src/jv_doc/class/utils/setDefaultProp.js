@@ -46,7 +46,7 @@ export const defaultTableSchemProps = {
   // 斑马线
   stripe: false,
   // 序号列
-  sortCol: true,
+  sortCol: false,
   // 选择列
   chooseCol: true,
   // 分页

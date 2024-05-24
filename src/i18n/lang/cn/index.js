@@ -312,6 +312,11 @@ const cn = {
     Pro_ShowCompleted: "展示已完成单据",
     Pro_ShowUncompleted: "仅展示未完成单据",
     Pro_EditWorker: "编辑负责人",
+    Pro_Unchecked: "未点检",
+    Pro_Checked: "已点检",
+    Pro_InspectionState: "点检状态",
+    Pro_InspectionTime: "点检时间",
+    Pro_InspectionPersonnel: "点检人",
   },
   //设置
   setup: {
@@ -1102,6 +1107,7 @@ const cn = {
     Ge_ReasonForNotAchievingThePlan: "未达成计划原因",
     Ge_ReasonForNotAchievingThePlan1: "未达成计划原因（设计师）",
     Ge_ReasonForNotAchievingThePlan2: "未达成计划原因（计划工程师）",
+    Ge_IsSubmit: "是否提交",
     Ge_SelectedItems: {
       str1: "已选择",
       str2: "条数据",

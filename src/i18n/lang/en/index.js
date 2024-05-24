@@ -336,6 +336,11 @@ const en = {
     Pro_ShowCompleted: "Display completed documents",
     Pro_ShowUncompleted: "Only display unfinished documents",
     Pro_EditWorker: "Edit Worker",
+    Pro_Unchecked: "Unchecked",
+    Pro_Checked: "Checked",
+    Pro_InspectionState: "Inspection State",
+    Pro_InspectionTime: "Inspection Time",
+    Pro_InspectionPersonnel: "Inspection Personnel",
   },
   setup: {
     WhetherMarkAllRead: "Mark all messages of this type as read?",
@@ -1115,6 +1120,7 @@ const en = {
     Ge_ReasonForNotAchievingThePlan: "Reason for not achieving the plan",
     Ge_ReasonForNotAchievingThePlan1: "Reason for not achieving the plan (designer)",
     Ge_ReasonForNotAchievingThePlan2: "Reason for not achieving the plan (Planning Engineer)",
+    Ge_IsSubmit: "Is Submit",
     Ge_SelectedItems: {
       str1: "",
       str2: "pieces of data have been selected",

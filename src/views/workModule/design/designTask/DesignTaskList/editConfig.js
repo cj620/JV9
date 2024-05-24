@@ -50,6 +50,18 @@ export const tableConfig = [
       },
     },
   },
+  /*工作内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_WorkContent"),
+    custom: true,
+    formCpn: "customFormSelect",
+    options: {},
+    editConfig: {
+      disabled: true,
+    },
+    width: 300
+  },
  /*负责人*/
   {
     prop: "Worker",
