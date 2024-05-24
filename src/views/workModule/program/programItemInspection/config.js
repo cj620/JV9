@@ -1,10 +1,11 @@
 import { TableAPI, Table as BaseTable } from '~/class/table'
 import { item_inspection_list } from "@/api/workApi/project/projectTask";
+import { getProjectQuery } from "@/api/workApi/project/projectManage";
+import { itemList } from "@/api/basicApi/systemSettings/Item";
+import { getAllUserData } from "@/api/basicApi/systemSettings/user";
+import { timeFormat } from "~/utils/time";
+import { enumFilter, ProjectTaskItemInspectionStateEnum } from "@/enum/workModule";
 import i18n from "@/i18n/i18n";
-import {getProjectQuery} from "@/api/workApi/project/projectManage";
-import {itemList} from "@/api/basicApi/systemSettings/Item";
-import {getAllUserData} from "@/api/basicApi/systemSettings/user";
-import {timeFormat} from "~/utils/time";
 
 class api extends TableAPI {
   getData = item_inspection_list
@@ -31,7 +32,7 @@ export const tableSchema = [
     // 项目任务单号
     prop: "BillId",
     label: i18n.t('project.Pro_ProjectTaskSheetNo'),
-    width: "150px",
+    width: "120px",
   },
   {
     // 模具编号
@@ -43,19 +44,19 @@ export const tableSchema = [
     // 工序
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
-    width: "100px",
+    width: "75px",
   },
   {
     // 工序内容
     prop: "ProcessContent",
     label: i18n.t("Generality.Ge_WorkContent"),
-    width: "250px",
+    width: "230px",
   },
   {
     // 作业员
     prop: "Worker",
     label: i18n.t("Generality.Ge_Worker"),
-    width: "100px",
+    width: "80px",
   },
   {
     // 明细计划开始
@@ -98,38 +99,49 @@ export const tableSchema = [
     width: "150px",
   },
   {
+    // 是否提交
+    prop: "IsSubmit",
+    label: i18n.t("Generality.Ge_IsSubmit"),
+    custom: true,
+    width: '90px',
+  },
+  {
     // 计划是否完成
     prop: "IsItCompletedAsPlanned",
     label: i18n.t("Generality.Ge_IsItCompletedAsPlanned"),
     custom: true,
-    width: '120px',
+    width: '90px',
   },
   {
     // 未完成计划原因1
     prop: "ReasonForNotAchievingThePlan1",
     label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
-    width: '220px',
+    width: '140px',
   },
   {
     // 未完成计划原因2
     prop: "ReasonForNotAchievingThePlan2",
     label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan2"),
-    width: '220px',
+    width: '140px',
   },
   {
     // 点检状态
     prop: "InspectionState",
-    label: "点检状态",
+    label: i18n.t("project.Pro_InspectionState"),
+    customFilter: (value) => enumFilter(value, ProjectTaskItemInspectionStateEnum),
+    width: '90px',
   },
   {
     // 点检时间
     prop: "InspectionTime",
-    label: "点检时间",
+    label: i18n.t("project.Pro_InspectionTime"),
+    width: '90px',
   },
   {
     // 点检人
     prop: "Inspectionpersonnel",
-    label: "点检人",
+    label: i18n.t("project.Pro_InspectionPersonnel"),
+    width: '90px',
   }
 ]
 

@@ -1,9 +1,11 @@
 import { TableAPI, Table as BaseTable } from '~/class/table'
 import { production_programing_task_item_inspection_list } from "@/api/workApi/project/projectTask";
-import i18n from "@/i18n/i18n";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
-import {timeFormat} from "~/utils/time";
+import { timeFormat } from "~/utils/time";
+import { enumFilter } from "~/utils/system/enumsPlugin";
+import { ProjectTaskItemInspectionStateEnum } from "@/enum/workModule";
+import i18n from "@/i18n/i18n";
 
 class api extends TableAPI {
   getData = production_programing_task_item_inspection_list
@@ -109,6 +111,13 @@ export const tableSchema = [
     width: "150px",
   },
   {
+    // 是否提交
+    prop: "IsSubmit",
+    label: i18n.t("Generality.Ge_IsSubmit"),
+    custom: true,
+    width: '90px',
+  },
+  {
     // 计划是否完成
     prop: "IsItCompletedAsPlanned",
     label: i18n.t("Generality.Ge_IsItCompletedAsPlanned"),
@@ -130,17 +139,21 @@ export const tableSchema = [
   {
     // 点检状态
     prop: "InspectionState",
-    label: "点检状态",
+    label: i18n.t("project.Pro_InspectionState"),
+    customFilter: (value) => enumFilter(value, ProjectTaskItemInspectionStateEnum),
+    width: '90px',
   },
   {
     // 点检时间
     prop: "InspectionTime",
-    label: "点检时间",
+    label: i18n.t("project.Pro_InspectionTime"),
+    width: '90px',
   },
   {
     // 点检人
     prop: "Inspectionpersonnel",
-    label: "点检人",
+    label: i18n.t("project.Pro_InspectionPersonnel"),
+    width: '90px',
   }
 ]
 

@@ -11,6 +11,7 @@
     :ghostClass="getClassNameFn"
     @add="add"
     :move="onMove"
+    :animation="animation"
   >
     <transition-group
       class="clearfix"
@@ -95,6 +96,10 @@ export default {
     onMove: {
       type: Function,
       default: () => {}
+    },
+    animation: {
+      type: Number,
+      default: null,
     }
   },
   data() {
