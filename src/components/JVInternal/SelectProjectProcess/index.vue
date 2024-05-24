@@ -50,6 +50,11 @@ export default {
           prop: "Process",
           label:i18n.t("Generality.Ge_Process"),
         },
+        /*工序内容*/
+        {
+          prop: "ProcessContent",
+          label:i18n.t("Generality.Ge_TaskContent"),
+        },
       ],
       pagination: false,
       sortCol: false,

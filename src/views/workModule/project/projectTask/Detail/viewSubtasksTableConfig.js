@@ -27,6 +27,15 @@ export class ViewSubtasksTableObj extends BaseTable {
   }
 }
 export const tableConfig = [
+  {
+    prop: "Process",
+    label: i18n.t("Generality.Ge_Process"),
+  },
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_TaskContent"),
+    width: 300
+  },
     /*状态*/
     {
       prop: "State",
@@ -60,7 +69,7 @@ export const tableConfig = [
     filter: "date",
   },
 
-  
+
   /*备注*/
   {
     prop: "Remarks",

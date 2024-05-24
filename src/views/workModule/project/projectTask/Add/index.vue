@@ -465,6 +465,12 @@ export default {
           startBase + item.StartScale * TimeZone
         );
         item.PlanEnd = timeFormat(startBase + item.EndScale * TimeZone);
+        item.customData = [];
+        if(item.ProcessContent && item.ProcessContent !== "") {
+          item.ProcessContent.split(/[,，]/).forEach((trim) => {
+            item.customData.push(trim)
+          });
+        }
       })
       let arr = temMerge(this.BillItems, e)
       this.M_TableObj.push(temMerge(this.BillItems, e));
@@ -484,7 +490,7 @@ export default {
             Object.assign(this.ruleForm, this.formObj.form);
             this.ruleForm.BillItems = this.M_TableObj.getTableData();
             this.ruleForm.BillItems.forEach(item => {
-              item.ProcessContent = item.customData.join(/[,，]/);
+              item.ProcessContent = item.customData.join();
             })
             this._save();
           }
