@@ -316,6 +316,7 @@ const ja = {
     Pro_InspectionState: "点検状態",
     Pro_InspectionTime: "点検時間",
     Pro_InspectionPersonnel: "点検人",
+    Pro_ConfirmToSpotCheckThisItem: "点検詳細を確定しますか？",
   },
   //设置
   setup: {

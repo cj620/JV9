@@ -129,7 +129,8 @@ export const tableSchema = [
     // 点检时间
     prop: "InspectionTime",
     label: i18n.t("project.Pro_InspectionTime"),
-    width: '90px',
+    filter: "time",
+    width: "150px",
   },
   {
     // 点检人

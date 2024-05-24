@@ -28,12 +28,10 @@
         :class="{ 'btn-disabled': actionItem.disabled }"
         >
         <i :class="actionItem.icon"></i>
-        <el-badge v-if="actionItem.badgeValue || actionItem.badgeValue === 0" :value="actionItem.badgeValue" class="button-badge">
+        <el-badge v-if="actionItem.badgeValue && actionItem.badgeValue !== 0" :value="actionItem.badgeValue" class="button-badge">
           {{ actionItem.label }}
         </el-badge>
-        <el-badge v-else is-dot class="button-dot-badge">
-          {{ actionItem.label }}
-        </el-badge>
+        <span v-else>{{ actionItem.label }}</span>
       </span>
       <span
         v-else

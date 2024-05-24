@@ -317,6 +317,7 @@ const cn = {
     Pro_InspectionState: "点检状态",
     Pro_InspectionTime: "点检时间",
     Pro_InspectionPersonnel: "点检人",
+    Pro_ConfirmToSpotCheckThisItem: "确定点检明细？",
   },
   //设置
   setup: {

@@ -9,6 +9,7 @@
           {
             label: $t('device.De_SpotCheck'),
             confirm: batchSpotCheck.bind(null, ''),
+            disabled: canBatchCheck,
           },
           // 延期
           {
@@ -33,7 +34,11 @@
             },
             {
               label: $t('device.De_SpotCheck'),
-              confirm: spotCheck.bind(null, row),
+              disabled: row.InspectionState === 'Checked' || !row.IsSubmit,
+              popConfirm: {
+                title: $t('project.Pro_ConfirmToSpotCheckThisItem'),
+                confirm: confirmSpotCheck.bind(null, [row.Id]),
+              },
             },
           ]"
         />
@@ -52,20 +57,42 @@
         </template>
       </JvForm>
     </JvDialog>
+    <JvDialog
+      :title="$t('Generality.Ge_Remind')"
+      :visible.sync="confirmCheckDialogVisible"
+      v-if="confirmCheckDialogVisible"
+      @confirm="batchCheckConfirm"
+      width="400px"
+    >
+      {{ $t('project.Pro_ConfirmToSpotCheckThisItem') }}
+    </JvDialog>
   </PageWrapper>
 </template>
 <script>
 import { Table } from "./config";
 import { Form } from "@/jv_doc/class/form";
+import { item_inspection_handle, item_inspection } from "@/api/workApi/project/projectTask";
 export default {
   name: "De_DesignTaskItemInspection",
   data() {
     return {
       tableObj: {},
       formObj: {},
+      selectedId: "",
       editDialogVisible: false,
+      confirmCheckDialogVisible: false,
       isEdit: false,
     }
+  },
+  computed: {
+    // 批量点检
+    canBatchCheck() {
+      let { datas } = this.tableObj.selectData;
+      if (datas.length === 0) return true;
+      return datas.some((item) => {
+        return ["Checked"].includes(item.InspectionState) || !item.IsSubmit;
+      });
+    },
   },
   created() {
     this.tableObj = new Table();
@@ -73,7 +100,7 @@ export default {
   },
   methods: {
     edit(row) {
-      console.log('row::', row.IsItCompletedAsPlanned)
+      this.selectedId = row.Id
       this.formObj = new Form({
         formSchema: [
           {
@@ -108,18 +135,35 @@ export default {
         },
       })
       this.formObj.form.IsItCompletedAsPlanned = row.IsItCompletedAsPlanned;
+      if (row.IsItCompletedAsPlanned) {
+        this.formObj.form.ReasonForNotAchievingThePlan2 = row.ReasonForNotAchievingThePlan2;
+      }
       this.editDialogVisible = true;
     },
-    spotCheck() {
-
+    editConfirm() {
+      item_inspection_handle({
+        Id: this.selectedId,
+        ...this.formObj.form
+      }).then(() => {
+        this.tableObj.getData();
+        this.editDialogVisible = false;
+      })
     },
     batchSpotCheck() {
-
+      this.confirmCheckDialogVisible = true;
+    },
+    batchCheckConfirm() {
+      const arr = this.tableObj.selectData.datas.map(item => item.Id)
+      this.confirmSpotCheck(arr)
+    },
+    confirmSpotCheck(e) {
+      item_inspection({ Ids: e }).then(() => {
+        this.tableObj.getData();
+        this.confirmCheckDialogVisible = false;
+        this.$refs.BillTable.clearSelection();
+      })
     },
     delay() {
-
-    },
-    editConfirm() {
 
     },
   },

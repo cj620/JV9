@@ -206,3 +206,35 @@ export function item_inspection_list(data) {
     data,
   })
 }
+// 点检项目任务明细
+export function item_inspection(data) {
+  return request({
+    url: "/project_task/inspection",
+    method: "post",
+    data,
+  })
+}
+// 点检处理项目任务明细
+export function item_inspection_handle(data) {
+  return request({
+    url: "/project_task/inspection_handle",
+    method: "post",
+    data,
+  })
+}
+// 点检编程加工任务明细
+export function production_programing_task_inspection(data) {
+  return request({
+    url: "/production_programing_task/inspection",
+    method: "post",
+    data,
+  })
+}
+// 点检处理项目任务明细
+export function production_programing_task_inspection_handle(data) {
+  return request({
+    url: "/production_programing_task/inspection_handle",
+    method: "post",
+    data,
+  })
+}

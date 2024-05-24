@@ -341,6 +341,7 @@ const en = {
     Pro_InspectionState: "Inspection State",
     Pro_InspectionTime: "Inspection Time",
     Pro_InspectionPersonnel: "Inspection Personnel",
+    Pro_ConfirmToSpotCheckThisItem: "Confirm to spot check?",
   },
   setup: {
     WhetherMarkAllRead: "Mark all messages of this type as read?",
