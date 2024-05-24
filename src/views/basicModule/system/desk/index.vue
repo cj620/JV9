@@ -35,6 +35,8 @@
               {
                 label: $t('setup.ShowRecords'),
                 confirm: scanRecord.bind(null, row.Id),
+                badge: true,
+                badgeValue: row.TaskLogCount,
               },
             ]"
           />
@@ -184,7 +186,7 @@ export default {
 
     });
     this.taskTableObj.getData();
-    this.auditTableObj.getData();
+    // this.auditTableObj.getData();
   },
   computed: {},
   methods: {

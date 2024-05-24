@@ -17,6 +17,8 @@
             {
               label: $t('project.Pro_ReportToWorkRecord'),
               confirm: reportRecord.bind(null, row),
+              badge: true,
+              badgeValue: row.TaskLogCount,
             }
           ]"
         />

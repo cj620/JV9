@@ -23,6 +23,19 @@
       </el-popconfirm>
       <!-- 不带确认框的文字按钮 -->
       <span
+        v-else-if="actionItem.badge"
+        @click="confirm(actionItem, actionItem.disabled)"
+        :class="{ 'btn-disabled': actionItem.disabled }"
+        >
+        <i :class="actionItem.icon"></i>
+        <el-badge v-if="actionItem.badgeValue || actionItem.badgeValue === 0" :value="actionItem.badgeValue" class="button-badge">
+          {{ actionItem.label }}
+        </el-badge>
+        <el-badge v-else is-dot class="button-dot-badge">
+          {{ actionItem.label }}
+        </el-badge>
+      </span>
+      <span
         v-else
         @click="confirm(actionItem, actionItem.disabled)"
         :class="{ 'btn-disabled': actionItem.disabled }"
@@ -109,5 +122,18 @@ export default {
   .btn-disabled {
     color: rgb(161, 161, 161);
   }
+}
+.button-badge .el-badge__content {
+  height: 12px;
+  line-height: 11px;
+  font-size: 11px;
+  overflow: visible;
+  padding: 0 3px;
+  top: 4px;
+  right: 2px;
+}
+.button-dot-badge .el-badge__content {
+  top: 4px;
+  right: 2px;
 }
 </style>
