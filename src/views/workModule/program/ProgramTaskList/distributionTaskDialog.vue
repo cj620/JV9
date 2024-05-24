@@ -2,7 +2,7 @@
   <div>
     <jv-dialog
       :title="$t('project.Pro_DistributionTask')"
-      width="70%"
+      width="80%"
       :close-on-click-modal="true"
       :modal-append-to-body="false"
       :append-to-body="false"

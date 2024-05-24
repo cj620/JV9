@@ -2,7 +2,7 @@
   <div>
     <jv-dialog
       :title="$t('project.Pro_DistributionTask')"
-      width="70%"
+      width="80%"
       :close-on-click-modal="true"
       :modal-append-to-body="false"
       :append-to-body="false"
@@ -17,6 +17,25 @@
       </div>
 
       <JvEditTable :tableObj="eTableObj">
+        <template #ProcessContent="{ row }">
+          <el-select
+            v-model="row.customData.value"
+            style="width: 100%"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            @visible-change="changeValue($event, row)"
+          >
+            <el-option
+              v-for="item in row.ProcessContentList.value"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </template>
         <template #operation="{ row_index }">
           <TableAction
             :actions="[
@@ -35,6 +54,7 @@
 <script>
 import { EditTable } from "./editConfig";
 import { project_task_save_item } from "@/api/workApi/project/projectTask";
+import { getAllProjectProcess } from "@/api/workApi/project/baseData";
 
 export default {
   data() {
@@ -51,6 +71,9 @@ export default {
         PlanEnd: "",
         Remarks: "",
         ParentId: "",
+        ProcessContent: "",
+        ProcessContentList: [],
+        customData: [],
       },
     };
   },
@@ -64,6 +87,25 @@ export default {
     this.eTableObj = new EditTable();
   },
   methods: {
+    changeValue(e, row) {
+      var arr = [];
+      if (e) {
+        getAllProjectProcess({Process: row.Process.value}).then((res) => {
+          if(res.Items.length) {
+            if(res.Items[0].ProcessContent !== null) {
+              console.log(res.Items[0].ProcessContent.split(/[,，]/), 312)
+              res.Items[0].ProcessContent.split(/[,，]/).forEach((item) => {
+                arr.push({
+                  value: item,
+                  label: item,
+                });
+              });
+            }
+          }
+          row.ProcessContentList.value = arr;
+        });
+      }
+    },
     //新增数据
     add() {
       this.BillItems.Id = 0;
@@ -81,6 +123,9 @@ export default {
     confirmData() {
       this.eTableObj.validate((valid) => {
         this.BillItems = this.eTableObj.getTableData();
+        this.BillItems.forEach(item => {
+          item.ProcessContent = item.customData.join();
+        })
         if (valid) {
           project_task_save_item(this.BillItems).then((res) => {
             this.$emit("confirmData", false);
