@@ -116,6 +116,18 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_ActualTime"),
     width: "90px",
   },
+  {
+    // 是否按计划完成
+    prop: "IsItCompletedAsPlanned",
+    label: i18n.t("Generality.Ge_IsItCompletedAsPlanned"),
+    custom: true,
+    width: "80px"
+  },
+  {
+    prop: "ReasonForNotAchievingThePlan1",
+    label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
+    width: '120px',
+  },
   /*制单人*/
   {
     prop: "Worker",

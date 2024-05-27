@@ -68,11 +68,17 @@ const tableSchema = [
     label: i18n.t("production.Pr_ProductionProcess"),
     width: "90px",
   },
-  //   负责人
   {
-    prop: "Worker",
-    label: i18n.t("project.Pro_Worker"),
-    width: "90px",
+    // 是否按计划完成
+    prop: "IsItCompletedAsPlanned",
+    label: i18n.t("Generality.Ge_IsItCompletedAsPlanned"),
+    custom: true,
+    width: "80px"
+  },
+  {
+    prop: "ReasonForNotAchievingThePlan1",
+    label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
+    width: '120px',
   },
   // 进度
   {
@@ -105,6 +111,12 @@ const tableSchema = [
   {
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
+    width: "90px",
+  },
+  //   负责人
+  {
+    prop: "Worker",
+    label: i18n.t("project.Pro_Worker"),
     width: "90px",
   },
   /*制单日期*/

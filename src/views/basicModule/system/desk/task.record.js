@@ -8,6 +8,7 @@ import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import {
   my_project_task_record,
 } from "@/api/basicApi/systemSettings/user";
+import i18n from "@/i18n/i18n";
 class api extends TableAPI {
   // 获取列表
   getData = my_project_task_record;
@@ -40,6 +41,18 @@ const tableSchema = [
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_WorkHours"),
     width: "120px",
+  },
+  {
+    // 是否按计划完成
+    prop: "IsItCompletedAsPlanned",
+    label: i18n.t("Generality.Ge_IsItCompletedAsPlanned"),
+    custom: true,
+    width: "80px"
+  },
+  {
+    prop: "ReasonForNotAchievingThePlan1",
+    label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
+    width: '120px',
   },
   /*作业员*/
   {

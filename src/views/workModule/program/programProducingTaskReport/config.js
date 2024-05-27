@@ -3,6 +3,7 @@ import { production_programing_task_items } from "@/api/workApi/project/projectT
 import { site_collection_production_task_record } from "@/api/workApi/quality/siteCollection"
 import { taskTypeEnum } from "@/enum/workModule/project/projectTask"
 import { enumFilter } from "~/utils/system/enumsPlugin";
+import i18n from "@/i18n/i18n";
 class api extends TableAPI {
   // 获取列表
   getData = production_programing_task_items;
@@ -252,6 +253,18 @@ const recordSchema = [
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_WorkHours"),
     width: "120px",
+  },
+  {
+    // 是否按计划完成
+    prop: "IsItCompletedAsPlanned",
+    label: i18n.t("Generality.Ge_IsItCompletedAsPlanned"),
+    custom: true,
+    width: "80px"
+  },
+  {
+    prop: "ReasonForNotAchievingThePlan1",
+    label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
+    width: '120px',
   },
   /*作业员*/
   {

@@ -22,6 +22,9 @@
           :percentage="row.Progress"
         ></el-progress>
       </template>
+      <template #IsItCompletedAsPlanned="{ record }">
+        {{ record ? '是' : '否' }}
+      </template>
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction

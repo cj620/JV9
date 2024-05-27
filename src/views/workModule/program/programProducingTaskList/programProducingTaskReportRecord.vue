@@ -7,6 +7,9 @@
       <template #TaskType="{ record }">
         {{ taskTypeEnum[record].name }}
       </template>
+      <template #IsItCompletedAsPlanned="{ record }">
+        {{ record ? '是' : '否' }}
+      </template>
       <template #operation="{ row }">
         <TableAction
           :actions="[

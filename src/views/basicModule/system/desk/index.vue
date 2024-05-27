@@ -113,6 +113,9 @@
             :percentage="row.Progress"
           ></el-progress>
         </template>
+        <template #IsItCompletedAsPlanned="{ record }">
+          {{ record ? '是' : '否' }}
+        </template>
       </JvTable>
     </JvDialog>
     <JvDialog
