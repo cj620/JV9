@@ -38,105 +38,105 @@ export const tableSchema = [
     // 工序
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
-    width: "100px",
+    width: "75px",
   },
   {
     // 工序内容
     prop: "ProcessContent",
     label: i18n.t("Generality.Ge_WorkContent"),
-    width: "250px",
+    width: "230px",
   },
   {
     // 作业员
     prop: "Worker",
     label: i18n.t("Generality.Ge_Worker"),
-    width: "100px",
+    width: "80px",
   },
   {
     // 明细计划开始
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
-    width: "100px",
-    filter: "date",
+    width: "60px",
+    customFilter: (value, row) => timeFormat(value, "MM-dd"),
   },
   {
     // 明细计划结束
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
-    width: "100px",
-    filter: "date",
+    width: "60px",
+    customFilter: (value, row) => timeFormat(value, "MM-dd"),
   },
   {
     // 预计工时
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
-    width: "100px",
+    width: "50px",
   },
   {
     // 实际工时
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_ActualTime"),
-    width: "100px",
+    width: "50px",
   },
   {
     // 实际开始
     prop: "ActualStart",
     label: i18n.t("Generality.Ge_ActualStart"),
-    filter: "time",
-    width: "150px",
+    customFilter: (value, row) => timeFormat(value, "MM-dd hh:mm"),
+    width: "100px",
   },
   {
     // 实际结束
     prop: "ActualEnd",
     label: i18n.t("Generality.Ge_ActualEnd"),
-    filter: "time",
-    width: "150px",
+    customFilter: (value, row) => timeFormat(value, "MM-dd hh:mm"),
+    width: "100px",
   },
   {
     // 是否提交
     prop: "IsSubmit",
     label: i18n.t("Generality.Ge_IsSubmit"),
     custom: true,
-    width: '90px',
+    width: '55px',
   },
   {
     // 计划是否完成
     prop: "IsItCompletedAsPlanned",
     label: i18n.t("Generality.Ge_IsItCompletedAsPlanned"),
     custom: true,
-    width: '120px',
+    width: '80px',
   },
   {
     // 未完成计划原因1
     prop: "ReasonForNotAchievingThePlan1",
     label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
-    width: '220px',
+    width: '120px',
   },
   {
     // 未完成计划原因2
     prop: "ReasonForNotAchievingThePlan2",
     label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan2"),
-    width: '220px',
+    width: '120px',
   },
   {
     // 点检状态
     prop: "InspectionState",
     label: i18n.t("project.Pro_InspectionState"),
     customFilter: (value) => enumFilter(value, ProjectTaskItemInspectionStateEnum),
-    width: '90px',
+    width: '80px',
   },
   {
     // 点检时间
     prop: "InspectionTime",
     label: i18n.t("project.Pro_InspectionTime"),
     filter: "time",
-    width: "150px",
+    width: "140px",
   },
   {
     // 点检人
     prop: "Inspectionpersonnel",
     label: i18n.t("project.Pro_InspectionPersonnel"),
-    width: '90px',
+    width: '65px',
   }
 ]
 
