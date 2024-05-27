@@ -9,10 +9,9 @@
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import {
   my_todo_task,
-  my_project_task_record,
   report_work,
 } from "@/api/basicApi/systemSettings/user";
-import { taskStateEnum, enumToList,taskTypeEnum,enumFilter } from "@/enum/workModule";
+import { taskStateEnum, enumToList } from "@/enum/workModule";
 import { Form } from "@/jv_doc/class/form";
 class api extends TableAPI {
   // 获取列表
@@ -22,19 +21,12 @@ class api extends TableAPI {
 export class Table extends BaseTable {
   constructor() {
     super({
-      // 表格配置
       tableSchema: tableSchema,
-      // 表单配置
       formSchema: formSchema,
-      // 行标识
       rowId: "Id",
-      // 打印按钮
       printBar: false,
-      // 表格标题
       title: i18n.t("Generality.Ge_MyTask"),
-      // 接口类
       api,
-      // 打印模块标识
       printMod: "",
     });
   }
@@ -45,24 +37,19 @@ const tableSchema = [
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    width: "120px"
   },
   /*产品名称*/
   {
     prop: "ToolingName",
     label: i18n.t("Generality.Ge_ToolingName"),
+    width: "120px"
   },
   /*工序*/
-  /*任务类型*/
-  // {
-  //   prop: "TaskType",
-  //   label: '任务类型',
-  //   // taskTypeEnum,enumFilter
-  //   customFilter:(value)=>enumFilter(value,taskTypeEnum)
-  //   // enumFilter(taskTypeEnum)
-  // },
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
+    width: "80px",
   },
   /*工序内容*/
   {
@@ -73,28 +60,28 @@ const tableSchema = [
   /*负责人*/
   {
     prop: "Worker",
-    width: "120px",
     label: i18n.t("project.Pro_Worker"),
+    width: "70px",
   },
   /*预计工时*/
   {
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
-    width: 100,
+    width: "80px",
   },
   {
     // 计划开始
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
-    filter: "time",
-    width: 140
+    filter: "date",
+    width: "95px"
   },
   {
     // 计划结束
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
-    filter: "time",
-    width: 140
+    filter: "date",
+    width: "95px"
   },
   /*实际开始*/
   {

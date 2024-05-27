@@ -6,7 +6,6 @@
  */
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import {
-  my_todo_task,
   my_project_task_record,
 } from "@/api/basicApi/systemSettings/user";
 class api extends TableAPI {
@@ -86,19 +85,19 @@ export class ReportWorkTable extends BaseTable {
       height: 300,
       // 操作列
       operationCol: false,
+      tableHeaderShow: false,
+      pagination: false,
     });
   }
 }
 //  搜索表单配置
 const formSchema = [
   {
-    prop: "StartDate",
-    label: i18n.t("Generality.Ge_StartTime"),
-    cpn: "SingleTime"
+    prop: "PageSize",
+    default: 999,
   },
   {
-    prop: "EndDate",
-    label: i18n.t("Generality.Ge_EndTime"),
-    cpn: "SingleTime"
-  },
+    prop: "CurrentPage",
+    default: 1,
+  }
 ];
