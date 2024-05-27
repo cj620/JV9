@@ -224,9 +224,11 @@ const formSchema = [
     },
   },
   {
-    prop: "ItemState",
+    prop: "ItemStates",
     label: i18n.t("Generality.Ge_State"),
     cpn: "FormSelect",
+    type: "multiple",
+    default: ["NotStarted", "HaveInHand"],
     options: {
       list: [
         {

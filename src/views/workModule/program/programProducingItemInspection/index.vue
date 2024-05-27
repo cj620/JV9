@@ -11,11 +11,11 @@
             confirm: batchSpotCheck.bind(null, ''),
             disabled: canBatchCheck,
           },
-          // 延期
-          {
-            label: '延期',
-            confirm: delay.bind(null, ''),
-          }
+          // // 延期
+          // {
+          //   label: '延期',
+          //   confirm: delay.bind(null, ''),
+          // }
         ]"
       >
       </Action>

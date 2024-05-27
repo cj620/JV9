@@ -126,6 +126,16 @@ const formSchema = [
     },
     type: "multiple",
   },
+  {
+    prop: "StartDate",
+    label: i18n.t("Generality.Ge_StartDate"),
+    cpn: "SingleTime",
+  },
+  {
+    prop: "EndDate",
+    label: i18n.t("Generality.Ge_EndDate"),
+    cpn: "SingleTime",
+  },
 ];
 
 // 报工表单
