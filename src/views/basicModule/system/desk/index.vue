@@ -103,9 +103,17 @@
       :title="$t('project.Pro_ReportToWorkRecord')"
       :visible.sync="taskRecordVisible"
       v-if="taskRecordVisible"
-      width="50%"
+      width="80%"
     >
-      <JvTable :table-obj="taskRecordTable"></JvTable>
+      <JvTable :table-obj="taskRecordTable">
+        <template #Progress="{ row }">
+          <el-progress
+            :text-inside="true"
+            :stroke-width="14"
+            :percentage="row.Progress"
+          ></el-progress>
+        </template>
+      </JvTable>
     </JvDialog>
     <JvDialog
       :title="$t('setup.MyAuditingRecords')"

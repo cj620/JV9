@@ -202,7 +202,7 @@ const taskFormSchema = [
     label: i18n.t("Generality.Ge_IsItCompletedAsPlanned"),
     cpn: "FormRadio",
     type: "button",
-    default: false,
+    default: true,
     options: {
       list: [
         {

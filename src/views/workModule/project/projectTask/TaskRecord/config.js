@@ -10,6 +10,7 @@ import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { taskTypeEnum, enumToList } from "@/enum/workModule";
 // 单据接口
 import { getProject_task_log } from "@/api/workApi/project/projectTask";
+import i18n from "@/i18n/i18n";
 export class api extends TableAPI {
   // 获取列表
   getData = getProject_task_log;
@@ -27,7 +28,7 @@ export const tableConfig = [
   {
     prop: "Project",
     label: i18n.t("menu.Pm_Project"),
-    // width: "120px",
+    width: "120px",
     innerSearch: {
       prop: "Project",
       cpn: "FormInput",
@@ -38,6 +39,7 @@ export const tableConfig = [
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    width: "120px",
     innerSearch: {
       prop: "ToolingNo",
       cpn: "FormInput",
@@ -48,7 +50,7 @@ export const tableConfig = [
   {
     prop: "TaskType",
     label: i18n.t("Generality.Ge_TaskType"),
-    // width: "120px",
+    width: "120px",
     custom: true,
     innerSearch: {
       prop: "TaskType",
@@ -63,13 +65,19 @@ export const tableConfig = [
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
-    // width: "90px",
+    width: "90px",
   },
   /*工作内容*/
   {
     prop: "ProcessContent",
     label: i18n.t("Generality.Ge_WorkContent"),
-    width: 200
+    width: "200px",
+  },
+  {
+    prop: "Progress",
+    label: i18n.t("Generality.Ge_Schedule"),
+    custom: true,
+    width: "180px",
   },
   // 计划工时
   {
@@ -80,12 +88,12 @@ export const tableConfig = [
   /*开始时间*/
   {
     prop: "ActualStart",
-    label: i18n.t("program.Pr_ActualStart"),
+    label: i18n.t("Generality.Ge_ActualStart"),
     filter: "time",
-    // width: "120px",
+    width: "140px",
     innerSearch: {
       prop: "StartDate",
-      label: i18n.t("program.Pr_ActualStart"),
+      label: i18n.t("Generality.Ge_ActualStart"),
       cpn: "SingleTime",
     },
   },
@@ -93,12 +101,12 @@ export const tableConfig = [
   /*结束时间*/
   {
     prop: "ActualEnd",
-    label: i18n.t("program.Pr_ActualEnd"),
+    label: i18n.t("Generality.Ge_ActualEnd"),
     filter: "time",
-    // width: "120px",
+    width: "140px",
     innerSearch: {
       prop: "EndDate",
-      label: i18n.t("program.Pr_ActualEnd"),
+      label: i18n.t("Generality.Ge_ActualEnd"),
       cpn: "SingleTime",
     },
   },
@@ -106,22 +114,28 @@ export const tableConfig = [
   {
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_ActualTime"),
-    // width: "90px",
+    width: "90px",
   },
-
   /*制单人*/
   {
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
-    // width: "95px",
+    width: "95px",
   },
   /*制单日期*/
   {
     prop: "CreationDate",
     label: i18n.t("program.Pr_CreationDate"),
     filter: "time",
-    // width: "120px",
+    width: "140px",
   },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+    width: "140px",
+
+  }
 ];
 // taskTypeEnum
 // 表单配置

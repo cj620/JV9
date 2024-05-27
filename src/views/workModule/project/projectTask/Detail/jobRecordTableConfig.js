@@ -27,64 +27,50 @@ export class JobRecordTable extends BaseTable {
   }
 }
 export const tableConfig = [
+  /*进度*/
   {
-    prop: "BillId",
-    label: i18n.t("project.Pro_TaskSheetNo"),
-  },
-
-  /*项目*/
-  {
-    prop: "Project",
-    label: i18n.t("menu.Pm_Project"),
-    width: "120px",
-  },
-  /*模具编号*/
-  {
-    prop: "ToolingNo",
-    label: i18n.t("Generality.Ge_ToolingNo"),
-  },
-  /*任务类别*/
-  {
-    prop: "TaskType",
-    label: i18n.t("Generality.Ge_TaskType"),
-    width: "120px",
+    prop: "Progress",
+    label: i18n.t("Generality.Ge_Schedule"),
     custom: true,
+    width: "250px",
   },
-
-  /*开始时间*/
+  /*实际开始*/
   {
     prop: "ActualStart",
-    label: i18n.t("Generality.Ge_StartTime"),
-    filter: "date",
-    width: "120px",
+    label: i18n.t("Generality.Ge_ActualStart"),
+    filter: "time",
+    width: "140px",
   },
-
-  /*结束时间*/
+  /*实际结束*/
   {
     prop: "ActualEnd",
-    label: i18n.t("Generality.Ge_EndTime"),
-    filter: "date",
-    width: "120px",
+    label: i18n.t("Generality.Ge_ActualEnd"),
+    filter: "time",
+    width: "140px",
   },
   /*工时*/
   {
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_WorkHours"),
-    width: "90px",
-  },
-
-  /*制单人*/
-  {
-    prop: "Worker",
-    label: i18n.t("project.Pro_Worker"),
-    width: "95px",
-  },
-  /*日期*/
-  {
-    prop: "CreationDate",
-    label: i18n.t("Generality.Ge_Date"),
-    filter: "date",
     width: "120px",
   },
+  /*作业员*/
+  {
+    prop: "Worker",
+    label: i18n.t("Generality.Ge_Worker"),
+    width: "120px",
+  },
+  /*报工时间*/
+  {
+    prop: "CreationDate",
+    label: i18n.t("setup.ReportedAt"),
+    filter: "time",
+    width: "150px",
+  },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  }
 ];
 export const formSchema = [];

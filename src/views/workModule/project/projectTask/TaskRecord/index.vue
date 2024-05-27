@@ -15,6 +15,13 @@
         <!-- 状态标签 -->
         {{ taskTypeEnum[record].name }}
       </template>
+      <template #Progress="{ row }">
+        <el-progress
+          :text-inside="true"
+          :stroke-width="14"
+          :percentage="row.Progress"
+        ></el-progress>
+      </template>
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction

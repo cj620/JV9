@@ -9,57 +9,57 @@ import {
   my_todo_task,
   my_project_task_record,
 } from "@/api/basicApi/systemSettings/user";
-import { taskStateEnum, taskTypeEnum, enumToList } from "@/enum/workModule";
 class api extends TableAPI {
   // 获取列表
   getData = my_project_task_record;
 }
 //  表格配置
 const tableSchema = [
-  /*工序*/
-  // {
-  //   prop: "BillId",
-  //   label: '单号',
-  //   // pm_ProjectTask_Detail
-  // },
+  /*进度*/
   {
-    prop: "BillId",
-    label: i18n.t("Generality.Ge_BillId"),
-    align: "center",
-    cpn: "Link",
-    innerSearch: {
-      prop: "BillId",
-      cpn: "FormInput",
-      label: i18n.t("Generality.Ge_BillId"),
-    },
-    cpnProps: {
-      // 路由名称
-      routeName: "Pm_ProjectTask_Detail",
-      // 传参的键名，值为当前数据
-      parameterKey: "BillId",
-    },
+    prop: "Progress",
+    label: i18n.t("Generality.Ge_Schedule"),
+    custom: true,
+    width: "250px",
   },
-  /*负责人*/
+  /*实际开始*/
   {
-    prop: "TaskType",
-    label: i18n.t("Generality.Ge_DocumentType"),
-    customFilter: (val) => {
-      return taskTypeEnum[val]&&taskTypeEnum[val].name;
-    },
+    prop: "ActualStart",
+    label: i18n.t("Generality.Ge_ActualStart"),
+    filter: "time",
+    width: "140px",
   },
-  /*负责人*/
+  /*实际结束*/
+  {
+    prop: "ActualEnd",
+    label: i18n.t("Generality.Ge_ActualEnd"),
+    filter: "time",
+    width: "140px",
+  },
+  /*工时*/
   {
     prop: "ActualTime",
-    width: "120px",
     label: i18n.t("Generality.Ge_WorkHours"),
+    width: "120px",
   },
-  /*负责人*/
+  /*作业员*/
+  {
+    prop: "Worker",
+    label: i18n.t("Generality.Ge_Worker"),
+    width: "120px",
+  },
+  /*报工时间*/
   {
     prop: "CreationDate",
-    width: "150px",
     label: i18n.t("setup.ReportedAt"),
     filter: "time",
+    width: "150px",
   },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  }
 ];
 export class ReportWorkTable extends BaseTable {
   constructor() {
@@ -92,14 +92,13 @@ export class ReportWorkTable extends BaseTable {
 //  搜索表单配置
 const formSchema = [
   {
-    prop: "TaskItemId",
-    label: "",
-    cpn: "FormInput",
-    hidden: true,
+    prop: "StartDate",
+    label: i18n.t("Generality.Ge_StartTime"),
+    cpn: "SingleTime"
   },
   {
-    prop: "ToolingNo",
-    label: i18n.t("Generality.Ge_MoldId"),
-    cpn: "FormInput",
+    prop: "EndDate",
+    label: i18n.t("Generality.Ge_EndTime"),
+    cpn: "SingleTime"
   },
 ];

@@ -60,12 +60,19 @@
       :title="$t('project.Pro_ReportToWorkRecord')"
       v-if="dialogVisible"
       @confirm="dialogConfirm"
-      width="60%"
+      width="80%"
     >
       <JvTable :tableObj="jobRecordTableObj">
         <template #TaskType="{ record }">
           <!-- 状态标签 -->
           {{ taskTypeEnum[record].name }}
+        </template>
+        <template #Progress="{ row }">
+          <el-progress
+            :text-inside="true"
+            :stroke-width="14"
+            :percentage="row.Progress"
+          ></el-progress>
         </template>
       </JvTable>
     </JvDialog>
