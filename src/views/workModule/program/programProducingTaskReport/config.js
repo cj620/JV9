@@ -226,40 +226,49 @@ export const detailConfig = [
   }
 ]
 const recordSchema = [
+  /*进度*/
   {
-    prop: "Process",
-    label: i18n.t("Generality.Ge_Process"),
-    width: '100px',
+    prop: "Progress",
+    label: i18n.t("Generality.Ge_Schedule"),
+    custom: true,
+    width: "250px",
   },
   /*实际开始*/
   {
     prop: "ActualStart",
     label: i18n.t("Generality.Ge_ActualStart"),
     filter: "time",
-    width: '140px',
+    width: "140px",
   },
   /*实际结束*/
   {
     prop: "ActualEnd",
     label: i18n.t("Generality.Ge_ActualEnd"),
     filter: "time",
-    width: '140px',
+    width: "140px",
   },
-  // 进度
-  {
-    prop: "Progress",
-    label: i18n.t("Generality.Ge_Schedule"),
-    custom: true,
-  },
-  // 实际工时
+  /*工时*/
   {
     prop: "ActualTime",
-    label: i18n.t("Generality.Ge_ActualTime"),
-    width: '90px',
+    label: i18n.t("Generality.Ge_WorkHours"),
+    width: "120px",
+  },
+  /*作业员*/
+  {
+    prop: "Worker",
+    label: i18n.t("Generality.Ge_Worker"),
+    width: "120px",
+  },
+  /*报工时间*/
+  {
+    prop: "CreationDate",
+    label: i18n.t("setup.ReportedAt"),
+    filter: "time",
+    width: "150px",
   },
   /*备注*/
   {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
-  },
+  }
 ]

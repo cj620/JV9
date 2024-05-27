@@ -48,7 +48,7 @@
       destroy-on-close
       v-if="reportRecordDialogVisible"
       :IsShowFooterBtn="false"
-      width="50%">
+      width="80%">
       <JvTable :table-obj="recordTableObj">
         <template #Progress="{ record }">
           <el-progress :percentage="record"></el-progress>
