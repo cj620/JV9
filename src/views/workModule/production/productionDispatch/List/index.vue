@@ -8,7 +8,7 @@
 -->
 <template>
   <div class="design-page" ref="designPage">
-        <div class="left-loadding loadding-bar">
+        <div class="left-loading loading-bar">
             <el-popover
               placement="right-start"
               width="200"
@@ -36,7 +36,7 @@
 <!--          <screenFull style="top: 100px; position:absolute;"></screenFull>-->
           <el-button @click="loadClcik(false)" type="info" icon="el-icon-arrow-left" size="medium" circle></el-button>
         </div>
-        <div class="right-loadding loadding-bar">
+        <div class="right-loading loading-bar">
           <el-button type="info" @click="setScrollTo('up')" icon="el-icon-arrow-up" size="medium" circle style="top: 40px"></el-button>
           <el-button type="info" @click="setScrollTo('down')" icon="el-icon-arrow-down" size="medium" circle style="top: 100px"></el-button>
           <el-button @click="loadClcik(true)" type="info" icon="el-icon-arrow-right" size="medium" circle></el-button>
@@ -423,29 +423,6 @@ export default {
   width: 100%;
   position: relative;
   background-color: #ffffff;
-  .extra {
-    padding: 5px 60px;
-    @include flexBox($jc: space-between);
-    width: 100%;
-    height: 50px;
-    background-color: #fff;
-    .bar-icon {
-      margin: 3px 5px;
-      cursor: pointer;
-      font-size: 22px;
-    }
-    .left-bar {
-      @include flexBox($jc: flex-start);
-      .state-bar {
-        &::before {
-          content: "|";
-          font-size: 15px;
-          margin-left: 10px;
-          color: rgb(199, 199, 199);
-        }
-      }
-    }
-  }
   .list-box {
     padding-top: 10px;
     width: calc(100% - 100px);
@@ -459,8 +436,6 @@ export default {
   }
   .staff-list {
     height: 130px;
-    //box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.4);
-    // border: 1px solid #000;
     background-color: #fff;
     ::v-deep .staff-card {
       background-color: orange;
@@ -474,7 +449,7 @@ export default {
         box-shadow: 0 2px 12px 0 rgba(0,0,0,0.4);
       }
     }
-  .loadding-bar {
+  .loading-bar {
     position: absolute;
     top: 0;
     right: 0;
@@ -489,11 +464,11 @@ export default {
       margin-left: 0;
     }
   }
-  .right-loadding {
+  .right-loading {
     right: 0;
     z-index: 1;
   }
-  .left-loadding {
+  .left-loading {
     left: 0;
   }
 }
