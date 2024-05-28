@@ -313,6 +313,16 @@ const purchase = [
       i18n.t("menu.Pu_Outsourcing") + "  " + i18n.t("Generality.Ge_Details1"),
     hidden: true,
   },
+  // 供应商评估
+  {
+    key: "Pu_SupplierEvaluation",
+    component: () => import("@/views/workModule/purchase/outsourcing/view/SupplierEvaluation"),
+    Parent: "Pu_Purchase",
+    name: "Pu_SupplierEvaluation",
+    path: "Pu_SupplierEvaluation",
+    title:i18n.t("purchase.Pu_SupplierEvaluation"),
+    hidden: true,
+  },
   // 委外对账
   {
     key: "Pu_OutsourcingAccount",

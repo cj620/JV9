@@ -456,6 +456,7 @@ const ja = {
   },
   // 采购
   purchase: {
+    Pu_SupplierEvaluation: "仕入先評価",
     Pr_SupplierId: "仕入先ID",
     Pr_SupplierName: "仕入先略称",
     Pu_Supplier: "サプライヤ",
