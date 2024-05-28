@@ -66,11 +66,11 @@
 <script>
 import { design_or_program_task_list } from "@/api/workApi/design/designTask";
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
-import NewStaffCard from "@/views/workModule/program/programTask/List/cpns/NewStaffCard.vue";
-import TaskBox from "@/views/workModule/program/programTask/List/cpns/TaskBox.vue";
+import NewStaffCard from "@/views/workModule/assy/assyTask/List/cpns/NewStaffCard.vue";
+import TaskBox from "@/views/workModule/assy/assyTask/List/cpns/TaskBox.vue";
 
 export default {
-  name: "Pa_ProgramTask",
+  name: "As_AssyTask",
   components: {
     TaskBox,
     NewStaffCard,
@@ -80,13 +80,13 @@ export default {
       departmentList: [],
       sourceData: [],
       Count: 0,
-      recordRouteName: "ProgramTask_Record",
+      recordRouteName: "AssyTaskRecord",
       showPopover: false,
       form: {
         DepartmentName: "",
         PageSize: 5,
         CurrentPage: 1,
-        SelectType: 1,
+        SelectType: 2,
       },
     }
   },

@@ -9,8 +9,10 @@
 <template>
   <div class="task-card">
     <div class="state-bar" :style="{ background: stateMap.color }">
-      <svg-icon icon-class="father" v-if="cdata.ParentId === 0" />
-      <svg-icon icon-class="son" v-else />
+      <div style="width: 14px;">
+        <svg-icon icon-class="father" v-if="cdata.ParentId === 0" />
+        <svg-icon icon-class="son" v-else />
+      </div>
       <div>
         {{ cdata.ToolingNo }}
         <el-tooltip
@@ -27,19 +29,7 @@
       </div>
     </div>
     <div class="more-func">
-      <!-- 编程加工任务 -->
-      <el-dropdown @command="handleCommand" v-if="$route.name === 'ProgramProducingTask'">
-        <span>
-          <i class="el-icon-more el-icon--right" style="font-size: 20px"></i>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="edit">
-            {{ $t('Generality.Ge_Edit') }}
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <!-- 非编程加工任务 -->
-      <el-dropdown @command="handleCommand" v-else>
+      <el-dropdown @command="handleCommand">
         <span>
           <i class="el-icon-more el-icon--right" style="font-size: 20px"></i>
         </span>
@@ -50,14 +40,14 @@
           <el-dropdown-item
             :disabled="!(cdata.ParentId == 0)"
             command="distributionTask"
-            >
+          >
             {{ $t('project.Pro_DistributionTask') }}
           </el-dropdown-item
           >
           <el-dropdown-item
             :disabled="!(cdata.ParentId == 0)"
             command="viewSubTask"
-            >
+          >
             {{ $t('project.Pro_ViewSubtasks') }}
           </el-dropdown-item
           >
@@ -92,6 +82,10 @@
         </div>
       </div>
       <div class="time-progress">
+        <div class="time" style="padding: 6px 0 4px 0">
+          <i class="el-icon-document"></i>
+          <span>{{ cdata.ProcessContent }}</span>
+        </div>
         <div class="time">
           <i class="el-icon-date"></i>
           <span>{{ cdata.PlanEnd | timeFormat("yyyy-MM-dd hh:mm") }}</span>
@@ -216,7 +210,6 @@ export default {
             )
           );
         }
-        console.log(this.transferData, 66656868);
       } else if (e == "distributionTask") {
         this.distributionTaskDialogFormVisible = true;
         this.TaskData = this.cdata;
@@ -269,29 +262,24 @@ export default {
 <style lang="scss" scoped>
 @import "~@/jv_doc/style/mixin.scss";
 .task-card {
-  // padding: 0 5px;
-  width: 210px;
-  height: 125px;
+  width: 235px;
+  height: 155px;
   @include shadow;
   position: relative;
   background-color: #fff;
   font-size: 14px;
-  cursor: pointer;
-  position: relative;
   .more-func {
     position: absolute;
     right: 10px;
-    top: 0px;
+    top: 0;
+    cursor: pointer;
   }
   .state-bar {
-    // width: 100%;
     height: 20px;
     display: flex;
-    border-radius: 10px 10px 0px 0px;
-    background-color: rgb(211, 153, 153);
-    width: 210px;
+    border-radius: 10px 10px 0 0;
+    width: 235px;
     padding: 1px 5px;
-
     div {
       margin-left: 5px;
       width: 150px;
@@ -299,23 +287,20 @@ export default {
     }
   }
   .task-content {
-    width: 100%;
     height: 95px;
     background-color: #fff;
-    width: 210px;
-    padding: 0 5px;
-    border-radius: 0px 0px 10px 10px;
-
+    width: 235px;
+    padding: 0 8px;
+    border-radius: 0 0 10px 10px;
     .img-desc {
       width: 200px;
       height: 55px;
-      padding-left: 50px;
+      padding: 4px 0 0 54px;
       position: relative;
-      // background-color: rgb(59, 112, 110);
       .img {
         position: absolute;
         left: 0;
-        top: 5px;
+        top: 6px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -326,7 +311,6 @@ export default {
           display: flex;
           justify-content: center;
           align-items: center;
-          // color: rgb(161, 161, 161);
           .error-icon {
             color: rgb(161, 161, 161);
             font-size: 19px;
@@ -334,7 +318,6 @@ export default {
         }
       }
       .desc-text {
-        // margin-top: 5px;
         i {
           margin-right: 5px;
         }

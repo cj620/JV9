@@ -28,7 +28,7 @@
     </div>
     <div class="more-func">
       <!-- 编程加工任务 -->
-      <el-dropdown @command="handleCommand" v-if="$route.name === 'ProgramProducingTask'">
+      <el-dropdown @command="handleCommand">
         <span>
           <i class="el-icon-more el-icon--right" style="font-size: 20px; cursor: pointer;"></i>
         </span>
@@ -36,34 +36,6 @@
           <el-dropdown-item command="edit">
             {{ $t('Generality.Ge_Edit') }}
           </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <!-- 非编程加工任务 -->
-      <el-dropdown @command="handleCommand" v-else>
-        <span>
-          <i class="el-icon-more el-icon--right" style="font-size: 20px"></i>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="edit">
-            {{ $t('Generality.Ge_Edit') }}
-          </el-dropdown-item>
-          <el-dropdown-item
-            :disabled="!(cdata.ParentId == 0)"
-            command="distributionTask"
-            >
-            {{ $t('project.Pro_DistributionTask') }}
-          </el-dropdown-item
-          >
-          <el-dropdown-item
-            :disabled="!(cdata.ParentId == 0)"
-            command="viewSubTask"
-            >
-            {{ $t('project.Pro_ViewSubtasks') }}
-          </el-dropdown-item
-          >
-          <!-- <el-dropdown-item command="downLoadProductImg"
-            >下载图纸</el-dropdown-item
-          > -->
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -80,7 +52,7 @@
             <i class="el-icon-picture-outline error-icon"></i>
           </div>
         </el-image>
-        <div class="desc-box">
+        <div class="desc-box" style="padding: 2px 0 0 2px">
           <div class="desc-text">
             <i class="el-icon-box"></i>
             {{ cdata.Process }}
@@ -263,7 +235,7 @@ export default {
       this.tooltipFlag = true;
     },
     toFresh() {
-      this.$emit("toFresh");
+      this.$emit("getData");
     },
   },
   computed: {
@@ -280,9 +252,8 @@ export default {
 <style lang="scss">
 @import "~@/jv_doc/style/mixin.scss";
 .task-card {
-  // padding: 0 5px;
-  width: 210px;
-  height: 165px;
+  width: 235px;
+  height: 170px;
   @include shadow;
   position: relative;
   background-color: #fff;
@@ -293,12 +264,10 @@ export default {
     top: 0;
   }
   .state-bar {
-    // width: 100%;
     height: 20px;
     display: flex;
     border-radius: 10px 10px 0 0;
-    background-color: rgb(211, 153, 153);
-    width: 210px;
+    width: 235px;
     padding: 1px 5px;
     align-items: center;
     div {
@@ -310,8 +279,8 @@ export default {
   .task-content {
     height: 95px;
     background-color: #fff;
-    width: 210px;
-    padding: 0 5px;
+    width: 235px;
+    padding: 0 8px;
     border-radius: 0 0 10px 10px;
 
     .img-desc {
@@ -319,7 +288,6 @@ export default {
       height: 55px;
       padding-left: 50px;
       position: relative;
-      // background-color: rgb(59, 112, 110);
       .img {
         position: absolute;
         left: 0;
@@ -331,7 +299,6 @@ export default {
           display: flex;
           justify-content: center;
           align-items: center;
-          // color: rgb(161, 161, 161);
           .error-icon {
             color: rgb(161, 161, 161);
             font-size: 19px;
@@ -339,7 +306,6 @@ export default {
         }
       }
       .desc-text {
-        // margin-top: 5px;
         i {
           margin-right: 5px;
         }
@@ -349,6 +315,7 @@ export default {
       }
     }
     .time-progress {
+      padding-top: 2px;
       .billRemarks {
         width: 200px;
         padding: 2px 0;

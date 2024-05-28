@@ -16,7 +16,7 @@ const assy = [
   // 钳工任务
   {
     key: "As_AssyTask",
-    component: () => import("@/views/workModule/assy/assyTask"),
+    component: () => import("@/views/workModule/assy/assyTask/List"),
     Parent: "As_Assy",
     name: "AssyTask",
     path: "assyTask",

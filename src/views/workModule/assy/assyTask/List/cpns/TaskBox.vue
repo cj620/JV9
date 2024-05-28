@@ -33,7 +33,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~@/jv_doc/style/mixin.scss";
 .task-box {
   width: 100%;

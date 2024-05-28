@@ -1,127 +1,123 @@
-<!--
- * @Author: your name
- * @Date: 2021-11-09 14:06:15
- * @LastEditTime: 2022-01-25 10:28:59
- * @LastEditors: Please set LastEditors
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \V9_Dev\src\views\workModule\design\designTask\List\c-menu.vue
--->
 <template>
   <div class="design-page" ref="designPage">
-    <!-- 左加载 -->
-    <div class="left-loadding loadding-bar" @click="loadClcik(false)">
-      <i class="el-icon-d-arrow-left"></i>
+    <div class="left-loading loading-bar">
+      <el-popover
+        placement="right-start"
+        width="200"
+        trigger="click"
+        v-model="showPopover"
+        style="position: absolute;top: 40px;left: 12px;"
+      >
+        <el-select
+          v-model="form.DepartmentName"
+          size="mini"
+          filterable
+          style="width: 100%; margin-bottom: 10px"
+          :placeholder="$t('Generality.Ge_DepartmentSearch')">
+          <el-option
+            v-for="item in departmentList"
+            :key="item.Department"
+            :label="item.Department"
+            :value="item.Department">
+          </el-option>
+        </el-select>
+        <el-button size="mini" type="text" @click="formSubmit('reset')">
+          {{ $t('Generality.Ge_Clear') }}
+        </el-button>
+        <el-button type="primary" @click="formSubmit('search')" size="mini" style="position: absolute; right: 10px;">
+          {{ $t('Generality.Ge_Search') }}
+        </el-button>
+        <el-button slot="reference" type="info" icon="el-icon-more" size="medium" circle >
+        </el-button>
+      </el-popover>
+      <el-button @click="loadClick(false)" type="info" icon="el-icon-arrow-left" size="medium" circle></el-button>
+      <el-tooltip class="item" effect="dark" :content="$t('project.Pro_TaskRecord')" placement="right">
+        <el-button @click="toRecord" type="info" icon="el-icon-document" size="medium" style="top: 100px; position:absolute;" circle>
+        </el-button>
+      </el-tooltip>
     </div>
-    <!-- 右加载 -->
-    <div class="right-loadding loadding-bar" @click="loadClcik(true)">
-      <i class="el-icon-d-arrow-right"></i>
-    </div>
-    <div class="extra">
-      <div>
-        {{ pageDesc }}
-        <Popover
-          @confirm="getData"
-          @reset="clear"
-          style="margin: 0 10px"
-        >
-          <el-input
-            v-model="form.DepartmentName"
-            :placeholder="$t('Generality.Ge_DepartmentSearch')"
-            size="mini"
-          ></el-input>
-        </Popover>
-        <span>{{ form.DepartmentName }}</span>
-      </div>
-      <div class="left-bar">
-        <div class="btn-list">
-          <el-button type="primary" size="mini" @click="toRecord">{{
-            $t("project.Pro_TaskRecord")
-          }}</el-button>
-        </div>
-        <div class="state-bar">
-          <div class="bar-icon el-icon-refresh-right" @click="getData" />
-          <div class="bar-icon el-icon-full-screen" @click="fullScreen" />
-        </div>
-      </div>
+    <div class="right-loading loading-bar">
+      <el-button type="info" @click="setScrollTo('up')" icon="el-icon-arrow-up" size="medium" circle style="top: 40px"></el-button>
+      <el-button type="info" @click="setScrollTo('down')" icon="el-icon-arrow-down" size="medium" circle style="top: 100px"></el-button>
+      <el-button @click="loadClick(true)" type="info" icon="el-icon-arrow-right" size="medium" circle></el-button>
     </div>
     <div class="staff-list list-box">
       <el-row>
         <el-col :span="4" v-for="item in sourceData" :key="item.UserId">
           <div class="card-box">
-            <StaffCard :cdata="item"></StaffCard>
+            <NewStaffCard :cdata="item"></NewStaffCard>
           </div>
         </el-col>
       </el-row>
     </div>
-    <div class="task-list list-box">
-      <el-row>
-        <el-col :span="4" v-for="item in sourceData" :key="item.UserId">
-          <div class="card-box">
-            <TaskBox @getData="getData" :cdata="item.TaskItems ? item.TaskItems : []"></TaskBox>
-          </div>
-        </el-col>
-      </el-row>
-      <JvFooter></JvFooter>
-    </div>
+    <transition name="fade" mode="out-in" appear>
+      <div class="task-list list-box" ref="processBox">
+        <el-row>
+          <el-col :span="4" v-for="item in sourceData" :key="item.UserId">
+            <div class="card-box">
+              <TaskBox @getData="getData" :cdata="item.TaskItems ? item.TaskItems : []"></TaskBox>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
   </div>
 </template>
-
 <script>
-import { fullScreen } from "@/jv_doc/utils/system";
 import { design_or_program_task_list } from "@/api/workApi/design/designTask";
-import { production_programing_task_list } from "@/api/workApi/project/projectTask";
-import Popover from "@/jv_doc/cpn/JvTable/cpn/Popover.vue";
-import JvFooter from "@/jv_doc/cpn/JvFooter";
-import StaffCard from "./cpns/StaffCard.vue";
-import TaskBox from "./cpns/TaskBox.vue";
+import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
+import NewStaffCard from "@/views/workModule/design/designTask/List/cpns/NewStaffCard.vue";
+import TaskBox from "@/views/workModule/design/designTask/List/cpns/TaskBox.vue";
+
 export default {
   name: "De_DesignTask",
   components: {
-    StaffCard,
     TaskBox,
-    JvFooter,
-    Popover,
+    NewStaffCard,
   },
   data() {
     return {
-      count: 10,
-      loading: false,
-      pageDesc: i18n.t("menu.De_DesignTask"),
-      // 任务记录路由
+      departmentList: [],
+      sourceData: [],
+      Count: 0,
       recordRouteName: "DesignTask_Record",
+      showPopover: false,
       form: {
         DepartmentName: "",
         PageSize: 5,
         CurrentPage: 1,
         SelectType: 0,
       },
-      sourceData: [],
-      Count: 0,
-    };
+    }
   },
   created() {
     this.getData();
+    this.getDepartmentInfo();
   },
-
-  computed: {},
   methods: {
-    getData() {
-      if (this.$route.name === 'ProgramProducingTask'){
-        production_programing_task_list(this.form).then((res) => {
-          this.sourceData = res.Items;
-          this.Count = res.Count;
-        });
-      }else {
-        design_or_program_task_list(this.form).then((res) => {
-          this.sourceData = res.Items;
-          this.Count = res.Count;
-        })
-      }
+    getDepartmentInfo() {
+      getDepartmentList().then((res) => {
+        this.departmentList = res.Items
+      })
     },
-    loadClcik(state = true) {
+    getData() {
+      design_or_program_task_list(this.form).then((res) => {
+        this.sourceData = res.Items;
+        this.Count = res.Count;
+        this.setScrollTo("reset");
+      })
+    },
+    formSubmit(type) {
+      if (type === "reset") {
+        this.form.DepartmentName = "";
+      }
+      this.form.CurrentPage = 1;
+      this.getData();
+      this.showPopover = false;
+    },
+    loadClick(state = true) {
       let DataCount = this.form.CurrentPage * this.form.PageSize;
       if (state) {
-        //  6 9
         if (DataCount >= this.Count) return;
         this.form.CurrentPage++;
         this.getData();
@@ -131,23 +127,56 @@ export default {
         this.getData();
       }
     },
+    watchScroll() {
+      let taskListBox = document.querySelector('.task-list.list-box');
+      taskListBox.onscroll = () => {
+        this.scrollNumber = taskListBox.scrollTop;
+      }
+    },
+    setScrollTo(e) {
+      let taskListBox = document.querySelector('.task-list.list-box')
+      if (e === "up") {
+        this.scrollNumber = taskListBox.scrollTop;
+        this.scrollNumber -= 580;
+        const scrollToTop = () => {
+          const c = taskListBox.scrollTop
+          if (c > this.scrollNumber) {
+            if(!taskListBox.scrollTop) return
+            window.requestAnimationFrame(scrollToTop)
+            taskListBox.onscroll = null;
+            taskListBox.scrollTo(0, c - 15)
+          } else {
+            this.watchScroll();
+          }
+        }
+        scrollToTop()
+      } else if (e === "down") {
+        this.scrollNumber = taskListBox.scrollTop;
+        this.scrollNumber += 580;
+        const scrollToTop = () => {
+          let c = taskListBox.scrollTop
+          if (c < this.scrollNumber) {
+            if(taskListBox.clientHeight + taskListBox.scrollTop + 2 >= taskListBox.scrollHeight) return
+            window.requestAnimationFrame(scrollToTop)
+            taskListBox.onscroll = null;
+            taskListBox.scrollTo(0, c + 15)
+          } else {
+            this.watchScroll();
+          }
+        }
+        scrollToTop()
+      } else if (e === "reset") {
+        taskListBox.scrollTop = 0;
+        this.watchScroll();
+      }
+    },
     toRecord() {
       this.$router.push({
         name: this.recordRouteName,
       });
     },
-    fullScreen() {
-      fullScreen(this.$refs.designPage);
-    },
-    clear(){
-      this.form.DepartmentName = ''
-      this.getData()
-    },
-    cardClick(e) {
-      console.log(5684848, e);
-    },
-  },
-};
+  }
+}
 </script>
 <style scoped lang="scss">
 @import "~@/jv_doc/style/mixin.scss";
@@ -155,34 +184,33 @@ export default {
   height: calc(100vh - 90px);
   width: 100%;
   position: relative;
-  background-color: #f0f2f5;
-  .extra {
-    padding: 5px 60px;
-    @include flexBox($jc: space-between);
-    width: 100%;
-    height: 50px;
-    background-color: #fff;
-    .bar-icon {
-      margin: 3px 5px;
-      cursor: pointer;
-      font-size: 22px;
+  background-color: #ffffff;
+  .loading-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 60px;
+    background-color: white;
+    .el-button {
+      position: absolute;
     }
-    .left-bar {
-      @include flexBox($jc: flex-start);
-      .state-bar {
-        &::before {
-          content: "|";
-          font-size: 15px;
-          margin-left: 10px;
-          color: rgb(199, 199, 199);
-        }
-      }
+    @include flexBox;
+    .el-button + .el-button {
+      margin-left: 0;
     }
+  }
+  .right-loading {
+    right: 0;
+    z-index: 1;
+  }
+  .left-loading {
+    left: 0;
   }
   .list-box {
     padding-top: 10px;
-    width: calc(100% - 100px);
-    margin-left: 50px;
+    width: calc(100% - 120px);
+    margin-left: 60px;
     min-width: 1600px;
     .card-box {
       width: 100%;
@@ -191,45 +219,21 @@ export default {
   }
   .staff-list {
     height: 130px;
-    box-shadow: 0 2px 10px 0 rgb(0, 0, 0, 0.4);
-    // border: 1px solid #000;
     background-color: #fff;
+    padding-right: 5px;
   }
   .task-list {
-    height: calc(100% - 180px);
-    // background-color: rgb(235, 235, 235);
+    height: calc(100% - 150px);
     overflow: auto;
-  }
-  .loadding-bar {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 50px;
-    background-color: rgb(218, 218, 218);
-    @include flexBox;
-    &:hover {
-      background-color: rgb(228, 238, 255);
+    ::v-deep .task-card {
+      box-shadow: 0 2px 12px 0 rgba(0,0,0,0.4);
     }
   }
-  .right-loadding {
-    right: 0;
-    z-index: 99;
-  }
-  .left-loadding {
-    left: 0;
-  }
 }
-/* 滚动条样式 */
+.el-col-4 {
+  width: 20%;
+}
 ::-webkit-scrollbar {
   width: 5px;
-  height: 5px;
-}
-
-/*定义滑块 内阴影+圆角*/
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: rgb(68, 68, 68);
 }
 </style>
