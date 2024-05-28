@@ -7,7 +7,7 @@
  * @FilePath: \V9_Dev\src\views\workModule\design\designTask\List\cpns\TaskCard.vue
 -->
 <template>
-  <div class="task-card" @click="cardClick">
+  <div class="task-card">
     <el-tooltip effect="dark" :content="stateMap.name" placement="right-start">
       <div class="state-bar" :style="{ background: stateMap.color }">
         {{ cdata.PartNo }}
@@ -40,8 +40,6 @@
             {{ cdata.Process }}
           </div>
           <div class="desc-text">
-            <!-- <i class="el-icon-folder-checked"></i> -->
-            <!-- {{ cdata.CurrentStation | IsEmpty }} -->
             <i class="el-icon-user" style="padding-right: 5px"></i>
             {{ cdata.Worker | IsEmpty }}
           </div>
@@ -57,10 +55,6 @@
           <i class="el-icon-date"></i>
           <span>{{ cdata.PlanEnd | timeFormat("yyyy-MM-dd hh:mm") }}</span>
         </div>
-        <!-- <div class="desc">
-          <i class="el-icon-user" style="padding-right: 5px"></i>
-          {{ cdata.Worker | IsEmpty }}
-        </div> -->
       </div>
       <div style="margin-top: -5px">
         <i class="el-icon-document" style="margin-right: 4px"></i>
@@ -75,7 +69,6 @@
 <script>
 import { imgUrlPlugin } from "@/jv_doc/utils/system";
 import { ProcessState } from "@/enum/workModule";
-import { taskTypeEnum } from "@/enum/workModule";
 import DropDown from "./DropDown.vue";
 export default {
   components: {
@@ -89,12 +82,6 @@ export default {
   },
   methods: {
     imgUrlPlugin,
-    cardClick() {
-      // this.$router.push({
-      //   name: "Pm_ProjectTask_Detail",
-      //   query: { BillId: this.cdata.BillId },
-      // });
-    },
     dropCommand(e) {
       this.$emit("command", e);
     },
@@ -111,17 +98,13 @@ export default {
     stateMap() {
       return ProcessState[this.cdata.State];
     },
-    // taskMap() {
-    //   return taskTypeEnum[this.cdata.TaskType];
-    // },
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~@/jv_doc/style/mixin.scss";
 .task-card {
-  // padding: 0 5px;
   width: 235px;
   height: 155px;
   @include shadow;
@@ -130,7 +113,6 @@ export default {
   font-size: 14px;
   cursor: pointer;
   .state-bar {
-    // width: 100%;
     height: 20px;
     line-height: 20px;
     border-radius: 10px 10px 0px 0px;
@@ -150,28 +132,28 @@ export default {
     width: 100%;
     height: 135px;
     background-color: #fff;
-    //width: 210px;
     padding: 0 5px 0 10px;
-    border-radius: 0px 0px 10px 10px;
-
+    border-radius: 0 0 10px 10px;
     .img-desc {
       width: 200px;
       height: 55px;
       padding-left: 50px;
       position: relative;
-      // background-color: rgb(59, 112, 110);
       .img {
         position: absolute;
         left: 0;
         top: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(231, 231, 231);
         .image-slot {
           width: 100%;
           height: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: rgb(231, 231, 231);
-          // color: rgb(161, 161, 161);
+          color: rgb(161, 161, 161);
           .error-icon {
             color: rgb(161, 161, 161);
             font-size: 19px;
@@ -179,7 +161,6 @@ export default {
         }
       }
       .desc-text {
-        // margin-top: 5px;
         i {
           margin-right: 5px;
         }
