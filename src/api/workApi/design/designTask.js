@@ -13,5 +13,6 @@ export function design_or_program_task_list(data) {
     url: "/design_or_program_task/list",
     method: "post",
     data,
+    loading: true,
   });
 }
