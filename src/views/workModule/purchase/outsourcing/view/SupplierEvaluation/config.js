@@ -38,7 +38,7 @@ export const tableConfig = [
         prop: 'DeliveryAchievementRate',
         label: i18n.t("purchase.Pu_DeliveryAchievementRate"),
         customFilter(val) {
-            return val + '%'
+            return (val % 1 === 0 ? val : val.toFixed(2)) + '%'
         }
     },
 ]
