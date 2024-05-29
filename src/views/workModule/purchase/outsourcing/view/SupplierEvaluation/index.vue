@@ -69,6 +69,7 @@ export default {
         this.tableObj.setData(res.Items);
         const formattedData = this.formatData(res.Items);
         const option = {
+          legend: {},
           tooltip: {
             trigger: "axis",
             formatter: function (params) {
