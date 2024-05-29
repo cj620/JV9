@@ -238,3 +238,11 @@ export function production_programing_task_inspection_handle(data) {
     data,
   })
 }
+// 项目任务单明细延期列表
+export function item_delay_list(data) {
+  return request({
+    url: "/project_task/item_delay_list",
+    method: "post",
+    data,
+  })
+}

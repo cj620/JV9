@@ -10,6 +10,16 @@
       <template #ItemPlanEnd="{ record }">
         {{ record }}{{ IsDelay(record) }}
       </template>
+      <Action
+        size="mini"
+        slot="btn-list"
+        :actions="[
+          {
+            label: $t('project.Pro_DelayedTasks'),
+            confirm: delayedTasks,
+          },
+        ]"
+      ></Action>
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction
@@ -137,6 +147,11 @@ export default {
     this.tableObj.getData();
   },
   methods: {
+    delayedTasks() {
+      this.$router.push({
+        name: "As_AssyDelayedTasks",
+      });
+    },
     dialogConfirm() {
       this.viewSubtasksDialogVisible = false;
     },

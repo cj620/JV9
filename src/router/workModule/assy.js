@@ -85,6 +85,15 @@ const assy = [
     name: "As_AssyDistributeTask",
     path: "As_AssyDistributeTask",
     title: i18n.t("project.Pro_DistributionTask"),
+  },
+  // 延期钳工任务
+  {
+    key: "As_AssyDelayedTasks",
+    component: () => import("@/views/workModule/assy/assyTaskList/AssyDelayedTasks"),
+    Parent: "As_Assy",
+    name: "As_AssyDelayedTasks",
+    path: "As_AssyDelayedTasks",
+    title: i18n.t("menu.As_AssyDelayedTasks"),
   }
 ]
 export default assy;
