@@ -211,8 +211,16 @@ export default {
           );
         }
       } else if (e == "distributionTask") {
-        this.distributionTaskDialogFormVisible = true;
-        this.TaskData = this.cdata;
+        // this.distributionTaskDialogFormVisible = true;
+        // this.TaskData = this.cdata;
+        this.$router.push({
+          name: "Pa_ProgramDistributeTask",
+          query: {
+            TaskData: this.cdata,
+            BillId: this.cdata.BillId,
+            BackPath: "programTask",
+          },
+        });
       } else if (e == "viewSubTask") {
         this.viewSubtasksDialogVisible = true;
         project_task_get_children_item({ Id: this.cdata.Id }).then((res) => {
