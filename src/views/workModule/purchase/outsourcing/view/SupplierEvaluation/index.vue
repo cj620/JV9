@@ -5,7 +5,7 @@
         <span style="margin-right: 10px">日期范围</span>
         <el-date-picker
           v-model="dateTimeRangeValue"
-          type="datetimerange"
+          type="daterange"
           size="mini"
           :clearable="false"
           range-separator="-"
@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       dateTimeRangeValue: [new Date(), new Date()], // 初始化为一个空数组或当前日期
+      myMiddleChartObj: {},
       chartData: [],
       tableObj: {}
     };
@@ -59,6 +60,14 @@ export default {
   },
   mounted() {
     this.drawMiddleChart(); // 初始化图表
+    window.addEventListener('resize', this.handleResize);
+  },
+  // 页面被销毁时，移除 resize 事件监听器
+  beforeDestroy() {
+    window.removeEventListener('resize', this.handleResize);
+    if (this.myMiddleChartObj) {
+      this.myMiddleChartObj.dispose();
+    }
   },
   methods: {
     getSupplierEvaluation() {
@@ -126,12 +135,19 @@ export default {
         document.getElementById("myMiddleChart")
       );
     },
+    // 格式化数据
     formatData(data) {
       return data.map((item) => ({
         name: item.SupplierName,
         value: parseFloat(item.DeliveryAchievementRate.toFixed(2)),
       }));
     },
+    // 根据浏览器窗口大小变化来重绘图表
+    handleResize() {
+      if (this.myMiddleChartObj) {
+        this.myMiddleChartObj.resize();
+      }
+    }
   },
 };
 </script>
