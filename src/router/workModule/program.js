@@ -196,6 +196,15 @@ const program = [
     name: "Pa_ProgramDistributeTask",
     path: "Pa_ProgramDistributeTask",
     title: i18n.t("project.Pro_DistributionTask"),
+  },
+  // 延期编程任务
+  {
+    key: "Pa_ProgramDelayedTasks",
+    component: () => import("@/views/workModule/program/ProgramTaskList/ProgramDelayedTasks"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramDelayedTasks",
+    path: "Pa_ProgramDelayedTasks",
+    title: i18n.t("menu.Pa_ProgramDelayedTasks"),
   }
 ];
 export default program;

@@ -146,6 +146,15 @@ const design = [
     name: "De_DesignDistributeTask",
     path: "De_DesignDistributeTask",
     title: i18n.t("project.Pro_DistributionTask"),
+  },
+  // 延期设计任务
+  {
+    key: "De_DesignDelayedTasks",
+    component: () => import("@/views/workModule/design/designTask/DesignDelayedTasks"),
+    Parent: "De_Design",
+    name: "De_DesignDelayedTasks",
+    path: "De_DesignDelayedTasks",
+    title: i18n.t("menu.De_DesignDelayedTasks"),
   }
 ];
 
