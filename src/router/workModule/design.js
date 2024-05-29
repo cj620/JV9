@@ -137,6 +137,15 @@ const design = [
     name: "De_DesignTaskItemInspection",
     path: "De_DesignTaskItemInspection",
     title: i18n.t("menu.De_DesignTaskItemInspection"),
+  },
+  // 分发设计任务
+  {
+    key: "De_DesignDistributeTask",
+    component: () => import("@/views/workModule/design/designTask/DistributeTask"),
+    Parent: "De_Design",
+    name: "De_DesignDistributeTask",
+    path: "De_DesignDistributeTask",
+    title: i18n.t("project.Pro_DistributionTask"),
   }
 ];
 

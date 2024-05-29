@@ -472,7 +472,6 @@ export default {
           });
         }
       })
-      let arr = temMerge(this.BillItems, e)
       this.M_TableObj.push(temMerge(this.BillItems, e));
       this.ProcessTemplateDialogFormVisible = false;
     },

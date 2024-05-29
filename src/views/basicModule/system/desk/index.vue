@@ -16,13 +16,29 @@
           :actions="[
             {
               label: $t('setup.ShowRecords'),
-              confirm: toProjectRecord.bind(null, ''),
+              confirm: toMyRecord.bind(null, ''),
             },
           ]"
         >
         </Action>
         <template #Progress="{ record }">
           <el-progress :percentage="record"></el-progress>
+        </template>
+        <template #PlanStart="{ row }">
+          <div v-if="Date.parse(row.PlanEnd) > Date.now()">
+            {{ timeFormat(row.PlanStart, 'yyyy-MM-dd') }}
+          </div>
+          <div style="color: red; font-weight: bold" v-else>
+            {{ timeFormat(row.PlanStart, 'yyyy-MM-dd') }}
+          </div>
+        </template>
+        <template #PlanEnd="{ row }">
+          <div v-if="Date.parse(row.PlanEnd) > Date.now()">
+            {{ timeFormat(row.PlanEnd, 'yyyy-MM-dd') }}
+          </div>
+          <div style="color: red; font-weight: bold" v-else>
+            {{ timeFormat(row.PlanEnd, 'yyyy-MM-dd') }}
+          </div>
         </template>
         <!-- operation操作列 -->
         <template #operation="{ row }">
@@ -201,6 +217,7 @@ export default {
   },
   computed: {},
   methods: {
+    timeFormat,
     test() {
       this.reporWorkVisible = true;
     },
@@ -234,10 +251,9 @@ export default {
       this.taskRecordTable.getData();
       this.taskRecordVisible = true;
     },
-    toProjectRecord() {
+    toMyRecord() {
       this.$router.push({
-        name: "Pm_ProjectTask_Record",
-        query: { TaskType: this.TaskType },
+        name: "Se_MyTaskReport",
       });
     },
     scanAuditRecord() {

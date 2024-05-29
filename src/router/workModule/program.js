@@ -188,5 +188,14 @@ const program = [
     path: "Pa_ProgramProducingTaskItemInspection",
     title: i18n.t("menu.Pa_ProgramProducingTaskItemInspection"),
   },
+  // 分发编程任务
+  {
+    key: "Pa_ProgramDistributeTask",
+    component: () => import("@/views/workModule/program/programTask/DistributeTask"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramDistributeTask",
+    path: "Pa_ProgramDistributeTask",
+    title: i18n.t("project.Pro_DistributionTask"),
+  }
 ];
 export default program;

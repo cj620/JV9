@@ -1793,6 +1793,7 @@ const ja = {
     Da_ProcessReworkLast90Days: "工程再加工（過去90日間）",
     Da_MonthlyQualityTrendChart: "月品質トレンド図",
     Da_Workbench: "ワークベンチ",
+    Da_MyTaskReport: "マイタスクレコード",
     Da_PendingDocuments: "保留中の文書",
   },
 

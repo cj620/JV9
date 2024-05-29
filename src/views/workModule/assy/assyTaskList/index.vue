@@ -148,8 +148,16 @@ export default {
     },
     //分发任务
     distributionTask(row) {
-      this.distributionTaskDialogFormVisible = true;
-      this.TaskData = row;
+      // this.distributionTaskDialogFormVisible = true;
+      // this.TaskData = row;
+      this.$router.push({
+        name: "As_AssyDistributeTask",
+        query: {
+          TaskData: row,
+          BillId: row.BillId,
+          BackPath: "assyTaskList",
+        },
+      });
     },
     //查看子任务
     viewSubTask(row) {

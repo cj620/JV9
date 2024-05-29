@@ -44,6 +44,7 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     custom: true,
+    width: "150px",
   },
   /*单据类型*/
   {
@@ -51,12 +52,12 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_DocumentType"),
     custom: true,
   },
-  /*制单日期*/
+  /*状态*/
   {
-    prop: "BillCreationTime",
-    label: i18n.t("Generality.Ge_CreationDate"),
-    filter: "time",
-    width: "150px",
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    width: "120px",
+    cpn: "BillStateTags",
   },
   /*制单人*/
   {
@@ -64,12 +65,11 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_Creator"),
     width: "95px",
   },
-  /*状态*/
+  /*制单日期*/
   {
-    prop: "State",
-    label: i18n.t("Generality.Ge_State"),
-    width: "120px",
-    cpn: "BillStateTags",
+    prop: "BillCreationTime",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
   },
 ];
 //  搜索表单配置

@@ -73,14 +73,14 @@ const tableSchema = [
     // 计划开始
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
-    filter: "date",
+    custom: true,
     width: "95px"
   },
   {
     // 计划结束
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
-    filter: "date",
+    custom: true,
     width: "95px"
   },
   /*实际开始*/

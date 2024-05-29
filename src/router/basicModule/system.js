@@ -238,6 +238,16 @@ const system = [
     title: i18n.t("dashboard.Da_Workbench"),
     hidden: true,
   },
+  // 我的任务记录
+  {
+    key: "Se_MyTaskReport",
+    component: () => import("@/views/basicModule/system/desk/myRecord"),
+    Parent: "Se_Setup",
+    name: "Se_MyTaskReport",
+    path: "se_MyTaskReport",
+    title: i18n.t("dashboard.Da_MyTaskReport"),
+    hidden: true,
+  },
   // 待审单据
   {
     key: "Se_PendingDocuments",

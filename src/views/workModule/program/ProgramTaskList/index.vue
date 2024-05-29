@@ -147,8 +147,16 @@ export default {
     },
     //分发任务
     distributionTask(row) {
-      this.distributionTaskDialogFormVisible = true;
-      this.TaskData = row;
+      // this.distributionTaskDialogFormVisible = true;
+      // this.TaskData = row;
+      this.$router.push({
+        name: "Pa_ProgramDistributeTask",
+        query: {
+          TaskData: row,
+          BillId: row.BillId,
+          BackPath: "Pa_ProgramTaskList",
+        },
+      });
     },
     //查看子任务
     viewSubTask(row) {
