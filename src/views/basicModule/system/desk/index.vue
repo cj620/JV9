@@ -24,6 +24,22 @@
         <template #Progress="{ record }">
           <el-progress :percentage="record"></el-progress>
         </template>
+        <template #PlanStart="{ row }">
+          <div v-if="Date.parse(row.PlanEnd) > Date.now()">
+            {{ timeFormat(row.PlanStart, 'yyyy-MM-dd') }}
+          </div>
+          <div style="color: red; font-weight: bold" v-else>
+            {{ timeFormat(row.PlanStart, 'yyyy-MM-dd') }}
+          </div>
+        </template>
+        <template #PlanEnd="{ row }">
+          <div v-if="Date.parse(row.PlanEnd) > Date.now()">
+            {{ timeFormat(row.PlanEnd, 'yyyy-MM-dd') }}
+          </div>
+          <div style="color: red; font-weight: bold" v-else>
+            {{ timeFormat(row.PlanEnd, 'yyyy-MM-dd') }}
+          </div>
+        </template>
         <!-- operation操作列 -->
         <template #operation="{ row }">
           <TableAction
@@ -201,6 +217,7 @@ export default {
   },
   computed: {},
   methods: {
+    timeFormat,
     test() {
       this.reporWorkVisible = true;
     },
