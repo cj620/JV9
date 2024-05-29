@@ -28,3 +28,13 @@ export function purchase_outsourcing_Detail(data) {
     data,
   });
 }
+
+//供应商评估
+export function supplier_evaluation(data) {
+  return request({
+    url: "/data_report/outsourced_supplier_assess",
+    method: "post",
+    data,
+  });
+}
+

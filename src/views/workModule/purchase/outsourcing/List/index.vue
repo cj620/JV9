@@ -44,6 +44,11 @@ export default {
         name: "Pu_Outsourcing_Detail_list",
       });
     },
+    toSupplierEvaluation() {
+      this.$router.push({
+        name: "Pu_SupplierEvaluation",
+      });
+    }
   },
   created() {
     this.tableObj = new Table();
@@ -58,6 +63,10 @@ export default {
         {
           label: i18n.t("project.Pro_CheckDetails"),
           confirm: this.toDetailsList,
+        },
+        {
+          label: i18n.t("purchase.Pu_SupplierEvaluation"),
+          confirm: this.toSupplierEvaluation,
         },
       ];
     },

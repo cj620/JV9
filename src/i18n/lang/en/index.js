@@ -479,6 +479,7 @@ const en = {
   },
   // 采购
   purchase: {
+    Pu_SupplierEvaluation: "Supplier Evaluation",
     Pr_SupplierId: "Supplier Id",
     Pr_SupplierName: "Supplier Name",
     Pu_Supplier: "Supplier",

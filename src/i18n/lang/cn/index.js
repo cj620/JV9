@@ -454,6 +454,7 @@ const cn = {
   },
   // 采购
   purchase: {
+    Pu_SupplierEvaluation: "供应商评估",
     Pr_SupplierId: "供应商ID",
     Pr_SupplierName: "供应商简称",
     Pu_Supplier: "供应商",
