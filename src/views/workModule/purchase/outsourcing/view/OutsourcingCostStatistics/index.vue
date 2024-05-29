@@ -140,6 +140,18 @@ export default {
       }
     }
   },
+  watch: {
+    dateValue(newVal) {
+      if (newVal) {
+        // 处理选中年份的值，确保只保留年份
+        const year = new Date(newVal).getFullYear();
+        this.dateValue = `${year}-01-01`; // 你可以选择保存为其他格式，例如 `${year}`
+      } else {
+        const year = new Date().getFullYear();
+        this.dateValue = `${year}-01-01`; // 你可以选择保存为其他格式，例如 `${year}`
+      }
+    }
+  }
 };
 </script>
 
