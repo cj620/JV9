@@ -4,7 +4,7 @@
       :title="curBillId"
       :contentStyle="{
         paddingLeft: '150px',
-        height: '140px',
+        height: '180px',
       }"
       style="position: relative"
     >
@@ -137,7 +137,7 @@ export default {
     this.detailObj = new Detail({
       data: {},
       schema: detailConfig,
-      column: 3,
+      column: 4,
     });
     this.eTableObj = new EditTable();
     this.getData();
@@ -153,7 +153,12 @@ export default {
       this.BillItems.ToolingNo = this.TaskData.ToolingNo;
       ProjectTask.api_get({ BillId: this.$route.query.BillId }).then((res) => {
         this.TaskData = res;
-        this.detailObj.setData(res);
+        this.detailObj.setData({
+          PlanTime: this.$route.query.TaskData.PlanTime,
+          Process: this.$route.query.TaskData.Process,
+          ProcessContent: this.$route.query.TaskData.ProcessContent,
+          ...res,
+        });
       })
     },
     addProcess() {
@@ -253,6 +258,6 @@ export default {
   }
 }
 ::v-deep .el-table {
-  min-height: 490px !important;
+  min-height: 450px !important;
 }
 </style>

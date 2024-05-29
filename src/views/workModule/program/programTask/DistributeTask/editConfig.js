@@ -12,7 +12,7 @@ export class EditTable extends BaseTable {
       sortCol:false,
       chooseCol:false,
       operationWidth:80,
-      height: '',
+      height: '490px',
     });
   }
 }

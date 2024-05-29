@@ -9,6 +9,14 @@ export const detailConfig = [
     custom: true,
   },
   {
+    prop: "Process",
+    label: i18n.t("Generality.Ge_Process"),
+  },
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_WorkContent"),
+  },
+  {
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     filter: "date",
@@ -17,6 +25,10 @@ export const detailConfig = [
     prop: "PlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
     filter: "date",
+  },
+  {
+    prop: "PlanTime",
+    label: i18n.t("Generality.Ge_PlanTime"),
   },
   {
     prop: "Creator",
