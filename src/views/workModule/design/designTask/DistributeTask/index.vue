@@ -31,12 +31,31 @@
     </JvBlock>
     <JvBlock :title="$t('Generality.Ge_ProcessInfo')">
       <div slot="extra">
-        <el-button size="mini" @click="addProcess">
-          {{ $t("Generality.Ge_New") }}
-        </el-button>
-        <el-button size="mini" @click="selectTemplate">
-          {{ $t("project.Pro_SelectTemplate") }}
-        </el-button>
+        <Action
+          size="mini"
+          slot="extra"
+          :actions="[
+            {
+              icon: 'el-icon-caret-top',
+              confirm: editSort.bind(null, false),
+            },
+            {
+              icon: 'el-icon-caret-bottom',
+              confirm: editSort.bind(null, true),
+            },
+          ]"
+          :primary="[
+            {
+              label: $t('Generality.Ge_New'),
+              confirm: addProcess,
+            },
+            {
+              label: $t('project.Pro_SelectTemplate'),
+              confirm: selectTemplate,
+            },
+          ]"
+        >
+        </Action>
       </div>
       <JvEditTable :tableObj="eTableObj">
         <template #ProcessContent="{ row }">
@@ -63,7 +82,10 @@
             :actions="[
               {
                 icon: 'el-icon-delete',
-                confirm: delItem.bind(null, row_index),
+                popConfirm: {
+                  title: $t('Generality.Ge_DeleteConfirm'),
+                  confirm: delItem.bind(null, row_index),
+                },
               },
             ]"
           />
@@ -88,11 +110,11 @@
 import { mapState } from "vuex";
 import { taskTypeEnum } from "@/enum/workModule";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import {API as ProjectTask, project_task_save_item} from "@/api/workApi/project/projectTask";
+import { API as ProjectTask, project_task_save_item } from "@/api/workApi/project/projectTask";
 import { getAllProjectProcess } from "@/api/workApi/project/baseData";
 import Detail from "@/jv_doc/class/detail/Detail";
 import { detailConfig } from "./detailConfig";
-import { EditTable } from "@/views/workModule/design/designTask/DesignTaskList/editConfig";
+import { EditTable } from "./editConfig";
 import SelectProjectProcessTemplate from "@/components/JVInternal/SelectProjectProcessTemplate/index.vue";
 import { timeFormat } from "~/utils/time";
 import { temMerge } from "~/utils/handleData";
@@ -206,6 +228,20 @@ export default {
           }
           row.ProcessContentList.value = arr;
         });
+      }
+    },
+    editSort(isDown = true) {
+      if (this.eTableObj.selectData.datas.length !== 1) return;
+      let row_index = this.eTableObj.selectData.datas[0].row_index;
+
+      if (isDown) {
+        if (this.eTableObj.tableData.lengt <= row_index + 1) return;
+        const currRow = this.eTableObj.tableData.splice(row_index, 1)[0];
+        this.eTableObj.tableData.splice(row_index + 1, 0, currRow);
+      } else {
+        if (row_index <= 0) return;
+        const currRow = this.eTableObj.tableData.splice(row_index, 1)[0];
+        this.eTableObj.tableData.splice(row_index - 1, 0, currRow);
       }
     },
     delItem(index) {
