@@ -457,6 +457,9 @@ const ja = {
   // 采购
   purchase: {
     Pu_SupplierEvaluation: "仕入先評価",
+    Pu_Statistics: "統計＃トウケイ＃",
+    Pu_Cost: "コスト",
+    Pu_OutsourcingCostStatistics: "外注費統計",
     Pr_SupplierId: "仕入先ID",
     Pu_OutsourcingCount: "外注回数",
     Pu_OnTimeDeliveryCount: "適時納入回数",

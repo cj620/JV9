@@ -2,20 +2,17 @@
   <PageWrapper :footer="false">
     <div class="SupplierEvaluation">
       <div class="SupplierEvaluation-title">
-        <span style="margin-right: 10px">日期范围</span>
         <el-date-picker
-          v-model="dateTimeRangeValue"
-          type="daterange"
+          v-model="dateValue"
+          type="year"
           size="mini"
           :clearable="false"
-          range-separator="-"
-          :start-placeholder="$t('Generality.Ge_StartDate')"
-          :end-placeholder="$t('Generality.Ge_EndDate')"
+          :placeholder="$t('Generality.Ge_PleaseSelect')"
         >
         </el-date-picker>
         <el-button
           size="mini"
-          style="margin-left: 10px"
+          style="margin-left: 30px"
           @click="getSupplierEvaluation"
           >{{ $t("sale.Sa_Evaluation") }}</el-button
         >
@@ -38,7 +35,7 @@
 </template>
 
 <script>
-import { supplier_evaluation } from "@/api/workApi/purchase/outsourcing";
+import { outsourced_cos_statistics } from "@/api/workApi/purchase/outsourcing";
 import PageWrapper from "~/cpn/PageWrapper/index.vue";
 import * as echarts from "echarts";
 import JvTable from "~/cpn/JvTable/index.vue";
@@ -47,7 +44,7 @@ export default {
   components: { JvTable, PageWrapper },
   data() {
     return {
-      dateTimeRangeValue: [new Date(), new Date()], // 初始化为一个空数组或当前日期
+      dateValue: new Date(), // 初始化为一个空数组或当前日期
       myMiddleChartObj: {},
       chartData: [],
       tableObj: {}
@@ -71,12 +68,11 @@ export default {
   },
   methods: {
     getSupplierEvaluation() {
-      supplier_evaluation({
-        StartDate: this.dateTimeRangeValue[0],
-        EndDate: this.dateTimeRangeValue[1],
+      outsourced_cos_statistics({
+        YearDate: this.dateValue
       }).then((res) => {
-        this.tableObj.setData(res.Items,res.Items.length);
-        const formattedData = this.formatData(res.Items);
+        this.tableObj.setData(res.DetailData,res.DetailData.length);
+        const formattedData = this.formatData(res.SummarizeData);
         const option = {
           legend: {},
           tooltip: {
@@ -89,8 +85,7 @@ export default {
                   " " +
                   item.data.name +
                   "：" +
-                  item.data.value +
-                  "%<br>";
+                  item.data.value
               });
               return result;
             },
@@ -101,19 +96,15 @@ export default {
           },
           yAxis: {
             type: "value",
-            axisLabel: {
-              formatter: "{value} %",
-            },
           },
           series: [
             {
-              name: this.$t('purchase.Pu_DeliveryAchievementRate'),
+              name: this.$t('purchase.Pu_Cost'),
               data: formattedData,
               type: "bar",
               label: {
                 show: true,
                 position: "top",
-                formatter: "{c} %",
               },
             },
           ],
@@ -139,7 +130,7 @@ export default {
     formatData(data) {
       return data.map((item) => ({
         name: item.SupplierName,
-        value: parseFloat(item.DeliveryAchievementRate.toFixed(2)),
+        value: parseFloat(item.Cost.toFixed(2)),
       }));
     },
     // 根据浏览器窗口大小变化来重绘图表
@@ -173,9 +164,10 @@ export default {
     }
   }
   ::v-deep.el-date-editor{
-    .el-range-input{
-      margin-left: 5px!important;
+    .el-input__inner{
+      margin-left: 10px!important;
     }
   }
 }
+
 </style>

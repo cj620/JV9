@@ -480,6 +480,9 @@ const en = {
   // 采购
   purchase: {
     Pu_SupplierEvaluation: "Supplier Evaluation",
+    Pu_Statistics: "Statistics",
+    Pu_Cost: "Cost",
+    Pu_OutsourcingCostStatistics: "Outsourcing Cost Statistics",
     Pr_SupplierId: "Supplier Id",
     Pu_OutsourcingCount: "Outsourcing Count",
     Pu_OnTimeDeliveryCount: "On Time Delivery Count",

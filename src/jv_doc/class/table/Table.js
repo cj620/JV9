@@ -110,8 +110,12 @@ class Table {
     this.loadedCallback = fn;
   };
   // 填入数据
-  setData = (data) => {
+  setData = (data, count) => {
     this.tableData = data;
+    if(count) {
+      this.pager.Total = count;
+    }
+
   };
   // 参数校验 接口必须实现getData方法
   typeCheck() {

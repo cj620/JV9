@@ -7,7 +7,9 @@ export class Table extends BaseTable {
             rowId: "SupplierCode",
             title: i18n.t("menu.Pu_Outsourcing"),
             tableHeaderShow: false,
-            operationCol:false
+            operationCol:false,
+            chooseCol: false,
+            sortCol: true,
         });
     }
 }

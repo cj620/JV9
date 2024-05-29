@@ -38,3 +38,11 @@ export function supplier_evaluation(data) {
   });
 }
 
+//外协费用统计
+export function outsourced_cos_statistics(data) {
+  return request({
+    url: "/data_report/outsourced_cos_statistics",
+    method: "post",
+    data,
+  });
+}

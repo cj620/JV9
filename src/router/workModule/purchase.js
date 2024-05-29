@@ -317,10 +317,20 @@ const purchase = [
   {
     key: "Pu_SupplierEvaluation",
     component: () => import("@/views/workModule/purchase/outsourcing/view/SupplierEvaluation"),
-    Parent: "Pu_Purchase",
+    Parent: "Pu_Outsourcing",
     name: "Pu_SupplierEvaluation",
     path: "Pu_SupplierEvaluation",
     title:i18n.t("purchase.Pu_SupplierEvaluation"),
+    hidden: true,
+  },
+  // 外协费用统计
+  {
+    key: "Pu_OutsourcingCostStatistics",
+    component: () => import("@/views/workModule/purchase/outsourcing/view/OutsourcingCostStatistics"),
+    Parent: "Pu_Outsourcing",
+    name: "Pu_OutsourcingCostStatistics",
+    path: "Pu_OutsourcingCostStatistics",
+    title:i18n.t("purchase.Pu_OutsourcingCostStatistics"),
     hidden: true,
   },
   // 委外对账

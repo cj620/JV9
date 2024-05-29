@@ -48,6 +48,11 @@ export default {
       this.$router.push({
         name: "Pu_SupplierEvaluation",
       });
+    },
+    toOutsourcingCostStatistics() {
+      this.$router.push({
+        name: "Pu_OutsourcingCostStatistics",
+      });
     }
   },
   created() {
@@ -67,6 +72,10 @@ export default {
         {
           label: i18n.t("purchase.Pu_SupplierEvaluation"),
           confirm: this.toSupplierEvaluation,
+        },
+        {
+          label: i18n.t("purchase.Pu_OutsourcingCostStatistics"),
+          confirm: this.toOutsourcingCostStatistics,
         },
       ];
     },

@@ -455,6 +455,9 @@ const cn = {
   // 采购
   purchase: {
     Pu_SupplierEvaluation: "供应商评估",
+    Pu_Statistics: "统计",
+    Pu_Cost: "费用",
+    Pu_OutsourcingCostStatistics: "外协费用统计",
     Pr_SupplierId: "供应商ID",
     Pu_OutsourcingCount: "外协次数",
     Pu_OnTimeDeliveryCount: "及时交货次数",
