@@ -456,6 +456,9 @@ const cn = {
   purchase: {
     Pu_SupplierEvaluation: "供应商评估",
     Pr_SupplierId: "供应商ID",
+    Pu_OutsourcingCount: "外协次数",
+    Pu_OnTimeDeliveryCount: "及时交货次数",
+    Pu_DeliveryAchievementRate: "交期达成率",
     Pr_SupplierName: "供应商简称",
     Pu_Supplier: "供应商",
     Pr_Unreconciled: "未对账",

@@ -481,6 +481,9 @@ const en = {
   purchase: {
     Pu_SupplierEvaluation: "Supplier Evaluation",
     Pr_SupplierId: "Supplier Id",
+    Pu_OutsourcingCount: "Outsourcing Count",
+    Pu_OnTimeDeliveryCount: "On Time Delivery Count",
+    Pu_DeliveryAchievementRate: "Delivery Achievement Rate",
     Pr_SupplierName: "Supplier Name",
     Pu_Supplier: "Supplier",
     Pr_Unreconciled: "Unreconciled",

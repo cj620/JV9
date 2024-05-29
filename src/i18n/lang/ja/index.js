@@ -458,6 +458,9 @@ const ja = {
   purchase: {
     Pu_SupplierEvaluation: "仕入先評価",
     Pr_SupplierId: "仕入先ID",
+    Pu_OutsourcingCount: "外注回数",
+    Pu_OnTimeDeliveryCount: "適時納入回数",
+    Pu_DeliveryAchievementRate: "納期達成率",
     Pr_SupplierName: "仕入先略称",
     Pu_Supplier: "サプライヤ",
     Pr_Unreconciled: "未決済",
