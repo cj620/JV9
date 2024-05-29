@@ -98,6 +98,7 @@ export default {
           },
           series: [
             {
+              name: this.$t('purchase.Pu_DeliveryAchievementRate'),
               data: formattedData,
               type: "bar",
               label: {
