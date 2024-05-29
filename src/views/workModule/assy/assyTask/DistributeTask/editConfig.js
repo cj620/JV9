@@ -10,9 +10,8 @@ export class EditTable extends BaseTable {
       data:[],
       tableHeaderShow:false,
       sortCol:false,
-      chooseCol:false,
       operationWidth:80,
-      height: '490px',
+      height: '450px',
     });
   }
 }
@@ -50,7 +49,7 @@ export const tableConfig = [
     editConfig: {
       disabled: true,
     },
-    width: 300
+    width: 500
   },
   /*负责人*/
   {

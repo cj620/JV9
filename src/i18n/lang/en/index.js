@@ -1123,7 +1123,7 @@ const en = {
     Ge_NewTemplateAdded: "New template added",
     Ge_IsItCompletedAsPlanned: "Is it completed as planned",
     Ge_ReasonForNotAchievingThePlan: "Reason for not achieving the plan",
-    Ge_ReasonForNotAchievingThePlan1: "Reason for not achieving the plan (designer)",
+    Ge_ReasonForNotAchievingThePlan1: "Reason for not achieving the plan (program)",
     Ge_ReasonForNotAchievingThePlan2: "Reason for not achieving the plan (Planning Engineer)",
     Ge_IsSubmit: "Is Submit",
     Ge_SelectedItems: {

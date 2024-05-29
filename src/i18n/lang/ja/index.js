@@ -1119,7 +1119,7 @@ const ja = {
     Ge_NewTemplateAdded: "新規テンプレート",
     Ge_IsItCompletedAsPlanned: "計画通りに完了するかどうか",
     Ge_ReasonForNotAchievingThePlan: "計画未達成の理由",
-    Ge_ReasonForNotAchievingThePlan1: "計画未達成の理由（デザイナー）",
+    Ge_ReasonForNotAchievingThePlan1: "計画未達成の理由（プログラミング）",
     Ge_ReasonForNotAchievingThePlan2: "計画未達成事由（計画エンジニア）",
     Ge_IsSubmit: "コミットするかどうか",
     Ge_SelectedItems: {

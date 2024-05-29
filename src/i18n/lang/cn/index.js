@@ -1110,7 +1110,7 @@ const cn = {
     Ge_NewTemplateAdded: "新增模板",
     Ge_IsItCompletedAsPlanned: "是否按计划完成",
     Ge_ReasonForNotAchievingThePlan: "未达成计划原因",
-    Ge_ReasonForNotAchievingThePlan1: "未达成计划原因（设计师）",
+    Ge_ReasonForNotAchievingThePlan1: "未达成计划原因（编程）",
     Ge_ReasonForNotAchievingThePlan2: "未达成计划原因（计划工程师）",
     Ge_IsSubmit: "是否提交",
     Ge_SelectedItems: {
