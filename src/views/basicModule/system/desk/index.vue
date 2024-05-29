@@ -16,7 +16,7 @@
           :actions="[
             {
               label: $t('setup.ShowRecords'),
-              confirm: toProjectRecord.bind(null, ''),
+              confirm: toMyRecord.bind(null, ''),
             },
           ]"
         >
@@ -234,10 +234,9 @@ export default {
       this.taskRecordTable.getData();
       this.taskRecordVisible = true;
     },
-    toProjectRecord() {
+    toMyRecord() {
       this.$router.push({
-        name: "Pm_ProjectTask_Record",
-        query: { TaskType: this.TaskType },
+        name: "Se_MyTaskReport",
       });
     },
     scanAuditRecord() {

@@ -1796,6 +1796,7 @@ const en = {
     Da_ProcessReworkLast90Days: "Process rework (last 90 days)",
     Da_MonthlyQualityTrendChart: "Monthly quality trend chart",
     Da_Workbench: "Workbench",
+    Da_MyTaskReport: "My Task Report",
     Da_PendingDocuments: "Pending Documents",
   },
   systemSetupData: {
