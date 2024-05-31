@@ -346,6 +346,7 @@ const en = {
     Pro_InspectionPersonnel: "Inspection Personnel",
     Pro_ConfirmToSpotCheckThisItem: "Confirm to spot check?",
     Pro_DelayedTasks: "Delayed Tasks",
+    Pro_DelayedDates: "Delayed Dates",
   },
   setup: {
     WhetherMarkAllRead: "Mark all messages of this type as read?",

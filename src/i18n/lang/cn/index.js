@@ -322,6 +322,7 @@ const cn = {
     Pro_InspectionPersonnel: "点检人",
     Pro_ConfirmToSpotCheckThisItem: "确定点检明细？",
     Pro_DelayedTasks: "延期任务",
+    Pro_DelayedDates: "延期天数",
   },
   //设置
   setup: {

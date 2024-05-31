@@ -321,6 +321,7 @@ const ja = {
     Pro_InspectionPersonnel: "点検人",
     Pro_ConfirmToSpotCheckThisItem: "点検詳細を確定しますか？",
     Pro_DelayedTasks: "タスクの延期",
+    Pro_DelayedDates: "延期日数",
   },
   //设置
   setup: {

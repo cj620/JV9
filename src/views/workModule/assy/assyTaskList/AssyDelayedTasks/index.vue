@@ -10,6 +10,9 @@
           {{ timeFormat(record, "yyyy-MM-dd") }}
         </span>
       </template>
+      <template #DelayDates="{ row }">
+        {{ getDelayDates(row.ItemPlanEnd, new Date()) }}
+      </template>
     </JvTable>
   </PageWrapper>
 </template>
@@ -32,7 +35,11 @@ export default {
     this.tableObj.getData();
   },
   methods: {
-    timeFormat
+    timeFormat,
+    getDelayDates(f, n) {
+      const timeDiff = new Date().getTime() - new Date(f).getTime();
+      return (timeDiff / (1000 * 3600 * 24)).toFixed(1);
+    }
   }
 }
 </script>

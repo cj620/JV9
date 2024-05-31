@@ -141,11 +141,16 @@ export const tableConfig = [
     custom: true,
     width: "100px",
   },
+  /*延期天数*/
+  {
+    prop: "DelayDates",
+    label: i18n.t("project.Pro_DelayedDates"),
+    custom: true,
+  },
   /*备注*/
   {
     prop: "ItemRemarks",
     label: i18n.t("Generality.Ge_Remarks"),
-    width: "180px",
   },
 ]
 
