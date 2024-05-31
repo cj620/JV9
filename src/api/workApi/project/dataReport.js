@@ -44,5 +44,6 @@ export function project_task_weekly_dashboard(data) {
     url: "/data_report/project_task_weekly_dashboard",
     method: "post",
     data,
+    loading: true,
   });
 }

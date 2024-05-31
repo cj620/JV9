@@ -1,5 +1,8 @@
 <template>
   <PageWrapper ref="page" :footer="false">
+    <div class="weekly-task-header">
+      <div class="weekly-task-header-title">设计周看板</div>
+    </div>
     <div class="weekly-task-page">
       <el-table
         :header-cell-style="{
@@ -22,7 +25,7 @@
           fixed
           width="55">
         </el-table-column>
-        <el-table-column prop="Date" label="需求日期" align="center"></el-table-column>
+        <el-table-column prop="Date" label="需求日期" align="center" fixed width="100"></el-table-column>
         <el-table-column v-for="(item, i) in userName" :key="i" :label="item" align="center">
           <el-table-column :formatter="(row) => {
             let res = row.Items.filter(trim => item === trim.UserName);
@@ -35,26 +38,38 @@
           <el-table-column :formatter="(row) => {
             let res = row.Items.filter(trim => item === trim.UserName);
             if(res.length) {
-              return res[0].WorkContent
+              return res[0].ProcessContent
             }
-          }" prop="WorkContent" label="工作内容" :show-overflow-tooltip="true" width="130">
+          }" prop="ProcessContent" label="工作内容" :show-overflow-tooltip="true" width="130">
           </el-table-column>
           <el-table-column :formatter="(row) => {
             let res = row.Items.filter(trim => item === trim.UserName);
             if(res.length) {
-              return res[0].PlanHours
+              return res[0].PlanTime
             }
-            }" prop="PlanHours" label="预计工时" :show-overflow-tooltip="true" width="130">
+            }" prop="PlanTime" label="预计工时" :show-overflow-tooltip="true" width="130">
           </el-table-column>
           <el-table-column :formatter="(row) => {
             let res = row.Items.filter(trim => item === trim.UserName);
-            if(res.length) {
-              return res[0].IsCompleted
+            if (res[0].ToolingNo) {
+              return res[0].IsItCompletedAsPlanned ? '已完成' : '未完成'
             }
-            }" prop="IsCompleted" label="完成情况" :show-overflow-tooltip="true" width="130">
+            }" prop="IsItCompletedAsPlanned" label="完成情况" :show-overflow-tooltip="true" width="130">
           </el-table-column>
         </el-table-column>
       </el-table>
+    </div>
+    <div class="weekly-task-footer">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        layout="total, sizes, prev, pager, next"
+        :page-sizes="[5, 10, 15, 20, 30, 50, 100]"
+        :page-size="10"
+        :total="totalCount"
+      >
+      </el-pagination>
     </div>
   </PageWrapper>
 </template>
@@ -65,201 +80,12 @@ export default {
   name: "index",
   data() {
     return {
-      dateData1: ["2024-05-21", "2024-05-22"],
-      res: {
-        Date: ["2024-05-20", "2024-05-21", "2024-05-22", "2024-05-23", "2024-05-24", "2024-05-25", "2024-05-26"],
-        Data: [
-          {
-            UserName: '陈旭',
-            Items: [
-              {ToolingNo: "001", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
-              {ToolingNo: "001", WorkContent: "DFM", PlanHours: 1, IsCompleted: '是',Date: "2024-05-21"},
-              {ToolingNo: "002", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-              {ToolingNo: "003", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-              {ToolingNo: "004", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-              {ToolingNo: "005", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-              {ToolingNo: "006", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-              {ToolingNo: "007", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
-            ],
-          },
-          {
-            UserName: '张三',
-            Items: [
-              {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
-              {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
-              {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '是',Date: "2024-05-21"},
-              {ToolingNo: "012", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-              {ToolingNo: "013", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-              {ToolingNo: "014", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-              {ToolingNo: "015", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
-              {ToolingNo: "016", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
-            ],
-          },
-          {
-            UserName: '李四',
-            Items: [
-              {ToolingNo: "021", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-              {ToolingNo: "022", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-              {ToolingNo: "023", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-              {ToolingNo: "024", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
-              {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
-              {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-25"},
-              {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-26"},
-              {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-26"},
-            ],
-          },
-          {
-            UserName: '王五',
-            Items: [
-              {ToolingNo: "031", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-              {ToolingNo: "032", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-              {ToolingNo: "033", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-              {ToolingNo: "033", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-25"},
-            ],
-          },
-        ],
-      },
-      Date: ["2024-05-20", "2024-05-21", "2024-05-22", "2024-05-23", "2024-05-24", "2024-05-25", "2024-05-26"],
-      Data: [
-        {
-          UserName: '陈旭',
-          Items: [
-            {ToolingNo: "001", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
-            {ToolingNo: "001", WorkContent: "DFM", PlanHours: 1, IsCompleted: '是',Date: "2024-05-21"},
-            {ToolingNo: "002", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-            {ToolingNo: "003", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-            {ToolingNo: "004", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-            {ToolingNo: "005", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-            {ToolingNo: "006", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-            {ToolingNo: "007", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
-            {ToolingNo: "007", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-24"},
-          ],
-        },
-        {
-          UserName: '张三',
-          Items: [
-            {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
-            {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-20"},
-            {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '是',Date: "2024-05-21"},
-            {ToolingNo: "012", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-            {ToolingNo: "013", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-            {ToolingNo: "014", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-            {ToolingNo: "015", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
-            {ToolingNo: "016", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
-          ],
-        },
-        {
-          UserName: '李四',
-          Items: [
-            {ToolingNo: "021", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-            {ToolingNo: "022", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-            {ToolingNo: "023", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-            {ToolingNo: "024", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
-            {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-23"},
-            {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-25"},
-            {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-26"},
-            {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-26"},
-          ],
-        },
-        {
-          UserName: '王五',
-          Items: [
-            {ToolingNo: "031", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-            {ToolingNo: "032", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-21"},
-            {ToolingNo: "033", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-22"},
-            {ToolingNo: "033", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',Date: "2024-05-25"},
-          ],
-        },
-      ],
-      newList: [
-        {
-          Date: "2024-05-21",
-          Items: [
-            {ToolingNo: "001", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
-            {ToolingNo: "011", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '张三'},
-            {ToolingNo: "021", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '李四'},
-            {ToolingNo: "031", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '王五'},
-          ]
-        },
-        {
-          Date: "2024-05-21",
-          Items: [
-            {ToolingNo: "002", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
-            {ToolingNo: "012", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '张三'},
-            {ToolingNo: "022", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '李四'},
-            {ToolingNo: "032", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '王五'},
-          ]
-        },
-        {
-          Date: "2024-05-21",
-          Items: [
-            {ToolingNo: "003", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '张三'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '李四'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
-          ]
-        },
-        {
-          Date: "2024-05-22",
-          Items: [
-            {ToolingNo: "004", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
-            {ToolingNo: "013", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '张三'},
-            {ToolingNo: "023", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '李四'},
-            {ToolingNo: "033", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '王五'},
-          ]
-        },
-        {
-          Date: "2024-05-22",
-          Items: [
-            {ToolingNo: "005", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
-            {ToolingNo: "014", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '张三'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '李四'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
-          ]
-        },
-        {
-          Date: "2024-05-22",
-          Items: [
-            {ToolingNo: "006", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '陈旭'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '张三'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '李四'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
-          ]
-        },
-        {
-          Date: "2024-05-23",
-          Items: [
-            {ToolingNo: "007", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否', UserName: '陈旭'},
-            {ToolingNo: "015", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否', UserName: '张三'},
-            {ToolingNo: "024", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否', UserName: '李四'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
-          ]
-        },
-        {
-          Date: "2024-05-23",
-          Items: [
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '陈旭'},
-            {ToolingNo: "016", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '张三'},
-            {ToolingNo: "025", WorkContent: "DFM", PlanHours: 1, IsCompleted: '否',UserName: '李四'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
-          ]
-        },
-        {
-          Date: "2024-05-23",
-          Items: [
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '陈旭'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '张三'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '李四'},
-            {ToolingNo: null, WorkContent: null, PlanHours: null, IsCompleted: null,UserName: '王五'},
-          ]
-        }
-      ],
+      newList: [],
       userName: [],
+      totalCount: 0,
     }
   },
   created() {
-    this.userName = this.Data.map(item => item.UserName);
-    this.transformData();
     this.getTableData(4,1)
   },
   methods: {
@@ -267,19 +93,28 @@ export default {
       project_task_weekly_dashboard({
         PageSize: ps,
         CurrentPage: cp,
-        InitialDate: timeFormat(new Date(), "yyyy-MM-dd hh:mm")
+        SelectType: 1,
+        InitialDate: timeFormat(new Date(), "yyyy-MM-dd")
       }).then((res) => {
-        console.log(res)
+        this.totalCount = res.Count;
+        this.userName = res.Data.map(item => item.UserName);
+        this.transformData(res)
       })
     },
     handleSelectionChange(val) {
       console.log(val)
     },
+    handleSizeChange() {
+
+    },
+    handleCurrentChange() {
+
+    },
     objectSpanMethod({ row, column, rowIndex, columnIndex }) {
       if (columnIndex === 1) { // 第二列
-        if (rowIndex % 3 === 0) { // 每三行的开始
+        if (rowIndex % 8 === 0) { // 每八行的开始
           return {
-            rowspan: 3, // 合并三行
+            rowspan: 8, // 合并八行
             colspan: 1, // 不跨列
           };
         } else {
@@ -290,23 +125,23 @@ export default {
         }
       }
     },
-    transformData() {
+    transformData(res) {
       const newData = [];
 
-      this.Date.forEach(Date => {
-        const itemsByName = this.Data.reduce((acc, item) => {
+      res.Date.forEach(Date => {
+        const itemsByName = res.Data.reduce((acc, item) => {
           acc[item.UserName] = acc[item.UserName] || [];
           return acc;
         }, {});
 
-        this.Data.forEach(item => {
+        res.Data.forEach(item => {
           item.Items.forEach(subItem => {
             if (subItem.Date === Date) {
               itemsByName[item.UserName].push({
                 ToolingNo: subItem.ToolingNo,
-                WorkContent: subItem.WorkContent,
-                PlanHours: subItem.PlanHours,
-                IsCompleted: subItem.IsCompleted,
+                ProcessContent: subItem.ProcessContent,
+                PlanTime: subItem.PlanTime,
+                IsItCompletedAsPlanned: subItem.IsItCompletedAsPlanned,
                 UserName: item.UserName
               });
             }
@@ -314,31 +149,56 @@ export default {
         });
 
         const names = Object.keys(itemsByName);
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 8; i++) {
           const dateItem = { Date, Items: [] };
           names.forEach(name => {
             const itemsForName = itemsByName[name];
             const itemToAdd = itemsForName.length > i ? itemsForName[i] : {
               ToolingNo: null,
-              WorkContent: null,
-              PlanHours: null,
-              IsCompleted: null,
+              ProcessContent: null,
+              PlanTime: null,
+              IsItCompletedAsPlanned: null,
               UserName: name
             };
             dateItem.Items.push(itemToAdd);
           });
+          dateItem.Date = timeFormat(dateItem.Date, "yyyy-MM-dd")
           newData.push(dateItem);
         }
       });
       this.newList = newData;
+      console.log('this.newList:::', this.newList)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-.weekly-task-page {
-  height: 100%;
+.weekly-task-header {
+  width: 100%;
+  height: 45px;
   background-color: #ffffff;
-  padding: 10px 15px 10px 15px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  &-title {
+    min-width: 200px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 15px;
+    font-size: 18px;
+  }
+}
+.weekly-task-page {
+  height: calc(100% - 82px);
+  background-color: #ffffff;
+  padding: 0 15px;
+}
+.weekly-task-footer {
+  width: 100%;
+  height: 32px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
 </style>
