@@ -88,7 +88,7 @@ export const tableConfig = [
       if (!value) return "";
       return taskTypeEnum[value].name;
     },
-    width: "120px",
+    width: "90px",
   },
   /*工序*/
   {
@@ -106,7 +106,7 @@ export const tableConfig = [
   {
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
-    width: "120px",
+    width: "100px",
     innerSearch: {
       // 销售员
       prop: "Worker",
@@ -124,21 +124,22 @@ export const tableConfig = [
   {
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
-    width: "120px",
+    width: "80px",
   },
   /*计划开始*/
   {
     prop: "ItemPlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
-    filter: "time",
-    width: "140px",
+    filter: "date",
+    width: "100px",
   },
   /*计划结束*/
   {
     prop: "ItemPlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
-    filter: "time",
-    width: "140px",
+    filter: "date",
+    custom: true,
+    width: "100px",
   },
   /*备注*/
   {

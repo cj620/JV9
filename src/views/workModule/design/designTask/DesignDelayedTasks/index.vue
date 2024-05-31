@@ -5,11 +5,17 @@
       <template #ItemState="{ record }">
         <TaskState :state="record"></TaskState>
       </template>
+      <template #ItemPlanEnd="{ record }">
+        <span style="color: red; font-weight: bold">
+          {{ timeFormat(record, "yyyy-MM-dd") }}
+        </span>
+      </template>
     </JvTable>
   </PageWrapper>
 </template>
 <script>
 import { Table } from "./config";
+import { timeFormat } from "@/jv_doc/utils/time";
 import TaskState from "@/components/JVInternal/TaskState/index.vue";
 
 export default {
@@ -26,7 +32,7 @@ export default {
     this.tableObj.getData();
   },
   methods: {
-
+    timeFormat
   }
 }
 </script>
