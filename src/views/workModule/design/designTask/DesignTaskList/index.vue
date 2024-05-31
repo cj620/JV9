@@ -1,5 +1,22 @@
 <template>
   <PageWrapper :footer="false">
+    <div class="custom-button">
+      <el-button size="mini" @click="toRecord">
+        {{ $t("project.Pro_TaskRecord") }}
+      </el-button>
+      <el-badge
+        v-if="DelayCount && DelayCount !== 0"
+        :value="DelayCount"
+        class="button-badge"
+      >
+        <el-button size="mini" @click="delayedTasks">
+          {{ $t('project.Pro_DelayedTasks') }}
+        </el-button>
+      </el-badge>
+      <el-button v-else size="mini" @click="delayedTasks">
+        {{ $t('project.Pro_DelayedTasks') }}
+      </el-button>
+    </div>
     <!--  设计任务明细表格 -->
     <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj">
       <!-- 状态标签 -->
@@ -10,16 +27,16 @@
       <template #ItemPlanEnd="{ record }">
         {{ record }}{{ IsDelay(record) }}
       </template>
-      <Action
-        size="mini"
-        slot="btn-list"
-        :actions="[
-          {
-            label: $t('project.Pro_DelayedTasks'),
-            confirm: delayedTasks,
-          },
-        ]"
-      ></Action>
+<!--      <Action-->
+<!--        size="mini"-->
+<!--        slot="btn-list"-->
+<!--        :actions="[-->
+<!--          {-->
+<!--            label: $t('project.Pro_DelayedTasks'),-->
+<!--            confirm: delayedTasks,-->
+<!--          },-->
+<!--        ]"-->
+<!--      ></Action>-->
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction
@@ -87,19 +104,17 @@
     </JvDialog>
   </PageWrapper>
 </template>
-
 <script>
-// 引入表格类
 import { Table } from "./config";
 import { taskStateEnum } from "@/enum/workModule";
 import addProjectTask from "./addProjectTask";
 import distributionTaskDialog from "./distributionTaskDialog";
 import { ViewSubtasksTableObj } from "./viewSubtasksTableConfig";
 import TaskState from "@/components/JVInternal/TaskState";
-
 import {
   project_task_get_children_item,
   project_task_delete_item,
+  item_delay_list,
 } from "@/api/workApi/project/projectTask";
 export default {
   name: "De_DesignTaskList",
@@ -123,9 +138,8 @@ export default {
       };
     },
   },
-  data() {
-    return {
-      // 表格实例
+  data(){
+    return{
       tableObj: {},
       type: "add",
       distributionTaskDialogFormVisible: false,
@@ -136,21 +150,37 @@ export default {
       viewSubtasksTableObj: {},
       tableTitle: i18n.t("menu.De_DesignTaskList"),
       ProcessType: "Design",
+      recordRouteName: "DesignTask_Record",
+      DelayCount: null,
     };
   },
   created() {
     // 创建表格实例
     this.tableObj = new Table();
     this.tableObj.props.title = this.tableTitle;
-    // this.tableObj.formObj.form.SelctChildrenType=2
     this.tableObj.formObj.form.ProcessType = this.ProcessType;
     this.tableObj.formObj.form.States = ["Approved", "Completed"];
-
     this.viewSubtasksTableObj = new ViewSubtasksTableObj();
     this.tableObj.formObj.setForm(this.$route.params);
+    this.getDelayCount();
     this.tableObj.getData();
   },
   methods: {
+    getDelayCount() {
+      item_delay_list({
+        SelctChildrenType: 2,
+        ProcessType: "design",
+        PageSize: 1,
+        CurrentPage: 1,
+      }).then((res) => {
+        this.DelayCount = res.Count;
+      })
+    },
+    toRecord() {
+      this.$router.push({
+        name: this.recordRouteName,
+      });
+    },
     delayedTasks() {
       this.$router.push({
         name: "De_DesignDelayedTasks",
@@ -208,4 +238,19 @@ export default {
   },
 };
 </script>
-<style></style>
+<style lang="scss" scoped>
+.custom-button {
+  position:absolute;
+  height: 45px;
+  display:flex;
+  align-items: center;
+  right: 220px
+}
+::v-deep .button-badge .el-badge__content {
+  height: 12px;
+  line-height: 11px;
+  font-size: 11px;
+  overflow: visible;
+  padding: 0 3px;
+}
+</style>
