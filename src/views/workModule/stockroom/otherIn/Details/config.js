@@ -50,10 +50,10 @@ export const tableConfig = [
     label:i18n.t("Generality.Ge_Remarks"),
   },
   /*模具编号*/
-  {
-    prop: "ToolingNo",
-    label:i18n.t("Generality.Ge_ToolingNo"),
-  },
+  // {
+  //   prop: "ToolingNo",
+  //   label:i18n.t("Generality.Ge_ToolingNo"),
+  // },
 ]
 export const detailConfig=[
   {
