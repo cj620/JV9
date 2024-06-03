@@ -1,13 +1,15 @@
 <template>
   <PageWrapper ref="page" :footer="false">
     <div class="weekly-task-header">
-      <div class="weekly-task-header-title">设计周看板</div>
+      <div class="weekly-task-header-title">
+        {{ $t("menu.De_DesignWeeklyDashboard") }}
+      </div>
       <div class="weekly-task-header-search">
         <el-date-picker
           size="mini"
           v-model="searchDate"
           type="date"
-          placeholder="选择日期"
+          :placeholder="$t('production.Pr_SelectDate')"
           :clearable="false"
           class="weekly-task-header-search-items"
           @change="searchData"
@@ -41,40 +43,65 @@
           fixed
           width="55">
         </el-table-column>
-        <el-table-column prop="Date" label="需求日期" align="center" fixed width="100">
+        <el-table-column prop="Date" :label="$t('Generality.Ge_DemandDate')" align="center" fixed width="100">
           <template slot-scope="scope">
             <div style="white-space: pre-line;">{{ scope.row.Date }}</div>
           </template>
         </el-table-column>
         <el-table-column v-for="(item, i) in userName" :key="i" :label="item" align="center">
-          <el-table-column :formatter="(row) => {
-            let res = row.Items.filter(trim => item === trim.UserName);
-            if(res.length) {
-              return res[0].ToolingNo
-            }
-          }" prop="ToolingNo" :label="$t('Generality.Ge_ToolingNo')" :show-overflow-tooltip="true" width="115">
-
+          <el-table-column
+            :formatter="(row) => {
+              let res = row.Items.filter(trim => item === trim.UserName);
+              if(res.length) {
+                return res[0].ToolingNo
+              }
+            }"
+            prop="ToolingNo"
+            :label="$t('Generality.Ge_ToolingNo')"
+            :show-overflow-tooltip="true"
+            width="115"
+          >
           </el-table-column>
-          <el-table-column :formatter="(row) => {
-            let res = row.Items.filter(trim => item === trim.UserName);
-            if(res.length) {
-              return res[0].ProcessContent
-            }
-          }" prop="ProcessContent" label="工作内容" :show-overflow-tooltip="true" width="130">
+          <el-table-column
+            :formatter="(row) => {
+              let res = row.Items.filter(trim => item === trim.UserName);
+              if(res.length) {
+                return res[0].ProcessContent
+              }
+            }"
+            prop="ProcessContent"
+            :label="$t('Generality.Ge_WorkContent')"
+            :show-overflow-tooltip="true"
+            width="130"
+          >
           </el-table-column>
-          <el-table-column :formatter="(row) => {
-            let res = row.Items.filter(trim => item === trim.UserName);
-            if(res.length) {
-              return res[0].PlanTime
-            }
-            }" prop="PlanTime" label="预计工时" :show-overflow-tooltip="true" width="80">
+          <el-table-column
+            :formatter="(row) => {
+              let res = row.Items.filter(trim => item === trim.UserName);
+              if(res.length) {
+                return res[0].PlanTime
+              }
+            }"
+            prop="PlanTime"
+            :label="$t('Generality.Ge_PlanTime')"
+            :show-overflow-tooltip="true"
+            width="80"
+          >
           </el-table-column>
-          <el-table-column :formatter="(row) => {
-            let res = row.Items.filter(trim => item === trim.UserName);
-            if (res[0].ToolingNo) {
-              return res[0].IsItCompletedAsPlanned ? '已完成' : '未完成'
-            }
-            }" prop="IsItCompletedAsPlanned" label="完成情况" :show-overflow-tooltip="true" width="80">
+          <el-table-column
+            :formatter="(row) => {
+              let res = row.Items.filter(trim => item === trim.UserName);
+              if (res[0].ToolingNo) {
+                return res[0].IsItCompletedAsPlanned ?
+                this.$t('Generality.Ge_Completed') :
+                this.$t('Generality.Ge_Incomplete')
+              }
+            }"
+            prop="IsItCompletedAsPlanned"
+            :label="$t('Generality.Ge_CompletionStatus')"
+            :show-overflow-tooltip="true"
+            width="80"
+          >
           </el-table-column>
         </el-table-column>
       </el-table>
@@ -97,7 +124,7 @@
 import { project_task_weekly_dashboard } from "@/api/workApi/project/dataReport"
 import { timeFormat } from "~/utils/time";
 export default {
-  name: "index",
+  name: "De_DesignWeeklyDashboard",
   data() {
     return {
       newList: [],
@@ -209,7 +236,15 @@ export default {
       this.doLayout();
     },
     getWeekNum(formattedTime) {
-      const weekTime = ['周日','周一','周二','周三','周四','周五','周六',]
+      const weekTime = [
+        this.$t('Generality.Ge_Sunday'),
+        this.$t('Generality.Ge_Monday'),
+        this.$t('Generality.Ge_Tuesday'),
+        this.$t('Generality.Ge_Wednesday'),
+        this.$t('Generality.Ge_Thursday'),
+        this.$t('Generality.Ge_Friday'),
+        this.$t('Generality.Ge_Saturday'),
+      ]
       const dayOfWeek = new Date(formattedTime + 'Z').getUTCDay();
       return weekTime[dayOfWeek];
     },

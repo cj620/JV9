@@ -121,7 +121,7 @@ export default {
     color: rgb(161, 161, 161);
   }
 }
-.button-badge .el-badge__content {
+::v-deep .button-badge .el-badge__content {
   height: 12px;
   line-height: 11px;
   font-size: 11px;
@@ -130,7 +130,7 @@ export default {
   top: 4px;
   right: 2px;
 }
-.button-dot-badge .el-badge__content {
+::v-deep .button-dot-badge .el-badge__content {
   top: 4px;
   right: 2px;
 }

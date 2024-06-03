@@ -155,6 +155,15 @@ const design = [
     name: "De_DesignDelayedTasks",
     path: "De_DesignDelayedTasks",
     title: i18n.t("menu.De_DesignDelayedTasks"),
+  },
+  // 设计任务周看板
+  {
+    key: "De_DesignWeeklyDashboard",
+    component: () => import("@/views/workModule/design/designWeeklyDashboard"),
+    Parent: "De_Design",
+    name: "De_DesignWeeklyDashboard",
+    path: "De_DesignWeeklyDashboard",
+    title: i18n.t("menu.De_DesignWeeklyDashboard"),
   }
 ];
 
