@@ -2,7 +2,7 @@
   <PageWrapper ref="page" :footer="false">
     <div class="weekly-task-header">
       <div class="weekly-task-header-title">
-        {{ $t("menu.De_DesignWeeklyDashboard") }}
+        {{ $t("menu.As_AssyWeeklyDashboard") }}
       </div>
       <div class="weekly-task-header-search">
         <el-date-picker
@@ -93,8 +93,8 @@
               let res = row.Items.filter(trim => item === trim.UserName);
               if (res[0].ToolingNo) {
                 return res[0].IsItCompletedAsPlanned ?
-                this.$t('Generality.Ge_Completed') :
-                this.$t('Generality.Ge_Incomplete')
+                $t('Generality.Ge_Completed') :
+                $t('Generality.Ge_Incomplete')
               }
             }"
             prop="IsItCompletedAsPlanned"
@@ -124,7 +124,7 @@
 import { project_task_weekly_dashboard } from "@/api/workApi/project/dataReport"
 import { timeFormat } from "~/utils/time";
 export default {
-  name: "De_DesignWeeklyDashboard",
+  name: "As_AssyWeeklyDashboard",
   data() {
     return {
       newList: [],
@@ -149,7 +149,7 @@ export default {
       project_task_weekly_dashboard({
         PageSize: this.pageSize,
         CurrentPage: this.currentPage,
-        SelectType: 1,
+        SelectType: 2,
         InitialDate: this.searchDate,
       }).then((res) => {
         this.totalCount = res.Count;
@@ -162,8 +162,7 @@ export default {
         this.$refs.BillTable.doLayout();
       })
     },
-    handleSelectionChange() {
-    },
+    handleSelectionChange() {},
     handleSizeChange(e) {
       this.pageSize = e;
       this.getTableData()

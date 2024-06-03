@@ -94,6 +94,15 @@ const assy = [
     name: "As_AssyDelayedTasks",
     path: "As_AssyDelayedTasks",
     title: i18n.t("menu.As_AssyDelayedTasks"),
+  },
+  // 钳工任务周看板
+  {
+    key: "As_AssyWeeklyDashboard",
+    component: () => import("@/views/workModule/assy/assyWeeklyDashboard"),
+    Parent: "As_Assy",
+    name: "As_AssyWeeklyDashboard",
+    path: "As_AssyWeeklyDashboard",
+    title: i18n.t("menu.As_AssyWeeklyDashboard"),
   }
 ]
 export default assy;

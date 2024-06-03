@@ -205,6 +205,15 @@ const program = [
     name: "Pa_ProgramDelayedTasks",
     path: "Pa_ProgramDelayedTasks",
     title: i18n.t("menu.Pa_ProgramDelayedTasks"),
+  },
+  // 编程任务周看板
+  {
+    key: "Pa_ProgramWeeklyDashboard",
+    component: () => import("@/views/workModule/program/programWeeklyDashboard"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramWeeklyDashboard",
+    path: "Pa_ProgramWeeklyDashboard",
+    title: i18n.t("menu.Pa_ProgramWeeklyDashboard"),
   }
 ];
 export default program;

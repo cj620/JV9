@@ -93,8 +93,8 @@
               let res = row.Items.filter(trim => item === trim.UserName);
               if (res[0].ToolingNo) {
                 return res[0].IsItCompletedAsPlanned ?
-                this.$t('Generality.Ge_Completed') :
-                this.$t('Generality.Ge_Incomplete')
+                $t('Generality.Ge_Completed') :
+                $t('Generality.Ge_Incomplete')
               }
             }"
             prop="IsItCompletedAsPlanned"
@@ -149,7 +149,7 @@ export default {
       project_task_weekly_dashboard({
         PageSize: this.pageSize,
         CurrentPage: this.currentPage,
-        SelectType: 1,
+        SelectType: 0,
         InitialDate: this.searchDate,
       }).then((res) => {
         this.totalCount = res.Count;
@@ -162,8 +162,7 @@ export default {
         this.$refs.BillTable.doLayout();
       })
     },
-    handleSelectionChange() {
-    },
+    handleSelectionChange() {},
     handleSizeChange(e) {
       this.pageSize = e;
       this.getTableData()
