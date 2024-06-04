@@ -209,10 +209,10 @@ export default {
         const arr = [...res]
         for (let i = 0; i < arr.length; i++) {
           const categoryObject = arr[i];
-          if (categoryObject.Category === 'Design') {
+          if (categoryObject.Category === 'Assy') {
             for (let j = 0; j < categoryObject.ConfigList.length; j++) {
               const config = categoryObject.ConfigList[j];
-              if (config.ConfigKey === 'DesignUsers') {
+              if (config.ConfigKey === 'AssyUsers') {
                 this.workersList = JSON.parse(config.ConfigValue).map((name, index) => ({ name, id: index}));
               }
             }
@@ -319,8 +319,10 @@ export default {
       this.newList = newData;
       this.findRowIndex();
       this.doLayout();
-      const table = this.$refs.BillTable.$el.querySelector('.el-table__body-wrapper');
-      table.scrollTop = this.jumpToRowIndex * 36;
+      this.$nextTick(() => {
+        const table = this.$refs.BillTable.$el.querySelector('.el-table__body-wrapper');
+        table.scrollTop = this.jumpToRowIndex * 36;
+      })
     },
     findRowIndex() {
       for (let i = 0; i < this.newList.length; i++) {

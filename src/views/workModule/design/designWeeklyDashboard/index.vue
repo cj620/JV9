@@ -319,8 +319,10 @@ export default {
       this.newList = newData;
       this.findRowIndex();
       this.doLayout();
-      const table = this.$refs.BillTable.$el.querySelector('.el-table__body-wrapper');
-      table.scrollTop = this.jumpToRowIndex * 36;
+      this.$nextTick(() => {
+        const table = this.$refs.BillTable.$el.querySelector('.el-table__body-wrapper');
+        table.scrollTop = this.jumpToRowIndex * 36;
+      })
     },
     findRowIndex() {
       for (let i = 0; i < this.newList.length; i++) {
