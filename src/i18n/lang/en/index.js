@@ -1834,6 +1834,7 @@ const en = {
     Project: "Project",
     Program: "Program",
     Production: "Production",
+    TrialTooling: "Trial Tooling",
     Auto_create_pr_on_NSM_name: "Auto create PR on non-standard material",
     Auto_create_pr_on_NSM_desc:
       "Auto create purchase application sheet on non-standard material",
@@ -1904,6 +1905,8 @@ const en = {
     Suggest_overall_outsourcing_percentage: "Suggest overall outsourcing percentage",
     Email_push_configuration: "Email push configuration",
     Project_task_report_work_inspection: "Project task report work inspection",
+    Trial_tooling_users_name: "Trial tooling users name",
+    Trial_tooling_users_desc: "Trial tooling users desc",
   },
   ...enLocale,
 };

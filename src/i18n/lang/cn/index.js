@@ -1811,6 +1811,7 @@ const cn = {
     Project: "项目",
     Program: "编程",
     Production: "生产",
+    TrialTooling: "试模",
     Auto_create_pr_on_NSM_name: "是否可以自动创建非标准物料的采购申请",
     Auto_create_pr_on_NSM_desc: "是否可以自动创建非标准物料的采购申请",
     Auto_create_pr_on_SM_name: "是否可以自动创建标准物料的采购申请",
@@ -1873,6 +1874,8 @@ const cn = {
     Suggest_overall_outsourcing_percentage: "建议整体外协百分比",
     Email_push_configuration: "邮件推送配置",
     Project_task_report_work_inspection: "项目任务报工点检配置",
+    Trial_tooling_users_name: "试模用户",
+    Trial_tooling_users_desc: "试模任务展示的人员",
   },
 
   ...zhLocale,

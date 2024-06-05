@@ -1829,6 +1829,7 @@ const ja = {
     Project: "プロジェクト",
     Program: "プログラミング",
     Production: "せいさん",
+    TrialTooling: "しけんがた",
     Auto_create_pr_on_NSM_name:
       "非標準品目の購買依頼を自動的に作成できるかどうか",
     Auto_create_pr_on_NSM_desc:
@@ -1891,6 +1892,8 @@ const ja = {
     Suggest_overall_outsourcing_percentage: "全外注率の推奨",
     Email_push_configuration: "メールプッシュ設定",
     Project_task_report_work_inspection: "プロジェクトタスクの作業点検構成",
+    Trial_tooling_users_name: "パイロットユーザ",
+    Trial_tooling_users_desc: "試作タスクの展示者",
   },
 
   ...jaLocale,

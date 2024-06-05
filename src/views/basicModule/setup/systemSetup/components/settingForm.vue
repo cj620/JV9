@@ -87,6 +87,11 @@ export default {
           value: "UserName",
           isMultiple: true,
         },
+        TrialToolingUsers: {
+          api: getAllUserData,
+          value: "UserName",
+          isMultiple: true,
+        },
         DefaultProductionDepartment: {
           api: department_tile_get_all,
           value: "Department",
@@ -138,6 +143,7 @@ export default {
           "AssyUsers",
           "ProgramUsers",
           "DesignUsers",
+          "TrialToolingUsers",
           "DefaultProductionDepartment",
           "MeanwhileDownProcessConfig",
           "ProhibitSkipStationProcesses",
@@ -166,6 +172,7 @@ export default {
         "AssyUsers",
         "ProgramUsers",
         "DesignUsers",
+        "TrialToolingUsers",
         "DefaultProductionDepartment",
         "MeanwhileDownProcessConfig",
         "ProhibitSkipStationProcesses",
