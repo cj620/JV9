@@ -62,6 +62,34 @@ const testTooling = [
       i18n.t("menu.Tt_TestToolingTask") + "  " + i18n.t("Generality.Ge_Edit"),
     hidden: true,
   },
+  // 试模任务记录
+  {
+    key: "Tt_TestToolingTask_Record",
+    component: () => import("@/views/workModule/testTooling/testToolingPlan/TaskRecord"),
+    Parent: "Tt_TestTooling",
+    name: "TestToolingTask_Record",
+    path: "testToolingTask_Record",
+    title: i18n.t("menu.Tt_TestToolingTaskRecord"),
+    hidden: true,
+  },
+  // 延期试模任务
+  {
+    key: "Tt_TestToolingDelayedTasks",
+    component: () => import("@/views/workModule/testTooling/testToolingPlan/testToolingDelayedTasks"),
+    Parent: "Tt_TestTooling",
+    name: "Tt_TestToolingDelayedTasks",
+    path: "tt_TestToolingDelayedTasks",
+    title: i18n.t("menu.Tt_TestToolingDelayedTasks"),
+  },
+  // 试模任务周看板
+  {
+    key: "Tt_TestToolingWeeklyDashboard",
+    component: () => import("@/views/workModule/testTooling/testToolingWeeklyDashboard"),
+    Parent: "Tt_TestTooling",
+    name: "Tt_TestToolingWeeklyDashboard",
+    path: "tt_TestToolingWeeklyDashboard",
+    title: i18n.t("menu.Tt_TestToolingWeeklyDashboard"),
+  }
 ]
 
 export default testTooling;

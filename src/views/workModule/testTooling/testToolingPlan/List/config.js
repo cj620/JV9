@@ -27,6 +27,7 @@ const tableSchema = [
     label: i18n.t("project.Pro_TaskSheetNo"),
     align: "center",
     cpn: "Link",
+    width: '130px',
     cpnProps: {
       routeName: "Pm_ProjectTask_Detail",
       methods: "query",
@@ -44,27 +45,38 @@ const tableSchema = [
   {
     prop: "Project",
     label: i18n.t("systemSetupData.Project"),
+    width: '130px',
   },
   /*任务类别*/
   {
     prop: "TaskType",
     label: i18n.t("Generality.Ge_TaskType"),
     custom: true,
+    width: '90px',
   },
   /*产品名称*/
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    width: '130px',
+  },
+  /*加工内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_TaskContent"),
+    width: '250px'
   },
   /*负责人*/
   {
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
+    width: '90px',
   },
   /*预计工时*/
   {
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
+    width: '90px',
   },
   /*计划开始*/
   {

@@ -203,7 +203,11 @@ const en = {
     As_DeviceLedger: "Device Ledger",
     Tt_TestTooling: "Test Tooling",
     Tt_TestToolingTask: "Test Tooling Task",
+    Tt_TestToolingTaskRecord: "Test Tooling Task Record",
+    Tt_TestToolingDelayedTasks: "Test Tooling Delayed Tasks",
+    Tt_TestToolingTaskList: "Test Tooling Task List",
     Tt_TestToolingPlan: "Test Tooling Plan",
+    Tt_TestToolingWeeklyDashboard: "Test Tooling Weekly Dashboard",
   },
   login: {
     l_LogIn: "Log in",

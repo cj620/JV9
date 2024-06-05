@@ -202,7 +202,11 @@ const cn = {
     As_DeviceLedger: "设备台账",
     Tt_TestTooling: "试模",
     Tt_TestToolingTask: "试模任务",
+    Tt_TestToolingTaskRecord: "试模任务记录",
+    Tt_TestToolingDelayedTasks: "延期试模任务",
+    Tt_TestToolingTaskList: "试模任务列表",
     Tt_TestToolingPlan: "试模计划",
+    Tt_TestToolingWeeklyDashboard: "试模任务周看板",
   },
   login: {
     l_LogIn: "登录",
