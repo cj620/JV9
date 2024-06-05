@@ -15,7 +15,7 @@ export class Table extends BaseTable {
         tableSchema: tableConfig,
         formSchema,
         rowId: "BillId",
-        title: i18n.t("menu.Pm_TestTask"),
+        title: i18n.t("menu.Tt_TestToolingBill"),
         api,
         operationWidth: 150,
         printMod: "TestToolingTask",

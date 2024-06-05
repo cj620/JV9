@@ -99,6 +99,8 @@
               let res = row.Items.filter(trim => item === trim.UserName);
               if(res.length) {
                 return res[0].ToolingNo
+              } else {
+                return ''
               }
             }"
             prop="ToolingNo"
@@ -112,6 +114,8 @@
               let res = row.Items.filter(trim => item === trim.UserName);
               if(res.length) {
                 return res[0].ProcessContent
+              } else {
+                return ''
               }
             }"
             prop="ProcessContent"
@@ -125,6 +129,8 @@
               let res = row.Items.filter(trim => item === trim.UserName);
               if(res.length) {
                 return res[0].PlanTime
+              } else {
+                return ''
               }
             }"
             prop="PlanTime"
@@ -140,6 +146,8 @@
                 return res[0].IsItCompletedAsPlanned ?
                 $t('Generality.Ge_Completed') :
                 $t('Generality.Ge_Incomplete')
+              } else {
+                return ''
               }
             }"
             prop="IsItCompletedAsPlanned"

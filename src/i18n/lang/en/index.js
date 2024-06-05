@@ -205,8 +205,8 @@ const en = {
     Tt_TestToolingTask: "Test Tooling Task",
     Tt_TestToolingTaskRecord: "Test Tooling Task Record",
     Tt_TestToolingDelayedTasks: "Test Tooling Delayed Tasks",
-    Tt_TestToolingTaskList: "Test Tooling Task List",
     Tt_TestToolingPlan: "Test Tooling Plan",
+    Tt_TestToolingBill: "Test Tooling List",
     Tt_TestToolingWeeklyDashboard: "Test Tooling Weekly Dashboard",
   },
   login: {

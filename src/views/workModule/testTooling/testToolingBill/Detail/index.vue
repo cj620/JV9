@@ -186,8 +186,8 @@ export default {
       btnAction: [],
       defaultImgUrl: window.global_config.ImgBase_Url,
       // 编辑路由指向 谨慎删除
-      editRouteName: "Tt_TestToolingTask_Edit",
-      printMod: "Tt_TestToolingTask_Detail",
+      editRouteName: "Tt_TestToolingBill_Edit",
+      printMod: "Tt_TestToolingBill_Detail",
       taskTypeEnum,
       tabPanes: [
         {

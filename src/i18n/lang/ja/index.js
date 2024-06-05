@@ -203,8 +203,8 @@ const ja = {
     Tt_TestToolingTask: "モデル試験タスク",
     Tt_TestToolingTaskRecord: "モデル試験タスク記録",
     Tt_TestToolingDelayedTasks: "延期モデル試験タスク",
-    Tt_TestToolingTaskList: "モデル試験タスクリスト",
     Tt_TestToolingPlan: "モデル試験計画",
+    Tt_TestToolingBill: "試作リスト",
     Tt_TestToolingWeeklyDashboard: "モデル化タスク週カンバン",
   },
   login: {

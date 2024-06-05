@@ -16,7 +16,7 @@ export class Table extends BaseTable {
       title: i18n.t("menu.Tt_TestToolingPlan"),
       api,
       printMod:'Tt_TestToolingPlan',
-      operationWidth:140,
+      operationWidth:240,
       printBar:false
     })
   }
@@ -39,6 +39,7 @@ const tableSchema = [
     prop: "ItemState",
     label: i18n.t("Generality.Ge_State"),
     custom: true,
+    align: "center",
     width: "115px",
   },
   /*项目*/
@@ -150,9 +151,11 @@ const formSchema = [
     },
   },
   {
-    prop: "ItemState",
+    prop: "ItemStates",
     label: i18n.t("Generality.Ge_State"),
     cpn: "FormSelect",
+    type: "multiple",
+    default: ["NotStarted", "HaveInHand"],
     options: {
       list: [
         {
@@ -167,7 +170,6 @@ const formSchema = [
           value: "Completed",
           label: i18n.t("Generality.Ge_Completed"),
         },
-
       ],
     },
   },
@@ -180,5 +182,27 @@ const formSchema = [
     prop: "EndDate",
     label: i18n.t("Generality.Ge_EndDate"),
     cpn: "SingleTime",
+  },
+  {
+    prop: "SelctChildrenType",
+    label: i18n.t("project.Pro_ViewTaskDetails"),
+    cpn: "FormSelect",
+    default: 2,
+    options: {
+      list: [
+        {
+          value: 0,
+          label: i18n.t("project.Pro_ViewParentProjectTasks"),
+        },
+        {
+          value: 1,
+          label: i18n.t("project.Pro_ViewSubtasks"),
+        },
+        {
+          value: 2,
+          label: i18n.t("project.Pro_ViewAllTasks"),
+        },
+      ],
+    },
   },
 ]

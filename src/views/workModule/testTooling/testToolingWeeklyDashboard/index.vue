@@ -99,6 +99,8 @@
               let res = row.Items.filter(trim => item === trim.UserName);
               if(res.length) {
                 return res[0].ToolingNo
+              } else {
+                return ''
               }
             }"
             prop="ToolingNo"
@@ -112,6 +114,8 @@
               let res = row.Items.filter(trim => item === trim.UserName);
               if(res.length) {
                 return res[0].ProcessContent
+              } else {
+                return ''
               }
             }"
             prop="ProcessContent"
@@ -125,6 +129,8 @@
               let res = row.Items.filter(trim => item === trim.UserName);
               if(res.length) {
                 return res[0].PlanTime
+              } else {
+                return ''
               }
             }"
             prop="PlanTime"
@@ -140,6 +146,8 @@
                 return res[0].IsItCompletedAsPlanned ?
                 $t('Generality.Ge_Completed') :
                 $t('Generality.Ge_Incomplete')
+              } else {
+                return ''
               }
             }"
             prop="IsItCompletedAsPlanned"
@@ -209,10 +217,10 @@ export default {
         const arr = [...res]
         for (let i = 0; i < arr.length; i++) {
           const categoryObject = arr[i];
-          if (categoryObject.Category === 'Program') {
+          if (categoryObject.Category === 'TrialTooling') {
             for (let j = 0; j < categoryObject.ConfigList.length; j++) {
               const config = categoryObject.ConfigList[j];
-              if (config.ConfigKey === 'ProgramUsers') {
+              if (config.ConfigKey === 'TrialToolingUsers') {
                 this.workersList = JSON.parse(config.ConfigValue).map((name, index) => ({ name, id: index}));
               }
             }
@@ -225,7 +233,7 @@ export default {
       project_task_weekly_dashboard({
         PageSize: this.pageSize,
         CurrentPage: this.currentPage,
-        SelectType: 1, // 待修改
+        SelectType: 3,
         InitialDate: this.selectedDate,
         DepartmentName: this.selectedDepartment,
         UserNames: this.selectedWorkers,

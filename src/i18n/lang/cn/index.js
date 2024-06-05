@@ -204,8 +204,8 @@ const cn = {
     Tt_TestToolingTask: "试模任务",
     Tt_TestToolingTaskRecord: "试模任务记录",
     Tt_TestToolingDelayedTasks: "延期试模任务",
-    Tt_TestToolingTaskList: "试模任务列表",
     Tt_TestToolingPlan: "试模计划",
+    Tt_TestToolingBill: "试模列表",
     Tt_TestToolingWeeklyDashboard: "试模任务周看板",
   },
   login: {
