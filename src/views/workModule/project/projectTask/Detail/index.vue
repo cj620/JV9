@@ -46,7 +46,7 @@
         <JvDetail :detailObj="detailObj">
           <template #TaskType="{ record }">
             <!-- 状态标签 -->
-            {{ taskTypeEnum[record].name }}
+            {{ taskTypeEnum[record] ? taskTypeEnum[record].name : "" }}
           </template>
         </JvDetail>
 

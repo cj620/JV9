@@ -126,7 +126,7 @@ export default {
     },
     startTrial(row) {
       this.$router.push({
-        name: "Tt_TestToolingTask_Add",
+        name: "Tt_TestToolingBill_Add",
         query: row,
       })
     },

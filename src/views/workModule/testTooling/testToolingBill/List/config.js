@@ -37,7 +37,7 @@ export const tableConfig = [
     align: "center",
     cpn: "Link",
     cpnProps: {
-      routeName: "Pm_TrialTask_Detail",
+      routeName: "Tt_TestToolingBill_Detail",
       methods: "query",
       parameterKey: "BillId",
     },
