@@ -21,6 +21,15 @@ const testTooling = [
     path: "tt_TestToolingPlan",
     title: i18n.t("menu.Tt_TestToolingPlan"),
   },
+  // 试模计划列表
+  {
+    key: "Tt_TestToolingPlanList",
+    component: () => import("@/views/workModule/testTooling/testToolingPlanList/List"),
+    Parent: "Tt_TestTooling",
+    name: "Tt_TestToolingPlanList",
+    path: "tt_TestToolingPlanList",
+    title: i18n.t("menu.Tt_TestToolingPlanList"),
+  },
   // 试模任务
   {
     key: "Tt_TestToolingTask",
@@ -30,51 +39,42 @@ const testTooling = [
     path: "tt_TestToolingTask",
     title: i18n.t("menu.Tt_TestToolingTask"),
   },
-  // 试模列表
-  {
-    key: "Tt_TestToolingBill",
-    component: () => import("@/views/workModule/testTooling/testToolingBill/List"),
-    Parent: "Tt_TestTooling",
-    name: "Tt_TestToolingBill",
-    path: "tt_TestToolingBill",
-    title: i18n.t("menu.Tt_TestToolingBill"),
-  },
   // 新增试模列表
   {
-    key: "Tt_TestToolingBill_Add",
-    component: () => import("@/views/workModule/testTooling/testToolingBill/Add"),
+    key: "Tt_TestToolingTask_Add",
+    component: () => import("@/views/workModule/testTooling/testToolingTask/Add"),
     Parent: "Tt_TestTooling",
-    name: "Tt_TestToolingBill_Add",
-    path: "tt_TestToolingBill_Add",
-    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.Tt_TestToolingBill"),
+    name: "Tt_TestToolingTask_Add",
+    path: "tt_TestToolingTask_Add",
+    title: i18n.t("Generality.Ge_New") + "  " + i18n.t("menu.Tt_TestToolingTask"),
     hidden: true,
   },
   // 试模任务详情
   {
-    key: "Tt_TestToolingBill_Detail",
-    component: () => import("@/views/workModule/testTooling/testToolingBill/Detail"),
+    key: "Tt_TestToolingTask_Detail",
+    component: () => import("@/views/workModule/testTooling/testToolingTask/Detail"),
     Parent: "Tt_TestTooling",
-    name: "Tt_TestToolingBill_Detail",
-    path: "tt_TestToolingBill_Detail",
+    name: "Tt_TestToolingTask_Detail",
+    path: "tt_TestToolingTask_Detail",
     title:
-      i18n.t("menu.Tt_TestToolingBill") + "  " + i18n.t("Generality.Ge_Details"),
+      i18n.t("menu.Tt_TestToolingTask") + "  " + i18n.t("Generality.Ge_Details"),
     hidden: true,
   },
   // 试模任务编辑
   {
-    key: "Tt_TestToolingBill_Edit",
-    component: () => import("@/views/workModule/testTooling/testToolingBill/Edit"),
+    key: "Tt_TestToolingTask_Edit",
+    component: () => import("@/views/workModule/testTooling/testToolingTask/Edit"),
     Parent: "Tt_TestTooling",
-    name: "Tt_TestToolingBill_Edit",
-    path: "tt_TestToolingBill_Edit",
+    name: "Tt_TestToolingTask_Edit",
+    path: "tt_TestToolingTask_Edit",
     title:
-      i18n.t("menu.Tt_TestToolingBill") + "  " + i18n.t("Generality.Ge_Edit"),
+      i18n.t("menu.Tt_TestToolingTask") + "  " + i18n.t("Generality.Ge_Edit"),
     hidden: true,
   },
   // 试模任务记录
   {
     key: "Tt_TestToolingTask_Record",
-    component: () => import("@/views/workModule/testTooling/testToolingTask/TaskRecord"),
+    component: () => import("@/views/workModule/testTooling/testToolingPlan/TaskRecord"),
     Parent: "Tt_TestTooling",
     name: "TestToolingTask_Record",
     path: "testToolingTask_Record",
@@ -84,7 +84,7 @@ const testTooling = [
   // 分发试模任务
   {
     key: "Tt_TestToolingDistributeTask",
-    component: () => import("@/views/workModule/testTooling/testToolingTask/DistributeTask"),
+    component: () => import("@/views/workModule/testTooling/testToolingPlan/DistributeTask"),
     Parent: "Tt_TestTooling",
     name: "Tt_TestToolingDistributeTask",
     path: "tt_TestToolingDistributeTask",
@@ -93,7 +93,7 @@ const testTooling = [
   // 延期试模任务
   {
     key: "Tt_TestToolingDelayedTasks",
-    component: () => import("@/views/workModule/testTooling/testToolingPlan/testToolingDelayedTasks"),
+    component: () => import("@/views/workModule/testTooling/testToolingPlanList/testToolingDelayedTasks"),
     Parent: "Tt_TestTooling",
     name: "Tt_TestToolingDelayedTasks",
     path: "tt_TestToolingDelayedTasks",

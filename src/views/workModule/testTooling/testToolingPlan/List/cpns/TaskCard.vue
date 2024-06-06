@@ -218,7 +218,7 @@ export default {
           query: {
             TaskData: this.cdata,
             BillId: this.cdata.BillId,
-            BackPath: "tt_TestToolingTask",
+            BackPath: "tt_TestToolingPlan",
           },
         });
       } else if (e == "viewSubTask") {

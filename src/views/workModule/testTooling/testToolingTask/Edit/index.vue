@@ -10,7 +10,7 @@
 import Common from "../Add/index.vue";
 import { API as ProjectTask } from "@/api/workApi/project/projectTask";
 export default {
-  name: "Tt_TestToolingBill_Edit",
+  name: "Tt_TestToolingTask_Edit",
   extends: Common,
   data(){
     return{

@@ -1,9 +1,8 @@
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
 import { project_task_item_list } from "@/api/workApi/project/projectTask";
-import {getProjectQuery} from "@/api/workApi/project/projectManage";
-import {itemList} from "@/api/basicApi/systemSettings/Item";
-import {getAllProjectProcess} from "@/api/workApi/project/baseData";
-import {getAllUserData} from "@/api/basicApi/systemSettings/user";
+import { getProjectQuery } from "@/api/workApi/project/projectManage";
+import { itemList } from "@/api/basicApi/systemSettings/Item";
+import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 class api extends TableAPI {
   getData=project_task_item_list
 }
@@ -13,9 +12,9 @@ export class Table extends BaseTable {
       tableSchema: tableSchema,
       formSchema: formSchema,
       rowId: 'Id',
-      title: i18n.t("menu.Tt_TestToolingPlan"),
+      title: i18n.t("menu.Tt_TestToolingPlanList"),
       api,
-      printMod:'Tt_TestToolingPlan',
+      printMod:'Tt_TestToolingPlanList',
       operationWidth:240,
       printBar:false
     })

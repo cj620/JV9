@@ -100,7 +100,7 @@ export class Table extends BaseTable {
       operationCol: false,
       chooseCol: false,
       // 打印模块标识
-      printMod: "Tt_TestToolingBill_Detail",
+      printMod: "Tt_TestToolingTask_Detail",
     });
   }
 }

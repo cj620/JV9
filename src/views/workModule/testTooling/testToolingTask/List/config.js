@@ -15,7 +15,7 @@ export class Table extends BaseTable {
         tableSchema: tableConfig,
         formSchema,
         rowId: "BillId",
-        title: i18n.t("menu.Tt_TestToolingBill"),
+        title: i18n.t("menu.Tt_TestToolingTask"),
         api,
         operationWidth: 150,
         printMod: "TestToolingTask",
@@ -37,7 +37,7 @@ export const tableConfig = [
     align: "center",
     cpn: "Link",
     cpnProps: {
-      routeName: "Tt_TestToolingBill_Detail",
+      routeName: "Tt_TestToolingTask_Detail",
       methods: "query",
       parameterKey: "BillId",
     },

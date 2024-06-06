@@ -11,7 +11,9 @@
         </span>
       </template>
       <template #DelayDates="{ row }">
-        {{ getDelayDates(row.ItemPlanEnd, new Date()) }}
+        <span style="color: red; font-weight: bold">
+          {{ getDelayDates(row.ItemPlanEnd, new Date()) }}
+        </span>
       </template>
     </JvTable>
   </PageWrapper>

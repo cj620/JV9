@@ -4,8 +4,8 @@
  * @LastEditTime: 2022-08-22 09:54:25
  * @Description: file content
  */
-import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
-import { taskStateEnum, enumToList } from "@/enum/workModule";
+import { Table as BaseTable } from "@/jv_doc/class/table";
+import { taskStateEnum } from "@/enum/workModule";
 
 export class ViewSubtasksTableObj extends BaseTable {
   constructor() {

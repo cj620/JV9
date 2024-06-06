@@ -114,7 +114,7 @@ import closeTag from "@/utils/closeTag";
 import { timeFormat } from "~/utils/time";
 import { mapState } from "vuex";
 export default {
-  name: "Tt_TestToolingBill_Add",
+  name: "Tt_TestToolingTask_Add",
   components: {
     JvUploadFile,
     JvUploadList,
@@ -132,7 +132,7 @@ export default {
       tableObj: {},
       dialogImgFormVisible: false,
       defaultImgUrl: window.global_config.ImgBase_Url,
-      detailRouteName: "Tt_TestToolingBill_Detail",
+      detailRouteName: "Tt_TestToolingTask_Detail",
       ImgDataList: [],
       tableRow: {},
       fileBillId: this.$route.query.BillId,
