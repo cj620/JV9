@@ -10,6 +10,7 @@
     style="height: 100%; width: 100%"
     :ghostClass="getClassNameFn"
     @add="add"
+    @update="update"
     :move="onMove"
     :animation="animation"
   >
@@ -90,6 +91,10 @@ export default {
     },
     // 拖拽完成事件
     add: {
+      type: Function,
+      default: () => {}
+    },
+    update: {
       type: Function,
       default: () => {}
     },

@@ -9,7 +9,7 @@
         <div class="process-content-item">
           <div v-if="isAllocated" class="item-num">No.{{ this.num }}</div>
           <div class="item-partNo">{{ this.processData.PartNo }}</div>
-          <div class="item-process">({{ this.processData.Process }})</div>
+          <div class="item-process">{{ this.processData.Process }}</div>
         </div>
         <div class="process-content-item" v-if="isAllocated">
           <div v-if="this.processData.FixedProcessingDevice" class="item-lock-state" style="color: red">

@@ -74,6 +74,7 @@
               :animation="100"
               ref="JvDraggableRef"
               @add="handleAddAllocated"
+              @update="handleUpdate"
               :onMove="onMove"
             >
               <template slot-scope="item">
@@ -301,6 +302,7 @@ export default {
     },
     // 添加到已派工工序
     handleAddAllocated(e){
+      // console.log('未派工添加到已派工:::', e, this.processList1)
       const obj = {
         TaskProcessId: this.processList1[e.newIndex].Id,
         PlanStart: this.processList1[e.newIndex].PlanStart,
@@ -309,6 +311,9 @@ export default {
         IsModifyDate: true,
       }
       this.editDevice(obj);
+    },
+    handleUpdate(e) {
+      // console.log('已派工内部排序:::', e, this.processList1)
     },
     // 添加到未派工工序
     handleAddUnallocated(e){
