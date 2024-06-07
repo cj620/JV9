@@ -120,6 +120,7 @@ import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
 import {
   production_dispatching_topping,
+  production_dispatching_list,
   production_dispatching_change_device,
   production_dispatching_lock_device,
 } from "@/api/workApi/production/productionDispatch";
@@ -356,11 +357,26 @@ export default {
           labelPosition: "top",
         });
       } else if (e.Type === "top") {
-        production_dispatching_topping({ TaskProcessId: e.TaskProcessId }).then(
-          (res) => {
-            this.M_tableObj.pager.sizeChange(this.currentSize);
-          }
-        );
+        production_dispatching_list({
+          SortOrder: 1,
+          PageSize: 99,
+          CurrentPage: 1,
+          Devices: [e.PlanDevice],
+        }).then((res) => {
+          production_dispatching_change_device({
+            TaskProcessId: e.TaskProcessId,
+            PlanStart: e.PlanStart,
+            PlanEnd: e.PlanEnd,
+            DeviceName: e.PlanDevice,
+            IsModifyDate: true,
+            DeviceProcessingSequence: (res.Items[0][0].DeviceProcessingSequence) / 2,
+          }).then(() => {this.M_tableObj.pager.sizeChange(this.currentSize);})
+        })
+        // production_dispatching_topping({ TaskProcessId: e.TaskProcessId }).then(
+        //   (res) => {
+        //     this.M_tableObj.pager.sizeChange(this.currentSize);
+        //   }
+        // );
       } else if (e.Type === "lock") {
           this.lockData.TaskProcessId = e.TaskProcessId
           this.lockData.DeviceNo = e.PlanDevice
