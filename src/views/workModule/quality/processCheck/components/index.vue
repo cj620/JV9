@@ -3,15 +3,6 @@
 <template>
   <!-- 单据信息 -->
   <PageWrapper ref="page">
-    <!-- <div class="input-query">
-      <el-input
-        v-model="PrTaskBillIdKeyword"
-        ref="editTask"
-        style="width: 180px"
-        @keyup.enter.native="getProData($event)"
-        placeholder="请扫描加工单"
-      ></el-input>
-    </div> -->
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
       <JvForm :formObj="formObj">
         <template #SelfCheckProcess="{ prop }">
@@ -60,23 +51,6 @@
       </JvEditTable>
     </JvBlock>
     <JvBlock :title="$t('quality.Qc_ProcessCheckChart')" ref="third">
-      <!-- <div style="height: 600px;display: flex;flex-wrap: wrap">
-        <div class="check-mould-img" v-for="(item,index) in BillFiles" :key="index">
-          <el-image
-            :preview-src-list="[imgUrlPlugin(item)]"
-            style="width: 100%; height: 100%"
-            :src="imgUrlPlugin(item)"
-            fit="cover"
-            class="items-details-Img-error"
-          >
-            <div slot="error" class="image-slot">
-              <i class="el-icon-picture-outline"></i>
-            </div>
-          </el-image>
-        </div>
-      </div> -->
-      <!-- https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg -->
-      <!-- <div class="check-mould-img"></div> -->
 
       <el-image
         v-for="(item, index) in Images"
@@ -141,11 +115,8 @@ import {
   qc_process_check_get_relevant_info,
   qc_process_check_save,
 } from "@/api/workApi/quality/processCheck";
-import { getUser } from "@/api/basicApi/systemSettings/user";
-import { temMerge } from "@/jv_doc/utils/handleData/index";
+import { temMerge } from "@/jv_doc/utils/handleData";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import { getBillFile } from "@/api/basicApi/systemSettings/upload";
-import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
 import { export2Excel } from "~/cpn/JvTable/utils/export2Excel";
 
 export default {
@@ -190,7 +161,6 @@ export default {
         TheoreticalValue: "",
         UpperTolerance: "",
         LowerTolerance: "",
-        // ReasonOfUnqualified: "",
         MeasuredValue: 0,
         State: "",
         Remarks: "",
@@ -248,13 +218,8 @@ export default {
 
     if (this.type === "edit") {
       this.fileBillId = this.billData;
-      //await this.GetData(this.billData);
     }
 
-    console.log(
-      this.$route.params.data.row,
-      this.$route.params.ProcessCheckType
-    );
     var routeParams = this.$route.params;
     this.formObj.form.SelfCheckProcess = routeParams.data.row.Process
       ? routeParams.data.row.Process
@@ -276,8 +241,6 @@ export default {
         : "";
       this.GetProcessCheckData(routeParams.data.row.BillId);
     }
-    console.log(this.ruleForm);
-    // this.getConfigData();
   },
   computed: {
     ...mapState({
@@ -303,57 +266,19 @@ export default {
       };
     },
   },
-  mounted() {
-    // this.$nextTick(() => {
-    //   this.$refs.editTask.focus();
-    // });
-  },
 
   methods: {
     imgUrlPlugin,
-    getProData() {
-      if (
-        this.PrTaskBillIdKeyword.substring(3, 0) ===
-        window.global_config.QRCodeFormat.proBillId
-      ) {
-        this.GetProcessCheckData(this.PrTaskBillIdKeyword.slice(3));
-      } else if (
-        this.PrTaskBillIdKeyword.substring(3, 0) ===
-        window.global_config.QRCodeFormat.user
-      ) {
-        getUser({ UserId: this.PrTaskBillIdKeyword.slice(3) }).then((res) => {
-          this.formObj.form.Operator = res.UserName;
-          this.PrTaskBillIdKeyword = "";
-        });
-      }
-    },
-
-    // getConfigData() {
-    //   getConfigKey({ ConfigKey: "ReasonForUnqualifiedProcessInspection" }).then(
-    //     (res) => {
-    //       console.log(res.ConfigValue);
-    //       this.ConfigDataList = JSON.parse(res.ConfigValue);
-    //     }
-    //   );
-    // },
     //获取检验数据
     GetProcessCheckData(e) {
       qc_process_check_get_relevant_info({ BillId: e }).then((res) => {
         this.formObj.form.PrTaskBillId = res.PrTaskBillId;
         this.formObj.form.ItemId = res.ItemId;
-        // let str = res.Process.pop();
         const str = JSON.parse(JSON.stringify(res)).Process.pop();
-        console.log(str, 69696969);
 
         this.ProcessData = res.Process;
         this.PrTaskBillIdKeyword = "";
-        // this.BillFiles = res.ProcessSelfCheckInfo.BillFiles;
-        // this.eTableObj.setData(
-        //   temMerge(this.BillItems, res.ProcessSelfCheckInfo.BillItems)
-        // );
-        // this.getCheckImgs(res.ProcessSelfCheckInfo.Id);
         if (this.$route.params.ProcessCheckType === "SelfCheck") {
-          console.log(str, 69696969);
           this.formObj.form.SelfCheckProcess = str.Process;
         }
       });
@@ -362,15 +287,6 @@ export default {
     delItem(index) {
       this.eTableObj.delItem(index);
     },
-    //获取检验图片
-    // getCheckImgs(id) {
-    //   getBillFile({ OwnerId: id }).then((res) => {
-    //     console.log(res);
-    //     this.Images = res.Items.map((item) => {
-    //       return item.FileUrl;
-    //     });
-    //   });
-    // },
 
     changeValue(e, row, cb) {
       if (!e) {
@@ -395,7 +311,6 @@ export default {
           export2Excel;
         })
       );
-      console.log(arr);
       this.exportTemplateData.checkedFields = arr;
       export2Excel(this.exportTemplateData);
     },
@@ -437,21 +352,12 @@ export default {
           })
           this.ruleForm.BillFiles = this.BillFiles;
           this.ruleForm.Images = this.Images;
-          // this.formObj.form.Reviewer = JSON.stringify(
-          //     this.formObj.form.Reviewer
-          //   );
           this.eTableObj.validate((valid1) => {
             let saveArr = Object.assign(
               {},
               this.ruleForm,
               this.formObj.form
-              // {
-              //   Reviewer: JSON.stringify(this.formObj.form.Reviewer),
-              // }
             );
-            console.log(saveArr);
-            // saveArr.AbnormalCause = saveArr.AbnormalCause.toString();
-            // saveArr.AbnormalCauseItem = saveArr.AbnormalCauseItem.toString();
             if (valid1) {
               qc_process_check_save(saveArr).then((res) => {
                 let TagName = {
@@ -472,36 +378,9 @@ export default {
       this.BillFiles = fileData;
     },
   },
-
-  // watch: {
-  //   "formObj.form.AbnormalCause": {
-  //     handler(n, o) {
-  //       console.log(n, o, this.ConfigDataList);
-  //       let arr = [];
-  //       let arrItem = [];
-  //       if (n.length > 0) {
-  //         n.forEach((item) => {
-  //           arr = [...this.ConfigDataList[item], ...arr];
-  //         });
-  //       } else {
-  //         arr = [];
-  //       }
-
-  //       console.log(arr);
-  //       arr.forEach((item) => {
-  //         arrItem.push({
-  //           value: item,
-  //           label: item,
-  //         });
-  //       });
-  //       this.formObj.props.formSchema[9].options.list = arrItem;
-  //     },
-  //   },
-  // },
   watch: {
     "formObj.form.SubmittedForInspectionQty": {
       handler(n, o) {
-        console.log(n, o);
         this.formObj.form.InspectionQty = n;
       },
     },
@@ -534,7 +413,6 @@ export default {
   margin-right: 10px;
   width: 120px;
   height: 120px;
-  // background-color: pink;
 }
 .items-details-Img-error {
   background-color: rgb(231, 231, 231);
@@ -544,7 +422,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    // color: rgb(161, 161, 161);
     .error-icon {
       color: rgb(161, 161, 161);
       font-size: 19px;
