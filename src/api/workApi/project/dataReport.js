@@ -47,3 +47,11 @@ export function project_task_weekly_dashboard(data) {
     loading: true,
   });
 }
+// 项目任务日计划完成率
+export function daily_plan_achievement_rate(data) {
+  return request({
+    url: "/data_report/daily_plan_achievement_rate",
+    method: "post",
+    data,
+  })
+}

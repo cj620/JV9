@@ -186,6 +186,15 @@ const design = [
     path: "De_DesignWeeklyDashboard",
     title: i18n.t("menu.De_DesignWeeklyDashboard"),
   },
+  // 设计计划达成率
+  {
+    key: "De_DesignPlanAchievementRate",
+    component: () => import("@/views/workModule/design/designPlanAchievementRate"),
+    Parent: "De_Design",
+    name: "De_DesignPlanAchievementRate",
+    path: "De_DesignPlanAchievementRate",
+    title: i18n.t("menu.De_DesignPlanAchievementRate"),
+  }
 ];
 
 export default design;

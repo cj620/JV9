@@ -85,6 +85,7 @@ const ja = {
     De_DesignTaskItemInspection: "設計タスク点検詳細",
     De_DesignDelayedTasks: "延期設計タスク",
     De_DesignWeeklyDashboard: "タスク週カンバンの設計",
+    De_DesignPlanAchievementRate: "設計計画達成率",
     Pa_Program: "プログラミング",
     Pa_ProgramTask: "プログラミングタスク",
     Pa_ProgramProducingTask: "プログラミング加工タスク",
@@ -1137,6 +1138,9 @@ const ja = {
     Ge_ReasonForNotAchievingThePlan1: "計画未達成の理由（プログラミング）",
     Ge_ReasonForNotAchievingThePlan2: "計画未達成事由（計画エンジニア）",
     Ge_IsSubmit: "コミットするかどうか",
+    Ge_TotalPlannedQuantity: "計画合計",
+    Ge_CompletedQuantity: "計画完了数",
+    Ge_AchievementRate: "累計達成率",
     Ge_SelectedItems: {
       str1: "",
       str2: "つのデータが選択されました",

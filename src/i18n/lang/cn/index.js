@@ -85,6 +85,7 @@ const cn = {
     De_DesignTaskItemInspection: "设计任务点检",
     De_DesignDelayedTasks: "延期设计任务",
     De_DesignWeeklyDashboard: "设计任务周看板",
+    De_DesignPlanAchievementRate: "设计计划达成率",
     Pa_Program: "编程",
     Pa_ProgramTask: "编程任务",
     Pa_ProgramProducingTask: "编程加工任务",
@@ -1128,6 +1129,9 @@ const cn = {
     Ge_ReasonForNotAchievingThePlan1: "未达成计划原因（编程）",
     Ge_ReasonForNotAchievingThePlan2: "未达成计划原因（计划工程师）",
     Ge_IsSubmit: "是否提交",
+    Ge_TotalPlannedQuantity: "计划总数",
+    Ge_CompletedQuantity: "计划完成数",
+    Ge_AchievementRate: "累计达成率",
     Ge_SelectedItems: {
       str1: "已选择",
       str2: "条数据",

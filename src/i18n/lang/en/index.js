@@ -85,6 +85,7 @@ const en = {
     De_DesignTaskItemInspection: "Design Task Item Inspection",
     De_DesignDelayedTasks: "Delayed Design Tasks",
     De_DesignWeeklyDashboard: "Design Weekly Dashboard",
+    De_DesignPlanAchievementRate: "Design Plan Achievement Rate",
     Pa_Program: "Program",
     Pa_ProgramTask: "Program Task",
     Pa_ProgramProducingTask: "Program Producing Task",
@@ -1141,6 +1142,9 @@ const en = {
     Ge_ReasonForNotAchievingThePlan1: "Reason for not achieving the plan (program)",
     Ge_ReasonForNotAchievingThePlan2: "Reason for not achieving the plan (Planning Engineer)",
     Ge_IsSubmit: "Is Submit",
+    Ge_TotalPlannedQuantity: "Total Planned Quantity",
+    Ge_CompletedQuantity: "Completed Quantity",
+    Ge_AchievementRate: "Achievement Rate",
     Ge_SelectedItems: {
       str1: "",
       str2: "pieces of data have been selected",
