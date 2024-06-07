@@ -239,6 +239,9 @@ export default {
     ToHoursSummary() {
       this.$router.push({
         name: "De_DesignTask_PersonnelHoursSummary",
+        query: {
+          ProcessType: "Design",
+        },
       });
     },
   },

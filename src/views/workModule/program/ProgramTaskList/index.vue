@@ -4,17 +4,18 @@
       <el-button size="mini" @click="toRecord">
         {{ $t("project.Pro_TaskRecord") }}
       </el-button>
+      <el-button size="mini" @click="ToHoursSummary"> 工时汇总 </el-button>
       <el-badge
         v-if="DelayCount && DelayCount !== 0"
         :value="DelayCount"
         class="button-badge"
       >
         <el-button size="mini" @click="delayedTasks">
-          {{ $t('project.Pro_DelayedTasks') }}
+          {{ $t("project.Pro_DelayedTasks") }}
         </el-button>
       </el-badge>
       <el-button v-else size="mini" @click="delayedTasks">
-        {{ $t('project.Pro_DelayedTasks') }}
+        {{ $t("project.Pro_DelayedTasks") }}
       </el-button>
     </div>
     <!--  设计任务明细表格 -->
@@ -27,16 +28,16 @@
       <template #ItemPlanEnd="{ record }">
         {{ record }}{{ IsDelay(record) }}
       </template>
-<!--      <Action-->
-<!--        size="mini"-->
-<!--        slot="btn-list"-->
-<!--        :actions="[-->
-<!--          {-->
-<!--            label: $t('project.Pro_DelayedTasks'),-->
-<!--            confirm: delayedTasks,-->
-<!--          },-->
-<!--        ]"-->
-<!--      ></Action>-->
+      <!--      <Action-->
+      <!--        size="mini"-->
+      <!--        slot="btn-list"-->
+      <!--        :actions="[-->
+      <!--          {-->
+      <!--            label: $t('project.Pro_DelayedTasks'),-->
+      <!--            confirm: delayedTasks,-->
+      <!--          },-->
+      <!--        ]"-->
+      <!--      ></Action>-->
       <!-- operation操作列 -->
       <template #operation="{ row }">
         <TableAction
@@ -138,8 +139,8 @@ export default {
       };
     },
   },
-  data(){
-    return{
+  data() {
+    return {
       tableObj: {},
       type: "add",
       distributionTaskDialogFormVisible: false,
@@ -148,11 +149,11 @@ export default {
       TaskData: {},
       transferData: {},
       viewSubtasksTableObj: {},
-      tableTitle:i18n.t('menu.Pa_ProgramTaskList'),
-      ProcessType:'Program',
+      tableTitle: i18n.t("menu.Pa_ProgramTaskList"),
+      ProcessType: "Program",
       recordRouteName: "ProgramTask_Record",
       DelayCount: null,
-    }
+    };
   },
   created() {
     // 创建表格实例
@@ -174,7 +175,7 @@ export default {
         CurrentPage: 1,
       }).then((res) => {
         this.DelayCount = res.Count;
-      })
+      });
     },
     toRecord() {
       this.$router.push({
@@ -235,16 +236,24 @@ export default {
         this.getSubData();
       });
     },
+    ToHoursSummary() {
+      this.$router.push({
+        name: "De_DesignTask_PersonnelHoursSummary",
+        query: {
+          ProcessType: "Program",
+        },
+      });
+    },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .custom-button {
-  position:absolute;
+  position: absolute;
   height: 45px;
-  display:flex;
+  display: flex;
   align-items: center;
-  right: 220px
+  right: 220px;
 }
 ::v-deep .button-badge .el-badge__content {
   height: 12px;

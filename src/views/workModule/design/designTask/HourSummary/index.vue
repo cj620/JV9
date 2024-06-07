@@ -43,26 +43,31 @@ export default {
   },
   async created() {
     this.tableObj = new Table();
-   await this.GetDeptData()
+    await this.GetDeptData();
     this.workRecordDetailTableObj = new WorkRecordDetailTable();
-
+    this.tableObj.formObj.form.ProcessType = this.$route.query.ProcessType;
     this.tableObj.getData();
   },
   methods: {
     //获取部门数据
-    async  GetDeptData(){
-      await  getConfigKey({ConfigKey:'DefaultProductionDepartment'}).then(res=>{
-        console.log(res.ConfigValue,res,565656)
-        console.log(JSON.parse(res.ConfigValue),565656)
+    async GetDeptData() {
+      await getConfigKey({ ConfigKey: "DefaultProductionDepartment" }).then(
+        (res) => {
+          console.log(res.ConfigValue, res, 565656);
+          console.log(JSON.parse(res.ConfigValue), 565656);
 
-        this.tableObj.formObj.form.DepartmentNames=JSON.parse(res.ConfigValue)
-      })
+          this.tableObj.formObj.form.DepartmentNames = JSON.parse(
+            res.ConfigValue
+          );
+        }
+      );
     },
     checkDetail(row) {
       this.workRecordDetailTableObj.formObj.setForm({
         StartDate: this.tableObj.formObj.form.StartDate,
         EndDate: this.tableObj.formObj.form.EndDate,
         Worker: row.Worker,
+        ProcessType: this.tableObj.formObj.form.ProcessType,
       });
       this.workRecordDetailTableObj.getData();
       this.dialogVisible = true;

@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-12-07 13:10:54
- * @LastEditTime: 2024-06-07 13:22:09
+ * @LastEditTime: 2024-06-07 13:42:27
  * @Description:
  */
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
@@ -12,6 +12,7 @@ import {
 import { department_tile_get_all } from "@/api/basicApi/systemSettings/department";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { timeFormat } from "@/jv_doc/utils/time";
+import { processTypeEnum, enumToList } from "@/enum/workModule";
 import {
   ProcessingResult,
   ProductionType,
@@ -103,10 +104,13 @@ export const formSchema = [
   },
   {
     prop: "ProcessType",
-    label: "",
-    cpn: "Input",
-    default: 0,
+    label: "工序类型",
+    cpn: "FormSelect",
+    // default: "Design",
     hidden: true,
+    options: {
+      list: enumToList(processTypeEnum),
+    },
   },
 ];
 class WorkRecordApi extends TableAPI {
@@ -145,10 +149,11 @@ export class WorkRecordDetailTable extends BaseTable {
         },
         {
           prop: "ProcessType",
-          label: "",
-          cpn: "Input",
-          default: 0,
-          hidden: true,
+          label: "工序类型",
+          cpn: "FormSelect",
+          options: {
+            list: enumToList(processTypeEnum),
+          },
         },
       ],
       rowId: "Id",

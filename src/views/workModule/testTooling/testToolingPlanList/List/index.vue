@@ -4,17 +4,19 @@
       <el-button size="mini" @click="toRecord">
         {{ $t("project.Pro_TaskRecord") }}
       </el-button>
+      <el-button size="mini" @click="ToHoursSummary"> 工时汇总 </el-button>
+
       <el-badge
         v-if="DelayCount && DelayCount !== 0"
         :value="DelayCount"
         class="button-badge"
       >
         <el-button size="mini" @click="delayedTasks">
-          {{ $t('project.Pro_DelayedTasks') }}
+          {{ $t("project.Pro_DelayedTasks") }}
         </el-button>
       </el-badge>
       <el-button v-else size="mini" @click="delayedTasks">
-        {{ $t('project.Pro_DelayedTasks') }}
+        {{ $t("project.Pro_DelayedTasks") }}
       </el-button>
     </div>
     <JvTable ref="BillTable" :table-obj="tableObj">
@@ -33,7 +35,7 @@
               confirm: startTrial.bind(null, row),
               disabled: row.ItemState !== 'NotStarted',
             },
-                        {
+            {
               label: $t('project.Pro_DistributionTask'),
               confirm: distributionTask.bind(null, row),
               disabled: row.ItemState === 'Completed' || row.ParentId !== 0,
@@ -80,7 +82,7 @@ import { taskTypeEnum } from "@/enum/workModule";
 import {
   item_delay_list,
   project_task_delete_item,
-  project_task_get_children_item
+  project_task_get_children_item,
 } from "@/api/workApi/project/projectTask";
 import TaskState from "@/components/JVInternal/TaskState/index.vue";
 
@@ -95,7 +97,7 @@ export default {
       recordRouteName: "TestToolingTask_Record",
       DelayCount: null,
       viewSubtasksDialogVisible: false,
-    }
+    };
   },
   created() {
     this.tableObj = new Table();
@@ -112,7 +114,7 @@ export default {
         CurrentPage: 1,
       }).then((res) => {
         this.DelayCount = res.Count;
-      })
+      });
     },
     toRecord() {
       this.$router.push({
@@ -128,7 +130,7 @@ export default {
       this.$router.push({
         name: "Tt_TestToolingTask_Add",
         query: row,
-      })
+      });
     },
     //分发任务
     distributionTask(row) {
@@ -160,15 +162,23 @@ export default {
         this.getSubData();
       });
     },
-  }
-}
+    ToHoursSummary() {
+      this.$router.push({
+        name: "De_DesignTask_PersonnelHoursSummary",
+        query: {
+          ProcessType: "TrialTooling",
+        },
+      });
+    },
+  },
+};
 </script>
 <style scoped lang="scss">
 .custom-button {
-  position:absolute;
+  position: absolute;
   height: 45px;
-  display:flex;
+  display: flex;
   align-items: center;
-  right: 220px
+  right: 220px;
 }
 </style>
