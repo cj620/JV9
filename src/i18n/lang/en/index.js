@@ -1436,6 +1436,9 @@ const en = {
     Qc_Size: "Size",
     Qc_Exterior: "Exterior",
     Qc_Other: "Others",
+    Qc_TheQuantitySubmittedShallNotExceedTheProcessingQuantity: "The quantity submitted shall not exceed the processing quantity",
+    Qc_TheQuantityForInspectionShallNotExceedTheSubmittedQuantity: "The quantity for inspection shall not exceed the submitted quantity",
+    Qc_TheQuantityUnqualifiedShallNotExceedTheInspectionQuantity: "The quantity unqualified shall not exceed the inspection quantity",
   },
   device: {
     De_Repair: "Repair",

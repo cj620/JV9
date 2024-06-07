@@ -133,6 +133,7 @@ export default {
       BillFiles: [],
       StateList: enumToList(StateEnum),
       input: "",
+      workQuantity: 0,
       ruleForm: {
         BillId: "",
         BillGui: "",
@@ -272,6 +273,7 @@ export default {
     //获取检验数据
     GetProcessCheckData(e) {
       qc_process_check_get_relevant_info({ BillId: e }).then((res) => {
+        this.workQuantity = res.Quantity;
         this.formObj.form.PrTaskBillId = res.PrTaskBillId;
         this.formObj.form.ItemId = res.ItemId;
         const str = JSON.parse(JSON.stringify(res)).Process.pop();
@@ -352,24 +354,35 @@ export default {
           })
           this.ruleForm.BillFiles = this.BillFiles;
           this.ruleForm.Images = this.Images;
-          this.eTableObj.validate((valid1) => {
-            let saveArr = Object.assign(
-              {},
-              this.ruleForm,
-              this.formObj.form
-            );
-            if (valid1) {
-              qc_process_check_save(saveArr).then((res) => {
-                let TagName = {
-                  path: "/quality/Qc_ProcessCheck_Detail",
-                  name: `Qc_ProcessCheck_Detail`,
-                  query: { BillId: res },
-                  fullPath: "/quality/Qc_ProcessCheck_Detail",
-                };
-                closeTag(this.current, TagName);
-              });
-            }
-          });
+
+          if (this.formObj.form.SubmittedForInspectionQty > this.workQuantity) {
+            this.$message.error(`
+            ${this.$t('quality.Qc_TheQuantitySubmittedShallNotExceedTheProcessingQuantity')}
+            : ${this.workQuantity}`);
+          } else if (this.formObj.form.InspectionQty > this.formObj.form.SubmittedForInspectionQty) {
+            this.$message.error(`${this.$t('quality.Qc_TheQuantityForInspectionShallNotExceedTheSubmittedQuantity')}`);
+          } else if (this.formObj.form.UnqualifiedQty > this.formObj.form.InspectionQty) {
+            this.$message.error(`${this.$t('quality.Qc_TheQuantityUnqualifiedShallNotExceedTheInspectionQuantity')}`);
+          } else {
+            this.eTableObj.validate((valid1) => {
+              let saveArr = Object.assign(
+                {},
+                this.ruleForm,
+                this.formObj.form
+              );
+              if (valid1) {
+                qc_process_check_save(saveArr).then((res) => {
+                  let TagName = {
+                    path: "/quality/Qc_ProcessCheck_Detail",
+                    name: `Qc_ProcessCheck_Detail`,
+                    query: { BillId: res },
+                    fullPath: "/quality/Qc_ProcessCheck_Detail",
+                  };
+                  closeTag(this.current, TagName);
+                });
+              }
+            });
+          }
         }
       });
     },

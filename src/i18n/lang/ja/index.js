@@ -1430,6 +1430,9 @@ const ja = {
     Qc_Size: "寸法すんぽう",
     Qc_Exterior: "外観",
     Qc_Other: "その他",
+    Qc_TheQuantitySubmittedShallNotExceedTheProcessingQuantity: "提出数量は加工数量より大きくてはならない",
+    Qc_TheQuantityForInspectionShallNotExceedTheSubmittedQuantity: "検査数量は提出数量より大きくてはならない",
+    Qc_TheQuantityUnqualifiedShallNotExceedTheInspectionQuantity: "不合格数量は検査数量より大きくてはならない",
   },
   device: {
     De_Repair: "しゅうりょう",

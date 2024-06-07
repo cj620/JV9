@@ -71,6 +71,7 @@ export default {
       eTableObj: {},
       ConfigDataList: {},
       PrTaskBillIdKeyword: "",
+      workQuantity: 0,
       ProcessData: [],
       BillFiles: [],
       StateList: enumToList(StateEnum),
@@ -135,6 +136,7 @@ export default {
     //获取检验数据
     GetProcessCheckData(e) {
       getProductionTask({ BillId: e }).then((res) => {
+        this.workQuantity = res.Quantity
         this.formObj.form.PrTaskBillId = res.BillId;
         let arr = [];
 
@@ -184,34 +186,44 @@ export default {
             return billItems;
           });
           this.ruleForm.BillItems = arr3;
-
-          this.eTableObj.validate((valid1) => {
-            let saveArr = Object.assign(
-              {},
-              this.ruleForm,
-              this.formObj.form,
-              {
-                Analyst: this.formObj.form.Analyst,
-              },
-              {
-                PersonInCharge: this.formObj.form.PersonInCharge,
-              },
-              {
-                ReworkProcess: this.formObj.form.ReworkProcess.toString(),
+          console.log(this.formObj.form)
+          if (this.formObj.form.SubmittedForInspectionQty > this.workQuantity) {
+            this.$message.error(`
+            ${this.$t('quality.Qc_TheQuantitySubmittedShallNotExceedTheProcessingQuantity')}
+            : ${this.workQuantity}`);
+          } else if (this.formObj.form.InspectionQty > this.formObj.form.SubmittedForInspectionQty) {
+            this.$message.error(`${this.$t('quality.Qc_TheQuantityForInspectionShallNotExceedTheSubmittedQuantity')}`);
+          } else if (this.formObj.form.UnqualifiedQty > this.formObj.form.InspectionQty) {
+            this.$message.error(`${this.$t('quality.Qc_TheQuantityUnqualifiedShallNotExceedTheInspectionQuantity')}`);
+          } else {
+            this.eTableObj.validate((valid1) => {
+              let saveArr = Object.assign(
+                {},
+                this.ruleForm,
+                this.formObj.form,
+                {
+                  Analyst: this.formObj.form.Analyst,
+                },
+                {
+                  PersonInCharge: this.formObj.form.PersonInCharge,
+                },
+                {
+                  ReworkProcess: this.formObj.form.ReworkProcess.toString(),
+                }
+              );
+              if (valid1) {
+                qc_finished_product_save(saveArr).then((res) => {
+                  let TagName = {
+                    path: "/quality/Qc_FinishedProduct_Detail",
+                    name: `Qc_FinishedProduct_Detail`,
+                    query: { BillId: res },
+                    fullPath: "/quality/Qc_FinishedProduct_Detail",
+                  };
+                  closeTag(this.current, TagName);
+                });
               }
-            );
-            if (valid1) {
-              qc_finished_product_save(saveArr).then((res) => {
-                let TagName = {
-                  path: "/quality/Qc_FinishedProduct_Detail",
-                  name: `Qc_FinishedProduct_Detail`,
-                  query: { BillId: res },
-                  fullPath: "/quality/Qc_FinishedProduct_Detail",
-                };
-                closeTag(this.current, TagName);
-              });
-            }
-          });
+            });
+          }
         }
       });
     },

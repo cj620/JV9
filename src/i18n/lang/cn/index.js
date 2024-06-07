@@ -1420,6 +1420,9 @@ const cn = {
     Qc_Size: "尺寸",
     Qc_Exterior: "外观",
     Qc_Other: "其它",
+    Qc_TheQuantitySubmittedShallNotExceedTheProcessingQuantity: "送检数量不得大于加工数量",
+    Qc_TheQuantityForInspectionShallNotExceedTheSubmittedQuantity: "检验数量不得大于送检数量",
+    Qc_TheQuantityUnqualifiedShallNotExceedTheInspectionQuantity: "不合格数量不得大于检验数量",
   },
   device: {
     De_Repair: "报修",

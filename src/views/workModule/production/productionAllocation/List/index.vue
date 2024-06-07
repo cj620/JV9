@@ -302,7 +302,8 @@ export default {
     },
     // 添加到已派工工序
     handleAddAllocated(e){
-      // console.log('未派工添加到已派工:::', e, this.processList1)
+      console.log('未派工添加到已派工:::', this.processList1)
+      // this.confirmSequence(e.newIndex)
       const obj = {
         TaskProcessId: this.processList1[e.newIndex].Id,
         PlanStart: this.processList1[e.newIndex].PlanStart,
@@ -313,7 +314,8 @@ export default {
       this.editDevice(obj);
     },
     handleUpdate(e) {
-      // console.log('已派工内部排序:::', e, this.processList1)
+      console.log('已派工内部排序:::', this.processList1)
+      // this.confirmSequence(e.newIndex)
     },
     // 添加到未派工工序
     handleAddUnallocated(e){
@@ -325,6 +327,43 @@ export default {
         IsModifyDate: true,
       }
       this.editDevice(obj);
+    },
+    confirmSequence(e) {
+      this.calculateDifference(1,1.1)
+      if (e === 0) {
+        if (this.processList1.length > 1) {
+          this.processList1[0].EquipmentProcessingSequence = (this.processList1[1].EquipmentProcessingSequence) / 2;
+        } else {
+          this.processList1[0].EquipmentProcessingSequence = 1;
+        }
+        console.log('排在头部', e, this.processList1.length)
+      } else if (e !== 0 && e + 1 >= this.processList1.length) {
+        this.processList1[e].EquipmentProcessingSequence = this.processList1[e-1].EquipmentProcessingSequence + 1;
+        console.log('排在末尾', e, this.processList1.length)
+      } else {
+        const num = this.processList1[e+1].EquipmentProcessingSequence - this.processList1[e-1].EquipmentProcessingSequence;
+
+        console.log('排在中间', e, this.processList1.length)
+      }
+    },
+    calculateDifference(a, b) {
+      const factor = Math.pow(10, 10);
+      let diff = Math.round((b * factor) - (a * factor)) / factor;
+      let result = 0;
+      let threshold = 10;
+
+      while (diff > 0) {
+        if (diff > threshold) {
+          console.log(diff, threshold)
+          result = threshold;
+          break;
+        } else {
+          threshold /= 10;
+          result = threshold;
+        }
+      }
+
+      console.log('result', a+result)
     },
     // 设备更改
     editDevice(e) {
@@ -461,10 +500,6 @@ export default {
         padding: 5px;
         overflow-y: auto;
         overflow-x: hidden;
-        //&-item {
-        //  height: 80px;
-        //  width: 100%;
-        //}
       }
     }
   }
