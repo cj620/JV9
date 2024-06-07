@@ -238,6 +238,7 @@ export default {
         CurrentPage: 1,
         Devices: [e],
         PageSize: 99,
+        SortOrder: 1, // 排序方式
       }).then((res) => {
         this.processList1 = res.Items[0].filter(item => item.State !== 'Processing')
       })
@@ -297,25 +298,35 @@ export default {
         PlanEnd: e.PlanEnd,
         DeviceName: this.selectedDeviceNo,
         IsModifyDate: true,
+        DeviceProcessingSequence: this.processList1[this.processList1.length - 1].DeviceProcessingSequence + 1,
       }
       this.editDevice(obj);
     },
     // 添加到已派工工序
     handleAddAllocated(e){
-      console.log('未派工添加到已派工:::', this.processList1)
-      // this.confirmSequence(e.newIndex)
       const obj = {
         TaskProcessId: this.processList1[e.newIndex].Id,
         PlanStart: this.processList1[e.newIndex].PlanStart,
         PlanEnd: this.processList1[e.newIndex].PlanEnd,
         DeviceName: this.selectedDeviceNo,
         IsModifyDate: true,
+        DeviceProcessingSequence: this.confirmSequence(e.newIndex)
       }
       this.editDevice(obj);
     },
+    // 已派工内部调整顺序
     handleUpdate(e) {
-      console.log('已派工内部排序:::', this.processList1)
-      // this.confirmSequence(e.newIndex)
+      // 鼠标拖至右下时有e.newIndex = this.processList1.length，做处理
+      const newIndex = (e.newIndex === this.processList1.length) ? e.newIndex - 1 : e.newIndex;
+      const obj = {
+        TaskProcessId: this.processList1[newIndex].Id,
+        PlanStart: this.processList1[newIndex].PlanStart,
+        PlanEnd: this.processList1[newIndex].PlanEnd,
+        DeviceName: this.selectedDeviceNo,
+        IsModifyDate: true,
+        DeviceProcessingSequence: this.confirmSequence(newIndex)
+      }
+      this.editDevice(obj);
     },
     // 添加到未派工工序
     handleAddUnallocated(e){
@@ -329,32 +340,31 @@ export default {
       this.editDevice(obj);
     },
     confirmSequence(e) {
-      this.calculateDifference(1,1.1)
+      const length = this.processList1.length;
+      let result = 0;
       if (e === 0) {
-        if (this.processList1.length > 1) {
-          this.processList1[0].EquipmentProcessingSequence = (this.processList1[1].EquipmentProcessingSequence) / 2;
+        if (length > 1) {
+          // 排在头部，原工序不为空
+          result = (this.processList1[1].DeviceProcessingSequence) / 2;
         } else {
-          this.processList1[0].EquipmentProcessingSequence = 1;
+          // 排在头部，原工序为空
+          result = 1;
         }
-        console.log('排在头部', e, this.processList1.length)
-      } else if (e !== 0 && e + 1 >= this.processList1.length) {
-        this.processList1[e].EquipmentProcessingSequence = this.processList1[e-1].EquipmentProcessingSequence + 1;
-        console.log('排在末尾', e, this.processList1.length)
+      } else if (e + 1 === length) {
+        // 排在末尾
+        result = this.processList1[e - 1].DeviceProcessingSequence + 1;
       } else {
-        const num = this.processList1[e+1].EquipmentProcessingSequence - this.processList1[e-1].EquipmentProcessingSequence;
-
-        console.log('排在中间', e, this.processList1.length)
+        // 排在中间
+        result = this.calculateDifference(this.processList1[e-1].DeviceProcessingSequence,this.processList1[e+1].DeviceProcessingSequence)
       }
+      return result
     },
     calculateDifference(a, b) {
-      const factor = Math.pow(10, 10);
-      let diff = Math.round((b * factor) - (a * factor)) / factor;
+      let diff = this.newCalculate(b, a, 'reduce')
       let result = 0;
-      let threshold = 10;
-
+      let threshold = Math.pow(10, 9);
       while (diff > 0) {
         if (diff > threshold) {
-          console.log(diff, threshold)
           result = threshold;
           break;
         } else {
@@ -362,14 +372,24 @@ export default {
           result = threshold;
         }
       }
-
-      console.log('result', a+result)
+      return this.newCalculate(a, result, 'plus')
+    },
+    newCalculate(num1 ,num2 ,type) {
+      const factor = Math.pow(10, 10);
+      if (type === 'plus') {
+        return Math.round((num1 * factor) + (num2 * factor)) / factor;
+      } else {
+        return Math.round((num1 * factor) - (num2 * factor)) / factor;
+      }
     },
     // 设备更改
     editDevice(e) {
       production_dispatching_change_device(e).then(() => {
         this.getProcessByDevice(this.selectedDeviceNo);
         this.editProcessDialogFormVisible = false;
+      }).catch(() => {
+        // 未更改成功时刷新列表以重置为拖拽前
+        this.getProcessByDevice(this.selectedDeviceNo);
       })
     },
     onMove(e) {
