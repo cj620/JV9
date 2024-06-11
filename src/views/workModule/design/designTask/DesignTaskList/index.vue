@@ -1,10 +1,15 @@
 <template>
   <PageWrapper :footer="false">
     <div class="custom-button">
-      <el-button size="mini" @click="toRecord">
+      <el-button size="mini" class="custom-button-items" @click="toRecord">
         {{ $t("project.Pro_TaskRecord") }}
       </el-button>
-      <el-button size="mini" @click="ToHoursSummary"> 工时汇总 </el-button>
+      <el-button size="mini" class="custom-button-items" @click="ToHoursSummary">
+        {{ $t("production.Pr_HoursSummary") }}
+      </el-button>
+      <el-button size="mini" class="custom-button-items" @click="ToAchievementRate">
+        {{ $t("Generality.Ge_PlanAchievementRate") }}
+      </el-button>
       <el-badge
         v-if="DelayCount && DelayCount !== 0"
         :value="DelayCount"
@@ -244,6 +249,11 @@ export default {
         },
       });
     },
+    ToAchievementRate() {
+      this.$router.push({
+        name: "De_DesignPlanAchievementRate",
+      });
+    }
   },
 };
 </script>
@@ -254,6 +264,9 @@ export default {
   display: flex;
   align-items: center;
   right: 220px;
+  .custom-button-items {
+    margin-left: 0;
+  }
 }
 ::v-deep .button-badge .el-badge__content {
   height: 12px;

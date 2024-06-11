@@ -107,7 +107,16 @@ const testTooling = [
     name: "Tt_TestToolingWeeklyDashboard",
     path: "tt_TestToolingWeeklyDashboard",
     title: i18n.t("menu.Tt_TestToolingWeeklyDashboard"),
-  }
+  },
+  // 试模计划达成率
+  {
+    key: "Tt_TestToolingPlanAchievementRate",
+    component: () => import("@/views/workModule/testTooling/testToolingPlanAchievementRate"),
+    Parent: "Tt_TestTooling",
+    name: "Tt_TestToolingPlanAchievementRate",
+    path: "tt_TestToolingPlanAchievementRate",
+    title: i18n.t("menu.As_AssyPlanAchievementRate"),
+  },
 ]
 
 export default testTooling;

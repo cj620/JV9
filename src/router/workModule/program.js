@@ -214,6 +214,15 @@ const program = [
     name: "Pa_ProgramWeeklyDashboard",
     path: "Pa_ProgramWeeklyDashboard",
     title: i18n.t("menu.Pa_ProgramWeeklyDashboard"),
+  },
+  // 编程计划达成率
+  {
+    key: "Pa_ProgramPlanAchievementRate",
+    component: () => import("@/views/workModule/program/programPlanAchievementRate"),
+    Parent: "Pa_Program",
+    name: "Pa_ProgramPlanAchievementRate",
+    path: "Pa_ProgramPlanAchievementRate",
+    title: i18n.t("menu.Pa_ProgramPlanAchievementRate"),
   }
 ];
 export default program;

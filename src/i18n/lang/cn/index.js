@@ -94,6 +94,7 @@ const cn = {
     Pa_ProgramTaskItemInspection: "编程任务点检",
     Pa_ProgramDelayedTasks: "延期编程任务",
     Pa_ProgramWeeklyDashboard: "编程任务周看板",
+    Pa_ProgramPlanAchievementRate: "编程计划达成率",
     Pa_ProgramProducingTaskItemInspection: "编程加工点检",
     Pu_Purchase: "采购",
     Pu_Requisition: "采购申请",
@@ -136,6 +137,7 @@ const cn = {
     As_AssyTaskItemInspection: "钳工任务点检",
     As_AssyDelayedTasks: "延期钳工任务",
     As_AssyWeeklyDashboard: "钳工任务周看板",
+    As_AssyPlanAchievementRate: "钳工计划达成率",
     Qc_Quality: "品质",
     Qc_ProductionCheck: "加工检验",
     Qc_FinishedProduct: "零件成品检验",
@@ -208,6 +210,7 @@ const cn = {
     Tt_TestToolingPlan: "试模计划",
     Tt_TestToolingPlanList: "试模计划列表",
     Tt_TestToolingWeeklyDashboard: "试模任务周看板",
+    Tt_TestToolingPlanAchievementRate: "试模计划达成率",
   },
   login: {
     l_LogIn: "登录",
@@ -1145,6 +1148,7 @@ const cn = {
     Ge_Friday: "周五",
     Ge_Saturday: "周六",
     Ge_Sunday: "周日",
+    Ge_PlanAchievementRate: "计划达成率",
   },
   //生产
   production: {

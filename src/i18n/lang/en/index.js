@@ -94,6 +94,7 @@ const en = {
     Pa_ProgramTaskItemInspection: "Program Task Item Inspection",
     Pa_ProgramDelayedTasks: "Delayed Program Tasks",
     Pa_ProgramWeeklyDashboard: "Program Weekly Dashboard",
+    Pa_ProgramPlanAchievementRate: "Program Plan Achievement Rate",
     Pa_ProgramProducingTaskItemInspection: "Program Producing Task Item Inspection",
     Pu_Purchase: "Purchase",
     Pu_Requisition: "Purchase requisition",
@@ -135,6 +136,7 @@ const en = {
     As_AssyTaskItemInspection: "Assy Task Item Inspection",
     As_AssyDelayedTasks: "Delayed Assy Tasks",
     As_AssyWeeklyDashboard: "Assy Weekly Dashboard",
+    As_AssyPlanAchievementRate: "Assy Plan Achievement Rate",
     Qc_Quality: "Quality",
     Qc_ProductionCheck: "Production Check",
     Qc_FinishedProduct: "Finished Product",
@@ -209,6 +211,7 @@ const en = {
     Tt_TestToolingPlan: "Test Tooling Plan",
     Tt_TestToolingPlanList: "Test Tooling Plan List",
     Tt_TestToolingWeeklyDashboard: "Test Tooling Weekly Dashboard",
+    Tt_TestToolingPlanAchievementRate: "Test Tooling Plan Achievement Rate",
   },
   login: {
     l_LogIn: "Log in",
@@ -1158,6 +1161,7 @@ const en = {
     Ge_Friday: "Friday",
     Ge_Saturday: "Saturday",
     Ge_Sunday: "Sunday",
+    Ge_PlanAchievementRate: "Plan Achievement Rate",
   },
   //生产
   production: {

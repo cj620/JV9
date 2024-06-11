@@ -94,6 +94,7 @@ const ja = {
     Pa_ProgramTaskItemInspection: "プログラミングタスク詳細点検",
     Pa_ProgramDelayedTasks: "延期プログラミングタスク",
     Pa_ProgramWeeklyDashboard: "プログラミングタスク週間カンバン",
+    Pa_ProgramPlanAchievementRate: "プログラミング計画達成率",
     Pa_ProgramProducingTaskItemInspection: "プログラミング加工タスク詳細点検",
     Pu_Purchase: "仕入れ",
     Pu_Requisition: "購買依頼",
@@ -136,6 +137,7 @@ const ja = {
     As_AssyTaskItemInspection: "クランプタスク詳細点検",
     As_AssyDelayedTasks: "延期クランプタスク",
     As_AssyWeeklyDashboard: "クランプタスク週カンバン",
+    As_AssyPlanAchievementRate: "クランプ計画達成率",
     Qc_Quality: "品質",
     Qc_ProductionCheck: "プロセスチェツク",
     Qc_FinishedProduct: "製品検査",
@@ -207,6 +209,7 @@ const ja = {
     Tt_TestToolingPlan: "モデル試験計画",
     Tt_TestToolingPlanList: "モデル試験計画リスト",
     Tt_TestToolingWeeklyDashboard: "モデル化タスク週カンバン",
+    Tt_TestToolingPlanAchievementRate: "試作計画達成率",
   },
   login: {
     l_LogIn: "ログイン",
@@ -1154,6 +1157,7 @@ const ja = {
     Ge_Friday: "金曜日",
     Ge_Saturday: "土曜日",
     Ge_Sunday: "日曜日",
+    Ge_PlanAchievementRate: "計画達成率",
   },
   //生产
   production: {
