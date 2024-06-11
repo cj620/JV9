@@ -1139,8 +1139,8 @@ const ja = {
     Ge_ReasonForNotAchievingThePlan2: "計画未達成事由（計画エンジニア）",
     Ge_IsSubmit: "コミットするかどうか",
     Ge_TotalPlannedQuantity: "計画合計",
-    Ge_CompletedQuantity: "計画完了数",
-    Ge_AchievementRate: "累計達成率",
+    Ge_CompletedQuantity: "完了数",
+    Ge_AchievementRate: "達成率",
     Ge_SelectedItems: {
       str1: "",
       str2: "つのデータが選択されました",

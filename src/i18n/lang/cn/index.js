@@ -1130,8 +1130,8 @@ const cn = {
     Ge_ReasonForNotAchievingThePlan2: "未达成计划原因（计划工程师）",
     Ge_IsSubmit: "是否提交",
     Ge_TotalPlannedQuantity: "计划总数",
-    Ge_CompletedQuantity: "计划完成数",
-    Ge_AchievementRate: "累计达成率",
+    Ge_CompletedQuantity: "完成数",
+    Ge_AchievementRate: "达成率",
     Ge_SelectedItems: {
       str1: "已选择",
       str2: "条数据",

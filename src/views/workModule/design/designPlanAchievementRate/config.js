@@ -31,7 +31,7 @@ export const tableConfig = [
   },
   {
     prop: "Worker",
-    label: i18n.t("setup.UserName"),
+    label: i18n.t("DataV.Da_Worker"),
   },
   {
     prop: "DepartmentName",
