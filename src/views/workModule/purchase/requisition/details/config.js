@@ -24,6 +24,11 @@ export const tableConfig = [
     prop: "ItemName",
     label: i18n.t("Generality.Ge_ItemName"),
   },
+  /*状态*/
+  {
+    prop: "State",
+    label: '状态',
+  },
   /*描述*/
   {
     prop: "Description",
@@ -53,21 +58,26 @@ export const tableConfig = [
   },
 ];
 export const detailConfig = [
+  /*提交人*/
   {
-    // 提交人
-    prop: "Submitter",
-    label: i18n.t("stockroom.St_Submitter"),
+    prop: "Applicant",
+    label: '申请人',
   },
+  /*部门*/
   {
-    // 部门
     prop: "Department",
-    label: i18n.t("Generality.Ge_Department"),
+    label: '申请部门',
   },
+  /*计划交期*/
   {
-    // 计划交期
-    prop: "DeliveryDate",
-    label: i18n.t("Generality.Ge_DeliveryDate"),
+    prop: "UsageDate",
+    label: '使用日期',
     filter: "date",
+  },
+  /*来源单据*/
+  {
+    prop: "RelationId",
+    label: '来源单据',
   },
   {
     // 制单人
