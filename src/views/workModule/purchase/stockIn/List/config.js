@@ -79,6 +79,16 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_Currency"),
     width: "95px",
   },
+  /*汇率*/
+  {
+    prop: "ExchangeRate",
+    label: '汇率',
+  },
+  /*来源单据*/
+  {
+    prop: "RelationId",
+    label: '来源单据',
+  },
   /*制单人*/
   {
     prop: "Creator",

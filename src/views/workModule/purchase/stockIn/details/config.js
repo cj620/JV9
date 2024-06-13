@@ -90,7 +90,21 @@ export const tableConfig = [
     align: "right",
     filter: "amount",
   },
-
+  /*其它费用*/
+  {
+    prop: "OtherExpenses",
+    label: '其它费用',
+  },
+  /*入库数量*/
+  {
+    prop: "ReturnQuantity",
+    label: i18n.t("Generality.Ge_ReturnQuantity"),
+    formCpn: "FormInput",
+    align: "right",
+    type: "number",
+    filter: "amount",
+    width: "100px",
+  },
   /*备注*/
   {
     prop: "Remarks",
@@ -104,9 +118,25 @@ export const detailConfig = [
     label: i18n.t("purchase.Pr_SupplierName"),
   },
   {
+    // 计划交期
+    prop: "DeliveryDate",
+    label: '交货日期',
+    filter: "date",
+  },
+  {
     // 币种
     prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
+  },
+  /*汇率*/
+  {
+    prop: "ExchangeRate",
+    label: '汇率',
+  },
+  /*来源单据*/
+  {
+    prop: "RelationId",
+    label: '来源单据',
   },
   /*仓库*/
   {
