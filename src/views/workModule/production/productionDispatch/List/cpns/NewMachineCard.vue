@@ -14,13 +14,15 @@
             </el-image>
         </div>
     </div>
-    <div class="machine-card-right" style="justify-content:space-evenly; width: calc(100% - 67px)">
+    <div class="machine-card-right machine-card-right-box">
       <div class="machine-message">
-        <i class="el-icon-setting"></i>
-        {{ cdata.Device }}
+        <i class="el-icon-setting" style="margin-right: 5px"></i>
+        <div style="text-indent: 1.4em">
+          {{ cdata.Device }}
+        </div>
       </div>
       <div class="machine-message">
-        <i class="el-icon-finished"></i>
+        <i class="el-icon-finished" style="margin-right: 5px"></i>
         {{ parseFloat(this.cdata.Efficency.toFixed(2)) }}%
       </div>
     </div>
@@ -50,11 +52,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .machine-card {
-  //width: 250px;
   width: 235px;
   height: 115px;
   padding: 5px 10px;
-  //height: 90%;
   background-color: orange;
   box-shadow: 1px 1px 3px #888888;
   border-radius: 5px;
@@ -66,12 +66,31 @@ export default {
     flex-direction: column;
     align-items: center;
   }
+  &-right-box{
+    justify-content:space-around;
+    width: calc(100% - 67px);
+    box-sizing: border-box;
+    padding: 10px 0;
+    position: relative;
+    .el-icon-setting{
+      position: absolute;
+    }
+  }
 }
 .machine-message {
   color: white;
   font-weight: bold;
-  height: 21px;
-  width: 100%;
+  min-height: 21px;
+  width: 150px;
   padding-left: 15px;
+  white-space: normal;
+  word-break: break-word;
+
+  display: -webkit-box; /* 将元素的子元素排列成一个垂直的盒子 */
+  -webkit-box-orient: vertical; /* 设置盒子方向为垂直 */
+  -webkit-line-clamp: 3; /* 限制显示的行数 */
+  overflow: hidden; /* 隐藏超出部分 */
+  text-overflow: ellipsis; /* 在末尾显示省略号 */
+  height: auto; /* 可选：设置高度，确保高度根据内容自动调整 */
 }
 </style>
