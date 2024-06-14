@@ -21,7 +21,16 @@ const testTooling = [
     path: "tt_TestToolingPlan",
     title: i18n.t("menu.Tt_TestToolingPlan"),
   },
-  // 试模任务列表
+  // 试模计划列表
+  {
+    key: "Tt_TestToolingPlanList",
+    component: () => import("@/views/workModule/testTooling/testToolingPlanList/List"),
+    Parent: "Tt_TestTooling",
+    name: "Tt_TestToolingPlanList",
+    path: "tt_TestToolingPlanList",
+    title: i18n.t("menu.Tt_TestToolingPlanList"),
+  },
+  // 试模任务
   {
     key: "Tt_TestToolingTask",
     component: () => import("@/views/workModule/testTooling/testToolingTask/List"),
@@ -30,7 +39,7 @@ const testTooling = [
     path: "tt_TestToolingTask",
     title: i18n.t("menu.Tt_TestToolingTask"),
   },
-  // 新增试模任务
+  // 新增试模列表
   {
     key: "Tt_TestToolingTask_Add",
     component: () => import("@/views/workModule/testTooling/testToolingTask/Add"),
@@ -61,6 +70,52 @@ const testTooling = [
     title:
       i18n.t("menu.Tt_TestToolingTask") + "  " + i18n.t("Generality.Ge_Edit"),
     hidden: true,
+  },
+  // 试模任务记录
+  {
+    key: "Tt_TestToolingTask_Record",
+    component: () => import("@/views/workModule/testTooling/testToolingPlan/TaskRecord"),
+    Parent: "Tt_TestTooling",
+    name: "TestToolingTask_Record",
+    path: "testToolingTask_Record",
+    title: i18n.t("menu.Tt_TestToolingTaskRecord"),
+    hidden: true,
+  },
+  // 分发试模任务
+  {
+    key: "Tt_TestToolingDistributeTask",
+    component: () => import("@/views/workModule/testTooling/testToolingPlan/DistributeTask"),
+    Parent: "Tt_TestTooling",
+    name: "Tt_TestToolingDistributeTask",
+    path: "tt_TestToolingDistributeTask",
+    title: i18n.t("project.Pro_DistributionTask"),
+  },
+  // 延期试模任务
+  {
+    key: "Tt_TestToolingDelayedTasks",
+    component: () => import("@/views/workModule/testTooling/testToolingPlanList/testToolingDelayedTasks"),
+    Parent: "Tt_TestTooling",
+    name: "Tt_TestToolingDelayedTasks",
+    path: "tt_TestToolingDelayedTasks",
+    title: i18n.t("menu.Tt_TestToolingDelayedTasks"),
+  },
+  // 试模任务周看板
+  {
+    key: "Tt_TestToolingWeeklyDashboard",
+    component: () => import("@/views/workModule/testTooling/testToolingWeeklyDashboard"),
+    Parent: "Tt_TestTooling",
+    name: "Tt_TestToolingWeeklyDashboard",
+    path: "tt_TestToolingWeeklyDashboard",
+    title: i18n.t("menu.Tt_TestToolingWeeklyDashboard"),
+  },
+  // 试模计划达成率
+  {
+    key: "Tt_TestToolingPlanAchievementRate",
+    component: () => import("@/views/workModule/testTooling/testToolingPlanAchievementRate"),
+    Parent: "Tt_TestTooling",
+    name: "Tt_TestToolingPlanAchievementRate",
+    path: "tt_TestToolingPlanAchievementRate",
+    title: i18n.t("menu.As_AssyPlanAchievementRate"),
   },
 ]
 

@@ -85,6 +85,7 @@ const ja = {
     De_DesignTaskItemInspection: "設計タスク点検詳細",
     De_DesignDelayedTasks: "延期設計タスク",
     De_DesignWeeklyDashboard: "タスク週カンバンの設計",
+    De_DesignPlanAchievementRate: "設計計画達成率",
     Pa_Program: "プログラミング",
     Pa_ProgramTask: "プログラミングタスク",
     Pa_ProgramProducingTask: "プログラミング加工タスク",
@@ -93,6 +94,7 @@ const ja = {
     Pa_ProgramTaskItemInspection: "プログラミングタスク詳細点検",
     Pa_ProgramDelayedTasks: "延期プログラミングタスク",
     Pa_ProgramWeeklyDashboard: "プログラミングタスク週間カンバン",
+    Pa_ProgramPlanAchievementRate: "プログラミング計画達成率",
     Pa_ProgramProducingTaskItemInspection: "プログラミング加工タスク詳細点検",
     Pu_Purchase: "仕入れ",
     Pu_Requisition: "購買依頼",
@@ -135,6 +137,7 @@ const ja = {
     As_AssyTaskItemInspection: "クランプタスク詳細点検",
     As_AssyDelayedTasks: "延期クランプタスク",
     As_AssyWeeklyDashboard: "クランプタスク週カンバン",
+    As_AssyPlanAchievementRate: "クランプ計画達成率",
     Qc_Quality: "品質",
     Qc_ProductionCheck: "プロセスチェツク",
     Qc_FinishedProduct: "製品検査",
@@ -201,7 +204,12 @@ const ja = {
     As_DeviceLedger: "設備台帳",
     Tt_TestTooling: "しけんがた",
     Tt_TestToolingTask: "モデル試験タスク",
+    Tt_TestToolingTaskRecord: "モデル試験タスク記録",
+    Tt_TestToolingDelayedTasks: "延期モデル試験タスク",
     Tt_TestToolingPlan: "モデル試験計画",
+    Tt_TestToolingPlanList: "モデル試験計画リスト",
+    Tt_TestToolingWeeklyDashboard: "モデル化タスク週カンバン",
+    Tt_TestToolingPlanAchievementRate: "試作計画達成率",
   },
   login: {
     l_LogIn: "ログイン",
@@ -1135,6 +1143,9 @@ const ja = {
     Ge_ReasonForNotAchievingThePlan1: "計画未達成の理由（プログラミング）",
     Ge_ReasonForNotAchievingThePlan2: "計画未達成事由（計画エンジニア）",
     Ge_IsSubmit: "コミットするかどうか",
+    Ge_TotalPlannedQuantity: "計画合計",
+    Ge_CompletedQuantity: "完了数",
+    Ge_AchievementRate: "達成率",
     Ge_SelectedItems: {
       str1: "",
       str2: "つのデータが選択されました",
@@ -1148,6 +1159,7 @@ const ja = {
     Ge_Friday: "金曜日",
     Ge_Saturday: "土曜日",
     Ge_Sunday: "日曜日",
+    Ge_PlanAchievementRate: "計画達成率",
   },
   //生产
   production: {
@@ -1428,6 +1440,9 @@ const ja = {
     Qc_Size: "寸法すんぽう",
     Qc_Exterior: "外観",
     Qc_Other: "その他",
+    Qc_TheQuantitySubmittedShallNotExceedTheProcessingQuantity: "提出数量は加工数量より大きくてはならない",
+    Qc_TheQuantityForInspectionShallNotExceedTheSubmittedQuantity: "検査数量は提出数量より大きくてはならない",
+    Qc_TheQuantityUnqualifiedShallNotExceedTheInspectionQuantity: "不合格数量は検査数量より大きくてはならない",
   },
   device: {
     De_Repair: "しゅうりょう",
@@ -1827,6 +1842,7 @@ const ja = {
     Project: "プロジェクト",
     Program: "プログラミング",
     Production: "せいさん",
+    TrialTooling: "しけんがた",
     Auto_create_pr_on_NSM_name:
       "非標準品目の購買依頼を自動的に作成できるかどうか",
     Auto_create_pr_on_NSM_desc:
@@ -1889,6 +1905,8 @@ const ja = {
     Suggest_overall_outsourcing_percentage: "全外注率の推奨",
     Email_push_configuration: "メールプッシュ設定",
     Project_task_report_work_inspection: "プロジェクトタスクの作業点検構成",
+    Trial_tooling_users_name: "パイロットユーザ",
+    Trial_tooling_users_desc: "試作タスクの展示者",
   },
 
   ...jaLocale,

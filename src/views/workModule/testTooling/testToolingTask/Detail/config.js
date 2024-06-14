@@ -96,7 +96,7 @@ export class Table extends BaseTable {
       tableSchema: tableConfig,
       tableHeaderShow: false,
       pagination: false,
-      height: "",
+      height: null,
       operationCol: false,
       chooseCol: false,
       // 打印模块标识

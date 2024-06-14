@@ -85,6 +85,7 @@ const en = {
     De_DesignTaskItemInspection: "Design Task Item Inspection",
     De_DesignDelayedTasks: "Delayed Design Tasks",
     De_DesignWeeklyDashboard: "Design Weekly Dashboard",
+    De_DesignPlanAchievementRate: "Design Plan Achievement Rate",
     Pa_Program: "Program",
     Pa_ProgramTask: "Program Task",
     Pa_ProgramProducingTask: "Program Producing Task",
@@ -93,6 +94,7 @@ const en = {
     Pa_ProgramTaskItemInspection: "Program Task Item Inspection",
     Pa_ProgramDelayedTasks: "Delayed Program Tasks",
     Pa_ProgramWeeklyDashboard: "Program Weekly Dashboard",
+    Pa_ProgramPlanAchievementRate: "Program Plan Achievement Rate",
     Pa_ProgramProducingTaskItemInspection: "Program Producing Task Item Inspection",
     Pu_Purchase: "Purchase",
     Pu_Requisition: "Purchase requisition",
@@ -134,6 +136,7 @@ const en = {
     As_AssyTaskItemInspection: "Assy Task Item Inspection",
     As_AssyDelayedTasks: "Delayed Assy Tasks",
     As_AssyWeeklyDashboard: "Assy Weekly Dashboard",
+    As_AssyPlanAchievementRate: "Assy Plan Achievement Rate",
     Qc_Quality: "Quality",
     Qc_ProductionCheck: "Production Check",
     Qc_FinishedProduct: "Finished Product",
@@ -203,7 +206,12 @@ const en = {
     As_DeviceLedger: "Device Ledger",
     Tt_TestTooling: "Test Tooling",
     Tt_TestToolingTask: "Test Tooling Task",
+    Tt_TestToolingTaskRecord: "Test Tooling Task Record",
+    Tt_TestToolingDelayedTasks: "Test Tooling Delayed Tasks",
     Tt_TestToolingPlan: "Test Tooling Plan",
+    Tt_TestToolingPlanList: "Test Tooling Plan List",
+    Tt_TestToolingWeeklyDashboard: "Test Tooling Weekly Dashboard",
+    Tt_TestToolingPlanAchievementRate: "Test Tooling Plan Achievement Rate",
   },
   login: {
     l_LogIn: "Log in",
@@ -1139,6 +1147,9 @@ const en = {
     Ge_ReasonForNotAchievingThePlan1: "Reason for not achieving the plan (program)",
     Ge_ReasonForNotAchievingThePlan2: "Reason for not achieving the plan (Planning Engineer)",
     Ge_IsSubmit: "Is Submit",
+    Ge_TotalPlannedQuantity: "Total Planned Quantity",
+    Ge_CompletedQuantity: "Completed Quantity",
+    Ge_AchievementRate: "Achievement Rate",
     Ge_SelectedItems: {
       str1: "",
       str2: "pieces of data have been selected",
@@ -1152,6 +1163,7 @@ const en = {
     Ge_Friday: "Friday",
     Ge_Saturday: "Saturday",
     Ge_Sunday: "Sunday",
+    Ge_PlanAchievementRate: "Plan Achievement Rate",
   },
   //生产
   production: {
@@ -1434,6 +1446,9 @@ const en = {
     Qc_Size: "Size",
     Qc_Exterior: "Exterior",
     Qc_Other: "Others",
+    Qc_TheQuantitySubmittedShallNotExceedTheProcessingQuantity: "The quantity submitted shall not exceed the processing quantity",
+    Qc_TheQuantityForInspectionShallNotExceedTheSubmittedQuantity: "The quantity for inspection shall not exceed the submitted quantity",
+    Qc_TheQuantityUnqualifiedShallNotExceedTheInspectionQuantity: "The quantity unqualified shall not exceed the inspection quantity",
   },
   device: {
     De_Repair: "Repair",
@@ -1832,6 +1847,7 @@ const en = {
     Project: "Project",
     Program: "Program",
     Production: "Production",
+    TrialTooling: "Trial Tooling",
     Auto_create_pr_on_NSM_name: "Auto create PR on non-standard material",
     Auto_create_pr_on_NSM_desc:
       "Auto create purchase application sheet on non-standard material",
@@ -1902,6 +1918,8 @@ const en = {
     Suggest_overall_outsourcing_percentage: "Suggest overall outsourcing percentage",
     Email_push_configuration: "Email push configuration",
     Project_task_report_work_inspection: "Project task report work inspection",
+    Trial_tooling_users_name: "Trial tooling users name",
+    Trial_tooling_users_desc: "Trial tooling users desc",
   },
   ...enLocale,
 };

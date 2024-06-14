@@ -103,6 +103,15 @@ const assy = [
     name: "As_AssyWeeklyDashboard",
     path: "As_AssyWeeklyDashboard",
     title: i18n.t("menu.As_AssyWeeklyDashboard"),
-  }
+  },
+  // 钳工计划达成率
+  {
+    key: "As_AssyPlanAchievementRate",
+    component: () => import("@/views/workModule/assy/assyPlanAchievementRate"),
+    Parent: "As_Assy",
+    name: "As_AssyPlanAchievementRate",
+    path: "As_AssyPlanAchievementRate",
+    title: i18n.t("menu.As_AssyPlanAchievementRate"),
+  },
 ]
 export default assy;

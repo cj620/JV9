@@ -71,9 +71,10 @@
               group="aa"
               Id="allocated"
               v-model="processList1"
-              animation="100"
+              :animation="100"
               ref="JvDraggableRef"
               @add="handleAddAllocated"
+              @update="handleUpdate"
               :onMove="onMove"
             >
               <template slot-scope="item">
@@ -99,7 +100,7 @@
               group="aa"
               Id="unallocated"
               v-model="processList2"
-              animation="100"
+              :animation="100"
               ref="JvDraggableRef1"
               @add="handleAddUnallocated"
             >
@@ -237,6 +238,7 @@ export default {
         CurrentPage: 1,
         Devices: [e],
         PageSize: 99,
+        SortOrder: 1, // 排序方式
       }).then((res) => {
         this.processList1 = res.Items[0].filter(item => item.State !== 'Processing')
       })
@@ -296,6 +298,7 @@ export default {
         PlanEnd: e.PlanEnd,
         DeviceName: this.selectedDeviceNo,
         IsModifyDate: true,
+        DeviceProcessingSequence: this.processList1[this.processList1.length - 1].DeviceProcessingSequence + 1,
       }
       this.editDevice(obj);
     },
@@ -307,6 +310,21 @@ export default {
         PlanEnd: this.processList1[e.newIndex].PlanEnd,
         DeviceName: this.selectedDeviceNo,
         IsModifyDate: true,
+        DeviceProcessingSequence: this.confirmSequence(e.newIndex)
+      }
+      this.editDevice(obj);
+    },
+    // 已派工内部调整顺序
+    handleUpdate(e) {
+      // 鼠标拖至右下时有e.newIndex = this.processList1.length，做处理
+      const newIndex = (e.newIndex === this.processList1.length) ? e.newIndex - 1 : e.newIndex;
+      const obj = {
+        TaskProcessId: this.processList1[newIndex].Id,
+        PlanStart: this.processList1[newIndex].PlanStart,
+        PlanEnd: this.processList1[newIndex].PlanEnd,
+        DeviceName: this.selectedDeviceNo,
+        IsModifyDate: true,
+        DeviceProcessingSequence: this.confirmSequence(newIndex)
       }
       this.editDevice(obj);
     },
@@ -321,11 +339,57 @@ export default {
       }
       this.editDevice(obj);
     },
+    confirmSequence(e) {
+      const length = this.processList1.length;
+      let result = 0;
+      if (e === 0) {
+        if (length > 1) {
+          // 排在头部，原工序不为空
+          result = (this.processList1[1].DeviceProcessingSequence) / 2;
+        } else {
+          // 排在头部，原工序为空
+          result = 1;
+        }
+      } else if (e + 1 === length) {
+        // 排在末尾
+        result = this.processList1[e - 1].DeviceProcessingSequence + 1;
+      } else {
+        // 排在中间
+        result = this.calculateDifference(this.processList1[e-1].DeviceProcessingSequence,this.processList1[e+1].DeviceProcessingSequence)
+      }
+      return result
+    },
+    calculateDifference(a, b) {
+      let diff = this.newCalculate(b, a, 'reduce')
+      let result = 0;
+      let threshold = Math.pow(10, 9);
+      while (diff > 0) {
+        if (diff > threshold) {
+          result = threshold;
+          break;
+        } else {
+          threshold /= 10;
+          result = threshold;
+        }
+      }
+      return this.newCalculate(a, result, 'plus')
+    },
+    newCalculate(num1 ,num2 ,type) {
+      const factor = Math.pow(10, 10);
+      if (type === 'plus') {
+        return Math.round((num1 * factor) + (num2 * factor)) / factor;
+      } else {
+        return Math.round((num1 * factor) - (num2 * factor)) / factor;
+      }
+    },
     // 设备更改
     editDevice(e) {
       production_dispatching_change_device(e).then(() => {
         this.getProcessByDevice(this.selectedDeviceNo);
         this.editProcessDialogFormVisible = false;
+      }).catch(() => {
+        // 未更改成功时刷新列表以重置为拖拽前
+        this.getProcessByDevice(this.selectedDeviceNo);
       })
     },
     onMove(e) {
@@ -456,10 +520,6 @@ export default {
         padding: 5px;
         overflow-y: auto;
         overflow-x: hidden;
-        //&-item {
-        //  height: 80px;
-        //  width: 100%;
-        //}
       }
     }
   }

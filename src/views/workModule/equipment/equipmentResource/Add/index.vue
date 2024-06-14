@@ -148,7 +148,7 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
-    this.GetTplData()
+    // this.GetTplData()
     this.formObj.formSchema[0].cpnProps.disabled=false
     this.formObj.formSchema[1].cpnProps.disabled=false
     this.ruleForm.DeviceCategory=this.machineCategory

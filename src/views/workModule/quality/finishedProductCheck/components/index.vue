@@ -10,9 +10,6 @@
     </JvBlock>
     <!-- 物料信息 -->
     <JvBlock :title="$t('Generality.Ge_ItemsInfo')">
-      <!-- <div slot="extra">
-        <el-button size="mini" @click="selectItems">选择明细</el-button>
-      </div> -->
       <JvEditTable :tableObj="eTableObj">
         <template #operation="{ row, row_index }">
           <TableAction
@@ -56,17 +53,13 @@ import { EditTable } from "./editConfig";
 import { Form } from "@/jv_doc/class/form";
 import { formSchema } from "./formConfig";
 import closeTag from "@/utils/closeTag";
-import { mapState, mapGetters } from "vuex";
+import { mapState } from "vuex";
 import { StateEnum, enumToList } from "@/enum/workModule";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 
 import { getProductionTask } from "@/api/workApi/production/productionTask";
 import { qc_finished_product_save } from "@/api/workApi/quality/finishedProduct";
-import { getUser } from "@/api/basicApi/systemSettings/user";
-import { temMerge } from "@/jv_doc/utils/handleData/index";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import { getBillFile } from "@/api/basicApi/systemSettings/upload";
-// import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
 
 export default {
   components: {
@@ -78,6 +71,7 @@ export default {
       eTableObj: {},
       ConfigDataList: {},
       PrTaskBillIdKeyword: "",
+      workQuantity: 0,
       ProcessData: [],
       BillFiles: [],
       StateList: enumToList(StateEnum),
@@ -123,69 +117,30 @@ export default {
     });
 
     this.eTableObj = new EditTable();
-
-    console.log(
-      this.$route.params.data.row,
-      this.ruleForm
-      // this.$route.params.ProcessCheckType
-    );
     var routeParams = this.$route.params;
     this.formObj.form.SelfCheckProcess = routeParams.data.row.Process
       ? routeParams.data.row.Process
       : "";
-    // this.formObj.form.ProcessCheckType = routeParams.ProcessCheckType;
-    // if (routeParams.ProcessCheckType === "SelfCheck") {
-    //   this.formObj.form.ProcessingResult = "Normal";
-    //   this.formObj.form.PersonInCharge = routeParams.data.row.UserName;
-    //   this.formObj.form.Operator = routeParams.data.row.UserName;
-    // } else {
-    //   this.formObj.form.Operator = this.name;
-    // }
+
     if (routeParams.data) {
       this.ruleForm.AssociatedNo = routeParams.data.row.Id
         ? routeParams.data.row.Id
         : 0;
       this.GetProcessCheckData(routeParams.data.row.BillId);
     }
-    // this.getConfigData();
   },
   mounted() {},
 
   methods: {
     imgUrlPlugin,
-    getProData() {
-      if (
-        this.PrTaskBillIdKeyword.substring(3, 0) ===
-        window.global_config.QRCodeFormat.proBillId
-      ) {
-        this.GetProcessCheckData(this.PrTaskBillIdKeyword.slice(3));
-      } else if (
-        this.PrTaskBillIdKeyword.substring(3, 0) ===
-        window.global_config.QRCodeFormat.user
-      ) {
-        getUser({ UserId: this.PrTaskBillIdKeyword.slice(3) }).then((res) => {
-          this.formObj.form.Operator = res.UserName;
-          this.PrTaskBillIdKeyword = "";
-        });
-      }
-    },
-
-    // getConfigData() {
-    //   getConfigKey({ ConfigKey: "ReasonForUnqualifiedProcessInspection" }).then(
-    //     (res) => {
-    //       console.log(res.ConfigValue);
-    //       this.ConfigDataList = JSON.parse(res.ConfigValue);
-    //     }
-    //   );
-    // },
     //获取检验数据
     GetProcessCheckData(e) {
       getProductionTask({ BillId: e }).then((res) => {
+        this.workQuantity = res.Quantity
         this.formObj.form.PrTaskBillId = res.BillId;
         let arr = [];
 
         res.Process.forEach((item) => {
-          console.log(item, 5555999);
           if (item.State === "Processed") {
             arr.push({
               value: item.Process,
@@ -193,7 +148,6 @@ export default {
             });
           }
         });
-        console.log(arr);
         this.formObj.formSchema[2].options.list = arr;
         let arr2 = res.Parts.map((part) => {
           part.ItemId = part.PartNo;
@@ -205,39 +159,18 @@ export default {
           delete part.ToolingNo;
           return part;
         });
-        console.log(arr2);
         this.eTableObj.setData(arr2);
       });
     },
-    //编辑的时候获取信息
-    // async GetData(Id) {
-    //   await finishedProduct.api_get({ BillId: Id }).then((res) => {
-    //     console.log(res);
-    //     this.ruleForm = res;
-    //     this.formObj.form = this.ruleForm;
-
-    //     this.eTableObj.setData(res.BillItems);
-    //   });
-    // },
     //删除明细
     delItem(index) {
       this.eTableObj.delItem(index);
     },
-
     changeValue(e, row, cb) {
       if (!e) {
         cb();
       }
     },
-    // //选择物料
-    // selectItems() {
-    //   this.formObj.validate((valid) => {
-    //     if (valid) {
-    //       this.ItemsDialogFormVisible = true;
-    //       this.transferData = this.formObj.form.PrDemandBillId;
-    //     }
-    //   });
-    // },
     save() {
       this.ruleForm.SaveAndSubmit = true;
       this.IsSave();
@@ -253,37 +186,44 @@ export default {
             return billItems;
           });
           this.ruleForm.BillItems = arr3;
-          console.log(this.ruleForm.BillItems);
-
-          this.eTableObj.validate((valid1) => {
-            let saveArr = Object.assign(
-              {},
-              this.ruleForm,
-              this.formObj.form,
-              {
-                Analyst: this.formObj.form.Analyst,
-              },
-              {
-                PersonInCharge: this.formObj.form.PersonInCharge,
-              },
-              {
-                ReworkProcess: this.formObj.form.ReworkProcess.toString(),
+          console.log(this.formObj.form)
+          if (this.formObj.form.SubmittedForInspectionQty > this.workQuantity) {
+            this.$message.error(`
+            ${this.$t('quality.Qc_TheQuantitySubmittedShallNotExceedTheProcessingQuantity')}
+            : ${this.workQuantity}`);
+          } else if (this.formObj.form.InspectionQty > this.formObj.form.SubmittedForInspectionQty) {
+            this.$message.error(`${this.$t('quality.Qc_TheQuantityForInspectionShallNotExceedTheSubmittedQuantity')}`);
+          } else if (this.formObj.form.UnqualifiedQty > this.formObj.form.InspectionQty) {
+            this.$message.error(`${this.$t('quality.Qc_TheQuantityUnqualifiedShallNotExceedTheInspectionQuantity')}`);
+          } else {
+            this.eTableObj.validate((valid1) => {
+              let saveArr = Object.assign(
+                {},
+                this.ruleForm,
+                this.formObj.form,
+                {
+                  Analyst: this.formObj.form.Analyst,
+                },
+                {
+                  PersonInCharge: this.formObj.form.PersonInCharge,
+                },
+                {
+                  ReworkProcess: this.formObj.form.ReworkProcess.toString(),
+                }
+              );
+              if (valid1) {
+                qc_finished_product_save(saveArr).then((res) => {
+                  let TagName = {
+                    path: "/quality/Qc_FinishedProduct_Detail",
+                    name: `Qc_FinishedProduct_Detail`,
+                    query: { BillId: res },
+                    fullPath: "/quality/Qc_FinishedProduct_Detail",
+                  };
+                  closeTag(this.current, TagName);
+                });
               }
-            );
-            console.log(saveArr.ReworkProcess);
-            if (valid1) {
-              qc_finished_product_save(saveArr).then((res) => {
-                console.log(res)
-                let TagName = {
-                  path: "/quality/Qc_FinishedProduct_Detail",
-                  name: `Qc_FinishedProduct_Detail`,
-                  query: { BillId: res },
-                  fullPath: "/quality/Qc_FinishedProduct_Detail",
-                };
-                closeTag(this.current, TagName);
-              });
-            }
-          });
+            });
+          }
         }
       });
     },
@@ -300,13 +240,11 @@ export default {
   watch: {
     "formObj.form.SubmittedForInspectionQty": {
       handler(n, o) {
-        console.log(n, o)
         this.formObj.form.InspectionQty = n;
       }
     },
     "formObj.form.ProcessingResult": {
       handler: function (n, o) {
-        console.log(n, o);
         if (n !== 'Qualified' && n !== '') {
           this.formObj.form.AbnormalCategory = "Other";
           this.formObj.props.formSchema[2].cpnProps.disabled = false;
@@ -319,31 +257,6 @@ export default {
       },
     },
   }
-  // watch: {
-  //   "formObj.form.AbnormalCause": {
-  //     handler(n, o) {
-  //       console.log(n, o, this.ConfigDataList);
-  //       let arr = [];
-  //       let arrItem = [];
-  //       if (n.length > 0) {
-  //         n.forEach((item) => {
-  //           arr = [...this.ConfigDataList[item], ...arr];
-  //         });
-  //       } else {
-  //         arr = [];
-  //       }
-
-  //       console.log(arr);
-  //       arr.forEach((item) => {
-  //         arrItem.push({
-  //           value: item,
-  //           label: item,
-  //         });
-  //       });
-  //       this.formObj.props.formSchema[9].options.list = arrItem;
-  //     },
-  //   },
-  // },
 };
 </script>
 
@@ -363,7 +276,6 @@ export default {
   margin-right: 10px;
   width: 120px;
   height: 120px;
-  // background-color: pink;
 }
 .items-details-Img-error {
   background-color: rgb(231, 231, 231);
@@ -373,7 +285,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    // color: rgb(161, 161, 161);
     .error-icon {
       color: rgb(161, 161, 161);
       font-size: 19px;

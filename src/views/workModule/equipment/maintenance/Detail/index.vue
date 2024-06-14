@@ -66,6 +66,25 @@
       </div>
       <JvTable :table-obj="itemsTableObj"> </JvTable>
     </JvBlock>
+    <!--附件-->
+    <JvBlock :title="$t('Generality.Ge_PhotoUrl')" ref="fourth">
+      <div slot="extra">
+        <el-button
+          size="mini"
+          type="primary"
+          @click="(_) => $refs.upLoad.upload()"
+        >{{ $t("Generality.Ge_Upload") }}</el-button
+        >
+        <el-button size="mini" type="primary" @click="saveFiles"
+        >{{ $t("Generality.Ge_SaveEdits") }}</el-button
+        >
+      </div>
+      <FileImagesExhibit
+        @returnData="returnData"
+        :BillId="cur_Id"
+        ref="upLoad"
+      ></FileImagesExhibit>
+    </JvBlock>
     <!--  开始保养选择日期  -->
     <JvDialog
         :title="$t('device.De_StartMaintenance')"
@@ -141,7 +160,7 @@ import Detail from "@/jv_doc/class/detail/Detail";
 import { Table } from "~/class/table";
 import { Form } from "@/jv_doc/class/form";
 import { API as Maintenance } from "@/api/workApi/equipment/maintenance";
-import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
+import FileImagesExhibit from "../components/FileImagesExhibit";
 import MaintenanceState from "@/views/workModule/equipment/maintenance/components/MaintenanceState.vue";
 import { assets_device_maintenance_start,
   assets_device_maintenance_end,
@@ -150,12 +169,15 @@ import { assets_device_maintenance_start,
 } from "@/api/workApi/equipment/maintenance"
 import SelectRepairItems from "@/views/workModule/equipment/repair/components/SelectRepairItems/SelectRepairItems.vue";
 import EditMaintenanceDetail from "../components/EditMaintenanceDetail/EditMaintenanceDetail.vue";
-import {timeFormat} from "~/utils/time";
+import { timeFormat } from "~/utils/time";
+import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
+import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
 
 export default {
   name: "index",
   components: {
-    JvFileExhibit,
+    JvUploadFile,
+    FileImagesExhibit,
     SelectRepairItems,
     MaintenanceState,
     EditMaintenanceDetail,
@@ -172,6 +194,7 @@ export default {
       transferData: [],
       DetailData: [],
       btnAction: [],
+      BillFiles: [],
       state: "",
       BillGui: "",
       DeviceMaintainAccessories: [],
@@ -438,6 +461,15 @@ export default {
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
+    },
+    returnData(fileData) {
+      this.BillFiles = fileData;
+    },
+    saveFiles() {
+      update_file_owner({
+        BillFiles: this.BillFiles,
+        BillId: this.cur_Id,
+      }).then((res) => {});
     },
   },
   watch: {

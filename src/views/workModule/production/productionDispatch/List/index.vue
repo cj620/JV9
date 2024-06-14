@@ -41,13 +41,6 @@
           <el-button type="info" @click="setScrollTo('down')" icon="el-icon-arrow-down" size="medium" circle style="top: 100px"></el-button>
           <el-button @click="loadClcik(true)" type="info" icon="el-icon-arrow-right" size="medium" circle></el-button>
         </div>
-<!--    <div style="padding: 10px 50px 0px 50px">-->
-<!--      <TableHeader-->
-<!--        @fresh="M_tableObj.getData"-->
-<!--        @openSearch="showSearchForm = true"-->
-<!--        :tableObj="M_tableObj"-->
-<!--      ></TableHeader>-->
-<!--    </div>-->
     <div class="staff-list list-box">
       <el-row style="padding-right: 5px">
         <el-col
@@ -95,15 +88,6 @@
       <div v-if="lockData.DeviceNo">{{ $t('production.Pr_WhetherLockToTheDevice') }}{{lockData.DeviceNo}}</div>
       <div v-else>{{ $t('production.Pr_WhetherUnlock') }}</div>
     </JvDialog>
-    <!-- 表单搜索抽屉 -->
-<!--    <SearchForm-->
-<!--      v-if="M_tableObj.props.searchBar"-->
-<!--      :title="$t('Generality.Ge_SearchForm')"-->
-<!--      :visible.sync="showSearchForm"-->
-<!--      :form-obj="M_tableObj.formObj"-->
-<!--      @search="formSubmit('search')"-->
-<!--      @reset="formSubmit('reset')"-->
-<!--    />-->
   </div>
 </template>
 
@@ -113,13 +97,13 @@ import TableHeader from "@/jv_doc/cpn/JvTable/cpn/TableHeader";
 import ScreenFull from "./cpns/roundScreenFull.vue";
 import SearchForm from "@/jv_doc/cpn/JvTable/cpn/SearchForm.vue";
 import JvFooter from "@/jv_doc/cpn/JvFooter";
-// import MachineCard from "./cpns/MachineCard.vue";
 import NewMachineCard from "./cpns/NewMachineCard.vue";
 import TaskBox from "./cpns/TaskBox.vue";
 import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
 import {
   production_dispatching_topping,
+  production_dispatching_list,
   production_dispatching_change_device,
   production_dispatching_lock_device,
 } from "@/api/workApi/production/productionDispatch";
@@ -183,9 +167,9 @@ export default {
   computed: {},
   methods: {
     getScreenWidth() {
-      this.boxWidth = this.$store.state.app.sidebar.opened ?  (window.innerWidth - 210 - 100) / 320 : (window.innerWidth - 55 - 100) / 320
+      this.boxWidth = this.$store.state.app.sidebar.opened ?  (window.innerWidth - 210 - 100) / 260 : (window.innerWidth - 55 - 100) / 260
       this.currentSize = Math.max(Math.floor(this.boxWidth), 1);
-      this.currentSize = Math.min(Math.floor(this.boxWidth), 5);
+      this.currentSize = Math.min(Math.floor(this.boxWidth), 6);
       if (this.preSize !== this.currentSize) {
         this.M_tableObj.pager.page = 1;
         this.M_tableObj.pager.sizeChange(this.currentSize);
@@ -238,11 +222,9 @@ export default {
       if (state) {
         if (isLast) return;
         this.M_tableObj.pager.currentChange(page + 1);
-		  // this.M_tableObj.pager.currentChange(page + 1);
       } else {
         if (page <= 1) return;
         this.M_tableObj.pager.currentChange(page - 1);
-		  // this.M_tableObj.pager.currentChange(page + 1);
       }
     },
     formSubmit(type) {
@@ -264,8 +246,6 @@ export default {
       let scrollBottom =
         e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight;
       if (scrollBottom < 100) {
-        // if (this.isAllproceeList) return;
-        // this.P_tableObj.pager.page
         console.log(this.currentProcessPage, this.P_tableObj.pager.page);
         if (this.currentProcessPage - this.P_tableObj.pager.page === 1) {
           this.P_tableObj.pager.currentChange(99);
@@ -284,7 +264,6 @@ export default {
     },
     setProcessData(data, flash) {
       if (flash) {
-        // this.isAllproceeList = false;
         this.currentProcessPage = 1;
         this.processData = data;
       } else {
@@ -295,9 +274,6 @@ export default {
       if (data.some((item) => item.length === this.currentSize)) {
         this.currentProcessPage += 1;
       }
-    },
-    cardClick(e, s, r, a) {
-      // console.log(5684848, e, s, r, a);
     },
     dropCommand(e) {
       if (e.Type === "toggle") {
@@ -356,11 +332,21 @@ export default {
           labelPosition: "top",
         });
       } else if (e.Type === "top") {
-        production_dispatching_topping({ TaskProcessId: e.TaskProcessId }).then(
-          (res) => {
-            this.M_tableObj.pager.sizeChange(this.currentSize);
-          }
-        );
+        production_dispatching_list({
+          SortOrder: 1,
+          PageSize: 99,
+          CurrentPage: 1,
+          Devices: [e.PlanDevice],
+        }).then((res) => {
+          production_dispatching_change_device({
+            TaskProcessId: e.TaskProcessId,
+            PlanStart: e.PlanStart,
+            PlanEnd: e.PlanEnd,
+            DeviceName: e.PlanDevice,
+            IsModifyDate: true,
+            DeviceProcessingSequence: (res.Items[0][0].DeviceProcessingSequence) / 2,
+          }).then(() => {this.M_tableObj.pager.sizeChange(this.currentSize);})
+        })
       } else if (e.Type === "lock") {
           this.lockData.TaskProcessId = e.TaskProcessId
           this.lockData.DeviceNo = e.PlanDevice
@@ -392,7 +378,6 @@ export default {
       this.lockDeviceShow = false
     },
     toToggleMachine() {
-      // this.M_tableObj.getData();
       this.toggleMachineObj.validate((valid) => {
         if (valid) {
           this.toggleMachineObj.form.PlanStart = timeFormat(this.toggleMachineObj.form.PlanStart,'yyyy-MM-dd hh:mm:ss')
@@ -431,7 +416,6 @@ export default {
     .card-box {
       width: 100%;
       @include flexBox;
-      min-width: 320px;
     }
   }
   .staff-list {
@@ -443,8 +427,7 @@ export default {
   }
   .task-list {
     height: calc(100% - 180px);
-    // background-color: rgb(235, 235, 235);
-    overflow: auto;
+    overflow: hidden;
       ::v-deep .task-card {
         box-shadow: 0 2px 12px 0 rgba(0,0,0,0.4);
       }
@@ -478,7 +461,7 @@ export default {
   height: 5px;
 }
 .el-col-4 {
-  width: 20%;
+  width: 16.6%;
 }
 
 /*定义滑块 内阴影+圆角*/

@@ -5,17 +5,62 @@
         {{ $t("menu.De_DesignWeeklyDashboard") }}
       </div>
       <div class="weekly-task-header-search">
-        <el-date-picker
-          size="mini"
-          v-model="searchDate"
-          type="date"
-          :placeholder="$t('production.Pr_SelectDate')"
-          :clearable="false"
-          class="weekly-task-header-search-items"
-          @change="searchData"
-          value-format="yyyy-MM-dd"
-        >
-        </el-date-picker>
+        <div class="weekly-task-header-search-items">
+          <el-date-picker
+            size="mini"
+            v-model="searchDate"
+            type="date"
+            :placeholder="$t('production.Pr_SelectDate')"
+            :clearable="false"
+            value-format="yyyy-MM-dd"
+            style="width: 150px;"
+          >
+          </el-date-picker>
+        </div>
+        <div class="weekly-task-header-search-items">
+          <el-select
+            size="mini"
+            v-model="selectedDepartment"
+            clearable
+            :placeholder="$t('DataV.Da_SelectDepartment')"
+            style="width: 150px;"
+          >
+            <el-option
+              v-for="item in departmentList"
+              :key="item.Department"
+              :label="item.Department"
+              :value="item.Department">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="weekly-task-header-search-items">
+          <el-select
+            size="mini"
+            v-model="selectedWorkers"
+            multiple
+            collapse-tags
+            :placeholder="$t('Generality.Ge_SelectPersonal')"
+            style="width: 180px;"
+          >
+            <el-option
+              v-for="item in workersList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.name"
+            >
+            </el-option>
+          </el-select>
+        </div>
+        <div class="weekly-task-header-search-items">
+          <el-button size="mini" type="primary" @click="searchData('search')">
+            {{ $t('Generality.Ge_Search') }}
+          </el-button>
+        </div>
+        <div class="weekly-task-header-search-items">
+          <el-button size="mini" @click="searchData('reset')">
+            {{ $t('Generality.Ge_Reset') }}
+          </el-button>
+        </div>
       </div>
     </div>
     <div class="weekly-task-page">
@@ -54,6 +99,8 @@
               let res = row.Items.filter(trim => item === trim.UserName);
               if(res.length) {
                 return res[0].ToolingNo
+              } else {
+                return ''
               }
             }"
             prop="ToolingNo"
@@ -67,12 +114,14 @@
               let res = row.Items.filter(trim => item === trim.UserName);
               if(res.length) {
                 return res[0].ProcessContent
+              } else {
+                return ''
               }
             }"
             prop="ProcessContent"
             :label="$t('Generality.Ge_WorkContent')"
             :show-overflow-tooltip="true"
-            width="130"
+            min-width="130"
           >
           </el-table-column>
           <el-table-column
@@ -80,6 +129,8 @@
               let res = row.Items.filter(trim => item === trim.UserName);
               if(res.length) {
                 return res[0].PlanTime
+              } else {
+                return ''
               }
             }"
             prop="PlanTime"
@@ -95,6 +146,8 @@
                 return res[0].IsItCompletedAsPlanned ?
                 $t('Generality.Ge_Completed') :
                 $t('Generality.Ge_Incomplete')
+              } else {
+                return ''
               }
             }"
             prop="IsItCompletedAsPlanned"
@@ -121,7 +174,9 @@
   </PageWrapper>
 </template>
 <script>
-import { project_task_weekly_dashboard } from "@/api/workApi/project/dataReport"
+import { project_task_weekly_dashboard } from "@/api/workApi/project/dataReport";
+import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
+import { getAllSysConfig } from "@/api/basicApi/systemSettings/sysSettings";
 import { timeFormat } from "~/utils/time";
 export default {
   name: "De_DesignWeeklyDashboard",
@@ -130,6 +185,12 @@ export default {
       newList: [],
       userName: [],
       searchDate: "",
+      jumpToRowIndex: null,
+      selectedDate: "",
+      selectedDepartment: "",
+      selectedWorkers: [],
+      departmentList: [],
+      workersList: [],
       totalCount: 0,
       pageSize: 5,
       currentPage: 1,
@@ -137,20 +198,45 @@ export default {
   },
   created() {
     this.searchDate = timeFormat(new Date(), "yyyy-MM-dd");
+    this.getDepartmentWorkerInfo();
     this.getTableData();
   },
   methods: {
     getCellStyle({ row, column, rowIndex, columnIndex }) {
-      if (row.Date.slice(-10) === this.searchDate && columnIndex === 1) {
-        return 'background-color: #fce4d3;';
+      if (row.Date.slice(-10) === this.selectedDate && columnIndex === 1) {
+        return 'background-color: #fce4d3; height: 24px; padding: 6px 0';
+      } else {
+        return 'height: 24px; padding: 6px 0;'
       }
     },
+    getDepartmentWorkerInfo() {
+      getDepartmentList().then((res) => {
+        this.departmentList = res.Items
+      })
+      getAllSysConfig().then((res) => {
+        const arr = [...res]
+        for (let i = 0; i < arr.length; i++) {
+          const categoryObject = arr[i];
+          if (categoryObject.Category === 'Design') {
+            for (let j = 0; j < categoryObject.ConfigList.length; j++) {
+              const config = categoryObject.ConfigList[j];
+              if (config.ConfigKey === 'DesignUsers') {
+                this.workersList = JSON.parse(config.ConfigValue).map((name, index) => ({ name, id: index}));
+              }
+            }
+          }
+        }
+      })
+    },
     getTableData() {
+      this.selectedDate = this.searchDate;
       project_task_weekly_dashboard({
         PageSize: this.pageSize,
         CurrentPage: this.currentPage,
         SelectType: 0,
-        InitialDate: this.searchDate,
+        InitialDate: this.selectedDate,
+        DepartmentName: this.selectedDepartment,
+        UserNames: this.selectedWorkers,
       }).then((res) => {
         this.totalCount = res.Count;
         this.userName = res.Data.map(item => item.UserName);
@@ -171,7 +257,14 @@ export default {
       this.currentPage = e;
       this.getTableData()
     },
-    searchData() {
+    searchData(e) {
+      if (e === 'reset') {
+        this.searchDate = timeFormat(new Date(), "yyyy-MM-dd");
+        this.selectedDepartment = "";
+        this.selectedWorkers = [];
+        this.pageSize = 5;
+        this.currentPage = 1;
+      }
       this.getTableData()
     },
     objectSpanMethod({ row, column, rowIndex, columnIndex }) {
@@ -232,7 +325,20 @@ export default {
         }
       });
       this.newList = newData;
+      this.findRowIndex();
       this.doLayout();
+      this.$nextTick(() => {
+        const table = this.$refs.BillTable.$el.querySelector('.el-table__body-wrapper');
+        table.scrollTop = this.jumpToRowIndex * 36;
+      })
+    },
+    findRowIndex() {
+      for (let i = 0; i < this.newList.length; i++) {
+        if (this.newList[i].Date.slice(-10) === this.selectedDate) {
+          this.jumpToRowIndex = i
+          return
+        }
+      }
     },
     getWeekNum(formattedTime) {
       const weekTime = [
@@ -265,8 +371,11 @@ export default {
     font-size: 18px;
   }
   &-search {
+    display: flex;
+    align-items: center;
+    justify-content: left;
     &-items {
-      width: 150px;
+      margin-right: 10px;
     }
   }
 }

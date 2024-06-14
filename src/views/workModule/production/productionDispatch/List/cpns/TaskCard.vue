@@ -48,15 +48,15 @@
       <div class="time-progress">
         <div class="time">
           <i class="el-icon-date"></i>
-          <span>{{ cdata.PlanStart | timeFormat("yyyy-MM-dd hh:mm") }}</span>
-          <span class="hours">{{ cdata.PlanTime }}H</span>
+          <span :class="{ timeDelay: isDelay }">{{ cdata.PlanStart | timeFormat("yyyy-MM-dd hh:mm") }}</span>
+          <span :class="{ timeDelay: isDelay }" class="hours">{{ cdata.PlanTime }}H</span>
         </div>
-        <div class="time">
+        <div class="time" style="padding-top: 2px">
           <i class="el-icon-date"></i>
-          <span>{{ cdata.PlanEnd | timeFormat("yyyy-MM-dd hh:mm") }}</span>
+          <span :class="{ timeDelay: isDelay }">{{ cdata.PlanEnd | timeFormat("yyyy-MM-dd hh:mm") }}</span>
         </div>
       </div>
-      <div style="margin-top: -5px">
+      <div style="margin-top: -3px">
         <i class="el-icon-document" style="margin-right: 4px"></i>
         <el-button type="text" size="mini" @click="goProduction(cdata.BillId)" style="font-size: 14px">
           {{cdata.BillId}}
@@ -80,6 +80,9 @@ export default {
       default: () => {},
     },
   },
+  created() {
+    console.log(this.isDelay)
+  },
   methods: {
     imgUrlPlugin,
     dropCommand(e) {
@@ -98,6 +101,9 @@ export default {
     stateMap() {
       return ProcessState[this.cdata.State];
     },
+    isDelay() {
+      return new Date(this.cdata.PlanEnd) < new Date();
+    }
   },
 };
 </script>
@@ -191,5 +197,9 @@ export default {
       }
     }
   }
+}
+.timeDelay {
+  color: red;
+  font-weight: bold;
 }
 </style>

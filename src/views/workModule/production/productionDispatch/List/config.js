@@ -58,7 +58,12 @@ const formSchema = [
     prop: "ShowInProdSchedule",
     default: true,
     hidden: true,
-  }
+  },
+  {
+    prop: "SortOrder",
+    default: 1,
+    hidden: true,
+  },
 ];
 
 export class P_api extends TableAPI {

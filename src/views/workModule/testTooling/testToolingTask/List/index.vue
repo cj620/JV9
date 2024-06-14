@@ -33,7 +33,7 @@ import BillStateTags from "@/components/WorkModule/BillStateTags";
 import { listTableColBtnModel } from "@/jv_doc/utils/system/pagePlugin";
 import { stateEnum } from "@/enum/workModule";
 export default {
-  name: "TestToolingTask",
+  name: "Tt_TestToolingTask",
   components: { BillStateTags },
   data() {
     return {

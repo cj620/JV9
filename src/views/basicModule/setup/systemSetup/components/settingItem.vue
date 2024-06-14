@@ -188,7 +188,7 @@ export default {
       if (["StringArray", "NumberArray"].includes(item.ConfigValueType)) {
         // 多选下拉框类型
         if (
-          ["UserStation", "AssyUsers", "ProgramUsers", "DesignUsers"].includes(
+          ["UserStation", "AssyUsers", "ProgramUsers", "DesignUsers", "TrialToolingUsers"].includes(
             item.ConfigKey
           )
         ) {
@@ -220,6 +220,7 @@ export default {
           "AssyUsers",
           "ProgramUsers",
           "DesignUsers",
+          "TrialToolingUsers",
           "DefaultProductionDepartment",
           "MeanwhileDownProcessConfig",
           "ProhibitSkipStationProcesses",
@@ -305,6 +306,7 @@ export default {
           "AssyUsers",
           "DesignUsers",
           "ProgramUsers",
+          "TrialToolingUsers",
           "DefaultProductionDepartment",
           "MeanwhileDownProcessConfig",
           "ProhibitSkipStationProcesses",

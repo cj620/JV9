@@ -1,9 +1,8 @@
 import { TableAPI, Table as BaseTable } from '@/jv_doc/class/table'
 import { project_task_item_list } from "@/api/workApi/project/projectTask";
-import {getProjectQuery} from "@/api/workApi/project/projectManage";
-import {itemList} from "@/api/basicApi/systemSettings/Item";
-import {getAllProjectProcess} from "@/api/workApi/project/baseData";
-import {getAllUserData} from "@/api/basicApi/systemSettings/user";
+import { getProjectQuery } from "@/api/workApi/project/projectManage";
+import { itemList } from "@/api/basicApi/systemSettings/Item";
+import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 class api extends TableAPI {
   getData=project_task_item_list
 }
@@ -13,10 +12,10 @@ export class Table extends BaseTable {
       tableSchema: tableSchema,
       formSchema: formSchema,
       rowId: 'Id',
-      title: i18n.t("menu.Tt_TestToolingPlan"),
+      title: i18n.t("menu.Tt_TestToolingPlanList"),
       api,
-      printMod:'Tt_TestToolingPlan',
-      operationWidth:140,
+      printMod:'Tt_TestToolingPlanList',
+      operationWidth:240,
       printBar:false
     })
   }
@@ -27,6 +26,7 @@ const tableSchema = [
     label: i18n.t("project.Pro_TaskSheetNo"),
     align: "center",
     cpn: "Link",
+    width: '130px',
     cpnProps: {
       routeName: "Pm_ProjectTask_Detail",
       methods: "query",
@@ -38,33 +38,45 @@ const tableSchema = [
     prop: "ItemState",
     label: i18n.t("Generality.Ge_State"),
     custom: true,
+    align: "center",
     width: "115px",
   },
   /*项目*/
   {
     prop: "Project",
     label: i18n.t("systemSetupData.Project"),
+    width: '130px',
   },
   /*任务类别*/
   {
     prop: "TaskType",
     label: i18n.t("Generality.Ge_TaskType"),
     custom: true,
+    width: '90px',
   },
   /*产品名称*/
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
+    width: '130px',
+  },
+  /*加工内容*/
+  {
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_TaskContent"),
+    width: '250px'
   },
   /*负责人*/
   {
     prop: "Worker",
     label: i18n.t("project.Pro_Worker"),
+    width: '90px',
   },
   /*预计工时*/
   {
     prop: "PlanTime",
     label: i18n.t("Generality.Ge_PlanTime"),
+    width: '90px',
   },
   /*计划开始*/
   {
@@ -138,9 +150,11 @@ const formSchema = [
     },
   },
   {
-    prop: "ItemState",
+    prop: "ItemStates",
     label: i18n.t("Generality.Ge_State"),
     cpn: "FormSelect",
+    type: "multiple",
+    default: ["NotStarted", "HaveInHand"],
     options: {
       list: [
         {
@@ -155,7 +169,6 @@ const formSchema = [
           value: "Completed",
           label: i18n.t("Generality.Ge_Completed"),
         },
-
       ],
     },
   },
@@ -168,5 +181,27 @@ const formSchema = [
     prop: "EndDate",
     label: i18n.t("Generality.Ge_EndDate"),
     cpn: "SingleTime",
+  },
+  {
+    prop: "SelctChildrenType",
+    label: i18n.t("project.Pro_ViewTaskDetails"),
+    cpn: "FormSelect",
+    default: 2,
+    options: {
+      list: [
+        {
+          value: 0,
+          label: i18n.t("project.Pro_ViewParentProjectTasks"),
+        },
+        {
+          value: 1,
+          label: i18n.t("project.Pro_ViewSubtasks"),
+        },
+        {
+          value: 2,
+          label: i18n.t("project.Pro_ViewAllTasks"),
+        },
+      ],
+    },
   },
 ]
