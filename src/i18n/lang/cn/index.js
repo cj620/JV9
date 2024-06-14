@@ -491,6 +491,8 @@ const cn = {
     St_Picking: "领料",
     St_Supplement: "补料",
     St_TrialMold: "试模",
+    St_ReworkPicking: "返工领料",
+    St_OutsourcingPicking: "委外领料",
     St_StockroomOut: "仓库-出",
     St_StockroomIn: "仓库-入",
     St_CheckQuantity: "盘点数量",

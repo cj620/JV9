@@ -517,6 +517,8 @@ const en = {
     St_Picking: "Picking",
     St_Supplement: "Supplement",
     St_TrialMold: "Trial Mold",
+    St_ReworkPicking: "Rework Picking",
+    St_OutsourcingPicking: "Outsourcing Picking",
     St_StockroomOut: "Stockroom Out",
     St_StockroomIn: "Stockroom In",
     St_CheckQuantity: "Check Quantity",

@@ -494,6 +494,8 @@ const ja = {
     St_Picking: "に食物を詰め込む",
     St_Supplement: "ほごうざいりょう",
     St_TrialMold: "しけんがた",
+    St_ReworkPicking: "リワークフィード",
+    St_OutsourcingPicking: "外部から材料を受け取る.",
     St_StockroomOut: "倉庫-アウト",
     St_StockroomIn: "倉庫-入",
     St_CheckQuantity: "棚卸数量",

@@ -62,6 +62,16 @@ export const formSchema = [
           value: "TrialTooling",
           label: i18n.t("stockroom.St_TrialMold"),
         },
+        //返工领料
+        {
+          value: "ReworkPicking",
+          label: i18n.t("stockroom.St_ReworkPicking"),
+        },
+        //委外领料
+        {
+          value: "OutsourcingPicking",
+          label: i18n.t("stockroom.St_OutsourcingPicking"),
+        },
       ],
     },
     rules: [
