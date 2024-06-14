@@ -28,6 +28,8 @@ const en = {
     Pr_ToBeStarted: "To Be Started",
     Pr_WorkReportRecords: "Work Report Records",
     Pr_OnSiteOperations: "On Site Operations",
+    Pr_SubOrder: "Sub Order",
+    Pr_ParentOrder: "Parent Order",
     Login: "Login",
     Se_ErrorPrompt: "Error Prompt",
     Automation: "Automation",
@@ -1168,6 +1170,14 @@ const en = {
   //生产
   production: {
     Pr_TaskManagement: "Task Management",
+    Pr_QuantityPerOrder: "Quantity Per Order",
+    Pr_SplitOrderQuantity: "Split Order Quantity",
+    Pr_RemainingDetachableQuantity: "Remaining Detachable Quantity",
+    Pr_CustomSplitOrder: "Custom Split Order",
+    Pr_EqualSplittingOfOrders: "Equal Splitting Of Orders",
+    Pr_ViewSubList: "View SubList",
+    Pr_ViewParentOrder: "View Parent Order",
+    Pr_SplitOrder: "Split Order",
     Pr_Running: "Running",
     Pr_Standby: "Standby",
     Pr_Offline: "Offline",

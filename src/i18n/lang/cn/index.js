@@ -28,6 +28,8 @@ const cn = {
     Pr_ToBeStarted: "待开工",
     Pr_WorkReportRecords: "报工记录",
     Pr_OnSiteOperations: "现场作业",
+    Pr_SubOrder: "生产任务子单",
+    Pr_ParentOrder: "生产任务父单",
     Login: "登录",
     Se_ErrorPrompt: "报错提示项",
     Automation: "自动化",
@@ -1154,6 +1156,14 @@ const cn = {
   },
   //生产
   production: {
+    Pr_QuantityPerOrder: '每单数量',
+    Pr_SplitOrderQuantity: '拆单数量',
+    Pr_CustomSplitOrder: '自定义拆单',
+    Pr_RemainingDetachableQuantity: '剩余可拆数量',
+    Pr_EqualSplittingOfOrders: '均等拆单',
+    Pr_ViewSubList: '查看子单',
+    Pr_ViewParentOrder: '查看父单',
+    Pr_SplitOrder: '拆单',
     Pr_TaskManagement: "任务管理",
     Pr_Running: "运行中",
     Pr_Standby: "待机中",

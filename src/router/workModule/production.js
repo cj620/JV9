@@ -564,6 +564,26 @@ const production = [
     path: "WorkReportRecords",
     title:i18n.t("menu.Pr_WorkReportRecords"),
   },
+  // 生产任务子单
+  {
+    key: "Pr_ProductionTaskSubList",
+    component: () =>
+        import("@/views/workModule/production/productionTask/List/ProductionTaskSubList"),
+    Parent: "Pr_Production",
+    name: "Pr_ProductionTaskSubList",
+    path: "Pr_ProductionTaskSubList",
+    title:i18n.t("menu.Pr_SubOrder"),
+  },
+  // 生产任务父单
+  {
+    key: "Pr_ProductionTaskParentList",
+    component: () =>
+        import("@/views/workModule/production/productionTask/List/ProductionTaskParentList"),
+    Parent: "Pr_Production",
+    name: "Pr_ProductionTaskParentList",
+    path: "Pr_ProductionTaskParentList",
+    title:i18n.t("menu.Pr_ParentOrder"),
+  },
   // 任务管理
   {
     key: "Pr_TaskManagement",
