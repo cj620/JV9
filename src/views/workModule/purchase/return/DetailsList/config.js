@@ -145,6 +145,11 @@ const tableSchema = [
     prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
   },
+  {
+    // 汇率
+    prop: "ExchangeRate",
+    label: '汇率'
+  },
   /*税率*/
   {
     prop: "Tax",
@@ -159,6 +164,11 @@ const tableSchema = [
     width: "120px",
     align: "right",
     filter: "amount",
+  },
+  /*其它费用*/
+  {
+    prop: "OtherExpenses",
+    label: '其它费用',
   },
   /*备注*/
   {
