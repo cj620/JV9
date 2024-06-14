@@ -94,8 +94,8 @@ export default {
       type: "",
       btnAction: [],
       // 编辑路由
-      editRouteName: "St_StockCheck_Edit",
-      addRouteName: "St_StockCheck_Add",
+      editRouteName: "St_CostChange_Edit",
+      addRouteName: "St_CostChange_Add",
       // 打印模板标识 谨慎删除
       printMod: "St_CostChange",
     };
