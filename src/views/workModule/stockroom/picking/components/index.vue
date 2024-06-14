@@ -28,6 +28,20 @@
             </el-option>
           </el-select>
         </template>
+        <!--领料类别-->
+        <template #PickingType="{ prop }">
+          <el-select
+            v-model="formObj.form[prop]"
+            @change="changePickingType"
+          >
+            <el-option
+              v-for="item in pickTypeEnum"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </template>
         <!--模具编号-->
         <template #ToolingNo="{ prop }">
           <el-select
@@ -54,11 +68,12 @@
           <el-select
             v-model="formObj.form[prop]"
             filterable
+            @focus="focusBillId"
             @change="changeSubmitter"
             :disabled="editDisabled"
           >
             <el-option
-              v-for="item in TaskListData"
+              v-for="item in finalTaskListData"
               :key="item.BillId"
               :label="
                 item.BillId + '(' + taskTypeEnum[item.TaskType].name + ')'
@@ -178,7 +193,32 @@ export default {
       SubmitterData: [],
       MouldListData: [],
       TaskListData: [],
+      finalTaskListData: [],
       detailedData: [],
+      pickTypeEnum: [
+        {
+          value: "Picking",
+          label: i18n.t("stockroom.St_Picking"),
+        },
+        {
+          value: "Supplement",
+          label: i18n.t("stockroom.St_Supplement"),
+        },
+        {
+          value: "TrialTooling",
+          label: i18n.t("stockroom.St_TrialMold"),
+        },
+        //返工领料
+        {
+          value: "ReworkPicking",
+          label: i18n.t("stockroom.St_ReworkPicking"),
+        },
+        //委外领料
+        {
+          value: "OutsourcingPicking",
+          label: i18n.t("stockroom.St_OutsourcingPicking"),
+        },
+      ],
       textarea: "",
       fileList: [],
       fileBillId: "",
@@ -293,6 +333,14 @@ export default {
         this.eTableObj.setData(res.BillItems);
       });
     },
+    //聚焦时判断是否筛选任务
+    focusBillId() {
+      if (this.formObj.form.PickingType === 'TrialTooling') {
+        this.finalTaskListData = this.TaskListData.filter(i => i.TaskType === "TrialTooling");
+      } else {
+        this.finalTaskListData = this.TaskListData;
+      }
+    },
     //选择提交人确定部门
     changeSubmitter(e) {
       this.SubmitterData.forEach((item) => {
@@ -355,7 +403,12 @@ export default {
         //判断说明不只一个任务单
       });
     },
-
+    // 选中领料类别
+    changePickingType() {
+      if (this.formObj.form.PickingType === 'TrialTooling') {
+        console.log('选中试模')
+      }
+    },
     //上传文件返回的数据
     returnData(fileData) {
       this.ruleForm.BillFiles = fileData;
