@@ -1,6 +1,6 @@
 <template>
   <div class="machine-card">
-    <div class="machine-card-left" style="justify-content: space-around">
+    <div class="machine-card-left" style="justify-content: space-around;">
         <div>
             <el-image
                     style="width: 67px; height: 71px; border-radius: 5px;"
@@ -14,7 +14,7 @@
             </el-image>
         </div>
     </div>
-    <div class="machine-card-right" style="justify-content:space-evenly; padding-top: 5px; padding-right: 20px">
+    <div class="machine-card-right" style="justify-content:space-evenly; width: calc(100% - 67px)">
       <div class="machine-message">
         <i class="el-icon-setting"></i>
         {{ cdata.Device }}
@@ -53,6 +53,7 @@ export default {
   //width: 250px;
   width: 235px;
   height: 115px;
+  padding: 5px 10px;
   //height: 90%;
   background-color: orange;
   box-shadow: 1px 1px 3px #888888;
@@ -60,7 +61,6 @@ export default {
   margin: auto;
   display: flex;
   &-left,&-right {
-    width: 50%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -70,7 +70,8 @@ export default {
 .machine-message {
   color: white;
   font-weight: bold;
-  height: 20%
-  //font-size: ;
+  height: 21px;
+  width: 100%;
+  padding-left: 15px;
 }
 </style>
