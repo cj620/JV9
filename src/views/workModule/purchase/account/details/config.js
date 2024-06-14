@@ -103,6 +103,11 @@ export const detailConfig = [
     label: i18n.t("purchase.Pr_SupplierName"),
   },
   {
+    // 发票号
+    prop: "InvoiceNo",
+    label: '发票号',
+  },
+  {
     // 开始交期
     prop: "StartDate",
     label: i18n.t("Generality.Ge_StartDate"),
@@ -118,6 +123,16 @@ export const detailConfig = [
     // 币种
     prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
+  },
+  {
+    // 汇率
+    prop: "ExchangeRate",
+    label: '汇率',
+  },
+  {
+    // 相关单据
+    prop: "RelationId",
+    label: '相关单据',
   },
   {
     // 制单人
