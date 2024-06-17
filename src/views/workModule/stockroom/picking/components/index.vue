@@ -68,8 +68,6 @@
           <el-select
             v-model="formObj.form[prop]"
             filterable
-            @focus="focusBillId"
-            @change="changeSubmitter"
             :disabled="editDisabled"
           >
             <el-option
@@ -189,6 +187,7 @@ export default {
       materialRequirementsDialogFormVisible: false,
       loading: false,
       editDisabled: false,
+      oldPickingType: '',
       transferData: [],
       SubmitterData: [],
       MouldListData: [],
@@ -333,14 +332,6 @@ export default {
         this.eTableObj.setData(res.BillItems);
       });
     },
-    //聚焦时判断是否筛选任务
-    focusBillId() {
-      if (this.formObj.form.PickingType === 'TrialTooling') {
-        this.finalTaskListData = this.TaskListData.filter(i => i.TaskType === "TrialTooling");
-      } else {
-        this.finalTaskListData = this.TaskListData;
-      }
-    },
     //选择提交人确定部门
     changeSubmitter(e) {
       this.SubmitterData.forEach((item) => {
@@ -394,19 +385,36 @@ export default {
         SelectType: 0,
       };
       toolingTaskInfoList(str).then((res) => {
-        if (res.Items.length === 1) {
-          this.formObj.form.PmTaskBillId = res.Items[0].BillId;
-        } else if (res.Items.length === 0) {
+        // if (res.Items.length === 1) {
+        //   this.formObj.form.PmTaskBillId = res.Items[0].BillId;
+        // } else if (res.Items.length === 0) {
+        //   this.formObj.form.PmTaskBillId = "";
+        // }
+        this.TaskListData = res.Items;
+        if (this.formObj.form.PickingType === 'TrialTooling') {
+          this.finalTaskListData = this.TaskListData.filter(i => i.TaskType === "TrialTooling");
+        } else {
+          this.finalTaskListData = this.TaskListData;
+        }
+        //判断说明不只一个任务单
+        if (this.finalTaskListData.length === 1) {
+          this.formObj.form.PmTaskBillId = this.finalTaskListData[0].BillId;
+        } else {
           this.formObj.form.PmTaskBillId = "";
         }
-        this.TaskListData = res.Items;
-        //判断说明不只一个任务单
       });
     },
     // 选中领料类别
-    changePickingType() {
-      if (this.formObj.form.PickingType === 'TrialTooling') {
-        console.log('选中试模')
+    changePickingType(e) {
+      if (e === 'TrialTooling' && this.oldPickingType !== 'TrialTooling') { // 非试模改为试模
+        if (this.formObj.form.ToolingNo !== '') {
+          this.changeToolingNo();
+          this.finalTaskListData = this.TaskListData.filter(i => i.TaskType === "TrialTooling");
+        }
+        this.oldPickingType = e;
+      } else if (e !== 'TrialTooling' && this.oldPickingType === 'TrialTooling') { // 试模改为非试模
+        this.finalTaskListData = this.TaskListData;
+        this.oldPickingType = e;
       }
     },
     //上传文件返回的数据
