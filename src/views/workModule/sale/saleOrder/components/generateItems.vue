@@ -12,13 +12,21 @@
       @confirm="confirmGenerateItems"
       :autoFocus="true"
     >
-      <JvForm :formObj="formObj"> </JvForm>
+      <JvForm :formObj="formObj">
+      </JvForm>
+      <div class="item-photo-upload-box">
+        <JvUploadList
+          v-model="formObj.form.PhotoUrl"
+          :listType="false"
+        ></JvUploadList>
+      </div>
     </jv-dialog>
   </div>
 </template>
 
 <script>
 import { Form } from "@/jv_doc/class/form";
+import JvUploadList from "@/components/JVInternal/JvUpload/List";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
 export default {
   name: "addProject",
@@ -27,6 +35,7 @@ export default {
       formObj: {},
     };
   },
+  components: { JvUploadList },
   props: {
     value: {
       type: String,
@@ -100,6 +109,7 @@ export default {
     confirmGenerateItems() {
       this.formObj.validate((valid) => {
         if (valid) {
+          this.formObj.form.PhotoUrl = this.formObj.form.PhotoUrl ? this.formObj.form.PhotoUrl.toString() : ""
           this.$emit("confirmGenerateItems", this.formObj.form);
         } else {
           return false;
@@ -110,4 +120,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.item-photo-upload-box {
+  width: 100%;
+}
+</style>
