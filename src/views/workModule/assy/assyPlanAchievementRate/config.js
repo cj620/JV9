@@ -61,7 +61,7 @@ export const formSchema = [
     prop: "StartDate",
     label: i18n.t("Generality.Ge_StartDate"),
     cpn: "SingleTime",
-    default: timeFormat(new Date(), "yyyy-MM-dd")
+    default: timeFormat(new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000), "yyyy-MM-dd")
   },
   {
     prop: "EndDate",

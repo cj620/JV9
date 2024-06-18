@@ -6,6 +6,7 @@
  */
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { taskTypeEnum, enumToList } from "@/enum/workModule";
+import i18n from "@/i18n/i18n";
 
 export class JobRecordTable extends BaseTable {
   constructor() {
@@ -53,6 +54,18 @@ export const tableConfig = [
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_WorkHours"),
     width: "120px",
+  },
+  {
+    // 是否按计划完成
+    prop: "IsItCompletedAsPlanned",
+    label: i18n.t("Generality.Ge_IsItCompletedAsPlanned"),
+    custom: true,
+    width: "80px"
+  },
+  {
+    prop: "ReasonForNotAchievingThePlan1",
+    label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
+    width: '120px',
   },
   /*作业员*/
   {
