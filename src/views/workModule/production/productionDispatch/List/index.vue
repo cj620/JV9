@@ -34,12 +34,12 @@
               </el-button>
             </el-popover>
 <!--          <screenFull style="top: 100px; position:absolute;"></screenFull>-->
-          <el-button @click="loadClcik(false)" type="info" icon="el-icon-arrow-left" size="medium" circle></el-button>
+          <el-button @click="loadClick(false)" type="info" icon="el-icon-arrow-left" size="medium" circle></el-button>
         </div>
         <div class="right-loading loading-bar">
           <el-button type="info" @click="setScrollTo('up')" icon="el-icon-arrow-up" size="medium" circle style="top: 40px"></el-button>
           <el-button type="info" @click="setScrollTo('down')" icon="el-icon-arrow-down" size="medium" circle style="top: 100px"></el-button>
-          <el-button @click="loadClcik(true)" type="info" icon="el-icon-arrow-right" size="medium" circle></el-button>
+          <el-button @click="loadClick(true)" type="info" icon="el-icon-arrow-right" size="medium" circle></el-button>
         </div>
     <div class="staff-list list-box">
       <el-row style="padding-right: 5px">
@@ -102,7 +102,6 @@ import TaskBox from "./cpns/TaskBox.vue";
 import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
 import {
-  production_dispatching_topping,
   production_dispatching_list,
   production_dispatching_change_device,
   production_dispatching_lock_device,
@@ -134,7 +133,6 @@ export default {
       // 切换机床
       dropVisible: false,
       toggleMachineObj: {},
-      isAllproceeList: false,
       currentProcessPage: 1,
       boxWidth: 0,
       currentSize: 1,
@@ -166,10 +164,14 @@ export default {
   },
   computed: {},
   methods: {
+    // 视口宽度变化时自适应显示机台数量
     getScreenWidth() {
+      // 判断菜单展开/收起时可展示个数
       this.boxWidth = this.$store.state.app.sidebar.opened ?  (window.innerWidth - 210 - 100) / 260 : (window.innerWidth - 55 - 100) / 260
+      // 限制最小与最大展示个数，若需要更改最大个数还需要更改el-col的span以及style中的el-col宽度
       this.currentSize = Math.max(Math.floor(this.boxWidth), 1);
       this.currentSize = Math.min(Math.floor(this.boxWidth), 6);
+      // 展示个数发生变化时从第一页重新加载数据
       if (this.preSize !== this.currentSize) {
         this.M_tableObj.pager.page = 1;
         this.M_tableObj.pager.sizeChange(this.currentSize);
@@ -177,46 +179,46 @@ export default {
       this.preSize = this.currentSize;
     },
     watchScroll() {
-        let taskListBox = document.querySelector('.task-list.list-box');
-        taskListBox.onscroll = () => {
-            this.scrollNumber = taskListBox.scrollTop;
-        }
+      let taskListBox = document.querySelector('.task-list.list-box');
+      taskListBox.onscroll = () => {
+        this.scrollNumber = taskListBox.scrollTop;
+      }
     },
     setScrollTo(e) {
-        let taskListBox = document.querySelector('.task-list.list-box')
-        if (e === "up") {
-            this.scrollNumber = taskListBox.scrollTop;
-            this.scrollNumber -= 580;
-            const scrollToTop = () => {
-                const c = taskListBox.scrollTop
-                if (c > this.scrollNumber) {
-                    if(!taskListBox.scrollTop) return
-                    window.requestAnimationFrame(scrollToTop)
-                    taskListBox.onscroll = null;
-                    taskListBox.scrollTo(0, c - 15)
-                } else {
-                    this.watchScroll();
-                }
-            }
-            scrollToTop()
-        } else {
-            this.scrollNumber = taskListBox.scrollTop;
-            this.scrollNumber += 580;
-            const scrollToTop = () => {
-                let c = taskListBox.scrollTop
-                if (c < this.scrollNumber) {
-                    if(taskListBox.clientHeight + taskListBox.scrollTop + 2 >= taskListBox.scrollHeight) return
-                    window.requestAnimationFrame(scrollToTop)
-                    taskListBox.onscroll = null;
-                    taskListBox.scrollTo(0, c + 15)
-                } else {
-                    this.watchScroll();
-                }
-            }
-            scrollToTop()
+      let taskListBox = document.querySelector('.task-list.list-box')
+      if (e === "up") {
+        this.scrollNumber = taskListBox.scrollTop;
+        this.scrollNumber -= 580;
+        const scrollToTop = () => {
+          const c = taskListBox.scrollTop
+          if (c > this.scrollNumber) {
+            if(!taskListBox.scrollTop) return
+            window.requestAnimationFrame(scrollToTop)
+            taskListBox.onscroll = null;
+            taskListBox.scrollTo(0, c - 15)
+          } else {
+            this.watchScroll();
+          }
         }
+        scrollToTop()
+      } else {
+        this.scrollNumber = taskListBox.scrollTop;
+        this.scrollNumber += 580;
+        const scrollToTop = () => {
+          let c = taskListBox.scrollTop
+          if (c < this.scrollNumber) {
+            if(taskListBox.clientHeight + taskListBox.scrollTop + 2 >= taskListBox.scrollHeight) return
+            window.requestAnimationFrame(scrollToTop) // 平滑滚动
+            taskListBox.onscroll = null;
+            taskListBox.scrollTo(0, c + 15)
+          } else {
+            this.watchScroll();
+          }
+        }
+        scrollToTop()
+      }
     },
-    loadClcik(state = true) {
+    loadClick(state = true) {
       let { Total, page, pageSize } = this.M_tableObj.pager;
       let isLast = page * pageSize >= Total;
       if (state) {
@@ -228,7 +230,7 @@ export default {
       }
     },
     formSubmit(type) {
-      if (type == "reset") {
+      if (type === "reset") {
         this.M_tableObj.formObj.form = Object.assign(
           JSON.parse(this.M_tableObj.copyForm),
           { PageSize: this.currentSize }
@@ -246,7 +248,6 @@ export default {
       let scrollBottom =
         e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight;
       if (scrollBottom < 100) {
-        console.log(this.currentProcessPage, this.P_tableObj.pager.page);
         if (this.currentProcessPage - this.P_tableObj.pager.page === 1) {
           this.P_tableObj.pager.currentChange(99);
         }
