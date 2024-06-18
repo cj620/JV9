@@ -66,7 +66,7 @@ export default {
     },
     add(){
       this.$router.push({
-        name: "AddProjectProcessTemplate",
+        name: "Pm_AddProjectProcessTemplate",
         params: {
           type: 'add'
         }

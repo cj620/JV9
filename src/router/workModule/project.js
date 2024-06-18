@@ -300,7 +300,7 @@ const project = [
     component: () =>
         import("@/views/workModule/project/baseData/projectProcessTemplate/Add"),
     Parent: "Pm_BaseData",
-    name: "AddProjectProcessTemplate",
+    name: "Pm_AddProjectProcessTemplate",
     path: "addProjectProcessTemplate",
     title:
         i18n.t("Generality.Ge_New") +

@@ -5,12 +5,15 @@
  * @Description:
 -->
 <template>
-  <add-process-template />
+  <div>
+    <add-process-template />
+  </div>
 </template>
 
 <script>
 import AddProcessTemplate from "../components/index.vue";
 export default {
+  name: "Pr_AddProcessTemplate",
   data() {
     return {};
   },
