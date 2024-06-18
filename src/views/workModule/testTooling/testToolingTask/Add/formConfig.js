@@ -91,6 +91,7 @@ export const formSchema = [
     prop: "TestMouldMachine",
     label: i18n.t("project.Pro_TestMouldMachine"),
     cpn: "FormInput",
+    custom: true,
   },
   //试模机台
   {
