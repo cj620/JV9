@@ -18,6 +18,11 @@ export const tableConfig = [
     prop: "ItemName",
     label: i18n.t("Generality.Ge_ItemName"),
   },
+  /*计划交期*/
+  {
+    prop: "DeliveryDate",
+    label: i18n.t("Generality.Ge_DeliveryDate"),
+  },
   /*描述*/
   {
     prop: "Description",
@@ -116,12 +121,6 @@ export const detailConfig = [
     // 供应商简称
     prop: "SupplierName",
     label: i18n.t("purchase.Pr_SupplierName"),
-  },
-  {
-    // 计划交期
-    prop: "DeliveryDate",
-    label: '交货日期',
-    filter: "date",
   },
   {
     // 币种

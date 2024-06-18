@@ -57,11 +57,6 @@ export const tableConfig = [
     cpn: "BillStateTags",
     width: "120px",
   },
-  /*供应商id*/
-  {
-    prop: "SupplierId",
-    label: i18n.t("purchase.Pr_SupplierId"),
-  },
   /*供应商简称*/
   {
     prop: "SupplierName",
@@ -78,16 +73,6 @@ export const tableConfig = [
     prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
     width: "95px",
-  },
-  /*汇率*/
-  {
-    prop: "ExchangeRate",
-    label: '汇率',
-  },
-  /*来源单据*/
-  {
-    prop: "RelationId",
-    label: '来源单据',
   },
   /*制单人*/
   {

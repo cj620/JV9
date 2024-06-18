@@ -72,11 +72,6 @@ export const tableConfig = [
     label: '使用日期',
     filter: "date",
   },
-  /*来源单据*/
-  {
-    prop: "RelationId",
-    label: '来源单据',
-  },
   /*制单人*/
   {
     prop: "Creator",
