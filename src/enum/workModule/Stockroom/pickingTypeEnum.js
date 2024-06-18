@@ -42,4 +42,26 @@ export default {
     icon: '',
     operation: {}
   },
+  /// <summary>
+  /// 返工领料
+  /// </summary>
+  'ReworkPicking': {
+    name: i18n.t("stockroom.St_ReworkPicking"),
+    value: 'Picking',
+    color: '#ReworkPicking',
+    fcolor:'#fff',
+    icon: '',
+    operation: {}
+  },
+  /// <summary>
+  /// 领料
+  /// </summary>
+  'OutsourcingPicking': {
+    name: i18n.t("stockroom.St_OutsourcingPicking"),
+    value: 'Picking',
+    color: '#909399',
+    fcolor:'#fff',
+    icon: '',
+    operation: {}
+  },
 }

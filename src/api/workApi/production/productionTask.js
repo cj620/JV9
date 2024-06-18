@@ -147,3 +147,29 @@ export function allocation_process_list(data) {
     data,
   })
 }
+// 拆单
+export function production_task_split(data){
+  return request({
+    url:"/production_task/split",
+    method:"post",
+    data,
+  })
+}
+
+// 查看子单
+export function view_query_child_task(data){
+  return request({
+    url:"/production_task/query_child_task",
+    method:"post",
+    data,
+  })
+}
+
+// 查看父单
+export function view_query_parent_task(data){
+  return request({
+    url:"/production_task/query_parent_task",
+    method:"post",
+    data,
+  })
+}

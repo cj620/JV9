@@ -10,8 +10,8 @@
   <PageWrapper :footer="false">
     <div v-if="false">
       userId <el-input v-model="userId"></el-input> billId<el-input
-        v-model="mbill"
-      ></el-input>
+      v-model="mbill"
+    ></el-input>
       模号<el-input v-model="modBill"></el-input>
       <el-button @click="autoCreateBill">任务完成</el-button>
       <el-button @click="autoBatchCreate">模号生成</el-button>
@@ -31,85 +31,41 @@
                 {{ $t("Generality.Ge_Refresh") }}
               </el-button>
               <el-button size="mini" @click="add">{{
-                $t("Generality.Ge_New")
-              }}</el-button>
+                  $t("Generality.Ge_New")
+                }}</el-button>
               <el-button size="mini" @click="copy">{{
-                $t("Generality.Ge_Copy")
-              }}</el-button>
+                  $t("Generality.Ge_Copy")
+                }}</el-button>
               <el-button size="mini" @click="del">{{
-                $t("Generality.Ge_Delete")
-              }}</el-button>
-<!--              <el-button size="mini" @click="splitOrder">{{-->
-<!--                $t("production.Pr_SplitOrder")-->
-<!--              }}</el-button>-->
-<!--              <el-button size="mini" @click="viewSubList(true)" :disabled="!multipleSelection.length">{{-->
-<!--                  $t("production.Pr_ViewSubList")-->
-<!--                }}</el-button>-->
-<!--              <el-button size="mini" @click="viewParentList(true)" :disabled="disabledFn">-->
-<!--                {{$t("production.Pr_ViewParentOrder")}}-->
-<!--              </el-button>-->
+                  $t("Generality.Ge_Delete")
+                }}</el-button>
               <el-button size="mini" @click="print(false)">{{
-                $t("Generality.Ge_Print")
-              }}</el-button>
+                  $t("Generality.Ge_Print")
+                }}</el-button>
               <el-button size="mini" @click="print(true)">{{
-                $t("menu.Pr_LabelPrint")
-              }}</el-button>
-<!--              <el-button-->
-<!--                size="mini"-->
-<!--                @click="printbyTooling"-->
-<!--                :disabled="!form.ToolingNo"-->
-<!--                >{{ $t("production.Pr_PrintByTooling") }}</el-button-->
-<!--              >-->
+                  $t("menu.Pr_LabelPrint")
+                }}</el-button>
+              <el-button
+                size="mini"
+                @click="printbyTooling"
+                :disabled="!form.ToolingNo"
+              >{{ $t("production.Pr_PrintByTooling") }}</el-button
+              >
               <el-button size="mini" @click="outsourcingPart">{{
-                $t("production.Pr_PartOutsourcing")
-              }}</el-button>
-<!--              <el-button size="mini" @click="goOverdueWorkOrder">{{-->
-<!--                $t("menu.Pr_OverdueWorkOrder")-->
-<!--              }}</el-button>-->
-<!--              <el-button-->
-<!--                size="mini"-->
-<!--                @click="editBillState"-->
-<!--                :disabled="multipleSelection.length === 0"-->
-<!--              >{{ $t("production.Pr_EditState") }}</el-button-->
-<!--              >-->
-<!--              <el-button-->
-<!--                size="mini"-->
-<!--                @click="editBillDelivery"-->
-<!--                :disabled="multipleSelection.length === 0"-->
-<!--              >{{ $t('production.Pr_EditDeliveryDate') }}</el-button-->
-<!--              >-->
-<!--              <el-button size="mini" @click="deletedData">-->
-<!--                {{ $t("production.Pr_DeletedData") }}-->
-<!--              </el-button>-->
-              <el-dropdown style="padding-left: 1px" @command="handleCommand">
-                <el-button size="mini">. . .</el-button>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="splitOrder">{{
-                      $t("production.Pr_SplitOrder")
-                    }}</el-dropdown-item>
-                  <el-dropdown-item command="viewSubList" :disabled="!multipleSelection.length">{{
-                      $t("production.Pr_ViewSubList")
-                    }}</el-dropdown-item>
-                  <el-dropdown-item command="viewParentList" :disabled="disabledFn">{{
-                      $t("production.Pr_ViewParentOrder")
-                    }}</el-dropdown-item>
-                  <el-dropdown-item command="printByTooling" :disabled="!form.ToolingNo">{{
-                      $t("production.Pr_PrintByTooling")
-                    }}</el-dropdown-item>
-                  <el-dropdown-item command="overdueWorkOrder">{{
-                      $t("menu.Pr_OverdueWorkOrder")
-                    }}</el-dropdown-item>
-                  <el-dropdown-item command="editState" :disabled="multipleSelection.length === 0">{{
-                      $t("production.Pr_EditState")
-                    }}</el-dropdown-item>
-                  <el-dropdown-item command="editDeliveryDate" :disabled="multipleSelection.length === 0">{{
-                      $t('production.Pr_EditDeliveryDate')
-                    }}</el-dropdown-item>
-                  <el-dropdown-item command="deletedData">{{
-                      $t("production.Pr_DeletedData")
-                    }}</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
+                  $t("production.Pr_PartOutsourcing")
+                }}</el-button>
+              <el-button size="mini" @click="goOverdueWorkOrder">{{
+                  $t("menu.Pr_OverdueWorkOrder")
+                }}</el-button>
+              <el-button
+                size="mini"
+                @click="editBillState"
+                :disabled="multipleSelection.length === 0"
+              >{{ $t("production.Pr_EditState") }}</el-button
+              >
+              <el-button size="mini" @click="deletedData" v-if="IsShow">
+                {{ $t("production.Pr_DeletedData") }}
+              </el-button>
             </el-button-group>
           </div>
         </div>
@@ -244,12 +200,16 @@
                     </span>
                   </el-tooltip>
                 </div>
-                <!--操作-->
-                <div class="top-operate">
-                  <el-button type="text" @click="edit(item.BillId)">{{
-                      $t("Generality.Ge_Edit")
-                    }}</el-button>
-                </div>
+              </div>
+              <div class="productionTask-card-content-baseInfo-operate">
+                <el-button type="text" @click="edit(item.BillId)">{{
+                    $t("Generality.Ge_Edit")
+                  }}</el-button>
+                <el-button
+                  type="text"
+                  @click="outsourcingProcess(item.BillId)"
+                >{{ $t("production.Pr_ProcessOutsourcing") }}</el-button
+                >
               </div>
             </div>
             <div class="productionTask-card-content-craft">
@@ -264,14 +224,6 @@
                 class="productionTask-card-content-craft-content"
               >
                 {{ TItem.Process }}({{ TItem.PlanTime }}H)
-              </div>
-              <!--操作-->
-              <div class="bottom-operate">
-                <el-button
-                  type="text"
-                  @click="outsourcingProcess(item.BillId)"
-                >{{ $t("production.Pr_ProcessOutsourcing") }}</el-button
-                >
               </div>
             </div>
           </div>
@@ -371,12 +323,6 @@
       @confirmSplitOrder="confirmSplitOrder"
     >
     </split-order>
-    <editDelivery
-      :visible.sync="editDeliveryDialogFormVisible"
-      v-if="editDeliveryDialogFormVisible"
-      :editDeliveryData="editDeliveryData"
-      @completeEdit="completeEditDelivery"
-    ></editDelivery>
   </PageWrapper>
 </template>
 
@@ -384,16 +330,8 @@
 import {
   productionTaskList,
   deleteProductionTask,
-  production_task_update_state,
-  view_query_child_task,
+  production_task_update_state, view_query_parent_task, view_query_child_task,
 } from "@/api/workApi/production/productionTask";
-import AComponents from "./components/AComponents";
-import outsourcingProcess from "./components/outsourcingProcess";
-import outsourcingPart from "./components/outsourcingPart";
-import searchForm from "./components/searchForm";
-import copyOrder from "./components/copyOrder";
-import deletedDataList from "./components/deletedDataList";
-import editStateForm from "./components/editStateForm";
 import {
   LevelEnum,
   ProcessState,
@@ -402,12 +340,18 @@ import {
 import { addOutsourcingrRequirement } from "@/api/workApi/purchase/outsourcingRequirement";
 import { editLock } from "@/api/basicApi/systemSettings/billEditLock";
 import { imgUrlPlugin, printPlugin } from "@/jv_doc/utils/system/index.js";
-import { autoCreate, batchCreate } from "../../productionReport/List/auto";
 import SplitOrder from "@/views/workModule/production/productionTask/List/components/splitOrder.vue";
-import editDelivery from "./components/editDelivery.vue";
+import {autoCreate, batchCreate} from "@/views/workModule/production/productionReport/List/auto";
+import AComponents from "@/views/workModule/production/productionTask/List/components/AComponents.vue";
+import outsourcingProcess from "@/views/workModule/production/productionTask/List/components/outsourcingProcess.vue";
+import outsourcingPart from "@/views/workModule/production/productionTask/List/components/outsourcingPart.vue";
+import searchForm from "@/views/workModule/production/productionTask/List/components/searchForm.vue";
+import copyOrder from "@/views/workModule/production/productionTask/List/components/copyOrder.vue";
+import deletedDataList from "@/views/workModule/production/productionTask/List/components/deletedDataList.vue";
+import editStateForm from "@/views/workModule/production/productionTask/List/components/editStateForm.vue";
 export default {
   // 页面的标识
-  name: "ProductionTask",
+  name: "Pr_ProductionTaskSubList",
   data() {
     return {
       splitOrderData: {},
@@ -430,19 +374,17 @@ export default {
         Remarks: "",
         Keyword: "",
         States: [],
-        BillType: "Part",
         CustomerName: "",
         StartDate: "",
         EndDate: "",
         PageSize: 10,
         CurrentPage: 1,
-        SortByProgress: false,
       },
       loading: false,
       drawer: false,
       Checked: false,
       tooltipFlag: false,
-      // IsShow: true, //判断是生产任务子页还是主页
+      IsShow: true, //判断是生产任务子页还是主页
 
       CheckedData: 1,
       IsFlag: false, //判断选择框是否全部选中
@@ -452,15 +394,14 @@ export default {
       outsourcingProcessDialogFormVisible: false, //选择委外工序的弹窗
       outsourcingPartDialogFormVisible: false, //选择委外零件的弹窗
       copyOrderDialogFormVisible: false, //复制工单的弹窗
-      editDeliveryDialogFormVisible: false, //编辑交期弹窗
       multipleSelection: [],
       transferData: "",
       searchFormData: {},
-      editDeliveryData: [],
       BillSum: 0,
     };
   },
   created() {
+
     this.GetData();
   },
   methods: {
@@ -492,29 +433,15 @@ export default {
         this.multipleSelection = [];
       });
     },
-    // 编辑交期
-    editBillDelivery() {
-      this.editDeliveryData = this.multipleSelection;
-      this.editDeliveryDialogFormVisible = true;
-    },
-    completeEditDelivery() {
-      this.editDeliveryDialogFormVisible = false;
-      productionTaskList(this.form).then((res) => {
-        res.Items.forEach((item) => {
-          item.IsHas = false;
-        });
-        this.dataList = res.Items;
-        this.BillSum = res.Count;
-        this.multipleSelection = [];
-      });
-    },
     //已删除数据
     deletedData() {
       this.deletedDataListDialogFormVisible = true;
     },
     async GetData() {
       this.loading = true;
-      await productionTaskList(this.form).then((res) => {
+      this.form.BillId=this.$route.query.BillId
+      await view_query_child_task(this.form).then((res) => {
+        console.log(res.Items);
         res.Items.forEach((item) => {
           item.IsHas = false;
         });
@@ -539,16 +466,15 @@ export default {
       this.searchFormData = this.form;
     },
     //点击搜索
-    async searchData(e) {
+    searchData(e) {
+      console.log(e);
       this.drawer = false;
       this.form.ToolingNo = e.ToolingNo;
       this.form.Remarks = e.Remarks;
       this.form.Keyword = e.Keyword;
       this.form.States = e.States;
-      this.form.BillType = e.BillType;
       this.form.CurrentPage = 1;
-      await this.GetData();
-      await this.IsAllSelect();
+      this.GetData();
     },
     //跳转到详情
     linkTo(Id) {
@@ -677,6 +603,8 @@ export default {
             this.GetData();
           });
         });
+      } else {
+        console.log(11);
       }
     },
 
@@ -699,6 +627,7 @@ export default {
     },
     //工序委外确认保存
     confirmOutsourcingProcessData(e) {
+      console.log(e);
       let arr = [];
 
       e.forEach((item) => {
@@ -720,6 +649,7 @@ export default {
     },
     //零件委外确认保存
     confirmOutsourcingPartData(e) {
+      console.log(e);
       let arr = [];
       e.forEach((item) => {
         let str = {};
@@ -741,12 +671,14 @@ export default {
     //保存委外物料需求
     OutsourcingrRequirement(res) {
       addOutsourcingrRequirement(res).then((res) => {
+        console.log(res);
         this.outsourcingPartDialogFormVisible = false;
         this.outsourcingProcessDialogFormVisible = false;
       });
     },
 
     visibilityChange(event) {
+      console.log(11);
       this.tooltipFlag = true;
     },
 
@@ -796,12 +728,10 @@ export default {
     //查看子单
     viewSubList(type) {
       if (this.verifySelection()) {
-        view_query_child_task({BillId: this.multipleSelection[0].BillId}).then(res => {
-          this.$router.push({
-            name: "Pr_ProductionTaskSubList",
-            query: { BillId: this.multipleSelection[0].BillId, type: type },
-          });
-        })
+        this.$router.push({
+          name: "Pr_ProductionTaskSubList",
+          query: { BillId: this.multipleSelection[0].BillId, type: type },
+        });
       }
     },
     //查看父单
@@ -813,25 +743,6 @@ export default {
         });
       }
     },
-    handleCommand(command) {
-      if (command === 'splitOrder') {
-        this.splitOrder();
-      } else if (command === 'viewSubList') {
-        this.viewSubList(true);
-      } else if (command === 'viewParentList') {
-        this.viewParentList(true);
-      } else if (command === 'printByTooling') {
-        this.printbyTooling();
-      } else if (command === 'overdueWorkOrder') {
-        this.goOverdueWorkOrder();
-      } else if (command === 'editState') {
-        this.editBillState();
-      } else if (command === 'editDeliveryDate') {
-        this.editBillDelivery();
-      } else if (command === 'deletedData') {
-        this.deletedData();
-      }
-    }
   },
   computed: {
     LevelMap() {
@@ -843,17 +754,8 @@ export default {
     ProductionTaskStateMap() {
       return ProductionTaskState;
     },
-    // 查看父单禁用状态
-    disabledFn(){
-      if (this.multipleSelection.length === 1) {
-        return !this.multipleSelection[0].ParentBillGui;
-      } else {
-        return true
-      }
-    },
   },
   components: {
-    editDelivery,
     SplitOrder,
     AComponents,
     outsourcingProcess,
@@ -866,7 +768,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "~@/jv_doc/style/mixin.scss";
 .productionTask {
   height: 100%;
@@ -935,12 +837,12 @@ export default {
         padding: 7px 0;
         .productionTask-Img-error {
           background-color: rgb(231, 231, 231);
-          display: flex;
-          justify-content: center;
-          align-items: center;
           .image-slot {
             width: 100%;
             height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             // color: rgb(161, 161, 161);
             .error-icon {
               color: rgb(161, 161, 161);
@@ -952,13 +854,10 @@ export default {
       .productionTask-card-content {
         width: 100%;
         font-size: 14px;
-        padding-bottom: 5px;
         .productionTask-card-content-baseInfo {
           display: flex;
-          position: relative;
           flex-direction: row;
           justify-content: space-between;
-          margin-bottom: 5px;
           .productionTask-card-content-baseInfo-content {
             display: flex;
             div {
@@ -969,10 +868,13 @@ export default {
               white-space: nowrap;
             }
           }
+          .productionTask-card-content-baseInfo-operate {
+            min-width: 120px;
+            padding-right: 20px;
+          }
         }
         .productionTask-card-content-craft {
           display: flex;
-          position: relative;
           .productionTask-card-content-craft-content {
             text-align: center;
             font-size: 14px;
@@ -1013,24 +915,5 @@ export default {
       margin: 0 5px;
     }
   }
-}
-.top-operate {
-  height: 30px;
-  min-width: 120px;
-  position: absolute;
-  right: 0;
-  bottom: 1px;
-  display: flex;
-  justify-content: left;
-}
-.bottom-operate {
-  height: 30px;
-  min-width: 120px;
-  position: absolute;
-  top: -5px;
-  right: 0;
-  margin-right: 10px;
-  display: flex;
-  justify-content: left;
 }
 </style>

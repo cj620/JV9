@@ -48,22 +48,7 @@ export const formSchema = [
     prop: "PickingType",
     cpn: "FormSelect",
     label: i18n.t("stockroom.St_PickingType"),
-    options: {
-      list: [
-        {
-          value: "Picking",
-          label: i18n.t("stockroom.St_Picking"),
-        },
-        {
-          value: "Supplement",
-          label: i18n.t("stockroom.St_Supplement"),
-        },
-        {
-          value: "TrialTooling",
-          label: i18n.t("stockroom.St_TrialMold"),
-        },
-      ],
-    },
+    custom: true,
     rules: [
       {
         required: true,

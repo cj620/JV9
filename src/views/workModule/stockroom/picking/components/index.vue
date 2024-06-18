@@ -28,6 +28,20 @@
             </el-option>
           </el-select>
         </template>
+        <!--领料类别-->
+        <template #PickingType="{ prop }">
+          <el-select
+            v-model="formObj.form[prop]"
+            @change="changePickingType"
+          >
+            <el-option
+              v-for="item in pickTypeEnum"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </template>
         <!--模具编号-->
         <template #ToolingNo="{ prop }">
           <el-select
@@ -54,11 +68,10 @@
           <el-select
             v-model="formObj.form[prop]"
             filterable
-            @change="changeSubmitter"
             :disabled="editDisabled"
           >
             <el-option
-              v-for="item in TaskListData"
+              v-for="item in finalTaskListData"
               :key="item.BillId"
               :label="
                 item.BillId + '(' + taskTypeEnum[item.TaskType].name + ')'
@@ -174,11 +187,37 @@ export default {
       materialRequirementsDialogFormVisible: false,
       loading: false,
       editDisabled: false,
+      oldPickingType: '',
       transferData: [],
       SubmitterData: [],
       MouldListData: [],
       TaskListData: [],
+      finalTaskListData: [],
       detailedData: [],
+      pickTypeEnum: [
+        {
+          value: "Picking",
+          label: i18n.t("stockroom.St_Picking"),
+        },
+        {
+          value: "Supplement",
+          label: i18n.t("stockroom.St_Supplement"),
+        },
+        {
+          value: "TrialTooling",
+          label: i18n.t("stockroom.St_TrialMold"),
+        },
+        //返工领料
+        {
+          value: "ReworkPicking",
+          label: i18n.t("stockroom.St_ReworkPicking"),
+        },
+        //委外领料
+        {
+          value: "OutsourcingPicking",
+          label: i18n.t("stockroom.St_OutsourcingPicking"),
+        },
+      ],
       textarea: "",
       fileList: [],
       fileBillId: "",
@@ -346,16 +385,38 @@ export default {
         SelectType: 0,
       };
       toolingTaskInfoList(str).then((res) => {
-        if (res.Items.length === 1) {
-          this.formObj.form.PmTaskBillId = res.Items[0].BillId;
-        } else if (res.Items.length === 0) {
+        // if (res.Items.length === 1) {
+        //   this.formObj.form.PmTaskBillId = res.Items[0].BillId;
+        // } else if (res.Items.length === 0) {
+        //   this.formObj.form.PmTaskBillId = "";
+        // }
+        this.TaskListData = res.Items;
+        if (this.formObj.form.PickingType === 'TrialTooling') {
+          this.finalTaskListData = this.TaskListData.filter(i => i.TaskType === "TrialTooling");
+        } else {
+          this.finalTaskListData = this.TaskListData;
+        }
+        //判断说明不只一个任务单
+        if (this.finalTaskListData.length === 1) {
+          this.formObj.form.PmTaskBillId = this.finalTaskListData[0].BillId;
+        } else {
           this.formObj.form.PmTaskBillId = "";
         }
-        this.TaskListData = res.Items;
-        //判断说明不只一个任务单
       });
     },
-
+    // 选中领料类别
+    changePickingType(e) {
+      if (e === 'TrialTooling' && this.oldPickingType !== 'TrialTooling') { // 非试模改为试模
+        if (this.formObj.form.ToolingNo !== '') {
+          this.changeToolingNo();
+          this.finalTaskListData = this.TaskListData.filter(i => i.TaskType === "TrialTooling");
+        }
+        this.oldPickingType = e;
+      } else if (e !== 'TrialTooling' && this.oldPickingType === 'TrialTooling') { // 试模改为非试模
+        this.finalTaskListData = this.TaskListData;
+        this.oldPickingType = e;
+      }
+    },
     //上传文件返回的数据
     returnData(fileData) {
       this.ruleForm.BillFiles = fileData;
