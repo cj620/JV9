@@ -385,6 +385,7 @@ import {
   productionTaskList,
   deleteProductionTask,
   production_task_update_state,
+  view_query_child_task,
 } from "@/api/workApi/production/productionTask";
 import AComponents from "./components/AComponents";
 import outsourcingProcess from "./components/outsourcingProcess";
@@ -795,10 +796,12 @@ export default {
     //查看子单
     viewSubList(type) {
       if (this.verifySelection()) {
-        this.$router.push({
-          name: "Pr_ProductionTaskSubList",
-          query: { BillId: this.multipleSelection[0].BillId, type: type },
-        });
+        view_query_child_task({BillId: this.multipleSelection[0].BillId}).then(res => {
+          this.$router.push({
+            name: "Pr_ProductionTaskSubList",
+            query: { BillId: this.multipleSelection[0].BillId, type: type },
+          });
+        })
       }
     },
     //查看父单
