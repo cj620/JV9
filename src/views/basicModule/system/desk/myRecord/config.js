@@ -1,7 +1,7 @@
 import i18n from "@/i18n/i18n";
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
-import { enumToList } from "~/utils/system/enumsPlugin";
-import { taskTypeEnum } from "@/enum/workModule";
+import {enumFilter, enumToList} from "~/utils/system/enumsPlugin";
+import {ProjectTaskItemInspectionStateEnum, taskTypeEnum} from "@/enum/workModule";
 import { getProject_task_log } from "@/api/workApi/project/projectTask";
 
 export class api extends TableAPI {
@@ -146,6 +146,26 @@ export const tableConfig = [
     label: i18n.t("program.Pr_CreationDate"),
     filter: "time",
     width: "140px",
+  },
+  {
+    // 点检状态
+    prop: "InspectionState",
+    label: i18n.t("project.Pro_InspectionState"),
+    customFilter: (value) => enumFilter(value, ProjectTaskItemInspectionStateEnum),
+    width: '80px',
+  },
+  {
+    // 点检时间
+    prop: "InspectionTime",
+    label: i18n.t("project.Pro_InspectionTime"),
+    filter: "time",
+    width: "140px",
+  },
+  {
+    // 点检人
+    prop: "InspectionPersonnel",
+    label: i18n.t("project.Pro_InspectionPersonnel"),
+    width: '95px',
   },
   /*备注*/
   {

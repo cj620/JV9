@@ -9,6 +9,8 @@ import {
   my_project_task_record,
 } from "@/api/basicApi/systemSettings/user";
 import i18n from "@/i18n/i18n";
+import {enumFilter} from "~/utils/system/enumsPlugin";
+import {ProjectTaskItemInspectionStateEnum} from "@/enum/workModule";
 class api extends TableAPI {
   // 获取列表
   getData = my_project_task_record;
@@ -66,6 +68,26 @@ const tableSchema = [
     label: i18n.t("setup.ReportedAt"),
     filter: "time",
     width: "150px",
+  },
+  {
+    // 点检状态
+    prop: "InspectionState",
+    label: i18n.t("project.Pro_InspectionState"),
+    customFilter: (value) => enumFilter(value, ProjectTaskItemInspectionStateEnum),
+    width: '80px',
+  },
+  {
+    // 点检时间
+    prop: "InspectionTime",
+    label: i18n.t("project.Pro_InspectionTime"),
+    filter: "time",
+    width: "140px",
+  },
+  {
+    // 点检人
+    prop: "InspectionPersonnel",
+    label: i18n.t("project.Pro_InspectionPersonnel"),
+    width: '95px',
   },
   /*备注*/
   {
