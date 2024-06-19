@@ -39,7 +39,6 @@
 import { Table } from "./config";
 import { getAllProjectProcessTemplate, deleteProjectProcessTemplate } from "@/api/workApi/project/baseData";
 export default {
-  name: "Pm_ProjectProcessTemplate",
   data(){
     return {
       tableObj: {},
@@ -67,7 +66,7 @@ export default {
     },
     add(){
       this.$router.push({
-        name: "AddProjectProcessTemplate",
+        name: "Pm_AddProjectProcessTemplate",
         params: {
           type: 'add'
         }

@@ -5,12 +5,15 @@
  * @Description:
 -->
 <template>
-  <add-project-process-template />
+  <div>
+    <add-project-process-template />
+  </div>
 </template>
 
 <script>
 import AddProjectProcessTemplate from "../components/index.vue";
 export default {
+  name: "Pm_AddProjectProcessTemplate",
   data() {
     return {};
   },

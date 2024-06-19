@@ -140,6 +140,16 @@
           <!-- 状态标签 -->
           {{ taskTypeEnum[record].name }}
         </template>
+        <template #Progress="{ row }">
+          <el-progress
+            :text-inside="true"
+            :stroke-width="14"
+            :percentage="row.Progress"
+          ></el-progress>
+        </template>
+        <template #IsItCompletedAsPlanned="{ record }">
+          {{ record ? '是' : '否' }}
+        </template>
       </JvTable>
     </JvDialog>
 

@@ -134,9 +134,9 @@ export const tableSchema = [
   },
   {
     // 点检人
-    prop: "Inspectionpersonnel",
+    prop: "InspectionPersonnel",
     label: i18n.t("project.Pro_InspectionPersonnel"),
-    width: '65px',
+    width: '95px',
   }
 ]
 

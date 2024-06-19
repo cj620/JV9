@@ -1066,8 +1066,8 @@ export default {
       this.importShow = false;
       this.importDialogFormVisible = true;
 
-      // let arr = this.handleExcelData(e);
-      var arr = [];
+       let arr = this.handleExcelData(e);
+    /*   var arr = [];
       e.forEach((Titem) => {
         var str = {};
         this.exportTemplate.forEach((item) => {
@@ -1076,7 +1076,7 @@ export default {
           }
         });
         arr.push(str);
-      });
+      }); */
       this.importTableObj.setData(temMerge(this.saveData, arr));
     },
     handleExcelData(res = []) {

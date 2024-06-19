@@ -15,7 +15,19 @@
 
     <!--单据信息-->
     <JvBlock :title="$t('Generality.Ge_BillInfo') + BillIdShow" ref="first">
-      <JvForm :formObj="formObj"> </JvForm>
+      <JvForm :formObj="formObj">
+        <template #TestMouldMachine="{ prop }">
+          <el-select v-model="formObj.form[prop]" filterable>
+            <el-option
+              v-for="item in deviceList"
+              :key="item.DeviceNo"
+              :label="item.Device"
+              :value="item.Device"
+            >
+            </el-option>
+          </el-select>
+        </template>
+      </JvForm>
     </JvBlock>
 
     <!-- 试模问题点 -->
@@ -113,6 +125,7 @@ import { API as ProjectTask } from "@/api/workApi/project/projectTask";
 import closeTag from "@/utils/closeTag";
 import { timeFormat } from "~/utils/time";
 import { mapState } from "vuex";
+import { getAllDevice } from "@/api/workApi/production/baseData";
 export default {
   name: "Tt_TestToolingTask_Add",
   components: {
@@ -134,6 +147,7 @@ export default {
       defaultImgUrl: window.global_config.ImgBase_Url,
       detailRouteName: "Tt_TestToolingTask_Detail",
       ImgDataList: [],
+      deviceList: [],
       tableRow: {},
       fileBillId: this.$route.query.BillId,
       ruleForm:{
@@ -212,6 +226,9 @@ export default {
   methods: {
     //单据信息赋初值
     copyProperties() {
+      getAllDevice().then((res) => {
+        this.deviceList = res.Items;
+      })
       for (let key in this.formObj.form) {
         if (this.curData.hasOwnProperty(key)) {
           this.formObj.form[key] = this.curData[key];

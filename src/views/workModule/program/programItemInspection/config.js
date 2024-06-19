@@ -4,7 +4,7 @@ import { getProjectQuery } from "@/api/workApi/project/projectManage";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { timeFormat } from "~/utils/time";
-import { enumFilter, ProjectTaskItemInspectionStateEnum } from "@/enum/workModule";
+import {enumFilter, enumToList, ProjectTaskItemInspectionStateEnum} from "@/enum/workModule";
 import i18n from "@/i18n/i18n";
 
 class api extends TableAPI {
@@ -134,9 +134,9 @@ export const tableSchema = [
   },
   {
     // 点检人
-    prop: "Inspectionpersonnel",
+    prop: "InspectionPersonnel",
     label: i18n.t("project.Pro_InspectionPersonnel"),
-    width: '65px',
+    width: '95px',
   }
 ]
 
@@ -188,24 +188,11 @@ export const formSchema = [
     },
   },
   {
-    prop: "ItemState",
-    label: i18n.t("Generality.Ge_State"),
+    prop: "InspectionState",
+    label: i18n.t("project.Pro_InspectionState"),
     cpn: "FormSelect",
     options: {
-      list: [
-        {
-          value: "NotStarted",
-          label: i18n.t("project.Pro_NotStarted"),
-        },
-        {
-          value: "HaveInHand",
-          label: i18n.t("project.Pro_Ongoing"),
-        },
-        {
-          value: "Completed",
-          label: i18n.t("Generality.Ge_Completed"),
-        },
-      ],
+      list: enumToList(ProjectTaskItemInspectionStateEnum)
     },
   },
   {
@@ -225,6 +212,28 @@ export const formSchema = [
       new Date(),
       "yyyy-MM-dd"
     )
+  },
+  {
+    prop: "SelctChildrenType",
+    label: i18n.t("project.Pro_ViewTaskDetails"),
+    cpn: "FormSelect",
+    default: 2,
+    options: {
+      list: [
+        {
+          value: 0,
+          label: i18n.t("project.Pro_ViewParentProjectTasks"),
+        },
+        {
+          value: 1,
+          label: i18n.t("project.Pro_ViewSubtasks"),
+        },
+        {
+          value: 2,
+          label: i18n.t("project.Pro_ViewAllTasks"),
+        },
+      ],
+    },
   },
   {
     prop: "ProcessType",

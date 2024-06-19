@@ -457,7 +457,7 @@ const production = [
     component: () =>
       import("@/views/workModule/production/baseData/partProcessTemplate/add"),
     Parent: "Pr_BaseData",
-    name: "AddProcessTemplate",
+    name: "Pr_AddProcessTemplate",
     path: "addProcessTemplate",
     title:
       i18n.t("Generality.Ge_New") +

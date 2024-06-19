@@ -7,7 +7,7 @@
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 
-import { taskTypeEnum, enumToList } from "@/enum/workModule";
+import {taskTypeEnum, enumToList, enumFilter, ProjectTaskItemInspectionStateEnum} from "@/enum/workModule";
 // 单据接口
 import { getProject_task_log } from "@/api/workApi/project/projectTask";
 import i18n from "@/i18n/i18n";
@@ -127,6 +127,26 @@ export const tableConfig = [
     prop: "ReasonForNotAchievingThePlan1",
     label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
     width: '120px',
+  },
+  {
+    // 点检状态
+    prop: "InspectionState",
+    label: i18n.t("project.Pro_InspectionState"),
+    customFilter: (value) => enumFilter(value, ProjectTaskItemInspectionStateEnum),
+    width: '80px',
+  },
+  {
+    // 点检时间
+    prop: "InspectionTime",
+    label: i18n.t("project.Pro_InspectionTime"),
+    filter: "time",
+    width: "140px",
+  },
+  {
+    // 点检人
+    prop: "InspectionPersonnel",
+    label: i18n.t("project.Pro_InspectionPersonnel"),
+    width: '95px',
   },
   /*制单人*/
   {
