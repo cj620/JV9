@@ -25,6 +25,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
+    width: '160px',
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
@@ -45,7 +46,7 @@ export const tableConfig = [
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
     cpn: "BillStateTags",
-    width: "115px",
+    width: "120px",
   },
   /*客户*/
   {
@@ -75,6 +76,11 @@ export const tableConfig = [
     filter: "time",
     width: "150px",
   },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  }
 ];
 // 表单配置
 export const formSchema = [

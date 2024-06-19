@@ -48,13 +48,13 @@
       destroy-on-close
       v-if="reportRecordDialogVisible"
       :IsShowFooterBtn="false"
-      width="80%">
+      width="90%">
       <JvTable :table-obj="recordTableObj">
         <template #Progress="{ record }">
           <el-progress :percentage="record"></el-progress>
         </template>
         <template #IsItCompletedAsPlanned="{ record }">
-          {{ record ? '是' : '否' }}
+          {{ record ? $t('Generality.Ge_Yes') : $t('Generality.Ge_No') }}
         </template>
       </JvTable>
     </JvDialog>

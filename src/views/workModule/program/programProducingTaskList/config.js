@@ -73,12 +73,12 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_Process"),
     width: "100px",
   },
-  /*工序内容*/
-  {
-    prop: "ProcessContent",
-    label: i18n.t("Generality.Ge_TaskContent"),
-    width: "100px",
-  },
+  // /*工序内容*/
+  // {
+  //   prop: "ProcessContent",
+  //   label: i18n.t("Generality.Ge_TaskContent"),
+  //   width: "100px",
+  // },
   // 生产工序
   {
     prop: "ProductionProcess",

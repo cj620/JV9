@@ -168,7 +168,7 @@ export default {
         name: "Qc_ProcessCheck_Add",
         params: {
           type: "add",
-          ProcessCheckType: 2,
+          ProcessCheckType: 'NormalCheck',
           title: "addSaleOrder",
           data: e,
         },

@@ -119,7 +119,7 @@
       :title="$t('project.Pro_ReportToWorkRecord')"
       :visible.sync="taskRecordVisible"
       v-if="taskRecordVisible"
-      width="80%"
+      width="90%"
     >
       <JvTable :table-obj="taskRecordTable">
         <template #Progress="{ row }">
@@ -130,7 +130,7 @@
           ></el-progress>
         </template>
         <template #IsItCompletedAsPlanned="{ record }">
-          {{ record ? '是' : '否' }}
+          {{ record ? $t('Generality.Ge_Yes') : $t('Generality.Ge_No') }}
         </template>
       </JvTable>
     </JvDialog>

@@ -133,7 +133,7 @@
       :title="$t('project.Pro_ReportToWorkRecord')"
       v-if="dialogVisible"
       @confirm="dialogConfirm"
-      width="60%"
+      width="90%"
     >
       <JvTable :tableObj="jobRecordTableObj">
         <template #TaskType="{ record }">
@@ -148,7 +148,7 @@
           ></el-progress>
         </template>
         <template #IsItCompletedAsPlanned="{ record }">
-          {{ record ? '是' : '否' }}
+          {{ record ? $t('Generality.Ge_Yes') : $t('Generality.Ge_No') }}
         </template>
       </JvTable>
     </JvDialog>

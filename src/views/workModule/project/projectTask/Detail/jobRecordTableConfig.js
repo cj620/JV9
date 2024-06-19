@@ -5,7 +5,7 @@
  * @Description: file content
  */
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
-import { taskTypeEnum, enumToList } from "@/enum/workModule";
+import {taskTypeEnum, enumToList, enumFilter, ProjectTaskItemInspectionStateEnum} from "@/enum/workModule";
 import i18n from "@/i18n/i18n";
 
 export class JobRecordTable extends BaseTable {
@@ -33,7 +33,7 @@ export const tableConfig = [
     prop: "Progress",
     label: i18n.t("Generality.Ge_Schedule"),
     custom: true,
-    width: "250px",
+    width: "200px",
   },
   /*实际开始*/
   {
@@ -79,6 +79,26 @@ export const tableConfig = [
     label: i18n.t("setup.ReportedAt"),
     filter: "time",
     width: "150px",
+  },
+  {
+    // 点检状态
+    prop: "InspectionState",
+    label: i18n.t("project.Pro_InspectionState"),
+    customFilter: (value) => enumFilter(value, ProjectTaskItemInspectionStateEnum),
+    width: '80px',
+  },
+  {
+    // 点检时间
+    prop: "InspectionTime",
+    label: i18n.t("project.Pro_InspectionTime"),
+    filter: "time",
+    width: "140px",
+  },
+  {
+    // 点检人
+    prop: "InspectionPersonnel",
+    label: i18n.t("project.Pro_InspectionPersonnel"),
+    width: '95px',
   },
   /*备注*/
   {
