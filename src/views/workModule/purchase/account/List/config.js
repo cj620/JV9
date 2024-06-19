@@ -68,12 +68,6 @@ export const tableConfig = [
     label: '发票号',
     width: "95px",
   },
-  /*币种*/
-  {
-    prop: "Currency",
-    label: i18n.t("Generality.Ge_Currency"),
-    width: "95px",
-  },
   /*制单人*/
   {
     prop: "Creator",
