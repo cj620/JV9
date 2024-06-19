@@ -130,7 +130,7 @@
           ></el-progress>
         </template>
         <template #IsItCompletedAsPlanned="{ record }">
-          {{ record ? '是' : '否' }}
+          {{ record ? $t('Generality.Ge_Yes') : $t('Generality.Ge_No') }}
         </template>
       </JvTable>
     </JvDialog>
