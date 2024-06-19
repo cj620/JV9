@@ -87,7 +87,7 @@
                   <el-dropdown-item command="splitOrder">{{
                       $t("production.Pr_SplitOrder")
                     }}</el-dropdown-item>
-                  <el-dropdown-item command="viewSubList" :disabled="!multipleSelection.length">{{
+                  <el-dropdown-item command="viewSubList" :disabled="multipleSelection.length !== 1">{{
                       $t("production.Pr_ViewSubList")
                     }}</el-dropdown-item>
                   <el-dropdown-item command="viewParentList" :disabled="disabledFn">{{
