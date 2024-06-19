@@ -1,7 +1,7 @@
 import { TableAPI, Table as BaseTable } from "~/class/table";
 import { production_programing_task_items } from "@/api/workApi/project/projectTask";
 import { site_collection_production_task_record } from "@/api/workApi/quality/siteCollection"
-import { taskTypeEnum } from "@/enum/workModule/project/projectTask"
+import {ProjectTaskItemInspectionStateEnum, taskTypeEnum} from "@/enum/workModule/project/projectTask"
 import { enumFilter } from "~/utils/system/enumsPlugin";
 import i18n from "@/i18n/i18n";
 class api extends TableAPI {
@@ -232,7 +232,7 @@ const recordSchema = [
     prop: "Progress",
     label: i18n.t("Generality.Ge_Schedule"),
     custom: true,
-    width: "250px",
+    width: "200px",
   },
   /*实际开始*/
   {
@@ -278,6 +278,26 @@ const recordSchema = [
     label: i18n.t("setup.ReportedAt"),
     filter: "time",
     width: "150px",
+  },
+  {
+    // 点检状态
+    prop: "InspectionState",
+    label: i18n.t("project.Pro_InspectionState"),
+    customFilter: (value) => enumFilter(value, ProjectTaskItemInspectionStateEnum),
+    width: '80px',
+  },
+  {
+    // 点检时间
+    prop: "InspectionTime",
+    label: i18n.t("project.Pro_InspectionTime"),
+    filter: "time",
+    width: "140px",
+  },
+  {
+    // 点检人
+    prop: "InspectionPersonnel",
+    label: i18n.t("project.Pro_InspectionPersonnel"),
+    width: '95px',
   },
   /*备注*/
   {

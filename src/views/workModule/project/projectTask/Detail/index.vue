@@ -133,7 +133,7 @@
       :title="$t('project.Pro_ReportToWorkRecord')"
       v-if="dialogVisible"
       @confirm="dialogConfirm"
-      width="60%"
+      width="90%"
     >
       <JvTable :tableObj="jobRecordTableObj">
         <template #TaskType="{ record }">
