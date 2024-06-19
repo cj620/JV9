@@ -86,7 +86,7 @@ export const tableConfig = [
       api: getAllSalesCustomer,
       label: i18n.t("Generality.Ge_ItemType"),
       apiOptions: {
-        immediate: true,
+        // immediate: true,
         keyName: "ShortName",
         valueName: "ShortName",
       },

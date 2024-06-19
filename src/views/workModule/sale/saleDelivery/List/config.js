@@ -32,6 +32,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
+    width: '160px',
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
@@ -60,19 +61,20 @@ export const tableConfig = [
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
     cpn: "BillStateTags",
-    width: "115px",
+    width: "120px",
   },
   /*客户简称*/
   {
     prop: "CustomerName",
     label: i18n.t("sale.Sa_CustomerName"),
+    width: "115px",
     innerSearch: {
       prop: "CustomerName",
       cpn: "SyncSelect",
       api: getAllSalesCustomer,
       label: i18n.t("Generality.Ge_ItemType"),
       apiOptions: {
-        immediate: true,
+        // immediate: true,
         keyName: "ShortName",
         valueName: "ShortName",
       },
@@ -120,7 +122,6 @@ export const tableConfig = [
   {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
-    width: "150px",
   },
 ];
 export const formSchema = [

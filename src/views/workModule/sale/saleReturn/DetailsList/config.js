@@ -40,6 +40,7 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
+    width: '160px',
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
@@ -68,7 +69,7 @@ const tableSchema = [
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
     cpn: "BillStateTags",
-    width: "115px",
+    width: "120px",
   },
   /*客户简称*/
   {

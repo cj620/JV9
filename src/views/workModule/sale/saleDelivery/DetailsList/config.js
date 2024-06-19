@@ -42,6 +42,7 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
+    width: '160px',
     innerSearch: {
       prop: "BillId",
       cpn: "FormInput",
@@ -70,7 +71,7 @@ const tableSchema = [
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
     cpn: "BillStateTags",
-    width: "115px",
+    width: "120px",
   },
   /*客户简称*/
   {
@@ -93,6 +94,7 @@ const tableSchema = [
   {
     prop: "ItemId",
     label: i18n.t("Generality.Ge_ItemId"),
+    width: "120px",
   },
   /*物料类别*/
   {
@@ -103,11 +105,13 @@ const tableSchema = [
   {
     prop: "ItemName",
     label: i18n.t("Generality.Ge_ItemName"),
+    width: "120px",
   },
   /*描述*/
   {
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
+    width: "120px",
   },
   /*单位*/
   {
