@@ -1811,6 +1811,7 @@ const en = {
     P10201: "The previous process was not completed! ",
     P10202: "The programming process has not configured a resource group! ",
     P10203: "Content cannot be empty!",
+    P10204: "Data cannot be empty! ",
     P10205: "The material has been locked. Please contact the production management personnel!",
     P10206: "The device is locked and cannot be edited!",
   },
