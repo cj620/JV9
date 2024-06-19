@@ -218,22 +218,23 @@ export const formSchema = [
     label: i18n.t("project.Pro_ViewTaskDetails"),
     cpn: "FormSelect",
     default: 2,
-    options: {
-      list: [
-        {
-          value: 0,
-          label: i18n.t("project.Pro_ViewParentProjectTasks"),
-        },
-        {
-          value: 1,
-          label: i18n.t("project.Pro_ViewSubtasks"),
-        },
-        {
-          value: 2,
-          label: i18n.t("project.Pro_ViewAllTasks"),
-        },
-      ],
-    },
+    hidden: true,
+    // options: {
+    //   list: [
+    //     {
+    //       value: 0,
+    //       label: i18n.t("project.Pro_ViewParentProjectTasks"),
+    //     },
+    //     {
+    //       value: 1,
+    //       label: i18n.t("project.Pro_ViewSubtasks"),
+    //     },
+    //     {
+    //       value: 2,
+    //       label: i18n.t("project.Pro_ViewAllTasks"),
+    //     },
+    //   ],
+    // },
   },
   {
     prop: "ProcessType",
