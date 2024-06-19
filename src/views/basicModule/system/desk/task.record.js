@@ -22,7 +22,7 @@ const tableSchema = [
     prop: "Progress",
     label: i18n.t("Generality.Ge_Schedule"),
     custom: true,
-    width: "250px",
+    width: "200px",
   },
   /*实际开始*/
   {
