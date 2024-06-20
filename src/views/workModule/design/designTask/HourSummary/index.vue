@@ -15,9 +15,6 @@
           ]"
         ></TableAction>
       </template>
-      <template #ActualTime="{ row }">
-        {{ Math.round(row.ActualTime) }}
-      </template>
     </JvTable>
     <JvDialog
       :title="$t('project.Pro_CheckDetails')"

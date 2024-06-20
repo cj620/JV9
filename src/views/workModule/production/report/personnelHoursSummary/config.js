@@ -227,6 +227,7 @@ const workRecordDetailTableConfig = [
   // 是否超出时间段
   {
     label: i18n.t("production.Pr_IsOverstep"),
-    prop: "IsOverstep"
+    prop: "IsOverstep",
+    custom: true,
   },
 ];
