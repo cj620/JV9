@@ -55,7 +55,7 @@ const design = [
     Parent: "Pr_Report",
     name: "De_DesignTask_PersonnelHoursSummary",
     path: "De_DesignTask_PersonnelHoursSummary",
-    title: "设计工时汇总",
+    title: i18n.t("production.Pr_HoursSummary"),
   },
   // 模具BOM
   {

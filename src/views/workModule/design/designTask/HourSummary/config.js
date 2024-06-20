@@ -61,6 +61,7 @@ export const tableConfig = [
     prop: "ActualTime",
     label: i18n.t("Generality.Ge_ActualHour"),
     type: "number",
+    custom: true,
   },
 ];
 
@@ -250,5 +251,6 @@ const workRecordDetailTableConfig = [
   {
     label: i18n.t("production.Pr_IsOverstep"),
     prop: "IsOverstep",
+    custom: true,
   },
 ];

@@ -9,6 +9,7 @@
       v-bind="$attrs"
       v-on="$listeners"
       @confirm="confirm"
+      :IsShowFooterBtn="false"
     >
       <!-- 表格 -->
       <JvTable ref="BillTable" :table-obj="tableObj">
