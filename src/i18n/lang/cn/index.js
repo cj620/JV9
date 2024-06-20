@@ -1515,6 +1515,7 @@ const cn = {
     De_RepairResults: "维修结果",
     De_PlanCompletionDate: "预计完成日期",
     De_DeviceRepairItem: "报修备件",
+    De_SelectRepairItem: "选择备件",
     De_ToBeCollected: "待领用",
     De_Collected: "已领用",
     De_PartialRequisition: "部分领用",

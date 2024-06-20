@@ -1,7 +1,7 @@
 <template>
   <div>
     <jv-dialog
-        :title="$t('device.De_DeviceRepairItem')"
+        :title="$t('device.De_SelectRepairItem')"
         width="70%"
         :close-on-click-modal="true"
         :modal-append-to-body="false"

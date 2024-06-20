@@ -1525,6 +1525,7 @@ const ja = {
     De_RepairResults: "修理結果",
     De_PlanCompletionDate: "完了予定日",
     De_DeviceRepairItem: "修理依頼部品",
+    De_SelectRepairItem: "スペアの選択",
     De_ToBeCollected: "受領待ち用",
     De_Collected: "受領済み",
     De_PartialRequisition: "部分カラー",

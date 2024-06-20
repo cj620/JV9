@@ -1531,6 +1531,7 @@ const en = {
     De_RepairResults: "Repair Results",
     De_PlanCompletionDate: "Plan Completion Date",
     De_DeviceRepairItem: "Device Repair Item",
+    De_SelectRepairItem: "Select Repair Item",
     De_ToBeCollected: "ToBeCollected",
     De_Collected: "Collected",
     De_PartialRequisition: "Partial Requisition",
