@@ -66,7 +66,7 @@
 </template>
 <script>
 import MapBox from "@/components/BasicModule/mapBox/index.vue";
-import { unified_audit_bill } from "@/api/basicApi/systemSettings/user";
+import { unified_audit_bill, batch_unified_audit_bill } from "@/api/basicApi/systemSettings/user";
 import { Table as AuditTable } from "@/views/basicModule/system/desk/audit.config";
 import { AuditRecordTable } from "../desk/audit.record"
 import { auditEnum } from "@/enum/baseModule/auditEnum";
@@ -89,17 +89,28 @@ export default {
   },
   methods: {
     allAudit() {
-      // this.auditTableObj.selectData.datas
-      Promise.all(
-        this.auditTableObj.selectData.datas.map((item) => {
-          return unified_audit_bill({
-            ...item,
-            Remarks: this.$t("setup.Approve"),
-          });
-        })
-      ).then((res) => {
+      const newArr = this.auditTableObj.selectData.datas.map((item) => {
+        return {
+          BillId: item.BillId,
+          BillKey: item.BillKey,
+          Remarks: this.$t("setup.Approve"),
+        }
+      })
+      batch_unified_audit_bill(newArr).then(() => {
         this.auditTableObj.getData();
-      });
+      })
+      this.$refs.BillTable.clearSelection();
+      // this.auditTableObj.selectData.datas
+      // Promise.all(
+      //   this.auditTableObj.selectData.datas.map((item) => {
+      //     return unified_audit_bill({
+      //       ...item,
+      //       Remarks: this.$t("setup.Approve"),
+      //     });
+      //   })
+      // ).then((res) => {
+      //   this.auditTableObj.getData();
+      // });
     },
     scanAuditRecord() {
       this.auditRecordTable.getData();

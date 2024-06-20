@@ -1815,6 +1815,7 @@ const en = {
     P10204: "Data cannot be empty! ",
     P10205: "The material has been locked. Please contact the production management personnel!",
     P10206: "The device is locked and cannot be edited!",
+    P10207: "Audit failed!",
   },
   program: {
     Pr_ProcessPlanning: "Process planning",

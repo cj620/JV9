@@ -169,6 +169,15 @@ export function unified_audit_bill(data) {
   });
 }
 
+// 批量统一审核接口
+export function batch_unified_audit_bill(data) {
+  return request({
+    url: "/sys/batch_unified_audit_bill",
+    method: "post",
+    data,
+  });
+}
+
 // 获取用户日志列表
 export function getUserLogList(data) {
   return request({
