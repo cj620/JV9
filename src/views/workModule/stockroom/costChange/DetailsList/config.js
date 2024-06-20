@@ -23,7 +23,7 @@ export class Table extends BaseTable {
       rowId: "Id",
       // 表格标题
       title:
-        i18n.t("menu.St_SurplusIn") + "   " + i18n.t("Generality.Ge_Details1"),
+        i18n.t("menu.St_CostChange") + "   " + i18n.t("Generality.Ge_Details1"),
       // 接口类
       api,
       // 打印模块标识

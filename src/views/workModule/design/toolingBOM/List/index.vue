@@ -275,7 +275,7 @@
     <JvDialog
       :visible.sync="showMassUpload"
       destroy-on-close
-      :title="$t('design.De_DownloadTemplate')"
+      :title="$t('Generality.Ge_MassUpload')"
       width="960px"
       @confirm="MassUpload"
     >

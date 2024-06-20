@@ -41,12 +41,6 @@ export const tableSchema = [
     width: "75px",
   },
   {
-    // 工序内容
-    prop: "ProcessContent",
-    label: i18n.t("Generality.Ge_WorkContent"),
-    width: "230px",
-  },
-  {
     // 作业员
     prop: "Worker",
     label: i18n.t("Generality.Ge_Worker"),
@@ -73,21 +67,21 @@ export const tableSchema = [
     width: "50px",
   },
   {
-    // 实际工时
-    prop: "ActualTime",
+    // 日志实际工时
+    prop: "LogActualTime",
     label: i18n.t("Generality.Ge_ActualTime"),
     width: "50px",
   },
   {
-    // 实际开始
-    prop: "ActualStart",
+    // 日志实际开始
+    prop: "LogActualStart",
     label: i18n.t("Generality.Ge_ActualStart"),
     customFilter: (value, row) => timeFormat(value, "MM-dd hh:mm"),
     width: "100px",
   },
   {
-    // 实际结束
-    prop: "ActualEnd",
+    // 日志实际结束
+    prop: "LogActualEnd",
     label: i18n.t("Generality.Ge_ActualEnd"),
     customFilter: (value, row) => timeFormat(value, "MM-dd hh:mm"),
     width: "100px",
@@ -100,23 +94,21 @@ export const tableSchema = [
     width: '55px',
   },
   {
-    // 计划是否完成
-    prop: "IsItCompletedAsPlanned",
+    // 日志计划是否完成
+    prop: "LogIsItCompletedAsPlanned",
     label: i18n.t("Generality.Ge_IsItCompletedAsPlanned"),
     custom: true,
     width: '80px',
   },
   {
-    // 未完成计划原因1
-    prop: "ReasonForNotAchievingThePlan1",
+    // 日志未完成计划原因1
+    prop: "LogReasonForNotAchievingThePlan1",
     label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
-    width: '120px',
   },
   {
     // 未完成计划原因2
     prop: "ReasonForNotAchievingThePlan2",
     label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan2"),
-    width: '120px',
   },
   {
     // 点检状态

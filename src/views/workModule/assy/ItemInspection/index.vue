@@ -19,7 +19,7 @@
         ]"
       >
       </Action>
-      <template #IsItCompletedAsPlanned="{ record }">
+      <template #LogIsItCompletedAsPlanned="{ record }">
         {{ record ? $t('Generality.Ge_Yes') : $t('Generality.Ge_No') }}
       </template>
       <template #IsSubmit="{ record }">
