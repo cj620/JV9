@@ -118,4 +118,10 @@ export const tableConfig = [
   },
 ];
 export const formSchema = [
+  {
+    prop: "Keyword",
+  },
+  {
+    prop: "ItemType",
+  },
 ];
