@@ -210,6 +210,7 @@ const ja = {
     Tt_TestToolingDelayedTasks: "延期モデル試験タスク",
     Tt_TestToolingPlan: "モデル試験計画",
     Tt_TestToolingPlanList: "モデル試験計画リスト",
+    Tt_TestToolingPlanItemInspection: "試作計画点検",
     Tt_TestToolingWeeklyDashboard: "モデル化タスク週カンバン",
     Tt_TestToolingPlanAchievementRate: "試作計画達成率",
   },

@@ -211,6 +211,7 @@ const cn = {
     Tt_TestToolingDelayedTasks: "延期试模任务",
     Tt_TestToolingPlan: "试模计划",
     Tt_TestToolingPlanList: "试模计划列表",
+    Tt_TestToolingPlanItemInspection: "试模计划点检",
     Tt_TestToolingWeeklyDashboard: "试模任务周看板",
     Tt_TestToolingPlanAchievementRate: "试模计划达成率",
   },

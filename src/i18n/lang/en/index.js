@@ -212,6 +212,7 @@ const en = {
     Tt_TestToolingDelayedTasks: "Test Tooling Delayed Tasks",
     Tt_TestToolingPlan: "Test Tooling Plan",
     Tt_TestToolingPlanList: "Test Tooling Plan List",
+    Tt_TestToolingPlanItemInspection: "Test Tooling Plan Item Inspection",
     Tt_TestToolingWeeklyDashboard: "Test Tooling Weekly Dashboard",
     Tt_TestToolingPlanAchievementRate: "Test Tooling Plan Achievement Rate",
   },
