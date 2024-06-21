@@ -366,6 +366,7 @@ const ja = {
     Sex: "性別",
     Birthday: "誕生日",
     FamilyAddress: "自宅住所",
+    Role: "ロール",
     Tel: "電話番号",
     Phone: "携帯電話",
     Male: "男",

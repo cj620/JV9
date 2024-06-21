@@ -367,6 +367,7 @@ const cn = {
     Sex: "性别",
     Birthday: "出生日期",
     FamilyAddress: "家庭地址",
+    Role: "角色",
     Tel: "电话",
     Phone: "手机",
     Male: "男",

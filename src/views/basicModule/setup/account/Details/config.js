@@ -49,4 +49,9 @@ export const detailConfig = [
     prop: "Phone",
     label: i18n.t("setup.Phone"),
   },
+  {
+    prop: "Roles",
+    label: i18n.t("setup.Role"),
+    custom: true,
+  }
 ];

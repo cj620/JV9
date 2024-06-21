@@ -390,6 +390,7 @@ const en = {
     Sex: "Sex",
     Birthday: "Birthday",
     FamilyAddress: "Family Address",
+    Role: "Roles",
     Tel: "Tel",
     Phone: "Phone",
     Male: "Male",
