@@ -339,6 +339,7 @@ export default {
         ElectrodeQuantityRoughWork: '',
         ElectrodeQuantityMiddleFinish: '',
         Remarks: "",
+        // Unit: "", 如果没有系统配置 没有此字段 单位加不上去
       },
       exportTemplate: [
         /*编号*/
