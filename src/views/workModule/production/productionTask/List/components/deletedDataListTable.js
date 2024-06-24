@@ -29,6 +29,7 @@ export class Table extends BaseTable {
       operationWidth:110,
       height: 350,
       tableHeaderShow:false,
+      chooseCol:false,
       // 打印模块标识
       printMod:'deletedDataList',
     })

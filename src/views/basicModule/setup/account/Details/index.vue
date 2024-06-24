@@ -28,6 +28,9 @@
                 {{ record ? $t("setup.Active") : $t("setup.Deactive") }}
               </el-tag>
             </template>
+            <template #Roles="{ record }">
+              {{ concatenateRoleNames(record) }}
+            </template>
           </JvDetail>
         </div>
         <div>
@@ -115,6 +118,15 @@ export default {
           this.ConfigData = translation(res);
         }
       );
+    },
+    // 拼接用户角色
+    concatenateRoleNames(arr) {
+      if (arr.length !== 0) {
+        let roleNames = arr.map(item => item.RoleName);
+        return roleNames.join(', ');
+      } else {
+        return "--";
+      }
     },
     edit(id) {
       this.$router.push({

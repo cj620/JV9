@@ -250,5 +250,6 @@ const workRecordDetailTableConfig = [
   {
     label: i18n.t("production.Pr_IsOverstep"),
     prop: "IsOverstep",
+    custom: true,
   },
 ];

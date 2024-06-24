@@ -73,7 +73,7 @@ import { Table } from "./config";
 import { Form } from "@/jv_doc/class/form";
 import { item_inspection_handle, item_inspection } from "@/api/workApi/project/projectTask";
 export default {
-  name: "As_AssyTaskItemInspection",
+  name: "Tt_TestToolingPlanItemInspection",
   data() {
     return {
       tableObj: {},

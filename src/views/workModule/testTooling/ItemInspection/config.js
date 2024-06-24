@@ -1,14 +1,14 @@
 import { TableAPI, Table as BaseTable } from '~/class/table'
-import { production_programing_task_item_inspection_list } from "@/api/workApi/project/projectTask";
+import { item_inspection_list } from "@/api/workApi/project/projectTask";
+import { getProjectQuery } from "@/api/workApi/project/projectManage";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { timeFormat } from "~/utils/time";
-import { enumFilter } from "~/utils/system/enumsPlugin";
-import { ProjectTaskItemInspectionStateEnum } from "@/enum/workModule";
+import {enumFilter, enumToList, ProjectTaskItemInspectionStateEnum} from "@/enum/workModule";
 import i18n from "@/i18n/i18n";
 
 class api extends TableAPI {
-  getData = production_programing_task_item_inspection_list
+  getData = item_inspection_list
 }
 
 export class Table extends BaseTable {
@@ -17,9 +17,9 @@ export class Table extends BaseTable {
       tableSchema: tableSchema,
       formSchema,
       rowId: 'Id',
-      title: i18n.t("menu.Pa_ProgramProducingTaskItemInspection"),
+      title: i18n.t("menu.Tt_TestToolingPlanItemInspection"),
       api,
-      printMod: 'Pa_ProgramProducingTaskItemInspection',
+      printMod: 'Tt_TestToolingPlanItemInspection',
       operationWidth: 140,
       printBar: false,
       sortCol: false,
@@ -29,9 +29,9 @@ export class Table extends BaseTable {
 
 export const tableSchema = [
   {
-    // 零件编号
-    prop: "PartNo",
-    label: i18n.t("Generality.Ge_PartNo"),
+    // 模具编号
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
     width: "120px",
   },
   {
@@ -41,6 +41,12 @@ export const tableSchema = [
     width: "75px",
   },
   {
+    // 工序内容
+    prop: "ProcessContent",
+    label: i18n.t("Generality.Ge_WorkContent"),
+    width: "230px",
+  },
+  {
     // 作业员
     prop: "Worker",
     label: i18n.t("Generality.Ge_Worker"),
@@ -48,14 +54,14 @@ export const tableSchema = [
   },
   {
     // 明细计划开始
-    prop: "PlanStart",
+    prop: "ItemPlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
     width: "60px",
     customFilter: (value, row) => timeFormat(value, "MM-dd"),
   },
   {
     // 明细计划结束
-    prop: "PlanEnd",
+    prop: "ItemPlanEnd",
     label: i18n.t("Generality.Ge_PlanEnd"),
     width: "60px",
     customFilter: (value, row) => timeFormat(value, "MM-dd"),
@@ -104,11 +110,13 @@ export const tableSchema = [
     // 日志未完成计划原因1
     prop: "LogReasonForNotAchievingThePlan1",
     label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan1"),
+    width: '120px',
   },
   {
     // 未完成计划原因2
     prop: "ReasonForNotAchievingThePlan2",
     label: i18n.t("Generality.Ge_ReasonForNotAchievingThePlan2"),
+    width: '120px',
   },
   {
     // 点检状态
@@ -133,6 +141,23 @@ export const tableSchema = [
 ]
 
 export const formSchema = [
+  //加工单号搜索
+  {
+    prop: "PrTaskBillId",
+    label: i18n.t("production.Pr_WorkSheetNo"),
+    cpn: "FormInput",
+  },
+  // 项目编号搜索
+  {
+    prop: "Project",
+    label: i18n.t("sale.Sa_ProjectId"),
+    cpn: "AsyncSearch",
+    api: getProjectQuery,
+    apiOptions: {
+      keyName: "Project",
+      valueName: "Project",
+    },
+  },
   // 模号搜索
   {
     prop: "ToolingNo",
@@ -153,13 +178,21 @@ export const formSchema = [
   },
   {
     // 作业员
-    prop: "UserName",
+    prop: "Worker",
     cpn: "SyncSelect",
     label: i18n.t("Generality.Ge_Worker"),
     api: getAllUserData,
     apiOptions: {
       keyName: "UserName",
       valueName: "UserName",
+    },
+  },
+  {
+    prop: "InspectionState",
+    label: i18n.t("project.Pro_InspectionState"),
+    cpn: "FormSelect",
+    options: {
+      list: enumToList(ProjectTaskItemInspectionStateEnum)
     },
   },
   {
@@ -179,5 +212,33 @@ export const formSchema = [
       new Date(),
       "yyyy-MM-dd"
     )
+  },
+  {
+    prop: "SelctChildrenType",
+    label: i18n.t("project.Pro_ViewTaskDetails"),
+    cpn: "FormSelect",
+    default: 2,
+    hidden: true,
+    // options: {
+    //   list: [
+    //     {
+    //       value: 0,
+    //       label: i18n.t("project.Pro_ViewParentProjectTasks"),
+    //     },
+    //     {
+    //       value: 1,
+    //       label: i18n.t("project.Pro_ViewSubtasks"),
+    //     },
+    //     {
+    //       value: 2,
+    //       label: i18n.t("project.Pro_ViewAllTasks"),
+    //     },
+    //   ],
+    // },
+  },
+  {
+    prop: "ProcessType",
+    default: 'TrialTooling',
+    hidden: true,
   },
 ]

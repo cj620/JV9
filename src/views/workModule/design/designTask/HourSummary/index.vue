@@ -19,10 +19,14 @@
     <JvDialog
       :title="$t('project.Pro_CheckDetails')"
       :visible.sync="dialogVisible"
-      width="90%"
+      width="100%"
       @confirm="dialogVisible = false"
     >
-      <JvTable :table-obj="workRecordDetailTableObj"> </JvTable>
+      <JvTable :table-obj="workRecordDetailTableObj">
+        <template #IsOverstep="{ record }">
+          {{ record ? $t('Generality.Ge_Yes') : $t('Generality.Ge_No') }}
+        </template>
+      </JvTable>
     </JvDialog>
   </PageWrapper>
 </template>

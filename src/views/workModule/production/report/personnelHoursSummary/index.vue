@@ -22,7 +22,11 @@
       width="90%"
       @confirm="dialogVisible = false"
     >
-      <JvTable :table-obj="workRecordDetailTableObj"> </JvTable>
+      <JvTable :table-obj="workRecordDetailTableObj">
+        <template #IsOverstep="{ record }">
+          {{ record ? $t('Generality.Ge_Yes') : $t('Generality.Ge_No') }}
+        </template>
+      </JvTable>
     </JvDialog>
   </PageWrapper>
 </template>

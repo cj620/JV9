@@ -99,12 +99,27 @@ function responseFilter(res) {
 
 const tips = (msg) => {
   if (msg.slice(0, 2) === "P1") {
-    if (msg.split(":").length === 2) {
-      return (
-        i18n.t(`backendMessage.${msg.split(":")[0]}`) + "：" + msg.split(":")[1]
-      );
-    }
-    return i18n.t(`backendMessage.${msg}`);
+    // if (msg.split(":").length === 2) {
+    //   return (
+    //     i18n.t(`backendMessage.${msg.split(":")[0]}`) + "：" + msg.split(":")[1]
+    //   );
+    // }
+    // return i18n.t(`backendMessage.${msg}`);
+    const pairs = msg.match(/(P1\d+:\d+)/g);
+    console.log('pairs', pairs)
+    if (pairs) {
+      const translatedPairs = pairs.map((pair) => {
+        // 分割 'P1代码:数值'
+        const [code, value] = pair.split(":");
+        return i18n.t(`backendMessage.${code}`) + "：" + value.trim(); // 使用trim()去除可能存在的空格
+      });
+      return translatedPairs.join("，");
+    } else if (msg.split(":").length === 2) {
+        return (
+          i18n.t(`backendMessage.${msg.split(":")[0]}`) + "：" + msg.split(":")[1]
+        );
+      }
+      return i18n.t(`backendMessage.${msg}`);
   } else {
     return msg;
   }
