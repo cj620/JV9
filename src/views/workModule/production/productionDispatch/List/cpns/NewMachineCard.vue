@@ -1,18 +1,18 @@
 <template>
   <div class="machine-card">
     <div class="machine-card-left" style="justify-content: space-around;">
-        <div>
-            <el-image
-                    style="width: 67px; height: 71px; border-radius: 5px;"
-                    :src="imgUrlPlugin(cdata.PhotoUrl)"
-                    :preview-src-list="[imgUrlPlugin(cdata.PhotoUrl)]"
-                    class="staff-avatar-Img-error"
-            >
-                <div slot="error" class="image-slot">
-                    <i class="el-icon-picture-outline error-icon"></i>
-                </div>
-            </el-image>
-        </div>
+      <div>
+        <el-image
+          style="width: 67px; height: 71px; border-radius: 5px;"
+          :src="imgUrlPlugin(cdata.PhotoUrl)"
+          :preview-src-list="[imgUrlPlugin(cdata.PhotoUrl)]"
+          class="staff-avatar-Img-error"
+        >
+          <div slot="error" class="image-slot">
+            <i class="el-icon-picture-outline error-icon"></i>
+          </div>
+        </el-image>
+      </div>
     </div>
     <div class="machine-card-right machine-card-right-box">
       <div class="machine-message">
@@ -92,5 +92,12 @@ export default {
   overflow: hidden; /* 隐藏超出部分 */
   text-overflow: ellipsis; /* 在末尾显示省略号 */
   height: auto; /* 可选：设置高度，确保高度根据内容自动调整 */
+}
+.staff-avatar-Img-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(231, 231, 231);
+  color: rgb(161, 161, 161);
 }
 </style>
