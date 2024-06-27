@@ -13,12 +13,13 @@ export class NotPurchasedTable extends BaseTable {
           default: ["NotPurchased"],
           hidden: true,
         },
-        ...formSchema
+        ...formSchema,
       ],
       rowId: "Id",
       api,
       printMod: "Pu_NotPurchasedInfo",
       operationCol: false,
+      searchBar: false,
       printBar: false,
     });
   }
@@ -39,6 +40,7 @@ export class PurchasedTable extends BaseTable {
       api,
       printMod: "Pu_NotPurchasedInfo",
       operationCol: false,
+      searchBar: false,
       printBar: false,
     });
   }
@@ -85,16 +87,31 @@ const tableSchema = [
   {
     prop: "ItemName",
     label: i18n.t("Generality.Ge_ItemName"),
+    innerSearch: {
+      prop: "Keyword",
+      cpn: "FormInput",
+      label: i18n.t("Generality.Ge_KeyWords"),
+    },
   },
   /*描述*/
   {
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
+    innerSearch: {
+      prop: "Keyword",
+      cpn: "FormInput",
+      label: i18n.t("Generality.Ge_KeyWords"),
+    },
   },
   /*描述2*/
   {
     prop: "Description2",
     label: i18n.t("design.De_Description2"),
+    innerSearch: {
+      prop: "Keyword",
+      cpn: "FormInput",
+      label: i18n.t("Generality.Ge_KeyWords"),
+    },
   },
   /*单位*/
   {
@@ -123,25 +140,17 @@ const formSchema = [
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
     cpn: "FormInput",
+    hidden: true,
   },
   {
     prop: "Keyword",
     label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
+    hidden: true,
   },
   {
-    prop: "Remarks",
-    label: i18n.t("Generality.Ge_Remarks"),
-    cpn: "FormInput",
-  },
-  {
-    prop: "StartDate",
-    label: i18n.t("Generality.Ge_StartDate"),
-    cpn: "SingleTime",
-  },
-  {
-    prop: "EndDate",
-    label: i18n.t("Generality.Ge_EndDate"),
-    cpn: "SingleTime",
+    prop: "State",
+    default: "Approved",
+    hidden: true,
   },
 ]

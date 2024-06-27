@@ -240,6 +240,7 @@ export default {
       await this.GetData(this.billData);
     }
     if (this.$route.params.selectedData) {
+      this.formObj.form.DeliveryDate = this.$route.params.selectedData[0].DeliveryDate;
       this.eTableObj.push(temMerge(this.BillItems, this.$route.params.selectedData));
     }
     await this.Configuration();

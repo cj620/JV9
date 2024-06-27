@@ -1,6 +1,9 @@
 <template>
   <PageWrapper :footer="false">
     <div class="info-page" v-loading="loading">
+      <div class="total-count">
+        {{ NotPurchasedCount }}
+      </div>
       <el-tabs
         v-model="currentTabName"
         type="border-card"
@@ -13,6 +16,30 @@
           name="NotPurchased"
         >
           <div :style="{ height: boxHeight + 'px' }">
+            <div class="search-row">
+              <div class="search-row-item">
+                {{ $t("Generality.Ge_BillId") }}：
+                <el-input
+                  size="mini"
+                  style="width: 140px"
+                  v-model="NotPurchasedTableObj.formObj.form.BillId"
+                ></el-input>
+              </div>
+              <div class="search-row-item">
+                {{ $t("Generality.Ge_KeyWords") }}：
+                <el-input
+                  size="mini"
+                  style="width: 140px"
+                  v-model="NotPurchasedTableObj.formObj.form.Keyword"
+                ></el-input>
+              </div>
+              <el-button size="mini" @click="search('NotPurchased')">
+                {{ $t("Generality.Ge_Search") }}
+              </el-button>
+              <el-button size="mini" @click="reset('NotPurchased')">
+                {{ $t("Generality.Ge_Reset") }}
+              </el-button>
+            </div>
             <JvTable :table-obj="NotPurchasedTableObj">
               <template #Quantity="{ record }">
                 <div style="color: red">
@@ -40,6 +67,30 @@
           name="Purchased"
         >
           <div :style="{ height: boxHeight + 'px' }">
+            <div class="search-row">
+              <div class="search-row-item">
+                {{ $t("Generality.Ge_BillId") }}：
+                <el-input
+                  size="mini"
+                  style="width: 140px"
+                  v-model="PurchasedTableObj.formObj.form.BillId"
+                ></el-input>
+              </div>
+              <div class="search-row-item">
+                {{ $t("Generality.Ge_KeyWords") }}：
+                <el-input
+                  size="mini"
+                  style="width: 140px"
+                  v-model="PurchasedTableObj.formObj.form.Keyword"
+                ></el-input>
+              </div>
+              <el-button size="mini" @click="search('Purchased')">
+                {{ $t("Generality.Ge_Search") }}
+              </el-button>
+              <el-button size="mini" @click="reset('Purchased')">
+                {{ $t("Generality.Ge_Reset") }}
+              </el-button>
+            </div>
             <JvTable :table-obj="PurchasedTableObj">
               <template #Quantity="{ record }">
                 {{ record }}
@@ -66,6 +117,7 @@ export default {
       PurchasedTableObj: {},
       boxHeight: 0,
       loading: true,
+      NotPurchasedCount: 0,
     }
   },
   created() {
@@ -77,8 +129,14 @@ export default {
     this.PurchasedTableObj.getData();
     this.setContainer();
     this.loading = false;
+    this.getNPCount();
   },
   methods: {
+    getNPCount() {
+      setTimeout(() => {
+        this.NotPurchasedCount = this.NotPurchasedTableObj.pager.Total;
+      }, 200);
+    },
     setContainer() {
       let mainContent = document.querySelector(".main-content");
       this.boxHeight = mainContent.clientHeight - 80;
@@ -95,6 +153,7 @@ export default {
         this.PurchasedTableObj.getData();
       } else {
         this.NotPurchasedTableObj.getData();
+        this.getNPCount();
       }
       this.loading = false;
     },
@@ -105,6 +164,22 @@ export default {
           selectedData: this.NotPurchasedTableObj.selectData.datas
         }
       })
+    },
+    search(e) {
+      if (e === 'NotPurchased') {
+        this.NotPurchasedTableObj.getData();
+        this.getNPCount();
+      } else {
+        this.PurchasedTableObj.getData();
+      }
+    },
+    reset(e) {
+      if (e === 'NotPurchased') {
+        this.NotPurchasedTableObj.reset();
+        this.getNPCount();
+      } else {
+        this.PurchasedTableObj.reset();
+      }
     }
   },
 }
@@ -120,7 +195,36 @@ export default {
     height: 100%;
   }
 }
+.search-row {
+  position: absolute;
+  height: 45px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  .search-row-item {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-right: 10px;
+  }
+}
 ::v-deep .el-tabs__content {
   padding: 0 15px 5px 15px !important;
+}
+.total-count {
+  width: 18px;
+  height: 16px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 100;
+  left: 68px;
+  top: 12px;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
