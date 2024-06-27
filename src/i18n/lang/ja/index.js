@@ -337,6 +337,11 @@ const ja = {
     Pro_ConfirmToSpotCheckThisItem: "点検詳細を確定しますか？",
     Pro_DelayedTasks: "タスクの延期",
     Pro_DelayedDates: "延期日数",
+    Pro_TMaterial: "マテリアル",
+    Pro_TSpec: "金型仕様",
+    Pro_TShrinkage: "しゅうしゅくりつ",
+    Pro_TCustomerToolingNo: "顧客モデル番号",
+    Pro_TWeight: "じゅうりょう",
   },
   //设置
   setup: {

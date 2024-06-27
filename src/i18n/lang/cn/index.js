@@ -338,6 +338,11 @@ const cn = {
     Pro_ConfirmToSpotCheckThisItem: "确定点检明细？",
     Pro_DelayedTasks: "延期任务",
     Pro_DelayedDates: "延期天数",
+    Pro_TMaterial: "材质",
+    Pro_TSpec: "模具规格",
+    Pro_TShrinkage: "收缩率",
+    Pro_TCustomerToolingNo: "客户模号",
+    Pro_TWeight: "重量",
   },
   //设置
   setup: {

@@ -68,6 +68,36 @@ export const formSchema1 = [
     cpn: "SingleTime",
     label: i18n.t("Generality.Ge_SampleDate"),
   },
+  {
+    // 材质
+    prop: "TMaterial",
+    cpn: "FormInput",
+    label: i18n.t("project.Pro_TMaterial"),
+  },
+  {
+    // 模具规格
+    prop: "TSpec",
+    cpn: "FormInput",
+    label: i18n.t("project.Pro_TSpec"),
+  },
+  {
+    // 收缩率
+    prop: "TShrinkage",
+    cpn: "FormInput",
+    label: i18n.t("project.Pro_TShrinkage"),
+  },
+  {
+    // 客户模号
+    prop: "TCustomerToolingNo",
+    cpn: "FormInput",
+    label: i18n.t("project.Pro_TCustomerToolingNo"),
+  },
+  {
+    // 重量
+    prop: "TWeight",
+    cpn: "FormInput",
+    label: i18n.t("project.Pro_TWeight"),
+  },
  /*客户*/
 //  {
 //   prop: "CustomerName",

@@ -362,6 +362,11 @@ const en = {
     Pro_ConfirmToSpotCheckThisItem: "Confirm to spot check?",
     Pro_DelayedTasks: "Delayed Tasks",
     Pro_DelayedDates: "Delayed Dates",
+    Pro_TMaterial: "Texture of Material",
+    Pro_TSpec: "Mold Specifications",
+    Pro_TShrinkage: "Shrinkage Rate",
+    Pro_TCustomerToolingNo: "Customer Tooling No.",
+    Pro_TWeight: "Weight",
   },
   setup: {
     WhetherMarkAllRead: "Mark all messages of this type as read?",
