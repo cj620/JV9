@@ -194,11 +194,17 @@ export default {
       await qc_process_check_get({ BillId: this.$route.query.BillId }).then(
         (res) => {
           this.detailObj.detailData = res;
+          this.detailObj.detailData.ToolingNo = this.$route.query.ToolingNo;
+          this.detailObj.detailData.PartNo = this.$route.query.ItemId;
           this.cur_billId = res.BillId;
           this.tableObj.setData(res.BillItems);
           this.btnAction = detailPageModel(this, res, API, this.GetData);
-          this.btnAction.splice(4,1)
-          this.btnAction.splice(5,2)
+          this.btnAction.splice(4,1);
+          this.btnAction.splice(5,2);
+          this.btnAction.push({
+            label: "开异常单",
+            confirm: this.createError,
+          });
         }
       );
     },
@@ -219,6 +225,9 @@ export default {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
     },
+    createError() {
+      console.log('开异常单')
+    }
   },
 };
 </script>
