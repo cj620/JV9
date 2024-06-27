@@ -92,7 +92,7 @@ import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import { mapState } from "vuex";
 import closeTag from "@/utils/closeTag";
 import { Table } from "./config";
-import { productionTaskList } from "@/api/workApi/production/productionTask";
+import { getProductionTask, productionTaskList } from "@/api/workApi/production/productionTask";
 
 export default {
   data() {
@@ -141,6 +141,20 @@ export default {
         this.tableObj.setData(datas);
       });
     },
+    // 由过程检验单开单 获取加工单内容
+    getPrTaskData() {
+      getProductionTask({ BillId: this.$route.query.PrTaskBillId }).then((res) => {
+        this.formObj.form.ToolingNo = res.ToolingNo;
+        this.formObj.form.PartNo = res.PartNo;
+        this.formObj.form.PartName = res.PartName;
+        this.formObj.form.Quantity = this.$route.query.UnqualifiedQty;
+        this.formObj.form.Process = this.$route.query.SelfCheckProcess;
+        this.formObj.form.EstimatedLoss = 0;
+        this.processList = res.Process.filter(
+          (item) => item.State !== "Received" && item.State !== "ToBeReceived"
+        );
+      })
+    },
     // 选择worker之后自动填充部门
     userChange(e) {
       this.formObj.form.Department = this.userList.find(
@@ -179,9 +193,7 @@ export default {
       this.setFormData(datas[0]);
     },
     setFormData(data) {
-      console.log(data);
       const { ToolingNo, PartNo, PartName, Quantity, Process } = data;
-      console.log(PartName);
       this.processList = Process.filter(
         (item) => item.State !== "Received" && item.State !== "ToBeReceived"
       );
@@ -224,6 +236,9 @@ export default {
     this.tableObj.props.selectType = "radio";
     if (this.$route.params.data) {
       this.setFormData(this.$route.params.data);
+    }
+    if (this.$route.query.PrTaskBillId) {
+      this.getPrTaskData()
     }
   },
   mounted() {},

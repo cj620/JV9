@@ -202,8 +202,9 @@ export default {
           this.btnAction.splice(4,1);
           this.btnAction.splice(5,2);
           this.btnAction.push({
-            label: "开异常单",
+            label: this.$t('quality.Qc_CreateErrorReport'),
             confirm: this.createError,
+            disabled: this.detailObj.detailData.ProcessingResult === "Qualified",
           });
         }
       );
@@ -226,7 +227,14 @@ export default {
       this.$refs.page.scrollTo(top);
     },
     createError() {
-      console.log('开异常单')
+      this.$router.push({
+        name: "AddQualityError",
+        query: {
+          PrTaskBillId: this.detailObj.detailData.PrTaskBillId,
+          Process: this.detailObj.detailData.SelfCheckProcess,
+          UnqualifiedQty: this.detailObj.detailData.UnqualifiedQty
+        }
+      })
     }
   },
 };
