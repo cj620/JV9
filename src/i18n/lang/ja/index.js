@@ -100,6 +100,7 @@ const ja = {
     Pa_ProgramProducingTaskItemInspection: "プログラミング加工タスク詳細点検",
     Pu_Purchase: "仕入れ",
     Pu_Requisition: "購買依頼",
+    Pu_PurchaseInfo: "購買情報",
     Pu_Order: "発注",
     Pu_StockIn: "購買入庫",
     Pu_Return: "購買返品",
@@ -1164,6 +1165,7 @@ const ja = {
     Ge_Saturday: "土曜日",
     Ge_Sunday: "日曜日",
     Ge_PlanAchievementRate: "計画達成率",
+    Ge_CreateOrders: "受注の作成",
   },
   //生产
   production: {

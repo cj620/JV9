@@ -72,6 +72,17 @@ const purchase = [
       i18n.t("menu.Pu_Requisition") + "  " + i18n.t("Generality.Ge_Details1"),
     hidden: true,
   },
+
+  // 采购信息
+  {
+    key: "Pu_PurchaseInfo",
+    component: () => import("@/views/workModule/purchase/info"),
+    Parent: "Pu_Purchase",
+    name: "Pu_PurchaseInfo",
+    path: "pu_PurchaseInfo",
+    title: i18n.t("menu.Pu_PurchaseInfo"),
+  },
+
   // 采购订单
   {
     key: "Pu_Order",

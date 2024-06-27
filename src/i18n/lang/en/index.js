@@ -99,7 +99,8 @@ const en = {
     Pa_ProgramPlanAchievementRate: "Program Plan Achievement Rate",
     Pa_ProgramProducingTaskItemInspection: "Program Producing Task Item Inspection",
     Pu_Purchase: "Purchase",
-    Pu_Requisition: "Purchase requisition",
+    Pu_Requisition: "Purchase Requisition",
+    Pu_PurchaseInfo: "Purchase Info",
     Pu_Order: "Purchase Order",
     Pu_StockIn: "Purchase StockIn",
     Pu_Return: "Purchase Return",
@@ -1168,6 +1169,7 @@ const en = {
     Ge_Saturday: "Saturday",
     Ge_Sunday: "Sunday",
     Ge_PlanAchievementRate: "Plan Achievement Rate",
+    Ge_CreateOrders: "Create Orders",
   },
   //生产
   production: {

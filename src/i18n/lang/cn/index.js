@@ -100,6 +100,7 @@ const cn = {
     Pa_ProgramProducingTaskItemInspection: "编程加工点检",
     Pu_Purchase: "采购",
     Pu_Requisition: "采购申请",
+    Pu_PurchaseInfo: "采购信息",
     Pu_Order: "采购订单",
     Pu_StockIn: "采购入库",
     Pu_Return: "采购退货",
@@ -1155,6 +1156,7 @@ const cn = {
     Ge_Saturday: "周六",
     Ge_Sunday: "周日",
     Ge_PlanAchievementRate: "计划达成率",
+    Ge_CreateOrders: "创建订单",
   },
   //生产
   production: {
