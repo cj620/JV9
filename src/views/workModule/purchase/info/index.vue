@@ -207,6 +207,7 @@ export default {
     flex-wrap: nowrap;
     align-items: center;
     margin-right: 10px;
+    font-size: 14px;
   }
 }
 ::v-deep .el-tabs__content {
