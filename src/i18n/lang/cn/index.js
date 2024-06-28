@@ -1912,6 +1912,8 @@ const cn = {
     Project_task_report_work_inspection: "项目任务报工点检配置",
     Trial_tooling_users_name: "试模用户",
     Trial_tooling_users_desc: "试模任务展示的人员",
+    Auto_create_purchase_requisition: "自动创建采购申请",
+    Auto_create_purchase_requisition_desc: "物料需求审核后是否自动创建采购申请",
   },
 
   ...zhLocale,

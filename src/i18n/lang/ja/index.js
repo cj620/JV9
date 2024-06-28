@@ -1930,6 +1930,8 @@ const ja = {
     Project_task_report_work_inspection: "プロジェクトタスクの作業点検構成",
     Trial_tooling_users_name: "パイロットユーザ",
     Trial_tooling_users_desc: "試作タスクの展示者",
+    Auto_create_purchase_requisition: "購買依頼の自動作成",
+    Auto_create_purchase_requisition_desc: "資材所要量レビュー後に購買依頼を自動的に作成するかどうか",
   },
 
   ...jaLocale,

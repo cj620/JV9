@@ -1942,7 +1942,9 @@ const en = {
     Email_push_configuration: "Email push configuration",
     Project_task_report_work_inspection: "Project task report work inspection",
     Trial_tooling_users_name: "Trial tooling users name",
-    Trial_tooling_users_desc: "Trial tooling users desc",
+    Trial_tooling_users_desc: "Personnel showcasing trial tooling tasks",
+    Auto_create_purchase_requisition: "Auto create purchase requisition",
+    Auto_create_purchase_requisition_desc: "Automatically create purchase request after material requirement review",
   },
   ...enLocale,
 };
