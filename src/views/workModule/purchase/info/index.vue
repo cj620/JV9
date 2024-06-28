@@ -202,6 +202,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: left;
+  background-color: #fff;
+  z-index: 10;
   .search-row-item {
     display: flex;
     flex-wrap: nowrap;
