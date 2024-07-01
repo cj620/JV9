@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-08 16:24:01
- * @LastEditTime: 2022-03-24 11:02:35
+ * @LastEditTime: 2024-07-01 15:38:00
  * @Description:
 -->
 <template>
@@ -161,16 +161,10 @@ export default {
     });
     if (this.type === "edit") {
       this.getUser();
-
-
     }
-
-
-
   },
   mounted() {
     // this.$refs.JvForm.$el.children[0][0].focus();
-
   },
   methods: {
     imgUrlPlugin,
@@ -203,15 +197,33 @@ export default {
     changeImg(e) {},
     async getUser() {
       await getUser({ UserId: this.UserId }).then((res) => {
-        let { UserId, UserName, Sex, DepartmentName, Activate } = res;
+        let {
+          UserId,
+          UserName,
+          Sex,
+          DepartmentName,
+          Activate,
+          DefaultDepot,
+          LoginDate,
+          Birthday,
+          FamilyAddress,
+          Mail,
+          Phone,
+          PhotoUrl,
+          Tel,
+          Fax,
+          UseWeixin,
+          UseMsn,
+        } = res;
         this.UserName = UserName;
-        let { Birthday, FamilyAddress, Mail, Phone, PhotoUrl, Tel } = res;
         this.formObj.form = {
           UserId,
           UserName,
           Sex,
           DepartmentName,
           Activate,
+          DefaultDepot,
+          LoginDate,
         };
 
         this.formObj1.form = {
@@ -221,6 +233,9 @@ export default {
           Phone,
           PhotoUrl,
           Tel,
+          Fax,
+          UseWeixin,
+          UseMsn,
         };
       });
       await getAllUserConfig({ UserId: this.UserId }).then((res) => {

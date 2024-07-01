@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-08 17:18:48
- * @LastEditTime: 2024-07-01 15:22:26
+ * @LastEditTime: 2024-07-01 15:48:00
  * @Description:
  */
 
@@ -62,14 +62,14 @@ export const detailConfig = [
     prop: "UseWeixin",
     label: "微信邮件",
     customFilter: (value) => {
-      return value == "False" ? "否" : "是";
+      return Boolean(value) ? "是" : "否";
     },
   },
   {
     prop: "UseMsn",
     label: "Msn邮件",
     customFilter: (value) => {
-      return value == "False" ? "否" : "是";
+      return Boolean(value) ? "是" : "否";
     },
   },
   {
