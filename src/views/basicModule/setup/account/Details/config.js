@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-08 17:18:48
- * @LastEditTime: 2022-01-18 17:26:31
+ * @LastEditTime: 2024-07-01 15:22:26
  * @Description:
  */
 
@@ -53,5 +53,36 @@ export const detailConfig = [
     prop: "Roles",
     label: i18n.t("setup.Role"),
     custom: true,
-  }
+  },
+  {
+    prop: "Fax",
+    label: "传真",
+  },
+  {
+    prop: "UseWeixin",
+    label: "微信邮件",
+    customFilter: (value) => {
+      return value == "False" ? "否" : "是";
+    },
+  },
+  {
+    prop: "UseMsn",
+    label: "Msn邮件",
+    customFilter: (value) => {
+      return value == "False" ? "否" : "是";
+    },
+  },
+  {
+    prop: "DefaultDepot",
+    label: "操作仓库",
+  },
+  {
+    prop: "LoginDate",
+    label: "操作仓库",
+  },
+  {
+    prop: "FoundDate",
+    label: "创建时间",
+  },
 ];
+// Role,FoundDate,LoginDate,DefaultDepot,IsEditPwd,UseMsn,UseWeixin,SendMail
