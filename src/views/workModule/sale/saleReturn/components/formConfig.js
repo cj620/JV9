@@ -94,7 +94,7 @@ export const formSchema = [
       },
     ],
   },
-  { label: "汇率", prop: "ExchangeRate", cpn: "FormInput" },
+  { label: "汇率", prop: "ExchangeRate", cpn: "FormInput", type: "number" },
   { label: "部门", prop: "Dept", cpn: "FormInput" },
   { label: "来源单据编号", prop: "RelationId", cpn: "FormInput" },
 ];

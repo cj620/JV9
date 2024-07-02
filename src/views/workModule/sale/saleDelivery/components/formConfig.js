@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-11-10 13:06:51
- * @LastEditTime: 2024-07-02 14:59:25
+ * @LastEditTime: 2024-07-02 17:07:36
  * @Description: file content
  */
 // import { getAll } from "@/api/basicApi/systemSettings/currency";
@@ -111,7 +111,7 @@ export const formSchema = [
   ///预计开票日期
   { label: "预计开票日期", prop: "PlanInvoiceDate", cpn: "SingleTime" },
   ///汇率
-  { label: "汇率", prop: "ExchangeRate", cpn: "FormInput" },
+  { label: "汇率", prop: "ExchangeRate", cpn: "FormInput", type: "number" },
   ///部门
   { label: "部门", prop: "Dept", cpn: "FormInput" },
 ];
