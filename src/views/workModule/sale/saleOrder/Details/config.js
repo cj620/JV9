@@ -149,6 +149,16 @@ export const detailConfig = [
     prop: "RelationId",
     label: i18n.t("sale.Sa_RelationId"),
   },
+  { label: "客户地址", prop: "Address" },
+  { label: "描述", prop: "Description" },
+  { label: "汇率", prop: "ExchangeRate" },
+  { label: "部门", prop: "Dept" },
+  { label: "预收款", prop: "AdvanceCollections" },
+  { label: "相关数据", prop: "RelevantData" },
+  { label: "销售类别", prop: "SaleType" },
+  { label: "提交状态", prop: "SubmissionState" },
+  { label: "贸易类型", prop: "TradeType" },
+  { label: "开票日期", prop: "InvoicingDate", filter: "time" },
   {
     // 制单人
     prop: "Creator",
