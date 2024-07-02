@@ -134,6 +134,14 @@ export const detailConfig = [
     prop: "RelationId",
     label: i18n.t("sale.Sa_RelationId"),
   },
+  ///客户地址
+  { label: "客户地址", prop: "Address" },
+  ///预计开票日期
+  { label: "预计开票日期", prop: "PlanInvoiceDate", filter: "date" },
+  ///汇率
+  { label: "汇率", prop: "ExchangeRate" },
+  ///部门
+  { label: "部门", prop: "Dept" },
 ];
 export const detailConfig1 = [
   {
@@ -161,12 +169,4 @@ export const detailConfig1 = [
     prop: "Code",
     label: i18n.t("sale.Sa_Code"),
   },
-  ///客户地址
-  { label: "客户地址", prop: "Address" },
-  ///预计开票日期
-  { label: "预计开票日期", prop: "PlanInvoiceDate", filter: "date" },
-  ///汇率
-  { label: "汇率", prop: "ExchangeRate" },
-  ///部门
-  { label: "部门", prop: "Dept" },
 ];
