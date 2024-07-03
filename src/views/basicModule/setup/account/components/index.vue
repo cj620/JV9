@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-08 16:24:01
- * @LastEditTime: 2024-07-01 15:38:00
+ * @LastEditTime: 2024-07-03 09:56:39
  * @Description:
 -->
 <template>
@@ -224,6 +224,7 @@ export default {
           Activate,
           DefaultDepot,
           LoginDate,
+          Fax,
         };
 
         this.formObj1.form = {
@@ -233,7 +234,6 @@ export default {
           Phone,
           PhotoUrl,
           Tel,
-          Fax,
           UseWeixin,
           UseMsn,
         };
