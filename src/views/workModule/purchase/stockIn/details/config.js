@@ -19,10 +19,10 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_ItemName"),
   },
   /*计划交期*/
-  {
-    prop: "DeliveryDate",
-    label: i18n.t("Generality.Ge_DeliveryDate"),
-  },
+  // {
+  //   prop: "DeliveryDate",
+  //   label: i18n.t("Generality.Ge_DeliveryDate"),
+  // },
   /*描述*/
   {
     prop: "Description",
@@ -95,20 +95,46 @@ export const tableConfig = [
     align: "right",
     filter: "amount",
   },
+  /*辅助数量*/
+  {
+    prop: "AuxiliaryQty",
+    label: i18n.t("Generality.Ge_AuxiliaryQty"),
+    width: "100px",
+    align: "right",
+  },
+  /*辅助单价*/
+  {
+    prop: "AuxiliaryPrice",
+    label: i18n.t("Generality.Ge_AuxiliaryPrice"),
+    width: "100px",
+    filter: "amount",
+    align: "right",
+  },
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
+  },
+  /*生产日期*/
+  {
+    prop: "ProductionDate",
+    label: '生产日期',
+    filter: "time"
+  },
+  /*有效期*/
+  {
+    prop: "Effective",
+    label: '有效期',
+  },
   /*其它费用*/
   {
     prop: "OtherExpenses",
     label: '其它费用',
   },
-  /*入库数量*/
+  /*退货数量*/
   {
     prop: "ReturnQuantity",
     label: i18n.t("Generality.Ge_ReturnQuantity"),
-    formCpn: "FormInput",
-    align: "right",
-    type: "number",
-    filter: "amount",
-    width: "100px",
   },
   /*备注*/
   {
