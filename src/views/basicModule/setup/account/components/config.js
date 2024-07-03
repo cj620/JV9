@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-03 15:00:30
- * @LastEditTime: 2024-07-01 15:49:24
+ * @LastEditTime: 2024-07-03 09:53:18
  * @Description:
  */
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
@@ -103,9 +103,14 @@ export const formSchema = [
     label: "操作仓库",
     cpn: "FormInput",
   },
+  // {
+  //   prop: "LoginDate",
+  //   label: "最近登录时间",
+  //   cpn: "SingleTime",
+  // },
   {
-    prop: "LoginDate",
-    label: "操作仓库",
+    prop: "Fax",
+    label: "传真",
     cpn: "FormInput",
   },
 ];
@@ -152,11 +157,7 @@ export const formSchema1 = [
     label: i18n.t("setup.FamilyAddress"),
     cpn: "FormInput",
   },
-  {
-    prop: "Fax",
-    label: "传真",
-    cpn: "FormInput",
-  },
+
   {
     prop: "UseWeixin",
     label: "微信邮件",

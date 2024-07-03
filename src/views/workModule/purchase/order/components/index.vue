@@ -239,6 +239,10 @@ export default {
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
     }
+    if (this.$route.params.selectedData) {
+      this.formObj.form.DeliveryDate = this.$route.params.selectedData[0].DeliveryDate;
+      this.eTableObj.push(temMerge(this.BillItems, this.$route.params.selectedData));
+    }
     await this.Configuration();
   },
 
@@ -366,14 +370,12 @@ export default {
       if (to.name !== this.$parent.$options.name) return;
       // 判断传过来的数据不为空并且传过来的数据是一条新的数据
       if (this.$route.query.BillId !== undefined) {
-        console.log(to, 7788);
         this.billData = this.$route.query.BillId;
         this.GetData(this.billData);
       }
     },
     "formObj.form.SupplierId": {
       handler: function (n, o) {
-        console.log(n, o, 648);
         if (n) {
           this.changeCustomerId(n);
         }

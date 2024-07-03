@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-08 14:15:19
- * @LastEditTime: 2022-01-14 10:08:37
+ * @LastEditTime: 2024-07-03 10:41:46
  * @Description: 新增、编辑通用组件
 -->
 
@@ -82,10 +82,10 @@ export default {
 
     getData() {
       getSupplierDetails({ SupplierId: this.SupplierId }).then((res) => {
-        let { SupplierId, ShortName, FullName, Tax, Currency } = res;
-        let { Address, Contact, Tel, Email, Phone } = res;
-        this.formObj.form = { SupplierId, ShortName, FullName, Tax, Currency };
-        this.formObj1.form = { Address, Contact, Tel, Email, Phone };
+        // let { SupplierId, ShortName, FullName, Tax, Currency } = res;
+        // let { Address, Contact, Tel, Email, Phone } = res;
+        this.formObj.form = res;
+        this.formObj1.form = res;
       });
     },
   },

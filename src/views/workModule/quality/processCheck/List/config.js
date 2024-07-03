@@ -77,6 +77,10 @@ export const tableConfig = [
           keyName: "ItemId",
           valueName: "ItemId",
         },
+        {
+          keyName: "ToolingNo",
+          valueName: "ToolingNo",
+        }
       ],
     },
   },

@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-08 17:18:48
- * @LastEditTime: 2024-07-01 15:48:00
+ * @LastEditTime: 2024-07-03 09:57:30
  * @Description:
  */
 
@@ -77,12 +77,14 @@ export const detailConfig = [
     label: "操作仓库",
   },
   {
-    prop: "LoginDate",
-    label: "操作仓库",
-  },
-  {
     prop: "FoundDate",
     label: "创建时间",
+    filter: "time",
+  },
+  {
+    prop: "LoginDate",
+    label: "上一次登入时间",
+    filter: "time",
   },
 ];
 // Role,FoundDate,LoginDate,DefaultDepot,IsEditPwd,UseMsn,UseWeixin,SendMail

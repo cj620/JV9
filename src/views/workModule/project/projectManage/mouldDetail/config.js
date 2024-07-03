@@ -32,6 +32,31 @@ export const detailConfig = [
     label: i18n.t("Generality.Ge_Describe"),
   },
   {
+    // 材质
+    prop: "TMaterial",
+    label: i18n.t("project.Pro_TMaterial"),
+  },
+  {
+    // 模具规格
+    prop: "TSpec",
+    label: i18n.t("project.Pro_TSpec"),
+  },
+  {
+    // 收缩率
+    prop: "TShrinkage",
+    label: i18n.t("project.Pro_TShrinkage"),
+  },
+  {
+    // 客户模号
+    prop: "TCustomerToolingNo",
+    label: i18n.t("project.Pro_TCustomerToolingNo"),
+  },
+  {
+    // 重量
+    prop: "TWeight",
+    label: i18n.t("project.Pro_TWeight"),
+  },
+  {
     // 交货日期
     prop: "TDeliveryDate",
     label: i18n.t("Generality.Ge_DeliveryDate"),

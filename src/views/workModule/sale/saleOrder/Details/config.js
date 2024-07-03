@@ -156,7 +156,6 @@ export const detailConfig = [
   { label: "预收款", prop: "AdvanceCollections" },
   { label: "相关数据", prop: "RelevantData" },
   { label: "销售类别", prop: "SaleType" },
-  { label: "提交状态", prop: "SubmissionState" },
   { label: "贸易类型", prop: "TradeType" },
   { label: "开票日期", prop: "InvoicingDate", filter: "time" },
   {

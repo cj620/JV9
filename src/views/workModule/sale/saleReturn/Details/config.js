@@ -3,7 +3,7 @@ export class Table extends BaseTable {
   constructor() {
     super({
       tableSchema: tableConfig,
-      tableHeaderShow:false,
+      tableHeaderShow: false,
     });
   }
 }
@@ -11,44 +11,41 @@ export const tableConfig = [
   /*物料编号*/
   {
     prop: "ItemId",
-    label:i18n.t("Generality.Ge_ItemId"),
-
+    label: i18n.t("Generality.Ge_ItemId"),
   },
   /*名称*/
   {
     prop: "ItemName",
-    label:i18n.t("Generality.Ge_ItemName"),
-
+    label: i18n.t("Generality.Ge_ItemName"),
   },
   /*描述*/
   {
     prop: "Description",
-    label:i18n.t("Generality.Ge_Describe"),
-
+    label: i18n.t("Generality.Ge_Describe"),
   },
   /*单位*/
   {
     prop: "Unit",
-    label:i18n.t("Generality.Ge_Unit"),
-    width:'70px',
+    label: i18n.t("Generality.Ge_Unit"),
+    width: "70px",
   },
   /*数量*/
   {
     prop: "Quantity",
-    label:i18n.t("Generality.Ge_Quantity"),
+    label: i18n.t("Generality.Ge_Quantity"),
     formCpn: "FormInput",
-    align:'right',
-    type:'number',
-    width:'100px',
+    align: "right",
+    type: "number",
+    width: "100px",
     filter: "amount",
   },
   /*单价*/
   {
     prop: "Price",
-    label:i18n.t("Generality.Ge_Price"),
-    type:'number',
-    align:'right',
-    width:'120px',
+    label: i18n.t("Generality.Ge_Price"),
+    type: "number",
+    align: "right",
+    width: "120px",
     formCpn: "FormInput",
     filter: "amount",
   },
@@ -65,19 +62,19 @@ export const tableConfig = [
   /*金额*/
   {
     prop: "Amount",
-    label:i18n.t("Generality.Ge_Amount"),
-    type:'number',
-    align:'right',
+    label: i18n.t("Generality.Ge_Amount"),
+    type: "number",
+    align: "right",
     formCpn: "FormInput",
     filter: "amount",
-    width:'120px',
+    width: "120px",
   },
   /*税率*/
   {
     prop: "Tax",
-    label:i18n.t("Generality.Ge_Tax"),
-    align:'right',
-    width:'70px',
+    label: i18n.t("Generality.Ge_Tax"),
+    align: "right",
+    width: "70px",
   },
   /*未税金额*/
   {
@@ -90,46 +87,49 @@ export const tableConfig = [
   /*备注*/
   {
     prop: "Remarks",
-    label:i18n.t("Generality.Ge_Remarks"),
+    label: i18n.t("Generality.Ge_Remarks"),
   },
-]
-export const detailConfig=[
+];
+export const detailConfig = [
   {
     // 客户简称
-    prop:'CustomerName',
+    prop: "CustomerName",
     label: i18n.t("sale.Sa_CustomerName"),
   },
   {
     // 退货日期
-    prop:'ReturnDate',
+    prop: "ReturnDate",
     label: i18n.t("sale.Sa_ReturnDate"),
-    filter:'date'
+    filter: "date",
   },
   {
     // 币种
-    prop:'Currency',
+    prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
   },
   {
     // 销售员
-    prop:'SalesReps',
+    prop: "SalesReps",
     label: i18n.t("sale.Sa_SalesReps"),
   },
   {
     // 仓库
-    prop:'Stockroom',
+    prop: "Stockroom",
     label: i18n.t("setup.Stockroom"),
   },
 
   {
     // 制单人
-    prop:'Creator',
+    prop: "Creator",
     label: i18n.t("Generality.Ge_Creator"),
   },
   {
     // 制单日期
-    prop:'CreationDate',
+    prop: "CreationDate",
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
-  }
-]
+  },
+  { label: "汇率", prop: "ExchangeRate" },
+  { label: "部门", prop: "Dept" },
+  { label: "来源单据编号", prop: "RelationId" },
+];
