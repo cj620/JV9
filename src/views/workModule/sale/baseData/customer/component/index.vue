@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-08 14:15:19
- * @LastEditTime: 2022-03-09 09:21:06
+ * @LastEditTime: 2024-07-03 10:41:13
  * @Description: 新增、编辑通用组件
 -->
 
@@ -92,8 +92,8 @@ export default {
 
     getData() {
       getCustomer({ CustomerId: this.CustomerId }).then((res) => {
-        let { CustomerId, ShortName, FullName, Tax, Currency } = res;
-        this.formObj.form = { CustomerId, ShortName, FullName, Tax, Currency };
+        // let { CustomerId, ShortName, FullName, Tax, Currency } = res;
+        this.formObj.form = res;
         res.ContactInfo.forEach((item) => {
           this.dataList.push(
             new Form({

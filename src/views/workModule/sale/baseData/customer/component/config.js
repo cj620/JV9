@@ -71,6 +71,72 @@ export const formSchema = [
       },
     ],
   },
+  { label: "公司主页", prop: "CompanyIndex", cpn: "FormInput" },
+  { label: "发票地址", prop: "InvoiceAddress", cpn: "FormInput" },
+  { label: "开户行", prop: "ParentBank", cpn: "FormInput" },
+  { label: "银行帐号", prop: "BankNumber", cpn: "FormInput" },
+  { label: "传真", prop: "Fax", cpn: "FormInput" },
+  { label: "账期", prop: "AccountPeriod", cpn: "FormInput", type: "number" },
+  {
+    label: "状态",
+    prop: "Estate",
+    cpn: "FormRadio",
+    default: "Enabled",
+    options: {
+      list: [
+        {
+          label: "禁用",
+          value: "Forbidden",
+        },
+        {
+          label: "启用",
+          value: "Enabled",
+        },
+      ],
+    },
+  },
+  { label: "备注", prop: "Remarks", cpn: "FormInput" },
+  {
+    label: "类别",
+    prop: "Type",
+    cpn: "FormSelect",
+    default: "Client",
+    options: {
+      list: [
+        {
+          label: "客户",
+          value: "Client",
+        },
+        {
+          label: "客户兼供应商",
+          value: "CAndS",
+        },
+      ],
+    },
+  },
+  // Supplier|CAndS|Client
+  // {
+  //   label: "往来单位类别",
+  //   prop: "SmallType",
+  // },
+  {
+    label: "本公司",
+    prop: "IsMy",
+    cpn: "FormRadio",
+    default: false,
+    options: {
+      list: [
+        {
+          label: "是",
+          value: true,
+        },
+        {
+          label: "否",
+          value: false,
+        },
+      ],
+    },
+  },
 ];
 
 export const formSchema1 = [
@@ -107,7 +173,6 @@ export const formSchema1 = [
     prop: "Phone",
     label: i18n.t("setup.Phone"),
     cpn: "FormInput",
-
   },
 
   {
