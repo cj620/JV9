@@ -135,9 +135,31 @@ export const detailConfig = [
     prop: "Terms",
     label: i18n.t("Generality.Ge_Terms"),
   },
-  { label: "发票颜色", prop: "AccountColor" },
-  { label: "发票类型", prop: "AccountType" },
-  { label: "单据类别", prop: "BillType" },
+  {
+    label: "发票颜色",
+    prop: "AccountColor",
+    customFilter: (value) => {
+      return value == "SalesOrder" ? "订单发票" : "发货发票";
+    },
+  },
+  // list: [
+  //   {
+  //     value: "发货发票",
+  //     label: "SalesDelivery",
+  //   },
+  //   {
+  //     value: "订单发票",
+  //     label: "SalesOrder",
+  //   },
+  // ],
+  {
+    label: "发票类型",
+    prop: "AccountType",
+    customFilter: (value) => {
+      return value == "Blue" ? "蓝字" : "红字";
+    },
+  },
+  // { label: "单据类别", prop: "BillType" },
   { label: "来源单据", prop: "SourceBill" },
   { label: "收款日期", prop: "ReceivablesDate", filter: "date" },
   { label: "报关单号", prop: "CustomsBillId" },
