@@ -98,6 +98,29 @@ export const tableConfig = [
     filter: "time",
     width: "150px",
   },
+  /*审核人*/
+  {
+    prop: "Audit",
+    label: i18n.t("Generality.Ge_Auditor"),
+  },
+  /*合计数量*/
+  {
+    prop: "TotalQuantity",
+    label: i18n.t("Generality.Ge_TotalQuantity"),
+    width: "95px",
+  },
+  /*合计金额*/
+  {
+    prop: "TotalPrice",
+    label: i18n.t("Generality.Ge_TotalPrice"),
+    width: "95px",
+  },
+  /*入库数量*/
+  {
+    prop: "StockInQuantity",
+    label: i18n.t("Generality.Ge_StockInQuantity"),
+    width: "95px",
+  },
 ];
 
 export const formSchema = [

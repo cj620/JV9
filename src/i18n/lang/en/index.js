@@ -505,6 +505,7 @@ const en = {
   },
   // 采购
   purchase: {
+    Pu_MrpGeneration: "Mrp Generation",
     Pu_SupplierEvaluation: "Supplier Evaluation",
     Pu_Statistics: "Statistics",
     Pu_Cost: "Cost",
@@ -712,6 +713,7 @@ const en = {
   },
   //通用
   Generality: {
+    Ge_AdvanceCharge: "Advance Charge",
     Ge_Pending1: "Pending",
     Ge_LoadMore: "Load More",
     Ge_InStationProcess: "In Station Process",
@@ -735,6 +737,8 @@ const en = {
     Ge_Frame: "Frame",
     Ge_DottedLine: "DottedLine",
     Ge_Fit: "Fit",
+    Ge_ConfirmDate: "Confirm Date",
+    Ge_ConfirmPeople: "Confirm People",
     Ge_NumberColumn: "Number Col",
     Ge_SelectCol: "Select Col",
     Ge_Reset: "Reset",
@@ -769,7 +773,11 @@ const en = {
     Ge_NoTaxPrice: "NoTaxPrice",
     Ge_Amount: "Amount",
     Ge_Tax: "Tax",
+    Ge_SourceDocuments: "Source Documents",
+    Ge_Signature: "Signature",
     Ge_SampleDate: "Sample Date",
+    Ge_TotalQuantity: "Total Quantity",
+    Ge_TotalPrice: "Total Price",
     Ge_PhotoUrl: "Photo",
     Ge_ItemType: "Item Label",
     Ge_ItemName: "Item Name",

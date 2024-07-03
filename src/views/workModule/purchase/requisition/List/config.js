@@ -68,8 +68,8 @@ export const tableConfig = [
   },
   /*计划交期*/
   {
-    prop: "UsageDate",
-    label: '使用日期',
+    prop: "DeliveryDate",
+    label: '计划日期',
     filter: "date",
   },
   /*制单人*/
@@ -84,6 +84,19 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
     width: "150px",
+  },
+  // 审核日期
+  {
+    prop: "AuditDate",
+    label: "审核日期",
+    filter: "time",
+    width: "150px",
+  },
+  /*合计数量*/
+  {
+    prop: "TotalQuantity",
+    label: i18n.t("Generality.Ge_Remarks"),
+    width: "95px",
   },
   /*备注*/
   {
