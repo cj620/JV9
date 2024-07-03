@@ -100,6 +100,7 @@ const ja = {
     Pa_ProgramProducingTaskItemInspection: "プログラミング加工タスク詳細点検",
     Pu_Purchase: "仕入れ",
     Pu_Requisition: "購買依頼",
+    Pu_PurchaseInfo: "購買情報",
     Pu_Order: "発注",
     Pu_StockIn: "購買入庫",
     Pu_Return: "購買返品",
@@ -336,6 +337,11 @@ const ja = {
     Pro_ConfirmToSpotCheckThisItem: "点検詳細を確定しますか？",
     Pro_DelayedTasks: "タスクの延期",
     Pro_DelayedDates: "延期日数",
+    Pro_TMaterial: "マテリアル",
+    Pro_TSpec: "金型仕様",
+    Pro_TShrinkage: "しゅうしゅくりつ",
+    Pro_TCustomerToolingNo: "顧客モデル番号",
+    Pro_TWeight: "じゅうりょう",
   },
   //设置
   setup: {
@@ -1164,6 +1170,7 @@ const ja = {
     Ge_Saturday: "土曜日",
     Ge_Sunday: "日曜日",
     Ge_PlanAchievementRate: "計画達成率",
+    Ge_CreateOrders: "受注の作成",
   },
   //生产
   production: {
@@ -1452,6 +1459,7 @@ const ja = {
     Qc_Size: "寸法すんぽう",
     Qc_Exterior: "外観",
     Qc_Other: "その他",
+    Qc_CreateErrorReport: "エラーレポートの作成",
     Qc_TheQuantitySubmittedShallNotExceedTheProcessingQuantity: "提出数量は加工数量より大きくてはならない",
     Qc_TheQuantityForInspectionShallNotExceedTheSubmittedQuantity: "検査数量は提出数量より大きくてはならない",
     Qc_TheQuantityUnqualifiedShallNotExceedTheInspectionQuantity: "不合格数量は検査数量より大きくてはならない",
@@ -1922,6 +1930,8 @@ const ja = {
     Project_task_report_work_inspection: "プロジェクトタスクの作業点検構成",
     Trial_tooling_users_name: "パイロットユーザ",
     Trial_tooling_users_desc: "試作タスクの展示者",
+    Auto_create_purchase_requisition: "購買依頼の自動作成",
+    Auto_create_purchase_requisition_desc: "資材所要量レビュー後に購買依頼を自動的に作成するかどうか",
   },
 
   ...jaLocale,

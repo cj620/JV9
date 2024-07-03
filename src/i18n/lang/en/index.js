@@ -99,7 +99,8 @@ const en = {
     Pa_ProgramPlanAchievementRate: "Program Plan Achievement Rate",
     Pa_ProgramProducingTaskItemInspection: "Program Producing Task Item Inspection",
     Pu_Purchase: "Purchase",
-    Pu_Requisition: "Purchase requisition",
+    Pu_Requisition: "Purchase Requisition",
+    Pu_PurchaseInfo: "Purchase Info",
     Pu_Order: "Purchase Order",
     Pu_StockIn: "Purchase StockIn",
     Pu_Return: "Purchase Return",
@@ -361,6 +362,11 @@ const en = {
     Pro_ConfirmToSpotCheckThisItem: "Confirm to spot check?",
     Pro_DelayedTasks: "Delayed Tasks",
     Pro_DelayedDates: "Delayed Dates",
+    Pro_TMaterial: "Texture of Material",
+    Pro_TSpec: "Mold Specifications",
+    Pro_TShrinkage: "Shrinkage Rate",
+    Pro_TCustomerToolingNo: "Customer Tooling No.",
+    Pro_TWeight: "Weight",
   },
   setup: {
     WhetherMarkAllRead: "Mark all messages of this type as read?",
@@ -1168,6 +1174,7 @@ const en = {
     Ge_Saturday: "Saturday",
     Ge_Sunday: "Sunday",
     Ge_PlanAchievementRate: "Plan Achievement Rate",
+    Ge_CreateOrders: "Create Orders",
   },
   //生产
   production: {
@@ -1458,6 +1465,7 @@ const en = {
     Qc_Size: "Size",
     Qc_Exterior: "Exterior",
     Qc_Other: "Others",
+    Qc_CreateErrorReport: "Create Error Report",
     Qc_TheQuantitySubmittedShallNotExceedTheProcessingQuantity: "The quantity submitted shall not exceed the processing quantity",
     Qc_TheQuantityForInspectionShallNotExceedTheSubmittedQuantity: "The quantity for inspection shall not exceed the submitted quantity",
     Qc_TheQuantityUnqualifiedShallNotExceedTheInspectionQuantity: "The quantity unqualified shall not exceed the inspection quantity",
@@ -1934,7 +1942,9 @@ const en = {
     Email_push_configuration: "Email push configuration",
     Project_task_report_work_inspection: "Project task report work inspection",
     Trial_tooling_users_name: "Trial tooling users name",
-    Trial_tooling_users_desc: "Trial tooling users desc",
+    Trial_tooling_users_desc: "Personnel showcasing trial tooling tasks",
+    Auto_create_purchase_requisition: "Auto create purchase requisition",
+    Auto_create_purchase_requisition_desc: "Automatically create purchase request after material requirement review",
   },
   ...enLocale,
 };

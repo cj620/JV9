@@ -45,7 +45,7 @@
       ref="first"
       :contentStyle="{
         paddingLeft: '150px',
-        height: '175px',
+        height: '225px',
       }"
       style="position: relative"
     >

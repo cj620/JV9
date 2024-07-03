@@ -100,6 +100,7 @@ const cn = {
     Pa_ProgramProducingTaskItemInspection: "编程加工点检",
     Pu_Purchase: "采购",
     Pu_Requisition: "采购申请",
+    Pu_PurchaseInfo: "采购信息",
     Pu_Order: "采购订单",
     Pu_StockIn: "采购入库",
     Pu_Return: "采购退货",
@@ -337,6 +338,11 @@ const cn = {
     Pro_ConfirmToSpotCheckThisItem: "确定点检明细？",
     Pro_DelayedTasks: "延期任务",
     Pro_DelayedDates: "延期天数",
+    Pro_TMaterial: "材质",
+    Pro_TSpec: "模具规格",
+    Pro_TShrinkage: "收缩率",
+    Pro_TCustomerToolingNo: "客户模号",
+    Pro_TWeight: "重量",
   },
   //设置
   setup: {
@@ -1155,6 +1161,7 @@ const cn = {
     Ge_Saturday: "周六",
     Ge_Sunday: "周日",
     Ge_PlanAchievementRate: "计划达成率",
+    Ge_CreateOrders: "创建订单",
   },
   //生产
   production: {
@@ -1442,6 +1449,7 @@ const cn = {
     Qc_Size: "尺寸",
     Qc_Exterior: "外观",
     Qc_Other: "其它",
+    Qc_CreateErrorReport: "开异常单",
     Qc_TheQuantitySubmittedShallNotExceedTheProcessingQuantity: "送检数量不得大于加工数量",
     Qc_TheQuantityForInspectionShallNotExceedTheSubmittedQuantity: "检验数量不得大于送检数量",
     Qc_TheQuantityUnqualifiedShallNotExceedTheInspectionQuantity: "不合格数量不得大于检验数量",
@@ -1904,6 +1912,8 @@ const cn = {
     Project_task_report_work_inspection: "项目任务报工点检配置",
     Trial_tooling_users_name: "试模用户",
     Trial_tooling_users_desc: "试模任务展示的人员",
+    Auto_create_purchase_requisition: "自动创建采购申请",
+    Auto_create_purchase_requisition_desc: "物料需求审核后是否自动创建采购申请",
   },
 
   ...zhLocale,
