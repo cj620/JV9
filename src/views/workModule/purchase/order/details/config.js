@@ -44,26 +44,6 @@ export const tableConfig = [
     filter: "amount",
     width: "100px",
   },
-  /*入库数量*/
-  {
-    prop: "StockInQuantity",
-    label: i18n.t("Generality.Ge_StockInQuantity"),
-    formCpn: "FormInput",
-    align: "right",
-    type: "number",
-    filter: "amount",
-    width: "100px",
-  },
-  /*退货数量*/
-  {
-    prop: "ReturnQuantity",
-    label: i18n.t("Generality.Ge_ReturnQuantity"),
-    formCpn: "FormInput",
-    align: "right",
-    type: "number",
-    filter: "amount",
-    width: "100px",
-  },
   /*未税单价*/
   {
     prop: "NoTaxPrice",
@@ -110,6 +90,11 @@ export const tableConfig = [
     align: "right",
     filter: "amount",
   },
+  /*其它费用*/
+  {
+    prop: "OtherExpenses",
+    label: '其它费用',
+  },
   /*辅助数量*/
   {
     prop: "AuxiliaryQty",
@@ -124,6 +109,16 @@ export const tableConfig = [
     width: "100px",
     filter: "amount",
     align: "right",
+  },
+  /*入库数量*/
+  {
+    prop: "StockInQuantity",
+    label: i18n.t("Generality.Ge_StockInQuantity"),
+    formCpn: "FormInput",
+    align: "right",
+    type: "number",
+    filter: "amount",
+    width: "100px",
   },
   /*备注*/
   {
@@ -140,13 +135,33 @@ export const detailConfig = [
   {
     // 计划交期
     prop: "DeliveryDate",
-    label: i18n.t("Generality.Ge_DeliveryDate"),
+    label: '交货日期',
     filter: "date",
   },
   {
     // 币种
     prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
+  },
+  /*汇率*/
+  {
+    prop: "ExchangeRate",
+    label: '汇率',
+  },
+  /*落款*/
+  {
+    prop: "SignOff",
+    label: '落款'
+  },
+  /*来源单据*/
+  {
+    prop: "RelationId",
+    label: '来源单据',
+  },
+  /*确认日期*/
+  {
+    prop: "ConfirmDate",
+    label: '确认日期',
   },
   {
     // 制单人

@@ -77,12 +77,6 @@ export const tableConfig = [
       },
     },
   },
-  /*币种*/
-  {
-    prop: "Currency",
-    label: i18n.t("Generality.Ge_Currency"),
-    width: "95px",
-  },
   /*仓库*/
   {
     prop: "Stockroom",

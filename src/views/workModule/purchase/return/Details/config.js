@@ -89,7 +89,11 @@ export const tableConfig = [
     align: "right",
     filter: "amount",
   },
-
+  /*其它费用*/
+  {
+    prop: "OtherExpenses",
+    label: '其它费用',
+  },
   /*备注*/
   {
     prop: "Remarks",
@@ -107,13 +111,21 @@ export const detailConfig = [
     prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
   },
-
+  {
+    //汇率
+    prop: "ExchangeRate",
+    label: '汇率',
+  },
   {
     // 仓库
     prop: "Stockroom",
     label: i18n.t("setup.Stockroom"),
   },
-
+  {
+    // 相关单号
+    prop: "RelationId",
+    label: '相关单号',
+  },
   {
     // 制单人
     prop: "Creator",

@@ -40,21 +40,9 @@ export const tableConfig = [
       label: i18n.t("Generality.Ge_BillId"),
     },
     cpnProps: {
-      // 路由名称
       routeName: "St_ProduceIn_Details",
-      // 路由路径（名称和路径二选一）
-      // routePath:'/dashboard',
-      // 路由传参方式 默认query
       methods: "query",
-      // 传参的键名，值为当前数据
       parameterKey: "BillId",
-      // 补充动态参数
-      moreDynamicParameters: [
-        {
-          keyName: "ItemId",
-          valueName: "ItemId",
-        },
-      ],
     },
   },
   /*状态*/
@@ -64,21 +52,31 @@ export const tableConfig = [
     cpn: "BillStateTags",
     width: "115px",
   },
+  /*类别*/
+  {
+    prop: "Category",
+    label: '类别',
+  },
+  /*仓库*/
+  {
+    prop: "Stockroom",
+    label: '存货地点',
+    width: "105px",
+  },
   /*提交人*/
   {
     prop: "Submitter",
-    label: i18n.t("stockroom.St_Submitter"),
+    label: '经手人',
   },
   /*部门*/
   {
     prop: "Department",
     label: i18n.t("Generality.Ge_Department"),
   },
-  /*仓库*/
+  /*来源单据*/
   {
-    prop: "Stockroom",
-    label: i18n.t("setup.Stockroom"),
-    width: "105px",
+    prop: "RelationId",
+    label: '来源单据',
   },
   /*制单人*/
   {
@@ -93,6 +91,21 @@ export const tableConfig = [
     filter: "time",
     width: "150px",
   },
+  /*生产信息*/
+  {
+    prop: "ProductionInfo",
+    label: "生产信息",
+  },
+  /*合计数量*/
+  {
+    prop: "Total",
+    label: "合计数量",
+  },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: '备注',
+  }
 ];
 export const formSchema = [
   {

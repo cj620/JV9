@@ -12,19 +12,21 @@ export const tableConfig = [
   {
     prop: "ItemId",
     label:i18n.t("Generality.Ge_ItemId"),
-
   },
   /*名称*/
   {
     prop: "ItemName",
-    label:i18n.t("Generality.Ge_ItemName"),
-
+    label: '品名',
   },
   /*描述*/
   {
     prop: "Description",
     label:i18n.t("Generality.Ge_Describe"),
-
+  },
+  /*描述2*/
+  {
+    prop: "Description2",
+    label: '描述2',
   },
   /*单位*/
   {
@@ -43,19 +45,33 @@ export const tableConfig = [
     filter: "amount",
     width:'100px',
   },
-
-  /*备注*/
+  /*批量*/
   {
-    prop: "Remarks",
-    label:i18n.t("Generality.Ge_Remarks"),
+    prop: "BatchNo",
+    label: '批量',
   },
-  /*模具编号*/
+  /*生产日期*/
   {
-    prop: "ToolingNo",
-    label:i18n.t("Generality.Ge_ToolingNo"),
+    prop: "ProductionDate",
+    label: '生产日期',
+  },
+  /*有效期*/
+  {
+    prop: "Effective",
+    label: '有效期',
   },
 ]
 export const detailConfig=[
+  /*类别*/
+  {
+    prop: "Category",
+    label: '类别',
+  },
+  /*仓库*/
+  {
+    prop: "Stockroom",
+    label: '存货地点',
+  },
   {
     // 提交人
     prop:'Submitter',
@@ -66,10 +82,10 @@ export const detailConfig=[
     prop:'Department',
     label: i18n.t("Generality.Ge_Department"),
   },
+  /*来源单据*/
   {
-    // 仓库
-    prop:'Stockroom',
-    label: i18n.t("setup.Stockroom"),
+    prop: "RelationId",
+    label: '来源单据',
   },
   {
     // 制单人

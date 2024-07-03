@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-03 15:00:30
- * @LastEditTime: 2022-01-18 17:26:24
+ * @LastEditTime: 2024-07-03 09:53:18
  * @Description:
  */
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
@@ -98,6 +98,21 @@ export const formSchema = [
       ],
     },
   },
+  {
+    prop: "DefaultDepot",
+    label: "操作仓库",
+    cpn: "FormInput",
+  },
+  // {
+  //   prop: "LoginDate",
+  //   label: "最近登录时间",
+  //   cpn: "SingleTime",
+  // },
+  {
+    prop: "Fax",
+    label: "传真",
+    cpn: "FormInput",
+  },
 ];
 
 export const formSchema1 = [
@@ -141,5 +156,40 @@ export const formSchema1 = [
     prop: "FamilyAddress",
     label: i18n.t("setup.FamilyAddress"),
     cpn: "FormInput",
+  },
+
+  {
+    prop: "UseWeixin",
+    label: "微信邮件",
+    cpn: "FormRadio",
+    options: {
+      list: [
+        {
+          value: true,
+          label: i18n.t("Generality.Ge_Yes"),
+        },
+        {
+          value: false,
+          label: i18n.t("Generality.Ge_No"),
+        },
+      ],
+    },
+  },
+  {
+    prop: "UseMsn",
+    label: "Msn邮件",
+    cpn: "FormRadio",
+    options: {
+      list: [
+        {
+          value: true,
+          label: i18n.t("Generality.Ge_Yes"),
+        },
+        {
+          value: false,
+          label: i18n.t("Generality.Ge_No"),
+        },
+      ],
+    },
   },
 ];

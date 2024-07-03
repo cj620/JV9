@@ -58,11 +58,6 @@ export const tableConfig = [
     cpn: "BillStateTags",
     width: "120px",
   },
-  /*供应商id*/
-  {
-    prop: "SupplierId",
-    label: i18n.t("purchase.Pr_SupplierId"),
-  },
   /*供应商简称*/
   {
     prop: "SupplierName",

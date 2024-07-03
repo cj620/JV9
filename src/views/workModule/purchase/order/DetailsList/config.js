@@ -171,6 +171,21 @@ const tableSchema = [
     align: "right",
     filter: "amount",
   },
+  /*其它费用*/
+  {
+    prop: "OtherExpenses",
+    label: '其它费用',
+  },
+  /*入库数量*/
+  {
+    prop: "StockInQuantity",
+    label: i18n.t("Generality.Ge_StockInQuantity"),
+    formCpn: "FormInput",
+    align: "right",
+    type: "number",
+    filter: "amount",
+    width: "100px",
+  },
   /*备注*/
   {
     prop: "ItemRemarks",

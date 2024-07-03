@@ -74,32 +74,37 @@ export const tableConfig = [
     cpn: "BillStateTags",
     width: "115px",
   },
-  /*提交人*/
-  {
-    prop: "Submitter",
-    label: i18n.t("stockroom.St_Submitter"),
-  },
-  /*部门*/
-  {
-    prop: "Department",
-    label: i18n.t("Generality.Ge_Department"),
-  },
-  /*仓库*/
-  {
-    prop: "Stockroom",
-    label: i18n.t("setup.Stockroom"),
-    width: "105px",
-  },
   /*领料类别*/
   {
     prop: "PickingType",
     label: i18n.t("stockroom.St_PickingType"),
     custom: true,
   },
-  /*模具编号*/
+  /*提交人*/
   {
-    prop: "ToolingNo",
-    label: i18n.t("Generality.Ge_ToolingNo"),
+    prop: "Submitter",
+    label: '经手人',
+  },
+  /*部门*/
+  {
+    prop: "Department",
+    label: '领料单位',
+  },
+  // /*仓库*/
+  // {
+  //   prop: "Stockroom",
+  //   label: i18n.t("setup.Stockroom"),
+  //   width: "105px",
+  // },
+  // /*模具编号*/
+  // {
+  //   prop: "ToolingNo",
+  //   label: i18n.t("Generality.Ge_ToolingNo"),
+  // },
+  /*生产信息*/
+  {
+    prop: "ProductionInfo",
+    label: '生产信息',
   },
   /*制单人*/
   {

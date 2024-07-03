@@ -72,13 +72,18 @@ const tableSchema = [
     cpn: "BillStateTags",
     width: "115px",
   },
-  /*计划交期*/
+  /*明细状态*/
   {
-    prop: "DeliveryDate",
-    label: i18n.t("Generality.Ge_DeliveryDate"),
-    filter: "date",
-    width: "120px",
+    prop: "ItemState",
+    label: '明细状态',
   },
+  // /*计划交期*/
+  // {
+  //   prop: "DeliveryDate",
+  //   label: i18n.t("Generality.Ge_DeliveryDate"),
+  //   filter: "date",
+  //   width: "120px",
+  // },
   /*物料编号*/
   {
     prop: "ItemId",
@@ -114,7 +119,27 @@ const tableSchema = [
     align: "right",
     filter: "amount",
   },
-
+  /*提交人*/
+  {
+    prop: "Applicant",
+    label: '申请人',
+  },
+  /*部门*/
+  {
+    prop: "Department",
+    label: '申请部门',
+  },
+  /*计划交期*/
+  {
+    prop: "UsageDate",
+    label: '使用日期',
+    filter: "date",
+  },
+  /*来源单据*/
+  {
+    prop: "RelationId",
+    label: '来源单据',
+  },
   /*备注*/
   {
     prop: "ItemRemarks",

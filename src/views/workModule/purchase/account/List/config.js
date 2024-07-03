@@ -57,32 +57,15 @@ export const tableConfig = [
     cpn: "BillStateTags",
     width: "120px",
   },
-  /*供应商id*/
-  {
-    prop: "SupplierId",
-    label: i18n.t("purchase.Pr_SupplierId"),
-  },
   /*供应商简称*/
   {
     prop: "SupplierName",
     label: i18n.t("purchase.Pr_SupplierName"),
   },
-  /*开始交期*/
+  /*发票号*/
   {
-    prop: "StartDate",
-    label: i18n.t("Generality.Ge_StartDate"),
-    filter: "date",
-  },
-  /*结束交期*/
-  {
-    prop: "EndDate",
-    label: i18n.t("Generality.Ge_EndDate"),
-    filter: "date",
-  },
-  /*币种*/
-  {
-    prop: "Currency",
-    label: i18n.t("Generality.Ge_Currency"),
+    prop: "InvoiceNo",
+    label: '发票号',
     width: "95px",
   },
   /*制单人*/

@@ -248,6 +248,7 @@ export default {
       this.dialogFormVisible = true;
       this.formObj.form = {
         Department: "",
+        Remark:''
       };
     },
     //新增类别确认保存
