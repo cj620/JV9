@@ -57,33 +57,38 @@ export const tableConfig = [
     width: "120px",
   },
   /*供应商id*/
-  {
-    prop: "SupplierId",
-    label: i18n.t("purchase.Pr_SupplierId"),
-  },
+  // {
+  //   prop: "SupplierId",
+  //   label: i18n.t("purchase.Pr_SupplierId"),
+  // },
   /*供应商简称*/
   {
     prop: "SupplierName",
     label: i18n.t("purchase.Pr_SupplierName"),
   },
+  /*发票号*/
+  {
+    prop: "ReceiptNumber",
+    label: "发票号",
+  },
   /*开始交期*/
-  {
-    prop: "StartDate",
-    label: i18n.t("Generality.Ge_StartDate"),
-    filter: "date",
-  },
+  // {
+  //   prop: "StartDate",
+  //   label: i18n.t("Generality.Ge_StartDate"),
+  //   filter: "date",
+  // },
   /*结束交期*/
-  {
-    prop: "EndDate",
-    label: i18n.t("Generality.Ge_EndDate"),
-    filter: "date",
-  },
+  // {
+  //   prop: "EndDate",
+  //   label: i18n.t("Generality.Ge_EndDate"),
+  //   filter: "date",
+  // },
   /*币种*/
-  {
-    prop: "Currency",
-    label: i18n.t("Generality.Ge_Currency"),
-    width: "95px",
-  },
+  // {
+  //   prop: "Currency",
+  //   label: i18n.t("Generality.Ge_Currency"),
+  //   width: "95px",
+  // },
   /*制单人*/
   {
     prop: "Creator",
@@ -96,6 +101,30 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
     width: "150px",
+  },
+  /*审核人*/
+  {
+    prop: "Audit",
+    label: i18n.t("Generality.Ge_Auditor"),
+  },
+  // 审核日期
+  {
+    prop: "AuditDate",
+    label: "审核日期",
+    filter: "time",
+    width: "150px",
+  },
+  /*合计数量*/
+  {
+    prop: "TotalQuantity",
+    label: i18n.t("Generality.Ge_TotalQuantity"),
+    width: "95px",
+  },
+  /*合计金额*/
+  {
+    prop: "TotalPrice",
+    label: i18n.t("Generality.Ge_TotalPrice"),
+    width: "95px",
   },
   /*备注*/
   {
