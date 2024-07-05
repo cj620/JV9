@@ -1,23 +1,23 @@
 /*
  * @Author: C.
  * @Date: 2021-12-28 08:33:52
- * @LastEditTime: 2022-02-28 14:41:33
+ * @LastEditTime: 2024-07-05 13:22:54
  * @Description: file content
  */
-export const detailConfig=[
+export const detailConfig = [
   {
     // 物料编号
-    prop:'ItemId',
+    prop: "ItemId",
     label: i18n.t("Generality.Ge_ItemId"),
   },
   {
     // 物料名称
-    prop:'ItemName',
+    prop: "ItemName",
     label: i18n.t("Generality.Ge_ItemName"),
   },
   {
     // 描述
-    prop:'Description',
+    prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
   },
   /*描述2*/
@@ -27,68 +27,107 @@ export const detailConfig=[
   },
   {
     // 单位
-    prop:'Unit',
+    prop: "Unit",
     label: i18n.t("Generality.Ge_Unit"),
   },
   {
     // 标签
-    prop:'ItemType',
+    prop: "ItemType",
     label: i18n.t("Generality.Ge_ItemLabel"),
   },
   {
     // 最小库存
-    prop:'SafetyStock',
+    prop: "SafetyStock",
     label: i18n.t("setup.SafetyStock"),
   },
   {
     // 最大库存
-    prop:'MaxStock',
+    prop: "MaxStock",
     label: i18n.t("setup.MaxStock"),
   },
   {
     // 物料类别
-    prop:'ItemCategory',
+    prop: "ItemCategory",
     label: i18n.t("Generality.Ge_ItemCategory"),
     custom: true,
   },
   {
     // 所属项目
-    prop:'Project',
+    prop: "Project",
     label: i18n.t("Generality.Ge_BelongTo"),
   },
-  ]
+  { label: "品牌", prop: "Brand" },
+  { label: "产地", prop: "Producer" },
+  { label: "简码", prop: "SimpleCode" },
+  { label: "条形码", prop: "Barcode" },
+
+  // [
+  //   { value: 1, label: "自制" },
+  //   { value: 2, label: "外购" },
+  //   { value: 3, label: "外协" },
+  // ]
+
+  {
+    label: "物料属性",
+    prop: "ResProperty",
+    customFilter: (value) => {
+      let arr = [
+        { value: 1, label: "自制" },
+        { value: 2, label: "外购" },
+        { value: 3, label: "外协" },
+      ];
+      const target = arr.find((item) => {
+        return (item.value = value);
+      });
+      return target?.label ?? "-";
+    },
+  },
+  // { label: "图片Url", prop: "Picture" },
+  { label: "库位", prop: "StockLocation" },
+  {
+    label: "初始化",
+    prop: "Inited",
+    customFilter: (value) => (Boolean(value) ? "是" : "否"),
+  },
+  { label: "创建人", prop: "Worker" },
+  { label: "创建日期", prop: "WorkDate", filter: "time" },
+  { label: "产值", prop: "MakeSum" },
+  { label: "最小批量", prop: "MinBatch" },
+  { label: "批量增量", prop: "BatchIncrement" },
+  { label: "简介", prop: "Introduction" },
+  { label: "描述", prop: "Remark" },
+];
 //库位信息
-export const InventoryConfig=[
+export const InventoryConfig = [
   {
     // 仓库
-    prop:'Stockroom',
+    prop: "Stockroom",
     label: i18n.t("setup.Stockroom"),
   },
   {
     // 数量
-    prop:'Quantity',
+    prop: "Quantity",
     label: i18n.t("Generality.Ge_Quantity"),
   },
-   /*单价*/
-   {
+  /*单价*/
+  {
     prop: "Price",
-    label:i18n.t("Generality.Ge_Price"),
-    type:'number',
-    align:'right',
+    label: i18n.t("Generality.Ge_Price"),
+    type: "number",
+    align: "right",
     filter: "amount",
   },
-   /*金额*/
-   {
+  /*金额*/
+  {
     prop: "Amount",
-    label:i18n.t("Generality.Ge_Amount"),
-    type:'number',
-    align:'right',
+    label: i18n.t("Generality.Ge_Amount"),
+    type: "number",
+    align: "right",
     filter: "amount",
   },
-
-]
+];
 //结存换汇
-export const stockSummaryConfig=[
+export const stockSummaryConfig = [
   /*记账日期*/
   {
     prop: "AccountedDate",
@@ -164,5 +203,4 @@ export const stockSummaryConfig=[
     align: "right",
     filter: "amount",
   },
-
-]
+];

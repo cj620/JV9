@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-09-15 11:35:07
- * @LastEditTime: 2022-02-28 14:53:47
+ * @LastEditTime: 2024-07-05 13:13:42
  * @Description: file content
 -->
 <template>
@@ -81,6 +81,22 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
+
+              <el-form-item label="品牌" prop="Brand">
+                <el-input v-model="value.Brand"></el-input>
+              </el-form-item>
+
+              <el-form-item label="产地" prop="Producer">
+                <el-input v-model="value.Producer"></el-input>
+              </el-form-item>
+
+              <el-form-item label="简码" prop="SimpleCode">
+                <el-input v-model="value.SimpleCode"></el-input>
+              </el-form-item>
+
+              <el-form-item label="条形码" prop="Barcode">
+                <el-input v-model="value.Barcode"></el-input>
+              </el-form-item>
             </el-col>
             <el-col :span="8">
               <!--描述-->
@@ -120,6 +136,35 @@
               <el-form-item :label="$t('setup.SafetyStock')" prop="SafetyStock">
                 <el-input type="number" v-model="value.SafetyStock"></el-input>
               </el-form-item>
+              <el-form-item label="物料属性" prop="ResProperty">
+                <!-- <el-input v-model="value.ResProperty"></el-input> -->
+
+                <el-select
+                  v-model="value.ResProperty"
+                  clearable
+                  style="width: 100%"
+                >
+                  <el-option
+                    v-for="(item, index) in ResPropertyListData"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+
+              <el-form-item label="库位" prop="StockLocation">
+                <el-input v-model="value.StockLocation"></el-input>
+              </el-form-item>
+
+              <el-form-item label="初始化" prop="Inited">
+                <!-- <el-input v-model="value.Inited"></el-input> -->
+                <el-checkbox v-model="value.Inited"></el-checkbox>
+              </el-form-item>
+
+              <el-form-item label="描述" prop="Remark">
+                <el-input v-model="value.Remark"></el-input>
+              </el-form-item>
             </el-col>
             <el-col :span="8">
               <!--最大库存-->
@@ -155,6 +200,23 @@
                   </el-option>
                 </el-select>
               </el-form-item>
+              <el-form-item label="简介" prop="Introduction">
+                <el-input v-model="value.Introduction"></el-input>
+              </el-form-item>
+              <el-form-item label="批量增量" prop="BatchIncrement">
+                <el-input
+                  v-model="value.BatchIncrement"
+                  type="number"
+                ></el-input>
+              </el-form-item>
+
+              <el-form-item label="产值" prop="MakeSum">
+                <el-input v-model="value.MakeSum" type="number"></el-input>
+              </el-form-item>
+
+              <el-form-item label="最小批量" prop="MinBatch">
+                <el-input v-model="value.MinBatch" type="number"></el-input>
+              </el-form-item>
             </el-col>
           </el-row>
         </el-form>
@@ -179,9 +241,7 @@
 import JvUploadList from "@/components/JVInternal/JvUpload/List";
 import { getAllItemType } from "@/api/basicApi/systemSettings/ItemType";
 import { imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import {
-  getProjectQuery
-} from "@/api/workApi/project/projectManage";
+import { getProjectQuery } from "@/api/workApi/project/projectManage";
 export default {
   name: "baseInfo",
   components: {
@@ -194,14 +254,20 @@ export default {
       materialCategoryListData: [],
       projectDataList: [],
       loading: false,
-      ItemCategoryListData:[
-        {value: 'Tooling',label: i18n.t("Generality.Ge_Tooling")},
-        {value: 'Part',label:i18n.t("Generality.Ge_Part")},
-        {value: 'Electrode',label: i18n.t("Generality.Ge_Electrode")},
-        {value: 'Material',label: i18n.t("Generality.Ge_Items")},
-        {value: 'Standard',label: i18n.t("Generality.Ge_Standard")},
+      ItemCategoryListData: [
+        { value: "Tooling", label: i18n.t("Generality.Ge_Tooling") },
+        { value: "Part", label: i18n.t("Generality.Ge_Part") },
+        { value: "Electrode", label: i18n.t("Generality.Ge_Electrode") },
+        { value: "Material", label: i18n.t("Generality.Ge_Items") },
+        { value: "Standard", label: i18n.t("Generality.Ge_Standard") },
+      ],
+      ResPropertyListData: [
+        { value: "1", label: "自制" },
+        { value: "2", label: "外购" },
+        { value: "3", label: "外协" },
       ],
       formObj: {},
+
       defaultImgUrl: window.global_config.ImgBase_Url,
       errorDefaultImg:
         'this.src="' + require("@/assets/errorImg/error.png") + '"',
@@ -229,13 +295,13 @@ export default {
             trigger: ["blur"],
           },
         ],
-        ItemCategory:[
+        ItemCategory: [
           {
             required: true,
             message: i18n.t("Generality.Ge_PleaseFillIn"),
             trigger: ["blur"],
           },
-        ]
+        ],
       },
     };
   },
@@ -277,7 +343,7 @@ export default {
     //搜索项目
     remoteMethod(query) {
       getProjectQuery({ Keyword: query }).then((res) => {
-        console.log(res.Items,555)
+        console.log(res.Items, 555);
         if (query !== "") {
           this.loading = true;
           setTimeout(() => {
