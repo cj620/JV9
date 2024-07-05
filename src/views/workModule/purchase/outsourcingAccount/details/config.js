@@ -29,6 +29,11 @@ export const tableConfig = [
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
   },
+  /*描述2*/
+  {
+    prop: "Description2",
+    label: i18n.t("design.De_Description2"),
+  },
   /*单位*/
   {
     prop: "Unit",
@@ -45,16 +50,16 @@ export const tableConfig = [
     filter: "amount",
     width: "100px",
   },
-  /*未税单价*/
-  {
-    prop: "NoTaxPrice",
-    label: i18n.t("Generality.Ge_NoTaxPrice"),
-    type: "number",
-    align: "right",
-    width: "120px",
-    formCpn: "FormInput",
-    filter: "amount",
-  },
+  // /*未税单价*/
+  // {
+  //   prop: "NoTaxPrice",
+  //   label: i18n.t("Generality.Ge_NoTaxPrice"),
+  //   type: "number",
+  //   align: "right",
+  //   width: "120px",
+  //   formCpn: "FormInput",
+  //   filter: "amount",
+  // },
   /*单价*/
   {
     prop: "Price",
@@ -83,24 +88,24 @@ export const tableConfig = [
     filter: "amount",
     width: "120px",
   },
-  /*未税金额*/
-  {
-    prop: "TDA",
-    label: i18n.t("Generality.Ge_TDA"),
-    width: "120px",
-    align: "right",
-    filter: "amount",
-  },
-  // 模具编号
-  {
-    prop: "ToolingNo",
-    label: i18n.t("Generality.Ge_ToolingNo"),
-  },
-  // 工序
-  {
-    prop: "Process",
-    label: i18n.t("Generality.Ge_Process"),
-  },
+  // /*未税金额*/
+  // {
+  //   prop: "TDA",
+  //   label: i18n.t("Generality.Ge_TDA"),
+  //   width: "120px",
+  //   align: "right",
+  //   filter: "amount",
+  // },
+  // // 模具编号
+  // {
+  //   prop: "ToolingNo",
+  //   label: i18n.t("Generality.Ge_ToolingNo"),
+  // },
+  // // 工序
+  // {
+  //   prop: "Process",
+  //   label: i18n.t("Generality.Ge_Process"),
+  // },
   /*备注*/
   {
     prop: "Remarks",
@@ -114,21 +119,63 @@ export const detailConfig = [
     label: i18n.t("purchase.Pr_SupplierName"),
   },
   {
-    // 开始日期
-    prop: "StartDate",
-    label: i18n.t("Generality.Ge_StartDate"),
-    filter: "time",
+    // 红蓝字发票
+    prop: "AccountColor",
+    label: '红蓝字发票',
+    customFilter(v) {
+      return v === 'Blue' ? "蓝字" : "红字"
+    }
   },
   {
-    // 结束日期
-    prop: "EndDate",
-    label: i18n.t("Generality.Ge_EndDate"),
-    filter: "time",
+    // 发票号
+    prop: "ReceiptNumber",
+    label: '发票号',
   },
+  {
+    // 是否普通发票
+    prop: "OrdinaryInvoice",
+    label: '是否普通发票',
+    customFilter(v) {
+      return v ? "是" : "否";
+    }
+  },
+  // {
+  //   // 开始日期
+  //   prop: "StartDate",
+  //   label: i18n.t("Generality.Ge_StartDate"),
+  //   filter: "time",
+  // },
+  // {
+  //   // 结束日期
+  //   prop: "EndDate",
+  //   label: i18n.t("Generality.Ge_EndDate"),
+  //   filter: "time",
+  // },
   {
     // 币种
     prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
+  },
+  {
+    // 汇率
+    prop: "ExchangeRate",
+    label: '汇率',
+  },
+  {
+    // 委外付款日期
+    prop: "OutsourcedPayDate",
+    label: "委外付款日期",
+    filter: "time",
+  },
+  {
+    // 来源单据
+    prop: "RelationId",
+    label: '来源单据',
+  },
+  {
+    // 订单类型
+    prop: "OrderType",
+    label: '订单类型',
   },
   {
     // 制单人

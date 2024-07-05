@@ -707,6 +707,7 @@ const cn = {
   },
   //通用
   Generality: {
+    Ge_PaymentDate: "付款日期",
     Ge_AdvanceCharge: "预付款",
     Ge_Pending1: "待定",
     Ge_LoadMore: "加载更多",

@@ -89,10 +89,30 @@ export const tableConfig = [
     align: "right",
     filter: "amount",
   },
+  /*辅助数量*/
+  {
+    prop: "AuxiliaryQty",
+    label: i18n.t("Generality.Ge_AuxiliaryQty"),
+    width: "100px",
+    align: "right",
+  },
+  /*辅助单价*/
+  {
+    prop: "AuxiliaryPrice",
+    label: i18n.t("Generality.Ge_AuxiliaryPrice"),
+    width: "100px",
+    filter: "amount",
+    align: "right",
+  },
   /*其它费用*/
   {
     prop: "OtherExpenses",
     label: '其它费用',
+  },
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
   },
   /*备注*/
   {
@@ -122,9 +142,9 @@ export const detailConfig = [
     label: i18n.t("setup.Stockroom"),
   },
   {
-    // 相关单号
+    // 相关单号（来源单据）
     prop: "RelationId",
-    label: '相关单号',
+    label: '来源单据',
   },
   {
     // 制单人
