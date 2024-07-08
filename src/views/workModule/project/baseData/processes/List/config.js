@@ -1,15 +1,15 @@
 /*
  * @Author: H.
  * @Date: 2021-11-18 15:08:18
- * @LastEditTime: 2022-03-24 09:57:09
+ * @LastEditTime: 2024-07-08 10:14:11
  * @Description:
  */
 
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getAllProjectProcess } from "@/api/workApi/project/baseData";
-import {enumFilter, enumToList} from "~/utils/system/enumsPlugin";
+import { enumFilter, enumToList } from "~/utils/system/enumsPlugin";
 import { processTypeEnum } from "@/enum/workModule";
-
+import { PrTaskType } from "@/enum/workModule/production/PrTaskType";
 export class api extends TableAPI {
   getData = getAllProjectProcess;
 }
@@ -34,7 +34,7 @@ export const tableConfig = [
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
-    width: 120
+    width: 120,
   },
   /*序号*/
   {
@@ -72,7 +72,7 @@ export const tableConfig = [
   {
     prop: "BelongingDepartment",
     label: i18n.t("menu.Se_Department"),
-    width: 100
+    width: 100,
   },
   /*工序类别*/
   {
@@ -81,6 +81,36 @@ export const tableConfig = [
     customFilter: (value) => enumFilter(value, processTypeEnum),
     width: 100,
   },
+  { label: "标准费率", prop: "StdRates" },
+  { label: "目录权限", prop: "DirectoryPurview" },
+  { label: "入站前状态", prop: "InSiteState" },
+  { label: "上机后状态", prop: "UpState" },
+  { label: "下机后状态", prop: "DownState" },
+  { label: "入站后状态", prop: "InSitedBillState" },
+  {
+    label: "程序加工",
+    prop: "NcProgram",
+    customFilter: (value) => (Boolean(value) ? "是" : "否"),
+  },
+  {
+    label: "使用电极",
+    prop: "IFUsePole",
+    customFilter: (value) => (Boolean(value) ? "是" : "否"),
+  },
+  { label: "工作周", prop: "WorkWeek" },
+  { label: "开机时间段", prop: "BootTimeSpan" },
+  {
+    label: "是否是记录工序",
+    prop: "IsRecordCraft",
+    customFilter: (value) => (Boolean(value) ? "是" : "否"),
+  },
+  { label: "外协设备组", prop: "OutsourceEquipmentGroup" },
+  {
+    label: "允许同时上机",
+    prop: "AllowRepetitionMachine",
+    customFilter: (value) => (Boolean(value) ? "是" : "否"),
+  },
+  { label: "默认工时", prop: "DefaultWorkingHours" },
 ];
 
 export const formSchema = [
@@ -91,5 +121,5 @@ export const formSchema = [
     options: {
       list: enumToList(processTypeEnum),
     },
-  }
+  },
 ];
