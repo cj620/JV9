@@ -25,7 +25,10 @@
           <div class="unit-list-item-content">
             <div class="unit-list-item-content-info">
               <div>{{ item.Unit }}</div>
-              <div>_</div>
+              <div class="desc">
+                <div>转换率：{{ item.UnitConvert }}</div>
+                <div>MPR运算增量：{{ item.MinAmount }}</div>
+              </div>
             </div>
             <div>
               <div class="unit-list-item-content-operate">
@@ -90,10 +93,8 @@ export default {
   methods: {
     //获取单位的数据
     GetData() {
-
       getAllUnit({ Keyword: this.form.Keyword })
         .then((res) => {
-
           this.getAllUnit = res.Items;
           this.getAllUnit.unshift("z");
         })
@@ -112,7 +113,6 @@ export default {
     //新增单位确认保存
     confirmAddUnit() {
       this.formObj.validate((valid) => {
-
         if (valid) {
           saveUnit(this.formObj.form)
             .then((res) => {
@@ -157,7 +157,15 @@ export default {
   padding: 15px;
   display: flex;
   flex-wrap: wrap;
+  .desc {
+    font-size: 15px;
+    color: #888;
 
+    div {
+      height: 18px !important;
+      padding: 5px 0;
+    }
+  }
   .unit-list-item {
     width: 15.5%;
     height: 140px;

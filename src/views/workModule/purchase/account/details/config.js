@@ -1,4 +1,5 @@
 import { Table as BaseTable } from "@/jv_doc/class/table";
+import {AccountTypeEnum} from "@/enum/workModule/Purchase/AccountTypeEnum";
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -103,9 +104,33 @@ export const detailConfig = [
     label: i18n.t("purchase.Pr_SupplierName"),
   },
   {
+    // 红蓝字发票
+    prop: "AccountColor",
+    label: '红蓝字发票',
+    customFilter(v) {
+      return v === 'Blue' ? "蓝字" : "红字"
+    }
+  },
+  {
     // 发票号
     prop: "InvoiceNo",
     label: '发票号',
+  },
+  {
+    // 是否普通发票
+    prop: "OrdinaryInvoice",
+    label: '是否普通发票',
+    customFilter(v) {
+      return v ? "是" : "否";
+    }
+  },
+  {
+    // 发票类型
+    prop: "AccountType",
+    label: '发票类型',
+    customFilter(v) {
+      return AccountTypeEnum[v] ? AccountTypeEnum[v].name : '--';
+    }
   },
   {
     // 开始交期
@@ -130,9 +155,15 @@ export const detailConfig = [
     label: '汇率',
   },
   {
-    // 相关单据
+    // 来源单据
     prop: "RelationId",
-    label: '相关单据',
+    label: '来源单据',
+  },
+  {
+    // 付款日期
+    prop: "PaymentDate",
+    label: "付款日期",
+    filter: "time",
   },
   {
     // 制单人

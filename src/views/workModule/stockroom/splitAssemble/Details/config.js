@@ -29,6 +29,19 @@ export const tableConfig = [
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
   },
+  /*描述2*/
+  {
+    prop: "Description2",
+    label: "描述2",
+  },
+  /*状态*/
+  {
+    prop: "State",
+    label: "状态",
+    customFilter(v){
+      return v === 'in' ? "装" : "拆"
+    }
+  },
   /*单位*/
   {
     prop: "Unit",
@@ -42,7 +55,22 @@ export const tableConfig = [
     align: "right",
     width: "100px",
   },
-
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
+  },
+  /*生产日期*/
+  {
+    prop: "ProductionDate",
+    label: '生产日期',
+    filter: "time"
+  },
+  /*有效期*/
+  {
+    prop: "Effective",
+    label: '有效期',
+  },
   /*备注*/
   {
     prop: "Remarks",
@@ -55,12 +83,12 @@ export const detailConfig = [
     prop: "Stockroom",
     label: i18n.t("setup.Stockroom"),
   },
-  {
-    // 单据类型
-    prop: "BillType",
-    label: i18n.t("Generality.Ge_DocumentType"),
-    custom: true,
-  },
+  // {
+  //   // 单据类型
+  //   prop: "BillType",
+  //   label: i18n.t("Generality.Ge_DocumentType"),
+  //   custom: true,
+  // },
   {
     // 制单人
     prop: "Creator",

@@ -480,6 +480,7 @@ const cn = {
   },
   // 采购
   purchase: {
+    Pu_MrpGeneration: "Mrp生成",
     Pu_SupplierEvaluation: "供应商评估",
     Pu_Statistics: "统计",
     Pu_Cost: "费用",
@@ -707,6 +708,8 @@ const cn = {
   },
   //通用
   Generality: {
+    Ge_PaymentDate: "付款日期",
+    Ge_AdvanceCharge: "预付款",
     Ge_Pending1: "待定",
     Ge_LoadMore: "加载更多",
     Ge_InStationProcess: "在站工序",
@@ -748,6 +751,8 @@ const cn = {
     Ge_DeleteConfirm: "是否确定要删除此数据？",
     Ge_LockConfirm: "是否确定要锁定该模具？",
     Ge_UnlockConfirm: "是否确定要解锁该模具？",
+    Ge_ConfirmDate: "确认日期",
+    Ge_ConfirmPeople: "确认人",
     Ge_Login: "登录",
     Ge_Logout: "注销",
     Ge_Operate: "操作",
@@ -772,6 +777,8 @@ const cn = {
     Ge_LocalCurrency: "本币",
     Ge_ExchangeRate: "汇率",
     Ge_Department: "部门",
+    Ge_SourceDocuments: "来源单据",
+    Ge_Signature: "落款",
     Ge_BillId: "单据编号",
     Ge_BillGui: "单据GUI",
     Ge_State: "状态",
@@ -875,6 +882,8 @@ const cn = {
     Ge_DeliveryQuantity: "发货数量",
     Ge_ReturnQuantity: "退货数量",
     Ge_StockInQuantity: "入库数量",
+    Ge_TotalQuantity: "合计数量",
+    Ge_TotalPrice: "合计金额",
     Ge_SaveAndSubmit: "保存并提交",
     Ge_GenerateItems: "生成模具物料",
     Ge_Dynamic: "动态",

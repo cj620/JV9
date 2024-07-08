@@ -26,6 +26,11 @@ export const tableConfig = [
     label:i18n.t("Generality.Ge_Describe"),
 
   },
+  /*描述2*/
+  {
+    prop: "Description2",
+    label: "描述2",
+  },
   /*单位*/
   {
     prop: "Unit",
@@ -43,7 +48,11 @@ export const tableConfig = [
     filter: "amount",
     width:'100px',
   },
-
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
+  },
   /*备注*/
   {
     prop: "Remarks",
@@ -56,15 +65,20 @@ export const tableConfig = [
   // },
 ]
 export const detailConfig=[
+  // {
+  //   // 提交人
+  //   prop:'Submitter',
+  //   label: i18n.t("stockroom.St_Submitter"),
+  // },
+  // {
+  //   // 部门
+  //   prop:'Department',
+  //   label: i18n.t("Generality.Ge_Department"),
+  // },
+  /*相关数据*/
   {
-    // 提交人
-    prop:'Submitter',
-    label: i18n.t("stockroom.St_Submitter"),
-  },
-  {
-    // 部门
-    prop:'Department',
-    label: i18n.t("Generality.Ge_Department"),
+    prop: "RelatedData",
+    label: "相关数据",
   },
   {
     // 仓库

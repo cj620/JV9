@@ -72,15 +72,20 @@ export const tableConfig = [
     cpn: "BillStateTags",
     width: "115px",
   },
-  /*提交人*/
+  // /*提交人*/
+  // {
+  //   prop: "Submitter",
+  //   label: i18n.t("stockroom.St_Submitter"),
+  // },
+  // /*部门*/
+  // {
+  //   prop: "Department",
+  //   label: i18n.t("Generality.Ge_Department"),
+  // },
+  /*相关数据*/
   {
-    prop: "Submitter",
-    label: i18n.t("stockroom.St_Submitter"),
-  },
-  /*部门*/
-  {
-    prop: "Department",
-    label: i18n.t("Generality.Ge_Department"),
+    prop: "RelatedData",
+    label: "相关数据",
   },
   /*仓库*/
   {
@@ -100,6 +105,24 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
     width: "150px",
+  },
+  /*审核人*/
+  {
+    prop: "Audit",
+    label: i18n.t("Generality.Ge_Auditor"),
+  },
+  // 审核日期
+  {
+    prop: "AuditDate",
+    label: "审核日期",
+    filter: "time",
+    width: "150px",
+  },
+  /*合计数量*/
+  {
+    prop: "TotalQuantity",
+    label: i18n.t("Generality.Ge_TotalQuantity"),
+    width: "95px",
   },
 ];
 export const formSchema = [

@@ -120,6 +120,11 @@ export const tableConfig = [
     filter: "amount",
     width: "100px",
   },
+  /*交货日期*/
+  {
+    prop: "DeliveryDate",
+    label: i18n.t("production.Pr_DeliveryDate"),
+  },
   /*备注*/
   {
     prop: "Remarks",
@@ -146,22 +151,40 @@ export const detailConfig = [
   /*汇率*/
   {
     prop: "ExchangeRate",
-    label: '汇率',
+    label: i18n.t("Generality.Ge_ExchangeRate"),
+  },
+  /*预付款*/
+  {
+    prop: "AdvanceCharge",
+    label: i18n.t("Generality.Ge_AdvanceCharge"),
   },
   /*落款*/
   {
     prop: "SignOff",
-    label: '落款'
+    label: i18n.t("Generality.Ge_Signature")
   },
   /*来源单据*/
   {
     prop: "RelationId",
-    label: '来源单据',
+    label:  i18n.t("Generality.Ge_SourceDocuments"),
+  },
+  /*Mrp生成*/
+  {
+    prop: "MrpGeneration",
+    label:  i18n.t("purchase.Pu_MrpGeneration"),
+    customFilter(v) {
+      return v ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No")
+    }
+  },
+  /*确认人*/
+  {
+    prop: "ConfirmPeople",
+    label: i18n.t("Generality.Ge_ConfirmPeople"),
   },
   /*确认日期*/
   {
     prop: "ConfirmDate",
-    label: '确认日期',
+    label: i18n.t("Generality.Ge_ConfirmDate"),
   },
   {
     // 制单人

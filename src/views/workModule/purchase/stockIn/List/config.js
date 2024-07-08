@@ -87,6 +87,36 @@ export const tableConfig = [
     filter: "time",
     width: "150px",
   },
+  /*审核人*/
+  {
+    prop: "Audit",
+    label: i18n.t("Generality.Ge_Auditor"),
+  },
+  // 审核日期
+  {
+    prop: "AuditDate",
+    label: "审核日期",
+    filter: "time",
+    width: "150px",
+  },
+  /*合计数量*/
+  {
+    prop: "TotalQuantity",
+    label: i18n.t("Generality.Ge_TotalQuantity"),
+    width: "95px",
+  },
+  /*合计金额*/
+  {
+    prop: "TotalPrice",
+    label: i18n.t("Generality.Ge_TotalPrice"),
+    width: "95px",
+  },
+  /*退货数量*/
+  {
+    prop: "ReturnQuantity",
+    label: i18n.t("Generality.Ge_ReturnQuantity"),
+    width: "95px",
+  },
   /*备注*/
   {
     prop: "Remarks",

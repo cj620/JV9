@@ -90,4 +90,12 @@ export const detailConfig = [
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "date",
   },
+  {
+    // Mrp生成
+    prop: "MrpGeneration",
+    label: i18n.t("purchase.Pu_MrpGeneration"),
+    customFilter: (v) => {
+      return v == 1 ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No")
+    }
+  },
 ];

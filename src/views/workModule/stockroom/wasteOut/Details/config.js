@@ -29,6 +29,11 @@ export const tableConfig = [
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
   },
+  /*描述2*/
+  {
+    prop: "Description2",
+    label: i18n.t("design.De_Description2"),
+  },
   /*单位*/
   {
     prop: "Unit",
@@ -45,17 +50,26 @@ export const tableConfig = [
     filter: "amount",
     width: "100px",
   },
-
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
+  },
+  /*库位*/
+  {
+    prop: "Stockroom",
+    label:i18n.t("setup.Stockroom"),
+  },
   /*备注*/
   {
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
   /*模具编号*/
-  {
-    prop: "ToolingNo",
-    label: i18n.t("Generality.Ge_ToolingNo"),
-  },
+  // {
+  //   prop: "ToolingNo",
+  //   label: i18n.t("Generality.Ge_ToolingNo"),
+  // },
 ];
 export const detailConfig = [
   {
