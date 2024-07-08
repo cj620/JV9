@@ -26,17 +26,6 @@
           ]"
         ></TableAction
       ></template>
-      <Action
-        size="mini"
-        slot="btn-list"
-        :actions="[
-          {
-            label: $t('Generality.Ge_New'),
-            confirm: add.bind(),
-          },
-        ]"
-      >
-      </Action>
     </JvTable>
   </PageWrapper>
 </template>
@@ -54,12 +43,6 @@ export default {
   methods: {
     deleteCheckErr(ids) {
       deleteCheckErr(ids).then(() => this.tableObj.getData());
-    },
-    add() {
-      this.$router.push({
-        name: "AddQualityError",
-        params: { type: "add", title: "addQualityError" },
-      });
     },
     goDetail(row) {
       this.$router.push({
