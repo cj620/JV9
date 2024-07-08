@@ -1,12 +1,12 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2023-02-03 09:50:09
+ * @LastEditTime: 2024-07-08 14:38:23
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
-import { enumFilter, enumToList } from '~/utils/system/enumsPlugin'
+import { enumFilter, enumToList } from "~/utils/system/enumsPlugin";
 import { itemCategoryEnum } from "@/enum/baseModule";
 export class EditTable extends BaseTable {
   constructor() {
@@ -18,7 +18,7 @@ export class EditTable extends BaseTable {
       operationWidth: 230,
       importBar: false,
       sortCol: false,
-      tid:'De_ToolingBOM',
+      tid: "De_ToolingBOM",
       // selectable: (row, index) => {
       //   return row.ItemCategory.value === 'Part';
       // }
@@ -126,7 +126,7 @@ export const tableConfig = [
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
     formCpn: "FormInput",
-    sortable:true,
+    sortable: true,
     width: 80,
   },
   /*类别*/
@@ -150,7 +150,6 @@ export const tableConfig = [
       disabled: true,
     },
   },
-
 
   /*制单人*/
   {
@@ -178,7 +177,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_MaterialRequirementState"),
     width: 140,
     custom: true,
-    sortable:true,
+    sortable: true,
     editConfig: {
       disabled: true,
     },
@@ -192,6 +191,30 @@ export const tableConfig = [
       disabled: true,
     },
   },
-
-
+  {
+    label: "物料需求",
+    prop: "MaterialsDemand",
+    formCpn: "FormInput",
+    type: "number",
+    // editConfig: {
+    //   disabled: true,
+    // },
+  },
+  {
+    label: "生产需求",
+    prop: "ProduceDemand",
+    formCpn: "FormInput",
+    type: "number",
+    // editConfig: {
+    //   disabled: true,
+    // },
+  },
+  {
+    label: "类别",
+    prop: "ResType",
+    formCpn: "FormInput",
+    // editConfig: {
+    //   disabled: true,
+    // },
+  },
 ];

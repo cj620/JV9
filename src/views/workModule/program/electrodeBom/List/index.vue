@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2022-06-03 11:26:10
+ * @LastEditTime: 2024-07-08 15:00:43
  * @Description: 模具BOM
 -->
 
@@ -83,9 +83,9 @@
             confirm: CraftDesign.bind(),
           },
           // {
-			    //   label: $t('design.De_StateLinkage'),
-			    //   disabled: IsTableEmpty,
-			    //   confirm: synchronizeState.bind(),
+          //   label: $t('design.De_StateLinkage'),
+          //   disabled: IsTableEmpty,
+          //   confirm: synchronizeState.bind(),
           // },
         ]"
       >
@@ -138,9 +138,8 @@
       <template #PartLevel="{ record }">
         {{ partLevelMap[record] && partLevelMap[record].name }}
       </template>
-                  <template #MaterialRequirementState="{ record }">
-
-        {{ demandStatusEnum[record] &&demandStatusEnum[record].name }}
+      <template #MaterialRequirementState="{ record }">
+        {{ demandStatusEnum[record] && demandStatusEnum[record].name }}
       </template>
       <template #operation="{ row, row_index }">
         <TableAction
@@ -196,47 +195,44 @@
       :close-on-click-modal="true"
       :modal-append-to-body="false"
       :append-to-body="false"
-     :visible.sync="importDialogFormVisible"
+      :visible.sync="importDialogFormVisible"
       v-if="importDialogFormVisible"
       @confirm="confirmImportData"
       :autoFocus="true"
     >
-      <JvEditTable
-      :tableObj="importTableObj"
-      highlight-current-row
-      >
-      <template #operation="{ row, row_index }">
-        <TableAction
-          :actions="[
-            {
-              label: $t('Generality.Ge_Delete'),
-              confirm: i_delete.bind(null, row_index),
-            },
-          ]"
-        />
-      </template>
+      <JvEditTable :tableObj="importTableObj" highlight-current-row>
+        <template #operation="{ row, row_index }">
+          <TableAction
+            :actions="[
+              {
+                label: $t('Generality.Ge_Delete'),
+                confirm: i_delete.bind(null, row_index),
+              },
+            ]"
+          />
+        </template>
       </JvEditTable>
     </jv-dialog>
-<!--  选择任务单号  -->
+    <!--  选择任务单号  -->
     <JvDialog
-        v-if="selectProjectFormVisible"
-        :visible.sync="selectProjectFormVisible"
-        destroy-on-close
-        :title="$t('project.Pro_TaskSheetNo')"
-        width="30%"
-        @confirm="confirmItem"
-        :confirmDisabled = "SelectedTaskId"
+      v-if="selectProjectFormVisible"
+      :visible.sync="selectProjectFormVisible"
+      destroy-on-close
+      :title="$t('project.Pro_TaskSheetNo')"
+      width="30%"
+      @confirm="confirmItem"
+      :confirmDisabled="SelectedTaskId"
     >
       <JvForm :formObj="formObj">
         <template #PmTaskBillId="{ prop }">
           <el-select v-model="formObj.form[prop]" filterable>
             <el-option
-                v-for="item in TaskListData"
-                :key="item.BillId"
-                :label="
+              v-for="item in TaskListData"
+              :key="item.BillId"
+              :label="
                 item.BillId + '(' + taskTypeEnum[item.TaskType].name + ')'
               "
-                :value="item.BillId"
+              :value="item.BillId"
             >
             </el-option>
           </el-select>
@@ -264,7 +260,7 @@ import {
   getPoleBomById,
   savePoleBom,
 } from "@/api/workApi/program/electrodeBom";
-import {  demandStatusEnum, taskTypeEnum } from "@/enum/workModule";
+import { demandStatusEnum, taskTypeEnum } from "@/enum/workModule";
 
 import { uploadImage } from "@/api/workApi/materials/fileUpload";
 import Popover from "@/jv_doc/cpn/JvTable/cpn/Popover.vue";
@@ -300,7 +296,7 @@ export default {
       },
       formObj: {},
       eTableObj: {},
-      importTableObj:{},
+      importTableObj: {},
       toolId: "",
       ToolingNo: "",
       defaultUnit: "",
@@ -312,7 +308,7 @@ export default {
       searchItemDialogFormVisible: false,
       selectTaskDialogFormVisible: false,
       setLevelDialogFormVisible: false,
-      importDialogFormVisible:false,
+      importDialogFormVisible: false,
       GetData: [],
       taskData: [],
       TaskListData: [],
@@ -330,15 +326,20 @@ export default {
         ToolingNo: "",
         Creator: "",
         CreationDate: "",
-        MaterialRequirementState:'',
-        AssociationPartNo: '',
-        ElectrodeDescription1: '',
-        ElectrodeDescription2: '',
-        ElectrodeDescription3: '',
-        ElectrodeQuantitySeiko: '',
-        ElectrodeQuantityRoughWork: '',
-        ElectrodeQuantityMiddleFinish: '',
+        MaterialRequirementState: "",
+        AssociationPartNo: "",
+        ElectrodeDescription1: "",
+        ElectrodeDescription2: "",
+        ElectrodeDescription3: "",
+        ElectrodeQuantitySeiko: "",
+        ElectrodeQuantityRoughWork: "",
+        ElectrodeQuantityMiddleFinish: "",
         Remarks: "",
+        MaterialsDemand: "",
+        ProduceDemand: "",
+        ProduceDemandA: "",
+        ProduceDemandB: "",
+        ResType: "",
         // Unit: "", 如果没有系统配置 没有此字段 单位加不上去
       },
       exportTemplate: [
@@ -444,7 +445,7 @@ export default {
       labelWidth: "80px",
     });
     this.eTableObj = new EditTable();
-    this.importTableObj = new importEditTable
+    this.importTableObj = new importEditTable();
     this.defaultConfig();
   },
   computed: {
@@ -478,8 +479,8 @@ export default {
       return this.eTableObj.selectData.datas.length === 1;
     },
     SelectedTaskId() {
-      return this.formObj.form.PmTaskBillId === ""
-    }
+      return this.formObj.form.PmTaskBillId === "";
+    },
   },
   methods: {
     getData() {
@@ -501,22 +502,22 @@ export default {
       });
     },
     copy(row, index) {
-       let str=JSON.parse(JSON.stringify(row))
-       str.ItemId=''
+      let str = JSON.parse(JSON.stringify(row));
+      str.ItemId = "";
       this.eTableObj.insert(index, format2source([str]));
     },
     // 清除缓存重置表格
     resetTable() {
       this.$confirm(
-          this.$t("setup.IsResetCache"),
-          this.$t("Generality.Ge_Remind"),
-          {
-            confirmButtonText: this.$t("Generality.Ge_OK"),
-            cancelButtonText: this.$t("Generality.Ge_Cancel"),
-            type: "warning",
-          }
+        this.$t("setup.IsResetCache"),
+        this.$t("Generality.Ge_Remind"),
+        {
+          confirmButtonText: this.$t("Generality.Ge_OK"),
+          cancelButtonText: this.$t("Generality.Ge_Cancel"),
+          type: "warning",
+        }
       ).then(() => {
-        console.log(this.eTableObj)
+        console.log(this.eTableObj);
         resetCache(this.eTableObj.props.tid);
         this.$store.dispatch("tagsView/delCachedView", this.$route).then(() => {
           const { fullPath } = this.$route;
@@ -562,13 +563,13 @@ export default {
     },
     l_save() {
       var Boms = temMerge(
-          this.saveData,
-          this.mixinToolId(this.eTableObj.getTableData())
-        );
-      var saveData ={
-        ToolingNo:this.toolId,
-        Boms
-      }
+        this.saveData,
+        this.mixinToolId(this.eTableObj.getTableData())
+      );
+      var saveData = {
+        ToolingNo: this.toolId,
+        Boms,
+      };
       this.eTableObj.validate((valid) => {
         if (valid) {
           savePoleBom(saveData).then((res) => {
@@ -581,20 +582,27 @@ export default {
     },
     //批量复制一张单出来
     l_copy() {
-      let arr = JSON.parse(JSON.stringify( this.eTableObj.selectData.datas))
-      arr.forEach(item=>{
-        item.ItemId=''
-      })
+      let arr = JSON.parse(JSON.stringify(this.eTableObj.selectData.datas));
+      arr.forEach((item) => {
+        item.ItemId = "";
+      });
       this.eTableObj.push(format2source(arr));
     },
 
     //批量删除
     l_del() {
-      this.eTableObj.setData(format2source(this.getNweArr(this.eTableObj.selectData.datas, this.eTableObj.tableData)));
+      this.eTableObj.setData(
+        format2source(
+          this.getNweArr(
+            this.eTableObj.selectData.datas,
+            this.eTableObj.tableData
+          )
+        )
+      );
     },
-    getNweArr(a,b){
-      const arr = [...a,...b];
-      const newArr = arr.filter(item => {
+    getNweArr(a, b) {
+      const arr = [...a, ...b];
+      const newArr = arr.filter((item) => {
         return !(a.includes(item) && b.includes(item));
       });
       return newArr;
@@ -679,7 +687,7 @@ export default {
         if (res.Count === 1) {
           this.formObj.form.PmTaskBillId = res.Items[0].BillId;
         } else {
-          this.formObj.form.PmTaskBillId = ""
+          this.formObj.form.PmTaskBillId = "";
         }
         this.TaskListData = res.Items;
         this.selectProjectFormVisible = true;
@@ -696,12 +704,12 @@ export default {
         //判断有没有提交过物料需求
         if (res.length > 0) {
           this.$confirm(
-              res.toString() + this.$t("Generality.Ge_ContinueOrNot"),
-              {
-                confirmButtonText: this.$t("Generality.Ge_OK"),
-                cancelButtonText: this.$t("Generality.Ge_Cancel"),
-                type: "warning",
-              }
+            res.toString() + this.$t("Generality.Ge_ContinueOrNot"),
+            {
+              confirmButtonText: this.$t("Generality.Ge_OK"),
+              cancelButtonText: this.$t("Generality.Ge_Cancel"),
+              type: "warning",
+            }
           ).then(() => {
             //this.IsSubmitItemsDemand()
             this.confirmTask();
@@ -739,7 +747,7 @@ export default {
     //导入数据
     importComplete(e) {
       this.importShow = false;
-      this.importDialogFormVisible = true
+      this.importDialogFormVisible = true;
       var arr = [];
       e.forEach((Titem) => {
         var str = {};
@@ -779,27 +787,26 @@ export default {
       });
     },
     //确定导入的数据
-    confirmImportData(){
-      if(this.importTableObj.selectData.datas.length>0){
-        var arr =  this.eTableObj.getTableData().concat(format2source(this.importTableObj.selectData.datas) )
-        console.log(arr)
-        var Boms = temMerge(
-          this.saveData,
-          this.mixinToolId(arr)
-        );
-        var saveData ={
-          ToolingNo:this.toolId,
-          Boms
-        }
-        console.log(saveData)
+    confirmImportData() {
+      if (this.importTableObj.selectData.datas.length > 0) {
+        var arr = this.eTableObj
+          .getTableData()
+          .concat(format2source(this.importTableObj.selectData.datas));
+        console.log(arr);
+        var Boms = temMerge(this.saveData, this.mixinToolId(arr));
+        var saveData = {
+          ToolingNo: this.toolId,
+          Boms,
+        };
+        console.log(saveData);
         savePoleBom(saveData).then((res) => {
           this.getData();
-          this.importDialogFormVisible = false
+          this.importDialogFormVisible = false;
         });
-      }else{
+      } else {
         this.$message.error(this.$t("Generality.Ge_PleaseAddData"));
       }
-    }
+    },
   },
 };
 </script>

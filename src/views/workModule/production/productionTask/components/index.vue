@@ -52,8 +52,14 @@
             format="yyyy-MM-dd HH:mm"
           ></el-date-picker>
         </template>
-
         <template #PlanEnd="{ prop }">
+          <el-date-picker
+            v-model="formObj.form[prop]"
+            type="datetime"
+            format="yyyy-MM-dd HH:mm"
+          ></el-date-picker>
+        </template>
+        <template #WarningDate="{ prop }">
           <el-date-picker
             v-model="formObj.form[prop]"
             type="datetime"
@@ -287,6 +293,7 @@ export default {
         PartInfo: "",
         PlanEnd: "",
         PlanStart: "",
+        WarningDate: "",
         Level: "Ordinary",
         Quantity: "",
         CurrentStation: "",
@@ -303,11 +310,15 @@ export default {
         PartName: "",
         Quantity: "",
         BillGui: "",
+        Description:"",
+        Description2:"",
+        Remarks:"",
       },
       Process: {
         Id: "",
         BillGui: "",
         Process: "",
+        ProcessCode: "",
         State: "",
         Remarks: "",
         PlanTime: 1,
@@ -583,6 +594,10 @@ export default {
                   );
                   this.formObj.form.PlanEnd = timeFormat(
                     this.formObj.form.PlanEnd,
+                    "yyyy-MM-dd hh:mm"
+                  );
+                  this.formObj.form.WarningDate = timeFormat(
+                    this.formObj.form.WarningDate,
                     "yyyy-MM-dd hh:mm"
                   );
                   var arr = JSON.parse(

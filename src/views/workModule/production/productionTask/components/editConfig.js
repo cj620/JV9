@@ -7,7 +7,7 @@
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { ProcessState } from "@/enum/workModule";
 import { getAllProcess } from "@/api/workApi/production/baseData";
-import {getAllProjectProcess} from "@/api/workApi/project/baseData";
+import { getAllProjectProcess } from "@/api/workApi/project/baseData";
 
 export class EditTable extends BaseTable {
   constructor() {
@@ -33,6 +33,12 @@ function getProjectTypeList(map) {
   return typeArr;
 }
 export const tableConfig = [
+  /*工序代码*/
+  {
+    prop: "ProcessCode",
+    label: i18n.t("Generality.Ge_ProcessId"),
+    width: "150px",
+  },
   /*工序*/
   {
     prop: "Process",
@@ -94,7 +100,7 @@ export const tableConfig = [
       immediate: true,
       keyName: "Process",
       valueName: "Process",
-    }
+    },
   },
   /*编程预计工时*/
   {
@@ -128,5 +134,5 @@ export const tableConfig = [
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
     formCpn: "FormInput",
-  }
+  },
 ];
