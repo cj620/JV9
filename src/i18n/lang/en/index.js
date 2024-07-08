@@ -861,6 +861,7 @@ const en = {
     Ge_ActualHour: "Actual Hour",
     Ge_PlanStart: "Plan Start",
     Ge_PlanEnd: "Plan End",
+    Ge_WarningDate: "Warning Date",
     Ge_Level: "Level",
     Ge_Close: "Close",
     Ge_CloseOthers: "Close Others",

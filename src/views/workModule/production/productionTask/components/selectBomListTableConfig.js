@@ -53,6 +53,12 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_Describe"),
   },
 
+  /*描述2*/
+  {
+    prop: "Description2",
+    label: i18n.t("design.De_Description2"),
+  },
+
   /*数量*/
   {
     prop: "Quantity",
@@ -60,7 +66,15 @@ export const tableConfig = [
     width: "90px",
     align: "right",
   },
+  /*单位*/
+  {
+    prop: "Unit",
+    label: i18n.t("Generality.Ge_Unit"),
+  },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  },
 ];
-export const formSchema = [
-
-];
+export const formSchema = [];

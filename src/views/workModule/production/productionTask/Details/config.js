@@ -39,7 +39,6 @@ export const tableConfig2 = [
     custom: true,
     commonConfig: {
       summary: true,
-
     },
   },
   /*数量*/
@@ -58,7 +57,6 @@ export const tableConfig2 = [
     label: i18n.t("Generality.Ge_Worker"),
   },
 ];
-
 
 //记录
 export const tableConfig = [
@@ -127,7 +125,6 @@ export const tableConfig1 = [
   },
 ];
 
-
 //详情
 export const detailConfig = [
   {
@@ -168,6 +165,12 @@ export const detailConfig = [
     filter: "time",
   },
   {
+    // 预警日期
+    prop: "WarningDate",
+    label: i18n.t("Generality.Ge_WarningDate"),
+    filter: "time",
+  },
+  {
     // 级别
     prop: "Level",
     label: i18n.t("Generality.Ge_Level"),
@@ -182,11 +185,11 @@ export const detailConfig = [
     // 是否需要成品检测
     prop: "IsFinishedProductInspection",
     label: i18n.t("Generality.Ge_IsFinishedProductInspection"),
-    customFilter:(value,row)=>{
-      if(value){
-        return i18n.t("Generality.Ge_Yes")
-      }else  if(value===false){
-        return i18n.t("Generality.Ge_No")
+    customFilter: (value, row) => {
+      if (value) {
+        return i18n.t("Generality.Ge_Yes");
+      } else if (value === false) {
+        return i18n.t("Generality.Ge_No");
       }
     },
   },
@@ -203,7 +206,7 @@ export const detailConfig = [
   },
 ];
 
-export const Qc_ProcessCheckTableConfig=[
+export const Qc_ProcessCheckTableConfig = [
   {
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
@@ -299,8 +302,8 @@ export const Qc_ProcessCheckTableConfig=[
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
-]
-export const Qc_FinishedProductTableConfig=[
+];
+export const Qc_FinishedProductTableConfig = [
   {
     prop: "BillId",
     label: i18n.t("Generality.Ge_BillId"),
@@ -391,7 +394,7 @@ export const Qc_FinishedProductTableConfig=[
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
   },
-]
+];
 export class tableObj2 extends BaseTable {
   constructor() {
     super({

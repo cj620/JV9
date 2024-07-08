@@ -95,6 +95,13 @@ export const formSchema = [
     ],
   },
   {
+    // 预警日期
+    prop: "WarningDate",
+    cpn: "SingleTime",
+    label: i18n.t("Generality.Ge_WarningDate"),
+    custom: true,
+  },
+  {
     // 级别
     prop: "Level",
     label: i18n.t("Generality.Ge_Level"),
@@ -138,7 +145,7 @@ export const formSchema = [
     label: i18n.t("Generality.Ge_IsFinishedProductInspection"),
     cpn: "FormSingleCheckBox",
     options: {
-      CheckBoxlabel: ''
+      CheckBoxlabel: "",
     },
-  }
+  },
 ];

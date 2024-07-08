@@ -848,6 +848,7 @@ const cn = {
     Ge_ActualHour: "实际工时",
     Ge_PlanStart: "计划开始",
     Ge_PlanEnd: "计划结束",
+    Ge_WarningDate: "预警日期",
     Ge_Level: "级别",
     Ge_Close: "关闭",
     Ge_CloseOthers: "关闭其他",
