@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-03-28 09:52:36
+ * @LastEditTime: 2024-07-08 14:56:39
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
@@ -16,7 +16,7 @@ export class EditTable extends BaseTable {
       operationWidth: 160,
       importBar: false,
       sortCol: false,
-      tid:'Pa_ElectrodeBom',
+      tid: "Pa_ElectrodeBom",
       // sortCol:false
     });
   }
@@ -107,7 +107,7 @@ export const tableConfig = [
         // 是否必填项
         required: true,
         // 提示信息
-        message: i18n.t('Generality.Ge_QuantityShouldBeGreaterThan'),
+        message: i18n.t("Generality.Ge_QuantityShouldBeGreaterThan"),
         // 自定义校验 返回bool值
         validate: (val) => {
           return val > 0;
@@ -175,10 +175,10 @@ export const tableConfig = [
   {
     prop: "PartLevel",
     label: i18n.t("Generality.Ge_Level"),
-    custom:true,
+    custom: true,
     width: 80,
-    editConfig:{
-      disabled:true
+    editConfig: {
+      disabled: true,
     },
   },
   /*制单人*/
@@ -207,7 +207,7 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_MaterialRequirementState"),
     width: 140,
     custom: true,
-    sortable:true,
+    sortable: true,
     editConfig: {
       disabled: true,
     },
@@ -219,5 +219,9 @@ export const tableConfig = [
       disabled: true,
     },
   },
-
+  { label: "物料需求", prop: "MaterialsDemand", formCpn: "FormInput" },
+  { label: "精工需求", prop: "ProduceDemand", formCpn: "FormInput" },
+  { label: "粗工需求", prop: "ProduceDemandA", formCpn: "FormInput" },
+  { label: "中工需求", prop: "ProduceDemandB", formCpn: "FormInput" },
+  { label: "类别", prop: "ResType", formCpn: "FormInput" },
 ];

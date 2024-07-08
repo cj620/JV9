@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2024-05-23 13:20:14
+ * @LastEditTime: 2024-07-08 14:48:28
  * @Description: 模具BOM
 -->
 
@@ -471,6 +471,12 @@ export default {
         Remarks: "",
         IsPartProcess: false,
         MergeNo: "",
+        V7Id: "",
+        MaterialsDemand: "",
+        ProduceDemand: "",
+        ProduceDemandA: "",
+        ProduceDemandB: "",
+        ResType: "",
       },
       exportTemplate: [
         {
@@ -1066,8 +1072,8 @@ export default {
       this.importShow = false;
       this.importDialogFormVisible = true;
 
-       let arr = this.handleExcelData(e);
-    /*   var arr = [];
+      let arr = this.handleExcelData(e);
+      /*   var arr = [];
       e.forEach((Titem) => {
         var str = {};
         this.exportTemplate.forEach((item) => {
