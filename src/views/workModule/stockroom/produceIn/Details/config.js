@@ -48,7 +48,7 @@ export const tableConfig = [
   /*批量*/
   {
     prop: "BatchNo",
-    label: '批量',
+    label: '批号',
   },
   /*生产日期*/
   {

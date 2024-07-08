@@ -56,8 +56,8 @@ export const tableConfig = [
     label: "盘差数",
     align: "right",
     customFilter(a,b,c) {
-      console.log(a,b,c)
-      return a
+      console.log(a,b,c,59595959)
+      return Math.abs(b.AccountQuantity - b.CheckQuantity);
     },
     width: "150px",
   },
