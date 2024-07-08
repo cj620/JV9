@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 12:56:14
- * @LastEditTime: 2022-08-10 17:13:02
+ * @LastEditTime: 2024-07-08 10:18:04
  * @Description: 项目任务工序
 -->
 
@@ -9,13 +9,12 @@
   <PageWrapper :footer="false">
     <JvTable ref="BillTable" :table-obj="tableObj">
       <template #titleBar>
-        <Popover @confirm="filterData" @reset="resetData" style="margin: 0 10px">
-          <el-select
-            v-model="selectedType"
-            size="mini"
-            clearable
-            filterable
-          >
+        <Popover
+          @confirm="filterData"
+          @reset="resetData"
+          style="margin: 0 10px"
+        >
+          <el-select v-model="selectedType" size="mini" clearable filterable>
             <el-option
               v-for="item in typeArray"
               :key="item.name"
@@ -25,7 +24,11 @@
             </el-option>
           </el-select>
         </Popover>
-        <span v-if="selectedType">{{ $t("production.Pr_ProcessType") }}：{{ processTypeEnum[selectedType].name }}</span>
+        <span v-if="selectedType"
+          >{{ $t("production.Pr_ProcessType") }}：{{
+            processTypeEnum[selectedType].name
+          }}</span
+        >
       </template>
       <template #operation="{ row }">
         <TableAction
@@ -79,12 +82,13 @@ import { Table } from "./config";
 import {
   editProjectProcess,
   deleteProjectProcess,
-  updateSort, getAllProjectProcess,
+  updateSort,
+  getAllProjectProcess,
 } from "@/api/workApi/project/baseData";
 import { processTypeEnum } from "@/enum/workModule";
 import Popover from "~/cpn/JvTable/cpn/Popover.vue";
 export default {
-  name:'Pm_Process',
+  name: "Pm_Process",
   data() {
     return {
       processTypeEnum,
@@ -105,11 +109,9 @@ export default {
       this.processDialogVisible = true;
       this.isEdit = true;
       this.dialogTitle = this.$t("Generality.Ge_Edit");
-      this.$nextTick(()=>{
-      this.formObj.form = JSON.parse(JSON.stringify(row));
-
-      })
-
+      this.$nextTick(() => {
+        this.formObj.form = JSON.parse(JSON.stringify(row));
+      });
     },
     add() {
       this.dialogTitle = this.$t("Generality.Ge_New");
@@ -120,13 +122,27 @@ export default {
         Process: "",
         ProcessType: "",
         SortOrder: "",
-        BelongingDepartment:'',
+        BelongingDepartment: "",
         StartScale: "",
         Id: 0,
+        StdRates: "",
+        DirectoryPurview: "",
+        InSiteState: "",
+        UpState: "",
+        DownState: "",
+        InSitedBillState: "",
+        NcProgram: "",
+        IFUsePole: "",
+        WorkWeek: "",
+        BootTimeSpan: "",
+        IsRecordCraft: "",
+        OutsourceEquipmentGroup: "",
+        AllowRepetitionMachine: "",
+        DefaultWorkingHours: "",
+        ProjetctTask: "",
+        ProcessContent: "",
       };
       this.processDialogVisible = true;
-
-
     },
     confirm() {
       this.formObj.validate((valid) => {
@@ -139,11 +155,13 @@ export default {
       });
     },
     filterData() {
-      let arr = this.tableObj.tableData.filter(item => item.ProcessType === this.selectedType)
-      this.tableObj.setData(arr)
+      let arr = this.tableObj.tableData.filter(
+        (item) => item.ProcessType === this.selectedType
+      );
+      this.tableObj.setData(arr);
     },
     resetData() {
-      this.selectedType = ""
+      this.selectedType = "";
       this.tableObj.getData();
     },
     /*    asc() {
@@ -178,7 +196,7 @@ export default {
   },
   mounted() {},
   computed: {},
-  components: {Popover},
+  components: { Popover },
 };
 </script>
 
