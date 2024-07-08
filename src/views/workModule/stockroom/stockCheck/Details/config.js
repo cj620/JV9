@@ -35,20 +35,36 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_Unit"),
     width: "70px",
   },
-  /*数量*/
+  /*数量 	账面数量*/
   {
     prop: "AccountQuantity",
     label: i18n.t("Generality.Ge_Quantity"),
     align: "right",
     width: "100px",
   },
-  /*盘点数量*/
+  /*盘点数量 实盘数量*/
   {
     prop: "CheckQuantity",
     label: i18n.t("stockroom.St_CheckQuantity"),
     align: "right",
 
     width: "150px",
+  },
+  // 盘差数
+  {
+    prop: "DiskDifference",
+    label: "盘差数",
+    align: "right",
+    customFilter(a,b,c) {
+      console.log(a,b,c)
+      return a
+    },
+    width: "150px",
+  },
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
   },
   /*备注*/
   {

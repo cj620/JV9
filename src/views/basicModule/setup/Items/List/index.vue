@@ -129,8 +129,8 @@
     ></Import>
     <sync-erp-data
       :visible.sync="syncErpDataDialogFormVisible"
-      v-if="syncErpDataDialogFormVisible">
-
+      v-if="syncErpDataDialogFormVisible"
+    >
     </sync-erp-data>
   </PageWrapper>
 </template>
@@ -154,8 +154,8 @@ import syncErpData from "./components/syncErpData";
 
 export default {
   name: "Items",
-  components:{
-    syncErpData
+  components: {
+    syncErpData,
   },
   data() {
     return {
@@ -241,6 +241,7 @@ export default {
       this.dialogFormVisible = true;
       this.formObj.form = {
         ItemType: "",
+        TypeId: "",
       };
     },
     append(data) {
@@ -330,8 +331,8 @@ export default {
       this.$router.push({ name: "Se_Item_Add", params: { type: "add" } });
     },
     //同步erp数据
-    syncErpData(){
-      this.syncErpDataDialogFormVisible = true
+    syncErpData() {
+      this.syncErpDataDialogFormVisible = true;
     },
     //复制一张单子出来
     copy(row) {
@@ -349,7 +350,7 @@ export default {
     getData() {
       getAllItemType().then((data) => {
         data.Items.forEach((item) => {
-          if (item.ParentID === null) {
+          if (!item.ParentID || item.ParentID == "0") {
             const CategoryList = {
               id: item.Id,
               label: item.ItemType,
@@ -385,8 +386,8 @@ export default {
     },
     //导入成功
     importComplete(e) {
-		console.log(e)
-		this.importShow = false;
+      console.log(e);
+      this.importShow = false;
 
       var arr = [];
       e.forEach((Titem) => {

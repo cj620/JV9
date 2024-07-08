@@ -62,6 +62,22 @@ export const tableConfig = [
     filter: "amount",
     width: "100px",
   },
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
+  },
+  /*生产日期*/
+  {
+    prop: "ProductionDate",
+    label: '生产日期',
+    filter: "time"
+  },
+  /*有效期*/
+  {
+    prop: "Effective",
+    label: '有效期',
+  },
   /*备注*/
   {
     prop: "Remarks",
