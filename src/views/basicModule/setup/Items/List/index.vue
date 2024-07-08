@@ -241,6 +241,7 @@ export default {
       this.dialogFormVisible = true;
       this.formObj.form = {
         ItemType: "",
+        TypeId: "",
       };
     },
     append(data) {
