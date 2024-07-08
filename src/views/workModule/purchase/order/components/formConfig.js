@@ -96,4 +96,13 @@ export const formSchema = [
       },
     ],
   },
+  {
+    // Mrp生成
+    prop: "MrpGeneration",
+    label: "Mrp生成",
+    cpn: "FormSingleCheckBox",
+    options: {
+      CheckBoxlabel: ''
+    },
+  },
 ];
