@@ -12,61 +12,67 @@ export default {
   /// <summary>
   /// 待处理
   /// </summary>
-  'Pending': {
+  Pending: {
     name: i18n.t("Generality.Ge_Pending"),
-    value: 'Pending',
-    color: '#909399',
-    fcolor:'#fff',
-    icon: '',
-    operation: {
-
-    }
+    value: "Pending",
+    color: "#909399",
+    fcolor: "#fff",
+    icon: "",
+    operation: {},
   },
   /// <summary>
   /// 已处理
   /// </summary>
-  'Processed': {
+  Processed: {
     name: i18n.t("Generality.Ge_Processed"),
-    value: 'Processed',
-    color: '#faad14',
-    fcolor:'#fff',
-    icon: '',
-    operation: {
-    }
+    value: "Processed",
+    color: "#faad14",
+    fcolor: "#fff",
+    icon: "",
+    operation: {},
+  },
+  /// <summary>
+  /// 采购申请中
+  /// </summary>
+  InRequisition: {
+    name: i18n.t("Generality.Ge_InRequisition"),
+    value: "InRequisition",
+    color: "	#F5F5F5",
+    fcolor: "#fff",
+    icon: "",
+    operation: {},
   },
   /// <summary>
   /// 采购中
   /// </summary>
-  'InProcurement': {
+  InProcurement: {
     name: i18n.t("Generality.Ge_InProcurement"),
-    value: 'InProcurement',
-    color: '#FE222D',
-    fcolor:'#fff',
-    icon: '',
-    operation: {
-    }
+    value: "InProcurement",
+    color: "#FE222D",
+    fcolor: "#fff",
+    icon: "",
+    operation: {},
   },
   /// <summary>
   /// 已入库
   /// </summary>
-  'Stored': {
+  Stored: {
     name: i18n.t("Generality.Ge_Stored"),
-    value: 'Stored',
-    color: '#000000',
-    fcolor:'#fff',
-    icon: '',
-    operation: {
-    }
+    value: "Stored",
+    color: "#000000",
+    fcolor: "#fff",
+    icon: "",
+    operation: {},
   },
   /// <summary>
   /// 已领用
   /// </summary>
-  'HaveRecipients': {
+  HaveRecipients: {
     name: i18n.t("Generality.Ge_HaveRecipients"),
-    value: 'HaveRecipients',
-    color: '#39B54A',
-    fcolor:'#fff',
-    icon: '',
-    operation: {}
+    value: "HaveRecipients",
+    color: "#39B54A",
+    fcolor: "#fff",
+    icon: "",
+    operation: {},
   },
-}
+};

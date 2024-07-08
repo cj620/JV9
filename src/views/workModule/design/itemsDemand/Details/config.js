@@ -5,8 +5,8 @@
  * @Description:
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
-import { enumFilter } from '~/utils/system/enumsPlugin'
-import { taskTypeEnum } from '@/enum/workModule'
+import { enumFilter } from "~/utils/system/enumsPlugin";
+import { taskTypeEnum } from "@/enum/workModule";
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -82,8 +82,8 @@ export const tableConfig = [
   // 零件编号
   {
     prop: "PartNo",
-    label: i18n.t("Generality.Ge_PartNo")
-  }
+    label: i18n.t("Generality.Ge_PartNo"),
+  },
 ];
 export const detailConfig = [
   {
@@ -112,5 +112,10 @@ export const detailConfig = [
     prop: "TaskType",
     label: i18n.t("Generality.Ge_TaskType"),
     customFilter: (value) => enumFilter(value, taskTypeEnum),
+  },
+  {
+    // 任务类别     Ge_RequirementCategory: "需求类别",
+    prop: "RequirementCategory",
+    label: "需求类别",
   },
 ];

@@ -16,11 +16,11 @@ import { enumFilter } from "~/utils/system/enumsPlugin";
 //   label: i18n.t("Generality.Ge_Schedule"),
 //   custom: true,
 // });
-var testMouldResultEnum={
+var testMouldResultEnum = {
   OK: { name: "OK", value: "OK" },
   NG: { name: "NG", value: "NG" },
   Pending: { name: i18n.t("Generality.Ge_Pending1"), value: "Pending" },
-}
+};
 
 export const formSchema = [
   {
@@ -43,18 +43,18 @@ export const formSchema = [
       list: [
         {
           value: "OK",
-          label: "OK"
+          label: "OK",
         },
         {
           value: "NG",
-          label: "NG"
+          label: "NG",
         },
         {
           value: "Pending",
-          label: i18n.t("Generality.Ge_Pending1")
-        }
-      ]
-    }
+          label: i18n.t("Generality.Ge_Pending1"),
+        },
+      ],
+    },
   },
   {
     prop: "TestMouldColor",
@@ -66,7 +66,7 @@ export const formSchema = [
     label: i18n.t("project.Pro_TestMouldMachine"),
     cpn: "FormInput",
   },
-    // 试模地点
+  // 试模地点
   {
     prop: "TestMouldLocation",
     label: i18n.t("project.Pro_TestMouldLocation"),
@@ -88,7 +88,7 @@ export const formSchema = [
     label: i18n.t("project.Pro_TestMouldInfo"),
     cpn: "FormInput",
   },
-]
+];
 
 export class Table extends BaseTable {
   constructor() {
@@ -190,6 +190,31 @@ export const detailConfig = [
     label: i18n.t("project.Pro_TestMouldUseTime"),
   },
   //试模信息
+  {
+    prop: "TestMouldInfo",
+    label: i18n.t("project.Pro_TestMouldInfo"),
+  },
+  //试模次数
+  {
+    prop: "TestMouldInfo",
+    label: i18n.t("project.Pro_TestMouldInfo"),
+  }, //试模信息
+  {
+    prop: "TestMouldInfo",
+    label: i18n.t("project.Pro_TestMouldInfo"),
+  }, //试模信息
+  {
+    prop: "TestMouldInfo",
+    label: i18n.t("project.Pro_TestMouldInfo"),
+  }, //试模信息
+  {
+    prop: "TestMouldInfo",
+    label: i18n.t("project.Pro_TestMouldInfo"),
+  }, //试模信息
+  {
+    prop: "TestMouldInfo",
+    label: i18n.t("project.Pro_TestMouldInfo"),
+  }, //试模信息
   {
     prop: "TestMouldInfo",
     label: i18n.t("project.Pro_TestMouldInfo"),

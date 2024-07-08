@@ -6,31 +6,48 @@
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleOrder\components\formConfig.js
  */
-export const formSchema = [
+import { type_content_list } from "@/api/basicApi/systemSettings/typeContent";
 
+export const formSchema = [
   {
     // 模具编号
-    prop: 'ToolingNo',
+    prop: "ToolingNo",
     cpn: "FormInput",
-    label:i18n.t("Generality.Ge_ToolingNo"),
+    label: i18n.t("Generality.Ge_ToolingNo"),
     cpnProps: {
       disabled: true,
     },
   },
   {
-    // 模具编号
-    prop: 'PmTaskBillId',
+    //项目任务编号
+    prop: "PmTaskBillId",
     cpn: "FormInput",
-    label:i18n.t("project.Pro_TaskSheetNo"),
+    label: i18n.t("project.Pro_TaskSheetNo"),
     cpnProps: {
       disabled: true,
+    },
+  },
+  {
+    label: "需求类别",
+    prop: "RequirementCategory",
+    cpn: "SyncSelect",
+    api: type_content_list,
+    apiOptions: {
+      immediate: true,
+      keyName: "Content",
+      valueName: "Content",
+      params: {
+        DataType: "MaterialsDemandType",
+        PageSize: 999,
+        CurrentPage: 1,
+      },
     },
   },
 ];
 export const mergeFormSchema = [
   //   物料编号
   {
-    prop: 'ItemId',
+    prop: "ItemId",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_ItemId"),
     cpnProps: {
@@ -39,19 +56,19 @@ export const mergeFormSchema = [
   },
   //   名称
   {
-    prop: 'ItemName',
+    prop: "ItemName",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_ItemName"),
   },
   //   描述
   {
-    prop: 'Description',
+    prop: "Description",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_Describe"),
   },
   //   描述2
   {
-    prop: 'Description2',
+    prop: "Description2",
     cpn: "FormInput",
     label: i18n.t("design.De_Description2"),
     cpnProps: {
@@ -60,15 +77,15 @@ export const mergeFormSchema = [
   },
   //   数量
   {
-    prop: 'Quantity',
+    prop: "Quantity",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_Quantity"),
     type: "number",
   },
   //   需求日期
   {
-    prop: 'DemandDate',
+    prop: "DemandDate",
     cpn: "SingleTime",
     label: i18n.t("Generality.Ge_DemandDate"),
   },
-]
+];
