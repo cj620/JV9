@@ -24,7 +24,11 @@ export const tableConfig = [
   {
     prop: "Description",
     label:i18n.t("Generality.Ge_Describe"),
-
+  },
+  /*描述2*/
+  {
+    prop: "Description2",
+    label:i18n.t("design.De_Description2"),
   },
   /*单位*/
   {
@@ -49,11 +53,16 @@ export const tableConfig = [
     prop: "Remarks",
     label:i18n.t("Generality.Ge_Remarks"),
   },
-  /*模具编号*/
+  /*批号*/
   {
-    prop: "ToolingNo",
-    label:i18n.t("Generality.Ge_ToolingNo"),
+    prop: "BatchNo",
+    label: '批号',
   },
+  /*模具编号*/
+  // {
+  //   prop: "ToolingNo",
+  //   label:i18n.t("Generality.Ge_ToolingNo"),
+  // },
 ]
 export const detailConfig=[
 
