@@ -5,6 +5,7 @@
  * @Description:
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
+import {timeFormat} from "~/utils/time";
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -62,6 +63,9 @@ export const detailConfig = [
   {
     prop: "Applicant",
     label: '申请人',
+    customFilter(a,b) {
+      return b.Submitter
+    }
   },
   /*部门*/
   {
@@ -73,6 +77,9 @@ export const detailConfig = [
     prop: "UsageDate",
     label: '使用日期',
     filter: "date",
+    customFilter(a, b) {
+      return timeFormat(b.DeliveryDate);
+    }
   },
   /*来源单据*/
   {

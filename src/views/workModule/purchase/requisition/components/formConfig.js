@@ -11,7 +11,8 @@ export const formSchema = [
     // 提交人
     prop: "Submitter",
     cpn: "SyncSelect",
-    label: i18n.t("stockroom.St_Submitter"),
+    // label: i18n.t("stockroom.St_Submitter"),
+    label: "申请人",
     custom: true,
     apiOptions: {
       immediate: true,
@@ -29,7 +30,8 @@ export const formSchema = [
   {
     // 部门
     prop: "Department",
-    label: i18n.t("Generality.Ge_Department"),
+    // label: i18n.t("Generality.Ge_Department"),
+    label: "申请部门",
     cpn: "FormInput",
     cpnProps: {
       disabled: true,
