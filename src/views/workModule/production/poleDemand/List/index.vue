@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 11:33:00
- * @LastEditTime: 2022-08-10 17:12:40
+ * @LastEditTime: 2024-07-09 15:35:35
  * @Description: 试模任务
 -->
 <template>
@@ -58,7 +58,7 @@ export default {
       // 表格实例
       tableObj: {},
       // 编辑路由
-      EditRoute: "Pm_TrialTask_Edit",
+      EditRoute: "Pr_PoleProductionDemand_Edit",
 
       TaskType: "TrialTooling",
     };

@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-09 10:10:13
- * @LastEditTime: 2024-07-09 15:39:47
+ * @LastEditTime: 2024-07-09 15:48:41
  * @Description:生产模块
  */
 
@@ -196,6 +196,45 @@ const production = [
     name: "Pr_PoleProductionDemand",
     path: "Pr_PoleProductionDemand",
     title: i18n.t("menu.Pr_PoleProductionDemand"),
+  },
+  // 新增电极生产需求
+  {
+    key: "Pr_PoleProductionDemand_Add",
+    component: () => import("@/views/workModule/production/poleDemand/Add"),
+    Parent: "Pr_Production",
+    name: "Pr_PoleProductionDemand_Add",
+    path: "Pr_PoleProductionDemand_Add",
+    title:
+      i18n.t("Generality.Ge_New") +
+      "  " +
+      i18n.t("menu.Pr_PoleProductionDemand"),
+    hidden: true,
+  },
+  // 编辑电极生产需求
+  {
+    key: "Pr_PoleProductionDemand_Edit",
+    component: () => import("@/views/workModule/production/poleDemand/Edit"),
+    Parent: "Pr_Production",
+    name: "Pr_PoleProductionDemand_Edit",
+    path: "Pr_PoleProductionDemand_Edit",
+    title:
+      i18n.t("Generality.Ge_Edit") +
+      "  " +
+      i18n.t("menu.Pr_PoleProductionDemand"),
+    hidden: true,
+  },
+  // 电极生产需求详情
+  {
+    key: "Pr_PoleProductionDemand_Detail",
+    component: () => import("@/views/workModule/production/poleDemand/Detail"),
+    Parent: "Pr_Production",
+    name: "Pr_PoleProductionDemand_Detail",
+    path: "Pr_PoleProductionDemand_Detail",
+    title:
+      i18n.t("menu.Pr_PoleProductionDemand") +
+      "  " +
+      i18n.t("Generality.Ge_Details"),
+    hidden: true,
   },
 
   // 生产报工

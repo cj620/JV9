@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2024-07-08 15:00:43
+ * @LastEditTime: 2024-07-09 16:16:47
  * @Description: 模具BOM
 -->
 
@@ -730,7 +730,7 @@ export default {
     //跳转到物料需求
     confirmTask(e) {
       this.$router.push({
-        name: "Pa_ElectrodeDemand_Add",
+        name: "Pr_PoleProductionDemand_Add",
         params: {
           data: format2source(this.eTableObj.selectData.datas),
           AssociateTask: e,

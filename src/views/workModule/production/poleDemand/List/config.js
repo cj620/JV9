@@ -1,41 +1,31 @@
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
-import { taskTypeEnum, enumToList, enumFilter } from "@/enum/workModule";
-// 单据接口
-import { API, trial_tooling_list } from "@/api/workApi/project/projectTask";
-import { itemList } from '@/api/basicApi/systemSettings/Item'
-var testMouldResultEnum={
-  OK: { name: "OK", value: "OK" },
-  NG: { name: "NG", value: "NG" },
-  Pending: { name: "待定", value: "Pending" },
-}
-let { api_delete } = API;
+import { API } from "@/api/workApi/production/poleProductionDemand";
+let { api_delete, api_list } = API;
 class api extends TableAPI {
   // 获取列表
-  getData = trial_tooling_list;
+  getData = api_list;
   // 删除单据
   del = api_delete;
 }
 export class Table extends BaseTable {
   constructor() {
-    super(
-        {
-          // 表格配置
-          tableSchema: tableConfig,
-          // 表单配置
-          formSchema,
-          // 行标识
-          rowId: "BillId",
-          // 表格标题
-          title: i18n.t("menu.Pm_TestTask"),
-          // 接口类
-          api,
-          // 操作列宽度
-          operationWidth: 150,
-          // 打印模块标识
-          printMod: "Pm_TestTask",
-        }
-    );
+    super({
+      // 表格配置
+      tableSchema: tableConfig,
+      // 表单配置
+      formSchema,
+      // 行标识
+      rowId: "BillId",
+      // 表格标题
+      title: i18n.t("menu.Pr_PoleProductionDemand"),
+      // 接口类
+      api,
+      // 操作列宽度
+      operationWidth: 150,
+      // 打印模块标识
+      printMod: "Pr_PoleProductionDemand",
+    });
   }
 }
 export const tableConfig = [
@@ -53,12 +43,13 @@ export const tableConfig = [
   },
   {
     prop: "BillId",
-    label: i18n.t("project.Pro_TaskSheetNo"),
+    label: i18n.t("Generality.Ge_BillId"),
     align: "center",
     cpn: "Link",
+    width: "180px",
     cpnProps: {
       // 路由名称
-      routeName: "Pm_TrialTask_Detail",
+      routeName: "Pr_PoleProductionDemand_Detail",
       // 路由路径（名称和路径二选一）
       // routePath:'/project/pm_TrialTask_Detail',
       // 路由传参方式 默认query
@@ -71,11 +62,7 @@ export const tableConfig = [
   {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
-    innerSearch: {
-      prop: "ToolingNo",
-      cpn: "FormInput",
-      label: i18n.t("Generality.Ge_ToolingNo"),
-    },
+    width: "180px",
   },
   /*状态*/
   {
@@ -84,40 +71,11 @@ export const tableConfig = [
     custom: true,
     width: "115px",
   },
-  /*计划交期*/
-  {
-    prop: "PlanEnd",
-    label: i18n.t("Generality.Ge_DeliveryDate"),
-    filter: "date",
-    width: "120px",
-  },
-  /*试模机台*/
-  {
-    prop: "TestMouldMachine",
-    label: i18n.t("project.Pro_TestMouldMachine"),
-  },
-  /*试模原因*/
-  {
-    prop: "TestMouldReason",
-    label: i18n.t("project.Pro_TestMouldReason"),
-  },
-  /*试模结果*/
-  {
-    prop: "TestMouldResult",
-    label: i18n.t("project.Pro_TestMouldResult"),
-    customFilter: (value, row) => enumFilter(value, testMouldResultEnum),
-  },
-  /*试模日期*/
-  {
-    prop: "TestMouldDate",
-    label: i18n.t("project.Pro_TestMouldDate"),
-    filter: "date",
-  },
-  /*试模用时*/
-  {
-    prop: "TestMouldUseTime",
-    label: i18n.t("project.Pro_TestMouldUseTime"),
-  },
+  { label: "需求日期", prop: "DemandDate", filter: "date" },
+  { label: "需求类别", prop: "DemandType" },
+  { label: "相关单据", prop: "PmTaskBillId" },
+  { label: "审核人", prop: "Audit" },
+  { label: "审核日期", prop: "AuditDate", filter: "time" },
   /*制单人*/
   {
     prop: "Creator",
@@ -140,34 +98,25 @@ export const tableConfig = [
 export const formSchema = [
   //单号搜索
   {
-    prop: "Project",
-    label: i18n.t("menu.Pm_Project"),
+    prop: "BillId",
+    label: "单号",
     cpn: "FormInput",
-  },
-  //单号搜索
-  {
-    prop: "ToolingNo",
-    label: i18n.t("Generality.Ge_ToolingNo"),
-    cpn: "AsyncSearch",
-    api: itemList,
-    apiOptions: {
-      keyName: "ItemName",
-      showValue: true,
-      valueName: "ItemId",
-      params: {
-        ItemCategory: "Tooling",
-      },
-    },
   },
   {
     prop: "StartDate",
-    label: i18n.t("Generality.Ge_DeliveryDate")+' '+ i18n.t("Generality.Ge_StartTime"),
-    cpn: "SingleTime"
+    label:
+      i18n.t("Generality.Ge_DeliveryDate") +
+      " " +
+      i18n.t("Generality.Ge_StartTime"),
+    cpn: "SingleTime",
   },
   {
     prop: "EndDate",
-    label: i18n.t("Generality.Ge_DeliveryDate")+' '+ i18n.t("Generality.Ge_EndTime"),
-    cpn: "SingleTime"
+    label:
+      i18n.t("Generality.Ge_DeliveryDate") +
+      " " +
+      i18n.t("Generality.Ge_EndTime"),
+    cpn: "SingleTime",
   },
   {
     prop: "State",
@@ -206,41 +155,4 @@ export const formSchema = [
       ],
     },
   },
-  {
-    prop: "SortType",
-    label: i18n.t("Generality.Ge_SortType"),
-    cpn: "FormRadio",
-    default: "CreationDateOrder",
-    options: {
-      list: [
-        {
-          value: "DeliveryDateOrder",
-          label: i18n.t("Generality.Ge_SortByDeliveryDate"),
-        },
-        {
-          value: "CreationDateOrder",
-          label: i18n.t("Generality.Ge_SortByCreationDate"),
-        },
-      ],
-    },
-  },
-  {
-    prop: "IncludingCompleted",
-    label: i18n.t("Generality.Ge_IncludingCompleted"),
-    cpn: "FormRadio",
-    default: 'False',
-    options: {
-      list: [
-        {
-          value: "True",
-          label: i18n.t("Generality.Ge_Yes"),
-        },
-        {
-          value: "False",
-          label: i18n.t("Generality.Ge_No"),
-        },
-      ],
-    },
-  },
 ];
-
