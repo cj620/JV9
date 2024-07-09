@@ -22,7 +22,7 @@
               v-for="item in SupplierData"
               :key="item.SupplierId"
               :label="item.ShortName"
-              :value="item.SupplierId"
+              :value="item.ShortName"
             >
             </el-option>
           </el-select>

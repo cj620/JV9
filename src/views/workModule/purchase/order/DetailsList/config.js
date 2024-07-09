@@ -69,6 +69,11 @@ const tableSchema = [
     cpn: "BillStateTags",
     width: "115px",
   },
+  /*供应商*/
+  {
+    prop: "SupplierName",
+    label: "供应商",
+  },
   /*计划交期*/
   {
     prop: "DeliveryDate",
@@ -185,6 +190,19 @@ const tableSchema = [
     type: "number",
     filter: "amount",
     width: "100px",
+  },
+  /*制单人*/
+  {
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+    width: "95px",
+  },
+  /*制单日期*/
+  {
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
+    width: "150px",
   },
   /*备注*/
   {

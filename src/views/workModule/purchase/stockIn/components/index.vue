@@ -165,6 +165,10 @@ export default {
         AuxiliaryPrice: 0,
         Remarks: "",
         NoTaxPrice: 0,
+        OtherExpenses: "",
+        BatchNo: "",
+        ProductionDate: "",
+        Effective: "",
       },
     };
   },
