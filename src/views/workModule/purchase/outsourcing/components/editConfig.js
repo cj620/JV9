@@ -127,7 +127,24 @@ export const tableConfig = [
     custom: true,
     editConfig: {
       disabled: true,
-    },},
+    },
+   },
+  /*辅助数量*/
+  {
+    prop: "AuxiliaryQty",
+    label: i18n.t("Generality.Ge_AuxiliaryQty"),
+    align: "right",
+    width: "100px",
+    formCpn: "FormInput",
+  },
+  /*辅助单价*/
+  {
+    prop: "AuxiliaryPrice",
+    label: i18n.t("Generality.Ge_AuxiliaryPrice"),
+    align: "right",
+    width: "100px",
+    formCpn: "FormInput",
+  },
   // 模具编号
   {
     prop: "ToolingNo",

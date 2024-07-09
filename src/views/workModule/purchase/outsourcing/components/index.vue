@@ -5,6 +5,20 @@
   <PageWrapper ref="page">
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
       <JvForm :formObj="formObj">
+        <template #Applicant="{ prop }">
+          <el-select
+            v-model="formObj.form[prop]"
+            filterable
+          >
+            <el-option
+              v-for="item in SubmitterData"
+              :key="item.UserName"
+              :label="item.UserName"
+              :value="item.UserName"
+            >
+            </el-option>
+          </el-select>
+        </template>
         <template #SupplierId="{ prop }">
           <el-select
             v-model="formObj.form[prop]"
@@ -126,6 +140,7 @@ import closeTag from "@/utils/closeTag";
 import { amountFormat, temMerge } from "@/jv_doc/utils/handleData/index";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
+import {getAllUserData} from "@/api/basicApi/systemSettings/user";
 export default {
   components: {
     SelectItem,
@@ -144,6 +159,7 @@ export default {
       textarea: "",
       fileList: [],
       fileBillId: "",
+      SubmitterData: [],
       ruleForm: {
         BillId: "",
         BillGui: "",
@@ -174,6 +190,8 @@ export default {
         AssociatedNo: 0,
         NoTaxPrice: 0,
         TDA: 0,
+        AuxiliaryQty: 0,
+        AuxiliaryPrice: 0,
       },
       Category: {
         Part: this.$t("production.Pr_PartOutsourcing"),
@@ -270,6 +288,9 @@ export default {
     async Configuration() {
       await getAllSupplier({}).then((res) => {
         this.SupplierData = res.Items;
+      });
+      await getAllUserData({}).then((res) => {
+        this.SubmitterData = res.Items;
       });
     },
     //选择客户确定税率

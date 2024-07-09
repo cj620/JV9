@@ -54,4 +54,58 @@ export const formSchema = [
       },
     ],
   },
+  {
+    // 汇率
+    prop: "ExchangeRate",
+    label: '汇率',
+    cpnProps: {
+      type: 'number'
+    },
+    default: 1,
+    cpn: "FormInput",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    // 预付款
+    prop: "AdvanceCharge",
+    cpn: "FormInput",
+    cpnProps: {
+      type: 'number'
+    },
+    default: 0,
+    label: i18n.t("Generality.Ge_AdvanceCharge"),
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    // 申请人
+    prop: "Applicant",
+    cpn: "SyncSelect",
+    // label: i18n.t("stockroom.St_Submitter"),
+    label: "申请人",
+    custom: true,
+    apiOptions: {
+      immediate: true,
+      keyName: "UserName",
+      valueName: "UserName",
+    },
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
 ];
