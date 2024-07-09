@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-09-29 09:23:58
- * @LastEditTime: 2024-05-22 14:50:41
+ * @LastEditTime: 2024-07-09 11:46:26
  * @Description: file content
  */
 /**
@@ -17,6 +17,9 @@ function imgUrlPlugin(url, options = {}) {
     return url.map((item) => {
       return imgUrlPlugin(item);
     });
+  }
+  if (url.startsWith("~/")) {
+    url = url.slice(1);
   }
   if (options.prefix) {
     return options.prefix + url;
