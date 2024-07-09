@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2024-07-09 09:51:45
+ * @LastEditTime: 2024-07-09 16:11:49
  * @Description: 模具BOM
 -->
 
@@ -1056,7 +1056,7 @@ export default {
     //跳转到物料需求
     confirmTask(e) {
       this.$router.push({
-        name: "De_MaterialRequirement_Add",
+        name: "Pr_PartProductionDemand_Add",
         params: {
           data: format2source(this.eTableObj.selectData.datas),
           AssociateTask: e,

@@ -1,17 +1,8 @@
-<!--
- * @Author: your name
- * @Date: 2021-11-29 10:47:35
- * @LastEditTime: 2024-07-09 13:47:05
- * @LastEditors: Please set LastEditors
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \V9_Dev\src\views\workModule\project\projectTask\Detail\c-menu.vue
--->
-<!--新增-->
-<!--编辑销售订单-->
+<!--物料需求详情-->
 <template>
   <PageWrapper ref="page">
-    <!-- tab 导航栏  -->
     <el-tabs @tab-click="tabClick" slot="sticky-tabs">
+      <!-- tab 导航栏  -->
       <el-tab-pane
         v-for="pane in tabPanes"
         :key="pane.name"
@@ -19,6 +10,22 @@
         :name="pane.name"
       ></el-tab-pane>
     </el-tabs>
+    <!-- :dropDownActions="[
+        {
+          label: '领料',
+          disabled: !stateForm.transform,
+          confirm: orderTransform.bind(null, 'St_Picking_Add', 'deliveryData'),
+        },
+        {
+          label: '退料',
+          disabled: !stateForm.transform,
+          confirm: orderTransform.bind(
+            null,
+            'St_ReturnPicking_Add',
+            'deliveryData'
+          ),
+        },
+      ]" -->
     <Action
       slot="sticky-extra"
       size="small"
@@ -26,176 +33,94 @@
         btnAction.filter((item) => item.label != $t('Generality.Ge_Copy'))
       "
     ></Action>
-    <!-- 单据信息 -->
-    <JvBlock
-      :title="$t('Generality.Ge_BillInfo')"
-      ref="first"
-      :contentStyle="{
-        paddingLeft: '150px',
-        height: '280px',
-      }"
-      style="position: relative"
-    >
-      <div class="mould-img">
-        <el-image
-          :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
-          style="width: 100%; height: 100%"
-          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
-          fit="cover"
-        >
-          <div slot="error" class="image-slot1">
-            <i class="el-icon-picture-outline"></i>
-          </div>
-        </el-image>
-      </div>
+    <!--单据信息-->
+    <JvBlock :title="cur_billId" ref="first">
+      <!---->
       <div style="position: relative">
-        <JvDetail :detailObj="detailObj">
-          <template #RelationId="{ record }">
-            <span
-              style="color: #409eff; cursor: pointer"
-              @click="linkToProject(record)"
-            >
-              {{ record }}
-            </span>
-          </template>
-        </JvDetail>
-        <!-- 状态标签 -->
+        <JvDetail :detailObj="detailObj"> </JvDetail>
         <JvState :state="detailObj.detailData.State"></JvState>
       </div>
     </JvBlock>
+
     <!--物料信息-->
-    <JvBlock :title="$t('project.Pro_TestMouldMaterials')" ref="second">
-      <JvTable :table-obj="tableObj1"> </JvTable>
-    </JvBlock>
-    <!-- 试模问题点 -->
-    <JvBlock :title="$t('project.Pro_TestMouldProblemPoints')" ref="second">
-      <JvTable :tableObj="tableObj">
-        <template #BillFiles="{ record }">
-          <div v-if="record.length > 0">
-            <el-image
-              style="width: 50px; height: 50px"
-              v-for="(item, index) in record"
-              :key="index"
-              :preview-src-list="[defaultImgUrl + item]"
-              :src="defaultImgUrl + item"
-            >
-            </el-image>
-          </div>
+    <JvBlock :title="$t('Generality.Ge_ItemsInfo')" ref="second">
+      <!-- 领料按钮 -->
+      <div slot="extra">
+        <el-button size="mini" @click="toStockPicking" :disabled="isDisabled">
+          {{ $t("stockroom.St_Picking") }}
+        </el-button>
+      </div>
+      <JvTable :table-obj="tableObj" @selection-change="canPick">
+        <template #State="{ record }">
+          {{ demandStatusMap[record] && demandStatusMap[record].name }}
         </template>
       </JvTable>
     </JvBlock>
-
     <!--备注-->
     <JvBlock :title="$t('Generality.Ge_Remarks')" ref="third">
-      <JvRemark :RemarkData="detailObj.detailData.Remarks"></JvRemark>
+      <JvRemark :RemarkData="RemarkData"></JvRemark>
     </JvBlock>
     <!--附件-->
-    <!--<JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">-->
-    <!--  <JvFileExhibit :BillId="cur_Id"></JvFileExhibit>-->
-    <!--</JvBlock>-->
     <JvBlock :title="$t('Generality.Ge_Annex')" ref="fourth">
-      <div slot="extra">
-        <el-button
-          size="mini"
-          type="primary"
-          @click="(_) => $refs.upLoad.upload()"
-          >{{ $t("Generality.Ge_Upload") }}</el-button
-        >
-        <el-button size="mini" type="primary" @click="saveFiles">{{
-          $t("Generality.Ge_SaveEdits")
-        }}</el-button>
-      </div>
-      <JvUploadFile
-        @returnData="returnData"
-        :BillId="cur_Id"
-        ref="upLoad"
-      ></JvUploadFile>
+      <JvFileExhibit :BillId="fileBillId"></JvFileExhibit>
     </JvBlock>
     <!--审核流程-->
     <JvBlock :title="$t('Generality.Ge_ApproveProcess')" ref="fifth">
       <AuditProcess :process="detailObj.detailData.AuditNodes"></AuditProcess>
     </JvBlock>
-    <JvBlock :title="$t('Generality.Ge_Dynamic')" ref="sixth">
-      <div slot="extra">
-        <el-button size="mini" type="primary" @click="addDynamic">{{
-          $t("Generality.Ge_New")
-        }}</el-button>
-      </div>
-      <!-- <DynamicList :cdata="DynamicInfo" @fresh="getData"></DynamicList> -->
-    </JvBlock>
-    <!-- <Dynamic
-      :title="$t('Generality.Ge_New') + $t('Generality.Ge_Dynamic')"
-      width="35%"
-      :visible.sync="dynamicShow"
-      @dynamicConfirm="dynamicConfirm"
-    >
-    </Dynamic> -->
-    <JvDialog
-      :visible.sync="informationShow"
-      @confirm="informationConfirm"
-      width="35%"
-      :title="$t('project.Pro_InputTestMouldInfo')"
-    >
-      <JvForm :form-obj="formObj"></JvForm>
-    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
-import { save_trial_tooling_dynamic } from "@/api/workApi/project/projectTask";
-import { mapState } from "vuex";
-import { Table, detailConfig, Table1, formSchema } from "./config";
 import { Form } from "@/jv_doc/class/form";
+import { stateEnum, demandStatusEnum } from "@/enum/workModule";
+import { tableConfig, detailConfig } from "./config";
+import { mapState } from "vuex";
+import closeTag from "@/utils/closeTag";
+import { Table } from "@/jv_doc/class/table";
 import Detail from "@/jv_doc/class/detail/Detail";
-import {
-  API as ProjectTask,
-  successProjectTask,
-} from "@/api/workApi/project/projectTask";
-import { detailPageModel, imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
-import { save_project_dynamic } from "@/api/workApi/project/projectInfo";
-import { taskTypeEnum } from "@/enum/workModule";
 import JvState from "@/components/JVInternal/JvState/index";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
+import {
+  auditPlugin,
+  detailBtnModel,
+  detailPageModel,
+} from "@/jv_doc/utils/system/index";
 import AuditProcess from "@/components/BasicModule/AuditProcess";
-// import Dynamic from "../../projectManage/mouldDetail/cpns/Dynamic.vue";
-// import DynamicList from "../../projectManage/mouldDetail/cpns/DynamicList.vue";
-import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
-import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
-import { format2source } from "~/class/utils/dataFormat";
-import JvForm from "~/cpn/JvForm/index.vue";
+// import { API as materialRequirement } from "@/api/workApi/design/materialRequirement";
+import { API as materialRequirement } from "@/api/workApi/production/poleProductionDemand";
 export default {
   name: "index",
   components: {
-    JvForm,
-    JvUploadFile,
-    JvRemark,
+    JvState,
     JvFileExhibit,
     AuditProcess,
-    JvState,
-    // DynamicList,
-    // Dynamic,
+    JvRemark,
   },
   data() {
     return {
-      cur_Id: this.$route.query.BillId,
-      detailObj: {},
+      // 当前单据的id
+      cur_billId: "",
       tableObj: {},
-      tableObj1: {},
-      DynamicInfo: [],
+      detailObj: {},
+      detailData: {},
+      formObj: {},
+      stateForm: {},
+      isDisabled: true,
+      dialogFormVisible: false,
+      tableDetail: [],
+      fileBillId: "",
+      RemarkData: "",
+      type: "",
       btnAction: [],
-      defaultImgUrl: window.global_config.ImgBase_Url,
-      // 编辑路由指向 谨慎删除
-      editRouteName: "Pm_TrialTask_Edit",
-      printMod: "Pm_TrialTask_Detail",
-      taskTypeEnum,
       tabPanes: [
         {
           label: this.$t("Generality.Ge_BillInfo"),
           name: "first",
         },
         {
-          label: this.$t("project.Pro_TestMouldProblemPoints"),
+          label: this.$t("Generality.Ge_ItemsInfo"),
           name: "second",
         },
         {
@@ -210,197 +135,116 @@ export default {
           label: this.$t("Generality.Ge_ApproveProcess"),
           name: "fifth",
         },
+      ],
+      // 编辑路由指向 谨慎删除
+      editRouteName: "De_MaterialRequirement_Edit",
+      // 打印模板标识 谨慎删除
+      printMod: "De_MaterialRequirement",
+    };
+  },
+  async created() {
+    this.fileBillId = this.$route.query.BillId;
+    this.detailObj = new Detail({
+      data: {},
+      schema: detailConfig,
+    });
+    this.formObj = new Form({
+      formSchema: [
         {
-          label: this.$t("Generality.Ge_Dynamic"),
-          name: "sixth",
+          // 字段名
+          prop: "Remarks",
+          cpn: "FormInput",
+          label: this.$t("Generality.Ge_Remarks"),
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseEnter"),
+              trigger: ["change", "blur"],
+            },
+          ],
         },
       ],
-      dynamicShow: false,
-      informationShow: false,
-      formObj: {},
-    };
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
+    this.tableObj = new Table({
+      tableSchema: tableConfig,
+      pagination: false,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: false,
+      height: 350,
+    });
+    await this.GetData();
   },
   computed: {
     ...mapState({
       current: (state) => state.page.current,
     }),
-    //
-    // BillIdShow() {},
+    stateMap() {
+      return stateEnum[this.detailObj.detailData.State];
+    },
+    demandStatusMap() {
+      return demandStatusEnum;
+    },
   },
-  created() {
-    // this.ruleForm
-    this.tableObj = new Table();
-    this.tableObj1 = new Table1();
-    this.detailObj = new Detail({
-      data: {},
-      schema: detailConfig,
-      column: 3,
-    });
-    this.formObj = new Form({
-      formSchema,
-      autoFocus: true,
-      baseColProps: { span: 24 },
-      labelWidth: "80px",
-    });
-    this.getData();
-  },
-  mounted() {},
+
   methods: {
-    imgUrlPlugin,
-    // 填写试模信息 确认
-    informationConfirm() {
-      this.formObj.validate((valid) => {
-        if (valid) {
-          save_trial_tooling_dynamic({
-            BillId: this.cur_Id,
-            ...this.formObj.form,
-          })
-            .then((res) => {
-              this.informationShow = false;
-              this.getData();
-            })
-            .catch((err) => {
-              this.$message({
-                message: err,
-                type: "warning",
-              });
-            });
-        }
-      });
-    },
-    // 填写试模 信息
-    information() {
-      this.informationShow = true;
-    },
-    getData() {
-      ProjectTask.api_get({ BillId: this.cur_Id }).then((res) => {
-        formSchema.forEach((item) => {
-          this.formObj.form[item.prop] = res.TrialToolingDynamicData[item.prop];
+    //获取数据
+    async GetData() {
+      await materialRequirement
+        .api_get({ BillId: this.$route.query.BillId })
+        .then((res) => {
+          this.detailObj.detailData = res;
+          this.RemarkData = res.Remarks;
+          this.cur_billId = res.BillId;
+          this.stateForm = auditPlugin(res);
+          this.tableObj.setData(res.BillItems);
+          this.btnAction = detailPageModel(
+            this,
+            res,
+            materialRequirement,
+            this.GetData
+          );
         });
-        this.detailObj.setData(res);
-        for (let key in res.TrialToolingDynamicData) {
-          this.detailObj.detailData[key] = res.TrialToolingDynamicData[key];
-        }
-        this.tableObj.setData(res.TestMouldProblemPoints);
-        this.tableObj1.setData(res.TrialToolingMaterialDetails);
-        this.DynamicInfo = res.DynamicInfo || [];
-        this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
-        this.btnAction.push(
-          {
-            label: i18n.t("project.Pro_InputTestMouldInfo"),
-            confirm: this.information,
-          },
-          {
-            label: i18n.t("project.Pro_TestMouldMaterials"),
-            confirm: this.toItemsDemand,
-            disabled: this.detailObj.detailData.State !== "Approved",
-          },
-          {
-            label: this.$t("Generality.Ge_Finished"),
-            confirm: this.successProjectTask,
-            disabled: this.detailObj.detailData.State !== "Approved",
-          } /*,{
-          label: this.$t("stockroom.St_Picking"),
-          confirm: this.toStockPicking,
-          disabled: this.detailObj.detailData.State !== "Approved",
-        }*/
-        );
-      });
-    },
-    // 完成单据
-    successProjectTask() {
-      successProjectTask({ BillId: this.cur_Id }).then(() => {
-        this.getData();
-      });
     },
     toStockPicking() {
       this.$router.push({
         name: "St_Picking_Add",
-        params: { trialToolingData: this.detailObj.detailData },
-      });
-    },
-    //跳转到物料需求
-    toItemsDemand() {
-      this.$router.push({
-        name: "De_MaterialRequirement_Add",
         params: {
-          ToolingNo: this.detailObj.detailData.ToolingNo,
-          PmTaskBillId: this.cur_Id,
-          data: [],
+          itemsDemandData: this.detailObj.detailData,
+          selectData: this.tableObj.selectData.datas,
         },
       });
     },
-    // 新增动态
-    addDynamic() {
-      this.dynamicShow = true;
-    },
-    dynamicConfirm(e) {
-      console.log(e, 10000);
-      let params = Object.assign(
-        {},
-        {
-          DynamicType: "ProjectTask",
-          AssociatedNo: this.cur_Id,
-        },
-        e
-      );
-      this.saveDynamic(params);
-    },
-    saveDynamic(params) {
-      save_project_dynamic(params).then((res) => {
-        this.dynamicShow = false;
-        this.getData();
+    //订单转
+    orderTransform(routerName, keyName) {
+      this.$router.push({
+        name: routerName,
+        params: { [keyName]: this.detailObj.detailData },
       });
     },
     tabClick(e) {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
     },
-    linkToProject(BillId) {
-      this.$router.push({
-        name: "Pm_ProjectTask_Detail",
-        query: { BillId },
-      });
-    },
-    saveFiles() {
-      update_file_owner({
-        BillFiles: this.BillFiles,
-        BillId: this.cur_Id,
-      }).then((res) => {});
-    },
-    returnData(fileData) {
-      this.BillFiles = fileData;
+    canPick() {
+      const isAllProcessedOrStored = this.tableObj.selectData.datas.every(
+        (item) => item.State === "Processed" || item.State === "Stored"
+      );
+      this.isDisabled = !(
+        this.detailObj.detailData.State === "Approved" && isAllProcessedOrStored
+      );
+      if (this.tableObj.selectData.datas.length === 0) {
+        this.isDisabled = true;
+      }
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.mould-img {
-  width: 120px;
-  height: 120px;
-  // background-color: pink;
-  position: absolute;
-  left: 10px;
-  right: 200px;
-}
-.el-image {
-  ::v-deep .image-slot1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    background-color: #f5f7fa;
-    width: 120px;
-    i {
-      font-size: 20px;
-    }
-  }
-}
-.sum-text {
-  display: inline-block;
-  // padding-right: 100px;
-  width: 200px;
-  text-align: end;
-}
-</style>
+<style lang="scss" scoped></style>
