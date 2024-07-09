@@ -16,6 +16,17 @@
             </el-option>
           </el-select>
         </template>
+        <template #SignOff="{ prop }">
+          <el-select v-model="formObj.form[prop]" filterable>
+            <el-option
+              v-for="item in SupplierData"
+              :key="item.SupplierId"
+              :label="item.ShortName"
+              :value="item.SupplierId"
+            >
+            </el-option>
+          </el-select>
+        </template>
       </JvForm>
     </JvBlock>
     <!-- 物料信息 -->
@@ -166,6 +177,7 @@ export default {
         SupplierId: "",
         SupplierName: "",
         Currency: "",
+        ExchangeRate: "",
         State: "",
         SalesReps: "",
         ProjectId: "",
@@ -193,6 +205,8 @@ export default {
         Remarks: "",
         AssociatedNo: 0,
         NoTaxPrice: 0,
+        DeliveryDate: "",
+        OtherExpenses: "",
       },
       ItemStatesEnum: {
         NotPurchased: this.$t("Generality.Ge_NotPurchased"),
@@ -268,6 +282,7 @@ export default {
     changeCustomerId(e) {
       getSupplierDetails({ SupplierId: e }).then((res) => {
         this.formObj.form.Currency = res.Currency;
+        this.formObj.form.ExchangeRate = res.Tax;
         this.ruleForm.SupplierName = res.ShortName;
         this.BillItems.Tax = res.Tax;
         this.changeTax(res.Tax);

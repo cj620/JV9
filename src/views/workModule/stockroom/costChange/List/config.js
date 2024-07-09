@@ -88,6 +88,24 @@ export const tableConfig = [
     label: i18n.t("Generality.Ge_CreationDate"),
     filter: "time",
   },
+  /*审核人*/
+  {
+    prop: "Audit",
+    label: i18n.t("Generality.Ge_Auditor"),
+  },
+  // 审核日期
+  {
+    prop: "AuditDate",
+    label: "审核日期",
+    filter: "time",
+    width: "150px",
+  },
+  /*合计数量*/
+  // {
+  //   prop: "TotalQuantity",
+  //   label: i18n.t("Generality.Ge_TotalQuantity"),
+  //   width: "95px",
+  // },
 ];
 export const formSchema = [
   {

@@ -40,6 +40,11 @@ export default {
 
     this.tableObj = new Table({
       tableSchema: [
+        /*工序代码*/
+        {
+          prop: "ProcessCode",
+          label:i18n.t("Generality.Ge_ProcessId"),
+        },
         /*工序*/
         {
           prop: "Process",

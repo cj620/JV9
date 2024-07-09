@@ -56,6 +56,16 @@ export const detailConfig = [
     label: i18n.t("setup.Stockroom"),
   },
   {
+    // 调整人
+    prop: "Adjuster",
+    label: "调整人",
+  },
+  {
+    // 调整部门
+    prop: "AdjustDepartment",
+    label: "调整部门",
+  },
+  {
     // 制单人
     prop: "Creator",
     label: i18n.t("Generality.Ge_Creator"),

@@ -845,6 +845,7 @@ const ja = {
     Ge_ActualHour: "実際の工数",
     Ge_PlanStart: "計画の開始",
     Ge_PlanEnd: "計画終了",
+    Ge_WarningDate: "アラート日",
     Ge_Level: "レベル",
     Ge_Close: "閉じる",
     Ge_CloseOthers: "その他を閉じる",

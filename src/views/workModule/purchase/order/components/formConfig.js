@@ -36,6 +36,22 @@ export const formSchema = [
     ],
   },
   {
+    // 汇率
+    prop: "ExchangeRate",
+    cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
+    },
+    label: i18n.t("Generality.Ge_ExchangeRate"),
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
     // 币种
     prop: "Currency",
     cpn: "FormInput",
@@ -50,5 +66,43 @@ export const formSchema = [
         trigger: ["change", "blur"],
       },
     ],
+  },
+  {
+    // 预付款
+    prop: "AdvanceCharge",
+    cpn: "FormInput",
+    cpnProps: {
+      type: 'number'
+    },
+    label: i18n.t("Generality.Ge_AdvanceCharge"),
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    // 落款
+    prop: "SignOff",
+    custom: true,
+    label: i18n.t("Generality.Ge_Signature"),
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    // Mrp生成
+    prop: "MrpGeneration",
+    label: "Mrp生成",
+    cpn: "FormSingleCheckBox",
+    options: {
+      CheckBoxlabel: ''
+    },
   },
 ];

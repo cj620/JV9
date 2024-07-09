@@ -139,6 +139,25 @@ export const tableConfig = [
     width: "100px",
     formCpn: "FormInput",
   },
+  /*其他费用*/
+  {
+    prop: "OtherExpenses",
+    label: "其他费用",
+    align: "right",
+    width: "100px",
+    formCpn: "FormInput",
+    cpnProps: {
+      type: 'number'
+    }
+  },
+  /*交货日期*/
+  {
+    prop: "DeliveryDate",
+    label: "交货日期",
+    align: "right",
+    width: "100px",
+    formCpn: "SingleTime",
+  },
   /*备注*/
   {
     prop: "Remarks",

@@ -53,10 +53,10 @@ export const tableConfig = [
     width: "115px",
   },
   /*类别*/
-  {
-    prop: "Category",
-    label: '类别',
-  },
+  // {
+  //   prop: "Category",
+  //   label: '类别',
+  // },
   /*仓库*/
   {
     prop: "Stockroom",
@@ -76,7 +76,7 @@ export const tableConfig = [
   /*来源单据*/
   {
     prop: "RelationId",
-    label: '来源单据',
+    label: '关联单据',
   },
   /*制单人*/
   {
@@ -98,7 +98,7 @@ export const tableConfig = [
   },
   /*合计数量*/
   {
-    prop: "Total",
+    prop: "TotalQuantity",
     label: "合计数量",
   },
   /*备注*/

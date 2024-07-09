@@ -73,10 +73,10 @@ const tableSchema = [
     width: "115px",
   },
   /*明细状态*/
-  {
-    prop: "ItemState",
-    label: '明细状态',
-  },
+  // {
+  //   prop: "ItemState",
+  //   label: '明细状态',
+  // },
   // /*计划交期*/
   // {
   //   prop: "DeliveryDate",
@@ -120,25 +120,36 @@ const tableSchema = [
     filter: "amount",
   },
   /*提交人*/
-  {
-    prop: "Applicant",
-    label: '申请人',
-  },
-  /*部门*/
-  {
-    prop: "Department",
-    label: '申请部门',
-  },
+  // {
+  //   prop: "Applicant",
+  //   label: '申请人',
+  // },
+  // /*部门*/
+  // {
+  //   prop: "Department",
+  //   label: '申请部门',
+  // },
   /*计划交期*/
-  {
-    prop: "UsageDate",
-    label: '使用日期',
-    filter: "date",
-  },
+  // {
+  //   prop: "UsageDate",
+  //   label: '使用日期',
+  //   filter: "date",
+  // },
   /*来源单据*/
+  // {
+  //   prop: "RelationId",
+  //   label: '来源单据',
+  // },
   {
-    prop: "RelationId",
-    label: '来源单据',
+    // 制单人
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+  },
+  {
+    // 制单日期
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
   },
   /*备注*/
   {
