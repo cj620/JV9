@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-19 10:25:28
- * @LastEditTime: 2024-07-05 15:14:50
+ * @LastEditTime: 2024-07-09 10:55:36
  * @Description:
  */
 import { getAllResource } from "@/api/workApi/production/baseData";
@@ -74,7 +74,7 @@ export const formSchema = [
     apiOptions: {
       immediate: true,
       keyName: "Resource",
-      valueName: "ResourceId",
+      valueName: "GroupName",
     },
     rules: [
       {

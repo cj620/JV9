@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-18 15:08:18
- * @LastEditTime: 2024-07-05 15:16:44
+ * @LastEditTime: 2024-07-09 10:55:02
  * @Description:
  */
 
@@ -128,7 +128,7 @@ export const formSchema = [
     api: getAllResource,
     apiOptions: {
       keyName: "ResourceGroup",
-      valueName: "ResourceId",
+      valueName: "GroupName",
     },
   },
   //部门搜索

@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2024-05-24 11:09:59
+ * @LastEditTime: 2024-07-09 10:56:26
  * @Description: file content
  */
 // 引入表格表格类和表格API类
@@ -250,7 +250,7 @@ export const formSchema = [
     apiOptions: {
       // immediate: true,
       keyName: "ResourceId",
-      valueName: "ResourceId",
+      valueName: "GroupName",
     },
   },
   /*计划机台*/
