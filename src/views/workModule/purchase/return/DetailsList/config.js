@@ -83,10 +83,10 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_ItemId"),
   },
   /*物料类别*/
-  {
-    prop: "ItemType",
-    label: i18n.t("Generality.Ge_ItemType"),
-  },
+  // {
+  //   prop: "ItemType",
+  //   label: i18n.t("Generality.Ge_ItemType"),
+  // },
   /*物料名称*/
   {
     prop: "ItemName",
@@ -145,11 +145,11 @@ const tableSchema = [
     prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
   },
-  {
-    // 汇率
-    prop: "ExchangeRate",
-    label: '汇率'
-  },
+  // {
+  //   // 汇率
+  //   prop: "ExchangeRate",
+  //   label: '汇率'
+  // },
   /*税率*/
   {
     prop: "Tax",

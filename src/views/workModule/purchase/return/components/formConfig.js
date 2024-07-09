@@ -58,4 +58,30 @@ export const formSchema = [
       },
     ],
   },
+  {
+    // 汇率
+    prop: "ExchangeRate",
+    cpn: "FormInput",
+    cpnProps: {
+      // disabled: true,
+      type: 'number',
+    },
+    label: i18n.t("Generality.Ge_ExchangeRate"),
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    // 来源单据
+    prop: "RelationId",
+    cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
+    },
+    label: i18n.t("Generality.Ge_SourceDocuments"),
+  },
 ];

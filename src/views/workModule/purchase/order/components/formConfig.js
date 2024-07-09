@@ -40,7 +40,7 @@ export const formSchema = [
     prop: "ExchangeRate",
     cpn: "FormInput",
     cpnProps: {
-      disabled: true,
+      type: 'number'
     },
     label: i18n.t("Generality.Ge_ExchangeRate"),
     rules: [
