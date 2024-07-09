@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-01-12 17:23:53
+ * @LastEditTime: 2024-07-09 16:24:23
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
@@ -41,8 +41,6 @@ export const tableConfig = [
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
     formCpn: "FormInput",
-
-
   },
   /*描述2*/
   {
@@ -69,20 +67,50 @@ export const tableConfig = [
     type: "number",
     filter: "amount",
   },
-  /*需求日期*/
   {
-    prop: "DemandDate",
-    label: i18n.t("Generality.Ge_DemandDate"),
-    formCpn: "SingleTime",
-    filter: "date",
-    width: "155px",
-    editConfig: {
-      rules: {
-        required: true,
-      },
-      colInit: true,
-    },
+    //数量（精）
+    prop: "ProductionSeiko",
+    label: "生产精工",
+    formCpn: "FormInput",
+    align: "right",
+    width: 120,
+    type: "number",
+    filter: "amount",
   },
+  {
+    //数量（粗）
+    prop: "ProductionRoughWorker",
+    label: "生产粗工",
+    formCpn: "FormInput",
+    align: "right",
+    width: 120,
+    type: "number",
+    filter: "amount",
+  },
+  {
+    //数量（中）
+    prop: "ProductionZhonggong",
+    label: "生产中工",
+    formCpn: "FormInput",
+    align: "right",
+    width: 120,
+    type: "number",
+    filter: "amount",
+  },
+  /*需求日期*/
+  // {
+  //   prop: "DemandDate",
+  //   label: i18n.t("Generality.Ge_DemandDate"),
+  //   formCpn: "SingleTime",
+  //   filter: "date",
+  //   width: "155px",
+  //   editConfig: {
+  //     rules: {
+  //       required: true,
+  //     },
+  //     colInit: true,
+  //   },
+  // },
   /*备注*/
   {
     prop: "Remarks",

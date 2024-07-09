@@ -143,6 +143,9 @@ export default {
         Remarks: "",
         PartNo: "",
         DemandDate: "",
+        ProductionSeiko: 0,
+        ProductionRoughWorker: 0,
+        ProductionZhonggong: 0,
       },
     };
   },
@@ -180,7 +183,14 @@ export default {
       this.formObj.form.ToolingNo = this.$route.params.ToolingNo
         ? this.$route.params.ToolingNo
         : this.$route.params.data[0].ToolingNo;
-      this.eTableObj.push(temMerge(this.BillItems, this.$route.params.data));
+      this.eTableObj.push(temMerge(this.BillItems, this.$route.params.data.map(item=>{
+        return {
+          ...item,
+          ProductionSeiko: item.ElectrodeQuantitySeiko,
+        ProductionRoughWorker: item.ElectrodeQuantityRoughWork,
+        ProductionZhonggong: item.ElectrodeQuantityMiddleFinish,
+        }
+      })));
       this.$route.params.PmTaskBillId
         ? (this.formObj.form.PmTaskBillId = this.$route.params.PmTaskBillId)
         : "";
