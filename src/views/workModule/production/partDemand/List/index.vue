@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 11:33:00
- * @LastEditTime: 2024-07-09 15:25:43
+ * @LastEditTime: 2024-07-09 15:35:35
  * @Description: 试模任务
 -->
 <template>
@@ -101,15 +101,6 @@ export default {
       return (state, type) => {
         return !stateEnum[state]?.operation?.[type];
       };
-    },
-    getListTableBtnModel() {
-      return [
-        ...listTableBtnModel(this),
-        {
-          label: i18n.t("project.Pro_CheckDetails"),
-          confirm: this.toDetailsList,
-        },
-      ];
     },
   },
 };

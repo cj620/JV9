@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-09 10:10:13
- * @LastEditTime: 2024-07-09 14:44:29
+ * @LastEditTime: 2024-07-09 15:39:47
  * @Description:生产模块
  */
 
@@ -152,7 +152,7 @@ const production = [
   {
     key: "Pr_PartProductionDemand_Add",
     component: () => import("@/views/workModule/production/partDemand/Add"),
-    Parent: "Sa_Sale",
+    Parent: "Pr_Production",
     name: "Pr_PartProductionDemand_Add",
     path: "Pr_PartProductionDemand_Add",
     title:
@@ -165,7 +165,7 @@ const production = [
   {
     key: "Pr_PartProductionDemand_Edit",
     component: () => import("@/views/workModule/production/partDemand/Edit"),
-    Parent: "Sa_Sale",
+    Parent: "Pr_Production",
     name: "Pr_PartProductionDemand_Edit",
     path: "Pr_PartProductionDemand_Edit",
     title:
@@ -178,7 +178,7 @@ const production = [
   {
     key: "Pr_PartProductionDemand_Detail",
     component: () => import("@/views/workModule/production/partDemand/Detail"),
-    Parent: "Sa_Sale",
+    Parent: "Pr_Production",
     name: "Pr_PartProductionDemand_Detail",
     path: "Pr_PartProductionDemand_Detail",
     title:
