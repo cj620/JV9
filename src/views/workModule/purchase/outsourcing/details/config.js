@@ -91,6 +91,16 @@ export const tableConfig = [
     align: "right",
     filter: "amount",
   },
+  // 辅助数量
+  {
+    prop: "AuxiliaryQty",
+    label: i18n.t("Generality.Ge_AuxiliaryQty"),
+  },
+  // 辅助单价
+  {
+    prop: "AuxiliaryPrice",
+    label: i18n.t("Generality.Ge_AuxiliaryPrice"),
+  },
   // 模具编号
   {
     prop: "ToolingNo",
@@ -123,6 +133,21 @@ export const detailConfig = [
     // 币种
     prop: "Currency",
     label: i18n.t("Generality.Ge_Currency"),
+  },
+  {
+    // 汇率
+    prop: "ExchangeRate",
+    label: i18n.t("purchase.Pr_SupplierName"),
+  },
+  {
+    // 预付款
+    prop: "AdvanceCharge",
+    label: "预付款",
+  },
+  {
+    // 申请人
+    prop: "Applicant",
+    label: "申请人",
   },
   {
     // 制单人

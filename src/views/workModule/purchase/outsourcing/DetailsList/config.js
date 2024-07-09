@@ -100,6 +100,11 @@ const tableSchema = [
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
   },
+  /*描述2*/
+  {
+    prop: "Description",
+    label: i18n.t("design.De_Description2"),
+  },
   /*单位*/
   {
     prop: "Unit",
@@ -157,6 +162,17 @@ const tableSchema = [
     width: "120px",
     align: "right",
     filter: "amount",
+  },
+  {
+    // 制单人
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+  },
+  {
+    // 制单日期
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
   },
   /*备注*/
   {
