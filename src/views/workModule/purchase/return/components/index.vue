@@ -187,6 +187,8 @@ export default {
         Remarks: "",
         AssociatedNo: "",
         NoTaxPrice: 0,
+        OtherExpenses: 0,
+        BatchNo: 0,
       },
     };
   },

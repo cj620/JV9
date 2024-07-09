@@ -125,7 +125,41 @@ export const tableConfig = [
       disabled: true,
     },
   },
-
+  /*辅助数量*/
+  {
+    prop: "AuxiliaryQty",
+    label: i18n.t("Generality.Ge_AuxiliaryQty"),
+    align: "right",
+    width: "100px",
+    formCpn: "FormInput",
+  },
+  /*辅助单价*/
+  {
+    prop: "AuxiliaryPrice",
+    label: i18n.t("Generality.Ge_AuxiliaryPrice"),
+    align: "right",
+    width: "100px",
+    formCpn: "FormInput",
+  },
+  /*其他费用*/
+  {
+    prop: "OtherExpenses",
+    label: "其他费用",
+    align: "right",
+    width: "100px",
+    formCpn: "FormInput",
+    cpnProps: {
+      type: 'number'
+    }
+  },
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
+    align: "right",
+    width: "100px",
+    formCpn: "FormInput",
+  },
   /*备注*/
   {
     prop: "Remarks",

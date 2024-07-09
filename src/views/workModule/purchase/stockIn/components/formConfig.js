@@ -67,7 +67,6 @@ export const formSchema = [
     cpnProps: {
       // disabled: true,
       type: 'number',
-      defaultValue: 0,
     },
     label: i18n.t("Generality.Ge_ExchangeRate"),
     rules: [
@@ -77,5 +76,14 @@ export const formSchema = [
         trigger: ["change", "blur"],
       },
     ],
+  },
+  {
+    // 来源单据
+    prop: "RelationId",
+    cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
+    },
+    label: i18n.t("Generality.Ge_SourceDocuments"),
   },
 ];

@@ -282,7 +282,6 @@ export default {
     changeCustomerId(e) {
       getSupplierDetails({ SupplierId: e }).then((res) => {
         this.formObj.form.Currency = res.Currency;
-        this.formObj.form.ExchangeRate = res.Tax;
         this.ruleForm.SupplierName = res.ShortName;
         this.BillItems.Tax = res.Tax;
         this.changeTax(res.Tax);
