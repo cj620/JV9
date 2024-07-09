@@ -71,12 +71,12 @@ const tableSchema = [
     width: "115px",
   },
   /*计划交期*/
-  {
-    prop: "DeliveryDate",
-    label: i18n.t("Generality.Ge_DeliveryDate"),
-    filter: "date",
-    width: "120px",
-  },
+  // {
+  //   prop: "DeliveryDate",
+  //   label: i18n.t("Generality.Ge_DeliveryDate"),
+  //   filter: "date",
+  //   width: "120px",
+  // },
   /*物料编号*/
   {
     prop: "ItemId",
@@ -170,6 +170,22 @@ const tableSchema = [
     type: "number",
     filter: "amount",
     width: "100px",
+  },
+  /*来源单据*/
+  {
+    prop: "RelationId",
+    label: '来源单据',
+  },
+  {
+    // 制单人
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+  },
+  {
+    // 制单日期
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
   },
   /*备注*/
   {

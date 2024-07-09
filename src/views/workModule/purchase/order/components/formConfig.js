@@ -97,6 +97,15 @@ export const formSchema = [
     ],
   },
   {
+    // 来源单据
+    prop: "RelationId",
+    cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
+    },
+    label: i18n.t("Generality.Ge_SourceDocuments"),
+  },
+  {
     // Mrp生成
     prop: "MrpGeneration",
     label: "Mrp生成",

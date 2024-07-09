@@ -60,4 +60,22 @@ export const formSchema = [
       },
     ],
   },
+  {
+    // 汇率
+    prop: "ExchangeRate",
+    cpn: "FormInput",
+    cpnProps: {
+      // disabled: true,
+      type: 'number',
+      defaultValue: 0,
+    },
+    label: i18n.t("Generality.Ge_ExchangeRate"),
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
 ];
