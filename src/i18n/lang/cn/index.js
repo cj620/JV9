@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-28 13:34:11
- * @LastEditTime: 2023-08-18 10:55:32
+ * @LastEditTime: 2024-07-09 13:39:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JvMmsV9Front\src\i18n\lang\cn\index.js
@@ -113,6 +113,8 @@ const cn = {
     Pr_ProductionTask: "生产任务",
     Pr_ProductionSchedule: "生产排程",
     Pr_ProductionDispatch: "生产调度",
+    Pr_PartProductionDemand: "零件生产需求列表",
+    Pr_PoleProductionDemand: "电极生产需求列表",
     Pr_ProductionAllocation: "生产派工",
     Pr_WorkReport: "生产报工",
     Pr_ProductionPlan: "生产计划",
