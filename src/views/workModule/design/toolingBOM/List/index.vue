@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2024-07-08 14:48:28
+ * @LastEditTime: 2024-07-09 09:51:45
  * @Description: 模具BOM
 -->
 
@@ -749,6 +749,9 @@ export default {
     l_insert(index) {
       let cur_row = this.eTableObj.getEmptyRow();
       cur_row.Quantity = 1;
+      cur_row.ResType = timeFormat(new Date(), "yyMMdd");
+      cur_row.MaterialsDemand = 0;
+      cur_row.ProduceDemand = 0;
       cur_row.Unit = this.defaultUnit;
       let targetList = this.mixinToolId([cur_row]);
       this.eTableObj.insert(index, targetList);

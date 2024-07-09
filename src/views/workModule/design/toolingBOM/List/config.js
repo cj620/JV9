@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2024-07-08 14:38:23
+ * @LastEditTime: 2024-07-09 09:59:17
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
@@ -196,18 +196,20 @@ export const tableConfig = [
     prop: "MaterialsDemand",
     formCpn: "FormInput",
     type: "number",
-    // editConfig: {
-    //   disabled: true,
-    // },
+    default: 0,
+    editConfig: {
+      disabled: true,
+    },
   },
   {
     label: "生产需求",
     prop: "ProduceDemand",
     formCpn: "FormInput",
+    default: 0,
     type: "number",
-    // editConfig: {
-    //   disabled: true,
-    // },
+    editConfig: {
+      disabled: true,
+    },
   },
   {
     label: "类别",

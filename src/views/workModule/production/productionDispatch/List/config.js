@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-18 15:08:18
- * @LastEditTime: 2022-01-21 15:46:26
+ * @LastEditTime: 2024-07-09 10:56:27
  * @Description:
  */
 
@@ -41,7 +41,7 @@ const formSchema = [
     api: getAllResource,
     apiOptions: {
       keyName: "ResourceGroup",
-      valueName: "ResourceId",
+      valueName: "GroupName",
     },
   },
   {
@@ -79,4 +79,3 @@ export class P_Table extends BaseTable {
     });
   }
 }
-

@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 13:02:21
- * @LastEditTime: 2022-01-24 08:54:02
+ * @LastEditTime: 2024-07-09 10:47:06
  * @Description: 资源组
 -->
 <template>
@@ -18,7 +18,7 @@
         <div class="Resource-list-item-content">
           <div class="Resource-list-item-content-info">
             <div class="Resource-list-item-content-info-title">
-              <span>{{ item.ResourceId }}</span>
+              <span>{{ item.GroupName }}</span>
               <span class="ResourceType">{{
                 item.ResourceType === "Unlimited"
                   ? $t("production.Pr_Outside")
@@ -134,7 +134,11 @@
       @confirm="ResourceMemberConfirm"
       :autoFocus="true"
     >
-        <JvTable :table-obj="tableObj" ref="resourceTable" v-if="ResourceMemberVisible"></JvTable>
+      <JvTable
+        :table-obj="tableObj"
+        ref="resourceTable"
+        v-if="ResourceMemberVisible"
+      ></JvTable>
     </jv-dialog>
   </PageWrapper>
 </template>
@@ -142,7 +146,7 @@
 <script>
 import { formSchema, formSchema1 } from "./formConfig";
 import { Form } from "@/jv_doc/class/form";
-import { Table } from "./tableConfig"
+import { Table } from "./tableConfig";
 import {
   getAllResource,
   editResource,
@@ -155,7 +159,7 @@ export default {
     return {
       ResourceData: [],
       formObj: {},
-		  tableObj:{},
+      tableObj: {},
       tableData: [],
       dialogFormVisible: false,
       dialogTableVisible: false,
@@ -197,7 +201,7 @@ export default {
     },
     // 删除资源组
     del(ids) {
-      this.$confirm( this.$t('production.Pr_ConfirmToDelete'), "", {
+      this.$confirm(this.$t("production.Pr_ConfirmToDelete"), "", {
         confirmButtonText: this.$t("Generality.Ge_OK"),
         cancelButtonText: this.$t("Generality.Ge_Cancel"),
         type: "warning",
@@ -240,11 +244,11 @@ export default {
     },
     // 新增资源组成员confirm
     ResourceMemberConfirm() {
-      let arr = this.tableData
-      this.tableObj.selectData.datas.forEach( e =>{
-        arr.push({ DeviceNo: e.DeviceNo, "Master": false })
-      })
-      this.tableData = arr
+      let arr = this.tableData;
+      this.tableObj.selectData.datas.forEach((e) => {
+        arr.push({ DeviceNo: e.DeviceNo, Master: false });
+      });
+      this.tableData = arr;
       this.ResourceMemberVisible = false;
     },
   },
@@ -258,7 +262,7 @@ export default {
       },
       labelWidth: "80px",
     });
-	  // this.tableObj.getData();
+    // this.tableObj.getData();
   },
 };
 </script>

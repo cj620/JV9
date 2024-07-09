@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-18 15:08:18
- * @LastEditTime: 2024-07-05 14:30:07
+ * @LastEditTime: 2024-07-09 10:55:18
  * @Description:
  */
 
@@ -117,7 +117,7 @@ export const formSchema = [
     api: getAllResource,
     apiOptions: {
       keyName: "ResourceGroup",
-      valueName: "ResourceId",
+      valueName: "GroupName",
     },
   },
 ];

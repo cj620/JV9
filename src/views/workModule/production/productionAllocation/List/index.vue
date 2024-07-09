@@ -12,7 +12,7 @@
             <el-option
               v-for="item in resourcesOptions"
               :key="item.ResourceId"
-              :label="item.ResourceId"
+              :label="item.GroupName"
               :value="item.ResourceId"
             >
             </el-option>
@@ -33,33 +33,43 @@
         <div class="allocated">
           <div class="allocated-header">
             <div class="allocated-header-title">
-              {{ $t('production.Pr_AllocatedProcesses') }}
+              {{ $t("production.Pr_AllocatedProcesses") }}
             </div>
             <div class="allocated-header-button" v-if="processList1.length">
               <div>
                 <i
                   class="el-icon-unlock"
                   v-if="isAllLocked"
-                  style="font-size: 25px; margin-right: 10px; cursor: pointer; color: #0960bd;"
+                  style="
+                    font-size: 25px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                    color: #0960bd;
+                  "
                   @click="editAllLockDevice"
                 ></i>
                 <i
                   class="el-icon-lock"
                   v-else
-                  style="font-size: 25px; margin-right: 10px; cursor: pointer; color: #0960bd;"
+                  style="
+                    font-size: 25px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                    color: #0960bd;
+                  "
                   @click="editAllLockDevice"
                 ></i>
               </div>
               <div>
                 <i
                   class="el-icon-delete"
-                  style="font-size: 25px; cursor: pointer; color: #0960bd;"
+                  style="font-size: 25px; cursor: pointer; color: #0960bd"
                   v-if="isAllUnlocked"
                   @click="clearAllAllocated"
                 ></i>
                 <i
                   class="el-icon-delete"
-                  style="font-size: 25px; color: rgb(161, 161, 161);"
+                  style="font-size: 25px; color: rgb(161, 161, 161)"
                   v-else
                 ></i>
               </div>
@@ -67,7 +77,7 @@
           </div>
           <div class="allocated-body">
             <JvDraggable
-              :col='2'
+              :col="2"
               group="aa"
               Id="allocated"
               v-model="processList1"
@@ -92,7 +102,7 @@
         <div class="unallocated">
           <div class="unallocated-header">
             <div class="unallocated-header-title">
-              {{ $t('production.Pr_UnallocatedProcesses') }}
+              {{ $t("production.Pr_UnallocatedProcesses") }}
             </div>
           </div>
           <div class="unallocated-body">
@@ -127,12 +137,13 @@
       v-if="editAllLockVisible"
       :visible.sync="editAllLockVisible"
       @confirm="conformEditAllLock"
-      width="350px">
+      width="350px"
+    >
       <div v-if="isAllLocked">
-        {{ $t('production.Pr_WhetherToUnlockAllAllocatedProcesses') }}
+        {{ $t("production.Pr_WhetherToUnlockAllAllocatedProcesses") }}
       </div>
       <div v-else>
-        {{ $t('production.Pr_WhetherToLockAllAllocatedProcesses') }}
+        {{ $t("production.Pr_WhetherToLockAllAllocatedProcesses") }}
       </div>
     </JvDialog>
     <JvDialog
@@ -140,11 +151,12 @@
       v-if="editLockVisible"
       :visible.sync="editLockVisible"
       @confirm="conformEditLock"
-      width="350px">
+      width="350px"
+    >
       {{
         editLockData.FixedProcessingDevice
-          ? $t('production.Pr_WhetherToUnlockTheAllocatedProcess')
-          : $t('production.Pr_WhetherToLockTheAllocatedProcess')
+          ? $t("production.Pr_WhetherToUnlockTheAllocatedProcess")
+          : $t("production.Pr_WhetherToLockTheAllocatedProcess")
       }}
     </JvDialog>
     <JvDialog
@@ -152,13 +164,17 @@
       v-if="clearAllVisible"
       :visible.sync="clearAllVisible"
       @confirm="conformClearAll"
-      width="350px">
-      {{ $t('production.Pr_WhetherToClearAllAllocatedProcesses') }}
+      width="350px"
+    >
+      {{ $t("production.Pr_WhetherToClearAllAllocatedProcesses") }}
     </JvDialog>
   </PageWrapper>
 </template>
 <script>
-import { getAllResource, getResourceMember } from "@/api/workApi/production/baseData";
+import {
+  getAllResource,
+  getResourceMember,
+} from "@/api/workApi/production/baseData";
 import { allocation_process_list } from "@/api/workApi/production/productionTask";
 import {
   production_dispatching_list,
@@ -166,7 +182,7 @@ import {
   production_dispatching_lock_device,
   production_dispatching_empty_device,
 } from "@/api/workApi/production/productionDispatch";
-import JvDraggable from '@/components/JvDraggable/JvDraggable.vue';
+import JvDraggable from "@/components/JvDraggable/JvDraggable.vue";
 import ProcessCard from "@/views/workModule/production/productionAllocation/List/components/processCard.vue";
 import EditProcessForm from "@/views/workModule/production/productionAllocation/List/components/editProcessForm.vue";
 import selectBomList from "@/views/workModule/production/productionTask/components/selectBomList.vue";
@@ -180,8 +196,8 @@ export default {
   },
   data() {
     return {
-      selectedResources: '',
-      selectedDeviceNo: '',
+      selectedResources: "",
+      selectedDeviceNo: "",
       editProcessData: {},
       editLockData: {},
       resourcesOptions: [],
@@ -192,22 +208,30 @@ export default {
       editAllLockVisible: false,
       editLockVisible: false,
       clearAllVisible: false,
-    }
+    };
   },
   computed: {
     isAllLocked() {
-      return this.processList1.every(item => item.FixedProcessingDevice !== null && item.FixedProcessingDevice !== '');
+      return this.processList1.every(
+        (item) =>
+          item.FixedProcessingDevice !== null &&
+          item.FixedProcessingDevice !== ""
+      );
     },
     isAllUnlocked() {
-      return this.processList1.every(item => item.FixedProcessingDevice === null || item.FixedProcessingDevice === '');
-    }
+      return this.processList1.every(
+        (item) =>
+          item.FixedProcessingDevice === null ||
+          item.FixedProcessingDevice === ""
+      );
+    },
   },
   created() {
     getAllResource().then((res) => {
       this.resourcesOptions = res.Items;
       this.selectedResources = this.resourcesOptions[0].ResourceId;
       this.selectResources(this.selectedResources);
-    })
+    });
   },
   methods: {
     // 选中资源组获取设备列表
@@ -215,33 +239,35 @@ export default {
       getResourceMember({ ResourceId: e }).then((res) => {
         if (res.Count) {
           this.deviceList = res.Items;
-          this.getProcessByDevice(this.deviceList[0].DeviceNo)
+          this.getProcessByDevice(this.deviceList[0].DeviceNo);
         } else {
           this.deviceList = [];
           this.processList1 = [];
           this.processList2 = [];
           this.selectedDeviceNo = "";
         }
-      })
+      });
     },
     // 点击tabs选择设备
     clickDevice(e) {
-      this.getProcessByDevice(e.label)
+      this.getProcessByDevice(e.label);
     },
     // 根据设备获取工序信息
     getProcessByDevice(e) {
       this.selectedDeviceNo = e;
-      allocation_process_list({DeviceNo: e}).then((res) => {
-        this.processList2 = res.Items
-      })
+      allocation_process_list({ DeviceNo: e }).then((res) => {
+        this.processList2 = res.Items;
+      });
       production_dispatching_list({
         CurrentPage: 1,
         Devices: [e],
         PageSize: 99,
         SortOrder: 1, // 排序方式
       }).then((res) => {
-        this.processList1 = res.Items[0].filter(item => item.State !== 'Processing')
-      })
+        this.processList1 = res.Items[0].filter(
+          (item) => item.State !== "Processing"
+        );
+      });
     },
     // 编辑工序信息
     editProgress(e) {
@@ -257,11 +283,13 @@ export default {
       production_dispatching_lock_device({
         TaskProcessId: this.editLockData.Id,
         // 不存在锁定机台时锁定当前设备，存在时即解绑
-        DeviceNo: this.editLockData.FixedProcessingDevice ? null : this.selectedDeviceNo,
+        DeviceNo: this.editLockData.FixedProcessingDevice
+          ? null
+          : this.selectedDeviceNo,
       }).then(() => {
         this.getProcessByDevice(this.selectedDeviceNo);
         this.editLockVisible = false;
-      })
+      });
     },
     // 更改所有已派工工序锁定状态
     editAllLockDevice() {
@@ -270,12 +298,12 @@ export default {
     // 确认更改所有已派工工序锁定状态
     conformEditAllLock() {
       production_dispatching_lock_device({
-        TaskProcessIds: this.processList1.map(item => item.Id),
-        DeviceNo: this.isAllLocked ? null : this.selectedDeviceNo
+        TaskProcessIds: this.processList1.map((item) => item.Id),
+        DeviceNo: this.isAllLocked ? null : this.selectedDeviceNo,
       }).then(() => {
         this.editAllLockVisible = false;
         this.getProcessByDevice(this.selectedDeviceNo);
-      })
+      });
     },
     // 清空当前设备已派工工序
     clearAllAllocated() {
@@ -284,11 +312,11 @@ export default {
     // 确认清空当前设备已派工工序
     conformClearAll() {
       production_dispatching_empty_device({
-        DeviceNo: this.selectedDeviceNo
+        DeviceNo: this.selectedDeviceNo,
       }).then(() => {
         this.getProcessByDevice(this.selectedDeviceNo);
         this.clearAllVisible = false;
-      })
+      });
     },
     // 点击箭头添加到已派工
     pushToAllocated(e) {
@@ -298,45 +326,48 @@ export default {
         PlanEnd: e.PlanEnd,
         DeviceName: this.selectedDeviceNo,
         IsModifyDate: true,
-        DeviceProcessingSequence: this.processList1[this.processList1.length - 1].DeviceProcessingSequence + 1,
-      }
+        DeviceProcessingSequence:
+          this.processList1[this.processList1.length - 1]
+            .DeviceProcessingSequence + 1,
+      };
       this.editDevice(obj);
     },
     // 添加到已派工工序
-    handleAddAllocated(e){
+    handleAddAllocated(e) {
       const obj = {
         TaskProcessId: this.processList1[e.newIndex].Id,
         PlanStart: this.processList1[e.newIndex].PlanStart,
         PlanEnd: this.processList1[e.newIndex].PlanEnd,
         DeviceName: this.selectedDeviceNo,
         IsModifyDate: true,
-        DeviceProcessingSequence: this.confirmSequence(e.newIndex)
-      }
+        DeviceProcessingSequence: this.confirmSequence(e.newIndex),
+      };
       this.editDevice(obj);
     },
     // 已派工内部调整顺序
     handleUpdate(e) {
       // 鼠标拖至右下时有e.newIndex = this.processList1.length，做处理
-      const newIndex = (e.newIndex === this.processList1.length) ? e.newIndex - 1 : e.newIndex;
+      const newIndex =
+        e.newIndex === this.processList1.length ? e.newIndex - 1 : e.newIndex;
       const obj = {
         TaskProcessId: this.processList1[newIndex].Id,
         PlanStart: this.processList1[newIndex].PlanStart,
         PlanEnd: this.processList1[newIndex].PlanEnd,
         DeviceName: this.selectedDeviceNo,
         IsModifyDate: true,
-        DeviceProcessingSequence: this.confirmSequence(newIndex)
-      }
+        DeviceProcessingSequence: this.confirmSequence(newIndex),
+      };
       this.editDevice(obj);
     },
     // 添加到未派工工序
-    handleAddUnallocated(e){
+    handleAddUnallocated(e) {
       const obj = {
         TaskProcessId: this.processList2[e.newIndex].Id,
         PlanStart: this.processList2[e.newIndex].PlanStart,
         PlanEnd: this.processList2[e.newIndex].PlanEnd,
-        DeviceName: '',
+        DeviceName: "",
         IsModifyDate: true,
-      }
+      };
       this.editDevice(obj);
     },
     confirmSequence(e) {
@@ -345,7 +376,7 @@ export default {
       if (e === 0) {
         if (length > 1) {
           // 排在头部，原工序不为空
-          result = (this.processList1[1].DeviceProcessingSequence) / 2;
+          result = this.processList1[1].DeviceProcessingSequence / 2;
         } else {
           // 排在头部，原工序为空
           result = 1;
@@ -355,12 +386,15 @@ export default {
         result = this.processList1[e - 1].DeviceProcessingSequence + 1;
       } else {
         // 排在中间
-        result = this.calculateDifference(this.processList1[e-1].DeviceProcessingSequence,this.processList1[e+1].DeviceProcessingSequence)
+        result = this.calculateDifference(
+          this.processList1[e - 1].DeviceProcessingSequence,
+          this.processList1[e + 1].DeviceProcessingSequence
+        );
       }
-      return result
+      return result;
     },
     calculateDifference(a, b) {
-      let diff = this.newCalculate(b, a, 'reduce')
+      let diff = this.newCalculate(b, a, "reduce");
       let result = 0;
       let threshold = Math.pow(10, 9);
       while (diff > 0) {
@@ -372,32 +406,38 @@ export default {
           result = threshold;
         }
       }
-      return this.newCalculate(a, result, 'plus')
+      return this.newCalculate(a, result, "plus");
     },
-    newCalculate(num1 ,num2 ,type) {
+    newCalculate(num1, num2, type) {
       const factor = Math.pow(10, 10);
-      if (type === 'plus') {
-        return Math.round((num1 * factor) + (num2 * factor)) / factor;
+      if (type === "plus") {
+        return Math.round(num1 * factor + num2 * factor) / factor;
       } else {
-        return Math.round((num1 * factor) - (num2 * factor)) / factor;
+        return Math.round(num1 * factor - num2 * factor) / factor;
       }
     },
     // 设备更改
     editDevice(e) {
-      production_dispatching_change_device(e).then(() => {
-        this.getProcessByDevice(this.selectedDeviceNo);
-        this.editProcessDialogFormVisible = false;
-      }).catch(() => {
-        // 未更改成功时刷新列表以重置为拖拽前
-        this.getProcessByDevice(this.selectedDeviceNo);
-      })
+      production_dispatching_change_device(e)
+        .then(() => {
+          this.getProcessByDevice(this.selectedDeviceNo);
+          this.editProcessDialogFormVisible = false;
+        })
+        .catch(() => {
+          // 未更改成功时刷新列表以重置为拖拽前
+          this.getProcessByDevice(this.selectedDeviceNo);
+        });
     },
     onMove(e) {
-      if (e.draggedContext.element.FixedProcessingDevice && ( e.from.id !== e.to.id)) return false;
+      if (
+        e.draggedContext.element.FixedProcessingDevice &&
+        e.from.id !== e.to.id
+      )
+        return false;
       return true;
-    }
+    },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
 .allocation-page {
@@ -523,12 +563,11 @@ export default {
       }
     }
   }
-  .ghostClass-box{
-    width: 50%!important;
+  .ghostClass-box {
+    width: 50% !important;
   }
-  .ghostClass-box-1{
-    width: 100%!important;
+  .ghostClass-box-1 {
+    width: 100% !important;
   }
 }
-
 </style>
