@@ -84,7 +84,6 @@ export const tableConfig = [
     width: "120px",
     formCpn: "FormInput",
     filter: "amount",
-    width: "120px",
   },
   /*金额*/
   {
