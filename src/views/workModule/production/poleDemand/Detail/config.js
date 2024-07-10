@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-12-16 08:29:01
- * @LastEditTime: 2024-07-09 15:05:43
+ * @LastEditTime: 2024-07-10 13:44:20
  * @Description:
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
@@ -44,8 +44,39 @@ export const tableConfig = [
   },
   /*数量*/
   {
-    prop: "ProductionQuantity",
+    prop: "Quantity",
     label: i18n.t("Generality.Ge_Quantity"),
+    formCpn: "FormInput",
+    align: "right",
+    type: "number",
+    width: "100px",
+    filter: "amount",
+  },
+
+  //   ProductionRoughWorker
+  // ProductionSeiko
+  // ProductionZhonggong
+  {
+    prop: "ProductionSeiko",
+    label: "精工",
+    formCpn: "FormInput",
+    align: "right",
+    type: "number",
+    width: "100px",
+    filter: "amount",
+  },
+  {
+    prop: "ProductionRoughWorker",
+    label: "粗工",
+    formCpn: "FormInput",
+    align: "right",
+    type: "number",
+    width: "100px",
+    filter: "amount",
+  },
+  {
+    prop: "ProductionZhonggong",
+    label: "中工",
     formCpn: "FormInput",
     align: "right",
     type: "number",
