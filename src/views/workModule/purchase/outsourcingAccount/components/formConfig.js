@@ -67,4 +67,96 @@ export const formSchema = [
       },
     ],
   },
+  // 发票号
+  {
+    prop: "InvoiceNo",
+    cpn: "FormInput",
+    label: "发票号",
+  },
+  {
+    // 汇率
+    prop: "ExchangeRate",
+    label: '汇率',
+    cpnProps: {
+      type: 'number'
+    },
+    default: 1,
+    cpn: "FormInput",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  // 发票类型
+  {
+    prop: "AccountType",
+    label: "发票类型",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+    cpn: "FormSelect",
+    default: 'PurchaseStorage',
+    options: {
+      list: [
+        {
+          label: "入库发票",
+          value: "PurchaseStorage",
+        },
+        {
+          label: "订单发票",
+          value: "PurchaseOrder",
+        },
+      ],
+    }
+  },
+  {
+    // 来源单据
+    prop: "RelationId",
+    label: '来源单据',
+    cpn: "FormInput",
+    cpnProps: {disabled: true}
+  },
+  {
+    // 红蓝字发票
+    prop: "AccountColor",
+    label: "红蓝字发票",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+    cpn: "FormRadio",
+    cpnProps: {disabled: true},
+    default: 'Blue',
+    options: {
+      list: [
+        {
+          value: "Blue",
+          label: "蓝字",
+        },
+        {
+          value: "Red",
+          label: "红字",
+        },
+      ],
+    }
+  },
+  // 是否普通发票
+  {
+    prop: "OrdinaryInvoice",
+    label: "是否普通发票",
+    cpn: "FormSingleCheckBox",
+    options: {
+      CheckBoxlabel: ''
+    },
+  },
 ];

@@ -5,6 +5,7 @@
  * @Description:
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
+import {AccountTypeEnum} from "@/enum/workModule/Purchase/AccountTypeEnum";
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -128,7 +129,7 @@ export const detailConfig = [
   },
   {
     // 发票号
-    prop: "ReceiptNumber",
+    prop: "InvoiceNo",
     label: '发票号',
   },
   {
@@ -163,7 +164,8 @@ export const detailConfig = [
   },
   {
     // 委外付款日期
-    prop: "OutsourcedPayDate",
+    // prop: "OutsourcedPayDate",
+    prop: "StartDate",
     label: "委外付款日期",
     filter: "time",
   },
@@ -174,8 +176,11 @@ export const detailConfig = [
   },
   {
     // 订单类型
-    prop: "OrderType",
+    prop: "AccountType",
     label: '订单类型',
+    customFilter(v) {
+      return AccountTypeEnum[v] ? AccountTypeEnum[v].name : '--';
+    }
   },
   {
     // 制单人
