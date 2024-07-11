@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2022-02-22 16:21:55
- * @LastEditTime: 2024-07-11 15:46:23
+ * @LastEditTime: 2024-07-11 16:12:10
  * @Description: file content
  */
 //销售订单明细 配置文件
@@ -160,7 +160,7 @@ const formSchema = [
     label: "明细状态",
     cpn: "FormSelect",
     options: {
-      list: enumToList(ItemState),
+      list: ItemState.getEnums(),
     },
   },
   {
