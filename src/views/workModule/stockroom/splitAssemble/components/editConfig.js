@@ -11,8 +11,8 @@ import { EditTable as BaseTable } from "@/jv_doc/class/table";
 export class EditTable extends BaseTable {
   constructor() {
     super({
-      tableSchema: tableConfig,
       data:[],
+      tableSchema: tableConfig,
       title:'',
       tableHeaderShow:false,
       height:250,
@@ -65,7 +65,30 @@ export const tableConfig = [
     type:'number',
     filter: "amount",
   },
-
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
+    align: "right",
+    width: "100px",
+    formCpn: "FormInput",
+  },
+  {
+    prop: "ProductionDate",
+    label: '生产日期',
+    align: "right",
+    width: "100px",
+    formCpn: "SingleTime",
+    default: new Date()
+  },
+  {
+    prop: "Effective",
+    label: '有效期',
+    align: "right",
+    type:'number',
+    width: "100px",
+    formCpn: "FormInput",
+  },
   /*备注*/
   {
     prop: "Remarks",

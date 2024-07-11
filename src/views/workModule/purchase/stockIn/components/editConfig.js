@@ -176,6 +176,7 @@ export const tableConfig = [
     prop: "Effective",
     label: '有效期',
     align: "right",
+    type: "number",
     width: "100px",
     formCpn: "FormInput",
   },
