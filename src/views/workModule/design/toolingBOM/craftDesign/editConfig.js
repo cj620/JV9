@@ -1,15 +1,15 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2022-01-12 17:06:46
+ * @LastEditTime: 2024-07-11 15:50:40
  * @Description: file content
  */
 import { EditTable as BaseTable } from "@/jv_doc/class/table";
 import { getAllProcess } from "@/api/workApi/production/baseData";
-import {getAllProjectProcess} from "@/api/workApi/project/baseData";
+import { getAllProjectProcess } from "@/api/workApi/project/baseData";
 
 export class EditTable extends BaseTable {
-  constructor() {
+  constructor(props) {
     super({
       tableSchema: tableConfig,
       data: [],
@@ -17,6 +17,7 @@ export class EditTable extends BaseTable {
       tableHeaderShow: false,
       height: 890,
       operationWidth: 80,
+      ...props,
     });
   }
 }
@@ -69,7 +70,7 @@ export const tableConfig = [
       immediate: true,
       keyName: "Process",
       valueName: "Process",
-    }
+    },
   },
   /*编程预计工时*/
   {
@@ -103,5 +104,5 @@ export const tableConfig = [
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
     formCpn: "FormInput",
-  }
+  },
 ];

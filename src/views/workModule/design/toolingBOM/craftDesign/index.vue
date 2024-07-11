@@ -30,10 +30,13 @@
               label: $t('project.Pro_SelectTemplate'),
               confirm: selectProcessTemplate,
             },
+            {
+              label: '选择零件需求明细',
+              confirm: selectPartCraft,
+            },
           ]"
         >
         </Action>
-
       </div>
       <JvEditTable :tableObj="eTableObj">
         <template #ProcessContent="{ row }">
@@ -98,7 +101,7 @@
     >
     </SelectProcessTemplate>
     <jv-dialog
-       :title="$t('Generality.Ge_AddNewPicture')"
+      :title="$t('Generality.Ge_AddNewPicture')"
       width="35%"
       :close-on-click-modal="false"
       :modal-append-to-body="false"
@@ -109,6 +112,12 @@
     >
       <JvUploadList v-model="ImgDataList" :listType="true"></JvUploadList>
     </jv-dialog>
+    <SelectPartCraft
+      :visible.sync="PartCraftDialogFormVisible"
+      v-if="PartCraftDialogFormVisible"
+      @confirm="confirmPartCraft"
+    >
+    </SelectPartCraft>
   </PageWrapper>
 </template>
 
@@ -118,6 +127,7 @@ import { formSchema } from "./formConfig";
 import { EditTable } from "./editConfig";
 import SelectProcess from "@/components/JVInternal/SelectProcess/index";
 import SelectProcessTemplate from "@/components/JVInternal/SelectProcessTemplate/index";
+import SelectPartCraft from "./SelectPartCraft.vue";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
 import JvUploadList from "@/components/JVInternal/JvUpload/List";
 import {
@@ -135,6 +145,7 @@ export default {
       eTableObj: {},
       ImgDataList: [],
       ProcessDialogFormVisible: false,
+      PartCraftDialogFormVisible: false,
       ProcessTemplateDialogFormVisible: false, //工艺模板
       SelectedData: {}, //添加工序图片的时候要确定选择那一道工序用的
       ImgDialogFormVisible: false,
@@ -160,6 +171,7 @@ export default {
     SelectProcess,
     SelectProcessTemplate,
     JvUploadList,
+    SelectPartCraft,
   },
   computed: {
     ...mapState({
@@ -278,7 +290,8 @@ export default {
 
       var str = {
         PartNo: this.formObj.form.PartNo,
-        IsFinishedProductInspection: this.formObj.form.IsFinishedProductInspection,
+        IsFinishedProductInspection:
+          this.formObj.form.IsFinishedProductInspection,
         PartProcesses: arr,
       };
       savePartProcess(str).then((res) => {
@@ -286,12 +299,19 @@ export default {
           path: "/design/toolingBOM",
           name: `ToolingBOM`,
           fullPath: "/design/toolingBOM",
-          params:{
-            PartNo:this.formObj.form.PartNo
-          }
+          params: {
+            PartNo: this.formObj.form.PartNo,
+          },
         };
         closeTag(this.current, TagName);
       });
+    },
+    selectPartCraft() {
+      this.PartCraftDialogFormVisible = true;
+    },
+    confirmPartCraft(data) {
+      this.confirmProcessTemplate(data);
+      this.PartCraftDialogFormVisible = false;
     },
   },
 };

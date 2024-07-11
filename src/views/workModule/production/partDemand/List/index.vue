@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 11:33:00
- * @LastEditTime: 2024-07-09 15:49:43
+ * @LastEditTime: 2024-07-11 15:33:03
  * @Description: 试模任务
 -->
 <template>
@@ -32,6 +32,10 @@
               title: $t('Generality.Ge_DeleteConfirm'),
               confirm: delBills,
             },
+          },
+          {
+            label: '明细',
+            confirm: toDetailsList.bind(null, row),
           },
         ]"
       >
@@ -80,6 +84,12 @@ export default {
         .then((_) => {
           this.tableObj.getData();
         });
+    },
+    // 跳转至明细
+    toDetailsList() {
+      this.$router.push({
+        name: "Pr_PartProductionDemand_Detail_list",
+      });
     },
   },
   computed: {

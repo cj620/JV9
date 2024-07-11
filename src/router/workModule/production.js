@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-09 10:10:13
- * @LastEditTime: 2024-07-09 15:48:41
+ * @LastEditTime: 2024-07-11 15:19:58
  * @Description:生产模块
  */
 
@@ -146,6 +146,20 @@ const production = [
     name: "Pr_PartProductionDemand",
     path: "Pr_PartProductionDemand",
     title: i18n.t("menu.Pr_PartProductionDemand"),
+  },
+  // 零件生产需求列表
+  {
+    key: "Pr_PartProductionDemand_Detail_list",
+    component: () =>
+      import("@/views/workModule/production/partDemand/DetailsList"),
+    Parent: "Pr_Production",
+    name: "Pr_PartProductionDemand_Detail_list",
+    path: "Pr_PartProductionDemand_Detail_list",
+    title:
+      i18n.t("menu.Pr_PartProductionDemand") +
+      "   " +
+      i18n.t("Generality.Ge_Details1"),
+    hidden: true,
   },
 
   // 新增零件生产需求
