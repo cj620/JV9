@@ -108,10 +108,12 @@ export default {
         ItemId: "",
         ItemName: "",
         Description: "",
+        Description2: "",
         Unit: "",
         Quantity: 0,
         ToolingNo: "",
         Remarks: "",
+        BatchNo: "",
       },
     };
   },
