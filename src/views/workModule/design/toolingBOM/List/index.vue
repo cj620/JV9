@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2024-07-09 16:11:49
+ * @LastEditTime: 2024-07-11 09:55:57
  * @Description: 模具BOM
 -->
 
@@ -476,7 +476,7 @@ export default {
         ProduceDemand: "",
         ProduceDemandA: "",
         ProduceDemandB: "",
-        ResType: "",
+        ResType: timeFormat(new Date(), "yyMMdd"),
       },
       exportTemplate: [
         {
@@ -721,7 +721,12 @@ export default {
       });
     },*/
     copy(row, index) {
-      let str = JSON.parse(JSON.stringify(row));
+      let str = JSON.parse(
+        JSON.stringify({
+          ...row,
+          ResType: timeFormat(new Date(), "yyMMdd"),
+        })
+      );
       str.ItemId = "";
       this.eTableObj.insert(index, format2source([str]));
     },
@@ -744,6 +749,7 @@ export default {
     l_addRow() {
       /*this.l_insert(-1);*/
       this.saveData.Quantity = 1;
+      this.saveData.ResType = timeFormat(new Date(), "yyMMdd");
       this.eTableObj.push([this.saveData]);
     },
     l_insert(index) {
