@@ -150,6 +150,8 @@ export default {
         this.formObj.form.PartName = res.PartName;
         this.formObj.form.Quantity = this.$route.query.UnqualifiedQty;
         this.formObj.form.Process = this.$route.query.Process;
+        this.formObj.form.AssociatedNo = this.$route.query.AssociatedNo;
+        this.formObj.form.InspectionType = this.$route.query.InspectionType;
         this.formObj.form.EstimatedLoss = 0;
         this.processList = res.Process.filter(
           (item) => item.State !== "Received" && item.State !== "ToBeReceived"

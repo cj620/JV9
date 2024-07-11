@@ -5,6 +5,8 @@
  * @Description:
  */
 import { getAllProcess } from "@/api/workApi/production/baseData";
+import { enumToList } from '~/utils/system/enumsPlugin'
+import { QcType } from '@/enum/workModule'
 
 export const formSchema = [
   {
@@ -135,5 +137,26 @@ export const formSchema = [
         trigger: ["change", "blur"],
       },
     ],
+  },
+  {
+    // 关联编号
+    prop: "AssociatedNo",
+    label: i18n.t('Generality.Ge_AssociatedNo'),
+    cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
+    },
+  },
+  {
+    // 检验类型
+    prop: "InspectionType",
+    label: i18n.t("quality.Qc_ProcessCheckType"),
+    cpn: "FormSelect",
+    cpnProps: {
+      disabled: true
+    },
+    options:{
+      list: enumToList(QcType),
+    }
   },
 ];

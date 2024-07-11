@@ -232,7 +232,9 @@ export default {
         query: {
           PrTaskBillId: this.detailObj.detailData.PrTaskBillId,
           Process: this.detailObj.detailData.SelfCheckProcess,
-          UnqualifiedQty: this.detailObj.detailData.UnqualifiedQty
+          UnqualifiedQty: this.detailObj.detailData.UnqualifiedQty,
+          AssociatedNo:this.detailObj.detailData.BillId,
+          InspectionType:"Qc_ProcessCheck",
         }
       })
     }
