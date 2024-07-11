@@ -96,7 +96,7 @@
 
 <script>
 import { formSchema } from "./formConfig";
-import { EditTable } from "./editConfig";
+import { EditTable, tableConfig } from "./editConfig";
 import { Form } from "@/jv_doc/class/form";
 import SelectMaterial from "@/components/JVInternal/SelectMaterial";
 import { API as splitAssemble } from "@/api/workApi/stockroom/splitAssemble";
@@ -105,6 +105,7 @@ import closeTag from "@/utils/closeTag";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
+import {timeFormat} from "~/utils/time";
 export default {
   name: "index",
   components: {
@@ -143,6 +144,9 @@ export default {
         Quantity: 0,
         Remarks: "",
         Direction: 0,
+        BatchNo: 0,
+        ProductionDate: timeFormat(new Date()),
+        Effective: 0,
       },
     };
   },
@@ -172,7 +176,9 @@ export default {
       labelWidth: "80px",
     });
     this.eTableObj = new EditTable();
+
     this.viceTableObj = new EditTable();
+    console.log(this.viceTableObj,176)
     if (this.type === "edit" || this.type === "copy") {
       this.fileBillId = this.billData;
       await this.GetData(this.fileBillId);
@@ -180,6 +186,7 @@ export default {
   },
 
   methods: {
+    timeFormat,
     //编辑的时候获取信息
     async GetData(Id) {
       await splitAssemble.api_get({ BillId: Id }).then((res) => {

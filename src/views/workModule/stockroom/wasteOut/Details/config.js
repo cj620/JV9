@@ -56,10 +56,10 @@ export const tableConfig = [
     label: '批号',
   },
   /*库位*/
-  {
-    prop: "Stockroom",
-    label:i18n.t("setup.Stockroom"),
-  },
+  // {
+  //   prop: "Stockroom",
+  //   label:i18n.t("setup.Stockroom"),
+  // },
   /*备注*/
   {
     prop: "Remarks",

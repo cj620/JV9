@@ -44,6 +44,12 @@ export const tableConfig = [
       disabled: true,
     },
   },
+  /*描述2*/
+  {
+    prop: "Description2",
+    label: i18n.t("design.De_Description2"),
+    formCpn: "FormInput",
+  },
   /*单位*/
   {
     prop: "Unit",
@@ -62,7 +68,14 @@ export const tableConfig = [
     type: "number",
     width: "100px",
   },
-
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
+    align: "right",
+    width: "100px",
+    formCpn: "FormInput",
+  },
   /*备注*/
   {
     prop: "Remarks",

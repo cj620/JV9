@@ -50,5 +50,10 @@ export const formSchema = [
       }
     ]
   },
-
+  {
+    // 相关数据
+    prop: 'RelatedData',
+    cpn: "FormInput",
+    label: "相关数据",
+  },
 ];
