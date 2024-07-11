@@ -75,6 +75,11 @@ const tableSchema = [
     prop: "Stockroom",
     label: i18n.t("setup.Stockroom"),
   },
+  /*提交人*/
+  {
+    prop: "Submitter",
+    label: i18n.t("stockroom.St_Submitter"),
+  },
   /*物料编号*/
   {
     prop: "ItemId",
@@ -105,7 +110,19 @@ const tableSchema = [
     align: "right",
     filter: "amount",
   },
-
+  /*制单人*/
+  {
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+    width: "95px",
+  },
+  /*制单日期*/
+  {
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
+    width: "150px",
+  },
   /*备注*/
   {
     prop: "ItemRemarks",
