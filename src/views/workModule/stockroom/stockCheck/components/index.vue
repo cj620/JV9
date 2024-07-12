@@ -112,6 +112,7 @@ export default {
         AccountQuantity: 0,
         CheckQuantity: 0,
         Remarks: "",
+        BatchNo: ""
       },
     };
   },

@@ -28,5 +28,32 @@ export const formSchema = [
       }
     ]
   },
-
+  {
+    // 调整人
+    prop: "Adjuster",
+    cpn: "SyncSelect",
+    label: "调整人",
+    custom: true,
+    apiOptions: {
+      immediate: true,
+      keyName: "UserName",
+      valueName: "UserName",
+    },
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
+    // 调整部门
+    prop: "AdjustDepartment",
+    label: "调整部门",
+    cpn: "FormInput",
+    cpnProps: {
+      disabled: true,
+    },
+  },
 ];

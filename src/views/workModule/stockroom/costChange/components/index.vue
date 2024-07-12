@@ -4,7 +4,23 @@
   <!-- 单据信息 -->
   <PageWrapper ref="page">
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
-      <JvForm :formObj="formObj"> </JvForm>
+      <JvForm :formObj="formObj">
+        <template #Adjuster="{ prop }">
+          <el-select
+            v-model="formObj.form[prop]"
+            filterable
+            @change="changeSubmitter"
+          >
+            <el-option
+              v-for="item in SubmitterData"
+              :key="item.UserName"
+              :label="item.UserName"
+              :value="item.UserName"
+            >
+            </el-option>
+          </el-select>
+        </template>
+      </JvForm>
     </JvBlock>
     <!-- 物料信息 -->
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
@@ -77,6 +93,7 @@ import closeTag from "@/utils/closeTag";
 import { temMerge } from "@/jv_doc/utils/handleData/index";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
+import {getAllUserData} from "@/api/basicApi/systemSettings/user";
 export default {
   name: "index",
   components: {
@@ -108,10 +125,12 @@ export default {
         ItemId: "",
         ItemName: "",
         Description: "",
+        Description2:"",
         Unit: "",
         Amount: 0,
         Remarks: "",
       },
+      SubmitterData: [],
     };
   },
   computed: {
@@ -144,9 +163,16 @@ export default {
       this.fileBillId = this.billData;
       await this.GetData(this.fileBillId);
     }
+
+    await this.Configuration();
   },
 
   methods: {
+    async Configuration() {
+      await getAllUserData({}).then((res) => {
+        this.SubmitterData = res.Items;
+      });
+    },
     //编辑的时候获取信息
     async GetData(Id) {
       await costChange.api_get({ BillId: Id }).then((res) => {
@@ -159,7 +185,13 @@ export default {
         this.eTableObj.setData(res.BillItems);
       });
     },
-
+    changeSubmitter(e) {
+      this.SubmitterData.forEach((item) => {
+        if (item.UserName === e) {
+          this.formObj.form.AdjustDepartment = item.DepartmentName;
+        }
+      });
+    },
     //选择物料
     selectItems() {
       this.formObj.validate((valid) => {
