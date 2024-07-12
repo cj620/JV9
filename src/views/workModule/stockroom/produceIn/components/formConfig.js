@@ -42,5 +42,11 @@ export const formSchema = [
       }
     ]
   },
-
+  {
+    // 来源单据
+    prop: "RelationId",
+    label: '来源单据',
+    cpn: "FormInput",
+    cpnProps: {disabled: true}
+  },
 ];

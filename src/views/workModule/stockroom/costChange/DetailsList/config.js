@@ -97,19 +97,30 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_Unit"),
     width: "70px",
   },
-  /*数量*/
-  {
-    prop: "Quantity",
-    label: i18n.t("Generality.Ge_Quantity"),
-    width: "90px",
-    align: "right",
-    filter: "amount",
-  },
+  // /*数量*/
+  // {
+  //   prop: "Quantity",
+  //   label: i18n.t("Generality.Ge_Quantity"),
+  //   width: "90px",
+  //   align: "right",
+  //   filter: "amount",
+  // },
 
   /*备注*/
   {
     prop: "ItemRemarks",
     label: i18n.t("Generality.Ge_Remarks"),
+  },
+  {
+    // 制单人
+    prop: "Creator",
+    label: i18n.t("Generality.Ge_Creator"),
+  },
+  {
+    // 制单日期
+    prop: "CreationDate",
+    label: i18n.t("Generality.Ge_CreationDate"),
+    filter: "time",
   },
 ];
 //  搜索表单配置

@@ -75,6 +75,14 @@ export const tableConfig = [
     width:'130px',
     filter: "amount",
   },
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
+    align: "right",
+    width: "100px",
+    formCpn: "FormInput",
+  },
   /*备注*/
   {
     prop: "Remarks",
