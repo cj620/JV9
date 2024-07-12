@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-09-13 15:14:53
- * @LastEditTime: 2022-01-18 13:22:31
+ * @LastEditTime: 2024-07-12 08:39:08
  * @Description: file content
 -->
 <template>
@@ -74,10 +74,10 @@ export default {
       default: () => {},
     },
   },
-    create() {
-		console.log(this.tableProps)
-	},
-	methods: {
+  create() {
+    console.log(this.tableProps);
+  },
+  methods: {
     saveChange() {
       setTableSchema(this.tableProps.printMod, this.tableProps.tableSchema);
     },
