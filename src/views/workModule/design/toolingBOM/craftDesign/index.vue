@@ -189,6 +189,7 @@ export default {
     });
     this.eTableObj = new EditTable();
     if (this.$route.params.data) {
+      console.log(this.$route.params.data[0]);
       this.formObj.form = this.$route.params.data[0];
       this.GetData();
     }

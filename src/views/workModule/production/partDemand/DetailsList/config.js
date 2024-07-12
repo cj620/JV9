@@ -1,14 +1,14 @@
 /*
  * @Author: C.
  * @Date: 2022-02-22 16:21:55
- * @LastEditTime: 2024-07-11 16:12:10
+ * @LastEditTime: 2024-07-12 17:11:09
  * @Description: file content
  */
 //销售订单明细 配置文件
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 // import { getSaleOrderDetails } from "@/api/workApi/sale/order";
-import { enumToList, enumFilter, taskTypeEnum } from '@/enum/workModule'
+import { enumToList, enumFilter, taskTypeEnum } from "@/enum/workModule";
 import { part_production_demand_item_list } from "@/api/workApi/production/partProductionDemand";
 import { ItemState } from "@/enum/workModule/production/ItemState";
 import { options } from "runjs";
@@ -34,8 +34,10 @@ export class Table extends BaseTable {
       api,
       // 打印模块标识
       printMod: "Pr_PartProductionDemand_Detail_list",
-      operationCol: false,
+      operationCol: true,
       printBar: false,
+      // 操作列宽度
+      operationWidth: 160,
     });
   }
 }
