@@ -62,10 +62,10 @@ export const tableConfig = [
     filter: "time"
   },
   /*有效期*/
-  {
-    prop: "Effective",
-    label: '有效期',
-  },
+  // {
+  //   prop: "Effective",
+  //   label: '有效期',
+  // },
   /*备注*/
   {
     prop: "Remarks",

@@ -19,7 +19,12 @@
         {
           label: $t('Generality.Ge_Print') + '  ' + $t('menu.Pu_Purchase'),
           confirm: printPO,
-        }
+        },
+        {
+          label: '发票',
+          disabled: !stateForm.transform,
+          confirm: Account.bind(null,'Pu_OutsourcingAccount_Add', 'deliveryData'),
+        },
 
       ]"
     ></Action>
@@ -172,6 +177,13 @@ export default {
       printPlugin({
         ids: [this.$route.query.BillId],
         category: "Pu_OutsourcingOrder",
+      });
+    },
+    Account(routerName,keyName) {
+      this.detailObj.detailData.RelationId = this.detailObj.detailData.BillId
+      this.$router.push({
+        name: routerName,
+        params: { [keyName]: this.detailObj.detailData },
       });
     },
     tabClick(e) {

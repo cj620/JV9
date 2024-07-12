@@ -172,14 +172,14 @@ export const tableConfig = [
     formCpn: "SingleTime",
   },
   /*有效期*/
-  {
-    prop: "Effective",
-    label: '有效期',
-    align: "right",
-    type: "number",
-    width: "100px",
-    formCpn: "FormInput",
-  },
+  // {
+  //   prop: "Effective",
+  //   label: '有效期',
+  //   align: "right",
+  //   type: "number",
+  //   width: "100px",
+  //   formCpn: "FormInput",
+  // },
   /*备注*/
   {
     prop: "Remarks",

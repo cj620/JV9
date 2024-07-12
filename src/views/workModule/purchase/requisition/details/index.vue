@@ -147,6 +147,36 @@ export default {
         this.stateForm = auditPlugin(res);
         this.tableObj.setData(res.BillItems);
         this.btnAction = detailPageModel(this, res, API, this.GetData);
+        this.btnAction.push({
+          label: '采购',
+          disabled: !this.stateForm.transform,
+          confirm: this.Account.bind(null,'Pu_Order_Add', 'deliveryData'),
+        })
+      });
+    },
+    // goPuOrder() {
+    //   this.$router.push({
+    //     name: "Pu_Order_Add",
+    //     params: {
+    //       RelationId: this.detailObj.detailData.BillId,
+    //     }
+    //   })
+    // },
+    Account(routerName,keyName) {
+      this.detailObj.detailData.RelationId = this.detailObj.detailData.BillId;
+      this.detailObj.detailData.BillItems.forEach(item => {
+        item.Price = 0
+          item.Amount = 0
+        item.Tax = 0
+        item.TDA = ""
+        item.AuxiliaryQty = 0
+        item.AuxiliaryPrice = 0
+        item.OtherExpenses = ""
+        item.DeliveryDate = ""
+      })
+      this.$router.push({
+        name: routerName,
+        params: { [keyName]: this.detailObj.detailData },
       });
     },
     tabClick(e) {

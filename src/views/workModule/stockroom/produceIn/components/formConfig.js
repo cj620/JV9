@@ -42,6 +42,44 @@ export const formSchema = [
       }
     ]
   },
+  // 类别
+  {
+    prop: "Category",
+    label: "类别",
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+    cpn: "FormSelect",
+    default: 'ProductionIn',
+    options: {
+      list: [
+        {
+          label: "生产入库",
+          value: 'ProductionIn',
+        },
+        {
+          label: "返工入库",
+          value: 'ReworkIn',
+        },
+        {
+          label: "待定入库",
+          value: 'PendingIn',
+        },
+        {
+          label: "报废入库",
+          value: 'ScrapIn',
+        },
+        {
+          label: "模具入库",
+          value: 'MoldIn',
+        }
+      ],
+    }
+  },
   {
     // 来源单据
     prop: "RelationId",
