@@ -11,6 +11,7 @@
       @confirm="confirmMaterial"
     >
       <div style="margin: 5px 10px">
+        零件号:
         <el-select
           v-model="value"
           filterable
@@ -112,7 +113,7 @@ export default {
   },
   props: {},
   created() {
-    this.eTableObj = new EditTable({ chooseCol: false });
+    this.eTableObj = new EditTable({ chooseCol: false, height: 400 });
   },
 
   methods: {
