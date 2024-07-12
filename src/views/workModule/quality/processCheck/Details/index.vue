@@ -204,7 +204,7 @@ export default {
           this.btnAction.push({
             label: this.$t('quality.Qc_CreateErrorReport'),
             confirm: this.createError,
-            disabled: this.detailObj.detailData.ProcessingResult === "Qualified",
+            disabled: this.detailObj.detailData.State !== "Approved" || this.detailObj.detailData.ProcessingResult === "Qualified",
           });
         }
       );
