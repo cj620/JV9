@@ -116,6 +116,8 @@ export default {
         Price: 0,
         Amount: 0,
         Remarks: "",
+        BatchNo: "",
+        ProductionDate: "",
       },
     };
   },
