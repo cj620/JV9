@@ -219,27 +219,10 @@
       :visible.sync="productCommandDialogVisible"
       v-if="productCommandDialogVisible"
       @confirm="confirmProductCommande"
-      width="25%"
+      width="80%"
       :autoFocus="true"
     >
-      <JvForm :formObj="productCommandformObj">
-        <template #ItemId="{ row }">
-          <el-select
-            v-model="productCommandId"
-            style="width: 100%"
-            filterable
-            default-first-option
-          >
-            <el-option
-              v-for="item in CommandItemList"
-              :key="item.Id"
-              :label="`${item.ItemId}(${item.ItemName})`"
-              :value="item.Id"
-            >
-            </el-option>
-          </el-select>
-        </template>
-      </JvForm>
+      <JvTable :table-obj="ProductCommandetableObj"> </JvTable>
     </JvDialog>
   </PageWrapper>
 </template>
@@ -248,7 +231,7 @@
 import JvUploadList from "@/components/JVInternal/JvUpload/List";
 import { formSchema, productCommandformSchema } from "./formConfig";
 import { EditTable } from "./editConfig";
-import { Table } from "./tableConfig";
+import { Table, ProductCommandetableClass } from "./tableConfig";
 import selectBomList from "./selectBomList";
 import { timeFormat } from "@/jv_doc/utils/time";
 import { Form } from "@/jv_doc/class/form";
@@ -299,6 +282,7 @@ export default {
       formObj: {},
       eTableObj: {},
       tableObj: {},
+      ProductCommandetableObj: {},
       transferData: [],
       PmTaskData: [],
       productCommandformObj: {},
@@ -379,7 +363,6 @@ export default {
     },
   },
   async created() {
-    console.log(this.taskTypeEnum, 54321);
     this.formObj = new Form({
       formSchema,
       baseColProps: {
@@ -388,57 +371,44 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
-    this.productCommandformObj = new Form({
-      formSchema: productCommandformSchema,
-      baseColProps: {
-        span: 24,
-      },
-      labelPosition: "top",
-      labelWidth: "100px",
-    });
     this.formObj.form.Level = "Ordinary";
     this.eTableObj = new EditTable();
     this.tableObj = new Table();
     this.formObj.form.PlanStart = new Date();
-    console.log(this.formObj.form, new Date(), 5656);
+    console.log(
+      this.type === "edit",
+      this.$route.params.type === "addItem",
+      'this.type === "edit"'
+    );
     if (this.type === "edit") {
       this.editDisabled = true;
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
+    } else if (this.$route.params.type === "addItem") {
+      this.getProductCommande();
     } else {
+      // ? part_production_demand_item_list
+      // : pole_production_demand_item_list;
+      this.ProductCommandetableObj = new ProductCommandetableClass();
+      console.log("555555554455");
       this.productCommandDialogVisible = true;
-      this.productCommandformObj.eventBus.$on("CommandType", async (value) => {
-        // console.log(value, "valueeeeeeee");
-        const params = {
-          CurrentPage: 1,
-          PageSize: 999,
-          State: "Approved",
-          ItemState: "ToBeProduced",
-        };
-        const api =
-          value == "part"
-            ? part_production_demand_item_list
-            : pole_production_demand_item_list;
-        const data = await api(params);
-        // pole_production_demand_item_list
-        this.CommandItemList = data.Items;
-        this.productCommandId = "";
-      });
-
-      const params = {
-        CurrentPage: 1,
-        PageSize: 999,
-        State: "Approved",
-        ItemState: "ToBeProduced",
-      };
-      const data = await part_production_demand_item_list(params);
-      this.CommandItemList = data.Items;
+      this.ProductCommandetableObj.getData();
+      this.ProductCommandetableObj.formObj.eventBus.$on(
+        "CommandType",
+        (value) => {
+          this.ProductCommandetableObj.api.getData =
+            value == "part"
+              ? part_production_demand_item_list
+              : pole_production_demand_item_list;
+        }
+      );
     }
   },
 
   methods: {
     //编辑的时候获取信息
     async GetData(Id) {
+      if (!Id) return;
       await getProductionTask({ BillId: Id }).then((res) => {
         this.ruleForm = res;
         this.ruleForm = Object.assign({}, this.ruleForm, res);
@@ -453,7 +423,7 @@ export default {
         this.eTableObj.setData(arr);
       });
     },
-    async confirmProductCommande() {
+    confirmProductCommande() {
       // this.productCommandformObj.form.CommandType
       // const api =
       //   this.productCommandformObj.form.CommandType == "part"
@@ -461,10 +431,37 @@ export default {
       //     : pole_production_demand_item_list;
       // const data = await api({ BillId: this.productCommandId });
       // CommandItemList this.productCommandId
-      const target = this.CommandItemList.find(
-        (item) => item.Id == this.productCommandId
-      );
+      let { datas } = this.ProductCommandetableObj.selectData;
+      if (datas.length !== 1) {
+        this.$message({
+          type: "warning",
+          message: "请选择一条生产明细！",
+        });
+        return;
+      }
+      let target = datas[0];
       if (!target) return;
+      this.formObj.form.ToolingNo = target.ToolingNo;
+      this.formObj.form.Remarks = target.Remarks;
+      this.formObj.form.PlanEnd = target.DemandDate;
+      this.formObj.form.PmTaskBillId = target.PmTaskBillId;
+      this.formObj.form.BillType = target.BillType;
+      this.formObj.form.DemandType = target.DemandType;
+      this.formObj.form.ProductionDemandBillld = target.BillId;
+      this.formObj.form.AssociatedNo = target.Id;
+      this.formObj.form.Quantity = target.ProductionQuantity;
+      this.productCommandDialogVisible = false;
+    },
+    getProductCommande() {
+      // this.productCommandformObj.form.CommandType
+      // const api =
+      //   this.productCommandformObj.form.CommandType == "part"
+      //     ? part_production_demand_item_list
+      //     : pole_production_demand_item_list;
+      // const data = await api({ BillId: this.productCommandId });
+      // CommandItemList this.productCommandId
+      const target = this.$route.params.data;
+      console.log(target);
       this.formObj.form.ToolingNo = target.ToolingNo;
       this.formObj.form.Remarks = target.Remarks;
       this.formObj.form.PlanEnd = target.DemandDate;
@@ -516,7 +513,6 @@ export default {
 
     //根据任务单号拿计划结束日期
     changePmTaskBillId() {
-      console.log(this.formObj.form.PmTaskBillId);
       this.PmTaskData.forEach((item) => {
         if (this.formObj.form.PmTaskBillId === item.BillId) {
           this.formObj.form.PlanEnd = item.PlanEnd;
@@ -570,7 +566,6 @@ export default {
     },
     //选择模板后返回的数据
     confirmProcessTemplate(e) {
-      console.log(e);
       e.forEach((item) => {
         if (item.ProcessContent.length > 0) {
           item.customData = item.ProcessContent.split(",");
@@ -733,9 +728,7 @@ export default {
       // 判断传过来的数据不为空并且传过来的数据是一条新的数据
       if (this.$route.query.BillId !== undefined) {
         this.editDisabled = true;
-        console.log(this.$route.query.BillId);
         this.billData = this.$route.query.BillId;
-        console.log(this.billData, 696969);
         this.GetData(this.billData);
       }
     },
