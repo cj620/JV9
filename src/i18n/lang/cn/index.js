@@ -784,6 +784,7 @@ const cn = {
     Ge_BillId: "单据编号",
     Ge_BillGui: "单据GUI",
     Ge_State: "状态",
+    Ge_ItemState: "明细状态",
     Ge_DeliveryDate: "计划交期",
     Ge_Currency: "币种",
     Ge_Creator: "制单人",

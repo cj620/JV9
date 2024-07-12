@@ -19,12 +19,12 @@ export const tableConfig = [
   /*物料编号*/
   {
     prop: "ItemId",
-    label: i18n.t("Generality.Ge_ItemId"),
+    label: i18n.t("Generality.Ge_PartNo"),
   },
   /*名称*/
   {
     prop: "ItemName",
-    label: i18n.t("Generality.Ge_ItemName"),
+    label: i18n.t("Generality.Ge_PartName"),
   },
   /*描述*/
   {

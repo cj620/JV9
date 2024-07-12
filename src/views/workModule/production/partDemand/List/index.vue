@@ -35,7 +35,7 @@
           },
           {
             label: '明细',
-            confirm: toDetailsList.bind(null, row),
+            confirm: toDetailsList.bind(null),
           },
         ]"
       >

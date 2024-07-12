@@ -779,6 +779,7 @@ const ja = {
     Ge_BillId: "文書番号",
     Ge_BillGui: "文書GUI",
     Ge_State: "ステータス",
+    Ge_ItemState: "詳細ステータス",
     Ge_DeliveryDate: "計画納期",
     Ge_Currency: "通貨",
     Ge_Creator: "シングルを作る",

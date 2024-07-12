@@ -8,7 +8,7 @@
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 // import { getSaleOrderDetails } from "@/api/workApi/sale/order";
-import { enumToList, enumFilter } from "@/enum/workModule";
+import { enumToList, enumFilter, taskTypeEnum } from '@/enum/workModule'
 import { part_production_demand_item_list } from "@/api/workApi/production/partProductionDemand";
 import { ItemState } from "@/enum/workModule/production/ItemState";
 import { options } from "runjs";
@@ -85,7 +85,13 @@ const tableSchema = [
   {
     // 相关编号
     prop: "PmTaskBillId",
-    label: i18n.t("sale.Sa_RelationId"),
+    label: i18n.t("project.Pro_TaskSheetNo"),
+  },
+  {
+    // 任务类别
+    prop: "TaskType",
+    label: i18n.t("Generality.Ge_TaskType"),
+    customFilter: (value) => enumFilter(value, taskTypeEnum),
   },
   /*计划交期*/
   {
@@ -97,14 +103,8 @@ const tableSchema = [
   /*物料编号*/
   {
     prop: "ItemId",
-    label: i18n.t("Generality.Ge_ItemId"),
-    width: "120px",
-  },
-  {
-    prop: "ItemState",
-    label: "明细状态",
-    width: "120px",
-    customFilter: (value) => ItemState.getLabel(value),
+    label: i18n.t("Generality.Ge_PartNo"),
+    width: "160px",
   },
   /*物料类别*/
   // {
@@ -114,7 +114,7 @@ const tableSchema = [
   /*物料名称*/
   {
     prop: "ItemName",
-    label: i18n.t("Generality.Ge_ItemName"),
+    label: i18n.t("Generality.Ge_PartName"),
     width: "120px",
   },
   /*描述*/
@@ -123,10 +123,18 @@ const tableSchema = [
     label: i18n.t("Generality.Ge_Describe"),
     width: "120px",
   },
+  /*描述2*/
   {
     prop: "Description2",
     label: i18n.t("Generality.Ge_Describe") + "2",
     width: "120px",
+  },
+  /*明细状态*/
+  {
+    prop: "ItemState",
+    label: i18n.t("Generality.Ge_ItemState"),
+    width: "120px",
+    customFilter: (value) => ItemState.getLabel(value),
   },
   /*单位*/
   {
@@ -155,9 +163,10 @@ const formSchema = [
     label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
   },
+  /*明细状态*/
   {
     prop: "ItemState",
-    label: "明细状态",
+    label: i18n.t("Generality.Ge_ItemState"),
     cpn: "FormSelect",
     options: {
       list: ItemState.getEnums(),
