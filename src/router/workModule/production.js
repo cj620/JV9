@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-09 10:10:13
- * @LastEditTime: 2024-07-11 15:19:58
+ * @LastEditTime: 2024-07-12 14:46:55
  * @Description:生产模块
  */
 
@@ -248,6 +248,20 @@ const production = [
       i18n.t("menu.Pr_PoleProductionDemand") +
       "  " +
       i18n.t("Generality.Ge_Details"),
+    hidden: true,
+  },
+  // 零件生产需求列表
+  {
+    key: "Pr_PoleProductionDemand_Detail_list",
+    component: () =>
+      import("@/views/workModule/production/poleDemand/DetailsList"),
+    Parent: "Pr_Production",
+    name: "Pr_PoleProductionDemand_Detail_list",
+    path: "Pr_PoleProductionDemand_Detail_list",
+    title:
+      i18n.t("menu.Pr_PoleProductionDemand") +
+      "   " +
+      i18n.t("Generality.Ge_Details1"),
     hidden: true,
   },
 
