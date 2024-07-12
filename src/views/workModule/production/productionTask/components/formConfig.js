@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-08 13:26:31
- * @LastEditTime: 2022-01-14 14:06:05
+ * @LastEditTime: 2024-07-12 11:14:42
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\views\workModule\sale\saleOrder\components\formConfig.js
@@ -147,5 +147,28 @@ export const formSchema = [
     options: {
       CheckBoxlabel: "",
     },
+  },
+];
+export const productCommandformSchema = [
+  {
+    // 模具编号
+    prop: "CommandType",
+    cpn: "FormRadio",
+    label: "类别",
+    type: "button",
+    default: "part",
+    options: {
+      list: [
+        { label: "零件", value: "part" },
+        { label: "电极", value: "pole" },
+      ],
+    },
+  },
+  {
+    // 模具编号
+    prop: "ItemId",
+    cpn: "SyncSelect",
+    label: "生产明细",
+    custom: true,
   },
 ];

@@ -213,12 +213,40 @@
     >
       <JvUploadList v-model="ImgDataList" :listType="true"></JvUploadList>
     </jv-dialog>
+
+    <JvDialog
+      title="选择生产需求明细"
+      :visible.sync="productCommandDialogVisible"
+      v-if="productCommandDialogVisible"
+      @confirm="confirmProductCommande"
+      width="25%"
+      :autoFocus="true"
+    >
+      <JvForm :formObj="productCommandformObj">
+        <template #ItemId="{ row }">
+          <el-select
+            v-model="productCommandId"
+            style="width: 100%"
+            filterable
+            default-first-option
+          >
+            <el-option
+              v-for="item in CommandItemList"
+              :key="item.Id"
+              :label="`${item.ItemId}(${item.ItemName})`"
+              :value="item.Id"
+            >
+            </el-option>
+          </el-select>
+        </template>
+      </JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 
 <script>
 import JvUploadList from "@/components/JVInternal/JvUpload/List";
-import { formSchema } from "./formConfig";
+import { formSchema, productCommandformSchema } from "./formConfig";
 import { EditTable } from "./editConfig";
 import { Table } from "./tableConfig";
 import selectBomList from "./selectBomList";
@@ -243,6 +271,8 @@ import {
 } from "@/api/workApi/production/productionTask";
 import { itemList } from "@/api/basicApi/systemSettings/Item";
 import { data } from "../../../../basicModule/demo/EditTable/data";
+import { part_production_demand_item_list } from "@/api/workApi/production/partProductionDemand";
+import { pole_production_demand_item_list } from "@/api/workApi/production/poleProductionDemand";
 export default {
   name: "Sa_SaleOrder_Edit",
   components: {
@@ -264,11 +294,15 @@ export default {
   },
   data() {
     return {
+      CommandItemList: [],
+      productCommandId: "",
       formObj: {},
       eTableObj: {},
       tableObj: {},
       transferData: [],
       PmTaskData: [],
+      productCommandformObj: {},
+      productCommandDialogVisible: false,
       taskTypeEnum,
       ProcessDialogFormVisible: false,
       ImgDialogFormVisible: false,
@@ -310,9 +344,9 @@ export default {
         PartName: "",
         Quantity: "",
         BillGui: "",
-        Description:"",
-        Description2:"",
-        Remarks:"",
+        Description: "",
+        Description2: "",
+        Remarks: "",
       },
       Process: {
         Id: "",
@@ -328,7 +362,7 @@ export default {
         customData: [],
         ProcessContentList: [],
         IsCompulsoryInspection: false,
-		    ProgramingProcess: "",
+        ProgramingProcess: "",
         ProgramingPlanTime: 1,
       },
     };
@@ -354,6 +388,14 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
+    this.productCommandformObj = new Form({
+      formSchema: productCommandformSchema,
+      baseColProps: {
+        span: 24,
+      },
+      labelPosition: "top",
+      labelWidth: "100px",
+    });
     this.formObj.form.Level = "Ordinary";
     this.eTableObj = new EditTable();
     this.tableObj = new Table();
@@ -363,6 +405,34 @@ export default {
       this.editDisabled = true;
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
+    } else {
+      this.productCommandDialogVisible = true;
+      this.productCommandformObj.eventBus.$on("CommandType", async (value) => {
+        // console.log(value, "valueeeeeeee");
+        const params = {
+          CurrentPage: 1,
+          PageSize: 999,
+          State: "Approved",
+          ItemState: "ToBeProduced",
+        };
+        const api =
+          value == "part"
+            ? part_production_demand_item_list
+            : pole_production_demand_item_list;
+        const data = await api(params);
+        // pole_production_demand_item_list
+        this.CommandItemList = data.Items;
+        this.productCommandId = "";
+      });
+
+      const params = {
+        CurrentPage: 1,
+        PageSize: 999,
+        State: "Approved",
+        ItemState: "ToBeProduced",
+      };
+      const data = await part_production_demand_item_list(params);
+      this.CommandItemList = data.Items;
     }
   },
 
@@ -383,7 +453,29 @@ export default {
         this.eTableObj.setData(arr);
       });
     },
-
+    async confirmProductCommande() {
+      // this.productCommandformObj.form.CommandType
+      // const api =
+      //   this.productCommandformObj.form.CommandType == "part"
+      //     ? part_production_demand_item_list
+      //     : pole_production_demand_item_list;
+      // const data = await api({ BillId: this.productCommandId });
+      // CommandItemList this.productCommandId
+      const target = this.CommandItemList.find(
+        (item) => item.Id == this.productCommandId
+      );
+      if (!target) return;
+      this.formObj.form.ToolingNo = target.ToolingNo;
+      this.formObj.form.Remarks = target.Remarks;
+      this.formObj.form.PlanEnd = target.DemandDate;
+      this.formObj.form.PmTaskBillId = target.PmTaskBillId;
+      this.formObj.form.BillType = target.BillType;
+      this.formObj.form.DemandType = target.DemandType;
+      this.formObj.form.ProductionDemandBillld = target.BillId;
+      this.formObj.form.AssociatedNo = target.Id;
+      this.formObj.form.Quantity = target.ProductionQuantity;
+      this.productCommandDialogVisible = false;
+    },
     //模糊查询模号
     remoteMethod(query) {
       if (query !== "") {
