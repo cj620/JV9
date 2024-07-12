@@ -248,6 +248,7 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
+
     this.eTableObj = new EditTable();
     if (this.type === "edit" || this.type === "copy") {
       this.fileBillId = this.billData;
@@ -256,6 +257,10 @@ export default {
     if (this.$route.params.selectedData) {
       this.formObj.form.DeliveryDate = this.$route.params.selectedData[0].DeliveryDate;
       this.eTableObj.push(temMerge(this.BillItems, this.$route.params.selectedData));
+    }
+    if (this.$route.params.deliveryData) {
+      this.formObj.form.RelationId = this.$route.params.deliveryData.RelationId
+      this.eTableObj.setData(this.$route.params.deliveryData.BillItems)
     }
     await this.Configuration();
   },

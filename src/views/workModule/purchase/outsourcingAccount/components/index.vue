@@ -205,6 +205,10 @@ export default {
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
     }
+    if (this.$route.params.deliveryData) {
+      this.formObj.form.RelationId = this.$route.params.deliveryData.RelationId
+      this.eTableObj.setData(this.$route.params.deliveryData.BillItems)
+    }
     await this.Configuration();
   },
 

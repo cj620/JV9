@@ -243,7 +243,11 @@ export default {
         item.Quantity =
           item.Quantity - item.StockInQuantity + item.ReturnQuantity;
         item.Quantity = item.Quantity === 0 ? 1 : item.Quantity;
+        item.BatchNo = "";
+        item.ProductionDate = "";
       });
+      console.log(this.detailObj.detailData,247)
+      this.detailObj.detailData.RelationId = this.detailObj.detailData.BillId
       this.$router.push({
         name: "Pu_StockIn_Add",
         params: { ["deliveryData"]: this.detailObj.detailData },

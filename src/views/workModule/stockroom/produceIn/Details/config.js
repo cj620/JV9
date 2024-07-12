@@ -1,4 +1,5 @@
 import { Table as BaseTable } from "@/jv_doc/class/table";
+import stockroomTypeEnum from "@/enum/workModule/Stockroom/stockroomTypeEnum";
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -54,18 +55,22 @@ export const tableConfig = [
   {
     prop: "ProductionDate",
     label: '生产日期',
+    filter: "time",
   },
   /*有效期*/
-  {
-    prop: "Effective",
-    label: '有效期',
-  },
+  // {
+  //   prop: "Effective",
+  //   label: '有效期',
+  // },
 ]
 export const detailConfig=[
   /*类别*/
   {
     prop: "Category",
     label: '类别',
+    customFilter(v) {
+      return stockroomTypeEnum[v] ? stockroomTypeEnum[v].name : v
+    }
   },
   /*仓库*/
   {

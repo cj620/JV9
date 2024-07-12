@@ -243,11 +243,13 @@ export default {
         ItemId: "",
         ItemName: "",
         Description: "",
+        Description2: "",
         Unit: "",
         Quantity: 0,
         Remarks: "",
         PurchaseStockInItemId: "",
         AssociatedNo: 0,
+        BatchNo: 0,
       },
     };
   },

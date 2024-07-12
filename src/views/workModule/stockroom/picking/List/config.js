@@ -106,6 +106,12 @@ export const tableConfig = [
     prop: "ProductionInfo",
     label: '生产信息',
   },
+  /*合计数量*/
+  {
+    prop: "TotalQuantity",
+    label: i18n.t("Generality.Ge_TotalQuantity"),
+    width: "95px",
+  },
   /*制单人*/
   {
     prop: "Creator",

@@ -141,6 +141,18 @@ export default {
         this.stateForm = auditPlugin(res);
         this.tableObj.setData(res.BillItems);
         this.btnAction = detailPageModel(this, res, API, this.GetData);
+        this.btnAction.push({
+          label: '发票',
+          disabled: !this.stateForm.transform,
+          confirm: this.Account.bind(null,'Pu_Account_Add', 'deliveryData'),
+        },)
+      });
+    },
+    Account(routerName,keyName) {
+      this.detailObj.detailData.RelationId = this.detailObj.detailData.BillId
+      this.$router.push({
+        name: routerName,
+        params: { [keyName]: this.detailObj.detailData },
       });
     },
     tabClick(e) {

@@ -26,6 +26,11 @@
           disabled: !stateForm.transform,
           confirm: picking.bind(null),
         },
+        {
+          label: '发票',
+          disabled: !stateForm.transform,
+          confirm: Account.bind(null,'Pu_Account_Add', 'deliveryData'),
+        },
       ]"
     ></Action>
     <!--单据信息-->
@@ -167,6 +172,7 @@ export default {
 
     //订单转
     orderTransform(routerName, keyName) {
+      this.detailObj.detailData.RelationId = this.detailObj.detailData.BillId
       this.$router.push({
         name: routerName,
         params: { [keyName]: this.detailObj.detailData },
@@ -177,6 +183,13 @@ export default {
       this.$router.push({
         name: "St_Picking_Add",
         params: { stockInData: this.detailObj.detailData },
+      });
+    },
+    Account(routerName,keyName) {
+      this.detailObj.detailData.RelationId = this.detailObj.detailData.BillId
+      this.$router.push({
+        name: routerName,
+        params: { [keyName]: this.detailObj.detailData },
       });
     },
     tabClick(e) {

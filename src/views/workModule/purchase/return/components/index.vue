@@ -233,6 +233,7 @@ export default {
     }
     if (this.$route.params.deliveryData) {
       billTransform(this, "deliveryData");
+      this.formObj.form.RelationId = this.$route.params.deliveryData.RelationId
     }
     await this.Configuration();
   },
