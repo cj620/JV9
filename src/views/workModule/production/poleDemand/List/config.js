@@ -1,6 +1,8 @@
 // 引入表格表格类和表格API类
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { API } from "@/api/workApi/production/poleProductionDemand";
+import { taskTypeEnum } from '@/enum/workModule'
+import { enumFilter, enumToList } from '~/utils/system/enumsPlugin'
 let { api_delete, api_list } = API;
 class api extends TableAPI {
   // 获取列表
@@ -71,11 +73,15 @@ export const tableConfig = [
     custom: true,
     width: "115px",
   },
-  { label: "需求日期", prop: "DemandDate", filter: "date" },
+  { label: "需求日期", prop: "DemandDate", width: "150px", filter: "date" },
   { label: "需求类别", prop: "DemandType" },
-  { label: "相关单据", prop: "PmTaskBillId" },
-  { label: "审核人", prop: "Audit" },
-  { label: "审核日期", prop: "AuditDate", filter: "time" },
+  { label: "相关单据", prop: "PmTaskBillId", width: "180px", },
+  /*任务类别*/
+  {
+    prop: "TaskType",
+    label: i18n.t("Generality.Ge_TaskType"),
+    customFilter: (value) => enumFilter(value, taskTypeEnum),
+  },
   /*制单人*/
   {
     prop: "Creator",

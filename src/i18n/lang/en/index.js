@@ -794,6 +794,7 @@ const en = {
     Ge_Department: "Department",
 
     Ge_State: "State",
+    Ge_ItemState: "Item State",
     Ge_BillId: "Bill No.",
     Ge_BillGui: "BillGui",
     Ge_DeliveryDate: "Delivery date",

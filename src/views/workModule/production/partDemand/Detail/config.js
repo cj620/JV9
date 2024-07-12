@@ -19,12 +19,12 @@ export const tableConfig = [
   /*物料编号*/
   {
     prop: "ItemId",
-    label: i18n.t("Generality.Ge_ItemId"),
+    label: i18n.t("Generality.Ge_PartNo"),
   },
   /*名称*/
   {
     prop: "ItemName",
-    label: i18n.t("Generality.Ge_ItemName"),
+    label: i18n.t("Generality.Ge_PartName"),
   },
   /*描述*/
   {
@@ -107,14 +107,14 @@ export const detailConfig = [
     prop: "PmTaskBillId",
     label: i18n.t("project.Pro_TaskSheetNo"),
   },
-  // {
-  //   // 任务类别
-  //   prop: "TaskType",
-  //   label: i18n.t("Generality.Ge_TaskType"),
-  //   customFilter: (value) => enumFilter(value, taskTypeEnum),
-  // },
   {
-    // 任务类别     Ge_RequirementCategory: "需求类别",
+    // 任务类别
+    prop: "TaskType",
+    label: i18n.t("Generality.Ge_TaskType"),
+    customFilter: (value) => enumFilter(value, taskTypeEnum),
+  },
+  {
+    // 需求类别     Ge_RequirementCategory: "需求类别",
     prop: "RequirementCategory",
     label: "需求类别",
   },
