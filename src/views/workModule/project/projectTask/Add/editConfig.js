@@ -27,7 +27,7 @@ export class M_EditTable extends BaseTable {
       data: [],
       title: "",
       tableHeaderShow: false,
-      height: "",
+      height: null,
       maxHeight: 2000,
       operationWidth: 80,
       // showSummary:true,
