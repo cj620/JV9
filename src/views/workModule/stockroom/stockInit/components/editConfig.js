@@ -86,6 +86,20 @@ export const tableConfig = [
       disabled:true,
     }
   },
+  /*批号*/
+  {
+    prop: "BatchNo",
+    label: '批号',
+    align: "right",
+    width: "100px",
+    formCpn: "FormInput",
+  },
+  /*生产日期*/
+  {
+    prop: "ProductionDate",
+    label: '生产日期',
+    formCpn: "SingleTime",
+  },
   /*备注*/
   {
     prop: "Remarks",

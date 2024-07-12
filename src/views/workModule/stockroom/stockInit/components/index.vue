@@ -80,6 +80,7 @@ import closeTag from "@/utils/closeTag";
 import { amountFormat, temMerge } from "@/jv_doc/utils/handleData/index";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
 import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
+import {timeFormat} from "~/utils/time";
 export default {
   name: "index",
   components: {
@@ -116,6 +117,8 @@ export default {
         Price: 0,
         Amount: 0,
         Remarks: "",
+        BatchNo: "",
+        ProductionDate: "",
       },
     };
   },
@@ -166,8 +169,13 @@ export default {
         }
         this.ruleForm = Object.assign({}, this.ruleForm, res);
         this.formObj.form = this.ruleForm;
-
-        this.eTableObj.setData(res.BillItems);
+        let list = res.BillItems.map(item => {
+          return {
+            ...item,
+            ProductionDate: timeFormat(item.ProductionDate)
+          }
+        })
+        this.eTableObj.setData(list);
       });
     },
 
