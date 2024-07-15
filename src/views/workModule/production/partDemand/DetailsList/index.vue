@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2022-02-22 16:12:01
- * @LastEditTime: 2024-07-12 13:57:27
+ * @LastEditTime: 2024-07-12 17:23:34
  * @Description: file content
 -->
 <!-- 销售订单 明细 页面-->
@@ -9,14 +9,17 @@
   <PageWrapper :footer="false">
     <!-- 销售订单 明细表格 -->
     <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj">
-      <!-- <template #operation="{ row }">
-        <TableAction :actions="[
-          {
-            label:'生产加工单',
-            confirm:newProduct.bind(null,row)
-          }
-        ]" />
-      </template> -->
+      <template #operation="{ row }">
+        <span class="action-item">
+          <el-badge
+            :is-dot="row.IsPartProcess ? row.IsPartProcess.value : false"
+          >
+            <span @click="CraftDesign1(row)">{{
+              $t("program.Pr_ProcessPlanning")
+            }}</span>
+          </el-badge>
+        </span>
+      </template>
       <Action
         slot="btn-list"
         :actions="[
@@ -47,6 +50,8 @@ import { Table } from "./config";
 // 单据状态组件
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import { Form } from "@/jv_doc/class/form";
+import { format2source } from "@/jv_doc/class/utils/dataFormat";
+
 export default {
   // 页面的标识
   name: "Pr_PartProductionDemand_Detail_list",
@@ -111,6 +116,12 @@ export default {
     });
   },
   methods: {
+    CraftDesign1(row) {
+      this.$router.push({
+        name: "CraftDesign",
+        params: { data: [row] },
+      });
+    },
     newProduct() {
       let { datas } = this.tableObj.selectData;
       if (datas.length !== 1) {
@@ -133,3 +144,15 @@ export default {
   },
 };
 </script>
+<style>
+.action-item {
+  color: #0960bd;
+  padding-right: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.el-badge__content.is-fixed.is-dot {
+  right: 5px;
+  top: 2px;
+}
+</style>
