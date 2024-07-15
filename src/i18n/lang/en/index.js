@@ -884,6 +884,7 @@ const en = {
     Ge_Dynamic: "Dynamic",
     Ge_Record: "Record",
     Ge_ProcessInfo: "Process info",
+    Ge_ProblemPointsInMoldRepair: "Problem points in mold repair",
     Ge_WorkContent: "Work Content",
     Ge_DocumentType: "Document type",
     Ge_Date: "Date",

@@ -878,6 +878,7 @@ const cn = {
     Ge_Dynamic: "动态",
     Ge_Record: "记录",
     Ge_ProcessInfo: "工序信息",
+    Ge_ProblemPointsInMoldRepair: "修模问题点",
     Ge_WorkContent: "工作内容",
     Ge_DocumentType: "单据类型",
     Ge_Date: "日期",

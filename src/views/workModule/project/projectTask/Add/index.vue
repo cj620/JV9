@@ -15,6 +15,52 @@
     <JvBlock :title="$t('Generality.Ge_BillInfo') + BillIdShow" ref="first">
       <JvForm :formObj="formObj"> </JvForm>
     </JvBlock>
+<!--    修模问题点-->
+    <JvBlock :title="$t('Generality.Ge_ProblemPointsInMoldRepair')" ref="ProblemPointsInMoldRepair" v-if="formObj.form.TaskType === 'ToolCorrection'">
+      <div slot="extra">
+        <Action
+          size="mini"
+          slot="extra"
+          :primary="[
+            {
+              label: $t('Generality.Ge_New'),
+              confirm: addRow,
+            },
+            {
+              label: $t('project.Pro_TestMouldProblemPoints'),
+              confirm: selectTestMouldProblemPoints,
+            },
+          ]"
+          />
+      </div>
+      <JvEditTable :tableObj="ProblemPointsInMoldRepairTableObj">
+        <template #BillFiles="{ row }">
+          <div v-if="row.BillFiles.value.length > 0">
+            <el-image
+              style="width: 50px; height: 50px"
+              v-for="(item, index) in row.BillFiles.value"
+              :key="index"
+              :src="defaultImgUrl + item"
+            >
+            </el-image>
+          </div>
+        </template>
+        <template #operation="{ row, row_index }">
+          <TableAction
+            :actions="[
+              {
+                label: $t('Generality.Ge_PhotoUrl'),
+                confirm: addImg.bind(null, row),
+              },
+              {
+                icon: 'el-icon-delete',
+                confirm: delProblemPointsInMoldRepairItem.bind(null, row_index),
+              },
+            ]"
+          />
+        </template>
+      </JvEditTable>
+    </JvBlock>
     <!-- 物料信息 -->
     <JvBlock :title="$t('Generality.Ge_ProcessInfo')" ref="second">
       <div slot="extra">
@@ -144,12 +190,25 @@
       @selectProcessData="selectProcessData"
     >
     </SelectProjectProcess>
+<!--    图片选择-->
+    <jv-dialog
+      :title="$t('Generality.Ge_AddNewPicture')"
+      width="35%"
+      :close-on-click-modal="false"
+      :modal-append-to-body="false"
+      :append-to-body="false"
+      :visible.sync="dialogImgFormVisible"
+      v-if="dialogImgFormVisible"
+      @confirm="confirmImg"
+    >
+      <JvUploadList v-model="ImgDataList" :listType="true"></JvUploadList>
+    </jv-dialog>
   </PageWrapper>
 </template>
 
 <script>
 import { formSchema } from "./formConfig";
-import { M_EditTable, getRowIndex } from "./editConfig";
+import {M_EditTable, getRowIndex, ProblemPointsInMoldRepairEditTable} from "./editConfig";
 import { Form } from "@/jv_doc/class/form";
 import { timeFormat } from "@/jv_doc/utils/time";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index";
@@ -175,9 +234,11 @@ import {
 } from "./utils";
 import SelectProjectProcess from "@/components/JVInternal/SelectProjectProcess/index.vue";
 import {getByProcess} from "@/api/workApi/production/baseData";
+import JvUploadList from "@/components/JVInternal/JvUpload/List.vue";
 export default {
   name: "Pm_ProjectTask_Add",
   components: {
+    JvUploadList,
     SelectProjectProcess,
     JvUploadFile,
     SelectProjectProcessTemplate,
@@ -194,6 +255,7 @@ export default {
   },
   data() {
     return {
+      defaultImgUrl: window.global_config.ImgBase_Url,
       cur_Id: this.$route.query.BillId,
       dom_obj: new CellDom(),
       formObj: {},
@@ -253,6 +315,16 @@ export default {
           name: "fourth",
         },
       ],
+      ProblemPointsInMoldRepairTableObj: {},
+      TestMouldProblemPoints: {
+        Id: 0,
+        ProblemPoints: "",
+        SuggestionsImprovement: "",
+        Remarks: "",
+        BillFiles: [],
+        State: "",
+      },
+      dialogImgFormVisible: false
     };
   },
   computed: {
@@ -278,6 +350,7 @@ export default {
       labelWidth: "80px",
     });
     this.M_TableObj = new M_EditTable();
+    this.ProblemPointsInMoldRepairTableObj = new ProblemPointsInMoldRepairEditTable();
     // this.ruleForm
     if (this.$route.query.type === "copy") {
       console.log(this.cur_Id)
@@ -303,6 +376,26 @@ export default {
     Object.assign(this.formObj.form, this.$route.params);
   },
   methods: {
+    // 选择试模问题点
+    selectTestMouldProblemPoints() {
+
+    },
+    //新增一行
+    addRow() {
+      this.ProblemPointsInMoldRepairTableObj.push([this.TestMouldProblemPoints]);
+    },
+    //点击添加图片
+    addImg(row) {
+      this.dialogImgFormVisible = true;
+      this.ImgDataList = [...row.BillFiles.value];
+      this.tableRow = row;
+    },
+    // 确认选择图片
+    confirmImg() {
+      this.tableRow.BillFiles.value = this.ImgDataList;
+      this.dialogImgFormVisible = false;
+      this.tableRow = {};
+    },
     changeValue(e, row) {
       var arr = [];
       if (e) {
@@ -406,7 +499,9 @@ export default {
     delItem(index, target) {
       target.delItem(index);
     },
-
+    delProblemPointsInMoldRepairItem(index) {
+      this.ProblemPointsInMoldRepairTableObj.delItem(index);
+    },
     dataFilter() {
       return (type = "default", data) => {
         return filterMaps[type].func(data);

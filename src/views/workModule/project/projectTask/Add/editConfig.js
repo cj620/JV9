@@ -146,3 +146,62 @@ export const m_tableConfig = [
     formCpn: "FormInput",
   },
 ];
+
+// 修模问题点表格
+export class ProblemPointsInMoldRepairEditTable extends BaseTable {
+  constructor() {
+    super({
+      tableSchema: ProblemPointsInMoldRepairTableSchema,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      height: null,
+      Height: 400,
+      operationWidth: 80,
+      chooseCol:false,
+    });
+  }
+}
+export const ProblemPointsInMoldRepairTableSchema = [
+  /*问题点*/
+  {
+    prop: "ProblemPoints",
+    formCpn: "FormInput",
+    width: "300px",
+    label: i18n.t("project.Pro_ProblemPoints"),
+  },
+  /*改善建议*/
+  {
+    prop: "SuggestionsImprovement",
+    label: i18n.t("project.Pro_SuggestionsImprovement"),
+    formCpn: "FormInput",
+  },
+  /*状态*/
+  {
+    prop: "State",
+    label: i18n.t("DataV.Da_State"),
+    editConfig:{
+      disabled:true,
+      default: '未解决',
+      value: '未解决',
+    },
+    value: '未解决',
+    default: '未解决',
+    defaultValue: '未解决'
+  },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+    formCpn: "FormInput",
+  },
+  /*图片*/
+  {
+    prop: "BillFiles",
+    label: i18n.t("Generality.Ge_PhotoUrl"),
+    custom: true,
+    editConfig:{
+      disabled:true,
+    }
+  },
+];
