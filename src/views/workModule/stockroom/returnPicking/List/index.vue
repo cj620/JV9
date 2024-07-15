@@ -21,6 +21,9 @@
       <template #operation="{ row }">
         <TableAction :actions="getListTableColBtnModel(row)" />
       </template>
+      <template #PickingType="{ record }">
+        {{ pickingTypeMap[record] && pickingTypeMap[record].name }}
+      </template>
       <!-- 表格操作行 -->
       <Action size="mini" slot="btn-list" :actions="getListTableBtnModel">
       </Action>
@@ -29,7 +32,7 @@
 </template>
 <script>
 import { Table } from "./config";
-import { stateEnum } from "@/enum/workModule";
+import {pickingTypeEnum, stateEnum} from "@/enum/workModule";
 import { deleteStockReturnPicking } from "@/api/workApi/stockroom/returnPicking";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import {
@@ -79,6 +82,9 @@ export default {
       return (row) => {
         return listTableColBtnModel(this, row);
       };
+    },
+    pickingTypeMap() {
+      return pickingTypeEnum;
     },
   },
   methods: {},

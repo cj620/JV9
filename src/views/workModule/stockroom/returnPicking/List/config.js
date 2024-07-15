@@ -66,6 +66,12 @@ export const tableConfig = [
     cpn: "BillStateTags",
     width: "115px",
   },
+  /*领料类别*/
+  {
+    prop: "PickingType",
+    label: i18n.t("stockroom.St_PickingType"),
+    custom: true,
+  },
   /*提交人*/
   {
     prop: "Submitter",
@@ -81,6 +87,17 @@ export const tableConfig = [
     prop: "Stockroom",
     label: i18n.t("setup.Stockroom"),
     width: "105px",
+  },
+  /*生产信息*/
+  {
+    prop: "ProductionInfo",
+    label: '生产信息',
+  },
+  /*合计数量*/
+  {
+    prop: "TotalQuantity",
+    label: i18n.t("Generality.Ge_TotalQuantity"),
+    width: "95px",
   },
   /*制单人*/
   {

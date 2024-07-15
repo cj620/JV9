@@ -20,6 +20,20 @@
             </el-option>
           </el-select>
         </template>
+        <!--领料类别-->
+        <template #PickingType="{ prop }">
+          <el-select
+            v-model="formObj.form[prop]"
+            @change="changePickingType"
+          >
+            <el-option
+              v-for="item in pickTypeEnum"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </template>
       </JvForm>
     </JvBlock>
     <!-- 物料信息 -->
@@ -104,6 +118,7 @@ import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { billTransform } from "~/utils/system/editPagePlugin";
 import pickingDetails from "./pickingDetails";
 import { handleBillContent } from "@/jv_doc/utils/system/billHelp";
+import {timeFormat} from "~/utils/time";
 
 export default {
   name: "index",
@@ -147,12 +162,39 @@ export default {
         ItemName: "",
         PmTaskBillId: "",
         Description: "",
+        Description2: "",
         Unit: "",
         Quantity: 0,
         Remarks: "",
         ToolingNo: "",
         AssociatedNo: 0,
+        BatchNo: 0,
+        ProductionDate: 0,
       },
+      pickTypeEnum: [
+        {
+          value: "Picking",
+          label: i18n.t("stockroom.St_Picking"),
+        },
+        {
+          value: "Supplement",
+          label: i18n.t("stockroom.St_Supplement"),
+        },
+        {
+          value: "TrialTooling",
+          label: i18n.t("stockroom.St_TrialMold"),
+        },
+        //返工领料
+        {
+          value: "ReworkPicking",
+          label: i18n.t("stockroom.St_ReworkPicking"),
+        },
+        //委外领料
+        {
+          value: "OutsourcingPicking",
+          label: i18n.t("stockroom.St_OutsourcingPicking"),
+        },
+      ],
     };
   },
   computed: {
@@ -209,8 +251,13 @@ export default {
         }
         this.ruleForm = Object.assign({}, this.ruleForm, res);
         this.formObj.form = this.ruleForm;
-
-        this.eTableObj.setData(res.BillItems);
+        let list = res.BillItems.map(item => {
+          return {
+            ...item,
+            ProductionDate: timeFormat(item.ProductionDate)
+          }
+        })
+        this.eTableObj.setData(list);
       });
     },
 
@@ -290,6 +337,19 @@ export default {
           }
         }
       });
+    },
+    // 选中领料类别
+    changePickingType(e) {
+      if (e === 'TrialTooling' && this.oldPickingType !== 'TrialTooling') { // 非试模改为试模
+        if (this.formObj.form.ToolingNo !== '') {
+          this.changeToolingNo();
+          this.finalTaskListData = this.TaskListData.filter(i => i.TaskType === "TrialTooling");
+        }
+        this.oldPickingType = e;
+      } else if (e !== 'TrialTooling' && this.oldPickingType === 'TrialTooling') { // 试模改为非试模
+        this.finalTaskListData = this.TaskListData;
+        this.oldPickingType = e;
+      }
     },
   },
   watch: {

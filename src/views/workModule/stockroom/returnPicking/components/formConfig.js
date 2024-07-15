@@ -24,6 +24,20 @@ export const formSchema = [
     },
   },
   {
+    // 领料类别
+    prop: "PickingType",
+    cpn: "FormSelect",
+    label: i18n.t("stockroom.St_PickingType"),
+    custom: true,
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
+  },
+  {
     // 仓库
     prop: 'Stockroom',
     cpn: "SyncSelect",

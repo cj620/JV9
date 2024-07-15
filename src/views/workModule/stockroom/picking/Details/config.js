@@ -29,6 +29,12 @@ export const tableConfig = [
     prop: "Description",
     label: i18n.t("Generality.Ge_Describe"),
   },
+  /*描述2*/
+  {
+    prop: "Description2",
+    label: i18n.t("design.De_Description2"),
+    formCpn: "FormInput",
+  },
   /*单位*/
   {
     prop: "Unit",
@@ -87,6 +93,11 @@ export const detailConfig = [
   {
     prop: "PmTaskBillId",
     label: i18n.t("project.Pro_TaskSheetNo"),
+  },
+  /*生产信息*/
+  {
+    prop: "ProductionInfo",
+    label: '生产信息',
   },
   {
     // 制单人

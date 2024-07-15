@@ -36,7 +36,11 @@
     <JvBlock :title="detailObj.detailData.BillId" ref="first">
       <!---->
       <div style="position: relative">
-        <JvDetail :detailObj="detailObj"> </JvDetail>
+        <JvDetail :detailObj="detailObj">
+          <template #PickingType="{ record }">
+            {{ pickingTypeMap && pickingTypeMap.name }}
+          </template>
+        </JvDetail>
         <JvState :state="detailObj.detailData.State"></JvState>
       </div>
     </JvBlock>
@@ -62,7 +66,7 @@
 
 <script>
 import { Form } from "@/jv_doc/class/form";
-import { stateEnum } from "@/enum/workModule";
+import {pickingTypeEnum, stateEnum} from "@/enum/workModule";
 import { tableConfig, detailConfig } from "./config";
 import { mapState } from "vuex";
 import closeTag from "@/utils/closeTag";
@@ -153,6 +157,9 @@ export default {
     }),
     stateMap() {
       return stateEnum[this.detailObj.detailData.State];
+    },
+    pickingTypeMap() {
+      return pickingTypeEnum[this.detailObj.detailData.PickingType];
     },
   },
 
