@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2022-02-22 16:12:01
- * @LastEditTime: 2024-07-12 17:23:34
+ * @LastEditTime: 2024-07-15 13:51:15
  * @Description: file content
 -->
 <!-- 销售订单 明细 页面-->
@@ -11,9 +11,7 @@
     <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj">
       <template #operation="{ row }">
         <span class="action-item">
-          <el-badge
-            :is-dot="row.IsPartProcess ? row.IsPartProcess.value : false"
-          >
+          <el-badge :is-dot="row.IsPartProcess">
             <span @click="CraftDesign1(row)">{{
               $t("program.Pr_ProcessPlanning")
             }}</span>
@@ -119,7 +117,14 @@ export default {
     CraftDesign1(row) {
       this.$router.push({
         name: "CraftDesign",
-        params: { data: [row] },
+        params: {
+          data: [
+            {
+              ...row,
+              PartNo: row.ItemId,
+            },
+          ],
+        },
       });
     },
     newProduct() {

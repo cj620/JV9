@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2022-02-22 16:21:55
- * @LastEditTime: 2024-07-12 17:11:09
+ * @LastEditTime: 2024-07-15 13:38:30
  * @Description: file content
  */
 //销售订单明细 配置文件
@@ -146,7 +146,7 @@ const tableSchema = [
   },
   /*数量*/
   {
-    prop: "ProductionQuantity",
+    prop: "Quantity",
     label: i18n.t("Generality.Ge_Quantity"),
     width: "90px",
     align: "right",

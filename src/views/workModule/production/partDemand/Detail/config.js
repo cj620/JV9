@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-12-16 08:29:01
- * @LastEditTime: 2024-07-09 15:05:43
+ * @LastEditTime: 2024-07-15 13:40:01
  * @Description:
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
@@ -44,7 +44,7 @@ export const tableConfig = [
   },
   /*数量*/
   {
-    prop: "ProductionQuantity",
+    prop: "Quantity",
     label: i18n.t("Generality.Ge_Quantity"),
     formCpn: "FormInput",
     align: "right",
