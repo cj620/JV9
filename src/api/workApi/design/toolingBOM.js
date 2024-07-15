@@ -4,7 +4,7 @@ export function getPartBomById(query) {
   return request({
     url: "/tooling/get_part_bom_by_id",
     method: "get",
-    params:query,
+    params: query,
   });
 }
 //保存零件清单
@@ -36,7 +36,7 @@ export function autoMatchMaterials(data) {
   return request({
     url: "/tooling/auto_match_materials",
     method: "post",
-    data
+    data,
   });
 }
 //同步零件信息
@@ -44,7 +44,7 @@ export function synchronizePart(data) {
   return request({
     url: "/tooling/synchronize_part",
     method: "post",
-    data
+    data,
   });
 }
 //根据零件获取工艺信息
@@ -52,7 +52,7 @@ export function getPartProcess(query) {
   return request({
     url: "/tooling/get_part_process",
     method: "get",
-    params:query,
+    params: query,
   });
 }
 //保存零件获取工艺信息
@@ -94,6 +94,14 @@ export function quickly_create_task(data) {
 export function synchronize_material_state(data) {
   return request({
     url: "/tooling/synchronize_material_state",
+    method: "post",
+    data,
+  });
+}
+//快速开单
+export function quickly_create_production_demand(data) {
+  return request({
+    url: "/tooling/quickly_create_production_demand",
     method: "post",
     data,
   });

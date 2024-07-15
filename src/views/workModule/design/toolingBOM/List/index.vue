@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2024-07-11 09:55:57
+ * @LastEditTime: 2024-07-15 16:39:12
  * @Description: 模具BOM
 -->
 
@@ -46,11 +46,16 @@
             disabled: !IsSMerge,
             confirm: l_merge.bind(),
           },
+          // {
+          //   // 创建生产任务
+          //   label: $t('Generality.Ge_CreateProductionTask'),
+          //   disabled: !IsCreateTask,
+          //   confirm: l_createTask.bind(),
+          // },
           {
-            // 创建生产任务
-            label: $t('Generality.Ge_CreateProductionTask'),
-            disabled: !IsCreateTask,
-            confirm: l_createTask.bind(),
+            label: '提交生产需求',
+            disabled: IsTableDisabled,
+            confirm: submitProductDemand.bind(),
           },
         ]"
         actionType="primary"
@@ -310,11 +315,11 @@
       v-if="createTaskVisible"
       :visible.sync="createTaskVisible"
       destroy-on-close
-      :title="$t('Generality.Ge_CreateProductionTask')"
+      title="创建生产需求"
       width="30%"
-      @confirm="createTaskConfirm"
+      @confirm="productDemandConfirm"
     >
-      <JvForm :formObj="createTaskFormObj">
+      <JvForm :formObj="createProcudctCommandFormObj">
         <!--任务单号-->
         <template #PmTaskBillId="{ prop }">
           <el-select
@@ -333,21 +338,6 @@
             >
             </el-option>
           </el-select>
-        </template>
-        <template #PlanStart="{ prop }">
-          <el-date-picker
-            v-model="createTaskFormObj.form[prop]"
-            type="datetime"
-            format="yyyy-MM-dd HH:mm"
-          ></el-date-picker>
-        </template>
-
-        <template #PlanEnd="{ prop }">
-          <el-date-picker
-            v-model="createTaskFormObj.form[prop]"
-            type="datetime"
-            format="yyyy-MM-dd HH:mm"
-          ></el-date-picker>
         </template>
       </JvForm>
     </JvDialog>
@@ -389,8 +379,12 @@ import customUpload from "@/components/customUpload/index.vue";
 import request from "@/utils/request";
 import { Form } from "@/jv_doc/class/form";
 import { formSchema } from "@/views/workModule/production/productionTask/components/formConfig";
-import { createTaskFormSchema } from "./formConfig";
+import {
+  createTaskFormSchema,
+  createProcudctCommandFormSchema,
+} from "./formConfig";
 import { timeFormat } from "~/utils/time";
+import { quickly_create_production_demand } from "@/api/workApi/design/toolingBOM";
 export default {
   name: "ToolingBOM",
   // 表格数据
@@ -407,6 +401,7 @@ export default {
     return {
       taskTypeEnum,
       demandStatusEnum,
+      createProcudctCommandFormObj: {},
       PmTaskData: {},
       TaskListData1: [],
       editDisabled: false,
@@ -550,6 +545,14 @@ export default {
       labelWidth: "80px",
     });
     this.createForm();
+    this.createProcudctCommandFormObj = new Form({
+      formSchema: createProcudctCommandFormSchema,
+      labelPosition: "top",
+      baseColProps: {
+        span: 24,
+      },
+      labelWidth: "80px",
+    });
     this.eTableObj = new EditTable();
     this.importTableObj = new importEditTable();
     this.defaultConfig();
@@ -602,6 +605,45 @@ export default {
     },
   },
   methods: {
+    submitProductDemand() {
+      // this.createProcudctCommandFormObj.form.Parts = [];
+      this.createTaskVisible = true;
+      this.searchTaskInfo();
+      // this.createProcudctCommandFormObj.form.Level = "Ordinary";
+      // this.createProcudctCommandFormObj.form.PlanStart = new Date();
+      // this.eTableObj.selectData.datas.forEach((item) => {
+      //   this.createProcudctCommandFormObj.form.Parts.push({
+      //     PartNo: item.PartNo.value,
+      //     PartName: item.PartName.value,
+      //     Description: item.Description.value,
+      //     Unit: item.Unit.value,
+      //     Quantity: item.Quantity.value,
+      //     ToolingNo: item.ToolingNo.value,
+      //     IsFinishedProductInspection: item.IsFinishedProductInspection.value,
+      //   });
+      // });
+    },
+    productDemandConfirm() {
+      const params = {
+        BomType: 0,
+        ...this.createProcudctCommandFormObj.form,
+        Parts: [],
+      };
+      const datas = this.eTableObj.getSeletedData();
+      params.Parts = datas.map((item) => {
+        return {
+          PartNo: item.PartNo,
+          PartName: item.PartName,
+          Description: item.Description,
+          Unit: item.Unit,
+          Quantity: item.Quantity,
+          ToolingNo: item.ToolingNo,
+          IsFinishedProductInspection: item.IsFinishedProductInspection,
+        };
+      });
+      console.log(params, "params");
+      quickly_create_production_demand(params);
+    },
     setShowMassUpload() {
       this.showMassUpload = !this.showMassUpload;
     },
