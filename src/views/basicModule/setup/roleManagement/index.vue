@@ -272,6 +272,7 @@ li {
 .role-management-container {
   box-sizing: border-box;
   display: flex;
+  width: 100%;
   .role-management-left {
     margin-right: 15px;
     width: 190px;
@@ -341,6 +342,7 @@ li {
     flex-direction: column;
     justify-content: space-between;
     height: calc(100vh - 125px);
+    width: calc(100% - 190px);
     &-wrapper {
       height: 100%;
       overflow: hidden;
@@ -357,27 +359,27 @@ li {
         color: #000000d9;
         font-weight: 500;
       }
-      .role-management-main {
-        display: flex;
-        display: -webkit-flex;
-        border-bottom: 1px solid #f5f5f5;
-        align-items: stretch;
-        font-size: 14px;
-        color: #000000a6;
-        &-left {
-          padding: 1.14286rem;
-          width: 118px;
-          display: flex;
-          align-items: center;
-
-          border-right: 1px solid #f5f5f5;
-        }
-        &-right {
-          padding: 1.14286rem;
-          width: calc(100% - 118px);
-          align-self: center;
-        }
-      }
+      //.role-management-main {
+      //  display: flex;
+      //  display: -webkit-flex;
+      //  border-bottom: 1px solid #f5f5f5;
+      //  align-items: stretch;
+      //  font-size: 14px;
+      //  color: #000000a6;
+      //  &-left {
+      //    padding: 1.14286rem;
+      //    width: 118px;
+      //    display: flex;
+      //    align-items: center;
+      //
+      //    border-right: 1px solid #f5f5f5;
+      //  }
+      //  &-right {
+      //    padding: 1.14286rem;
+      //    width: calc(100% - 118px);
+      //    align-self: center;
+      //  }
+      //}
     }
     .addRoleAuthority {
       display: flex;
