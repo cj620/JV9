@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2022-02-22 16:12:01
- * @LastEditTime: 2024-07-15 15:37:45
+ * @LastEditTime: 2024-07-15 15:51:04
  * @Description: file content
 -->
 <!-- 销售订单 明细 页面-->
@@ -156,7 +156,7 @@ export default {
       let flag = false;
       // ItemState IsPartProcess ToBeProduced
       datas.forEach((item) => {
-        if (item.IsPartProcess || item.ItemState != "ToBeProduced") {
+        if (!item.IsPartProcess || item.ItemState != "ToBeProduced") {
           flag = true;
         }
       });
