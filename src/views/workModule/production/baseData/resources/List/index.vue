@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 13:02:21
- * @LastEditTime: 2024-07-09 10:47:06
+ * @LastEditTime: 2024-07-15 10:40:08
  * @Description: 资源组
 -->
 <template>
@@ -18,7 +18,7 @@
         <div class="Resource-list-item-content">
           <div class="Resource-list-item-content-info">
             <div class="Resource-list-item-content-info-title">
-              <span>{{ item.GroupName }}</span>
+              <span>{{ item.ResourceId }}</span>
               <span class="ResourceType">{{
                 item.ResourceType === "Unlimited"
                   ? $t("production.Pr_Outside")
