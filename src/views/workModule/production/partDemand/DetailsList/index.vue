@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2022-02-22 16:12:01
- * @LastEditTime: 2024-07-15 13:51:15
+ * @LastEditTime: 2024-07-15 15:37:45
  * @Description: file content
 -->
 <!-- 销售订单 明细 页面-->
@@ -24,6 +24,7 @@
           {
             label: '生产加工单',
             confirm: newProduct.bind(null),
+            disabled: canCreateProduct,
           },
         ]"
         size="mini"
@@ -122,6 +123,7 @@ export default {
             {
               ...row,
               PartNo: row.ItemId,
+              PartName: row.ItemName,
             },
           ],
         },
@@ -129,13 +131,13 @@ export default {
     },
     newProduct() {
       let { datas } = this.tableObj.selectData;
-      if (datas.length !== 1) {
-        this.$message({
-          type: "warning",
-          message: "请选择一条生产明细！",
-        });
-        return;
-      }
+      // if (datas.length !== 1) {
+      //   this.$message({
+      //     type: "warning",
+      //     message: "请选择一条生产明细！",
+      //   });
+      //   return;
+      // }
       this.editDialogVisible = true;
     },
     confirm() {
@@ -145,6 +147,20 @@ export default {
         name: "AddProductionTask",
         params: { data: datas[0], type: "addItem" },
       });
+    },
+  },
+  computed: {
+    canCreateProduct() {
+      let { datas } = this.tableObj.selectData;
+      if (datas.length == 0) return true;
+      let flag = false;
+      // ItemState IsPartProcess ToBeProduced
+      datas.forEach((item) => {
+        if (item.IsPartProcess || item.ItemState != "ToBeProduced") {
+          flag = true;
+        }
+      });
+      return flag;
     },
   },
 };
