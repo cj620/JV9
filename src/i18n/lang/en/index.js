@@ -1104,6 +1104,9 @@ const en = {
     Ge_FileSizeCannotBeGreaterThan100MB:
       "File size cannot be greater than 100MB",
 
+    Ge_ResponsibilityUnit: "Responsibility Unit",
+    Ge_Resolved: "Resolved",
+    Ge_Unresolved: "Unresolved",
     Ge_CostDetails: "Cost details",
     Ge_Optional: "Optional",
     Ge_WorkingHoursRecord: "Working hours record",

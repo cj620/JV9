@@ -45,6 +45,9 @@
             </el-image>
           </div>
         </template>
+        <template #State="{row}">
+          {{ProblemPointsStateEnum[row.State.value] ?  ProblemPointsStateEnum[row.State.value].name : $t("Generality.Ge_Unresolved")}}
+        </template>
         <template #operation="{ row, row_index }">
           <TableAction
             :actions="[
@@ -203,6 +206,15 @@
     >
       <JvUploadList v-model="ImgDataList" :listType="true"></JvUploadList>
     </jv-dialog>
+    <jv-dialog
+    title="选择试模问题点"
+    width="80%"
+    :visible.sync="selectTestMouldProblemPointsVisible"
+    v-if="selectTestMouldProblemPointsVisible"
+    @confirm="confirmSelectTestMouldProblemPointsVisible"
+    >
+
+    </jv-dialog>
   </PageWrapper>
 </template>
 
@@ -221,7 +233,7 @@ import {
   temMerge,
 } from "@/jv_doc/utils/handleData";
 // 引入模块API接口
-import { API as ProjectTask } from "@/api/workApi/project/projectTask";
+import {API as ProjectTask, trial_tooling_list} from "@/api/workApi/project/projectTask";
 import {getAllProjectProcess, project_process_get_by_name} from "@/api/workApi/project/baseData";
 import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import closeTag from "@/utils/closeTag";
@@ -235,6 +247,7 @@ import {
 import SelectProjectProcess from "@/components/JVInternal/SelectProjectProcess/index.vue";
 import {getByProcess} from "@/api/workApi/production/baseData";
 import JvUploadList from "@/components/JVInternal/JvUpload/List.vue";
+import ProblemPointsStateEnum from "@/enum/workModule/project/ProblemPointsStateEnum";
 export default {
   name: "Pm_ProjectTask_Add",
   components: {
@@ -255,6 +268,7 @@ export default {
   },
   data() {
     return {
+      ProblemPointsStateEnum,
       defaultImgUrl: window.global_config.ImgBase_Url,
       cur_Id: this.$route.query.BillId,
       dom_obj: new CellDom(),
@@ -323,8 +337,10 @@ export default {
         Remarks: "",
         BillFiles: [],
         State: "",
+        ResponsibilityUnit: "",
       },
-      dialogImgFormVisible: false
+      dialogImgFormVisible: false,
+      selectTestMouldProblemPointsVisible: false,
     };
   },
   computed: {
@@ -378,6 +394,15 @@ export default {
   methods: {
     // 选择试模问题点
     selectTestMouldProblemPoints() {
+      this.formObj.validate((valid) => {
+        if (valid) {
+          this.selectTestMouldProblemPointsVisible = true;
+          trial_tooling_list({PageSize: 9999, CurrentPage:1,State: "Approved",ToolingNo: ""})
+        }
+      })
+    },
+    // 确认选择
+    confirmSelectTestMouldProblemPointsVisible() {
 
     },
     //新增一行

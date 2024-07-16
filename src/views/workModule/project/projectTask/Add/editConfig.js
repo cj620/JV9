@@ -182,12 +182,14 @@ export const ProblemPointsInMoldRepairTableSchema = [
     label: i18n.t("DataV.Da_State"),
     editConfig:{
       disabled:true,
-      default: '未解决',
-      value: '未解决',
     },
-    value: '未解决',
-    default: '未解决',
-    defaultValue: '未解决'
+    custom: true,
+  },
+  /*责任单位*/
+  {
+    prop: "ResponsibilityUnit",
+    label: i18n.t("Generality.Ge_ResponsibilityUnit"),
+    formCpn: "FormInput",
   },
   /*备注*/
   {

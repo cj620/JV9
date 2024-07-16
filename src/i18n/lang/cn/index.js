@@ -1002,6 +1002,9 @@ const cn = {
     Ge_SelectNextOne: "零件已选择，请选择下一个",
     Ge_SheetIsAlreadyCreated: "已有创建加工单，是否继续创建",
 
+    Ge_ResponsibilityUnit: "责任单位",
+    Ge_Resolved: "已解决",
+    Ge_Unresolved: "未解决",
     Ge_Schedule: "进度",
     Ge_WhetherInvalid: "是否作废？",
     Ge_Discarded: "已作废",
