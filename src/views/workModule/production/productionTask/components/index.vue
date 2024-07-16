@@ -439,7 +439,7 @@ export default {
 
       console.log("555555554455");
       this.productCommandDialogVisible = true;
-      // this.ProductCommandetableObj.getData();
+      this.ProductCommandetableObj.getData();
     }
   },
 
