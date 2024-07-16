@@ -7,6 +7,7 @@
 import { Table as BaseTable } from "@/jv_doc/class/table";
 import { enumFilter } from "~/utils/system/enumsPlugin";
 import { taskTypeEnum } from "@/enum/workModule";
+import { ItemState } from "@/enum/workModule/production/ItemState";
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -103,7 +104,8 @@ export const tableConfig = [
   {
     prop: "State",
     label: i18n.t("Generality.Ge_State"),
-    custom: true,
+    width: "120px",
+    customFilter: (value) => ItemState.getLabel(value),
   },
   /*备注*/
   {
@@ -145,14 +147,14 @@ export const detailConfig = [
   //   customFilter: (value) => enumFilter(value, taskTypeEnum),
   // },
   {
-    // 任务类别     Ge_RequirementCategory: "需求类别",
-    prop: "RequirementCategory",
-    label: "需求类别",
+    // 需求类别     Ge_RequirementCategory: "需求类别",
+    prop: "DemandType",
+    label: i18n.t("purchase.Pu_RequirementType"),
   },
   {
-    // 任务类别     Ge_RequirementCategory: "需求类别",
+    // 需求日期
     prop: "DemandDate",
-    label: "需求日期",
+    label: i18n.t("Generality.Ge_DemandDate"),
     filter: "date",
   },
 ];
