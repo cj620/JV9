@@ -35,6 +35,7 @@ router.beforeEach(async (to, from, next) => {
     } else {
       // determine whether the user has obtained his permission roles through getInfo
       const hasRoles = store.getters.roles && store.getters.roles.length > 0;
+      console.log(hasRoles,7788)
       if (hasRoles) {
         next();
       } else {
@@ -58,7 +59,7 @@ router.beforeEach(async (to, from, next) => {
           // remove token and go to login page to re-login
           await store.dispatch("user/resetToken");
 
-          console.error(error);
+          console.error(error,to,456);
           next(`/login?redirect=${to.path}`);
           NProgress.done();
         }
@@ -72,13 +73,14 @@ router.beforeEach(async (to, from, next) => {
       next();
     } else {
       // other pages that do not have permission to access are redirected to the login page.
-      console.log(to,to.name==='ProjectManage_Share_Demo',885588);
-
       if(to.name==='ProjectManage_Share_Demo' || to.name === 'ProjectManage_ProcessPeople_Share'){
         // setToken(to.query.key)
         next({...to});
       }else{
-        next(`/login?redirect=${to.path}`);
+        console.log(to.query,456);
+        const  keys=Object.keys(to.query)
+        const str =keys.length>0? to.path+'?'+keys[0]+'='+to.query.BillId:to.path
+        next(`/login?redirect=${str}`);
       }
 
       NProgress.done();
