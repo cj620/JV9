@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2024-07-16 13:58:57
+ * @LastEditTime: 2024-07-16 15:47:23
  * @Description: 模具BOM
 -->
 
@@ -610,6 +610,7 @@ export default {
     submitProductDemand() {
       // this.createProcudctCommandFormObj.form.Parts = [];
       this.createTaskVisible = true;
+      this.createProcudctCommandFormObj.reset();
       this.searchTaskInfo();
     },
     async productDemandConfirm() {
@@ -1126,7 +1127,7 @@ export default {
     //跳转到物料需求
     confirmTask(e) {
       this.$router.push({
-        name: "Pr_PartProductionDemand_Add",
+        name: "De_MaterialRequirement_Add",
         params: {
           data: format2source(this.eTableObj.selectData.datas),
           AssociateTask: e,
