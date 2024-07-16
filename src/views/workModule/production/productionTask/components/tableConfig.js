@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2024-07-16 11:11:55
+ * @LastEditTime: 2024-07-16 14:58:16
  * @Description: file content
  */
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
@@ -241,11 +241,12 @@ export const searchFormSchema = [
   //   cpn: "SingleTime",
   // },
   {
-    prop: "QueryAll",
+    prop: "Btn",
     label: "",
     cpn: "FormInput",
-    default: true,
-    hidden: true,
+    custom: true,
+    // default: true,
+    // hidden: true,
   },
   // QueryAll
 ];

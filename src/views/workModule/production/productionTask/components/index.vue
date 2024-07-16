@@ -232,7 +232,13 @@
       width="80%"
       :autoFocus="true"
     >
-      <JvForm :formObj="searchFormSchema"></JvForm>
+      <JvForm :formObj="searchFormSchema">
+        <template #Btn>
+          <el-button type="primary" @click="productCommandSearch"
+            >搜索</el-button
+          >
+        </template>
+      </JvForm>
       <JvTable :table-obj="ProductCommandetableObj"> </JvTable>
     </JvDialog>
   </PageWrapper>
@@ -295,6 +301,8 @@ export default {
     return {
       CommandItemList: [],
       productCommandId: "",
+      PmTaskBillId: "",
+      PlanEnd: "",
       formObj: {},
       eTableObj: {},
       tableObj: {},
@@ -390,7 +398,7 @@ export default {
     this.searchFormSchema = new Form({
       formSchema: searchFormSchema,
       baseColProps: {
-        span: 6,
+        span: 4,
       },
       labelPosition: "left",
       gutter: 30,
@@ -405,59 +413,44 @@ export default {
       this.$route.params.type === "addItem",
       'this.type === "edit"'
     );
+    this.ProductCommandetableObj = new ProductCommandetableClass();
+    this.ProductCommandetableObj.formObj.form = {
+      ...this.ProductCommandetableObj.formObj.form,
+      ...this.searchFormSchema.form,
+    };
+    this.searchFormSchema.eventBus.$on("CommandType", (value) => {
+      this.ProductCommandetableObj.formObj.form = {
+        ...this.ProductCommandetableObj.formObj.form,
+        ...this.searchFormSchema.form,
+      };
+      this.ProductCommandetableObj.api.getData =
+        value == "part"
+          ? part_production_demand_item_list
+          : pole_production_demand_item_list;
+      this.ProductCommandetableObj.getData();
+    });
     if (this.type === "edit") {
       this.editDisabled = true;
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
-    } else if (this.$route.params.type === "addItem") {
-      this.getProductCommande();
     } else {
       // ? part_production_demand_item_list
       // : pole_production_demand_item_list;
-      this.ProductCommandetableObj = new ProductCommandetableClass();
+
       console.log("555555554455");
       this.productCommandDialogVisible = true;
+      // this.ProductCommandetableObj.getData();
+    }
+  },
+
+  methods: {
+    productCommandSearch() {
       this.ProductCommandetableObj.formObj.form = {
         ...this.ProductCommandetableObj.formObj.form,
         ...this.searchFormSchema.form,
       };
       this.ProductCommandetableObj.getData();
-      this.searchFormSchema.eventBus.$on("CommandType", (value) => {
-        this.ProductCommandetableObj.formObj.form = {
-          ...this.ProductCommandetableObj.formObj.form,
-          ...this.searchFormSchema.form,
-        };
-        this.ProductCommandetableObj.api.getData =
-          value == "part"
-            ? part_production_demand_item_list
-            : pole_production_demand_item_list;
-        this.ProductCommandetableObj.getData();
-      });
-      this.searchFormSchema.eventBus.$on("Keyword", (value) => {
-        // this.ProductCommandetableObj.getData();
-        throttle(() => {
-          this.ProductCommandetableObj.formObj.form.Keyword = value;
-          this.ProductCommandetableObj.getData();
-        });
-      });
-      this.searchFormSchema.eventBus.$on("ToolingNo", (value) => {
-        // this.ProductCommandetableObj.getData();
-        throttle(() => {
-          this.ProductCommandetableObj.formObj.form.ToolingNo = value;
-          this.ProductCommandetableObj.getData();
-        });
-      });
-      this.searchFormSchema.eventBus.$on("BillId", (value) => {
-        // this.ProductCommandetableObj.getData();
-        throttle(() => {
-          this.ProductCommandetableObj.formObj.form.BillId = value;
-          this.ProductCommandetableObj.getData();
-        });
-      });
-    }
-  },
-
-  methods: {
+    },
     //编辑的时候获取信息
     async GetData(Id) {
       if (!Id) return;
@@ -466,6 +459,8 @@ export default {
         this.ruleForm = Object.assign({}, this.ruleForm, res);
         this.formObj.form = this.ruleForm;
         this.tableObj.setData(res.Parts);
+        this.PmTaskBillId = this.ruleForm.PmTaskBillId;
+        this.PlanEnd = this.ruleForm.PlanEnd;
         res.Process.forEach((item) => {
           if (item.ProcessContent.length > 0) {
             item.customData = item.ProcessContent.split(",");
@@ -477,6 +472,7 @@ export default {
     },
     selectProduct() {
       // this.$refs.multipleTable.clearSelection();
+      this.ProductCommandetableObj.getData();
       this.productCommandDialogVisible = true;
       this.ProductCommandetableObj.tableRef.clearSelection();
       this.ProductCommandetableObj.doLayout();
@@ -686,24 +682,28 @@ export default {
     },
     tableObjDelItem(row) {
       const datas = this.tableObj.getTableData();
+      // console.log(datas, "datasdatasdatasdatasdatas");
       const idx = datas.findIndex((item) => {
         return item.Id == row.Id;
       });
+      console.log(idx, "datasdatasdatasdatasdatas");
       if (idx < 0) return;
       if (idx == 0) {
         this.tableObj.delItem(idx);
         const datas = this.tableObj.getTableData();
         const target = datas.length == 0 ? {} : datas[0];
         this.formObj.form.ToolingNo = target.ToolingNo;
-        this.formObj.form.PartInfo = target.Remarks;
-        this.formObj.form.PartNo = target.ItemId;
-        this.formObj.form.PartName = target.ItemName;
-        this.formObj.form.PlanEnd = target.DemandDate;
-        this.formObj.form.PmTaskBillId = target.PmTaskBillId;
+        this.formObj.form.PartInfo = target.Remarks || target.PartName;
+        this.formObj.form.PartNo = target.ItemId || target.PartNo;
+        this.formObj.form.PartName = target.ItemName || target.PartName;
+        this.formObj.form.PlanEnd = target.DemandDate || this.PlanEnd;
+        this.formObj.form.PmTaskBillId =
+          target.PmTaskBillId || this.PmTaskBillId;
         this.formObj.form.BillType = target.BillType;
         this.formObj.form.DemandType = target.DemandType;
-        this.formObj.form.ProductionDemandBillld = target.BillId;
-        this.formObj.form.AssociatedNo = target.Id;
+        this.formObj.form.ProductionDemandBillld =
+          target.BillId || target.ProductionDemandBillld;
+        this.formObj.form.AssociatedNo = target.Id || target.AssociatedNo;
         this.formObj.form.Quantity = target.Quantity;
       } else {
         this.tableObj.delItem(idx);
