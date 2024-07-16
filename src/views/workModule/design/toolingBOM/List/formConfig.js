@@ -107,13 +107,13 @@ export const createProcudctCommandFormSchema = [
     cpn: "FormInput",
     label: i18n.t("project.Pro_TaskSheetNo"),
     custom: true,
-    // rules: [
-    //   {
-    //     required: true,
-    //     message: i18n.t("Generality.Ge_PleaseEnter"),
-    //     trigger: ["change", "blur"],
-    //   },
-    // ],
+    rules: [
+      {
+        required: true,
+        message: i18n.t("Generality.Ge_PleaseEnter"),
+        trigger: ["change", "blur"],
+      },
+    ],
   },
   {
     label: "需求类别",

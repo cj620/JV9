@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-09-17 09:11:19
- * @LastEditTime: 2023-07-11 17:07:17
+ * @LastEditTime: 2024-07-16 11:07:11
  * @Description: file content
 -->
 <template>
@@ -419,6 +419,7 @@ export default {
           );
           console.log(5);
           this?.formObj?.eventBus.$emit(this.cdata.prop, val, currentOption);
+          // this?.formObj?.eventBus.$emit("formChange", val, currentOption);
           this.form[this.cdata.prop] = val;
         }
       },
