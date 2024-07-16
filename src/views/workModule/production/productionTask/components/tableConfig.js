@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2024-07-16 09:27:57
+ * @LastEditTime: 2024-07-16 11:11:55
  * @Description: file content
  */
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
@@ -9,6 +9,7 @@ import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { enumToList, enumFilter } from "@/enum/workModule";
 import { part_production_demand_item_list } from "@/api/workApi/production/partProductionDemand";
 import { ItemState } from "@/enum/workModule/production/ItemState";
+import { itemList } from "@/api/basicApi/systemSettings/Item";
 export class Table extends BaseTable {
   constructor() {
     super({
@@ -91,7 +92,7 @@ export class ProductCommandetableClass extends BaseTable {
       // 接口类
       api,
       // 打印模块标识
-      printMod: "Pr_PartProductionDemand_Detail_list",
+      // printMod: "Pr_PartProductionDemand_Detail_list",
       operationCol: false,
       printBar: false,
       height: 500,
@@ -102,15 +103,10 @@ export class ProductCommandetableClass extends BaseTable {
 }
 //  表格配置
 const tableSchema = [
-  {
-    // 相关编号
-    prop: "PmTaskBillId",
-    label: i18n.t("sale.Sa_RelationId"),
-  },
   /*物料编号*/
   {
     prop: "ItemId",
-    label: i18n.t("Generality.Ge_ItemId"),
+    label: "零件编号",
     width: "120px",
   },
   /*物料类别*/
@@ -121,8 +117,22 @@ const tableSchema = [
   /*物料名称*/
   {
     prop: "ItemName",
-    label: i18n.t("Generality.Ge_ItemName"),
+    label: "零件名称",
     width: "120px",
+  },
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+  },
+  /*单据编号*/
+  {
+    prop: "BillId",
+    label: i18n.t("Generality.Ge_BillId"),
+  },
+  {
+    // 相关编号
+    prop: "PmTaskBillId",
+    label: i18n.t("sale.Sa_RelationId"),
   },
   /*描述*/
   {
@@ -193,6 +203,27 @@ export const searchFormSchema = [
     options: {
       list: ItemState.getEnums(),
     },
+  },
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    cpn: "FormInput",
+    // cpn: "AsyncSearch",
+    // api: itemList,
+    // apiOptions: {
+    //   keyName: "ItemName",
+    //   showValue: true,
+    //   valueName: "ItemId",
+    //   params: {
+    //     ItemCategory: "Tooling",
+    //   },
+    // },
+  },
+  /*单据编号*/
+  {
+    prop: "BillId",
+    label: i18n.t("Generality.Ge_BillId"),
+    cpn: "FormInput",
   },
   // {
   //   prop: "Remarks",

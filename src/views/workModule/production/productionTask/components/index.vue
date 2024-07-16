@@ -417,17 +417,42 @@ export default {
       this.ProductCommandetableObj = new ProductCommandetableClass();
       console.log("555555554455");
       this.productCommandDialogVisible = true;
+      this.ProductCommandetableObj.formObj.form = {
+        ...this.ProductCommandetableObj.formObj.form,
+        ...this.searchFormSchema.form,
+      };
       this.ProductCommandetableObj.getData();
       this.searchFormSchema.eventBus.$on("CommandType", (value) => {
+        this.ProductCommandetableObj.formObj.form = {
+          ...this.ProductCommandetableObj.formObj.form,
+          ...this.searchFormSchema.form,
+        };
         this.ProductCommandetableObj.api.getData =
           value == "part"
             ? part_production_demand_item_list
             : pole_production_demand_item_list;
         this.ProductCommandetableObj.getData();
       });
-      this.searchFormSchema.eventBus.$on("Keyword", () => {
+      this.searchFormSchema.eventBus.$on("Keyword", (value) => {
         // this.ProductCommandetableObj.getData();
-        throttle(this.ProductCommandetableObj.getData());
+        throttle(() => {
+          this.ProductCommandetableObj.formObj.form.Keyword = value;
+          this.ProductCommandetableObj.getData();
+        });
+      });
+      this.searchFormSchema.eventBus.$on("ToolingNo", (value) => {
+        // this.ProductCommandetableObj.getData();
+        throttle(() => {
+          this.ProductCommandetableObj.formObj.form.ToolingNo = value;
+          this.ProductCommandetableObj.getData();
+        });
+      });
+      this.searchFormSchema.eventBus.$on("BillId", (value) => {
+        // this.ProductCommandetableObj.getData();
+        throttle(() => {
+          this.ProductCommandetableObj.formObj.form.BillId = value;
+          this.ProductCommandetableObj.getData();
+        });
       });
     }
   },
