@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2024-07-16 11:38:34
+ * @LastEditTime: 2024-07-16 13:58:57
  * @Description: 模具BOM
 -->
 
@@ -385,6 +385,8 @@ import {
 } from "./formConfig";
 import { timeFormat } from "~/utils/time";
 import { quickly_create_production_demand } from "@/api/workApi/design/toolingBOM";
+import { get_parts_by_partNo } from "@/api/workApi/production/partProductionDemand";
+
 export default {
   name: "ToolingBOM",
   // 表格数据
@@ -609,41 +611,60 @@ export default {
       // this.createProcudctCommandFormObj.form.Parts = [];
       this.createTaskVisible = true;
       this.searchTaskInfo();
-      // this.createProcudctCommandFormObj.form.Level = "Ordinary";
-      // this.createProcudctCommandFormObj.form.PlanStart = new Date();
-      // this.eTableObj.selectData.datas.forEach((item) => {
-      //   this.createProcudctCommandFormObj.form.Parts.push({
-      //     PartNo: item.PartNo.value,
-      //     PartName: item.PartName.value,
-      //     Description: item.Description.value,
-      //     Unit: item.Unit.value,
-      //     Quantity: item.Quantity.value,
-      //     ToolingNo: item.ToolingNo.value,
-      //     IsFinishedProductInspection: item.IsFinishedProductInspection.value,
-      //   });
-      // });
     },
-  async  productDemandConfirm() {
+    async productDemandConfirm() {
       const params = {
         BomType: 0,
+        ToolingNo: this.toolId,
         ...this.createProcudctCommandFormObj.form,
         Parts: [],
       };
       const datas = this.eTableObj.getSeletedData();
-      params.Parts = datas.map((item) => {
-        return {
-          PartNo: item.PartNo,
-          PartName: item.PartName,
-          Description: item.Description,
-          Unit: item.Unit,
-          Quantity: item.Quantity,
-          ToolingNo: item.ToolingNo,
-          IsFinishedProductInspection: item.IsFinishedProductInspection,
-        };
-      });
-      console.log(params, "params");
-    await  quickly_create_production_demand(params);
-    this.createTaskVisible = false;
+      get_parts_by_partNo(datas.map((item) => item.PartNo)).then(
+        async (res) => {
+          console.log(res, "resresresresres");
+          // 判断有没有提交过物料需求
+          if (res.Items.length > 0) {
+            this.$confirm(res.Items.toString() + "已提交生产需求，是否继续？", {
+              confirmButtonText: this.$t("Generality.Ge_OK"),
+              cancelButtonText: this.$t("Generality.Ge_Cancel"),
+              type: "warning",
+            }).then(async () => {
+              const datas = this.eTableObj.getSeletedData();
+              params.Parts = datas.map((item) => {
+                return {
+                  PartNo: item.PartNo,
+                  PartName: item.PartName,
+                  Description: item.Description,
+                  Unit: item.Unit,
+                  Quantity: item.Quantity,
+                  ToolingNo: item.ToolingNo,
+                  IsFinishedProductInspection: item.IsFinishedProductInspection,
+                };
+              });
+              console.log(params, "params");
+              await quickly_create_production_demand(params);
+              this.createTaskVisible = false;
+            });
+          } else {
+            const datas = this.eTableObj.getSeletedData();
+            params.Parts = datas.map((item) => {
+              return {
+                PartNo: item.PartNo,
+                PartName: item.PartName,
+                Description: item.Description,
+                Unit: item.Unit,
+                Quantity: item.Quantity,
+                ToolingNo: item.ToolingNo,
+                IsFinishedProductInspection: item.IsFinishedProductInspection,
+              };
+            });
+            console.log(params, "params");
+            await quickly_create_production_demand(params);
+            this.createTaskVisible = false;
+          }
+        }
+      );
     },
     setShowMassUpload() {
       this.showMassUpload = !this.showMassUpload;
