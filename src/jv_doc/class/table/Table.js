@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-09-13 13:05:28
- * @LastEditTime: 2024-02-27 10:35:00
+ * @LastEditTime: 2024-07-16 08:58:14
  * @Description: file content
  */
 /*
@@ -112,10 +112,9 @@ class Table {
   // 填入数据
   setData = (data, count) => {
     this.tableData = data;
-    if(count) {
+    if (count) {
       this.pager.Total = count;
     }
-
   };
   // 参数校验 接口必须实现getData方法
   typeCheck() {
@@ -174,6 +173,7 @@ class Table {
   };
   // 删除
   delItem = (index) => {
+    console.log(index, "index");
     this.tableData.splice(index, 1);
   };
   // 合计方式

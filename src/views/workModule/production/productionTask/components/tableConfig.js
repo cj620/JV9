@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2024-07-12 14:23:08
+ * @LastEditTime: 2024-07-16 09:27:57
  * @Description: file content
  */
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
@@ -17,7 +17,7 @@ export class Table extends BaseTable {
       title: "",
       tableHeaderShow: false,
       pagination: false,
-      operationCol: false,
+      operationCol: true,
       height: 200,
       operationWidth: 80,
     });
@@ -80,7 +80,7 @@ export class ProductCommandetableClass extends BaseTable {
       // 表格配置
       tableSchema: tableSchema,
       // 表单配置
-      formSchema: formSchema,
+      formSchema: [],
       // 行标识
       rowId: "Id",
       // 表格标题
@@ -95,6 +95,7 @@ export class ProductCommandetableClass extends BaseTable {
       operationCol: false,
       printBar: false,
       height: 500,
+      tableHeaderShow: false,
       ...props,
     });
   }
@@ -142,7 +143,7 @@ const tableSchema = [
   },
   /*数量*/
   {
-    prop: "ProductionQuantity",
+    prop: "Quantity",
     label: i18n.t("Generality.Ge_Quantity"),
     width: "90px",
     align: "right",
@@ -155,13 +156,13 @@ const tableSchema = [
   },
 ];
 //  搜索表单配置
-const formSchema = [
+export const searchFormSchema = [
   {
     // 模具编号
     prop: "CommandType",
-    cpn: "FormRadio",
+    cpn: "FormSelect",
     label: "类别",
-    type: "button",
+    // type: "button",
     default: "part",
     options: {
       list: [
@@ -187,27 +188,27 @@ const formSchema = [
     prop: "ItemState",
     label: "明细状态",
     cpn: "FormSelect",
-    // default: "ToBeProduced",
+    default: "ToBeProduced",
     hidden: true,
     options: {
       list: ItemState.getEnums(),
     },
   },
-  {
-    prop: "Remarks",
-    label: i18n.t("Generality.Ge_Remarks"),
-    cpn: "FormInput",
-  },
-  {
-    prop: "StartDate",
-    label: i18n.t("Generality.Ge_StartDate"),
-    cpn: "SingleTime",
-  },
-  {
-    prop: "EndDate",
-    label: i18n.t("Generality.Ge_EndDate"),
-    cpn: "SingleTime",
-  },
+  // {
+  //   prop: "Remarks",
+  //   label: i18n.t("Generality.Ge_Remarks"),
+  //   cpn: "FormInput",
+  // },
+  // {
+  //   prop: "StartDate",
+  //   label: i18n.t("Generality.Ge_StartDate"),
+  //   cpn: "SingleTime",
+  // },
+  // {
+  //   prop: "EndDate",
+  //   label: i18n.t("Generality.Ge_EndDate"),
+  //   cpn: "SingleTime",
+  // },
   {
     prop: "QueryAll",
     label: "",

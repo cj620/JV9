@@ -71,11 +71,22 @@
     <!--物料信息-->
     <JvBlock :title="$t('Generality.Ge_ItemsInfo')" ref="second">
       <div slot="extra">
-        <el-button size="mini" @click="selectBomList">{{
+        <el-button size="mini" @click="selectProduct">{{
           $t("production.Pr_SelectPart")
         }}</el-button>
       </div>
-      <JvTable :table-obj="tableObj"> </JvTable>
+      <JvTable :table-obj="tableObj">
+        <template #operation="{ row }">
+          <TableAction
+            :actions="[
+              {
+                icon: 'el-icon-delete',
+                confirm: tableObjDelItem.bind(null, row),
+              },
+            ]"
+          />
+        </template>
+      </JvTable>
     </JvBlock>
     <!-- 工序信息 -->
     <JvBlock :title="$t('Generality.Ge_ProcessInfo')">
@@ -217,11 +228,11 @@
     <JvDialog
       title="选择生产需求明细"
       :visible.sync="productCommandDialogVisible"
-      v-if="productCommandDialogVisible"
       @confirm="confirmProductCommande"
       width="80%"
       :autoFocus="true"
     >
+      <JvForm :formObj="searchFormSchema"></JvForm>
       <JvTable :table-obj="ProductCommandetableObj"> </JvTable>
     </JvDialog>
   </PageWrapper>
@@ -231,7 +242,11 @@
 import JvUploadList from "@/components/JVInternal/JvUpload/List";
 import { formSchema, productCommandformSchema } from "./formConfig";
 import { EditTable } from "./editConfig";
-import { Table, ProductCommandetableClass } from "./tableConfig";
+import {
+  Table,
+  ProductCommandetableClass,
+  searchFormSchema,
+} from "./tableConfig";
 import selectBomList from "./selectBomList";
 import { timeFormat } from "@/jv_doc/utils/time";
 import { Form } from "@/jv_doc/class/form";
@@ -256,6 +271,7 @@ import { itemList } from "@/api/basicApi/systemSettings/Item";
 import { data } from "../../../../basicModule/demo/EditTable/data";
 import { part_production_demand_item_list } from "@/api/workApi/production/partProductionDemand";
 import { pole_production_demand_item_list } from "@/api/workApi/production/poleProductionDemand";
+import { throttle } from "~/utils/optimization";
 export default {
   name: "Sa_SaleOrder_Edit",
   components: {
@@ -285,7 +301,7 @@ export default {
       ProductCommandetableObj: {},
       transferData: [],
       PmTaskData: [],
-      productCommandformObj: {},
+      searchFormSchema: {},
       productCommandDialogVisible: false,
       taskTypeEnum,
       ProcessDialogFormVisible: false,
@@ -371,6 +387,15 @@ export default {
       gutter: 30,
       labelWidth: "80px",
     });
+    this.searchFormSchema = new Form({
+      formSchema: searchFormSchema,
+      baseColProps: {
+        span: 6,
+      },
+      labelPosition: "left",
+      gutter: 30,
+      labelWidth: "80px",
+    });
     this.formObj.form.Level = "Ordinary";
     this.eTableObj = new EditTable();
     this.tableObj = new Table();
@@ -393,15 +418,17 @@ export default {
       console.log("555555554455");
       this.productCommandDialogVisible = true;
       this.ProductCommandetableObj.getData();
-      this.ProductCommandetableObj.formObj.eventBus.$on(
-        "CommandType",
-        (value) => {
-          this.ProductCommandetableObj.api.getData =
-            value == "part"
-              ? part_production_demand_item_list
-              : pole_production_demand_item_list;
-        }
-      );
+      this.searchFormSchema.eventBus.$on("CommandType", (value) => {
+        this.ProductCommandetableObj.api.getData =
+          value == "part"
+            ? part_production_demand_item_list
+            : pole_production_demand_item_list;
+        this.ProductCommandetableObj.getData();
+      });
+      this.searchFormSchema.eventBus.$on("Keyword", () => {
+        // this.ProductCommandetableObj.getData();
+        throttle(this.ProductCommandetableObj.getData());
+      });
     }
   },
 
@@ -423,33 +450,44 @@ export default {
         this.eTableObj.setData(arr);
       });
     },
+    selectProduct() {
+      // this.$refs.multipleTable.clearSelection();
+      this.productCommandDialogVisible = true;
+      this.ProductCommandetableObj.tableRef.clearSelection();
+      this.ProductCommandetableObj.doLayout();
+      // console.log(
+      //   this.ProductCommandetableObj.tableRef.clearSelection,
+      //   "this.ProductCommandetableObj.tableRef.clearSelection"
+      // );
+    },
     confirmProductCommande() {
-      // this.productCommandformObj.form.CommandType
-      // const api =
-      //   this.productCommandformObj.form.CommandType == "part"
-      //     ? part_production_demand_item_list
-      //     : pole_production_demand_item_list;
-      // const data = await api({ BillId: this.productCommandId });
-      // CommandItemList this.productCommandId
       let { datas } = this.ProductCommandetableObj.selectData;
-      if (datas.length !== 1) {
-        this.$message({
-          type: "warning",
-          message: "请选择一条生产明细！",
-        });
-        return;
+      const parts = datas.map((item) => {
+        return {
+          ...item,
+          PartNo: item.ItemId,
+          PartName: item.ItemName,
+        };
+      });
+      if (this.formObj.form.PartNo) {
+        this.tableObj.push(parts);
+      } else {
+        let target = datas[0];
+        if (!target) return;
+        this.formObj.form.ToolingNo = target.ToolingNo;
+        this.formObj.form.PartInfo = target.Remarks;
+        this.formObj.form.PartNo = target.ItemId;
+        this.formObj.form.PartName = target.ItemName;
+        this.formObj.form.PlanEnd = target.DemandDate;
+        this.formObj.form.PmTaskBillId = target.PmTaskBillId;
+        this.formObj.form.BillType = target.BillType;
+        this.formObj.form.DemandType = target.DemandType;
+        this.formObj.form.ProductionDemandBillld = target.BillId;
+        this.formObj.form.AssociatedNo = target.Id;
+        this.formObj.form.Quantity = target.Quantity;
+
+        this.tableObj.setData(parts);
       }
-      let target = datas[0];
-      if (!target) return;
-      this.formObj.form.ToolingNo = target.ToolingNo;
-      this.formObj.form.Remarks = target.Remarks;
-      this.formObj.form.PlanEnd = target.DemandDate;
-      this.formObj.form.PmTaskBillId = target.PmTaskBillId;
-      this.formObj.form.BillType = target.BillType;
-      this.formObj.form.DemandType = target.DemandType;
-      this.formObj.form.ProductionDemandBillld = target.BillId;
-      this.formObj.form.AssociatedNo = target.Id;
-      this.formObj.form.Quantity = target.ProductionQuantity;
       this.productCommandDialogVisible = false;
     },
     getProductCommande() {
@@ -460,18 +498,18 @@ export default {
       //     : pole_production_demand_item_list;
       // const data = await api({ BillId: this.productCommandId });
       // CommandItemList this.productCommandId
-      const target = this.$route.params.data;
-      console.log(target);
-      this.formObj.form.ToolingNo = target.ToolingNo;
-      this.formObj.form.Remarks = target.Remarks;
-      this.formObj.form.PlanEnd = target.DemandDate;
-      this.formObj.form.PmTaskBillId = target.PmTaskBillId;
-      this.formObj.form.BillType = target.BillType;
-      this.formObj.form.DemandType = target.DemandType;
-      this.formObj.form.ProductionDemandBillld = target.BillId;
-      this.formObj.form.AssociatedNo = target.Id;
-      this.formObj.form.Quantity = target.ProductionQuantity;
-      this.productCommandDialogVisible = false;
+      // const target = this.$route.params.data;
+      // console.log(target);
+      // this.formObj.form.ToolingNo = target.ToolingNo;
+      // this.formObj.form.Remarks = target.Remarks;
+      // this.formObj.form.PlanEnd = target.DemandDate;
+      // this.formObj.form.PmTaskBillId = target.PmTaskBillId;
+      // this.formObj.form.BillType = target.BillType;
+      // this.formObj.form.DemandType = target.DemandType;
+      // this.formObj.form.ProductionDemandBillld = target.BillId;
+      // this.formObj.form.AssociatedNo = target.Id;
+      // this.formObj.form.Quantity = target.ProductionQuantity;
+      // this.productCommandDialogVisible = false;
     },
     //模糊查询模号
     remoteMethod(query) {
@@ -620,6 +658,33 @@ export default {
     //删除物料
     delItem(index) {
       this.eTableObj.delItem(index);
+    },
+    tableObjDelItem(row) {
+      const datas = this.tableObj.getTableData();
+      const idx = datas.findIndex((item) => {
+        return item.Id == row.Id;
+      });
+      if (idx < 0) return;
+      if (idx == 0) {
+        this.tableObj.delItem(idx);
+        const datas = this.tableObj.getTableData();
+        const target = datas.length == 0 ? {} : datas[0];
+        this.formObj.form.ToolingNo = target.ToolingNo;
+        this.formObj.form.PartInfo = target.Remarks;
+        this.formObj.form.PartNo = target.ItemId;
+        this.formObj.form.PartName = target.ItemName;
+        this.formObj.form.PlanEnd = target.DemandDate;
+        this.formObj.form.PmTaskBillId = target.PmTaskBillId;
+        this.formObj.form.BillType = target.BillType;
+        this.formObj.form.DemandType = target.DemandType;
+        this.formObj.form.ProductionDemandBillld = target.BillId;
+        this.formObj.form.AssociatedNo = target.Id;
+        this.formObj.form.Quantity = target.Quantity;
+      } else {
+        this.tableObj.delItem(idx);
+      }
+      console.log(row, "row");
+      // this.tableObj.delItem(index);
     },
     //选择工艺模板
     selectProcessTemplate() {
