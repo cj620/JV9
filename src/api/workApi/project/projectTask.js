@@ -28,6 +28,16 @@ export function getJobRecord(query) {
     params: query,
   });
 }
+
+// 根据单号获取任务
+export function get_project_task(query) {
+  return request({
+    url: "/project_task/get",
+    method: "get",
+    params: query,
+  });
+}
+
 // 编辑报工记录
 export function update_record_actual_end(data) {
   return request({

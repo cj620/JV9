@@ -213,7 +213,40 @@
     v-if="selectTestMouldProblemPointsVisible"
     @confirm="confirmSelectTestMouldProblemPointsVisible"
     >
-
+      <div class="TestMouldProblemPoints-box">
+        <div class="TestMouldProblemPoints-box-selectInput">
+          <span>选择试模单：</span>
+          <el-select size="mini" v-model="TestMouldProblemPointsValue" :placeholder="$t('Generality.Ge_PleaseSelect')">
+            <el-option
+              v-for="item in TestMouldProblemPointsOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <!--试模任务详情-->
+        <div class="TestMouldProblemPoints-box-detail">
+          <JvDetail :detailObj="detailObj"></JvDetail>
+        </div>
+        <!--试模问题点表格-->
+        <div class="TestMouldProblemPoints-box-table">
+          <jv-table :table-obj="TestMouldProblemPointsTableObj">
+            <template #BillFiles="{ record }">
+              <div v-if="record.length > 0">
+                <el-image
+                  style="width: 50px; height: 50px"
+                  v-for="(item, index) in record"
+                  :key="index"
+                  :preview-src-list="[defaultImgUrl + item]"
+                  :src="defaultImgUrl + item"
+                >
+                </el-image>
+              </div>
+            </template>
+          </jv-table>
+        </div>
+      </div>
     </jv-dialog>
   </PageWrapper>
 </template>
@@ -233,7 +266,7 @@ import {
   temMerge,
 } from "@/jv_doc/utils/handleData";
 // 引入模块API接口
-import {API as ProjectTask, trial_tooling_list} from "@/api/workApi/project/projectTask";
+import {API as ProjectTask, get_project_task, trial_tooling_list} from "@/api/workApi/project/projectTask";
 import {getAllProjectProcess, project_process_get_by_name} from "@/api/workApi/project/baseData";
 import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import closeTag from "@/utils/closeTag";
@@ -248,9 +281,13 @@ import SelectProjectProcess from "@/components/JVInternal/SelectProjectProcess/i
 import {getByProcess} from "@/api/workApi/production/baseData";
 import JvUploadList from "@/components/JVInternal/JvUpload/List.vue";
 import ProblemPointsStateEnum from "@/enum/workModule/project/ProblemPointsStateEnum";
+import Detail from "~/class/detail/Detail";
+import {detailConfig, Table} from "@/views/workModule/project/projectTask/Add/dialogConfig";
+import JvTable from "~/cpn/JvTable/index.vue";
 export default {
   name: "Pm_ProjectTask_Add",
   components: {
+    JvTable,
     JvUploadList,
     SelectProjectProcess,
     JvUploadFile,
@@ -269,6 +306,7 @@ export default {
   data() {
     return {
       ProblemPointsStateEnum,
+      detailObj: {},
       defaultImgUrl: window.global_config.ImgBase_Url,
       cur_Id: this.$route.query.BillId,
       dom_obj: new CellDom(),
@@ -341,6 +379,9 @@ export default {
       },
       dialogImgFormVisible: false,
       selectTestMouldProblemPointsVisible: false,
+      TestMouldProblemPointsValue: "",
+      TestMouldProblemPointsOptions: [],
+      TestMouldProblemPointsTableObj: {}
     };
   },
   computed: {
@@ -394,11 +435,36 @@ export default {
   methods: {
     // 选择试模问题点
     selectTestMouldProblemPoints() {
-      this.formObj.validate((valid) => {
-        if (valid) {
+      // this.formObj.validate((valid) => {
+      //   if (valid) {
           this.selectTestMouldProblemPointsVisible = true;
-          trial_tooling_list({PageSize: 9999, CurrentPage:1,State: "Approved",ToolingNo: ""})
-        }
+          this.detailObj = new Detail({
+            column: 3,
+            schema: detailConfig,
+            data: {},
+          })
+          this.TestMouldProblemPointsTableObj = new Table();
+          trial_tooling_list({PageSize: 9999, CurrentPage:1,State: "Approved",ToolingNo: this.formObj.form.ToolingNo}).then(res => {
+            this.TestMouldProblemPointsOptions = res.Items.map(item => {
+              return {
+                label: item.BillId,
+                value: item.BillId,
+              }
+            });
+            // 如果有数据，则赋值  并且获取试模详情
+            if(this.TestMouldProblemPointsOptions.length) {
+              this.TestMouldProblemPointsValue = this.TestMouldProblemPointsOptions[0].value;
+              this.getProjectTaskDetail(this.TestMouldProblemPointsValue);
+            }
+          })
+      //   }
+      // })
+    },
+    // 获取详情
+    getProjectTaskDetail(BillId) {
+      get_project_task({BillId}).then(res => {
+        this.detailObj.setData(res.TrialToolingDynamicData); // 详情
+        this.TestMouldProblemPointsTableObj.setData(res.TrialToolingDynamicData.TestMouldProblemPoints); // 问题点
       })
     },
     // 确认选择
@@ -680,5 +746,25 @@ export default {
   // padding-right: 100px;
   width: 200px;
   text-align: end;
+}
+.TestMouldProblemPoints-box{
+  width: 100%;
+  &-selectInput{
+    padding: 10px;
+    padding-bottom: 14px;
+    position: relative;
+  }
+  &-selectInput::after{
+    position: absolute;
+    width: 99%;
+    height: 1px;
+    background: #eee;
+    content: "";
+    bottom: 0;
+    left: 0.5%;
+  }
+  &-detail{
+    padding: 10px;
+  }
 }
 </style>
