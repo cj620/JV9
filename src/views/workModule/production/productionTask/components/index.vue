@@ -229,7 +229,7 @@
       title="选择生产需求明细"
       :visible.sync="productCommandDialogVisible"
       @confirm="confirmProductCommande"
-      width="80%"
+      width="90%"
       :autoFocus="true"
     >
       <JvForm :formObj="searchFormSchema"></JvForm>
