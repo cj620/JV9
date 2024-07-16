@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2022-02-22 16:21:55
- * @LastEditTime: 2024-07-12 14:50:25
+ * @LastEditTime: 2024-07-16 16:58:16
  * @Description: file content
  */
 //销售订单明细 配置文件
@@ -203,6 +203,13 @@ const formSchema = [
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
     cpn: "FormInput",
+  },
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    cpn: "FormInput",
+    default: "Approved",
+    hidden: true,
   },
   {
     prop: "StartDate",
