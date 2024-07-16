@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 09:22:38
- * @LastEditTime: 2024-07-15 16:39:12
+ * @LastEditTime: 2024-07-16 11:38:34
  * @Description: 模具BOM
 -->
 
@@ -623,7 +623,7 @@ export default {
       //   });
       // });
     },
-    productDemandConfirm() {
+  async  productDemandConfirm() {
       const params = {
         BomType: 0,
         ...this.createProcudctCommandFormObj.form,
@@ -642,7 +642,8 @@ export default {
         };
       });
       console.log(params, "params");
-      quickly_create_production_demand(params);
+    await  quickly_create_production_demand(params);
+    this.createTaskVisible = false;
     },
     setShowMassUpload() {
       this.showMassUpload = !this.showMassUpload;
