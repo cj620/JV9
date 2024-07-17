@@ -509,6 +509,11 @@ export default {
 
         this.tableObj.setData(parts);
       }
+      this.formObj.form.Quantity = this.tableObj
+        .getTableData()
+        .reduce((x, y) => {
+          return Number(x || 0) + Number(y.Quantity || 0);
+        }, 0);
       this.productCommandDialogVisible = false;
     },
     getProductCommande() {
@@ -704,10 +709,17 @@ export default {
         this.formObj.form.ProductionDemandBillld =
           target.BillId || target.ProductionDemandBillld;
         this.formObj.form.AssociatedNo = target.Id || target.AssociatedNo;
-        this.formObj.form.Quantity = target.Quantity;
+        // this.formObj.form.Quantity = target.Quantity;
       } else {
         this.tableObj.delItem(idx);
       }
+
+      this.formObj.form.Quantity = this.tableObj
+        .getTableData()
+        .reduce((x, y) => {
+          return Number(x || 0) + Number(y.Quantity || 0);
+        }, 0);
+
       console.log(row, "row");
       // this.tableObj.delItem(index);
     },
