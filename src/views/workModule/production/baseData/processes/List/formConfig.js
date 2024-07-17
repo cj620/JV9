@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-19 10:25:28
- * @LastEditTime: 2024-07-09 10:55:36
+ * @LastEditTime: 2024-07-17 10:30:43
  * @Description:
  */
 import { getAllResource } from "@/api/workApi/production/baseData";
@@ -113,71 +113,71 @@ export const formSchema = [
     custom: true,
   },
 
-  {
-    label: "任务类别",
-    prop: "ResType",
-    cpn: "FormSelect",
-    options: {
-      list: PrTaskType.getEnums(),
-    },
-  },
+  // {
+  //   label: "任务类别",
+  //   prop: "ResType",
+  //   cpn: "FormSelect",
+  //   options: {
+  //     list: PrTaskType.getEnums(),
+  //   },
+  // },
   { label: "标准费率", prop: "StdRates", cpn: "FormInput", type: "number" },
-  { label: "目录权限", prop: "DirectoryPurview", cpn: "FormInput" },
-  { label: "入站前状态", prop: "InSiteState", cpn: "FormInput" },
-  { label: "上机后状态", prop: "UpState", cpn: "FormInput" },
-  { label: "下机后状态", prop: "DownState", cpn: "FormInput" },
-  { label: "入站后状态", prop: "InSitedBillState", cpn: "FormInput" },
-  {
-    label: "程序加工",
-    prop: "NcProgram",
-    cpn: "FormRadio",
-    default: false,
-    options: {
-      list: [
-        { label: "是", value: true },
-        { label: "否", value: false },
-      ],
-    },
-  },
-  {
-    label: "使用电极",
-    prop: "IFUsePole",
-    cpn: "FormRadio",
-    default: false,
-    options: {
-      list: [
-        { label: "是", value: true },
-        { label: "否", value: false },
-      ],
-    },
-  },
-  { label: "工作周", prop: "WorkWeek", cpn: "FormInput" },
-  { label: "开机时间段", prop: "BootTimeSpan", cpn: "FormInput" },
-  {
-    label: "是否是记录工序",
-    prop: "IsRecordCraft",
-    cpn: "FormRadio",
-    default: false,
-    options: {
-      list: [
-        { label: "是", value: true },
-        { label: "否", value: false },
-      ],
-    },
-  },
-  { label: "外协设备组", prop: "OutsourceEquipmentGroup", cpn: "FormInput" },
-  {
-    label: "允许同时上机",
-    prop: "AllowRepetitionMachine",
-    cpn: "FormRadio",
-    default: false,
-    options: {
-      list: [
-        { label: "是", value: true },
-        { label: "否", value: false },
-      ],
-    },
-  },
+  // { label: "目录权限", prop: "DirectoryPurview", cpn: "FormInput" },
+  // { label: "入站前状态", prop: "InSiteState", cpn: "FormInput" },
+  // { label: "上机后状态", prop: "UpState", cpn: "FormInput" },
+  // { label: "下机后状态", prop: "DownState", cpn: "FormInput" },
+  // { label: "入站后状态", prop: "InSitedBillState", cpn: "FormInput" },
+  // {
+  //   label: "程序加工",
+  //   prop: "NcProgram",
+  //   cpn: "FormRadio",
+  //   default: false,
+  //   options: {
+  //     list: [
+  //       { label: "是", value: true },
+  //       { label: "否", value: false },
+  //     ],
+  //   },
+  // },
+  // {
+  //   label: "使用电极",
+  //   prop: "IFUsePole",
+  //   cpn: "FormRadio",
+  //   default: false,
+  //   options: {
+  //     list: [
+  //       { label: "是", value: true },
+  //       { label: "否", value: false },
+  //     ],
+  //   },
+  // },
+  // { label: "工作周", prop: "WorkWeek", cpn: "FormInput" },
+  // { label: "开机时间段", prop: "BootTimeSpan", cpn: "FormInput" },
+  // {
+  //   label: "是否是记录工序",
+  //   prop: "IsRecordCraft",
+  //   cpn: "FormRadio",
+  //   default: false,
+  //   options: {
+  //     list: [
+  //       { label: "是", value: true },
+  //       { label: "否", value: false },
+  //     ],
+  //   },
+  // },
+  // { label: "外协设备组", prop: "OutsourceEquipmentGroup", cpn: "FormInput" },
+  // {
+  //   label: "允许同时上机",
+  //   prop: "AllowRepetitionMachine",
+  //   cpn: "FormRadio",
+  //   default: false,
+  //   options: {
+  //     list: [
+  //       { label: "是", value: true },
+  //       { label: "否", value: false },
+  //     ],
+  //   },
+  // },
   {
     label: "默认工时",
     prop: "DefaultWorkingHours",

@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-18 15:08:18
- * @LastEditTime: 2024-07-09 10:55:02
+ * @LastEditTime: 2024-07-17 10:31:01
  * @Description:
  */
 
@@ -77,40 +77,40 @@ export const tableConfig = [
     prop: "ProgramingProcess",
     label: i18n.t("production.Pr_ProgramingProcess"),
   },
-  {
-    label: "任务类别",
-    prop: "ResType",
-    customFilter: (value) => PrTaskType.getLabel(value),
-  },
+  // {
+  //   label: "任务类别",
+  //   prop: "ResType",
+  //   customFilter: (value) => PrTaskType.getLabel(value),
+  // },
   { label: "标准费率", prop: "StdRates" },
-  { label: "目录权限", prop: "DirectoryPurview" },
-  { label: "入站前状态", prop: "InSiteState" },
-  { label: "上机后状态", prop: "UpState" },
-  { label: "下机后状态", prop: "DownState" },
-  { label: "入站后状态", prop: "InSitedBillState" },
-  {
-    label: "程序加工",
-    prop: "NcProgram",
-    customFilter: (value) => (Boolean(value) ? "是" : "否"),
-  },
-  {
-    label: "使用电极",
-    prop: "IFUsePole",
-    customFilter: (value) => (Boolean(value) ? "是" : "否"),
-  },
-  { label: "工作周", prop: "WorkWeek" },
-  { label: "开机时间段", prop: "BootTimeSpan" },
-  {
-    label: "是否是记录工序",
-    prop: "IsRecordCraft",
-    customFilter: (value) => (Boolean(value) ? "是" : "否"),
-  },
-  { label: "外协设备组", prop: "OutsourceEquipmentGroup" },
-  {
-    label: "允许同时上机",
-    prop: "AllowRepetitionMachine",
-    customFilter: (value) => (Boolean(value) ? "是" : "否"),
-  },
+  // { label: "目录权限", prop: "DirectoryPurview" },
+  // { label: "入站前状态", prop: "InSiteState" },
+  // { label: "上机后状态", prop: "UpState" },
+  // { label: "下机后状态", prop: "DownState" },
+  // { label: "入站后状态", prop: "InSitedBillState" },
+  // {
+  //   label: "程序加工",
+  //   prop: "NcProgram",
+  //   customFilter: (value) => (Boolean(value) ? "是" : "否"),
+  // },
+  // {
+  //   label: "使用电极",
+  //   prop: "IFUsePole",
+  //   customFilter: (value) => (Boolean(value) ? "是" : "否"),
+  // },
+  // { label: "工作周", prop: "WorkWeek" },
+  // { label: "开机时间段", prop: "BootTimeSpan" },
+  // {
+  //   label: "是否是记录工序",
+  //   prop: "IsRecordCraft",
+  //   customFilter: (value) => (Boolean(value) ? "是" : "否"),
+  // },
+  // { label: "外协设备组", prop: "OutsourceEquipmentGroup" },
+  // {
+  //   label: "允许同时上机",
+  //   prop: "AllowRepetitionMachine",
+  //   customFilter: (value) => (Boolean(value) ? "是" : "否"),
+  // },
   { label: "默认工时", prop: "DefaultWorkingHours" },
   // { label: "项目任务", prop: "ProjetctTask" },
 ];
