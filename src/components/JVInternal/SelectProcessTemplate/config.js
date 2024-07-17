@@ -23,6 +23,11 @@ export class Table extends BaseTable {
   }
 }
 export const tableConfig = [
+  /*工序代码*/
+  {
+    prop: "ProcessCode",
+    label: i18n.t("Generality.Ge_ProcessId")
+  },
   /*任务工序*/
   {
     prop: "Process",

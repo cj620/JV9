@@ -38,6 +38,9 @@ export const tableConfig = [
     prop: "ProcessCode",
     label: i18n.t("Generality.Ge_ProcessId"),
     width: "150px",
+    editConfig: {
+      disabled: true,
+    },
   },
   /*工序*/
   {
