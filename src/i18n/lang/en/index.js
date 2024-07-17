@@ -258,6 +258,7 @@ const en = {
     Pro_ProjectTaskSheetNo: "Project Task Sheet No",
     Pro_AddProcedure: "Add procedure",
     Pro_SelectTemplate: "Select template",
+    Pro_SelectPartProcess: "Select part process",
     Pro_LoadingProcedure: "Loading procedure",
     Pro_SettlementItem: "Settlement item",
     Pro_TotalQuantity: "Total quantity",

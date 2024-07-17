@@ -31,7 +31,7 @@
               confirm: selectProcessTemplate,
             },
             {
-              label: '选择零件需求明细',
+             label: $t('project.Pro_SelectPartProcess'),
               confirm: selectPartCraft,
             },
           ]"

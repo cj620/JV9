@@ -1,7 +1,7 @@
 <template>
   <div>
     <jv-dialog
-      title="选择零件工艺"
+      :title="$t('project.Pro_SelectPartProcess')"
       width="70%"
       :close-on-click-modal="true"
       :modal-append-to-body="false"

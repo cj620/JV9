@@ -232,6 +232,7 @@ const ja = {
     Pro_ProjectTaskSheetNo: "プロジェクトタスク番号",
     Pro_AddProcedure: "工程の追加",
     Pro_SelectTemplate: "テンプレートの選択",
+    Pro_SelectPartProcess: "部品プロセスの選択",
     Pro_LoadingProcedure: "ロード工程",
     Pro_SettlementItem: "決済項目",
     Pro_TotalQuantity: "合計数量",

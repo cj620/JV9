@@ -235,6 +235,7 @@ const cn = {
     Pro_ProjectTaskSheetNo: "项目任务单号",
     Pro_AddProcedure: "增加工序",
     Pro_SelectTemplate: "选择模板",
+    Pro_SelectPartProcess: "选择零件工艺",
     Pro_LoadingProcedure: "加载工序",
     Pro_SettlementItem: "结算项目",
     Pro_TotalQuantity: "总数量",
