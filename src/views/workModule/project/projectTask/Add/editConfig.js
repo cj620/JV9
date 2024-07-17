@@ -206,4 +206,11 @@ export const ProblemPointsInMoldRepairTableSchema = [
       disabled:true,
     }
   },
+  /*备注*/
+  {
+    prop: "RelationId",
+    label: "关联id",
+    formCpn: "FormInput",
+    hidden: true
+  },
 ];

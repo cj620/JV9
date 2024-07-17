@@ -96,6 +96,11 @@ export const tableConfig = [
     prop: "TestMouldMachine",
     label: i18n.t("project.Pro_TestMouldMachine"),
   },
+  //试模次数
+  {
+    prop: "TestMouldQuantity",
+    label: "试模次数",
+  },
   /*试模原因*/
   {
     prop: "TestMouldReason",

@@ -148,6 +148,7 @@ export default {
         BillItems: [],
         TrialToolingDynamicData: {
           RelationId: "",
+          TestMouldQuantity: "",
           TestMouldReason: "",
           TestMouldResult: "",
           TestMouldColor: "",

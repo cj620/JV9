@@ -44,6 +44,7 @@
         :icon="primaryItem.icon"
         v-for="(primaryItem, index) in primary"
         :key="index"
+        v-if="!primaryItem.hidden"
         :disabled="isDisabled(primaryItem)"
         @click="confirm(primaryItem)"
         >{{ primaryItem.label }}</el-button

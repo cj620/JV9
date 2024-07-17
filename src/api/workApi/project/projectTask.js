@@ -256,3 +256,12 @@ export function item_delay_list(data) {
     data,
   })
 }
+
+// 保存修模问题点
+export function save_mold_repair_problem_points(data) {
+  return request({
+    url: "/save_mold_repair_problem_points",
+    method: "post",
+    data,
+  })
+}

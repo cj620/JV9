@@ -26,6 +26,11 @@
               label: $t('Generality.Ge_New'),
               confirm: addRow,
             },
+            // {
+            //   label: '保存',
+            //   confirm: saveProblemPoints,
+            //   hidden: !Boolean(cur_Id),
+            // },
             {
               label: $t('project.Pro_TestMouldProblemPoints'),
               confirm: selectTestMouldProblemPoints,
@@ -216,7 +221,9 @@
       <div class="TestMouldProblemPoints-box">
         <div class="TestMouldProblemPoints-box-selectInput">
           <span>选择试模单：</span>
-          <el-select size="mini" v-model="TestMouldProblemPointsValue" :placeholder="$t('Generality.Ge_PleaseSelect')">
+          <el-select size="mini"
+                     @change="TestMouldProblemPointsValueChange"
+                     v-model="TestMouldProblemPointsValue" :placeholder="$t('Generality.Ge_PleaseSelect')">
             <el-option
               v-for="item in TestMouldProblemPointsOptions"
               :key="item.value"
@@ -266,7 +273,12 @@ import {
   temMerge,
 } from "@/jv_doc/utils/handleData";
 // 引入模块API接口
-import {API as ProjectTask, get_project_task, trial_tooling_list} from "@/api/workApi/project/projectTask";
+import {
+  API as ProjectTask,
+  get_project_task,
+  save_mold_repair_problem_points,
+  trial_tooling_list
+} from "@/api/workApi/project/projectTask";
 import {getAllProjectProcess, project_process_get_by_name} from "@/api/workApi/project/baseData";
 import { get_by_department } from "@/api/basicApi/systemSettings/user";
 import closeTag from "@/utils/closeTag";
@@ -335,6 +347,7 @@ export default {
         SaveAndSubmit: true,
         BillItems: [],
         BillFiles: [],
+        MoldRepairProblemPoints: []
       },
       BillItems: {
         Process: "",
@@ -376,6 +389,7 @@ export default {
         BillFiles: [],
         State: "",
         ResponsibilityUnit: "",
+        RelationId: 0
       },
       dialogImgFormVisible: false,
       selectTestMouldProblemPointsVisible: false,
@@ -425,7 +439,6 @@ export default {
           });
           this.M_TableObj.push(temMerge(this.BillItems, res.BillItems))
         }
-
       })
     }
   },
@@ -433,6 +446,12 @@ export default {
     Object.assign(this.formObj.form, this.$route.params);
   },
   methods: {
+    // 保存修模问题点
+    saveProblemPoints() {
+      save_mold_repair_problem_points({BillId: this.cur_Id,MoldRepairProblemPoints: this.ProblemPointsInMoldRepairTableObj.getTableData()}).then((res) => {
+        console.log(res)
+      })
+    },
     // 选择试模问题点
     selectTestMouldProblemPoints() {
       // this.formObj.validate((valid) => {
@@ -444,6 +463,7 @@ export default {
             data: {},
           })
           this.TestMouldProblemPointsTableObj = new Table();
+          // State:Completed
           trial_tooling_list({PageSize: 9999, CurrentPage:1,State: "Approved",ToolingNo: this.formObj.form.ToolingNo}).then(res => {
             this.TestMouldProblemPointsOptions = res.Items.map(item => {
               return {
@@ -460,6 +480,9 @@ export default {
       //   }
       // })
     },
+    TestMouldProblemPointsValueChange(e) {
+      this.getProjectTaskDetail(e);
+    },
     // 获取详情
     getProjectTaskDetail(BillId) {
       get_project_task({BillId}).then(res => {
@@ -469,7 +492,17 @@ export default {
     },
     // 确认选择
     confirmSelectTestMouldProblemPointsVisible() {
-
+      let list = this.TestMouldProblemPointsTableObj.getTableData().map(item => {
+          return {
+            ...item,
+            State: "Unresolved",
+            ResponsibilityUnit: "",
+            RelationId: item.Id,
+            Id: 0
+          }
+      })
+      this.ProblemPointsInMoldRepairTableObj.push(list);
+      this.selectTestMouldProblemPointsVisible = false;
     },
     //新增一行
     addRow() {
@@ -677,6 +710,9 @@ export default {
             this.ruleForm.BillItems.forEach(item => {
               item.ProcessContent = item.customData.join();
             })
+            if(this.ruleForm.TaskType === 'ToolCorrection') {
+              this.ruleForm.MoldRepairProblemPoints = this.ProblemPointsInMoldRepairTableObj.getTableData();
+            }
             this._save();
           }
         }

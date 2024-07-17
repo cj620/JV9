@@ -30,6 +30,9 @@ export default {
           });
           this.M_TableObj.push(temMerge(this.BillItems, res.BillItems))
         }
+        if(res.MoldRepairProblemPoints.length) {
+          this.ProblemPointsInMoldRepairTableObj.push(temMerge(this.TestMouldProblemPoints, res.MoldRepairProblemPoints))
+        }
       });
     },
   },

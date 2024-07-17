@@ -32,6 +32,11 @@ export const detailConfig = [
     prop: "TestMouldReason",
     label: i18n.t("project.Pro_TestMouldReason"),
   },
+  //试模次数
+  {
+    prop: "TestMouldQuantity",
+    label: "试模次数",
+  },
 ];
 
 const tableConfig = [
