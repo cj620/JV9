@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2022-02-22 16:12:01
- * @LastEditTime: 2024-07-17 10:26:16
+ * @LastEditTime: 2024-07-17 15:01:05
  * @Description: file content
 -->
 <!-- 销售订单 明细 页面-->
@@ -22,6 +22,16 @@
         slot="btn-list"
         :actions="[
           {
+            label: '撤销申请',
+            confirm: cancelReq.bind(null),
+            disabled: canCancelReq,
+          },
+          {
+            label: '撤销处理',
+            confirm: cancelHandle.bind(null),
+            disabled: canCancelHandle,
+          },
+          {
             label: '生产加工单',
             confirm: newProduct.bind(null),
             disabled: canCreateProduct,
@@ -41,6 +51,16 @@
     >
       <JvForm :formObj="formObj"> </JvForm>
     </JvDialog>
+    <JvDialog
+      title="撤销备注"
+      :visible.sync="remarkDialogVisible"
+      v-if="remarkDialogVisible"
+      @confirm="remarkConfirm"
+      width="25%"
+      :autoFocus="true"
+    >
+      <JvForm :formObj="remarkFormObj"> </JvForm>
+    </JvDialog>
   </PageWrapper>
 </template>
 <script>
@@ -50,7 +70,10 @@ import { Table } from "./config";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import { Form } from "@/jv_doc/class/form";
 import { format2source } from "@/jv_doc/class/utils/dataFormat";
-import { quickly_create_task } from "@/api/workApi/production/partProductionDemand";
+import {
+  quickly_create_task,
+  update_item_state,
+} from "@/api/workApi/production/partProductionDemand";
 
 export default {
   // 页面的标识
@@ -65,11 +88,14 @@ export default {
       // 表格实例
       tableObj: {},
       formObj: {},
+      remarkFormObj: {},
       // 编辑路由
       EditRoute: "",
       // 新增路由
       AddRoute: "",
       editDialogVisible: false,
+      remarkDialogVisible: false,
+      cancelType: "RevokeApplication",
     };
   },
   created() {
@@ -114,6 +140,28 @@ export default {
       labelPosition: "top",
       labelWidth: "100px",
     });
+    this.remarkFormObj = new Form({
+      formSchema: [
+        {
+          prop: "Remarks",
+          label: "备注",
+          cpn: "FormInput",
+          type: "textarea",
+          rules: [
+            {
+              required: true,
+              message: i18n.t("Generality.Ge_PleaseFillIn"),
+              trigger: ["change", "blur"],
+            },
+          ],
+        },
+      ],
+      baseColProps: {
+        span: 24,
+      },
+      labelPosition: "top",
+      labelWidth: "100px",
+    });
   },
   methods: {
     CraftDesign1(row) {
@@ -130,6 +178,17 @@ export default {
         },
       });
     },
+    async remarkConfirm() {
+      let { datas } = this.tableObj.selectData;
+      const params = {
+        Remarks: this.remarkFormObj.form.Remarks,
+        State: this.cancelType,
+        Ids: datas.map((item) => item.Id),
+      };
+      await update_item_state(params);
+      this.tableObj.getData();
+      this.remarkDialogVisible = false;
+    },
     newProduct() {
       // let { datas } = this.tableObj.selectData;
       // if (datas.length !== 1) {
@@ -140,6 +199,17 @@ export default {
       //   return;
       // }
       this.editDialogVisible = true;
+    },
+    cancelReq() {
+      this.cancelType = "RevokeApplication";
+      this.remarkFormObj.form.Remarks = undefined;
+      this.remarkDialogVisible = true;
+    },
+    cancelHandle() {
+      // RevokeApplication
+      this.cancelType = "Rescinded";
+      this.remarkFormObj.form.Remarks = undefined;
+      this.remarkDialogVisible = true;
     },
     async confirm() {
       let { datas } = this.tableObj.selectData;
@@ -165,6 +235,28 @@ export default {
       // ItemState IsPartProcess ToBeProduced
       datas.forEach((item) => {
         if (!item.IsPartProcess || item.ItemState != "ToBeProduced") {
+          flag = true;
+        }
+      });
+      return flag;
+    },
+    canCancelReq() {
+      let { datas } = this.tableObj.selectData;
+      if (datas.length == 0) return true;
+      let flag = false;
+      datas.forEach((item) => {
+        if (!["ToBeProduced", "PendingApproved"].includes(item.ItemState)) {
+          flag = true;
+        }
+      });
+      return flag;
+    },
+    canCancelHandle() {
+      let { datas } = this.tableObj.selectData;
+      if (datas.length == 0) return true;
+      let flag = false;
+      datas.forEach((item) => {
+        if (!["RevokeApplication"].includes(item.ItemState)) {
           flag = true;
         }
       });
