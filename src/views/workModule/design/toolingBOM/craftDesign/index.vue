@@ -31,7 +31,7 @@
               confirm: selectProcessTemplate,
             },
             {
-             label: $t('project.Pro_SelectPartProcess'),
+              label: $t('project.Pro_SelectPartProcess'),
               confirm: selectPartCraft,
             },
           ]"
@@ -165,6 +165,7 @@ export default {
         ProcessContentList: [],
         IsCompulsoryInspection: false,
       },
+      preRoutePath: "/design/toolingBOM",
     };
   },
   components: {
@@ -179,6 +180,9 @@ export default {
     }),
   },
   created() {
+    // sessionStorage.setItem('previousRoute',from.path)
+    this.preRoutePath = sessionStorage.getItem("previousRoute");
+    console.log("666666");
     this.formObj = new Form({
       formSchema,
       baseColProps: {
@@ -189,7 +193,6 @@ export default {
     });
     this.eTableObj = new EditTable();
     if (this.$route.params.data) {
-      console.log(this.$route.params.data[0]);
       this.formObj.form = this.$route.params.data[0];
       this.GetData();
     }
@@ -297,11 +300,10 @@ export default {
       };
       savePartProcess(str).then((res) => {
         let TagName = {
-          path: "/design/toolingBOM",
-          name: `ToolingBOM`,
-          fullPath: "/design/toolingBOM",
+          path: this.preRoutePath,
           params: {
             PartNo: this.formObj.form.PartNo,
+            fresh: true,
           },
         };
         closeTag(this.current, TagName);
@@ -315,6 +317,19 @@ export default {
       this.PartCraftDialogFormVisible = false;
     },
   },
+  beforeRouteEnter(to, from, next) {
+    // console.log("From:", to, from);
+    // this._preRoutePath = from.path;
+    sessionStorage.setItem("previousRoute", from.path);
+    next();
+  },
+  // watch: {
+  //   $route(to, from) {
+  //     // 页面缓存的时候不刷新数据，监听路由刷新数据
+  //     // 判断路由监听的页面是不是本页面
+  //     console.log(to, from, "formformformformformform");
+  //   },
+  // },
 };
 </script>
 

@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2022-02-22 16:21:55
- * @LastEditTime: 2024-07-17 09:53:08
+ * @LastEditTime: 2024-07-17 09:56:00
  * @Description: file content
  */
 //销售订单明细 配置文件
@@ -110,11 +110,11 @@ const tableSchema = [
     customFilter: (value) => ItemState.getLabel(value),
   },
   /*加工单据编号*/
-  {
-    prop: "PrTaskBillId",
-    label: i18n.t("production.Pr_WorkSheetNo"),
-    width: "160px",
-  },
+  // {
+  //   prop: "PrTaskBillId",
+  //   label: i18n.t("production.Pr_WorkSheetNo"),
+  //   width: "160px",
+  // },
   /*物料编号*/
   {
     prop: "ItemId",
