@@ -93,12 +93,25 @@ const tableSchema = [
   //   label: i18n.t("Generality.Ge_TaskType"),
   //   customFilter: (value) => enumFilter(value, taskTypeEnum),
   // },
-  /*计划交期*/
+  /*需求日期*/
   {
     prop: "DemandDate",
-    label: "需求日期",
+    label: i18n.t("Generality.Ge_DemandDate"),
     filter: "date",
     width: "120px",
+  },
+  /*明细状态*/
+  {
+    prop: "ItemState",
+    label: i18n.t("Generality.Ge_ItemState"),
+    width: "120px",
+    customFilter: (value) => ItemState.getLabel(value),
+  },
+  /*加工单据编号*/
+  {
+    prop: "PrTaskBillId",
+    label: i18n.t("production.Pr_WorkSheetNo"),
+    width: "160px",
   },
   /*物料编号*/
   {
@@ -128,13 +141,6 @@ const tableSchema = [
     prop: "Description2",
     label: i18n.t("Generality.Ge_Describe") + "2",
     width: "120px",
-  },
-  /*明细状态*/
-  {
-    prop: "ItemState",
-    label: i18n.t("Generality.Ge_ItemState"),
-    width: "120px",
-    customFilter: (value) => ItemState.getLabel(value),
   },
   /*单位*/
   {
