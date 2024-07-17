@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2022-02-22 16:21:55
- * @LastEditTime: 2024-07-16 16:58:16
+ * @LastEditTime: 2024-07-17 09:53:08
  * @Description: file content
  */
 //销售订单明细 配置文件
@@ -34,8 +34,10 @@ export class Table extends BaseTable {
       api,
       // 打印模块标识
       printMod: "Pr_PoleProductionDemand_Detail_list",
-      operationCol: false,
+      operationCol: true,
       printBar: false,
+      // 操作列宽度
+      operationWidth: 160,
     });
   }
 }

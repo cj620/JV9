@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2022-02-22 16:12:01
- * @LastEditTime: 2024-07-15 15:51:04
+ * @LastEditTime: 2024-07-17 09:17:40
  * @Description: file content
 -->
 <!-- 销售订单 明细 页面-->
@@ -50,6 +50,7 @@ import { Table } from "./config";
 import BillStateTags from "@/components/WorkModule/BillStateTags";
 import { Form } from "@/jv_doc/class/form";
 import { format2source } from "@/jv_doc/class/utils/dataFormat";
+import { quickly_create_task } from "@/api/workApi/production/partProductionDemand";
 
 export default {
   // 页面的标识
@@ -81,7 +82,7 @@ export default {
           prop: "Level",
           label: "级别",
           cpn: "FormSelect",
-          default: "Ordinary",
+          default: 0,
           rules: [
             {
               required: true,
@@ -92,15 +93,15 @@ export default {
           options: {
             list: [
               {
-                value: "Ordinary",
+                value: 0,
                 label: i18n.t("Generality.Ge_Ordinary"),
               },
               {
-                value: "Urgent",
+                value: 1,
                 label: i18n.t("Generality.Ge_Urgent"),
               },
               {
-                value: "ExtraUrgent",
+                value: 2,
                 label: i18n.t("Generality.Ge_ExtraUrgent"),
               },
             ],
@@ -130,7 +131,7 @@ export default {
       });
     },
     newProduct() {
-      let { datas } = this.tableObj.selectData;
+      // let { datas } = this.tableObj.selectData;
       // if (datas.length !== 1) {
       //   this.$message({
       //     type: "warning",
@@ -140,13 +141,20 @@ export default {
       // }
       this.editDialogVisible = true;
     },
-    confirm() {
+    async confirm() {
       let { datas } = this.tableObj.selectData;
+      const params = {
+        Ids: datas.map((item) => item.Id),
+        ...this.formObj.form,
+      };
+      await quickly_create_task(params);
       this.editDialogVisible = false;
-      this.$router.push({
-        name: "AddProductionTask",
-        params: { data: datas[0], type: "addItem" },
-      });
+      this.tableObj.tableRef.clearSelection();
+      this.tableObj.getData();
+      // this.$router.push({
+      //   name: "AddProductionTask",
+      //   params: { data: datas[0], type: "addItem" },
+      // });
     },
   },
   computed: {
