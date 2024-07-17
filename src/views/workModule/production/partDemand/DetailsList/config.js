@@ -1,7 +1,7 @@
 /*
  * @Author: C.
  * @Date: 2022-02-22 16:21:55
- * @LastEditTime: 2024-07-15 13:38:30
+ * @LastEditTime: 2024-07-16 16:57:31
  * @Description: file content
  */
 //销售订单明细 配置文件
@@ -179,6 +179,13 @@ const formSchema = [
     options: {
       list: ItemState.getEnums(),
     },
+  },
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    cpn: "FormInput",
+    default: "Approved",
+    hidden: true,
   },
   {
     prop: "Remarks",
