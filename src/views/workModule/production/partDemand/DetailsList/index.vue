@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2022-02-22 16:12:01
- * @LastEditTime: 2024-07-17 15:01:05
+ * @LastEditTime: 2024-07-18 15:23:41
  * @Description: file content
 -->
 <!-- 销售订单 明细 页面-->
@@ -186,6 +186,7 @@ export default {
         Ids: datas.map((item) => item.Id),
       };
       await update_item_state(params);
+      this.tableObj.tableRef.clearSelection();
       this.tableObj.getData();
       this.remarkDialogVisible = false;
     },
@@ -256,11 +257,24 @@ export default {
       if (datas.length == 0) return true;
       let flag = false;
       datas.forEach((item) => {
-        if (!["RevokeApplication"].includes(item.ItemState)) {
+        if (
+          !["RevokeApplication"].includes(item.ItemState) ||
+          item.ItemState == "Rescinded"
+        ) {
           flag = true;
         }
       });
       return flag;
+    },
+  },
+  watch: {
+    $route(to, from) {
+      // 页面缓存的时候不刷新数据，监听路由刷新数据
+      // 判断路由监听的页面是不是本页面
+      console.log(to, from);
+      if (from.path == "/design/craftDesign") {
+        this.tableObj.getData();
+      }
     },
   },
 };
