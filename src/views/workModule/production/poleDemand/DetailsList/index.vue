@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2022-02-22 16:12:01
- * @LastEditTime: 2024-07-17 10:26:07
+ * @LastEditTime: 2024-07-18 15:26:00
  * @Description: file content
 -->
 <!-- 销售订单 明细 页面-->
@@ -164,6 +164,16 @@ export default {
         }
       });
       return flag;
+    },
+  },
+  watch: {
+    $route(to, from) {
+      // 页面缓存的时候不刷新数据，监听路由刷新数据
+      // 判断路由监听的页面是不是本页面
+      console.log(to, from);
+      if (from.path == "/design/craftDesign") {
+        this.tableObj.getData();
+      }
     },
   },
 };
