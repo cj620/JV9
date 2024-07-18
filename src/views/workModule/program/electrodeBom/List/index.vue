@@ -92,11 +92,23 @@
       </Action>
       <template #titleBar>
         <Popover @confirm="getData" @reset="toolId = ''" style="margin: 0 10px">
-          <el-input
+          <el-select
             v-model="toolId"
-            :placeholder="$t('Generality.Ge_SearchByNumber')"
-            size="mini"
-          ></el-input>
+            filterable
+            remote
+            clearable
+            reserve-keyword
+            :remote-method="remoteMethod"
+            :loading="loading"
+          >
+            <el-option
+              v-for="item in MouldListData"
+              :key="item.ItemId"
+              :label="item.ItemId"
+              :value="item.ItemId"
+            >
+            </el-option>
+          </el-select>
         </Popover>
         <span>{{ $t("Generality.Ge_ToolingNo") }}：{{ ToolingNo }}</span>
       </template>
@@ -272,6 +284,7 @@ import { temMerge } from "@/jv_doc/utils/handleData/index";
 import { batch_get } from "@/api/basicApi/systemSettings/sysSettings";
 import { Form } from "@/jv_doc/class/form";
 import { resetCache } from "~/class/utils/editTableHelp";
+import { itemList } from '@/api/basicApi/systemSettings/Item'
 export default {
   name: "ElectrodeBom",
   // 表格数据
@@ -304,6 +317,7 @@ export default {
       cur_toolId: "",
       importShow: false,
       defaultImgUrl: window.global_config.ImgBase_Url,
+      loading: false,
       selectProjectFormVisible: false,
       searchItemDialogFormVisible: false,
       selectTaskDialogFormVisible: false,
@@ -313,6 +327,7 @@ export default {
       taskData: [],
       TaskListData: [],
       setLevelData: [],
+      MouldListData: [],
       saveData: {
         PartNo: "",
         PartName: "",
@@ -447,6 +462,7 @@ export default {
     this.eTableObj = new EditTable();
     this.importTableObj = new importEditTable();
     this.defaultConfig();
+    this.remoteMethod("");
   },
   computed: {
     IsDisabled() {
@@ -499,6 +515,20 @@ export default {
       batch_get({ ConfigKeyList: ["BomDefaultUnit"] }).then((res) => {
         this.defaultUnit = res[0].ConfigValue;
         this.saveData.Unit = this.defaultUnit;
+      });
+    },
+    remoteMethod(query) {
+      this.loading = true;
+      const str = {
+        Keyword: query,
+        ItemType: "",
+        ItemCategory: "Tooling",
+        PageSize: 20,
+        CurrentPage: 1,
+      };
+      itemList(str).then((res) => {
+        this.MouldListData = res.Items;
+        this.loading = false;
       });
     },
     copy(row, index) {
