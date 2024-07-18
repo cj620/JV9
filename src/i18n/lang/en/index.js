@@ -1866,6 +1866,7 @@ const en = {
     Da_PendingDocuments: "Pending Documents",
   },
   systemSetupData: {
+    Scheduling_display_equipment: "Scheduling Display Equipment",
     JV_APS: "Automatic scheduling",
     Assy: "Assy",
     Basics: "Basics",
