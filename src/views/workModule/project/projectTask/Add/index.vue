@@ -38,6 +38,9 @@
           ]"
           />
       </div>
+      <div style="padding: 10px">
+        <JvDetail :detailObj="detailObj" v-if="confirmTestMouldProblemPointsFlag"></JvDetail>
+      </div>
       <JvEditTable :tableObj="ProblemPointsInMoldRepairTableObj">
         <template #BillFiles="{ row }">
           <div v-if="row.BillFiles.value.length > 0">
@@ -347,7 +350,8 @@ export default {
         SaveAndSubmit: true,
         BillItems: [],
         BillFiles: [],
-        MoldRepairProblemPoints: []
+        MoldRepairProblemPoints: [],
+        MoldRepairProblemData: {},
       },
       BillItems: {
         Process: "",
@@ -395,7 +399,8 @@ export default {
       selectTestMouldProblemPointsVisible: false,
       TestMouldProblemPointsValue: "",
       TestMouldProblemPointsOptions: [],
-      TestMouldProblemPointsTableObj: {}
+      TestMouldProblemPointsTableObj: {},
+      confirmTestMouldProblemPointsFlag: false,
     };
   },
   computed: {
@@ -454,8 +459,8 @@ export default {
     },
     // 选择试模问题点
     selectTestMouldProblemPoints() {
-      // this.formObj.validate((valid) => {
-      //   if (valid) {
+      this.formObj.validate((valid) => {
+        if (valid) {
           this.selectTestMouldProblemPointsVisible = true;
           this.detailObj = new Detail({
             column: 3,
@@ -471,14 +476,15 @@ export default {
                 value: item.BillId,
               }
             });
+            console.log(this.TestMouldProblemPointsOptions, 479)
             // 如果有数据，则赋值  并且获取试模详情
             if(this.TestMouldProblemPointsOptions.length) {
               this.TestMouldProblemPointsValue = this.TestMouldProblemPointsOptions[0].value;
               this.getProjectTaskDetail(this.TestMouldProblemPointsValue);
             }
           })
-      //   }
-      // })
+        }
+      })
     },
     TestMouldProblemPointsValueChange(e) {
       this.getProjectTaskDetail(e);
@@ -503,6 +509,7 @@ export default {
       })
       this.ProblemPointsInMoldRepairTableObj.push(list);
       this.selectTestMouldProblemPointsVisible = false;
+      this.confirmTestMouldProblemPointsFlag = true; // 展示试模详情
     },
     //新增一行
     addRow() {
@@ -712,6 +719,7 @@ export default {
             })
             if(this.ruleForm.TaskType === 'ToolCorrection') {
               this.ruleForm.MoldRepairProblemPoints = this.ProblemPointsInMoldRepairTableObj.getTableData();
+              this.ruleForm.MoldRepairProblemData = this.detailObj.detailData;
             }
             this._save();
           }

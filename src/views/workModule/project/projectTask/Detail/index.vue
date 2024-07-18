@@ -54,6 +54,9 @@
       </div>
     </JvBlock>
     <JvBlock :title="$t('Generality.Ge_ProblemPointsInMoldRepair')" ref="ProblemPointsInMoldRepair" v-if="detailObj.detailData.TaskType === 'ToolCorrection'">
+      <div style="padding: 10px">
+        <JvDetail :detailObj="MoldRepairDetailObj"></JvDetail>
+      </div>
       <JvTable :tableObj="MoldRepairTableObj">
         <template #BillFiles="{ record }">
           <div v-if="record.length > 0">
@@ -184,6 +187,7 @@
 <script>
 import { mapState } from "vuex";
 import {Table, detailConfig, Table1} from "./config";
+import {detailConfig as detailConfig1} from "@/views/workModule/project/projectTask/Add/dialogConfig";
 import { ViewSubtasksTableObj } from "./viewSubtasksTableConfig";
 import { JobRecordTable } from "./jobRecordTableConfig";
 import Detail from "@/jv_doc/class/detail/Detail";
@@ -222,6 +226,7 @@ export default {
     return {
       cur_Id: this.$route.query.BillId,
       detailObj: {},
+      MoldRepairDetailObj: {},
       // 工序
       tableObj: {},
       jobRecordTableObj: {},
@@ -285,6 +290,11 @@ export default {
       schema: detailConfig,
       column: 3,
     });
+    this.MoldRepairDetailObj = new Detail({
+      data: {},
+      schema: detailConfig1,
+      column: 3,
+    })
     this.jobRecordTableObj = new JobRecordTable();
     this.getData();
     this.viewSubtasksTableObj = new ViewSubtasksTableObj();
@@ -296,8 +306,11 @@ export default {
       ProjectTask.api_get({ BillId: this.cur_Id }).then((res) => {
         this.detailObj.setData(res);
         this.tableObj.setData(res.BillItems);
+        this.MoldRepairDetailObj.setData(res.MoldRepairProblemData);
         this.MoldRepairTableObj.setData(res.MoldRepairProblemPoints);
         this.DynamicInfo = res.DynamicInfo || [];
+
+
         this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
         console.log(this.btnAction)
         this.btnAction.push({
