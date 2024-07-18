@@ -323,7 +323,7 @@
         <!--任务单号-->
         <template #PmTaskBillId="{ prop }">
           <el-select
-            v-model="createTaskFormObj.form[prop]"
+            v-model="createProcudctCommandFormObj.form[prop]"
             filterable
             :disabled="editDisabled"
             @change="changePmTaskBillId"
