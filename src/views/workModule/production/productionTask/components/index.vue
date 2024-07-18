@@ -405,7 +405,9 @@ export default {
         } else if (res.Items.length === 0) {
           this.formObj.form.PmTaskBillId = "";
         }
-        this.TaskListData = res.Items;
+        this.TaskListData = res.Items.filter((item) => {
+          return item.TaskType !== "TrialTooling"
+        });
 
         //判断说明不只一个任务单
       });
