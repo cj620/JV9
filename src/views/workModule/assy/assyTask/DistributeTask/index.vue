@@ -10,8 +10,8 @@
     >
       <div class="mould-img">
         <el-image
-          :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
-          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
+          :preview-src-list="[imgUrlPlugin(PhotoUrl)]"
+          :src="imgUrlPlugin(PhotoUrl)"
           fit="cover"
           class="items-details-Img-error"
         >
@@ -129,6 +129,7 @@ export default {
       eTableObj: {},
       curBillId: "",
       backPath: "",
+      PhotoUrl: "",
       taskTypeEnum,
       TaskData: {},
       ProcessTemplateDialogFormVisible: false,
@@ -181,6 +182,7 @@ export default {
           ProcessContent: this.$route.query.TaskData.ProcessContent,
           ...res,
         });
+        this.PhotoUrl=this.detailObj.detailData.PhotoUrl
       })
     },
     addProcess() {

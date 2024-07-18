@@ -47,10 +47,10 @@
         </div>
         <div class="productionTask-details-header-img">
           <el-image
-            :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
+            :preview-src-list="[imgUrlPlugin(PhotoUrl)]"
             class="productionTask-details-img"
             style="width: 150px; height: 150px"
-            :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
+            :src="imgUrlPlugin(PhotoUrl)"
             fit="cover"
           >
             <div slot="error" class="image-slot">
@@ -251,6 +251,7 @@ export default {
       activeName: "first",
       RemarkData: "",
       fileBillId: "",
+      PhotoUrl: "",
       formObj: {},
       Qc_ProcessCheckTableObj: {},
       Qc_FinishedProductTableObj: {},
@@ -365,6 +366,7 @@ export default {
         this.ProcessDynamicInfo = res.ProcessDynamicInfo;
         this.Qc_ProcessCheckTableObj.setData(res.ProcessDetails);
         this.Qc_FinishedProductTableObj.setData(res.FinishedDetails);
+        this.PhotoUrl=this.detailObj.detailData.PhotoUrl
       });
     },
     //编辑

@@ -38,9 +38,9 @@
     >
       <div class="mould-img">
         <el-image
-          :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
+          :preview-src-list="[imgUrlPlugin(PhotoUrl)]"
           style="width: 100%; height: 100%"
-          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
+          :src="imgUrlPlugin(PhotoUrl)"
           fit="cover"
         >
           <div slot="error" class="image-slot1">
@@ -182,6 +182,7 @@ export default {
       detailObj: {},
       tableObj: {},
       tableObj1: {},
+      PhotoUrl: "",
       DynamicInfo: [],
       btnAction: [],
       defaultImgUrl: window.global_config.ImgBase_Url,
@@ -303,6 +304,7 @@ export default {
           disabled: this.detailObj.detailData.State !== "Approved",
         }*/
         );
+        this.PhotoUrl=this.detailObj.detailData.PhotoUrl
       });
     },
     // 完成单据

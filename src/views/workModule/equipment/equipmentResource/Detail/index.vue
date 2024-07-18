@@ -36,8 +36,11 @@
       height: '230px',
     }" style="position: relative">
       <div class="mould-img">
-        <el-image :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]" style="width: 100%; height: 100%"
-          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)" fit="cover" class="items-details-Img-error">
+        <el-image
+          :preview-src-list="[imgUrlPlugin(PhotoUrl)]"
+          style="width: 100%; height: 100%"
+          :src="imgUrlPlugin(PhotoUrl)"
+          fit="cover" class="items-details-Img-error">
           <div slot="error" class="image-slot">
             <i class="el-icon-picture-outline"></i>
           </div>
@@ -180,6 +183,7 @@ export default {
       useTableObj: {},
       stockOpsTableObj: {},
       formObj: {},
+      PhotoUrl: "",
       btnAction: [],
       DynamicInfo: [],
       stockOpsData: [],
@@ -273,6 +277,7 @@ export default {
       },
       labelWidth: "80px",
     });
+    this.PhotoUrl=this.detailObj.detailData.PhotoUrl
   },
 
   mounted() { },

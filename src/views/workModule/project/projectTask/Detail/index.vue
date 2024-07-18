@@ -32,9 +32,9 @@
     >
       <div class="mould-img">
         <el-image
-          :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
+          :preview-src-list="[imgUrlPlugin(PhotoUrl)]"
           style="width: 100%; height: 100%"
-          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
+          :src="imgUrlPlugin(PhotoUrl)"
           fit="cover"
         >
           <div slot="error" class="image-slot1">
@@ -235,7 +235,7 @@ export default {
       // 编辑路由指向 谨慎删除
       editRouteName: "Pm_ProjectTask_Edit",
       addRouteName: "Pm_ProjectTask_Add",
-
+      PhotoUrl: "",
       printMod: "Pm_ProjectTask",
       taskTypeEnum,
       BillFiles: [],
@@ -318,6 +318,7 @@ export default {
           confirm: this.successProjectTask,
           disabled: this.detailObj.detailData.State !== "Approved",
         });
+        this.PhotoUrl=this.detailObj.detailData.PhotoUrl
       });
     },
     // 新增动态
