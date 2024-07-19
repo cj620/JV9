@@ -96,11 +96,11 @@ export class Table extends BaseTable {
       tableSchema: tableConfig,
       tableHeaderShow: false,
       pagination: false,
-      height: null,
+      height: 300,
       operationCol: false,
       chooseCol: false,
       // 打印模块标识
-      printMod: "Pm_TrialTask_Detail",
+      // printMod: "Pm_TrialTask_Detail",
     });
   }
 }

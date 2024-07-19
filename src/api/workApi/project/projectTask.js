@@ -265,3 +265,21 @@ export function save_mold_repair_problem_points(data) {
     data,
   })
 }
+
+// 获取试模任务详情
+export function trial_tooling_task_get(query) {
+  return request({
+    url: "/trial_tooling_task/get",
+    method: "get",
+    params: query,
+  })
+}
+
+// 保存试模任务
+export function trial_tooling_task_save(data) {
+  return request({
+    url: "/trial_tooling_task/save",
+    method: "post",
+    data,
+  })
+}
