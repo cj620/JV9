@@ -153,7 +153,6 @@ export default {
       // 判断有配置，并且有配置设备，则获取配置的设备
       if (flag) {
         this.M_tableObj.formObj.form.DeviceNos = JSON.parse(res.ConfigValue);
-        console.log(this.M_tableObj.formObj.form.DeviceNos ,155)
         this.P_tableObj.formObj.form.Devices = JSON.parse(res.ConfigValue)
       }
       this.getScreenWidth();
@@ -267,12 +266,9 @@ export default {
       }
     },
     getProcessData(data, flag) {
-      if(!flag) {
-        this.P_tableObj.formObj.form.Devices = data.Items.map((item) => {
-          return item.DeviceNo;
-        });
-      }
-
+      this.P_tableObj.formObj.form.Devices = data.Items.map((item) => {
+        return item.DeviceNo;
+      });
       this.P_tableObj.pager.page = 1;
       this.P_tableObj.setCallBack((val) => {
         this.setProcessData(val.Items, this.P_tableObj.pager.page === 1);
