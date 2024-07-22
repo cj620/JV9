@@ -280,7 +280,7 @@ import {
   API as ProjectTask,
   get_project_task,
   save_mold_repair_problem_points,
-  trial_tooling_list
+  trial_tooling_list, trial_tooling_task_get
 } from "@/api/workApi/project/projectTask";
 import {getAllProjectProcess, project_process_get_by_name} from "@/api/workApi/project/baseData";
 import { get_by_department } from "@/api/basicApi/systemSettings/user";
@@ -491,9 +491,11 @@ export default {
     },
     // 获取详情
     getProjectTaskDetail(BillId) {
-      get_project_task({BillId}).then(res => {
-        this.detailObj.setData(res.TrialToolingDynamicData); // 详情
-        this.TestMouldProblemPointsTableObj.setData(res.TrialToolingDynamicData.TestMouldProblemPoints); // 问题点
+      trial_tooling_task_get({BillId}).then(res => {
+        // this.detailObj.setData(res.TrialToolingDynamicData); // 详情
+        this.detailObj.setData(res); // 详情
+        // this.TestMouldProblemPointsTableObj.setData(res.TrialToolingDynamicData.TestMouldProblemPoints); // 问题点
+        this.TestMouldProblemPointsTableObj.setData(res.BillItems); // 问题点
       })
     },
     // 确认选择
