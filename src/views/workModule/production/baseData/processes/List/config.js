@@ -61,6 +61,14 @@ export const tableConfig = [
     prop: "PostTimeOfProcess",
     label: i18n.t("Generality.Ge_PostTimeOfProcess"),
   },
+  // 是否外协
+  {
+    prop: "IsOutsourced",
+    label: i18n.t("production.Pr_IsOutsourced"),
+    customFilter(item) {
+      return item ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No")
+    }
+  },
   // 是否强制检验
   {
     prop: "IsCompulsoryInspection",

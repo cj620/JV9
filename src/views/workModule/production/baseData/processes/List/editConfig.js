@@ -89,6 +89,11 @@ export const tableSchema = [
     type: "number",
   },
   {
+    prop: "IsOutsourced",
+    label: i18n.t("production.Pr_IsOutsourced"),
+    custom: true,
+  },
+  {
     prop: "IsCompulsoryInspection",
     label: i18n.t("setup.IsCompulsoryInspection"),
     custom: true,

@@ -96,6 +96,15 @@ export const formSchema = [
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_PostTimeOfProcess"),
   },
+  // 是否外协
+  {
+    prop: "IsOutsourced",
+    label: i18n.t("production.Pr_IsOutsourced"),
+    cpn: "FormSingleCheckBox",
+    options: {
+      CheckBoxlabel: ''
+    }
+  },
   // 是否强制检验
   {
     prop: "IsCompulsoryInspection",
