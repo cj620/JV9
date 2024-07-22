@@ -8,7 +8,7 @@
 -->
 <script>
 import Common from "../Add/index.vue";
-import { API as ProjectTask } from "@/api/workApi/project/projectTask";
+import {API as ProjectTask, trial_tooling_task_get} from "@/api/workApi/project/projectTask";
 export default {
   name: "Pm_TrialTask_Edit",
   extends: Common,
@@ -26,21 +26,24 @@ export default {
   },
   methods: {
     getData() {
-      ProjectTask.api_get({ BillId: this.cur_Id }).then((res) => {
+      trial_tooling_task_get({ BillId: this.cur_Id }).then((res) => {
         for (let key in this.formObj.form) {
           if (res.hasOwnProperty(key)) {
             this.formObj.form[key] = res[key];
           }
         }
-        for (let key in res.TrialToolingDynamicData){
-          if (this.formObj.form.hasOwnProperty(key)) {
-            this.formObj.form[key] = res.TrialToolingDynamicData[key];
-          }
-        }
-        this.tableObj.setData(res.TrialToolingDynamicData.TestMouldProblemPoints);
-        this.ruleForm.Remarks = res.Remarks
-        this.ruleForm.State = res.State
-        this.ruleForm.BillGui = res.BillGui
+        // for (let key in res.TrialToolingDynamicData){
+        //   if (this.formObj.form.hasOwnProperty(key)) {
+        //     this.formObj.form[key] = res.TrialToolingDynamicData[key];
+        //   }
+        // }
+        // this.tableObj.setData(res.TrialToolingDynamicData.TestMouldProblemPoints);
+        this.tableObj.setData(res.BillItems);
+        this.ruleForm.Remarks = res.Remarks;
+        this.ruleForm.State = res.State;
+        this.ruleForm.CreationDate = res.CreationDate;
+        this.ruleForm.Creator = res.Creator;
+        this.ruleForm.BillGui = res.BillGui;
         this.ruleForm.BillId = this.$route.query.BillId
       });
     },

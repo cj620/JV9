@@ -293,7 +293,7 @@ export default {
         this.detailObj.setData(res);
         console.log(res.BillItems, 294)
         this.tableObj.setData(res.BillItems);
-        // this.tableObj1.setData(res.BillItems);
+        this.tableObj1.setData(res.TrialToolingMaterialDetails);
 
         this.btnAction = detailPageModel(this, res, TrialTask, this.getData);
         this.btnAction.push(

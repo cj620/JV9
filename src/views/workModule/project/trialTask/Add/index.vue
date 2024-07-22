@@ -27,7 +27,7 @@
       </div>
       <JvEditTable :tableObj="tableObj">
         <template #BillFiles="{ row }">
-          <div v-if="row.BillFiles.value.length > 0">
+          <div v-if="row.BillFiles && row.BillFiles.value && row.BillFiles.value.length > 0">
             <el-image
               style="width: 50px; height: 50px"
               v-for="(item, index) in row.BillFiles.value"
@@ -157,6 +157,8 @@ export default {
         TestMouldUseTime: "",
         TestMouldInfo: "",
         TestMouldProblemPoints: [],
+        Creator: "",
+        CreationDate: "",
         // TrialToolingDynamicData: {
         //   RelationId: "",
         //   TestMouldQuantity: "",
