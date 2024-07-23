@@ -251,14 +251,14 @@ export default {
       ];
       // 合并的单元格
       this.form.merges = [
-        "A1:I1",
-        "J1:N1",
-        "O1:Q1",
-        "R1:T1",
-        "U1:W1",
-        "X1:Z1",
-        "AA1:AC1",
-        "AD1:AI1",
+        "A1:J1",
+        "K1:O1",
+        "P1:R1",
+        "S1:U1",
+        "V1:X1",
+        "Y1:AA1",
+        "AB1:AD1",
+        "AE1:AJ1",
       ];
       await Promise.all(this.form.checkData.map(async (item) => {
         console.log(window.global_config.ImgBase_Url + item.PhotoUrl,264)
