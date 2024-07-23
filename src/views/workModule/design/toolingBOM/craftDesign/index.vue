@@ -55,6 +55,9 @@
             </el-option>
           </el-select>
         </template>
+        <template #IsOutsourced="{ row }">
+          <el-checkbox v-model="row.IsOutsourced.value"></el-checkbox>
+        </template>
         <template #IsCompulsoryInspection="{ row }">
           <el-checkbox v-model="row.IsCompulsoryInspection.value"></el-checkbox>
         </template>
@@ -152,6 +155,7 @@ export default {
         ProcessPicture: [],
         customData: [],
         ProcessContentList: [],
+        IsOutsourced: false,
         IsCompulsoryInspection: false,
       },
     };

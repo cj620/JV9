@@ -35,6 +35,9 @@
         <div class="process-template-right-title"><span style="font-weight: normal;font-family: 微软雅黑">{{$t('Generality.Ge_TemplateName')}}:</span> {{ templateTitle }}</div>
         <div class="process-template-right-table">
           <JvTable ref="BillTable" :table-obj="tableObj">
+            <template #IsOutsourced="{record}">
+              {{ IsOutsourcedEnum[record].name }}
+            </template>
             <template #IsCompulsoryInspection="{record}">
               {{ IsCompulsoryInspectionEnum[record].name }}
             </template>
@@ -55,6 +58,14 @@ export default {
       activeIndex: 0,
       templateData:[],
       templateTitle: "",
+      IsOutsourcedEnum: {
+        true: {
+          name: this.$t("Generality.Ge_Yes"),
+        },
+        false: {
+          name: this.$t("Generality.Ge_No"),
+        }
+      },
       IsCompulsoryInspectionEnum: {
         true: {
           name: this.$t("Generality.Ge_Yes"),

@@ -100,6 +100,9 @@
             ]"
           />
         </template>
+        <template #IsOutsourced="{ row }">
+          <el-checkbox v-model="row.IsOutsourced.value"></el-checkbox>
+        </template>
         <template #IsCompulsoryInspection="{ row }">
           <el-checkbox v-model="row.IsCompulsoryInspection.value"></el-checkbox>
         </template>
@@ -255,6 +258,7 @@ export default {
           Resource: "",
           LeadTimeOfProcess: 0,
           PostTimeOfProcess: 0,
+          IsOutsourced: false,
           IsCompulsoryInspection: false,
           ProgramingProcess: "",
         };

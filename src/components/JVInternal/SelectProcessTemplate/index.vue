@@ -27,6 +27,9 @@
           <div class="process-template-right-title"><span style="font-weight: normal;font-family: 微软雅黑">{{$t('Generality.Ge_TemplateName')}}:</span> {{ templateTitle }}</div>
           <div class="process-template-right-table">
             <JvTable ref="BillTable" :table-obj="tableObj">
+              <template #IsOutsourced="{ record }">
+                {{ IsCompulsoryInspectionEnum[record].name }}
+              </template>
               <template #IsCompulsoryInspection="{ record }">
                 {{ IsCompulsoryInspectionEnum[record].name }}
               </template>
