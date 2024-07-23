@@ -337,7 +337,8 @@ export default {
         name: "De_MaterialRequirement_Add",
         params: {
           ToolingNo: this.detailObj.detailData.ToolingNo,
-          PmTaskBillId: this.cur_Id,
+          // PmTaskBillId: this.cur_Id,
+          PmTaskBillId: this.detailObj.detailData.RelationId,
           data: [],
         },
       });

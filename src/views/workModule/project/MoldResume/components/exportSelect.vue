@@ -77,11 +77,11 @@ export default {
       this.columns = this.exportData.tableColumns;
     },
     // 点击确定
-    complete() {
+    async complete() {
       switch (this.form.dataType) {
         case "PAGE":
           this.form.checkData = this.exportData.currentData;
-          this.confirmExport();
+          await this.confirmExport();
           break;
         case "SELECTED":
           if (this.exportData.selectedData.length === 0) {
@@ -93,7 +93,7 @@ export default {
           } else {
             // 将表格选中的数据带入
             this.form.checkData = this.exportData.selectedData;
-            this.confirmExport();
+            await this.confirmExport();
           }
           break;
         case "ALL":
@@ -102,162 +102,166 @@ export default {
               PageSize: 999,
               CurrentPage: 1,
             })
-          ).then((res) => {
+          ).then(async (res) => {
             this.form.checkData = res.Items;
-            this.confirmExport();
+            await this.confirmExport();
           });
           break;
         case "TEMPLATE":
           this.form.checkData = [];
-          this.confirmExport();
+          await this.confirmExport();
           break;
         default:
           break;
       }
     },
     // 确认导出
-    confirmExport() {
+    async confirmExport() {
       console.log('checkData:::', this.form.checkData)
-        // 复杂表头
-        this.form.multiHeaders = [
-          this.$t('project.Pro_ToolingInfo'),
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          "",
-          this.$t('project.Pro_TechnicalRequirement'),
-          "",
-          "",
-          "",
-          "",
-          this.$t('menu.De_Design'),
-          "",
-          "",
-          this.$t('menu.Pa_Program'),
-          "",
-          "",
-          this.$t('menu.Pu_Purchase'),
-          "",
-          "",
-          this.$t('menu.Pr_Production'),
-          "",
-          "",
-          this.$t('stockroom.St_Assembly'),
-          "",
-          "",
-          this.$t('production.Pr_TestTooling'),
-          "",
-          "",
-          "",
-          "",
-          "",
-        ];
-        // 表头名
-        this.form.headers = [
-          this.$t('Generality.Ge_State'),
-          this.$t('menu.Pm_Project'),
-          this.$t('Generality.Ge_ToolingNo'),
-          this.$t('Generality.Ge_ToolingName'),
-          this.$t('Generality.Ge_Describe'),
-          this.$t('menu.Sa_Customer'),
-          this.$t('Generality.Ge_DeliveryDate'),
-          this.$t('Generality.Ge_SampleDate'),
-          this.$t('project.Pro_ToolingType'),
+      // 复杂表头
+      this.form.multiHeaders = [
+        this.$t('project.Pro_ToolingInfo'),
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        this.$t('project.Pro_TechnicalRequirement'),
+        "",
+        "",
+        "",
+        "",
+        this.$t('menu.De_Design'),
+        "",
+        "",
+        this.$t('menu.Pa_Program'),
+        "",
+        "",
+        this.$t('menu.Pu_Purchase'),
+        "",
+        "",
+        this.$t('menu.Pr_Production'),
+        "",
+        "",
+        this.$t('stockroom.St_Assembly'),
+        "",
+        "",
+        this.$t('production.Pr_TestTooling'),
+        "",
+        "",
+        "",
+        "",
+        "",
+      ];
+      // 表头名
+      this.form.headers = [
+        this.$t('Generality.Ge_PhotoUrl'),
+        this.$t('Generality.Ge_State'),
+        this.$t('menu.Pm_Project'),
+        this.$t('Generality.Ge_ToolingNo'),
+        this.$t('Generality.Ge_ToolingName'),
+        this.$t('Generality.Ge_Describe'),
+        this.$t('menu.Sa_Customer'),
+        this.$t('Generality.Ge_DeliveryDate'),
+        this.$t('Generality.Ge_SampleDate'),
+        this.$t('project.Pro_ToolingType'),
 
-          this.$t('project.Pro_HeatTreatmentSpec'),
-          this.$t('project.Pro_PlasticMaterialSpec'),
-          this.$t('project.Pro_ShrinkageRateSpec'),
-          this.$t('project.Pro_MoldBaseSpec'),
-          this.$t('project.Pro_DemouldingCavitySpec'),
+        this.$t('project.Pro_HeatTreatmentSpec'),
+        this.$t('project.Pro_PlasticMaterialSpec'),
+        this.$t('project.Pro_ShrinkageRateSpec'),
+        this.$t('project.Pro_MoldBaseSpec'),
+        this.$t('project.Pro_DemouldingCavitySpec'),
 
-          this.$t('project.Pro_Worker'),
-          this.$t('Generality.Ge_PlanStart'),
-          this.$t('Generality.Ge_ActualStart'),
+        this.$t('project.Pro_Worker'),
+        this.$t('Generality.Ge_PlanStart'),
+        this.$t('Generality.Ge_ActualStart'),
 
-          this.$t('project.Pro_Worker'),
-          this.$t('Generality.Ge_PlanStart'),
-          this.$t('Generality.Ge_ActualStart'),
+        this.$t('project.Pro_Worker'),
+        this.$t('Generality.Ge_PlanStart'),
+        this.$t('Generality.Ge_ActualStart'),
 
-          this.$t('project.Pro_Worker'),
-          this.$t('Generality.Ge_PlanStart'),
-          this.$t('Generality.Ge_ActualStart'),
+        this.$t('project.Pro_Worker'),
+        this.$t('Generality.Ge_PlanStart'),
+        this.$t('Generality.Ge_ActualStart'),
 
-          this.$t('project.Pro_Worker'),
-          this.$t('Generality.Ge_PlanStart'),
-          this.$t('Generality.Ge_ActualStart'),
+        this.$t('project.Pro_Worker'),
+        this.$t('Generality.Ge_PlanStart'),
+        this.$t('Generality.Ge_ActualStart'),
 
-          this.$t('project.Pro_Worker'),
-          this.$t('Generality.Ge_PlanStart'),
-          this.$t('Generality.Ge_ActualStart'),
+        this.$t('project.Pro_Worker'),
+        this.$t('Generality.Ge_PlanStart'),
+        this.$t('Generality.Ge_ActualStart'),
 
-          'T1' + this.$t('project.Pro_Problem'),
-          'T1' + this.$t('project.Pro_Solution'),
-          'T2' + this.$t('project.Pro_Problem'),
-          'T2' + this.$t('project.Pro_Solution'),
-          'T3' + this.$t('project.Pro_Problem'),
-          'T3' + this.$t('project.Pro_Solution'),
-        ];
-        // 导出的属性名
-        this.form.propName = [
-          "ToolingState",
-          "Project",
-          "ToolingNo",
-          "ToolingName",
-          "Description",
-          "CustomerName",
-          "TDeliveryDate",
-          "TSampleDate",
-          "TaskType",
+        'T1' + this.$t('project.Pro_Problem'),
+        'T1' + this.$t('project.Pro_Solution'),
+        'T2' + this.$t('project.Pro_Problem'),
+        'T2' + this.$t('project.Pro_Solution'),
+        'T3' + this.$t('project.Pro_Problem'),
+        'T3' + this.$t('project.Pro_Solution'),
+      ];
+      // 导出的属性名
+      this.form.propName = [
+        "PhotoUrl",
+        "ToolingState",
+        "Project",
+        "ToolingNo",
+        "ToolingName",
+        "Description",
+        "CustomerName",
+        "TDeliveryDate",
+        "TSampleDate",
+        "TaskType",
 
-          "HeatTreatmentSpec",
-          "PlasticMaterialSpec",
-          "ShrinkageRateSpec",
-          "MoldBaseSpec",
-          "DemouldingCavitySpec",
+        "HeatTreatmentSpec",
+        "PlasticMaterialSpec",
+        "ShrinkageRateSpec",
+        "MoldBaseSpec",
+        "DemouldingCavitySpec",
 
-          "DesignWorker",
-          "DesignPlanStart",
-          "DesignActualStart",
+        "DesignWorker",
+        "DesignPlanStart",
+        "DesignActualStart",
 
-          "ProgramWorker",
-          "ProgramPlanStart",
-          "ProgramActualStart",
+        "ProgramWorker",
+        "ProgramPlanStart",
+        "ProgramActualStart",
 
-          "PurchaseWorker",
-          "PurchasePlanEnd",
-          "PurchaseActualStart",
+        "PurchaseWorker",
+        "PurchasePlanEnd",
+        "PurchaseActualStart",
 
-          "ProductionWorker",
-          "ProductionPlanStart",
-          "ProductionActualStart",
+        "ProductionWorker",
+        "ProductionPlanStart",
+        "ProductionActualStart",
 
-          "AssyWorker",
-          "AssyPlanStart",
-          "AssyActualStart",
+        "AssyWorker",
+        "AssyPlanStart",
+        "AssyActualStart",
 
-          "T1Problem",
-          "T1Solution",
-          "T2Problem",
-          "T2Solution",
-          "T3Problem",
-          "T3Solution",
-        ];
-        // 合并的单元格
-        this.form.merges = [
-          "A1:I1",
-          "J1:N1",
-          "O1:Q1",
-          "R1:T1",
-          "U1:W1",
-          "X1:Z1",
-          "AA1:AC1",
-          "AD1:AI1",
-        ];
-      this.form.checkData.forEach((item) => {
+        "T1Problem",
+        "T1Solution",
+        "T2Problem",
+        "T2Solution",
+        "T3Problem",
+        "T3Solution",
+      ];
+      // 合并的单元格
+      this.form.merges = [
+        "A1:I1",
+        "J1:N1",
+        "O1:Q1",
+        "R1:T1",
+        "U1:W1",
+        "X1:Z1",
+        "AA1:AC1",
+        "AD1:AI1",
+      ];
+      await Promise.all(this.form.checkData.map(async (item) => {
+        console.log(window.global_config.ImgBase_Url + item.PhotoUrl,264)
         item.TDeliveryDate = timeFormat(item.TDeliveryDate,'yyyy-MM-dd');
         item.TSampleDate = timeFormat(item.TSampleDate,'yyyy-MM-dd');
         item.DesignPlanStart = timeFormat(item.DesignPlanStart,'yyyy-MM-dd');
@@ -276,13 +280,28 @@ export default {
         if (ItemToolingStateEnum[item.ToolingState]) {
           item.ToolingState = ItemToolingStateEnum[item.ToolingState].name;
         }
-      })
-        export2ExcelMultiple(this.form, this.close)
+        // 将图片URL转换为base64编码
+        if (item.PhotoUrl) {
+          item.PhotoUrl = await this.convertImageToBase64(window.global_config.ImgBase_Url + item.PhotoUrl);
+        }
+      }));
+      export2ExcelMultiple(this.form, this.close)
     },
     // 抛出关闭事件
     close() {
       this.$emit("complete");
     },
+    // 将图片URL转换为base64编码
+    convertImageToBase64(url) {
+      return fetch(url)
+        .then(response => response.blob())
+        .then(blob => new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        }));
+    }
   }
 }
 </script>
