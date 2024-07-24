@@ -147,7 +147,7 @@ export const formSchema = [
     prop: "isDelay",
     label: i18n.t("Generality.Ge_KeyWords"),
     cpn: "FormInput",
-    default: false,
+    default: true,
     hidden: true,
   },
   {
