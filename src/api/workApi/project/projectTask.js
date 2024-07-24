@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-04 11:31:34
- * @LastEditTime: 2022-08-25 17:22:17
+ * @LastEditTime: 2024-07-24 14:31:01
  * @Description:
  */
 // import request from "@/utils/request";
@@ -54,7 +54,7 @@ export function successProjectTask(data) {
     data,
   });
 }
-     //提交设计方案，钳工方案，编程方案
+//提交设计方案，钳工方案，编程方案
 export function submit_solution(data) {
   return request({
     url: "/project_task/submit_solution",
@@ -96,8 +96,6 @@ export function project_task_push_item(data) {
     data,
   });
 }
-
-
 
 // 删除子任务
 export function project_task_delete_item(data) {
@@ -181,7 +179,7 @@ export function production_programing_task_delete(data) {
     url: "/production_programing_task/delete",
     method: "post",
     data,
-  })
+  });
 }
 // 生产加工编程任务明细点检列表
 export function production_programing_task_item_inspection_list(data) {
@@ -189,7 +187,7 @@ export function production_programing_task_item_inspection_list(data) {
     url: "/production_programing_task/item_inspection_list",
     method: "post",
     data,
-  })
+  });
 }
 // 保存试模任务动态扩充内容信息
 export function save_trial_tooling_dynamic(data) {
@@ -197,7 +195,7 @@ export function save_trial_tooling_dynamic(data) {
     url: "/project_task/save_trial_tooling_dynamic",
     method: "post",
     data,
-    loading:true
+    loading: true,
   });
 }
 // 钳工任务列表
@@ -206,7 +204,7 @@ export function assy_task_list(data) {
     url: "/assy_task/list",
     method: "post",
     data,
-  })
+  });
 }
 // 项目任务明细点检列表
 export function item_inspection_list(data) {
@@ -214,7 +212,7 @@ export function item_inspection_list(data) {
     url: "/project_task/item_inspection_list",
     method: "post",
     data,
-  })
+  });
 }
 // 点检项目任务明细
 export function item_inspection(data) {
@@ -222,7 +220,7 @@ export function item_inspection(data) {
     url: "/project_task/inspection",
     method: "post",
     data,
-  })
+  });
 }
 // 点检处理项目任务明细
 export function item_inspection_handle(data) {
@@ -230,7 +228,7 @@ export function item_inspection_handle(data) {
     url: "/project_task/inspection_handle",
     method: "post",
     data,
-  })
+  });
 }
 // 点检编程加工任务明细
 export function production_programing_task_inspection(data) {
@@ -238,7 +236,7 @@ export function production_programing_task_inspection(data) {
     url: "/production_programing_task/inspection",
     method: "post",
     data,
-  })
+  });
 }
 // 点检处理项目任务明细
 export function production_programing_task_inspection_handle(data) {
@@ -246,7 +244,7 @@ export function production_programing_task_inspection_handle(data) {
     url: "/production_programing_task/inspection_handle",
     method: "post",
     data,
-  })
+  });
 }
 // 项目任务单明细延期列表
 export function item_delay_list(data) {
@@ -254,7 +252,15 @@ export function item_delay_list(data) {
     url: "/project_task/item_delay_list",
     method: "post",
     data,
-  })
+  });
+}
+// 批量完成项目任务单明细延期列表
+export function complete_delay_list(data) {
+  return request({
+    url: "/project_task/complete_delay_list",
+    method: "post",
+    data,
+  });
 }
 
 // 保存修模问题点
@@ -263,7 +269,7 @@ export function save_mold_repair_problem_points(data) {
     url: "/save_mold_repair_problem_points",
     method: "post",
     data,
-  })
+  });
 }
 
 // 获取试模任务详情
@@ -272,7 +278,7 @@ export function trial_tooling_task_get(query) {
     url: "/trial_tooling_task/get",
     method: "get",
     params: query,
-  })
+  });
 }
 
 // 保存试模任务
@@ -281,5 +287,13 @@ export function trial_tooling_task_save(data) {
     url: "/trial_tooling_task/save",
     method: "post",
     data,
-  })
+  });
+}
+// 批量完成项目任务单明细延期列表
+export function production_programing_task_complete_delay_list(data) {
+  return request({
+    url: "/production_programing_task/complete_delay_list",
+    method: "post",
+    data,
+  });
 }
