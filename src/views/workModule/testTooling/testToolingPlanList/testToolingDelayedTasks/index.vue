@@ -1,6 +1,26 @@
+<!--
+ * @Author: C.
+ * @Date: 2024-06-07 11:05:35
+-->
 <template>
   <PageWrapper :footer="false">
     <JvTable ref="BillTable" :table-obj="tableObj">
+      <Action
+        size="mini"
+        slot="btn-list"
+        :actions="[
+          {
+            label: '完成',
+            disabled: isCanComplete,
+            popConfirm: {
+              // doDelete
+              title: `是否完成选中的任务？`,
+              confirm: toComplete.bind(null),
+            },
+          },
+        ]"
+      >
+      </Action>
       <!-- 状态标签 -->
       <template #ItemState="{ record }">
         <TaskState :state="record"></TaskState>
@@ -25,11 +45,11 @@ import TaskState from "@/components/JVInternal/TaskState/index.vue";
 
 export default {
   name: "Tt_TestToolingDelayedTasks",
-  components: {TaskState},
+  components: { TaskState },
   data() {
     return {
       tableObj: {},
-    }
+    };
   },
   created() {
     this.tableObj = new Table();
@@ -41,10 +61,22 @@ export default {
     getDelayDates(f, n) {
       const timeDiff = new Date().getTime() - new Date(f).getTime();
       return (timeDiff / (1000 * 3600 * 24)).toFixed(1);
-    }
-  }
-}
+    },
+    async toComplete() {
+      const { keys } = this.tableObj.selectData;
+      await complete_delay_list(keys);
+      this.tableObj.tableRef.clearSelection();
+      this.tableObj.getData();
+    },
+  },
+  computed: {
+    isCanComplete() {
+      const { datas } = this.tableObj.selectData;
+      if (datas.length == 0) return true;
+      if (datas.some((item) => item.State == "Completed")) return true;
+      return false;
+    },
+  },
+};
 </script>
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
