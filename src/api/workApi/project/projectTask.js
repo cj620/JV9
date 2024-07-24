@@ -252,3 +252,11 @@ export function complete_delay_list(data) {
     data,
   });
 }
+// 批量完成项目任务单明细延期列表
+export function production_programing_task_complete_delay_list(data) {
+  return request({
+    url: "/production_programing_task/complete_delay_list",
+    method: "post",
+    data,
+  });
+}
