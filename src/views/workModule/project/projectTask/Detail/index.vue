@@ -271,7 +271,7 @@ export default {
       viewSubtasksTableObj: {},
 
       MoldRepairTableObj: {},
-      defaultImgUrl: "",
+      defaultImgUrl: window.global_config.ImgBase_Url,
     };
   },
   computed: {

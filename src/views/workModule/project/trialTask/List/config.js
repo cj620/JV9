@@ -3,13 +3,14 @@ import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { taskTypeEnum, enumToList, enumFilter } from "@/enum/workModule";
 // 单据接口
 import { API, trial_tooling_list } from "@/api/workApi/project/projectTask";
+import { API as TrialAPI } from "@/api/workApi/project/TrialTask";
 import { itemList } from '@/api/basicApi/systemSettings/Item'
 var testMouldResultEnum={
   OK: { name: "OK", value: "OK" },
   NG: { name: "NG", value: "NG" },
   Pending: { name: "待定", value: "Pending" },
 }
-let { api_delete } = API;
+let { api_delete } = TrialAPI;
 class api extends TableAPI {
   // 获取列表
   getData = trial_tooling_list;

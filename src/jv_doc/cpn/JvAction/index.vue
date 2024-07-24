@@ -1,7 +1,7 @@
 <!--
  * @Author: C.
  * @Date: 2021-09-17 14:10:09
- * @LastEditTime: 2022-01-14 09:55:07
+ * @LastEditTime: 2024-07-24 13:37:19
  * @Description: file content
 -->
 <template>
@@ -36,6 +36,7 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <slot name="suffix"></slot>
     </el-button-group>
     <span style="margin-left: 15px">
       <el-button

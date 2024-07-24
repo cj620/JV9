@@ -7,8 +7,8 @@
  * @FilePath: \vue-element-admin-master\public\config.js
  */
 window.global_config = {
-  //Base_Url: "http://localhost:61823//api",
-  Base_Url: "http://192.168.1.66:8015/api",
+  // Base_Url: "http://localhost:61823//api",
+   Base_Url: "http://192.168.1.66:8015/api",
   ImgBase_Url: "http://192.168.1.66:8015/", // 上传图片的地址
   Share_Url: "http://192.168.1.66:8101",
   WebSocket_Url: "ws://192.168.1.66:8021",

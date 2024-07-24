@@ -41,6 +41,12 @@ export class Table extends BaseTable {
 const tableSchema = [
   /*模号*/
   {
+    prop: "PhotoUrl",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    cpn: "Image"
+  },
+  /*模号*/
+  {
     prop: "ToolingNo",
     label: i18n.t("Generality.Ge_ToolingNo"),
     width: "120px",
