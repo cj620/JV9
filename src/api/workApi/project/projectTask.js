@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-04 11:31:34
- * @LastEditTime: 2024-07-24 10:10:25
+ * @LastEditTime: 2024-07-24 14:31:01
  * @Description:
  */
 // import request from "@/utils/request";
@@ -269,7 +269,7 @@ export function save_mold_repair_problem_points(data) {
     url: "/save_mold_repair_problem_points",
     method: "post",
     data,
-  })
+  });
 }
 
 // 获取试模任务详情
@@ -278,7 +278,7 @@ export function trial_tooling_task_get(query) {
     url: "/trial_tooling_task/get",
     method: "get",
     params: query,
-  })
+  });
 }
 
 // 保存试模任务
@@ -287,5 +287,13 @@ export function trial_tooling_task_save(data) {
     url: "/trial_tooling_task/save",
     method: "post",
     data,
-  })
+  });
+}
+// 批量完成项目任务单明细延期列表
+export function production_programing_task_complete_delay_list(data) {
+  return request({
+    url: "/production_programing_task/complete_delay_list",
+    method: "post",
+    data,
+  });
 }

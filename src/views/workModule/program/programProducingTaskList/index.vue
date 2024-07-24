@@ -7,27 +7,40 @@
         size="mini"
         slot="btn-list"
         :actions="[
-            // 报工记录
-            {
-              label: $t('project.Pro_ReportToWorkRecord'),
-              confirm: reportRecord.bind(null, ''),
+          // 报工记录
+          {
+            label: $t('project.Pro_ReportToWorkRecord'),
+            confirm: reportRecord.bind(null, ''),
+          },
+          {
+            label: $t('project.Pro_EditWorker'),
+            confirm: editWorker.bind(null, ''),
+            disabled: tableObj.selectData.datas.length <= 0,
+          },
+          // 删除
+          {
+            label: $t('Generality.Ge_Delete'),
+            disabled: canIsDel,
+            popConfirm: {
+              title: $t('Generality.Ge_DeleteConfirm'),
+              confirm: delBills,
             },
-            {
-              label: $t('project.Pro_EditWorker'),
-              confirm: editWorker.bind(null, ''),
-              disabled: tableObj.selectData.datas.length <= 0,
-            },
-            // 删除
-            {
-              label: $t('Generality.Ge_Delete'),
-              disabled: canIsDel,
-              popConfirm: {
-                title: $t('Generality.Ge_DeleteConfirm'),
-                confirm: delBills,
-              },
-            }
-          ]"
+          },
+        ]"
       >
+        <el-badge
+          v-if="DelayCount && DelayCount !== 0"
+          :value="DelayCount"
+          class="button-badge"
+          slot="suffix"
+        >
+          <el-button size="mini" @click="delayedTasks">
+            {{ $t("project.Pro_DelayedTasks") }}
+          </el-button>
+        </el-badge>
+        <el-button v-else size="mini" @click="delayedTasks" slot="suffix">
+          {{ $t("project.Pro_DelayedTasks") }}
+        </el-button>
       </Action>
       <!-- 状态标签 -->
       <template #State="{ record }">
@@ -49,7 +62,7 @@
             {
               label: $t('Generality.Ge_Edit'),
               confirm: edit.bind(null, row),
-              disabled: row.State === 'Processed',//待修改
+              disabled: row.State === 'Processed', //待修改
             },
             // 领用
             {
@@ -68,7 +81,7 @@
                 confirm: confirmDel.bind(null, [row.Id]),
               },
               disabled: row.State === 'Processed',
-            }
+            },
           ]"
         />
       </template>
@@ -89,7 +102,8 @@
       v-if="addProjectTaskDialogFormVisible"
       :transferData="transferData"
       @confirmData="confirmData"
-      :confirmText="$t('Generality.Ge_Save')">
+      :confirmText="$t('Generality.Ge_Save')"
+    >
     </editProgramTask>
     <!-- //分发任务页面 -->
     <distributionTaskDialog
@@ -165,15 +179,20 @@ import {
   project_task_get_children_item,
   project_task_delete_item,
   production_programing_task_delete,
-  production_programing_task_batch_edit
+  production_programing_task_batch_edit,
 } from "@/api/workApi/project/projectTask";
-import { update_worker } from "@/api/workApi/production/productionTask"
+import { update_worker } from "@/api/workApi/production/productionTask";
 import TaskState from "@/components/JVInternal/TaskState";
 import { get_by_department } from "@/api/basicApi/systemSettings/user";
-
+import { production_programing_task_items } from "@/api/workApi/project/projectTask";
 export default {
   name: "Pa_ProgramProducingTaskList",
-  components: { TaskState, addProjectTask, editProgramTask, distributionTaskDialog },
+  components: {
+    TaskState,
+    addProjectTask,
+    editProgramTask,
+    distributionTaskDialog,
+  },
   computed: {
     IsDelay() {
       return (e) => {
@@ -208,8 +227,9 @@ export default {
       TaskData: {},
       transferData: {},
       viewSubtasksTableObj: {},
-      tableTitle:i18n.t('menu.Pa_ProgramProducingTaskList'),
+      tableTitle: i18n.t("menu.Pa_ProgramProducingTaskList"),
       ProcessType: "Design",
+      DelayCount: null,
     };
   },
   created() {
@@ -218,9 +238,25 @@ export default {
     this.tableObj.props.title = this.tableTitle;
     this.viewSubtasksTableObj = new ViewSubtasksTableObj();
     this.tableObj.getData();
+    this.getDelayCount();
   },
   methods: {
-    reportRecord(){
+    delayedTasks() {
+      this.$router.push({
+        name: "ProgramProducingDelayedTasks",
+      });
+    },
+    getDelayCount() {
+      production_programing_task_items({
+        PageSize: 99,
+        CurrentPage: 1,
+        isDelay: true,
+        IsComplete: false,
+      }).then((res) => {
+        this.DelayCount = res.Count;
+      });
+    },
+    reportRecord() {
       this.$router.push({
         name: "Pa_ProgramProducingTaskReportRecord",
       });
@@ -234,20 +270,20 @@ export default {
       this.transferData = JSON.parse(JSON.stringify(row));
     },
     // 领用
-    receive(row){
+    receive(row) {
       update_worker({ ProgramingTaskId: row.Id }).then((res) => {
         this.tableObj.getData();
-      })
+      });
     },
     // 确认删除
-    confirmDel(Ids){
+    confirmDel(Ids) {
       production_programing_task_delete({ ItemIds: Ids }).then(() => {
         this.tableObj.getData();
-      })
+      });
     },
     // 批量删除
     delBills() {
-      this.confirmDel(this.tableObj.selectData.keys)
+      this.confirmDel(this.tableObj.selectData.keys);
       this.$refs.BillTable.clearSelection();
     },
     //查看子任务
@@ -280,7 +316,10 @@ export default {
       });
     },
     editWorker() {
-      console.log('data:::',this.tableObj.selectData.datas[0].BelongingDepartment)
+      console.log(
+        "data:::",
+        this.tableObj.selectData.datas[0].BelongingDepartment
+      );
       this.editWorkerObj = new Form({
         formSchema: [
           {
@@ -306,14 +345,14 @@ export default {
       this.viewEditWorkerDialogVisible = true;
     },
     changeValue(e) {
-      const department = this.tableObj.selectData.datas[0].BelongingDepartment
+      const department = this.tableObj.selectData.datas[0].BelongingDepartment;
       if (e) {
         if (department) {
           get_by_department({ Department: department }).then((res) => {
             this.WorkerList = res.Items;
           });
         } else {
-          get_by_department({ Department: '' }).then((res) => {
+          get_by_department({ Department: "" }).then((res) => {
             this.WorkerList = res.Items;
           });
         }
@@ -323,19 +362,17 @@ export default {
       this.editWorkerObj.validate((valid) => {
         if (valid) {
           const newData = this.tableObj.selectData.datas.map((item) => {
-            return {...item, Worker: this.editWorkerObj.form.UserName}
+            return { ...item, Worker: this.editWorkerObj.form.UserName };
           });
           production_programing_task_batch_edit(newData).then(() => {
             this.tableObj.getData();
             this.$refs.BillTable.clearSelection();
             this.viewEditWorkerDialogVisible = false;
-          })
+          });
         }
-      })
-    }
+      });
+    },
   },
 };
 </script>
-<style>
-
-</style>
+<style></style>
