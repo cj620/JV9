@@ -38,9 +38,9 @@
     >
       <div class="mould-img">
         <el-image
-          :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
+          :preview-src-list="[imgUrlPlugin(PhotoUrl)]"
           style="width: 100%; height: 100%"
-          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
+          :src="imgUrlPlugin(PhotoUrl)"
           fit="cover"
         >
           <div slot="error" class="image-slot1">
@@ -71,7 +71,7 @@
     <JvBlock :title="$t('project.Pro_TestMouldProblemPoints')" ref="second">
       <JvTable :tableObj="tableObj">
         <template #BillFiles="{ record }">
-          <div v-if="record.length > 0">
+          <div v-if="record && record.length > 0">
             <el-image
               style="width: 50px; height: 50px"
               v-for="(item, index) in record"
@@ -142,7 +142,7 @@
 </template>
 
 <script>
-import { save_trial_tooling_dynamic } from "@/api/workApi/project/projectTask";
+import {save_trial_tooling_dynamic, trial_tooling_task_get} from "@/api/workApi/project/projectTask";
 import { mapState } from "vuex";
 import { Table, detailConfig, Table1, formSchema } from "./config";
 import { Form } from "@/jv_doc/class/form";
@@ -151,6 +151,7 @@ import {
   API as ProjectTask,
   successProjectTask,
 } from "@/api/workApi/project/projectTask";
+import {API as TrialTask, trial_tooling_task_completed} from '@/api/workApi/project/TrialTask';
 import { detailPageModel, imgUrlPlugin } from "@/jv_doc/utils/system/index.js";
 import { save_project_dynamic } from "@/api/workApi/project/projectInfo";
 import { taskTypeEnum } from "@/enum/workModule";
@@ -182,6 +183,7 @@ export default {
       detailObj: {},
       tableObj: {},
       tableObj1: {},
+      PhotoUrl: "",
       DynamicInfo: [],
       btnAction: [],
       defaultImgUrl: window.global_config.ImgBase_Url,
@@ -271,18 +273,29 @@ export default {
       this.informationShow = true;
     },
     getData() {
-      ProjectTask.api_get({ BillId: this.cur_Id }).then((res) => {
+      trial_tooling_task_get({ BillId: this.cur_Id }).then((res) => {
+        // formSchema.forEach(item => {
+        //   this.formObj.form[item.prop] = res.TrialToolingDynamicData[item.prop]
+        // })
+        // this.detailObj.setData(res);
+        // for (let key in res.TrialToolingDynamicData) {
+        //   this.detailObj.detailData[key] = res.TrialToolingDynamicData[key];
+        // }
+        // this.tableObj.setData(res.TestMouldProblemPoints);
+        // this.tableObj1.setData(res.TrialToolingMaterialDetails);
+        // this.DynamicInfo = res.DynamicInfo || [];
+        // this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
+
+        // 试模任务单独拎出来的版本
         formSchema.forEach(item => {
-          this.formObj.form[item.prop] = res.TrialToolingDynamicData[item.prop]
+          this.formObj.form[item.prop] = res[item.prop]
         })
         this.detailObj.setData(res);
-        for (let key in res.TrialToolingDynamicData) {
-          this.detailObj.detailData[key] = res.TrialToolingDynamicData[key];
-        }
-        this.tableObj.setData(res.TestMouldProblemPoints);
+        console.log(res.BillItems, 294)
+        this.tableObj.setData(res.BillItems);
         this.tableObj1.setData(res.TrialToolingMaterialDetails);
-        this.DynamicInfo = res.DynamicInfo || [];
-        this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
+
+        this.btnAction = detailPageModel(this, res, TrialTask, this.getData);
         this.btnAction.push(
           {
             label: i18n.t('project.Pro_InputTestMouldInfo'),
@@ -303,11 +316,12 @@ export default {
           disabled: this.detailObj.detailData.State !== "Approved",
         }*/
         );
+        this.PhotoUrl=this.detailObj.detailData.PhotoUrl
       });
     },
     // 完成单据
     successProjectTask() {
-      successProjectTask({ BillId: this.cur_Id }).then(() => {
+      trial_tooling_task_completed({ BillId: this.cur_Id }).then(() => {
         this.getData();
       });
     },
@@ -323,7 +337,8 @@ export default {
         name: "De_MaterialRequirement_Add",
         params: {
           ToolingNo: this.detailObj.detailData.ToolingNo,
-          PmTaskBillId: this.cur_Id,
+          // PmTaskBillId: this.cur_Id,
+          PmTaskBillId: this.detailObj.detailData.RelationId,
           data: [],
         },
       });

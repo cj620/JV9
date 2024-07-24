@@ -204,7 +204,7 @@ export default {
           this.btnAction.push({
             label: this.$t('quality.Qc_CreateErrorReport'),
             confirm: this.createError,
-            disabled: this.detailObj.detailData.ProcessingResult === "Qualified",
+            disabled: this.detailObj.detailData.State !== "Approved" || this.detailObj.detailData.ProcessingResult === "Qualified",
           });
         }
       );
@@ -232,7 +232,9 @@ export default {
         query: {
           PrTaskBillId: this.detailObj.detailData.PrTaskBillId,
           Process: this.detailObj.detailData.SelfCheckProcess,
-          UnqualifiedQty: this.detailObj.detailData.UnqualifiedQty
+          UnqualifiedQty: this.detailObj.detailData.UnqualifiedQty,
+          AssociatedNo:this.detailObj.detailData.BillId,
+          InspectionType:"Qc_ProcessCheck",
         }
       })
     }

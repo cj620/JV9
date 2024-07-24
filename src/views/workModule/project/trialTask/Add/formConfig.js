@@ -52,6 +52,16 @@ export const formSchema = [
       disabled: true,
     },
   },
+  //试模次数
+  {
+    prop: "TestMouldQuantity",
+    label: "试模次数",
+    cpn: "FormInput",
+    default: 0,
+    cpnProps: {
+      type: 'number'
+    }
+  },
   //试模原因
   {
     prop: "TestMouldReason",

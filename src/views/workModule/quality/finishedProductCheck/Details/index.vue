@@ -157,6 +157,11 @@ export default {
         this.btnAction = detailPageModel(this, res, API, this.GetData);
         this.btnAction.splice(4,1)
         this.btnAction.splice(5,2)
+        this.btnAction.push({
+          label: this.$t('quality.Qc_CreateErrorReport'),
+          confirm: this.createError,
+          disabled: this.detailObj.detailData.State !== "Approved" || this.detailObj.detailData.ProcessingResult === "Qualified",
+        })
       });
     },
     //订单转
@@ -176,6 +181,18 @@ export default {
       let top = this.$refs[e.name].offsetTop;
       this.$refs.page.scrollTo(top);
     },
+    createError() {
+      this.$router.push({
+        name: "AddQualityError",
+        query: {
+          PrTaskBillId: this.detailObj.detailData.PrTaskBillId,
+          Process: this.detailObj.detailData.SelfCheckProcess,
+          UnqualifiedQty: this.detailObj.detailData.UnqualifiedQty,
+          AssociatedNo:this.detailObj.detailData.BillId,
+          InspectionType:"Qc_FinishedProduct",
+        }
+      })
+    }
   },
 };
 </script>

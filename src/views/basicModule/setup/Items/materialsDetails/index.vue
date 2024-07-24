@@ -50,8 +50,8 @@
         <div style="width: 120px; margin-right: 20px">
           <el-image
             style="width: 100px; height: 100px"
-            :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
-            :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
+            :preview-src-list="[imgUrlPlugin(PhotoUrl)]"
+            :src="imgUrlPlugin(PhotoUrl)"
             class="items-details-Img-error"
           >
             <div slot="error" class="image-slot">
@@ -106,6 +106,7 @@ export default {
       tableObj1: {},
       tableObj2: {},
       tableObj: {},
+      PhotoUrl: "",
       accountedTypeEnum: {
         St_OtherOut: this.$t("menu.St_OtherOut"),
         St_OtherIn: this.$t("menu.St_OtherIn"),
@@ -185,6 +186,7 @@ export default {
         this.detailObj.detailData = res;
         this.tableObj1.setData(res.ItemStockInfo);
         this.tableObj2.setData(res.ItemStockRecord);
+        this.PhotoUrl=this.detailObj.detailData.PhotoUrl
       });
     },
     refresh() {

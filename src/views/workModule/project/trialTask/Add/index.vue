@@ -27,7 +27,7 @@
       </div>
       <JvEditTable :tableObj="tableObj">
         <template #BillFiles="{ row }">
-          <div v-if="row.BillFiles.value.length > 0">
+          <div v-if="row.BillFiles && row.BillFiles.value && row.BillFiles.value.length > 0">
             <el-image
               style="width: 50px; height: 50px"
               v-for="(item, index) in row.BillFiles.value"
@@ -109,7 +109,7 @@ import JvUploadList from "@/components/JVInternal/JvUpload/List";
 import { Form } from "~/class/form";
 import { EditTable } from "./editConfig";
 import { formSchema } from "./formConfig";
-import { API as ProjectTask } from "@/api/workApi/project/projectTask";
+import {API as ProjectTask, trial_tooling_task_save} from "@/api/workApi/project/projectTask";
 import closeTag from "@/utils/closeTag";
 import { timeFormat } from "~/utils/time";
 import { mapState } from "vuex";
@@ -146,18 +146,32 @@ export default {
         State: "",
         Remarks: "",
         BillItems: [],
-        TrialToolingDynamicData: {
-          RelationId: "",
-          TestMouldReason: "",
-          TestMouldResult: "",
-          TestMouldColor: "",
-          TestMouldMachine: "",
-          TestMouldLocation: "",
-          TestMouldDate: "",
-          TestMouldUseTime: "",
-          TestMouldInfo: "",
-          TestMouldProblemPoints: [],
-        },
+        RelationId: "",
+        TestMouldQuantity: "",
+        TestMouldReason: "",
+        TestMouldResult: "",
+        TestMouldColor: "",
+        TestMouldMachine: "",
+        TestMouldLocation: "",
+        TestMouldDate: "",
+        TestMouldUseTime: "",
+        TestMouldInfo: "",
+        TestMouldProblemPoints: [],
+        Creator: "",
+        CreationDate: "",
+        // TrialToolingDynamicData: {
+        //   RelationId: "",
+        //   TestMouldQuantity: "",
+        //   TestMouldReason: "",
+        //   TestMouldResult: "",
+        //   TestMouldColor: "",
+        //   TestMouldMachine: "",
+        //   TestMouldLocation: "",
+        //   TestMouldDate: "",
+        //   TestMouldUseTime: "",
+        //   TestMouldInfo: "",
+        //   TestMouldProblemPoints: [],
+        // },
         SaveAndSubmit: true,
         BillFiles: [],
       },
@@ -257,27 +271,36 @@ export default {
         [this.formObj.validate, this.tableObj.validate],
         (valid) => {
           if (valid) {
+            // for (let key in this.formObj.form) {
+            //   if (this.ruleForm.hasOwnProperty(key)) {
+            //     this.ruleForm[key] = this.formObj.form[key];
+            //   }
+            //   if (this.ruleForm.TrialToolingDynamicData.hasOwnProperty(key)) {
+            //     this.ruleForm.TrialToolingDynamicData[key] =
+            //       this.formObj.form[key];
+            //   }
+            // }
+            // this.ruleForm.TrialToolingDynamicData.TestMouldProblemPoints =
+            //   this.tableObj.getTableData().map((item, index) => ({
+            //     ...item,
+            //     Id: index,
+            //   }));
+
+            // 试模任务分离出项目任务的版本：
             for (let key in this.formObj.form) {
               if (this.ruleForm.hasOwnProperty(key)) {
                 this.ruleForm[key] = this.formObj.form[key];
               }
-              if (this.ruleForm.TrialToolingDynamicData.hasOwnProperty(key)) {
-                this.ruleForm.TrialToolingDynamicData[key] =
-                  this.formObj.form[key];
-              }
             }
-            this.ruleForm.TrialToolingDynamicData.TestMouldProblemPoints =
-              this.tableObj.getTableData().map((item, index) => ({
-                ...item,
-                Id: index,
-              }));
+
+            this.ruleForm.BillItems = this.tableObj.getTableData()
             this._save();
           }
         }
       );
     },
     _save() {
-      ProjectTask.api_save(this.ruleForm).then((res) => {
+      trial_tooling_task_save(this.ruleForm).then((res) => {
         let TagName = {
           name: this.detailRouteName,
           query: { BillId: res },

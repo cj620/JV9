@@ -64,6 +64,11 @@ const formSchema = [
     default: 1,
     hidden: true,
   },
+  {
+    prop: "DeviceNos",
+    default: [],
+    hidden: true,
+  },
 ];
 
 export class P_api extends TableAPI {

@@ -878,6 +878,7 @@ const cn = {
     Ge_Dynamic: "动态",
     Ge_Record: "记录",
     Ge_ProcessInfo: "工序信息",
+    Ge_ProblemPointsInMoldRepair: "修模问题点",
     Ge_WorkContent: "工作内容",
     Ge_DocumentType: "单据类型",
     Ge_Date: "日期",
@@ -1001,6 +1002,9 @@ const cn = {
     Ge_SelectNextOne: "零件已选择，请选择下一个",
     Ge_SheetIsAlreadyCreated: "已有创建加工单，是否继续创建",
 
+    Ge_ResponsibilityUnit: "责任单位",
+    Ge_Resolved: "已解决",
+    Ge_Unresolved: "未解决",
     Ge_Schedule: "进度",
     Ge_WhetherInvalid: "是否作废？",
     Ge_Discarded: "已作废",
@@ -1839,6 +1843,7 @@ const cn = {
   },
 
   systemSetupData: {
+    Scheduling_display_equipment: "调度展示设备",
     JV_APS: "自动排程",
     Assy: "钳工",
     Basics: "基础",

@@ -28,6 +28,16 @@ export function getJobRecord(query) {
     params: query,
   });
 }
+
+// 根据单号获取任务
+export function get_project_task(query) {
+  return request({
+    url: "/project_task/get",
+    method: "get",
+    params: query,
+  });
+}
+
 // 编辑报工记录
 export function update_record_actual_end(data) {
   return request({
@@ -251,4 +261,31 @@ export function complete_delay_list(data) {
     method: "post",
     data,
   });
+}
+
+// 保存修模问题点
+export function save_mold_repair_problem_points(data) {
+  return request({
+    url: "/save_mold_repair_problem_points",
+    method: "post",
+    data,
+  })
+}
+
+// 获取试模任务详情
+export function trial_tooling_task_get(query) {
+  return request({
+    url: "/trial_tooling_task/get",
+    method: "get",
+    params: query,
+  })
+}
+
+// 保存试模任务
+export function trial_tooling_task_save(data) {
+  return request({
+    url: "/trial_tooling_task/save",
+    method: "post",
+    data,
+  })
 }

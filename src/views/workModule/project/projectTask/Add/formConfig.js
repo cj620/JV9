@@ -24,7 +24,7 @@ export const formSchema = [
       },
     ],
   },
-  //客户搜索
+  //任务类别
   {
     prop: "TaskType",
     label: i18n.t("Generality.Ge_TaskType"),

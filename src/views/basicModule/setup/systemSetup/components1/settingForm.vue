@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { getAllProcess } from "@/api/workApi/production/baseData";
+import {getAllDevice, getAllProcess} from "@/api/workApi/production/baseData";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
 import { getConfigKey } from "@/api/basicApi/systemSettings/sysSettings";
@@ -93,6 +93,12 @@ export default {
           value: "Process",
           isMultiple: true,
         },
+        SchedulingDisplayEquipment: {
+          api: getAllDevice,
+          value: "DeviceNo",
+          isMultiple: true,
+        }
+
       },
     };
   },
@@ -116,6 +122,7 @@ export default {
           "DesignUsers",
           "BomDefaultUnit",
           "ProhibitSkipStationProcesses",
+          "SchedulingDisplayEquipment",
         ].includes(this.ConfigKey)
       ) {
         this.isMultiple = this.ConfigItems[this.ConfigKey].isMultiple;
@@ -165,6 +172,7 @@ export default {
         "BomDefaultUnit",
         "ProhibitSkipStationProcesses",
         "UserDefaultNavigationBar",
+        "SchedulingDisplayEquipment",
       ].includes(this.ConfigKey);
     },
   },

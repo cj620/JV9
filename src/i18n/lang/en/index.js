@@ -884,6 +884,7 @@ const en = {
     Ge_Dynamic: "Dynamic",
     Ge_Record: "Record",
     Ge_ProcessInfo: "Process info",
+    Ge_ProblemPointsInMoldRepair: "Problem points in mold repair",
     Ge_WorkContent: "Work Content",
     Ge_DocumentType: "Document type",
     Ge_Date: "Date",
@@ -1103,6 +1104,9 @@ const en = {
     Ge_FileSizeCannotBeGreaterThan100MB:
       "File size cannot be greater than 100MB",
 
+    Ge_ResponsibilityUnit: "Responsibility Unit",
+    Ge_Resolved: "Resolved",
+    Ge_Unresolved: "Unresolved",
     Ge_CostDetails: "Cost details",
     Ge_Optional: "Optional",
     Ge_WorkingHoursRecord: "Working hours record",
@@ -1862,6 +1866,7 @@ const en = {
     Da_PendingDocuments: "Pending Documents",
   },
   systemSetupData: {
+    Scheduling_display_equipment: "Scheduling Display Equipment",
     JV_APS: "Automatic scheduling",
     Assy: "Assy",
     Basics: "Basics",

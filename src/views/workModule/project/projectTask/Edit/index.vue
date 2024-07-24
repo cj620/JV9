@@ -10,10 +10,19 @@
 import Common from "../Add/index.vue";
 import { API as ProjectTask } from "@/api/workApi/project/projectTask";
 import {temMerge} from "~/utils/handleData";
+import Detail from "~/class/detail/Detail";
+import {detailConfig} from "@/views/workModule/project/projectTask/Add/dialogConfig";
 export default {
   name: "Pm_ProjectTask_Edit",
   extends: Common,
   created() {
+    this.confirmTestMouldProblemPointsFlag = true;
+    this.detailObj = new Detail({
+      column: 3,
+      schema: detailConfig,
+      data: {},
+    })
+
     this.getData();
   },
   methods: {
@@ -21,6 +30,9 @@ export default {
       ProjectTask.api_get({ BillId: this.cur_Id }).then((res) => {
         this.formObj.form = res;
         this.ruleForm = res;
+
+        this.detailObj.setData(res.MoldRepairProblemData);
+        console.log(this.detailObj.detailData, 3232);
         if(res.BillItems.length) {
           res.BillItems.forEach(item => {
             if(item.ProcessContent && item.ProcessContent !== "") {
@@ -29,6 +41,9 @@ export default {
             }
           });
           this.M_TableObj.push(temMerge(this.BillItems, res.BillItems))
+        }
+        if(res.MoldRepairProblemPoints.length) {
+          this.ProblemPointsInMoldRepairTableObj.push(temMerge(this.TestMouldProblemPoints, res.MoldRepairProblemPoints))
         }
       });
     },

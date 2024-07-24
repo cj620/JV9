@@ -4,6 +4,9 @@
  * @LastEditTime: 2021-12-01 13:45:25
  * @Description:
  */
+import { enumFilter } from '~/utils/system/enumsPlugin'
+import { QcType } from '@/enum/workModule'
+
 export const detailConfig = [
   /*模具编号*/
   {
@@ -56,7 +59,18 @@ export const detailConfig = [
     prop: "EstimatedLoss",
     label: i18n.t("quality.Qc_EstimatedLoss"),
   },
-
+  {
+    // 关联编号
+    prop: "AssociatedNo",
+    label: i18n.t('Generality.Ge_AssociatedNo'),
+  },
+  {
+    // 检验类型
+    prop: "InspectionType",
+    label: i18n.t("quality.Qc_ProcessCheckType"),
+    width: "120",
+    customFilter: (value) => enumFilter(value,QcType ),
+  },
   {
     // 制单人
     prop: "Creator",

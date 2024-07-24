@@ -7,11 +7,12 @@
 <template>
   <PageWrapper ref="page">
     <JvBlock :title="$t('Generality.Ge_BillInfo')">
-      <div slot="extra">
-        <el-button type="primary" size="mini" @click="hanldeNewError">{{
-          $t("quality.Qc_CreatFromManufacturingTaskList")
-        }}</el-button>
-      </div>
+<!--目前只保留从过程检验和成品检验的入口-->
+<!--      <div slot="extra">-->
+<!--        <el-button type="primary" size="mini" @click="hanldeNewError">{{-->
+<!--          $t("quality.Qc_CreatFromManufacturingTaskList")-->
+<!--        }}</el-button>-->
+<!--      </div>-->
       <JvForm :formObj="formObj">
         <template #Worker="{ prop }">
           <el-select
@@ -149,6 +150,8 @@ export default {
         this.formObj.form.PartName = res.PartName;
         this.formObj.form.Quantity = this.$route.query.UnqualifiedQty;
         this.formObj.form.Process = this.$route.query.Process;
+        this.formObj.form.AssociatedNo = this.$route.query.AssociatedNo;
+        this.formObj.form.InspectionType = this.$route.query.InspectionType;
         this.formObj.form.EstimatedLoss = 0;
         this.processList = res.Process.filter(
           (item) => item.State !== "Received" && item.State !== "ToBeReceived"
@@ -178,10 +181,10 @@ export default {
         }
       });
     },
-    //打开创建任务加工单dialog
-    hanldeNewError() {
-      this.dialogVisible = true;
-    },
+    // //打开创建任务加工单dialog
+    // hanldeNewError() {
+    //   this.dialogVisible = true;
+    // },
     // 确认从任务加工单创建异常单
     handleConfirm() {
       const { datas } = this.tableObj.selectData;

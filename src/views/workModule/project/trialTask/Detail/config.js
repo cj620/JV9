@@ -96,11 +96,11 @@ export class Table extends BaseTable {
       tableSchema: tableConfig,
       tableHeaderShow: false,
       pagination: false,
-      height: null,
+      height: 300,
       operationCol: false,
       chooseCol: false,
       // 打印模块标识
-      printMod: "Pm_TrialTask_Detail",
+      // printMod: "Pm_TrialTask_Detail",
     });
   }
 }
@@ -137,10 +137,10 @@ export const detailConfig = [
     custom: true,
   },
   //版本
-  {
-    prop: "ProjectTaskVersion",
-    label: i18n.t("production.Pr_Version"),
-  },
+  // {
+  //   prop: "ProjectTaskVersion",
+  //   label: i18n.t("production.Pr_Version"),
+  // },
   {
     prop: "PlanStart",
     label: i18n.t("Generality.Ge_PlanStart"),
@@ -152,6 +152,11 @@ export const detailConfig = [
     filter: "date",
   },
 
+  //试模次数
+  {
+    prop: "TestMouldQuantity",
+    label: "试模次数",
+  },
   //试模原因
   {
     prop: "TestMouldReason",

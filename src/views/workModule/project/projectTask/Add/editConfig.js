@@ -27,7 +27,7 @@ export class M_EditTable extends BaseTable {
       data: [],
       title: "",
       tableHeaderShow: false,
-      height: "",
+      height: null,
       maxHeight: 2000,
       operationWidth: 80,
       // showSummary:true,
@@ -144,5 +144,73 @@ export const m_tableConfig = [
     prop: "Remarks",
     label: i18n.t("Generality.Ge_Remarks"),
     formCpn: "FormInput",
+  },
+];
+
+// 修模问题点表格
+export class ProblemPointsInMoldRepairEditTable extends BaseTable {
+  constructor() {
+    super({
+      tableSchema: ProblemPointsInMoldRepairTableSchema,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      height: null,
+      Height: 400,
+      operationWidth: 80,
+      chooseCol:false,
+    });
+  }
+}
+export const ProblemPointsInMoldRepairTableSchema = [
+  /*问题点*/
+  {
+    prop: "ProblemPoints",
+    formCpn: "FormInput",
+    width: "300px",
+    label: i18n.t("project.Pro_ProblemPoints"),
+  },
+  /*改善建议*/
+  {
+    prop: "SuggestionsImprovement",
+    label: i18n.t("project.Pro_SuggestionsImprovement"),
+    formCpn: "FormInput",
+  },
+  /*状态*/
+  {
+    prop: "State",
+    label: i18n.t("DataV.Da_State"),
+    editConfig:{
+      disabled:true,
+    },
+    custom: true,
+  },
+  /*责任单位*/
+  {
+    prop: "ResponsibilityUnit",
+    label: i18n.t("Generality.Ge_ResponsibilityUnit"),
+    formCpn: "FormInput",
+  },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+    formCpn: "FormInput",
+  },
+  /*图片*/
+  {
+    prop: "BillFiles",
+    label: i18n.t("Generality.Ge_PhotoUrl"),
+    custom: true,
+    editConfig:{
+      disabled:true,
+    }
+  },
+  /*备注*/
+  {
+    prop: "RelationId",
+    label: "关联id",
+    formCpn: "FormInput",
+    hidden: true
   },
 ];

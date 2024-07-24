@@ -32,9 +32,9 @@
     >
       <div class="mould-img">
         <el-image
-          :preview-src-list="[imgUrlPlugin(detailObj.detailData.PhotoUrl)]"
+          :preview-src-list="[imgUrlPlugin(PhotoUrl)]"
           style="width: 100%; height: 100%"
-          :src="imgUrlPlugin(detailObj.detailData.PhotoUrl)"
+          :src="imgUrlPlugin(PhotoUrl)"
           fit="cover"
         >
           <div slot="error" class="image-slot1">
@@ -52,6 +52,25 @@
 
         <JvState :state="detailObj.detailData.State"></JvState>
       </div>
+    </JvBlock>
+    <JvBlock :title="$t('Generality.Ge_ProblemPointsInMoldRepair')" ref="ProblemPointsInMoldRepair" v-if="detailObj.detailData.TaskType === 'ToolCorrection'">
+      <div style="padding: 10px">
+        <JvDetail :detailObj="MoldRepairDetailObj"></JvDetail>
+      </div>
+      <JvTable :tableObj="MoldRepairTableObj">
+        <template #BillFiles="{ record }">
+          <div v-if="record.length > 0">
+            <el-image
+              style="width: 50px; height: 50px"
+              v-for="(item, index) in record"
+              :key="index"
+              :preview-src-list="[defaultImgUrl + item]"
+              :src="defaultImgUrl + item"
+            >
+            </el-image>
+          </div>
+        </template>
+      </JvTable>
     </JvBlock>
     <!-- 物料信息 -->
     <JvBlock :title="$t('Generality.Ge_ProcessInfo')" ref="second">
@@ -167,7 +186,8 @@
 
 <script>
 import { mapState } from "vuex";
-import { Table, detailConfig } from "./config";
+import {Table, detailConfig, Table1} from "./config";
+import {detailConfig as detailConfig1} from "@/views/workModule/project/projectTask/Add/dialogConfig";
 import { ViewSubtasksTableObj } from "./viewSubtasksTableConfig";
 import { JobRecordTable } from "./jobRecordTableConfig";
 import Detail from "@/jv_doc/class/detail/Detail";
@@ -189,9 +209,11 @@ import Dynamic from "../../projectManage/mouldDetail/cpns/Dynamic.vue";
 import DynamicList from "../../projectManage/mouldDetail/cpns/DynamicList.vue";
 import JvUploadFile from "@/components/JVInternal/JvUploadFile/index.vue";
 import { update_file_owner } from "@/api/basicApi/systemSettings/upload";
+import JvTable from "~/cpn/JvTable/index.vue";
 export default {
    //name: "Pm_ProjectTask_Detail",
   components: {
+    JvTable,
     JvUploadFile,
     JvRemark,
     JvFileExhibit,
@@ -204,6 +226,7 @@ export default {
     return {
       cur_Id: this.$route.query.BillId,
       detailObj: {},
+      MoldRepairDetailObj: {},
       // 工序
       tableObj: {},
       jobRecordTableObj: {},
@@ -212,7 +235,7 @@ export default {
       // 编辑路由指向 谨慎删除
       editRouteName: "Pm_ProjectTask_Edit",
       addRouteName: "Pm_ProjectTask_Add",
-
+      PhotoUrl: "",
       printMod: "Pm_ProjectTask",
       taskTypeEnum,
       BillFiles: [],
@@ -246,6 +269,9 @@ export default {
       dialogVisible: false,
       viewSubtasksDialogVisible: false,
       viewSubtasksTableObj: {},
+
+      MoldRepairTableObj: {},
+      defaultImgUrl: window.global_config.ImgBase_Url,
     };
   },
   computed: {
@@ -258,11 +284,17 @@ export default {
   created() {
     // this.ruleForm
     this.tableObj = new Table();
+    this.MoldRepairTableObj = new Table1();
     this.detailObj = new Detail({
       data: {},
       schema: detailConfig,
       column: 3,
     });
+    this.MoldRepairDetailObj = new Detail({
+      data: {},
+      schema: detailConfig1,
+      column: 3,
+    })
     this.jobRecordTableObj = new JobRecordTable();
     this.getData();
     this.viewSubtasksTableObj = new ViewSubtasksTableObj();
@@ -274,7 +306,11 @@ export default {
       ProjectTask.api_get({ BillId: this.cur_Id }).then((res) => {
         this.detailObj.setData(res);
         this.tableObj.setData(res.BillItems);
+        this.MoldRepairDetailObj.setData(res.MoldRepairProblemData);
+        this.MoldRepairTableObj.setData(res.MoldRepairProblemPoints);
         this.DynamicInfo = res.DynamicInfo || [];
+
+
         this.btnAction = detailPageModel(this, res, ProjectTask, this.getData);
         console.log(this.btnAction)
         this.btnAction.push({
@@ -282,6 +318,7 @@ export default {
           confirm: this.successProjectTask,
           disabled: this.detailObj.detailData.State !== "Approved",
         });
+        this.PhotoUrl=this.detailObj.detailData.PhotoUrl
       });
     },
     // 新增动态

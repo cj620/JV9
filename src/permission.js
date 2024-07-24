@@ -78,7 +78,11 @@ router.beforeEach(async (to, from, next) => {
         // setToken(to.query.key)
         next({...to});
       }else{
-        next(`/login?redirect=${to.path}`);
+        console.log(to.query,456);
+        //为了解决token失效的时候下次登录继续留在本页面
+        const  keys=Object.keys(to.query)
+        const str =keys.length>0? to.path+'?'+keys[0]+'='+to.query.BillId:to.path
+        next(`/login?redirect=${str}`);
       }
 
       NProgress.done();
