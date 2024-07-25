@@ -1212,6 +1212,7 @@ const cn = {
     Pr_DaysOverdue: "超交期天数",
     Pr_DaysNotReported: "未报工天数",
     Pr_LastReportedDate: "最后报工日期",
+    Pr_TrialMoldingTimes: "试模次数",
     Pr_ProcessInformation: "加工信息",
     Pr_CurrentStation: "当前站点",
     Pr_WorkOrderNumber: "工单编号",

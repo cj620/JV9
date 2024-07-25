@@ -25,7 +25,7 @@ export const detailConfig = [
   //试模次数
   {
     prop: "TestMouldQuantity",
-    label: "试模次数",
+    label: i18n.t("production.Pr_TrialMoldingTimes"),
   },
   //相关编号
   {
