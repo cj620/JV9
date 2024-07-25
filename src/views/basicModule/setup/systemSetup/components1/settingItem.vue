@@ -102,7 +102,7 @@ export default {
       if (["StringArray", "NumberArray"].includes(item.ConfigValueType)) {
         // 多选下拉框类型
         if (
-          ["UserStation", "AssyUsers", "ProgramUsers", "DesignUsers", "ProhibitSkipStationProcesses"].includes(
+          ["UserStation", "AssyUsers", "ProgramUsers", "DesignUsers", "ProhibitSkipStationProcesses","SchedulingDisplayEquipment"].includes(
             item.ConfigKey
           )
         ) {
@@ -139,7 +139,7 @@ export default {
       const configType = this.curConfig.ConfigValueType;
       return configType === "StringArray" || configType === "NumberArray"
         ? JSON.stringify(
-            ["UserStation", "AssyUsers", "DesignUsers", "ProgramUsers",'ProhibitSkipStationProcesses',"UserDefaultNavigationBar"].includes(
+            ["UserStation", "AssyUsers", "DesignUsers", "ProgramUsers",'ProhibitSkipStationProcesses',"UserDefaultNavigationBar","SchedulingDisplayEquipment"].includes(
               this.curConfig.ConfigKey
             )
               ? this.formObj.ConfigValue

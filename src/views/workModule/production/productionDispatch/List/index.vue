@@ -107,6 +107,7 @@ import {
   production_dispatching_lock_device,
 } from "@/api/workApi/production/productionDispatch";
 import { getResourceMember } from "@/api/workApi/production/baseData";
+import {getUserConfig} from "@/api/basicApi/systemSettings/user";
 export default {
   name: "ProductionDispatch",
   components: {
@@ -142,21 +143,32 @@ export default {
   created() {
     this.M_tableObj = new M_Table();
     this.P_tableObj = new P_Table();
-
-    this.M_tableObj.setCallBack((res) => {
-      if (res.Count !== 0) {
-        this.getProcessData(res)
-      } else {
-        this.processData = [];
-        this.$message({
-          message: this.$t('Generality.Ge_NoData'),
-          type: 'warning'
-        });
-      }
-    });
   },
   mounted() {
-    this.getScreenWidth();
+
+    getUserConfig({ ConfigKey: "SchedulingDisplayEquipment" }).then((res) => {
+
+      let flag = res && JSON.parse(res.ConfigValue).length;
+
+      // 判断有配置，并且有配置设备，则获取配置的设备
+      if (flag) {
+        this.M_tableObj.formObj.form.DeviceNos = JSON.parse(res.ConfigValue);
+        this.P_tableObj.formObj.form.Devices = JSON.parse(res.ConfigValue)
+      }
+      this.getScreenWidth();
+      this.M_tableObj.setCallBack((res) => {
+        if (res.Count !== 0) {
+          this.getProcessData(res, flag);
+        } else {
+          this.processData = [];
+          this.$message({
+            message: this.$t('Generality.Ge_NoData'),
+            type: 'warning'
+          });
+        }
+      });
+    });
+
     window.addEventListener('resize', this.getScreenWidth);
   },
   beforeDestroy() {
@@ -253,7 +265,7 @@ export default {
         }
       }
     },
-    getProcessData(data, flash) {
+    getProcessData(data, flag) {
       this.P_tableObj.formObj.form.Devices = data.Items.map((item) => {
         return item.DeviceNo;
       });

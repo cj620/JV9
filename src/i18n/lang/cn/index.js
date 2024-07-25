@@ -1858,6 +1858,7 @@ const cn = {
   },
 
   systemSetupData: {
+    Scheduling_display_equipment: "调度展示设备",
     JV_APS: "自动排程",
     Assy: "钳工",
     Basics: "基础",
