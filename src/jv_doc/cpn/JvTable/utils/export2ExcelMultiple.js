@@ -23,11 +23,21 @@ export function export2ExcelMultiple(exportObj, callBack) {
   const worksheet = workbook.addWorksheet('Sheet1');
 
   // 设置多级表头
-  worksheet.addRow(multiHeaders);
+  const multiHeaderRow = worksheet.addRow(multiHeaders);
   // 设置表头
-  worksheet.addRow(headers).eachCell(cell => {
-    cell.alignment = { vertical: 'middle' };
+  const headerRow = worksheet.addRow(headers);
+
+  // 设置多级表头和表头的样式
+  [multiHeaderRow, headerRow].forEach(row => {
+    row.eachCell(cell => {
+      cell.alignment = { vertical: 'middle' };
+      cell.font = { bold: true }; // 文字加粗
+    });
   });
+
+  // 设置多级表头和表头的行高
+  multiHeaderRow.height = 30; // 自定义行高，可以根据需要调整
+  headerRow.height = 30;
 
   // 设置合并单元格
   merges.forEach(merge => {
@@ -56,7 +66,7 @@ export function export2ExcelMultiple(exportObj, callBack) {
 
   // 设置单元格宽度和行高
   const imageCellWidth = 8; // 单元格宽度，单位为字符宽度
-  const imageCellHeight = 30; // 单元格高度，单位为像素
+  const imageCellHeight = 25; // 单元格高度，单位为像素
   worksheet.getColumn(1).width = imageCellWidth;
 
   checkData.forEach((item, index) => {
