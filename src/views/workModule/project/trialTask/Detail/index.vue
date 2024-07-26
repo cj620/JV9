@@ -307,6 +307,11 @@ export default {
             disabled: this.detailObj.detailData.State !== "Approved",
           },
           {
+            label: i18n.t('project.Pro_AddToolCorrectionTask'),
+            confirm: this.AddMoldRepairTask,
+            disabled: this.detailObj.detailData.State !== "Approved",
+          },
+          {
             label: this.$t("Generality.Ge_Finished"),
             confirm: this.successProjectTask,
             disabled: this.detailObj.detailData.State !== "Approved",
@@ -317,6 +322,17 @@ export default {
         }*/
         );
         this.PhotoUrl=this.detailObj.detailData.PhotoUrl
+      });
+    },
+    // 跳转到新增修模任务
+    AddMoldRepairTask() {
+      this.$router.push({
+        name: "Pm_ProjectTask_Add",
+        params: {
+          ToolingNo: this.detailObj.detailData.ToolingNo,
+          TaskType: "ToolCorrection",
+          TestModelProblemPoints: this.tableObj.tableData,
+        },
       });
     },
     // 完成单据
