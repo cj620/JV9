@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-12-06 17:02:24
- * @LastEditTime: 2022-08-17 10:05:28
+ * @LastEditTime: 2024-07-24 16:30:35
  * @Description:
 -->
 
@@ -42,7 +42,10 @@
 </template>
 
 <script>
-import { getAllProcess, getAllResource } from "@/api/workApi/production/baseData";
+import {
+  getAllProcess,
+  getAllResource,
+} from "@/api/workApi/production/baseData";
 import { getAllUserData } from "@/api/basicApi/systemSettings/user";
 import { getAllUnit } from "@/api/basicApi/systemSettings/unit";
 import { department_tile_get_all } from "@/api/basicApi/systemSettings/department";
@@ -53,11 +56,18 @@ export default {
     if (this.formData.ConfigValue) {
       this.form = JSON.parse(JSON.stringify(this.formData));
     }
-    if (this.ConfigKey === "StandardEmployeeWorkTime" || "SuggestOverallOutsourcingPercentage") {
+    if (
+      this.ConfigKey === "StandardEmployeeWorkTime" ||
+      "SuggestOverallOutsourcingPercentage"
+    ) {
       this.inputType = "number";
     } else if (this.ConfigKey === "ProgrammingDefaultResponsiblePerson") {
       this.form = JSON.parse(JSON.stringify(this.formData));
       this.form.ConfigValue = JSON.parse(this.form.ConfigValue)[0];
+    }
+
+    if (this.ConfigKey === "RobotKey") {
+      this.inputType = "text";
     }
   },
   data() {
@@ -117,11 +127,35 @@ export default {
           value: "Unit",
           isMultiple: false,
         },
+        RobotMsgType: {
+          api: () =>
+            new Promise((r) => {
+              r({
+                Items: [
+                  {
+                    value: "none",
+                    label: "无",
+                  },
+                  {
+                    value: "wecom",
+                    label: "企业微信群",
+                  },
+                  {
+                    value: "dingtalk",
+                    label: "钉钉群",
+                  },
+                ],
+              });
+            }),
+          value: "value",
+          label: "label",
+          isMultiple: false,
+        },
         ProgrammingDefaultResponsiblePerson: {
           api: getAllUserData,
           value: "UserName",
           isMultiple: false,
-        }
+        },
       },
     };
   },
@@ -150,12 +184,15 @@ export default {
           "DashboardResourcesConfiguration",
           "BomDefaultUnit",
           "ProgrammingDefaultResponsiblePerson",
+          "RobotMsgType",
         ].includes(this.ConfigKey)
       ) {
         this.isMultiple = this.ConfigItems[this.ConfigKey].isMultiple;
         this.ConfigItems[this.ConfigKey].api().then((res) => {
           this.options = res.Items;
-          this.label = this.ConfigItems[this.ConfigKey].value;
+          this.label =
+            this.ConfigItems[this.ConfigKey].label ||
+            this.ConfigItems[this.ConfigKey].value;
           this.value = this.ConfigItems[this.ConfigKey].value;
         });
       }
@@ -179,6 +216,7 @@ export default {
         "DashboardResourcesConfiguration",
         "BomDefaultUnit",
         "ProgrammingDefaultResponsiblePerson",
+        "RobotMsgType",
       ].includes(this.ConfigKey);
     },
   },

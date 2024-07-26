@@ -13,14 +13,19 @@ export const detailConfig = [
     customFilter: (value, row) => enumFilter(value, testMouldResultEnum),
   },
   //试模机台
-  {
-    prop: "TestMouldMachine",
-    label: i18n.t("project.Pro_TestMouldMachine"),
-  },
+  // {
+  //   prop: "TestMouldMachine",
+  //   label: i18n.t("project.Pro_TestMouldMachine"),
+  // },
   //试模信息
+  // {
+  //   prop: "TestMouldInfo",
+  //   label: i18n.t("project.Pro_TestMouldInfo"),
+  // },
+  //试模次数
   {
-    prop: "TestMouldInfo",
-    label: i18n.t("project.Pro_TestMouldInfo"),
+    prop: "TestMouldQuantity",
+    label: i18n.t("production.Pr_TrialMoldingTimes"),
   },
   //相关编号
   {
@@ -28,15 +33,11 @@ export const detailConfig = [
     label: i18n.t("sale.Sa_RelationId"),
   },
   //试模原因
-  {
-    prop: "TestMouldReason",
-    label: i18n.t("project.Pro_TestMouldReason"),
-  },
-  //试模次数
-  {
-    prop: "TestMouldQuantity",
-    label: "试模次数",
-  },
+  // {
+  //   prop: "TestMouldReason",
+  //   label: i18n.t("project.Pro_TestMouldReason"),
+  // },
+
 ];
 
 const tableConfig = [

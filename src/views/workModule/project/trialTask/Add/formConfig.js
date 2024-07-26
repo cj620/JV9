@@ -55,7 +55,7 @@ export const formSchema = [
   //试模次数
   {
     prop: "TestMouldQuantity",
-    label: "试模次数",
+    label: i18n.t("production.Pr_TrialMoldingTimes"),
     cpn: "FormInput",
     default: 0,
     cpnProps: {

@@ -1224,6 +1224,7 @@ const en = {
     Pr_DaysOverdue: "Days Overdue",
     Pr_DaysNotReported: "Days Not Reported",
     Pr_LastReportedDate: "Last Reported Date",
+    Pr_TrialMoldingTimes: "Trial Molding Times",
     Pr_ProcessInformation: "Process Information",
     Pr_CurrentStation: "Current Station",
     Pr_WorkOrderNumber: "Work Order Number",

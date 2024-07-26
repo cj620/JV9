@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-18 10:45:50
- * @LastEditTime: 2022-01-14 11:30:53
+ * @LastEditTime: 2024-07-24 13:49:03
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \V9_Dev\src\router\workModule\program.js
@@ -34,12 +34,11 @@ const program = [
   // 编程任务列表
   {
     key: "Pa_ProgramTaskList",
-    component: () =>
-      import("@/views/workModule/program/ProgramTaskList"),
+    component: () => import("@/views/workModule/program/ProgramTaskList"),
     Parent: "Pa_Program",
     name: "Pa_ProgramTaskList",
     path: "Pa_ProgramTaskList",
-    title: i18n.t('menu.Pa_ProgramTaskList'),
+    title: i18n.t("menu.Pa_ProgramTaskList"),
   },
   // 编程加工任务
   {
@@ -61,11 +60,23 @@ const program = [
     path: "Pa_ProgramProducingTaskList",
     title: i18n.t("menu.Pa_ProgramProducingTaskList"),
   },
+  {
+    key: "ProgramProducingDelayedTasks",
+    component: () =>
+      import(
+        "@/views/workModule/program/programProducingTaskList/ProgramProducingDelayedTasks"
+      ),
+    Parent: "Pa_Program",
+    name: "ProgramProducingDelayedTasks",
+    path: "ProgramProducingDelayedTasks",
+    title: "延期编程加工任务",
+    hidden: true,
+  },
   // 编程加工任务报工
   {
     key: "Pa_ProgramProducingTaskReport",
     component: () =>
-        import("@/views/workModule/program/programProducingTaskReport"),
+      import("@/views/workModule/program/programProducingTaskReport"),
     Parent: "Pa_Program",
     name: "Pa_ProgramProducingTaskReport",
     path: "Pa_ProgramProducingTaskReport",
@@ -75,7 +86,9 @@ const program = [
   {
     key: "Pa_ProgramProducingTaskReportRecord",
     component: () =>
-      import("@/views/workModule/program/programProducingTaskList/programProducingTaskReportRecord.vue"),
+      import(
+        "@/views/workModule/program/programProducingTaskList/programProducingTaskReportRecord.vue"
+      ),
     Parent: "Pa_Program",
     name: "Pa_ProgramProducingTaskReportRecord",
     path: "Pa_ProgramProducingTaskReportRecord",
@@ -160,14 +173,15 @@ const program = [
   // 电极物料需求明细
   {
     key: "Pa_ElectrodeDemand_Details_list",
-    component: () => import("@/views/workModule/program/electrodeDemand/DetailsList"),
+    component: () =>
+      import("@/views/workModule/program/electrodeDemand/DetailsList"),
     Parent: "Pa_Program",
     name: "Pa_ElectrodeDemand_Details_list",
     path: "Pa_ElectrodeDemand_Details_list",
     title:
-        i18n.t("menu.Pa_ElectrodeDemand") +
-        " " +
-        i18n.t('Generality.Ge_Details1'),
+      i18n.t("menu.Pa_ElectrodeDemand") +
+      " " +
+      i18n.t("Generality.Ge_Details1"),
     hidden: true,
   },
   // 编程任务明细点检
@@ -182,7 +196,8 @@ const program = [
   // 编程加工任务明细点检
   {
     key: "Pa_ProgramProducingTaskItemInspection",
-    component: () => import("@/views/workModule/program/programProducingItemInspection"),
+    component: () =>
+      import("@/views/workModule/program/programProducingItemInspection"),
     Parent: "Pa_Program",
     name: "Pa_ProgramProducingTaskItemInspection",
     path: "Pa_ProgramProducingTaskItemInspection",
@@ -191,7 +206,8 @@ const program = [
   // 分发编程任务
   {
     key: "Pa_ProgramDistributeTask",
-    component: () => import("@/views/workModule/program/programTask/DistributeTask"),
+    component: () =>
+      import("@/views/workModule/program/programTask/DistributeTask"),
     Parent: "Pa_Program",
     name: "Pa_ProgramDistributeTask",
     path: "Pa_ProgramDistributeTask",
@@ -200,7 +216,8 @@ const program = [
   // 延期编程任务
   {
     key: "Pa_ProgramDelayedTasks",
-    component: () => import("@/views/workModule/program/ProgramTaskList/ProgramDelayedTasks"),
+    component: () =>
+      import("@/views/workModule/program/ProgramTaskList/ProgramDelayedTasks"),
     Parent: "Pa_Program",
     name: "Pa_ProgramDelayedTasks",
     path: "Pa_ProgramDelayedTasks",
@@ -209,7 +226,8 @@ const program = [
   // 编程任务周看板
   {
     key: "Pa_ProgramWeeklyDashboard",
-    component: () => import("@/views/workModule/program/programWeeklyDashboard"),
+    component: () =>
+      import("@/views/workModule/program/programWeeklyDashboard"),
     Parent: "Pa_Program",
     name: "Pa_ProgramWeeklyDashboard",
     path: "Pa_ProgramWeeklyDashboard",
@@ -218,11 +236,12 @@ const program = [
   // 编程计划达成率
   {
     key: "Pa_ProgramPlanAchievementRate",
-    component: () => import("@/views/workModule/program/programPlanAchievementRate"),
+    component: () =>
+      import("@/views/workModule/program/programPlanAchievementRate"),
     Parent: "Pa_Program",
     name: "Pa_ProgramPlanAchievementRate",
     path: "Pa_ProgramPlanAchievementRate",
     title: i18n.t("menu.Pa_ProgramPlanAchievementRate"),
-  }
+  },
 ];
 export default program;

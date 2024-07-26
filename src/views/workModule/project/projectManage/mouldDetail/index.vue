@@ -140,8 +140,20 @@
         </template>
       </JvTable>
     </JvBlock>
+    <!-- 试模任务 -->
+    <JvBlock :title="$t('menu.Pm_TestTask')" ref="fifth">
+      <JvTable :table-obj="Tr_tableObj">
+        <template #BillId="{ row }">
+          <Link :state="row.BillId" :cpnProps="{ routeName: 'Pm_TrialTask_Detail', routePath: '', parameterKey: 'BillId', moreStaticParameters: {} }" />
+        </template>
+        <template #State="{ record }">
+          <!-- 状态标签 -->
+          <BillStateTags :state="record"></BillStateTags>
+        </template>
+      </JvTable>
+    </JvBlock>
     <!-- 动态 -->
-    <JvBlock :title="$t('Generality.Ge_Dynamic')" ref="fifth">
+    <JvBlock :title="$t('Generality.Ge_Dynamic')" ref="sixth">
       <div slot="extra">
         <el-button size="mini" type="primary" @click="addDynamic">{{
           $t("Generality.Ge_New")
@@ -180,7 +192,7 @@
 
 <script>
 import Link from "@/jv_doc/cpn/JvTable/cpn/Link.vue"
-import { detailConfig, P_Table, T_Table, R_Table } from "./config";
+import { detailConfig, P_Table, T_Table, R_Table, Tr_Table } from "./config";
 import { data2doubleCol } from "@/views/workModule/sale/saleQuote/utils";
 import Dynamic from "./cpns/Dynamic.vue";
 import AddTrialMold from "./cpns/addTrialMold.vue";
@@ -198,6 +210,7 @@ import BillStateTags from "@/components/WorkModule/BillStateTags";
 import DynamicList from "./cpns/DynamicList.vue";
 import { formSchema1 } from "./formConfig";
 import { Form } from "~/class/form";
+import {trial_tooling_list} from "@/api/workApi/project/projectTask";
 export default {
   name: "index",
   components: { BillStateTags, DynamicList, Dynamic, JvUploadList, AddTrialMold, Link },
@@ -213,6 +226,8 @@ export default {
       R_tableObj: {},
       // 项目任务
       P_tableObj: {},
+      // 试模任务
+      Tr_tableObj: {},
       detailObj: {},
 		  ProjectTask:[],
       dynamicShow: false,
@@ -238,8 +253,12 @@ export default {
           name: "fourth",
         },
         {
-          label: this.$t("Generality.Ge_Dynamic"),
+          label: this.$t("menu.Pm_TestTask"),
           name: "fifth",
+        },
+        {
+          label: this.$t("Generality.Ge_Dynamic"),
+          name: "sixth",
         },
       ],
       // 技术要求模板
@@ -262,6 +281,7 @@ export default {
     this.P_tableObj = new P_Table();
     this.T_tableObj = new T_Table();
     this.R_tableObj = new R_Table();
+    this.Tr_tableObj = new Tr_Table();
     await this.getData();
 
     this.formObj1 = new Form({
@@ -280,14 +300,18 @@ export default {
     getData() {
       getToolingDetail({ ToolingNo: this.cur_Id }).then((res) => {
         this.detailObj.setData(res.ToolingBasicInfo);
-        this.P_tableObj.setData(res.ProjectTaskInfo);
+        this.P_tableObj.setData(res.ProjectTaskInfo.filter(item => item.TaskType !== 'TrialTooling'));
         this.skillReqTemp = res.ToolingSpecInfo;
         this.R_tableObj.setData(data2doubleCol(res.RelatedWorkerInfo));
         this.T_tableObj.setData(data2doubleCol(res.ToolingSpecInfo));
         this.DynamicInfo = res.DynamicInfo;
 		    this.ProjectTask = res.ProjectTaskInfo.filter((item)=>item.TaskType !== "TrialTooling")
         // this.$refs.addTrialMold.setFormData(this.ProjectTask)
-	  });
+	    });
+      trial_tooling_list({ToolingNo: this.cur_Id,PageSize: 9999, CurrentPage:1}).then(res => {
+        console.log(res.Items,304)
+        this.Tr_tableObj.setData(res.Items);
+      })
     },
 
     addNewTask(TaskType) {

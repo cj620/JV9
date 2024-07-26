@@ -9,6 +9,12 @@
 import { Table as BaseTable } from "@/jv_doc/class/table";
 import { taskTypeEnum, enumToList } from "@/enum/workModule";
 import { single2Double } from "@/views/workModule/sale/saleQuote/utils";
+import { enumFilter } from "~/utils/system/enumsPlugin";
+var testMouldResultEnum={
+  OK: { name: "OK", value: "OK" },
+  NG: { name: "NG", value: "NG" },
+  Pending: { name: i18n.t("Generality.Ge_Pending1"), value: "Pending" },
+}
 export const detailConfig = [
   {
     // 模具编号
@@ -135,6 +141,96 @@ export const P_tableSchema = [
   },
 ];
 
+// 试模任务
+export const Tr_tableSchema = [
+  {
+    prop: "BillId",
+    label: i18n.t("project.Pro_TaskSheetNo"),
+    custom: true
+  },
+  /*状态*/
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_State"),
+    custom: true,
+    width: "115px",
+  },
+//试模次数
+  {
+    prop: "TestMouldQuantity",
+    label: i18n.t("production.Pr_TrialMoldingTimes"),
+  },
+  //试模原因
+  {
+    prop: "TestMouldReason",
+    label: i18n.t("project.Pro_TestMouldReason"),
+  },
+  //试模结果
+  {
+    prop: "TestMouldResult",
+    label: i18n.t("project.Pro_TestMouldResult"),
+    customFilter: (value, row) => enumFilter(value, testMouldResultEnum),
+  },
+  //试模颜色
+  {
+    prop: "TestMouldColor",
+    label: i18n.t("project.Pro_TestMouldColor"),
+  },
+  //试模机台
+  {
+    prop: "TestMouldMachine",
+    label: i18n.t("project.Pro_TestMouldMachine"),
+  },
+  //试模地点
+  {
+    prop: "TestMouldLocation",
+    label: i18n.t("project.Pro_TestMouldLocation"),
+  },
+  //试模日期
+  {
+    prop: "TestMouldDate",
+    label: i18n.t("project.Pro_TestMouldDate"),
+    filter: "date",
+  },
+  //试模用时
+  {
+    prop: "TestMouldUseTime",
+    label: i18n.t("project.Pro_TestMouldUseTime"),
+  },
+  //试模信息
+  {
+    prop: "TestMouldInfo",
+    label: i18n.t("project.Pro_TestMouldInfo"),
+  },
+  /*计划交期*/
+  // {
+  //   prop: "PlanEnd",
+  //   label: i18n.t("Generality.Ge_DeliveryDate"),
+  //   filter: "date",
+  //   width: "120px",
+  // },
+  //
+  // /*制单人*/
+  // {
+  //   prop: "Creator",
+  //   label: i18n.t("Generality.Ge_Creator"),
+  //   width: "95px",
+  // },
+  // /*制单日期*/
+  // {
+  //   prop: "CreationDate",
+  //   label: i18n.t("Generality.Ge_CreationDate"),
+  //   filter: "time",
+  //   width: "150px",
+  // },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+  },
+];
+
+
 const R_tableSchema = [
   {
     prop: "sort",
@@ -173,6 +269,21 @@ const T_tableSchema = [
     label: "",
   },
 ];
+
+//试模任务
+export class Tr_Table extends BaseTable {
+  constructor() {
+    super({
+      tableSchema: Tr_tableSchema,
+      pagination: false,
+      height: null,
+      data: [],
+      tableHeaderShow: false,
+      operationCol: false,
+      chooseCol: false,
+    });
+  }
+}
 
 // 项目任务
 export class P_Table extends BaseTable {

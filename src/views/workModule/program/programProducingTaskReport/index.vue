@@ -1,6 +1,9 @@
 <template>
   <PageWrapper :footer="false">
     <JvTable class="wrapper" ref="BillTable" :table-obj="tableObj">
+      <template #btn-list>
+        <el-button :disabled="!tableObj.selectData.datas.length || tableObj.selectData.datas.length > 1" @click="QuickJobApplication" size="mini">快速报工</el-button>
+      </template>
       <template #Progress="{ record }">
         <el-progress :percentage="record"></el-progress>
       </template>
@@ -101,6 +104,26 @@ export default {
     this.tableObj.getData({ UserName:this.$store.state.user.name });
   },
   methods: {
+    // 快速报工
+    QuickJobApplication() {
+      report_work({
+        "WorkHour": "1",
+        "Progress": 100,
+        "StartDate": timeFormat(this.getPreviousHour(),'yyyy-MM-dd hh:mm:ss'),
+        "EndDate": timeFormat(new Date(),'yyyy-MM-dd hh:mm:ss'),
+        "IsItCompletedAsPlanned": true,
+        "ReasonForNotAchievingThePlan1": "",
+        "Remarks": "",
+        "ProjectTaskItemId": this.tableObj.selectData.datas[0].Id,
+        "TaskReportWorkType": "ProgramingTask"
+      }).then((res) => {
+        this.tableObj.getData();
+        this.reportDialogVisible = false
+      }).catch(() => {
+          this.reportDialogVisible = false
+        }
+      )
+    },
     // 报工
     report(row){
       this.reportDialogVisible = true
@@ -138,6 +161,19 @@ export default {
         this.recordTableObj.setData(res.Items);
       })
     },
+    getPreviousHour() {
+      const now = new Date();
+      const previousHour = new Date(now.getTime() - 60 * 60 * 1000);
+
+      const year = previousHour.getFullYear();
+      const month = String(previousHour.getMonth() + 1).padStart(2, '0');
+      const day = String(previousHour.getDate()).padStart(2, '0');
+      const hours = String(previousHour.getHours()).padStart(2, '0');
+      const minutes = String(previousHour.getMinutes()).padStart(2, '0');
+      const seconds = String(previousHour.getSeconds()).padStart(2, '0');
+
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
   },
   watch:{
     'reportForm.form.WorkHour':{

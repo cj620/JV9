@@ -446,6 +446,19 @@ export default {
         }
       })
     }
+    // 判断从试模任务跳过来是否带了问题点
+    if(this.$route.params.TestModelProblemPoints && this.$route.params.TestModelProblemPoints.length) {
+      let list = this.$route.params.TestModelProblemPoints.map(item => {
+        return {
+          ...item,
+          State: "Unresolved",
+          ResponsibilityUnit: "",
+          RelationId: item.Id,
+          Id: 0
+        }
+      })
+      this.ProblemPointsInMoldRepairTableObj.push(list);
+    }
   },
   mounted() {
     Object.assign(this.formObj.form, this.$route.params);

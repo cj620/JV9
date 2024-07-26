@@ -21,8 +21,19 @@
         ]"
       >
       </Action>
+      <template #State="{ record }">
+        <TaskState :state="record"></TaskState>
+      </template>
+      <template #PlanEnd="{ record }">
+        <span style="color: red; font-weight: bold">
+          {{ timeFormat(record, "yyyy-MM-dd") }}
+        </span>
+      </template>
+      <template #DelayDates="{ row }">
+        {{ getDelayDates(row.PlanEnd, new Date()) }}
+      </template>
       <!-- 状态标签 -->
-      <template #ItemState="{ record }">
+      <!-- <template #ItemState="{ record }">
         <TaskState :state="record"></TaskState>
       </template>
       <template #ItemPlanEnd="{ record }">
@@ -31,10 +42,8 @@
         </span>
       </template>
       <template #DelayDates="{ row }">
-        <span style="color: red; font-weight: bold">
-          {{ getDelayDates(row.ItemPlanEnd, new Date()) }}
-        </span>
-      </template>
+        {{ getDelayDates(row.ItemPlanEnd, new Date()) }}
+      </template> -->
     </JvTable>
   </PageWrapper>
 </template>
@@ -42,9 +51,9 @@
 import { Table } from "./config";
 import { timeFormat } from "@/jv_doc/utils/time";
 import TaskState from "@/components/JVInternal/TaskState/index.vue";
-
+import { production_programing_task_complete_delay_list } from "@/api/workApi/project/projectTask";
 export default {
-  name: "Tt_TestToolingDelayedTasks",
+  name: "Pa_ProgramDelayedTasks",
   components: { TaskState },
   data() {
     return {
@@ -53,7 +62,7 @@ export default {
   },
   created() {
     this.tableObj = new Table();
-    this.tableObj.formObj.form.ProcessType = "trialTooling";
+    // this.tableObj.formObj.form.ProcessType = "program";
     this.tableObj.getData();
   },
   methods: {
@@ -64,7 +73,7 @@ export default {
     },
     async toComplete() {
       const { keys } = this.tableObj.selectData;
-      await complete_delay_list(keys);
+      await production_programing_task_complete_delay_list(keys);
       this.tableObj.tableRef.clearSelection();
       this.tableObj.getData();
     },
