@@ -239,9 +239,15 @@ export default {
       this.fileBillId = this.billData;
       await this.GetData(this.billData);
     }
-    if (this.$route.params.selectedData) {
+    if (this.$route.params.selectedData && this.$route.params.selectedData.length > 0) {
       this.formObj.form.DeliveryDate = this.$route.params.selectedData[0].DeliveryDate;
-      this.eTableObj.push(temMerge(this.BillItems, this.$route.params.selectedData));
+      let list = this.$route.params.selectedData.map(item => {
+        return {
+          ...item,
+          AssociatedNo: item.Id
+        }
+      })
+      this.eTableObj.push(temMerge(this.BillItems, list));
     }
     await this.Configuration();
   },
