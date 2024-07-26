@@ -50,6 +50,15 @@ export const tableConfig = [
       disabled: true,
     },
   },
+  /*是否外协*/
+  {
+    prop: "IsOutsourced",
+    label: i18n.t("production.Pr_IsOutsourced"),
+    custom: true,
+    editConfig: {
+      disabled: true,
+    },
+  },
   /*是否强制检验*/
   {
     prop: "IsCompulsoryInspection",

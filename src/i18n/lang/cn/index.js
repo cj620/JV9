@@ -1382,6 +1382,7 @@ const cn = {
     Pr_WhetherToUnlockTheAllocatedProcess: "是否确定解锁该工序?",
     Pr_WhetherToLockTheAllocatedProcess: "是否确定锁定该工序?",
     Pr_WhetherToClearAllAllocatedProcesses: "是否清空当前设备所有已派工工序?",
+    Pr_IsOutsourced: "是否外协",
     Pr_Locked: "已锁定",
     Pr_Unlocked: "未锁定",
     Pr_APSReportContent: {

@@ -51,6 +51,12 @@ export const tableConfig = [
     prop: "ProgramingProcess",
     label: i18n.t("production.Pr_ProgramingProcess"),
   },
+  /*是否外协*/
+  {
+    prop: "IsOutsourced",
+    label: i18n.t("production.Pr_IsOutsourced"),
+    custom: true
+  },
   /*是否强制检验*/
   {
     prop: "IsCompulsoryInspection",

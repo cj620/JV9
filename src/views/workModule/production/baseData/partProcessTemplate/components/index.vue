@@ -55,6 +55,9 @@
             ]"
           />
         </template>
+        <template #IsOutsourced="{ row }">
+          <el-checkbox v-model="row.IsOutsourced.value"></el-checkbox>
+        </template>
         <template #IsCompulsoryInspection="{ row }">
           <el-checkbox v-model="row.IsCompulsoryInspection.value"></el-checkbox>
         </template>
@@ -132,6 +135,7 @@ export default {
         Remarks: "",
         customData: [],
         ProcessContentList: [],
+        IsOutsourced: false,
         IsCompulsoryInspection: false,
         ProgramingProcess: "",
         ProgramingPlanTime: 1,
