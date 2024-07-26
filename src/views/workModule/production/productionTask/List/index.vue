@@ -263,7 +263,25 @@
                 }"
                 class="productionTask-card-content-craft-content"
               >
-                {{ TItem.Process }}({{ TItem.PlanTime }}H)
+                <div>{{ TItem.Process }}({{ TItem.PlanTime }}H)</div>
+                    <!--编程完成状态-->
+                    <!--样式1-->
+<!--                <div class="ProgramState1">-->
+<!--                  <div style="border-radius: 50%; border: 2px solid #2ee438;width: 10px;height: 10px;margin-right: 4px;margin-top: -2px"></div>-->
+<!--                  <div>CAM</div>-->
+<!--                </div>-->
+                    <!--样式2-->
+<!--                <div style="width: 30px;">-->
+<!--                  <div class="ProgramState" :style="{-->
+<!--                    color: TItem.State === 'Processed' ? '#fff' : '#2ee438',-->
+<!--                    border:  TItem.State === 'Processed' ? '2px solid #fff' : '2px solid #2ee438'-->
+<!--                  }">CAM</div>-->
+<!--                </div>-->
+                <!--样式3-->
+                <div class="ProgramState2" v-if="TItem.ProgramTaskInfo && TItem.ProgramTaskInfo.Progress === 100">
+<!--                  <el-image src="yes.png"></el-image>-->
+                  <i class="el-icon-circle-check"></i>
+                </div>
               </div>
               <!--操作-->
               <div class="bottom-operate">
@@ -982,6 +1000,41 @@ export default {
             padding: 3px 15px;
             margin-right: 10px;
             border-radius: 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            .ProgramState2{
+              position: absolute;
+              right: -10%;
+              top: -64%;
+              font-size: 20px;
+              color: #2ee438;
+            }
+            .ProgramState1{
+              display: flex;
+              align-items: center;
+              position: absolute;
+              left: 50%;
+              top: -64%;
+              margin-left: -20px;
+              color: #2ee438;
+              font-size: 12px;
+            }
+            .ProgramState{
+              position: absolute;
+              right: 0;
+              top: 0;
+              margin-top: -1px;
+              border: 2px solid #2ee438;
+              box-sizing: border-box;
+              padding: 2px 4px;
+              //margin-left: -25px;
+              width: 50px;
+              color: #2ee438;
+              border-radius: 4px;
+              transform: scale(.6);
+              z-index: 10;
+            }
           }
         }
       }

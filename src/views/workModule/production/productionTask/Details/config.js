@@ -3,6 +3,7 @@ import {
   ProcessingResult,
   ProcessCheckTypeEnum,
   enumFilter,
+  taskTypeEnum,
 } from "@/enum/workModule";
 export class Table extends BaseTable {
   constructor() {
@@ -437,3 +438,111 @@ export class Qc_ProcessCheckTable extends BaseTable {
     });
   }
 }
+
+export class ProgramTaskTable extends BaseTable {
+  constructor() {
+    super({
+      tableSchema: ProgramTaskSchema,
+      pagination: false,
+      sortCol: false,
+      chooseCol: false,
+      data: [],
+      title: "",
+      tableHeaderShow: false,
+      operationCol: false,
+      height: 800,
+    });
+  }
+}
+
+export const ProgramTaskSchema = [
+  /*模号*/
+  {
+    prop: "ToolingNo",
+    label: i18n.t("Generality.Ge_ToolingNo"),
+    width: "120px",
+  },
+  /*零件编号*/
+  {
+    prop: "PartNo",
+    label: i18n.t("Generality.Ge_PartNo"),
+    width: "120px",
+  },
+  /*零件名称*/
+  {
+    prop: "PartName",
+    label: i18n.t("Generality.Ge_PartName"),
+    width: "120px",
+  },
+  /*状态*/
+  {
+    prop: "State",
+    label: i18n.t("Generality.Ge_TaskStatus"),
+    custom: true,
+    width: "115px",
+    align: "center",
+  },
+  /*工序名称*/
+  {
+    prop: "Process",
+    label: i18n.t("Generality.Ge_Process"),
+    width: "100px",
+  },
+  // 生产工序
+  {
+    prop: "ProductionProcess",
+    label: i18n.t("production.Pr_ProductionProcess"),
+    width: "100px",
+  },
+  // 加工单号
+  {
+    prop: "TaskBillId",
+    label: i18n.t("production.Pr_WorkSheetNo"),
+    width: "135px",
+  },
+  // 进度
+  {
+    prop: "Progress",
+    label: i18n.t("Generality.Ge_Schedule"),
+    width: "160px",
+    custom: true,
+  },
+  //   负责人
+  {
+    prop: "Worker",
+    label: i18n.t("project.Pro_Worker"),
+    width: "100px",
+  },
+  /*计划开始*/
+  {
+    prop: "PlanStart",
+    label: i18n.t("Generality.Ge_PlanStart"),
+    filter: "time",
+    width: "140px",
+  },
+  /*计划结束*/
+  {
+    prop: "PlanEnd",
+    label: i18n.t("Generality.Ge_PlanEnd"),
+    filter: "time",
+    width: "140px",
+  },
+  //   预计工时
+  {
+    prop: "PlanTime",
+    label: i18n.t("Generality.Ge_PlanTime"),
+    width: "120px",
+  },
+  //   实际工时
+  {
+    prop: "ActualTime",
+    label: i18n.t("Generality.Ge_ActualHour"),
+    width: "120px",
+  },
+  /*备注*/
+  {
+    prop: "Remarks",
+    label: i18n.t("Generality.Ge_Remarks"),
+    width: "180px",
+  },
+]

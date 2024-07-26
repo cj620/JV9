@@ -116,6 +116,11 @@
                   <span>
                     {{ item.IsCompulsoryInspection ? $t("setup.CompulsoryInspection") : '' }}
                   </span>
+                  <div style="display: flex" v-if="item.ProgramTaskInfo">
+                    <div class="ProgramName"> {{item.ProgramTaskInfo.Process}}</div>
+                    <div style="width: 200px;margin: 0 20px"><el-progress :percentage="item.ProgramTaskInfo.Progress"></el-progress></div>
+                    <div> <i class="el-icon-user"></i> {{ item.ProgramTaskInfo.Worker }}</div>
+                  </div>
                 </div>
                 <div>
                   <svg-icon icon-class="processingContent"></svg-icon>
@@ -176,7 +181,19 @@
         <el-tab-pane :label="$t('menu.Qc_FinishedProduct')" name="Qc_FinishedProductList">
           <JvTable :table-obj="Qc_FinishedProductTableObj"> </JvTable>
         </el-tab-pane>
-
+<!--        编程任务列表-->
+        <el-tab-pane :label="$t('menu.Pa_ProgramTaskList')" name="Pa_ProgramTaskList">
+          <JvTable ref="ProgramTableObjRef" :table-obj="ProgramTableObj">
+            <!-- 状态标签 -->
+            <template #State="{ record }">
+              <TaskState :state="record"></TaskState>
+            </template>
+            <!-- 进度 -->
+            <template #Progress="{ record }">
+              <el-progress :percentage="record"></el-progress>
+            </template>
+          </JvTable>
+        </el-tab-pane>
         <el-tab-pane :label="$t('Generality.Ge_Dynamic')" name="fifth">
           <DynamicList
             :cdata="ProcessDynamicInfo"
@@ -218,7 +235,7 @@ import {
   tableObj2,
   detailConfig,
   Qc_ProcessCheckTable,
-  Qc_FinishedProductTable,
+  Qc_FinishedProductTable, ProgramTaskTable,
 } from "./config";
 import JvRemark from "@/components/JVInternal/JvRemark/index";
 import JvFileExhibit from "@/components/JVInternal/JvFileExhibit/index";
@@ -239,6 +256,7 @@ import { imgUrlPlugin, printPlugin } from "@/jv_doc/utils/system/index.js";
 import closeTag from "@/utils/closeTag";
 import { mapState } from "vuex";
 import DynamicList from "./DynamicList.vue";
+import TaskState from "@/components/JVInternal/TaskState/index.vue";
 export default {
   name: "index",
   data() {
@@ -247,6 +265,7 @@ export default {
       tableObj: {},
       tableObj1: {},
       tableObj2: {},
+      ProgramTableObj: {},
       processData: [],
       activeName: "first",
       RemarkData: "",
@@ -274,6 +293,7 @@ export default {
     };
   },
   components: {
+    TaskState,
     JvRemark,
     JvFileExhibit,
     DynamicList,
@@ -324,7 +344,7 @@ export default {
       height: 1650,
     });
     this.tableObj2 = new tableObj2();
-
+    this.ProgramTableObj = new ProgramTaskTable();
     this.formObj = new Form({
       formSchema: [
         {
@@ -367,6 +387,8 @@ export default {
         this.Qc_ProcessCheckTableObj.setData(res.ProcessDetails);
         this.Qc_FinishedProductTableObj.setData(res.FinishedDetails);
         this.PhotoUrl=this.detailObj.detailData.PhotoUrl
+
+        this.ProgramTableObj.setData(res.ProgramingTaskList);
       });
     },
     //编辑
@@ -469,7 +491,19 @@ export default {
     }
   }
 }
-
+.ProgramName{
+  position: relative;
+  padding-left: 10px;
+  font-weight: bold;
+}
+.ProgramName::after{
+  content: "";
+  width: 2px;
+  height: 20px;
+  background: #eee;
+  position: absolute;
+  left: 0;
+}
 .productionTask-details-tab {
   // height: 1700px;
 }
