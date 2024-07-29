@@ -24,7 +24,7 @@
     >
       <JvTable :table-obj="workRecordDetailTableObj">
         <template #IsOverstep="{ record }">
-          {{ record ? $t('Generality.Ge_Yes') : $t('Generality.Ge_No') }}
+          {{ record ? $t("Generality.Ge_Yes") : $t("Generality.Ge_No") }}
         </template>
       </JvTable>
     </JvDialog>
@@ -50,6 +50,8 @@ export default {
     await this.GetDeptData();
     this.workRecordDetailTableObj = new WorkRecordDetailTable();
     this.tableObj.formObj.form.ProcessType = this.$route.query.ProcessType;
+    this.tableObj.formObj.form.TaskReportWorkType =
+      this.$route.query.TaskReportWorkType;
     this.tableObj.getData();
   },
   methods: {
@@ -72,9 +74,13 @@ export default {
         EndDate: this.tableObj.formObj.form.EndDate,
         Worker: row.Worker,
         ProcessType: this.tableObj.formObj.form.ProcessType,
+        TaskReportWorkType: this.tableObj.formObj.form.TaskReportWorkType,
       });
       this.workRecordDetailTableObj.getData();
       this.dialogVisible = true;
+      this.$nextTick(() => {
+        this.workRecordDetailTableObj.doLayout();
+      });
     },
   },
   components: { TableAction, JvTable },

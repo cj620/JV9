@@ -17,6 +17,10 @@
             confirm: editWorker.bind(null, ''),
             disabled: tableObj.selectData.datas.length <= 0,
           },
+          {
+            label: '工时汇总',
+            confirm: ToHoursSummary.bind(null, ''),
+          },
           // 删除
           {
             label: $t('Generality.Ge_Delete'),
@@ -241,6 +245,15 @@ export default {
     this.getDelayCount();
   },
   methods: {
+    ToHoursSummary() {
+      this.$router.push({
+        name: "De_DesignTask_PersonnelHoursSummary",
+        query: {
+          ProcessType: null,
+          TaskReportWorkType: 1,
+        },
+      });
+    },
     delayedTasks() {
       this.$router.push({
         name: "ProgramProducingDelayedTasks",

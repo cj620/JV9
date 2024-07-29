@@ -1,12 +1,12 @@
 /*
  * @Author: H.
  * @Date: 2021-12-07 13:10:54
- * @LastEditTime: 2024-06-07 13:42:27
+ * @LastEditTime: 2024-07-29 14:20:09
  * @Description:
  */
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import {
-  data_report_personnel_hours_summary,
+  data_report_project_personnel_hours_summary,
   personnel_hours_details,
 } from "@/api/workApi/production/dataReport";
 import { department_tile_get_all } from "@/api/basicApi/systemSettings/department";
@@ -20,7 +20,7 @@ import {
 } from "@/enum/workModule";
 import i18n from "@/i18n/i18n";
 export class api extends TableAPI {
-  getData = data_report_personnel_hours_summary;
+  getData = data_report_project_personnel_hours_summary;
 }
 export class Table extends BaseTable {
   constructor() {
@@ -154,6 +154,20 @@ export class WorkRecordDetailTable extends BaseTable {
           options: {
             list: enumToList(processTypeEnum),
           },
+        },
+        {
+          prop: "TaskReportWorkType",
+          label: "报工类型",
+          cpn: "FormSelect",
+          hidden: true,
+          default: null,
+        },
+        {
+          prop: "isProject",
+          label: "工序类型",
+          cpn: "FormSelect",
+          hidden: true,
+          default: true,
         },
       ],
       rowId: "Id",
