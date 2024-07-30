@@ -300,7 +300,11 @@ export default {
       );
     },
     _save() {
-      trial_tooling_task_save(this.ruleForm).then((res) => {
+      let data = {
+        ...this.ruleForm,
+        PhotoUrl: this.curData.PhotoUrl
+      }
+      trial_tooling_task_save(data).then((res) => {
         let TagName = {
           name: this.detailRouteName,
           query: { BillId: res },

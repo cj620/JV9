@@ -519,7 +519,16 @@ export default {
           this.cdata.apiOptions.params ?? {}
         )
       ).then((res) => {
-        this.syncData = this.handleSyncData(res.Items);
+        // 判断需不需要对获取到的结果做筛选操作
+        if(this.cdata.apiOptions.fieldFilter) {
+          let list = res.Items.filter(item => {
+            return this.cdata.apiOptions.fieldFilter(item)
+          })
+          this.syncData = this.handleSyncData(list);
+        } else {
+          this.syncData = this.handleSyncData(res.Items);
+        }
+
         setTimeout(() => {
           this.loading = false;
         });

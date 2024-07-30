@@ -382,7 +382,10 @@ export default {
     toAddMold(e){
       this.$router.push({
 		    name: "Pm_TrialTask_Add",
-        query: e,
+        query: {
+          ...e,
+          PhotoUrl: this.detailObj.detailData.PhotoUrl
+        },
       })
     },
     // 更新状态

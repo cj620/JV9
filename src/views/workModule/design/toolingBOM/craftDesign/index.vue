@@ -298,6 +298,11 @@ export default {
       });
     },
   },
+  watch: {
+    "eTableObj.tableData"(val) {
+      console.log(this.eTableObj, 303)
+    }
+  }
 };
 </script>
 
