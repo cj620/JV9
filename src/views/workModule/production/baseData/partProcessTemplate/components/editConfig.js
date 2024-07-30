@@ -95,6 +95,9 @@ export const tableConfig = [
       immediate: true,
       keyName: "Process",
       valueName: "Process",
+      fieldFilter: (val) => {
+        return val.ProcessType === 'Program'
+      }
     }
   },
   /*编程预计工时*/
