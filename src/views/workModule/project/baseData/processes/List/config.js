@@ -1,13 +1,13 @@
 /*
  * @Author: H.
  * @Date: 2021-11-18 15:08:18
- * @LastEditTime: 2022-03-24 09:57:09
+ * @LastEditTime: 2024-07-31 11:29:53
  * @Description:
  */
 
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
 import { getAllProjectProcess } from "@/api/workApi/project/baseData";
-import {enumFilter, enumToList} from "~/utils/system/enumsPlugin";
+import { enumFilter, enumToList } from "~/utils/system/enumsPlugin";
 import { processTypeEnum } from "@/enum/workModule";
 
 export class api extends TableAPI {
@@ -34,7 +34,7 @@ export const tableConfig = [
   {
     prop: "Process",
     label: i18n.t("Generality.Ge_Process"),
-    width: 120
+    width: 120,
   },
   /*序号*/
   {
@@ -72,7 +72,7 @@ export const tableConfig = [
   {
     prop: "BelongingDepartment",
     label: i18n.t("menu.Se_Department"),
-    width: 100
+    width: 100,
   },
   /*工序类别*/
   {
@@ -91,5 +91,5 @@ export const formSchema = [
     options: {
       list: enumToList(processTypeEnum),
     },
-  }
+  },
 ];

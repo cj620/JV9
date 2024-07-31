@@ -321,8 +321,9 @@ export default {
         ProcessContentList: [],
         IsOutsourced: false,
         IsCompulsoryInspection: false,
-		    ProgramingProcess: "",
+        ProgramingProcess: "",
         ProgramingPlanTime: 1,
+        IsBlanking: false,
       },
     };
   },
@@ -410,7 +411,7 @@ export default {
           this.formObj.form.PmTaskBillId = "";
         }
         this.TaskListData = res.Items.filter((item) => {
-          return item.TaskType !== "TrialTooling"
+          return item.TaskType !== "TrialTooling";
         });
 
         //判断说明不只一个任务单

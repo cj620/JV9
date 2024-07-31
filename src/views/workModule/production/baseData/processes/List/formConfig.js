@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-19 10:25:28
- * @LastEditTime: 2022-01-24 17:25:01
+ * @LastEditTime: 2024-07-31 11:22:17
  * @Description:
  */
 import { getAllResource } from "@/api/workApi/production/baseData";
@@ -22,7 +22,7 @@ export const formSchema = [
     ],
     custom: true,
   },
-    // 工序代号
+  // 工序代号
   {
     prop: "ProcessCode",
     cpn: "FormInput",
@@ -52,7 +52,7 @@ export const formSchema = [
       },
     },
   },
-    // 加工内容
+  // 加工内容
   {
     prop: "ProcessContent",
     cpn: "FormInput",
@@ -65,7 +65,7 @@ export const formSchema = [
       },
     ],
   },
-    // 资源组
+  // 资源组
   {
     prop: "Resource",
     cpn: "SyncSelect",
@@ -84,13 +84,13 @@ export const formSchema = [
       },
     ],
   },
-    // 前置时间
+  // 前置时间
   {
     prop: "LeadTimeOfProcess",
     cpn: "FormInput",
     label: i18n.t("Generality.Ge_LeadTimeOfProcess"),
   },
-    // 后置时间
+  // 后置时间
   {
     prop: "PostTimeOfProcess",
     cpn: "FormInput",
@@ -102,8 +102,8 @@ export const formSchema = [
     label: i18n.t("production.Pr_IsOutsourced"),
     cpn: "FormSingleCheckBox",
     options: {
-      CheckBoxlabel: ''
-    }
+      CheckBoxlabel: "",
+    },
   },
   // 是否强制检验
   {
@@ -111,8 +111,8 @@ export const formSchema = [
     label: i18n.t("setup.IsCompulsoryInspection"),
     cpn: "FormSingleCheckBox",
     options: {
-      CheckBoxlabel: ''
-    }
+      CheckBoxlabel: "",
+    },
   },
   // 加工工艺
   {
@@ -120,5 +120,24 @@ export const formSchema = [
     cpn: "FormSelect",
     label: i18n.t("production.Pr_ProgramingProcess"),
     custom: true,
+  },
+  {
+    prop: "IsBlanking",
+    label: "是否是下料",
+    cpn: "FormRadio",
+    type: "button",
+    default: false,
+    options: {
+      list: [
+        {
+          value: true,
+          label: "是",
+        },
+        {
+          value: false,
+          label: "否",
+        },
+      ],
+    },
   },
 ];

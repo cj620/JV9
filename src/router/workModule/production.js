@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-09 10:10:13
- * @LastEditTime: 2023-08-10 11:11:17
+ * @LastEditTime: 2024-07-31 10:37:54
  * @Description:生产模块
  */
 
@@ -137,6 +137,16 @@ const production = [
     path: "productionAllocation",
     title: i18n.t("menu.Pr_ProductionAllocation"),
   },
+  // 下料列表
+  {
+    key: "Pr_ProductionBlanking",
+    component: () =>
+      import("@/views/workModule/production/productionBlanking/List"),
+    Parent: "Pr_Production",
+    name: "Pr_ProductionBlanking",
+    path: "Pr_ProductionBlanking",
+    title: "下料列表",
+  },
   // 生产报工
   {
     key: "Pr_WorkReport",
@@ -163,7 +173,7 @@ const production = [
   {
     key: "Pr_NewProductionSchedule",
     component: () =>
-        import("@/views/workModule/production/NewProductionSchedule"),
+      import("@/views/workModule/production/NewProductionSchedule"),
     Parent: "Pr_Production",
     name: "NewProductionSchedule",
     path: "NewProductionSchedule",
@@ -173,7 +183,9 @@ const production = [
   {
     key: "Pr_PendingWorkOrders",
     component: () =>
-        import("@/views/workModule/production/NewProductionSchedule/PendingWorkOrders"),
+      import(
+        "@/views/workModule/production/NewProductionSchedule/PendingWorkOrders"
+      ),
     Parent: "Pr_NewProductionSchedule",
     name: "PendingWorkOrders",
     path: "PendingWorkOrders",
@@ -183,7 +195,9 @@ const production = [
   {
     key: "Pr_SchedulingworkOrders",
     component: () =>
-        import("@/views/workModule/production/NewProductionSchedule/SchedulingworkOrders"),
+      import(
+        "@/views/workModule/production/NewProductionSchedule/SchedulingworkOrders"
+      ),
     Parent: "Pr_NewProductionSchedule",
     name: "SchedulingWorkOrders",
     path: "SchedulingWorkOrders",
@@ -193,7 +207,9 @@ const production = [
   {
     key: "Pr_OverdueWorkOrder",
     component: () =>
-        import("@/views/workModule/production/NewProductionSchedule/OverdueWorkOrder"),
+      import(
+        "@/views/workModule/production/NewProductionSchedule/OverdueWorkOrder"
+      ),
     Parent: "Pr_NewProductionSchedule",
     name: "OverdueWorkOrder",
     path: "OverdueWorkOrder",
@@ -203,7 +219,7 @@ const production = [
   {
     key: "Pr_ProcessLoad",
     component: () =>
-        import("@/views/workModule/production/NewProductionSchedule/ProcessLoad"),
+      import("@/views/workModule/production/NewProductionSchedule/ProcessLoad"),
     Parent: "Pr_NewProductionSchedule",
     name: "ProcessLoad",
     path: "ProcessLoad",
@@ -223,7 +239,9 @@ const production = [
   {
     key: "Pr_SimulatedScheduling",
     component: () =>
-        import("@/views/workModule/production/NewProductionSchedule/SimulatedScheduling"),
+      import(
+        "@/views/workModule/production/NewProductionSchedule/SimulatedScheduling"
+      ),
     Parent: "Pr_NewProductionSchedule",
     name: "SimulatedScheduling",
     path: "SimulatedScheduling",
@@ -233,7 +251,9 @@ const production = [
   {
     key: "Pr_GanttChart",
     component: () =>
-        import("@/views/workModule/production/NewProductionSchedule/GanttChart/index1.vue"),
+      import(
+        "@/views/workModule/production/NewProductionSchedule/GanttChart/index1.vue"
+      ),
     Parent: "Pr_NewProductionSchedule",
     name: "GanttChart",
     path: "GanttChart",
@@ -243,7 +263,9 @@ const production = [
   {
     key: "Pr_ExecutionScheduling",
     component: () =>
-        import("@/views/workModule/production/NewProductionSchedule/ExecutionScheduling"),
+      import(
+        "@/views/workModule/production/NewProductionSchedule/ExecutionScheduling"
+      ),
     Parent: "Pr_NewProductionSchedule",
     name: "ExecutionScheduling",
     path: "ExecutionScheduling",
@@ -254,7 +276,7 @@ const production = [
   {
     key: "Pr_ToBeProcessedProcess",
     component: () =>
-        import("@/views/workModule/production/report/toBeProcessedProcess"),
+      import("@/views/workModule/production/report/toBeProcessedProcess"),
     Parent: "Pr_Report",
     name: "Pr_ToBeProcessedProcess",
     path: "Pr_ToBeProcessedProcess",
@@ -504,85 +526,86 @@ const production = [
     path: "scene",
     title: i18n.t("menu.Pr_OnSiteOperations"),
   },
-    // 扫码进站
+  // 扫码进站
   {
     key: "Pr_ScanCodeToEnterTheStation",
-    component: () =>
-        import("@/views/workModule/production/scene/getIn"),
+    component: () => import("@/views/workModule/production/scene/getIn"),
     Parent: "Pr_OnSiteOperations",
     name: "ScanCodeToEnterTheStation",
     path: "ScanCodeToEnterTheStation",
-    title:i18n.t("menu.Pr_ScanCodeToEnterTheStation"),
+    title: i18n.t("menu.Pr_ScanCodeToEnterTheStation"),
   },
-    // 我的任务
+  // 我的任务
   {
     key: "Pr_MyTasks",
-    component: () =>
-        import("@/views/workModule/production/scene/myTasks"),
+    component: () => import("@/views/workModule/production/scene/myTasks"),
     Parent: "Pr_OnSiteOperations",
     name: "myTasks",
     path: "myTasks",
-    title:i18n.t("menu.Pr_MyTasks"),
+    title: i18n.t("menu.Pr_MyTasks"),
   },
-    // 扫码开工
+  // 扫码开工
   {
     key: "Pr_ScanCodeToStartWork",
     component: () =>
-        import("@/views/workModule/production/scene/ScanCodeToStartWork"),
+      import("@/views/workModule/production/scene/ScanCodeToStartWork"),
     Parent: "Pr_OnSiteOperations",
     name: "ScanCodeToStartWork",
     path: "ScanCodeToStartWork",
-    title:i18n.t("menu.Pr_ScanCodeToStartWork"),
+    title: i18n.t("menu.Pr_ScanCodeToStartWork"),
   },
   // 扫码完工
   {
     key: "Pr_ScanCodeCompletion",
     component: () =>
-        import("@/views/workModule/production/scene/ScanCodeCompletion"),
+      import("@/views/workModule/production/scene/ScanCodeCompletion"),
     Parent: "Pr_OnSiteOperations",
     name: "ScanCodeCompletion",
     path: "ScanCodeCompletion",
-    title:i18n.t("menu.Pr_ScanCodeCompletion"),
+    title: i18n.t("menu.Pr_ScanCodeCompletion"),
   },
   // 待加工
   {
     key: "Pr_ToBeStarted",
-    component: () =>
-        import("@/views/workModule/production/scene/ToBeStarted"),
+    component: () => import("@/views/workModule/production/scene/ToBeStarted"),
     Parent: "Pr_OnSiteOperations",
     name: "ToBeStarted",
     path: "ToBeStarted",
-    title:i18n.t("menu.Pr_ToBeStarted"),
+    title: i18n.t("menu.Pr_ToBeStarted"),
   },
   // 报工记录
   {
     key: "Pr_WorkReportRecords",
     component: () =>
-        import("@/views/workModule/production/scene/WorkReportRecords"),
+      import("@/views/workModule/production/scene/WorkReportRecords"),
     Parent: "Pr_OnSiteOperations",
     name: "WorkReportRecords",
     path: "WorkReportRecords",
-    title:i18n.t("menu.Pr_WorkReportRecords"),
+    title: i18n.t("menu.Pr_WorkReportRecords"),
   },
   // 生产任务子单
   {
     key: "Pr_ProductionTaskSubList",
     component: () =>
-        import("@/views/workModule/production/productionTask/List/ProductionTaskSubList"),
+      import(
+        "@/views/workModule/production/productionTask/List/ProductionTaskSubList"
+      ),
     Parent: "Pr_Production",
     name: "Pr_ProductionTaskSubList",
     path: "Pr_ProductionTaskSubList",
-    title:i18n.t("menu.Pr_SubOrder"),
+    title: i18n.t("menu.Pr_SubOrder"),
   },
   // 生产任务父单
   {
     key: "Pr_ProductionTaskParentList",
     component: () =>
-        import("@/views/workModule/production/productionTask/List/ProductionTaskParentList"),
+      import(
+        "@/views/workModule/production/productionTask/List/ProductionTaskParentList"
+      ),
     Parent: "Pr_Production",
     name: "Pr_ProductionTaskParentList",
     path: "Pr_ProductionTaskParentList",
-    title:i18n.t("menu.Pr_ParentOrder"),
+    title: i18n.t("menu.Pr_ParentOrder"),
   },
   // 任务管理
   {
@@ -592,7 +615,7 @@ const production = [
     name: "Pr_TaskManagement",
     path: "pr_TaskManagement",
     title: i18n.t("menu.Pr_TaskManagement"),
-  }
+  },
 ];
 
 export default production;

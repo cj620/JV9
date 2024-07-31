@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-11-09 12:56:14
- * @LastEditTime: 2022-08-10 17:13:02
+ * @LastEditTime: 2024-07-31 11:06:28
  * @Description: 项目任务工序
 -->
 
@@ -122,6 +122,7 @@ export default {
         SortOrder: "",
         BelongingDepartment:'',
         StartScale: "",
+        IsBlanking:false,
         Id: 0,
       };
       this.processDialogVisible = true;

@@ -1,12 +1,15 @@
 /*
  * @Author: H.
  * @Date: 2021-11-18 15:08:18
- * @LastEditTime: 2022-01-12 14:33:44
+ * @LastEditTime: 2024-07-31 11:22:01
  * @Description:
  */
 
 import { TableAPI, Table as BaseTable } from "@/jv_doc/class/table";
-import { getAllResource, productionProcessList } from "@/api/workApi/production/baseData";
+import {
+  getAllResource,
+  productionProcessList,
+} from "@/api/workApi/production/baseData";
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
 
 export class api extends TableAPI {
@@ -39,7 +42,7 @@ export const tableConfig = [
   /*部门*/
   {
     prop: "Department",
-    label: i18n.t("Generality.Ge_Department")
+    label: i18n.t("Generality.Ge_Department"),
   },
   /*资源组*/
   {
@@ -66,22 +69,29 @@ export const tableConfig = [
     prop: "IsOutsourced",
     label: i18n.t("production.Pr_IsOutsourced"),
     customFilter(item) {
-      return item ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No")
-    }
+      return item ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No");
+    },
   },
   // 是否强制检验
   {
     prop: "IsCompulsoryInspection",
     label: i18n.t("setup.IsCompulsoryInspection"),
     customFilter(item) {
-      return item ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No")
-    }
+      return item ? i18n.t("Generality.Ge_Yes") : i18n.t("Generality.Ge_No");
+    },
   },
   // 编程工艺
   {
     prop: "ProgramingProcess",
     label: i18n.t("production.Pr_ProgramingProcess"),
-  }
+  },
+  /*部门*/
+  {
+    prop: "IsBlanking",
+    label: "是否是下料",
+    width: 100,
+    customFilter: (value) => (!!value ? "是" : "否"),
+  },
 ];
 
 export const formSchema = [

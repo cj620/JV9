@@ -1,13 +1,13 @@
 /*
  * @Author: H.
  * @Date: 2021-11-24 13:57:10
- * @LastEditTime: 2022-03-24 09:56:03
+ * @LastEditTime: 2024-07-31 11:09:50
  * @Description:
  */
 import { getDepartmentList } from "@/api/basicApi/systemSettings/department";
 import { getAll } from "@/api/basicApi/systemSettings/currency";
-import {enumToList} from "~/utils/system/enumsPlugin";
-import {processTypeEnum} from "@/enum/workModule";
+import { enumToList } from "~/utils/system/enumsPlugin";
+import { processTypeEnum } from "@/enum/workModule";
 export const formSchema = [
   {
     prop: "Process",
@@ -76,7 +76,7 @@ export const formSchema = [
     label: i18n.t("Generality.Ge_WorkContent"),
     cpn: "FormInput",
     cpnProps: {
-      type: "textarea"
-    }
+      type: "textarea",
+    },
   },
 ];
