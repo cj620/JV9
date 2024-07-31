@@ -5,7 +5,7 @@
 /*
  * @Author: C.
  * @Date: 2021-07-20 10:50:11
- * @LastEditTime: 2024-07-31 14:13:06
+ * @LastEditTime: 2024-07-31 14:33:44
  * @Description: file content
  */
 // 引入表格表格类和表格API类
@@ -27,15 +27,15 @@ export class Table extends BaseTable {
       // 表单配置
       formSchema,
       // 行标识
-      rowId: "BillId",
+      rowId: "Id",
       // 表格标题
-      title: i18n.t("menu.Sa_SaleOrder"),
+      title: "下料列表",
       // 接口类
       api,
       // 操作列宽度
       operationWidth: 160,
       // 打印模块标识
-      printMod: "Sa_SaleOrder",
+      printMod: "Pr_Blanking",
     });
   }
 }

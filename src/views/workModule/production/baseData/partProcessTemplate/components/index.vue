@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-12-01 15:23:50
- * @LastEditTime: 2022-01-20 16:40:49
+ * @LastEditTime: 2024-07-31 14:45:24
  * @Description:
 -->
 
@@ -139,6 +139,7 @@ export default {
         IsCompulsoryInspection: false,
         ProgramingProcess: "",
         ProgramingPlanTime: 1,
+        IsBlanking: false,
       },
       editData: {},
     };

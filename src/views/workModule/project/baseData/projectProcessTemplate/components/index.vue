@@ -1,7 +1,7 @@
 <!--
  * @Author: H.
  * @Date: 2021-12-01 15:23:50
- * @LastEditTime: 2022-01-20 16:40:49
+ * @LastEditTime: 2024-07-31 14:41:45
  * @Description:
 -->
 
@@ -107,7 +107,10 @@ import { Form } from "@/jv_doc/class/form";
 import { EditTable } from "./editConfig";
 import SelectProjectProcessTemplate from "@/components/JVInternal/SelectProjectProcessTemplate";
 import { temMerge } from "@/jv_doc/utils/handleData";
-import {getAllProjectProcess, saveProjectProcessTemplate} from "@/api/workApi/project/baseData"
+import {
+  getAllProjectProcess,
+  saveProjectProcessTemplate,
+} from "@/api/workApi/project/baseData";
 import closeTag from "@/utils/closeTag";
 import { mapState } from "vuex";
 import SelectProjectProcess from "@/components/JVInternal/SelectProjectProcess";
@@ -132,7 +135,8 @@ export default {
         ProcessContent: "",
         ProcessContentList: [],
         customData: [],
-        TemplateGui: ""
+        TemplateGui: "",
+        IsBlanking: false,
       },
       editData: {},
     };
@@ -147,13 +151,13 @@ export default {
       labelWidth: "80px",
     });
     this.eTableObj = new EditTable();
-    console.log('传进来的数据',this.$route.params.data)
+    console.log("传进来的数据", this.$route.params.data);
     if (this.$route.params.data) {
       this.editData = this.$route.params.data;
       this.formObj.form = this.editData;
       if (this.editData.BillItems.length > 0) {
-        this.editData.BillItems.forEach(item => {
-          if(item.ProcessContent && item.ProcessContent !== "") {
+        this.editData.BillItems.forEach((item) => {
+          if (item.ProcessContent && item.ProcessContent !== "") {
             item.customData = item.ProcessContent.split(/[,，]/);
           }
         });
@@ -175,10 +179,10 @@ export default {
     changeValue(e, row) {
       var arr = [];
       if (e) {
-        getAllProjectProcess({Process: row.Process.value}).then((res) => {
-          if(res.Items.length) {
-            if(res.Items[0].ProcessContent !== null) {
-              console.log(res.Items[0].ProcessContent.split(/[,，]/), 312)
+        getAllProjectProcess({ Process: row.Process.value }).then((res) => {
+          if (res.Items.length) {
+            if (res.Items[0].ProcessContent !== null) {
+              console.log(res.Items[0].ProcessContent.split(/[,，]/), 312);
               res.Items[0].ProcessContent.split(/[,，]/).forEach((item) => {
                 arr.push({
                   value: item,
@@ -219,12 +223,11 @@ export default {
       e.forEach((item) => {
         item.Id = "";
         item.customData = [];
-        if(item.ProcessContent && item.ProcessContent !== "") {
+        if (item.ProcessContent && item.ProcessContent !== "") {
           item.ProcessContent.split(/[,，]/).forEach((trim) => {
-            item.customData.push(trim)
+            item.customData.push(trim);
           });
         }
-
       });
       this.eTableObj.push(temMerge(this.BillItems, e));
       this.ProcessTemplateDialogFormVisible = false;
@@ -233,7 +236,7 @@ export default {
     selectProcessData(e) {
       e.forEach((item) => {
         item.Id = "";
-        item.customData = item
+        item.customData = item;
       });
       this.eTableObj.push(temMerge(this.BillItems, e));
     },
@@ -244,9 +247,9 @@ export default {
       this.formObj.validate((valid) => {
         if (valid) {
           var arr = JSON.parse(JSON.stringify(this.eTableObj.getTableData()));
-          arr.forEach(item => {
+          arr.forEach((item) => {
             item.ProcessContent = item.customData.join();
-          })
+          });
           this.formObj.form.BillItems = arr;
           saveProjectProcessTemplate(this.formObj.form).then(() => {
             let TagName = {
@@ -258,7 +261,6 @@ export default {
       });
     },
   },
-
 };
 </script>
 

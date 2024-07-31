@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2022-01-06 16:37:17
- * @LastEditTime: 2022-01-14 10:32:29
+ * @LastEditTime: 2024-07-31 14:59:35
  * @Description:
  */
 import { Table as BaseTable } from "@/jv_doc/class/table";
@@ -26,7 +26,7 @@ export const tableConfig = [
   /*任务工序*/
   {
     prop: "Process",
-    label: i18n.t("Generality.Ge_Process")
+    label: i18n.t("Generality.Ge_Process"),
   },
   {
     prop: "ProcessContent",
@@ -51,13 +51,18 @@ export const tableConfig = [
   {
     prop: "IsOutsourced",
     label: i18n.t("production.Pr_IsOutsourced"),
-    custom: true
+    custom: true,
   },
   /*是否强制检验*/
   {
     prop: "IsCompulsoryInspection",
     label: i18n.t("setup.IsCompulsoryInspection"),
-    custom: true
+    custom: true,
+  },
+  {
+    prop: "IsBlanking",
+    label: "是否是下料",
+    customFilter: (value) => (!!value ? "是" : "否"),
   },
   /*备注*/
   {
