@@ -101,7 +101,10 @@
         </template>
       </tr> -->
       </table>
-      <p>注：“⚪”表示节假日</p>
+      <p>
+        注："✔":已点检; "⭕":系统生成了点检任务但未点检;
+        "✖️":完成点检任务但有异常; "⚪":表示节假日;
+      </p>
     </template>
     <el-empty description="描述文字" v-else></el-empty>
   </div>
@@ -127,7 +130,7 @@ export default {
       },
       planList: [],
       deviceList: [],
-      // ✓/
+      // ✔/
       Details: {
         DeviceNo: "",
         DeviceName: "",
@@ -211,7 +214,8 @@ export default {
         return {
           ...item,
           day: new Date(item.ShouldBeginTime).getDate(),
-          SpotCheckResult: item.SpotCheckResult == "Normal" ? "✓" : "✖️",
+          // Verified ToBeInspected State
+          SpotCheckResult: this.handleCheckState(item),
         };
       });
       const res = [...datas];
@@ -290,6 +294,15 @@ export default {
       this.formInline.StartDate = firstDayOfMonth;
       this.formInline.EndDate = lastDayOfMonth;
       console.log(e, "dateChangedateChange");
+    },
+    handleCheckState(data) {
+      // Verified ToBeInspected State
+      // item.SpotCheckResult == "Normal" ? "✔" : "⭕"
+      const { SpotCheckResult, State } = data;
+      if (State == "ToBeInspected") {
+        return "⭕";
+      }
+      return SpotCheckResult == "Normal" ? "✔" : "✖️";
     },
   },
 };
