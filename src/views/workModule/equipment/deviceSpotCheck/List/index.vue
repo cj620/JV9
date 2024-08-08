@@ -1,3 +1,7 @@
+<!--
+ * @Author: C.
+ * @Date: 2024-05-14 08:48:29
+-->
 <template>
   <PageWrapper :footer="false">
     <JvTable ref="BillTable" :table-obj="tableObj">
@@ -18,7 +22,10 @@
       </template>
       <template #State="{ record }">
         <!-- 状态标签 -->
-        <RepairStateTags :state="record" :enum="spotCheckListStateEnum"></RepairStateTags>
+        <RepairStateTags
+          :state="record"
+          :enum="spotCheckListStateEnum"
+        ></RepairStateTags>
       </template>
       <!-- 表格操作行 -->
       <Action
@@ -36,7 +43,7 @@
           {
             label: $t('device.De_SpotCheckRecord'),
             confirm: toRecord,
-          }
+          },
         ]"
       >
       </Action>
@@ -46,7 +53,7 @@
 <script>
 import { Table } from "./config";
 import RepairStateTags from "@/views/workModule/equipment/repair/components/RepairStateTags.vue";
-import { spotCheckListStateEnum } from '@/enum/workModule'
+import { spotCheckListStateEnum } from "@/enum/workModule";
 export default {
   name: "As_DeviceSpotCheck",
   components: {
@@ -54,16 +61,16 @@ export default {
   },
   data() {
     return {
-      tableObj: {}
-    }
+      tableObj: {},
+    };
   },
   created() {
     this.tableObj = new Table();
-    this.tableObj.getData()
+    this.tableObj.getData();
   },
   computed: {
     spotCheckListStateEnum() {
-      return spotCheckListStateEnum
+      return spotCheckListStateEnum;
     },
     // 批量删除
     canIsDel() {
@@ -87,9 +94,9 @@ export default {
     },
     //跳转到点检记录
     toRecord() {
-      this.$router.push({name: "As_DeviceSpotCheckRecord",})
-    }
-  }
-}
-
+      // this.$router.push({name: "As_DeviceSpotCheckRecord",})
+      this.$router.push({ name: "As_CheckRecordForm" });
+    },
+  },
+};
 </script>

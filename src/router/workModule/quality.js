@@ -1,7 +1,7 @@
 /*
  * @Author: H.
  * @Date: 2021-11-30 17:33:45
- * @LastEditTime: 2021-12-14 15:48:08
+ * @LastEditTime: 2024-08-08 10:30:52
  * @Description:
  */
 import i18n from "@/i18n/i18n.js";
@@ -128,6 +128,7 @@ const quality = [
     path: "qualityRecord",
     title: i18n.t("menu.Qc_QualityRecord"),
   },
+
   // 新增检验记录
   {
     key: "Qc_AddQualityRecord",
@@ -182,8 +183,7 @@ const quality = [
   // 零件加工进度
   {
     key: "Qc_ProductionProgress",
-    component: () =>
-      import("@/views/workModule/production/productionProgress"),
+    component: () => import("@/views/workModule/production/productionProgress"),
     Parent: "Qc_Quality",
     name: "ProductionProgress",
     path: "productionProgress",

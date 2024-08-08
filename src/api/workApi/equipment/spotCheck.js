@@ -1,3 +1,7 @@
+/*
+ * @Author: C.
+ * @Date: 2024-05-14 08:48:28
+ */
 import request from "@/utils/request";
 
 //点检单列表
@@ -33,7 +37,7 @@ export function assets_device_spot_check_save_result(data) {
     url: "/assets_device_spot_check/save_result",
     method: "post",
     data,
-  })
+  });
 }
 
 //点检单成员列表
@@ -42,7 +46,7 @@ export function assets_device_spot_check_member_list(data) {
     url: "/assets_device_spot_check/member_list",
     method: "post",
     data,
-  })
+  });
 }
 
 //点检单成员详情
@@ -51,5 +55,14 @@ export function assets_device_spot_check_get_member(query) {
     url: "/assets_device_spot_check/get_member",
     method: "get",
     params: query,
-  })
+  });
+}
+
+//点检单成员详情
+export function assets_device_spot_check_day_records(data) {
+  return request({
+    url: "/assets_device_spot_check/day_records",
+    method: "post",
+    data,
+  });
 }
