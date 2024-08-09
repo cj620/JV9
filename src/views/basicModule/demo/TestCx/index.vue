@@ -19,6 +19,8 @@
       </div>
     </div>
     <button @click="download">点我 下载带图片的excel</button>
+
+    <ExcelPreview />
   </div>
 </template>
 
@@ -29,11 +31,14 @@ import JvDraggable from '@/components/JvDraggable/JvDraggable.vue';
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 
+import ExcelPreview from '@/components/ExcelPreview/index.vue'
+// http://localhost:61823/files/down_file/api/Files/1821382120233238530.xlsx
 
 export default {
   //注册draggable组件
   components: {
     JvDraggable,
+    ExcelPreview
   },
   data() {
     return {

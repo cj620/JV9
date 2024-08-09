@@ -21,6 +21,19 @@
           :on-close="()=>{showViewer = false}"
           :url-list="[preImgUrl]" >
         </el-image-viewer>
+
+      <jv-dialog
+      :visible.sync="ExcelPreviewVisible"
+      v-if="ExcelPreviewVisible"
+      title="Excel"
+      width="90%"
+      @confirm="ExcelPreviewVisible = false"
+      :custom-style="{
+        maxHeight: '100vh',
+      }"
+      >
+        <ExcelPreview ref="ExcelPreviewRef" />
+      </jv-dialog>
     </div>
 </template>
 
@@ -31,17 +44,22 @@ import { getBillFile } from "@/api/basicApi/systemSettings/upload";
 import { getToken } from '@/utils/auth'
 import { P_inSite,P_offSite } from '@/enum/baseModule/fileEnum/previewEnum';
 import axios from 'axios'
+import ExcelPreview from '@/components/ExcelPreview/index.vue'
 import {imgUrlPlugin} from "~/utils/system";
+import JvDialog from "~/cpn/JvDialog/index.vue";
 export default {
   name: 'index',
   components:{
-      'el-image-viewer':()=>import('element-ui/packages/image/src/image-viewer')
+    JvDialog,
+      'el-image-viewer':()=>import('element-ui/packages/image/src/image-viewer'),
+    ExcelPreview
   },
   data(){
     return{
       tableFileObj: {},
       showViewer:false,
       preImgUrl:'',
+      ExcelPreviewVisible: false,
       P_inSite,
       P_offSite
     }
@@ -77,11 +95,19 @@ export default {
     },
     //   预览
     preview(row){
-      this.preImgUrl=imgUrlPlugin(row.FileUrl)
-      if(this.P_inSite.includes(row.FileType)){
+      // 判断是excel则本地弹窗预览
+      if(row.FileType === '.xlsx') {
+        this.ExcelPreviewVisible = true;
+        this.$nextTick(() => {
+          this.$refs.ExcelPreviewRef.FilePreviewDialogHandle('xlxs', imgUrlPlugin(row.FileUrl))
+        })
+      } else {
+        this.preImgUrl=imgUrlPlugin(row.FileUrl)
+        if(this.P_inSite.includes(row.FileType)){
           this.showViewer=true
-      }else{
+        }else{
           window.open(this.preImgUrl, "_blank");
+        }
       }
     },
     //下载附件
