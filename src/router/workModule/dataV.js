@@ -40,6 +40,11 @@ const dataV = [
         path: "/EquipmentOperation",
         component: () => import("@/views/basicModule/KanBan/IntegratedSignage/EquipmentOperation"),
         name: "EquipmentOperation",
-    }
+    },
+  {
+    path: "/abcdefg",
+    component: () => import("@/views/basicModule/demo/TestCx"),
+    name: "abcdefg",
+  },
 ]
 export default dataV

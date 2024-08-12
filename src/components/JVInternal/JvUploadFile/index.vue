@@ -193,7 +193,8 @@ export default {
     preview(row, scope) {
       console.log(row, 194194);
       // 判断是excel则本地弹窗预览
-      if(row.FileType === '.xlsx') {
+      if(row.FileType === '.xlsx' || row.FileType === '.xls') {
+        console.log(row.FileType,197)
         this.ExcelPreviewVisible = true;
         this.$nextTick(() => {
           this.$refs.ExcelPreviewRef.FilePreviewDialogHandle('xlxs', imgUrlPlugin(row.FileUrl))
