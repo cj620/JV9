@@ -16,7 +16,7 @@
       :append-to-body="appendToBody"
       @keyup.enter.native="confirm"
     >
-      <div class="jv-dialog-content" id="c-jv-dialog">
+      <div class="jv-dialog-content" id="c-jv-dialog" :style="customStyle">
         <slot />
       </div>
       <div style="height: 30px" />
@@ -47,6 +47,12 @@ export default {
     dialogDrag,
   },
   props: {
+    customStyle: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
     width: {
       type: String,
       default: "60%",
@@ -101,6 +107,7 @@ export default {
   methods: {
     handleClose() {},
     cancel() {
+      console.log(this.$refs.jvDialog, 110)
       this.$refs.jvDialog.handleClose();
       this.$emit("cancel");
     },

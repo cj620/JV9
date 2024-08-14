@@ -19,6 +19,12 @@
       </div>
     </div>
     <button @click="download">点我 下载带图片的excel</button>
+
+    <ExcelPreview />
+
+    <el-input v-model="fileUrl"></el-input>
+
+    <button @click="getFileUrl">获取url</button>
   </div>
 </template>
 
@@ -29,14 +35,18 @@ import JvDraggable from '@/components/JvDraggable/JvDraggable.vue';
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 
+import ExcelPreview from '@/components/ExcelPreview/index.vue'
+// http://localhost:61823/files/down_file/api/Files/1821382120233238530.xlsx
 
 export default {
   //注册draggable组件
   components: {
     JvDraggable,
+    ExcelPreview
   },
   data() {
     return {
+      fileUrl: 'http://192.168.1.66:8015/Files/2024/08/12/1822819364559126529.xls',
       drag: false,
       //定义要被拖拽对象的数组
       defaultList: [
@@ -95,6 +105,19 @@ export default {
     onEnd(list) {
       this.drag = false;
     },
+    async getFileUrl() {
+      var url = await COSDocPreviewSDK.getPreviewUrl( {
+        objectUrl: this.fileUrl,
+        // credentials: {      // 如果预览文件是私有的，则需要携带访问凭证。
+        //   secretId: '',
+        //   secretKey: '',
+        //   authorization: 'q-sign-algorithmxxxxxxxxxxxxxxx',
+        // },
+        copyable: 0,  // 是否可以复制文件内容
+        htmlwaterword: ''  // 水印内容
+      })
+      console.log(url)
+    }
   },
 };
 </script>
