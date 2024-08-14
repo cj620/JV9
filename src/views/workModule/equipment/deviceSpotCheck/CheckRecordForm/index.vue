@@ -117,6 +117,7 @@ import {
 } from "@/api/workApi/equipment/spotCheckPlan";
 import { time } from "@/jv_doc/utils/time/index";
 export default {
+  name: "As_CheckRecordForm",
   components: {},
   data() {
     return {
