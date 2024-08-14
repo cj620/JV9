@@ -115,6 +115,7 @@ import {
   assets_device_spot_check_plan_list,
   assets_device_spot_check_plan_get,
 } from "@/api/workApi/equipment/spotCheckPlan";
+import { time } from "@/jv_doc/utils/time/index";
 export default {
   components: {},
   data() {
@@ -197,17 +198,21 @@ export default {
           SpotCheckMap[item.SpotCheckContent] = [item];
         }
       });
+      // console.log(SpotCheckMap, "SpotCheckMap");
+
       for (const key in SpotCheckMap) {
         res.SpotCheckItems.push({
           SpotCheckContent: key,
           CheckStandard: "",
-          // timeFormat
+          // time
           DaysCheck: this.handleDays(SpotCheckMap[key]),
         });
       }
       return res;
     },
     handleDays(arr) {
+      // console.log(arr, "SpotCheckMapSpotCheckMap");
+
       const piece = arr[0];
       const count = this.getDaysInMonth(piece.ShouldBeginTime);
       let datas = arr.map((item) => {
@@ -236,7 +241,7 @@ export default {
           });
         }
       }
-      return res.sort((x, y) => x.day - y.day);
+      return this.uniqueObjects(res);
     },
     getDaysInMonth(date) {
       date = new Date(date);
@@ -257,17 +262,19 @@ export default {
       this.planList = Items;
     },
     getFirstAndLastDayOfMonth(givenDate) {
-      let date = new Date(givenDate.getTime());
+      // time
+      let date = new Date(givenDate);
 
       // 将日期设置为这个月的第一天
       date.setDate(1);
-      let firstDayOfMonth = new Date(date.getTime());
+      let firstDayOfMonth = time(date);
 
       // 计算下个月的第一天
       // 月份加1，日期设置为1
       date.setMonth(date.getMonth() + 1);
       date.setDate(1);
-      let lastDayOfMonth = date;
+      let lastDayOfMonth = time(date);
+      console.log(firstDayOfMonth, lastDayOfMonth);
 
       return { firstDayOfMonth, lastDayOfMonth };
     },
@@ -303,6 +310,17 @@ export default {
         return "⭕";
       }
       return SpotCheckResult == "Normal" ? "✔" : "✖️";
+    },
+    uniqueObjects(arr) {
+      const res = [];
+      const map = {};
+      arr.forEach((item) => {
+        if (!map[item.day]) {
+          res.push(item);
+          map[item.day] = true;
+        }
+      });
+      return res.sort((x, y) => x.day - y.day);
     },
   },
 };
